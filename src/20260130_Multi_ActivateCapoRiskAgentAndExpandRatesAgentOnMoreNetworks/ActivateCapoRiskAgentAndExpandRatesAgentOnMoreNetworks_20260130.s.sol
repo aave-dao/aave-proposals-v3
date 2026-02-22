@@ -5,7 +5,7 @@ import {GovV3Helpers, IPayloadsControllerCore, PayloadsControllerUtils} from 'aa
 import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
 
 import {EthereumScript, AvalancheScript, ArbitrumScript, BaseScript} from 'solidity-utils/contracts/utils/ScriptUtils.sol';
-import {AaveV3Ethereum_ActivateCapoRiskAgentAndExpandRatesAgentOnMoreNetworks_20260130} from './AaveV3Ethereum_ActivateCapoRiskAgentAndExpandRatesAgentOnMoreNetworks_20260130.sol';
+import {AaveV3EthereumPart1_ActivateCapoRiskAgentAndExpandRatesAgentOnMoreNetworks_20260130} from './AaveV3EthereumPart1_ActivateCapoRiskAgentAndExpandRatesAgentOnMoreNetworks_20260130.sol';
 import {AaveV3Avalanche_ActivateCapoRiskAgentAndExpandRatesAgentOnMoreNetworks_20260130} from './AaveV3Avalanche_ActivateCapoRiskAgentAndExpandRatesAgentOnMoreNetworks_20260130.sol';
 import {AaveV3Arbitrum_ActivateCapoRiskAgentAndExpandRatesAgentOnMoreNetworks_20260130} from './AaveV3Arbitrum_ActivateCapoRiskAgentAndExpandRatesAgentOnMoreNetworks_20260130.sol';
 import {AaveV3Base_ActivateCapoRiskAgentAndExpandRatesAgentOnMoreNetworks_20260130} from './AaveV3Base_ActivateCapoRiskAgentAndExpandRatesAgentOnMoreNetworks_20260130.sol';
@@ -19,7 +19,7 @@ contract DeployEthereum is EthereumScript {
   function run() external broadcast {
     // deploy payloads
     address payload0 = GovV3Helpers.deployDeterministic(
-      type(AaveV3Ethereum_ActivateCapoRiskAgentAndExpandRatesAgentOnMoreNetworks_20260130)
+      type(AaveV3EthereumPart1_ActivateCapoRiskAgentAndExpandRatesAgentOnMoreNetworks_20260130)
         .creationCode
     );
 
@@ -115,7 +115,7 @@ contract CreateProposal is EthereumScript {
       IPayloadsControllerCore.ExecutionAction[]
         memory actionsEthereum = new IPayloadsControllerCore.ExecutionAction[](1);
       actionsEthereum[0] = GovV3Helpers.buildAction(
-        type(AaveV3Ethereum_ActivateCapoRiskAgentAndExpandRatesAgentOnMoreNetworks_20260130)
+        type(AaveV3EthereumPart1_ActivateCapoRiskAgentAndExpandRatesAgentOnMoreNetworks_20260130)
           .creationCode
       );
       payloads[0] = GovV3Helpers.buildMainnetPayload(vm, actionsEthereum);
