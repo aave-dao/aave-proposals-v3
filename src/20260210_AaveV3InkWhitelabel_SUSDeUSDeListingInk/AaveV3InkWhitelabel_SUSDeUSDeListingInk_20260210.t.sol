@@ -17,7 +17,7 @@ contract AaveV3InkWhitelabel_SUSDeUSDeListingInk_20260210_Test is ProtocolV3Test
   AaveV3InkWhitelabel_SUSDeUSDeListingInk_20260210 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('ink'), 37527761);
+    vm.createSelectFork(vm.rpcUrl('ink'), 38352175);
     proposal = new AaveV3InkWhitelabel_SUSDeUSDeListingInk_20260210();
   }
 
