@@ -5,3 +5,5 @@
 [submodule "lib/aave-umbrella"]
 	path = lib/aave-umbrella
 	url = https://github.com/aave-dao/aave-umbrella
+[submodule "lib/aave-address-book"]
+	url = https://github.com/aave-dao/aave-address-book
