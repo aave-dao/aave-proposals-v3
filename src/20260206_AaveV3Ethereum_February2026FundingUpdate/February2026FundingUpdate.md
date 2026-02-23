@@ -87,8 +87,8 @@ Replenish allowances on the `MainnetSwapSteward` to support continued AAVE and G
 ## References
 
 - **MainnetSwapSteward ARFC**: <https://governance.aave.com/t/arfc-steward-deployment-mainnetswapsteward-and-rewardssteward/23070>
-- **Implementation**: [AaveV3Ethereum payload](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20260206_AaveV3Ethereum_February2026FundingUpdate/AaveV3Ethereum_February2026FundingUpdate_20260206.sol)
-- **Tests**: [AaveV3Ethereum tests](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20260206_AaveV3Ethereum_February2026FundingUpdate/AaveV3Ethereum_February2026FundingUpdate_20260206.t.sol)
+- **Implementation**: [AaveV3Ethereum payload](https://github.com/aave-dao/aave-proposals-v3/blob/b66a068cde174714319a486c3d811b34f8387989/src/20260206_AaveV3Ethereum_February2026FundingUpdate/AaveV3Ethereum_February2026FundingUpdate_20260206.sol)
+- **Tests**: [AaveV3Ethereum tests](https://github.com/aave-dao/aave-proposals-v3/blob/b66a068cde174714319a486c3d811b34f8387989/src/20260206_AaveV3Ethereum_February2026FundingUpdate/AaveV3Ethereum_February2026FundingUpdate_20260206.t.sol)
 - **Snapshot**: Direct-to-AIP
 - **Discussion**: <https://governance.aave.com/t/direct-to-aip-february-2026-funding-update/24030>
 

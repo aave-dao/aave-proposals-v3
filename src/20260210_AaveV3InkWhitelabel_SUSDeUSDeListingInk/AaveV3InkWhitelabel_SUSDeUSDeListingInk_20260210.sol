@@ -82,7 +82,7 @@ contract AaveV3InkWhitelabel_SUSDeUSDeListingInk_20260210 is AaveV3PayloadInkWhi
     listings[0] = IAaveV3ConfigEngine.Listing({
       asset: sUSDe,
       assetSymbol: 'sUSDe',
-      priceFeed: 0xC170637d22Ac02bAC99ED794038d2676d712e704,
+      priceFeed: 0xC170637d22Ac02bAC99ED794038d2676d712e704, //lastAnswer: 20260223: 1.22130070 USD
       enabledToBorrow: EngineFlags.DISABLED,
       borrowableInIsolation: EngineFlags.DISABLED,
       withSiloedBorrowing: EngineFlags.DISABLED,
@@ -105,7 +105,7 @@ contract AaveV3InkWhitelabel_SUSDeUSDeListingInk_20260210 is AaveV3PayloadInkWhi
     listings[1] = IAaveV3ConfigEngine.Listing({
       asset: USDe,
       assetSymbol: 'USDe',
-      priceFeed: AaveV3InkWhitelabelAssets.USDT_ORACLE,
+      priceFeed: AaveV3InkWhitelabelAssets.USDT_ORACLE, //lastAnswer: 20260223: 0.99990000 USD
       enabledToBorrow: EngineFlags.ENABLED,
       borrowableInIsolation: EngineFlags.DISABLED,
       withSiloedBorrowing: EngineFlags.DISABLED,

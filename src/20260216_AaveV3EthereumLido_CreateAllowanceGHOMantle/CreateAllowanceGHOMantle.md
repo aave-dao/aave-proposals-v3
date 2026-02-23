@@ -19,8 +19,8 @@ Approve the Aave Liquidity Committee (ALC) [`0xA1c93D2687f7014Aaf588c764E3Ce80aF
 
 ## References
 
-- Implementation: [AaveV3EthereumLido](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20260216_AaveV3EthereumLido_CreateAllowanceGHOMantle/AaveV3EthereumLido_CreateAllowanceGHOMantle_20260216.sol)
-- Tests: [AaveV3EthereumLido](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20260216_AaveV3EthereumLido_CreateAllowanceGHOMantle/AaveV3EthereumLido_CreateAllowanceGHOMantle_20260216.t.sol)
+- Implementation: [AaveV3EthereumLido](https://github.com/aave-dao/aave-proposals-v3/blob/acd0ebe60e61db3a3bf4a9b9b833415ec1c6b706/src/20260216_AaveV3EthereumLido_CreateAllowanceGHOMantle/AaveV3EthereumLido_CreateAllowanceGHOMantle_20260216.sol)
+- Tests: [AaveV3EthereumLido](https://github.com/aave-dao/aave-proposals-v3/blob/acd0ebe60e61db3a3bf4a9b9b833415ec1c6b706/src/20260216_AaveV3EthereumLido_CreateAllowanceGHOMantle/AaveV3EthereumLido_CreateAllowanceGHOMantle_20260216.t.sol)
 - [Snapshot](https://snapshot.box/#/s:aavedao.eth/proposal/0x2f9378770f1838f0ea8d483239af1530c9fbea98d648e0b11e4647dcb722d119)
 - [Discussion](https://governance.aave.com/t/arfc-deploy-aave-v3-on-mantle/20542#p-51955-budget-15)
 
