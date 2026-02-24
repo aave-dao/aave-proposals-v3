@@ -14,6 +14,8 @@ import {AaveV3ZkSync_FocussingTheAaveV3MultichainStrategyPhase1bis_20260224} fro
 contract AaveV3ZkSync_FocussingTheAaveV3MultichainStrategyPhase1bis_20260224_Test is
   ProtocolV3TestBase
 {
+  address internal constant payload = address(0x58eA48D4dB13ae318a30D65875F063e4CfE66371); // https://zksync.blockscout.com/tx/0xfb9dc7d8307cf7a45b916107f0471488d869bdf2760eb0fbcc061b499f46bd4a?tab=index
+
   function setUp() public override {
     vm.createSelectFork(vm.rpcUrl('zksync'), 68739788);
 
@@ -27,7 +29,20 @@ contract AaveV3ZkSync_FocussingTheAaveV3MultichainStrategyPhase1bis_20260224_Tes
     defaultTest(
       'AaveV3ZkSync_FocussingTheAaveV3MultichainStrategyPhase1bis_20260224',
       AaveV3ZkSync.POOL,
-      address(0x58eA48D4dB13ae318a30D65875F063e4CfE66371) // https://zksync.blockscout.com/tx/0xfb9dc7d8307cf7a45b916107f0471488d869bdf2760eb0fbcc061b499f46bd4a?tab=index
+      payload,
+      false,
+      false
     );
+  }
+
+  /**
+   * @dev check instance is deprecated
+   */
+  function test_isDeprecated() public {
+    executePayload(vm, payload, AaveV3ZkSync.POOL);
+    ReserveConfig[] memory configs = _getReservesConfigs(AaveV3ZkSync.POOL);
+    for (uint256 i = 0; i < configs.length; i++) {
+      assertTrue(configs[i].isFrozen, "a reserve isn't frozen");
+    }
   }
 }
