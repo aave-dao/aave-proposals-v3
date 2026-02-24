@@ -91,8 +91,8 @@ contract AaveV3InkWhitelabel_ActivateRatesAndCapsAgentOnInk_20260219 is IProposa
         market,
         'BaseVariableBorrowRate',
         IRangeValidationModule.RangeConfig({
-          maxIncrease: 50, // 0.5% increase
-          maxDecrease: 50, // 0.5% decrease
+          maxIncrease: 10, // 0.1% increase
+          maxDecrease: 10, // 0.1% decrease
           isIncreaseRelative: false,
           isDecreaseRelative: false
         })

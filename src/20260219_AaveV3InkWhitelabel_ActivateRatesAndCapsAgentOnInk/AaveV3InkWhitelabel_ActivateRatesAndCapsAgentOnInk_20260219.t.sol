@@ -203,8 +203,8 @@ contract AaveV3InkWhitelabel_ActivateRatesAndCapsAgentOnInk_20260219_Test is Pro
           market,
           'BaseVariableBorrowRate'
         );
-      assertEq(baseConfig.maxIncrease, 50);
-      assertEq(baseConfig.maxDecrease, 50);
+      assertEq(baseConfig.maxIncrease, 10);
+      assertEq(baseConfig.maxDecrease, 10);
       assertEq(baseConfig.isIncreaseRelative, false);
       assertEq(baseConfig.isDecreaseRelative, false);
 
@@ -307,7 +307,7 @@ contract AaveV3InkWhitelabel_ActivateRatesAndCapsAgentOnInk_20260219_Test is Pro
 
       IEngine.InterestRateInputData memory newRate = IEngine.InterestRateInputData({
         optimalUsageRatio: uint256(currentRate.optimalUsageRatio) + 1_00, // 1% - at uOptimal limit
-        baseVariableBorrowRate: uint256(currentRate.baseVariableBorrowRate) + 50, // 0.5% - at baseRate limit
+        baseVariableBorrowRate: uint256(currentRate.baseVariableBorrowRate) + 10, // 0.1% - at baseRate limit
         variableRateSlope1: uint256(currentRate.variableRateSlope1) + slope1Change,
         variableRateSlope2: uint256(currentRate.variableRateSlope2) + slope2Change
       });
