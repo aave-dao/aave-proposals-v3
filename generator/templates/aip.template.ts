@@ -34,7 +34,7 @@ ${Object.keys(configs)
 - Implementation: ${options.pools
     .map(
       (pool) =>
-        `[${pool}](https://github.com/bgd-labs/aave-proposals-v3/blob/main/${pool === 'AaveV3ZkSync' ? 'zksync/src' : 'src'}/${generateFolderName(
+        `[${pool}](https://github.com/aave-dao/aave-proposals-v3/blob/main/${pool === 'AaveV3ZkSync' ? 'zksync/src' : 'src'}/${generateFolderName(
           options,
         )}/${generateContractName(options, pool)}.sol)`,
     )
@@ -42,7 +42,7 @@ ${Object.keys(configs)
 - Tests: ${options.pools
     .map(
       (pool) =>
-        `[${pool}](https://github.com/bgd-labs/aave-proposals-v3/blob/main/${pool === 'AaveV3ZkSync' ? 'zksync/src' : 'src'}/${generateFolderName(
+        `[${pool}](https://github.com/aave-dao/aave-proposals-v3/blob/main/${pool === 'AaveV3ZkSync' ? 'zksync/src' : 'src'}/${generateFolderName(
           options,
         )}/${generateContractName(options, pool)}.t.sol)`,
     )

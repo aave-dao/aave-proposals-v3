@@ -27,7 +27,7 @@ jobs:
       - name: Generate a token
         id: generate_token
         if: github.event_name != 'pull_request'
-        uses: actions/create-github-app-token@v1
+        uses: actions/create-github-app-token@v2.2.1
         with:
           app-id: ${{ secrets.UPDATE_BOT_APP_ID }}
           private-key: ${{ secrets.UPDATE_BOT_TOKEN }}
@@ -69,8 +69,8 @@ jobs:
               echo "Skipping $i (README.md file)"
             else
               npx prettier $i --write
-              sed -i 's@https://github.com/bgd-labs/aave-proposals-v3/blob/main/@https://github.com/bgd-labs/aave-proposals-v3/blob/${{ github.sha }}/@g' $i
-              sed -i 's@https://github.com/bgd-labs/aave-proposals-v3/tree/main/@https://github.com/bgd-labs/aave-proposals-v3/blob/${{ github.sha }}/@g' $i
+              sed -i 's@https://github.com/aave-dao/aave-proposals-v3/blob/main/@https://github.com/aave-dao/aave-proposals-v3/blob/${{ github.sha }}/@g' $i
+              sed -i 's@https://github.com/aave-dao/aave-proposals-v3/tree/main/@https://github.com/aave-dao/aave-proposals-v3/blob/${{ github.sha }}/@g' $i
             fi
           done
 
@@ -90,7 +90,7 @@ jobs:
             if [[ "$file_name" == "README" ]]; then
               echo "Skipping $i (README.md file)"
             else
-              npx aave-cli ipfs ${{ github.event_name != 'pull_request' && '-u' || ''}} $i
+              npx @bgd-labs/aave-cli ipfs ${{ github.event_name != 'pull_request' && '-u' || ''}} $i
             fi
           done
 
@@ -115,27 +115,3 @@ jobs:
             git push origin ${{ github.event.repository.default_branch }}
             exit
           fi
-
-      - name: Post to a Slack channel
-        id: slack
-        if: failure()
-        uses: slackapi/slack-github-action@v1.24.0
-        with:
-          # Slack channel id, channel name, or user id to post message.
-          # See also: https://api.slack.com/methods/chat.postMessage#channels
-          channel-id: "C04HLBJM36E"
-          # For posting a rich message using Block Kit
-          payload: |
-            {
-              "text": "GitHub Action build result: ${{ job.status }}\n${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}",
-              "blocks": [
-                  {
-                  "type": "section",
-                  "text": {
-                    "type": "mrkdwn",
-                    "text": "GitHub Action build result: ${{ job.status }}\n${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
-                  }
-                }]
-            }
-        env:
-          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}

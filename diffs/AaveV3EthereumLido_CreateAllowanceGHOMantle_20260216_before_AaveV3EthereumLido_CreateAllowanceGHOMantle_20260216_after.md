@@ -1,0 +1,41 @@
+## Event logs
+
+#### 0x18eFE565A5373f430e2F809b97De30335B3ad96A (AaveV3EthereumLido.ASSETS.GHO.A_TOKEN)
+
+| index | event |
+| --- | --- |
+| 0 | Approval(owner: 0x464C71f6c2F760DdA6093dCB91C24c39e5d6e18c, spender: 0xA1c93D2687f7014Aaf588c764E3Ce80aF016229b, value: 1,500,000 [1500000000000000000000000, 18 decimals]) |
+
+#### 0x5300A1a15135EA4dc7aD5a167152C01EFc9b192A (AaveV2Ethereum.POOL_ADMIN, AaveV2EthereumAMM.POOL_ADMIN, AaveV3Ethereum.ACL_ADMIN, AaveV3EthereumEtherFi.ACL_ADMIN, AaveV3EthereumHorizon.ACL_ADMIN, AaveV3EthereumLido.ACL_ADMIN, GovernanceV3Ethereum.EXECUTOR_LVL_1)
+
+| index | event |
+| --- | --- |
+| 1 | ExecutedAction(target: 0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f, value: 0, signature: execute(), data: 0x, executionTime: 1771220651, withDelegatecall: true, resultData: 0x) |
+
+#### 0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5 (GovernanceV3Ethereum.PAYLOADS_CONTROLLER)
+
+| index | event |
+| --- | --- |
+| 2 | PayloadExecuted(payloadId: 404) |
+
+## Raw storage changes
+
+### 0x18efe565a5373f430e2f809b97de30335b3ad96a (AaveV3EthereumLido.ASSETS.GHO.A_TOKEN)
+
+| slot | previous value | new value |
+| --- | --- | --- |
+| 0xe9e697b024e78cc5eab5a7f747919b45b7df88b33a5380f250e9a2901c2133d0 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x000000000000000000000000000000000000000000013da329b6336471800000 |
+
+### 0xdabad81af85554e9ae636395611c58f7ec1aaec5 (GovernanceV3Ethereum.PAYLOADS_CONTROLLER)
+
+| slot | previous value | new value |
+| --- | --- | --- |
+| 0xc48991e3f89653c9a6fe5e14cc18c61202c5fcd0753201f2711d2680d947fa95 | 0x006992aeaa000000000002000000000000000000000000000000000000000000 | 0x006992aeaa000000000003000000000000000000000000000000000000000000 |
+| 0xc48991e3f89653c9a6fe5e14cc18c61202c5fcd0753201f2711d2680d947fa96 | 0x000000000000000000093a8000000000000069c0d32b00000000000000000000 | 0x000000000000000000093a8000000000000069c0d32b0000000000006992aeab |
+
+
+## Raw diff
+
+```json
+{}
+```

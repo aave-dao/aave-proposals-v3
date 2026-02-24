@@ -17,8 +17,8 @@ snapshot: "test"
 
 ## References
 
-- Implementation: [AaveV2EthereumAMM](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20231023_AaveV2EthereumAMM_Test/AaveV2EthereumAMM_Test_20231023.sol)
-- Tests: [AaveV2EthereumAMM](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20231023_AaveV2EthereumAMM_Test/AaveV2EthereumAMM_Test_20231023.t.sol)
+- Implementation: [AaveV2EthereumAMM](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20231023_AaveV2EthereumAMM_Test/AaveV2EthereumAMM_Test_20231023.sol)
+- Tests: [AaveV2EthereumAMM](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20231023_AaveV2EthereumAMM_Test/AaveV2EthereumAMM_Test_20231023.t.sol)
 - [Snapshot](test)
 - [Discussion](test)
 

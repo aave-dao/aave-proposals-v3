@@ -41,8 +41,8 @@ The table below illustrates the configured risk parameters for **PSP**
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20231023_AaveV3Ethereum_Test/AaveV3Ethereum_Test_20231023.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20231023_AaveV3Ethereum_Test/AaveV3Ethereum_Test_20231023.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20231023_AaveV3Ethereum_Test/AaveV3Ethereum_Test_20231023.sol)
+- Tests: [AaveV3Ethereum](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20231023_AaveV3Ethereum_Test/AaveV3Ethereum_Test_20231023.t.sol)
 - [Snapshot](test)
 - [Discussion](test)
 
@@ -168,8 +168,10 @@ contract AaveV3Ethereum_Test_20231023 is AaveV3PayloadEthereum {
 
     if (lmAdmin != address(0)) {
       address aToken = AaveV3Ethereum.POOL.getReserveAToken(asset);
+      address vToken = AaveV3Ethereum.POOL.getReserveVariableDebtToken(asset);
       IEmissionManager(AaveV3Ethereum.EMISSION_MANAGER).setEmissionAdmin(asset, lmAdmin);
       IEmissionManager(AaveV3Ethereum.EMISSION_MANAGER).setEmissionAdmin(aToken, lmAdmin);
+      IEmissionManager(AaveV3Ethereum.EMISSION_MANAGER).setEmissionAdmin(vToken, lmAdmin);
     }
   }
 }
@@ -321,8 +323,8 @@ The table below illustrates the configured risk parameters for **PSP**
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20231023_AaveV3Ethereum_Test/AaveV3Ethereum_Test_20231023.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20231023_AaveV3Ethereum_Test/AaveV3Ethereum_Test_20231023.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20231023_AaveV3Ethereum_Test/AaveV3Ethereum_Test_20231023.sol)
+- Tests: [AaveV3Ethereum](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20231023_AaveV3Ethereum_Test/AaveV3Ethereum_Test_20231023.t.sol)
 - [Snapshot](test)
 - [Discussion](test)
 
@@ -448,8 +450,10 @@ contract AaveV3Ethereum_Test_20231023 is AaveV3PayloadEthereum {
 
     if (lmAdmin != address(0)) {
       address aToken = AaveV3Ethereum.POOL.getReserveAToken(asset);
+      address vToken = AaveV3Ethereum.POOL.getReserveVariableDebtToken(asset);
       IEmissionManager(AaveV3Ethereum.EMISSION_MANAGER).setEmissionAdmin(asset, lmAdmin);
       IEmissionManager(AaveV3Ethereum.EMISSION_MANAGER).setEmissionAdmin(aToken, lmAdmin);
+      IEmissionManager(AaveV3Ethereum.EMISSION_MANAGER).setEmissionAdmin(vToken, lmAdmin);
     }
   }
 }
@@ -636,8 +640,10 @@ uint256 public constant PSP_SEED_AMOUNT = 1e18;
 
           if (lmAdmin != address(0)) {
             address aToken = AaveV3Ethereum.POOL.getReserveAToken(asset);
+            address vToken = AaveV3Ethereum.POOL.getReserveVariableDebtToken(asset);
             IEmissionManager(AaveV3Ethereum.EMISSION_MANAGER).setEmissionAdmin(asset, lmAdmin);
             IEmissionManager(AaveV3Ethereum.EMISSION_MANAGER).setEmissionAdmin(aToken, lmAdmin);
+            IEmissionManager(AaveV3Ethereum.EMISSION_MANAGER).setEmissionAdmin(vToken, lmAdmin);
 	  }
         }",
     ],

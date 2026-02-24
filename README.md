@@ -51,9 +51,9 @@ See [Generator Guide](./generator/README.md) for detailed usage.
 
 ### Config Engine (`aave-v3-origin`)
 
-The AaveV3ConfigEngine ([Docs](https://github.com/bgd-labs/aave-helpers/tree/master/src/v3-config-engine#how-to-use-the-engine)) is a helper smart contract to abstract good practices when doing "admin" interactions with the Aave v3 protocol, but built on top, without touching the core contracts.
+The AaveV3ConfigEngine ([Docs](https://github.com/aave-dao/aave-helpers/tree/master/src/v3-config-engine#how-to-use-the-engine)) is a helper smart contract to abstract good practices when doing "admin" interactions with the Aave v3 protocol, but built on top, without touching the core contracts.
 
-A less comprehensive version of the engine also exists for [protocol v2](https://github.com/bgd-labs/aave-helpers/tree/master/src/v2-config-engine).
+A less comprehensive version of the engine also exists for [protocol v2](https://github.com/aave-dao/aave-helpers/tree/master/src/v2-config-engine).
 
 ### Testing Infrastructure
 
