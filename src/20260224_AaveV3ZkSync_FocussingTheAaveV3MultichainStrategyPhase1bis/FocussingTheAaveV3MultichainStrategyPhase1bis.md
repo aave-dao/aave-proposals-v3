@@ -66,7 +66,7 @@ Due to explorer issues, the zkSync payload cannot currently be verified on-chain
 
 - Implementation:
   [AaveV3ZkSync](https://github.com/aave-dao/aave-proposals-v3/blob/4a5130dfdfdfbea21cb3b5107aaeacba5f6f50b5/zksync/src/20260209_Multi_FocussingTheAaveV3MultichainStrategyPhase1/AaveV3ZkSync_FocussingTheAaveV3MultichainStrategyPhase1_20260209.sol),
-- Tests: [AaveV3ZkSync](https://github.com/aave-dao/aave-proposals-v3/blob/4a5130dfdfdfbea21cb3b5107aaeacba5f6f50b5/zksync/src/20260209_Multi_FocussingTheAaveV3MultichainStrategyPhase1/AaveV3ZkSync_FocussingTheAaveV3MultichainStrategyPhase1_20260209.t.sol)
+- Tests: [AaveV3ZkSync](https://github.com/aave-dao/aave-proposals-v3/blob/4a5130dfdfdfbea21cb3b5107aaeacba5f6f50b5/zksync/src/20260224_AaveV3ZkSync_FocussingTheAaveV3MultichainStrategyPhase1bis/AaveV3ZkSync_FocussingTheAaveV3MultichainStrategyPhase1bis_20260224.t.sol)
 - [Snapshot](https://snapshot.org/#/aavedao.eth/proposal/0x62340121a7428f902f3232030350eb2d2bb753dc10ab0657a16ffd4d85cb530b)
 - [Discussion](https://governance.aave.com/t/arfc-focussing-the-aave-v3-multichain-strategy-phase-1/23954)
 
