@@ -23,7 +23,14 @@ contract CreateProposal is EthereumScript {
         vm,
         'AaveV3ZkSync_FocussingTheAaveV3MultichainStrategyPhase1bis_20260224'
       );
-      payloads[0] = GovV3Helpers.buildZkSyncPayload(vm, actionsZkSync);
+      payloads[0] = PayloadsControllerUtils.Payload({
+        chain: ChainIds.ZKSYNC,
+        accessLevel: PayloadsControllerUtils.AccessControl.Level_1,
+        payloadsController: address(GovernanceV3ZkSync.PAYLOADS_CONTROLLER),
+        payloadId: 37
+      }); // Contract deployment: https://explorer.zksync.io/tx/0x546c801748682a213eae35ff708ed37d8c02ebe06af91da30800da7b5ae1b7fb
+      // Playload registration: https://explorer.zksync.io/tx/0xfb9dc7d8307cf7a45b916107f0471488d869bdf2760eb0fbcc061b499f46bd4a
+      // Commit used for creation: 0461421a689
     }
 
     // create proposal

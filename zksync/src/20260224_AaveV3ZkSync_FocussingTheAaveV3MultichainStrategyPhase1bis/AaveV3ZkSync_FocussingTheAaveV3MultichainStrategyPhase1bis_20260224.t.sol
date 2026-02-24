@@ -14,11 +14,8 @@ import {AaveV3ZkSync_FocussingTheAaveV3MultichainStrategyPhase1bis_20260224} fro
 contract AaveV3ZkSync_FocussingTheAaveV3MultichainStrategyPhase1bis_20260224_Test is
   ProtocolV3TestBase
 {
-  AaveV3ZkSync_FocussingTheAaveV3MultichainStrategyPhase1bis_20260224 internal proposal;
-
   function setUp() public override {
     vm.createSelectFork(vm.rpcUrl('zksync'), 68739788);
-    proposal = new AaveV3ZkSync_FocussingTheAaveV3MultichainStrategyPhase1bis_20260224();
 
     super.setUp();
   }
@@ -30,7 +27,7 @@ contract AaveV3ZkSync_FocussingTheAaveV3MultichainStrategyPhase1bis_20260224_Tes
     defaultTest(
       'AaveV3ZkSync_FocussingTheAaveV3MultichainStrategyPhase1bis_20260224',
       AaveV3ZkSync.POOL,
-      address(proposal)
+      address(0x58eA48D4dB13ae318a30D65875F063e4CfE66371) // https://zksync.blockscout.com/tx/0xfb9dc7d8307cf7a45b916107f0471488d869bdf2760eb0fbcc061b499f46bd4a?tab=index
     );
   }
 }
