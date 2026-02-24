@@ -137,8 +137,10 @@ export const assetListing: FeatureModule<Listing[]> = {
 
           if (lmAdmin != address(0)) {
             address aToken = ${pool}.POOL.getReserveAToken(asset);
+            address vToken = ${pool}.POOL.getReserveVariableDebtToken(asset);
             IEmissionManager(${pool}.EMISSION_MANAGER).setEmissionAdmin(asset, lmAdmin);
             IEmissionManager(${pool}.EMISSION_MANAGER).setEmissionAdmin(aToken, lmAdmin);
+            IEmissionManager(${pool}.EMISSION_MANAGER).setEmissionAdmin(vToken, lmAdmin);
 	  }
         }`,
         ],
