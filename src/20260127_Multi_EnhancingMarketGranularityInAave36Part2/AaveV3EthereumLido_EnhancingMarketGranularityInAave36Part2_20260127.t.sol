@@ -17,7 +17,7 @@ contract AaveV3EthereumLido_EnhancingMarketGranularityInAave36Part2_20260127_Tes
   AaveV3EthereumLido_EnhancingMarketGranularityInAave36Part2_20260127 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 24432880);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 24526691);
     proposal = new AaveV3EthereumLido_EnhancingMarketGranularityInAave36Part2_20260127();
   }
 
