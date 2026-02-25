@@ -67,11 +67,11 @@ The below details the configuration of the stataUSDT GSM.
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20251113_AaveV3Ethereum_GSMMigration/AaveV3Ethereum_GSMMigration_20251113.sol)
-- Tests: [AaveV3Ethereum](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20251113_AaveV3Ethereum_GSMMigration/AaveV3Ethereum_GSMMigration_20251113.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/aave-dao/aave-proposals-v3/blob/549ea8de0f75f94af1d5961ad6c9d98577c225f9/src/20251113_AaveV3Ethereum_GSMMigration/AaveV3Ethereum_GSMMigration_20251113.sol)
+- Tests: [AaveV3Ethereum](https://github.com/aave-dao/aave-proposals-v3/blob/549ea8de0f75f94af1d5961ad6c9d98577c225f9/src/20251113_AaveV3Ethereum_GSMMigration/AaveV3Ethereum_GSMMigration_20251113.t.sol)
 - [Snapshot](https://snapshot.box/#/s:aavedao.eth/proposal/0xeb3572580924976867073ad9c8012cb9e52093c76dafebd7d3aebf318f2576fb)
 - [Discussion](https://governance.aave.com/t/arfc-launch-gho-on-plasma-set-aci-as-emissions-manager-for-rewards/22994/8)
-- [Audit](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20250930_Multi_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards/TokenLogic-security-review_2025-05-05.pdf)
+- [Audit](https://github.com/aave-dao/aave-proposals-v3/blob/549ea8de0f75f94af1d5961ad6c9d98577c225f9/src/20250930_Multi_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards/TokenLogic-security-review_2025-05-05.pdf)
 
 ## Copyright
 
