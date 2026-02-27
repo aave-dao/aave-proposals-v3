@@ -6,6 +6,7 @@ import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethe
 import {AaveV3EthereumLido} from 'aave-address-book/AaveV3EthereumLido.sol';
 import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
 
+import {AgentConfigLib} from './AgentConfigLib.sol';
 import {IRangeValidationModule} from '../interfaces/IRangeValidationModule.sol';
 import {BaseActivateRiskAgentPayload, CollectorUtils, ICollector} from './BaseActivateRiskAgentPayload.sol';
 
@@ -15,7 +16,7 @@ import {BaseActivateRiskAgentPayload, CollectorUtils, ICollector} from './BaseAc
  * - Snapshot: https://snapshot.box/#/s:aavedao.eth/proposal/0x66aa6904f140d56ada880f45c911994c5c6cc20109b55081f508ccdd6417066d
  * - Discussion: https://governance.aave.com/t/arfc-dynamic-calibration-of-capo-parameters-via-risk-oracles/22601
  */
-contract AaveV3Ethereum_ActivateCapoRiskAgentAndExpandRatesAgentOnMoreNetworks_20260130 is
+contract AaveV3EthereumPart1_ActivateCapoRiskAgentAndExpandRatesAgentOnMoreNetworks_20260130 is
   BaseActivateRiskAgentPayload
 {
   using CollectorUtils for ICollector;
@@ -78,23 +79,13 @@ contract AaveV3Ethereum_ActivateCapoRiskAgentAndExpandRatesAgentOnMoreNetworks_2
       agentHub,
       agentId,
       'CapoSnapshotRatio',
-      IRangeValidationModule.RangeConfig({
-        maxIncrease: 3_00, // 3%
-        maxDecrease: 3_00, // 3%
-        isIncreaseRelative: true,
-        isDecreaseRelative: true
-      })
+      AgentConfigLib.capoSnapshotRatioRangeConfig()
     );
     IRangeValidationModule(rangeValidationModule).setDefaultRangeConfig(
       agentHub,
       agentId,
       'CapoMaxYearlyGrowthRatePercent',
-      IRangeValidationModule.RangeConfig({
-        maxIncrease: 10_00, // 10%
-        maxDecrease: 10_00, // 10%
-        isIncreaseRelative: true,
-        isDecreaseRelative: true
-      })
+      AgentConfigLib.capoMaxYearlyRangeConfig()
     );
   }
 

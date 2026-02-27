@@ -5,7 +5,9 @@ import {GovernanceV3Base} from 'aave-address-book/GovernanceV3Base.sol';
 import {AaveV3Base, AaveV3BaseAssets} from 'aave-address-book/AaveV3Base.sol';
 import {MiscBase} from 'aave-address-book/MiscBase.sol';
 
-import {BaseActivateRatesRiskAgentPayload} from './BaseActivateRatesRiskAgentPayload.sol';
+import {AgentConfigLib} from './AgentConfigLib.sol';
+import {BaseActivateRiskAgentPayload} from './BaseActivateRiskAgentPayload.sol';
+import {IRangeValidationModule} from '../interfaces/IRangeValidationModule.sol';
 
 /**
  * @title Activate Capo Risk Agent and expand Rates Agent on more networks
@@ -14,7 +16,7 @@ import {BaseActivateRatesRiskAgentPayload} from './BaseActivateRatesRiskAgentPay
  * - Discussion: https://governance.aave.com/t/arfc-dynamic-calibration-of-capo-parameters-via-risk-oracles/22601
  */
 contract AaveV3Base_ActivateCapoRiskAgentAndExpandRatesAgentOnMoreNetworks_20260130 is
-  BaseActivateRatesRiskAgentPayload
+  BaseActivateRiskAgentPayload
 {
   address public constant RATES_AGENT = 0xAD83c71619368390c4C4fd1Aa472235FD4Ea3F32;
   address public constant LINK_TOKEN = 0x88Fb150BDc53A65fe94Dea0c9BA0a6dAf8C6e196;
@@ -49,6 +51,27 @@ contract AaveV3Base_ActivateCapoRiskAgentAndExpandRatesAgentOnMoreNetworks_20260
         collector: AaveV3Base.COLLECTOR,
         automationName: 'Interest Rate Agent'
       });
+  }
+
+  function _configureRangeValidation(
+    address rangeValidationModule,
+    address agentHub,
+    uint256 agentId
+  ) internal override {
+    IRangeValidationModule(rangeValidationModule).setRangeConfigByMarket(
+      agentHub,
+      agentId,
+      AaveV3BaseAssets.WETH_UNDERLYING,
+      'VariableRateSlope2',
+      AgentConfigLib.wethSlope2RangeConfig()
+    );
+    IRangeValidationModule(rangeValidationModule).setRangeConfigByMarket(
+      agentHub,
+      agentId,
+      AaveV3BaseAssets.USDC_UNDERLYING,
+      'VariableRateSlope2',
+      AgentConfigLib.stablecoinSlope2RangeConfig()
+    );
   }
 
   function _grantRiskAdminPermissions(address agentAddress) internal override {

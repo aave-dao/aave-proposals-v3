@@ -5,7 +5,9 @@ import {GovernanceV3Arbitrum} from 'aave-address-book/GovernanceV3Arbitrum.sol';
 import {AaveV3Arbitrum, AaveV3ArbitrumAssets} from 'aave-address-book/AaveV3Arbitrum.sol';
 import {MiscArbitrum} from 'aave-address-book/MiscArbitrum.sol';
 
-import {BaseActivateRatesRiskAgentPayload} from './BaseActivateRatesRiskAgentPayload.sol';
+import {AgentConfigLib} from './AgentConfigLib.sol';
+import {BaseActivateRiskAgentPayload} from './BaseActivateRiskAgentPayload.sol';
+import {IRangeValidationModule} from '../interfaces/IRangeValidationModule.sol';
 
 /**
  * @title Activate Capo Risk Agent and expand Rates Agent on more networks
@@ -14,7 +16,7 @@ import {BaseActivateRatesRiskAgentPayload} from './BaseActivateRatesRiskAgentPay
  * - Discussion: https://governance.aave.com/t/arfc-dynamic-calibration-of-capo-parameters-via-risk-oracles/22601
  */
 contract AaveV3Arbitrum_ActivateCapoRiskAgentAndExpandRatesAgentOnMoreNetworks_20260130 is
-  BaseActivateRatesRiskAgentPayload
+  BaseActivateRiskAgentPayload
 {
   address public constant RATES_AGENT = 0xc42f40Bc50e7342867Be7F823a4358cba5089063;
   uint96 public constant LINK_AMOUNT = 50 ether;
@@ -49,6 +51,34 @@ contract AaveV3Arbitrum_ActivateCapoRiskAgentAndExpandRatesAgentOnMoreNetworks_2
         collector: AaveV3Arbitrum.COLLECTOR,
         automationName: 'Interest Rate Agent'
       });
+  }
+
+  function _configureRangeValidation(
+    address rangeValidationModule,
+    address agentHub,
+    uint256 agentId
+  ) internal override {
+    IRangeValidationModule(rangeValidationModule).setRangeConfigByMarket(
+      agentHub,
+      agentId,
+      AaveV3ArbitrumAssets.WETH_UNDERLYING,
+      'VariableRateSlope2',
+      AgentConfigLib.wethSlope2RangeConfig()
+    );
+    IRangeValidationModule(rangeValidationModule).setRangeConfigByMarket(
+      agentHub,
+      agentId,
+      AaveV3ArbitrumAssets.USDCn_UNDERLYING,
+      'VariableRateSlope2',
+      AgentConfigLib.stablecoinSlope2RangeConfig()
+    );
+    IRangeValidationModule(rangeValidationModule).setRangeConfigByMarket(
+      agentHub,
+      agentId,
+      AaveV3ArbitrumAssets.USDT_UNDERLYING,
+      'VariableRateSlope2',
+      AgentConfigLib.stablecoinSlope2RangeConfig()
+    );
   }
 
   function _grantRiskAdminPermissions(address agentAddress) internal override {

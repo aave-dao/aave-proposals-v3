@@ -18,11 +18,8 @@ contract AaveV3Base_ActivateCapoRiskAgentAndExpandRatesAgentOnMoreNetworks_20260
   AaveV3Base_ActivateCapoRiskAgentAndExpandRatesAgentOnMoreNetworks_20260130 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('base'), 41495649);
+    vm.createSelectFork(vm.rpcUrl('base'), 42693971);
     proposal = new AaveV3Base_ActivateCapoRiskAgentAndExpandRatesAgentOnMoreNetworks_20260130();
-
-    // fund link manually TODO: remove later
-    deal(proposal.LINK_TOKEN(), GovernanceV3Base.EXECUTOR_LVL_1, proposal.LINK_AMOUNT());
   }
 
   function _getConfig() internal view override returns (TestConfig memory) {
