@@ -44,6 +44,12 @@ contract AaveV3Base_EnableSVROnBaseAndArbitrum_20260224 is IProposalGenericExecu
 
   function execute() external {
     AaveV3Base.ACL_MANAGER.addAssetListingAdmin(STEWARD);
+    ISvrOracleSteward.AssetOracle[] memory configInput = getSvrOracles();
+
+    ISvrOracleSteward(STEWARD).enableSvrOracles(configInput);
+  }
+
+  function getSvrOracles() public pure returns (ISvrOracleSteward.AssetOracle[] memory) {
     ISvrOracleSteward.AssetOracle[] memory configInput = new ISvrOracleSteward.AssetOracle[](13);
     configInput[0] = ISvrOracleSteward.AssetOracle({
       asset: AaveV3BaseAssets.WETH_UNDERLYING,
@@ -97,7 +103,6 @@ contract AaveV3Base_EnableSVROnBaseAndArbitrum_20260224 is IProposalGenericExecu
       asset: AaveV3BaseAssets.tBTC_UNDERLYING,
       svrOracle: ChainlinkBase.AAVE_SVR_BTC__USD
     });
-
-    ISvrOracleSteward(STEWARD).enableSvrOracles(configInput);
+    return configInput;
   }
 }

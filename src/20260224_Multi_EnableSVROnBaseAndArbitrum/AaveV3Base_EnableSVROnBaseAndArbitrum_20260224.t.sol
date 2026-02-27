@@ -2,7 +2,7 @@
 pragma solidity ^0.8.0;
 
 import {AaveV3Base} from 'aave-address-book/AaveV3Base.sol';
-
+import {ISvrOracleSteward} from '../interfaces/ISvrOracleSteward.sol';
 import 'forge-std/Test.sol';
 import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {AaveV3Base_EnableSVROnBaseAndArbitrum_20260224} from './AaveV3Base_EnableSVROnBaseAndArbitrum_20260224.sol';
@@ -28,5 +28,19 @@ contract AaveV3Base_EnableSVROnBaseAndArbitrum_20260224_Test is ProtocolV3TestBa
       AaveV3Base.POOL,
       address(proposal)
     );
+  }
+
+  function test_activation() public {
+    ISvrOracleSteward.AssetOracle[] memory cfg = proposal.getSvrOracles();
+
+    for (uint256 i = 0; i < cfg.length; i++) {
+      assertNotEq(AaveV3Base.ORACLE.getSourceOfAsset(cfg[i].asset), cfg[i].svrOracle);
+    }
+
+    executePayload(vm, address(proposal), AaveV3Base.POOL);
+
+    for (uint256 i = 0; i < cfg.length; i++) {
+      assertEq(AaveV3Base.ORACLE.getSourceOfAsset(cfg[i].asset), cfg[i].svrOracle);
+    }
   }
 }
