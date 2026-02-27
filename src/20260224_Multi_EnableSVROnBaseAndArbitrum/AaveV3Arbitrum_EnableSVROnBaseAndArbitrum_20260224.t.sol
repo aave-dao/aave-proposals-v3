@@ -15,7 +15,7 @@ contract AaveV3Arbitrum_EnableSVROnBaseAndArbitrum_20260224_Test is ProtocolV3Te
   AaveV3Arbitrum_EnableSVROnBaseAndArbitrum_20260224 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('arbitrum'), 435530665);
+    vm.createSelectFork(vm.rpcUrl('arbitrum'), 436476086);
     proposal = new AaveV3Arbitrum_EnableSVROnBaseAndArbitrum_20260224();
   }
 
