@@ -49,6 +49,13 @@ contract AaveV3InkWhitelabel_ChangeInkSolvBTCDebtCeiling_20260228_Test is Protoc
       true,
       true
     );
+  }
+
+  /**
+   * @notice Tests that borrowing with SolvBTC as collateral after debt ceiling change succeeds.
+   */
+  function test_afterChangeBorrowWithSolvBTCAsCollateralSucceeds() public {
+    executePayload(vm, address(proposal), AaveV3InkWhitelabel.POOL);
     skip(3600);
     vm.startPrank(solBTCHolder);
     AaveV3InkWhitelabel.POOL.setUserUseReserveAsCollateral(solvBTC_underlying, true);
