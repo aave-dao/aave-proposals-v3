@@ -33,7 +33,7 @@
     "vitest": "^3.1.2"
   },
   "dependencies": {
-    "@aave-dao/aave-address-book": "^4.46.3",
+    "@aave-dao/aave-address-book": "^4.46.4",
     "@aave-dao/aave-helpers-js": "^1.0.7",
     "@bgd-labs/toolbox": "^0.2.5",
     "@inquirer/prompts": "^7.5.0",

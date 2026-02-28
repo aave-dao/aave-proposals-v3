@@ -26,7 +26,7 @@ export async function fetchCollateralUpdate(
       required,
     }),
     debtCeiling: await numberPrompt({
-      message: 'Debt ceiling',
+      message: 'Debt ceiling (must be 0 for asset out of isolation)',
       required,
     }),
     liqProtocolFee: await percentPrompt({

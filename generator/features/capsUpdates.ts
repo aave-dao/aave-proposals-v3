@@ -13,7 +13,7 @@ export async function fetchCapsUpdate(required?: boolean): Promise<CapsUpdatePar
       required,
     }),
     borrowCap: await numberPrompt({
-      message: 'New borrow cap',
+      message: 'New borrow cap (must be 1 for asset not borrowable)',
       required,
     }),
   };
