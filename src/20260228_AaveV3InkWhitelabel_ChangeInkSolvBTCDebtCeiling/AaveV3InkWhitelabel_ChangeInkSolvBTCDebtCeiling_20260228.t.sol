@@ -2,6 +2,7 @@
 pragma solidity ^0.8.0;
 
 import {AaveV3InkWhitelabel, AaveV3InkWhitelabelAssets} from 'aave-address-book/AaveV3InkWhitelabel.sol';
+import {IERC20} from 'forge-std/interfaces/IERC20.sol';
 
 import 'forge-std/Test.sol';
 import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/src/ProtocolV3TestBase.sol';
@@ -57,6 +58,7 @@ contract AaveV3InkWhitelabel_ChangeInkSolvBTCDebtCeiling_20260228_Test is Protoc
   function test_afterChangeBorrowWithSolvBTCAsCollateralSucceeds() public {
     executePayload(vm, address(proposal), AaveV3InkWhitelabel.POOL);
     skip(3600);
+    assertEq(IERC20(AaveV3InkWhitelabelAssets.GHO_V_TOKEN).balanceOf(solBTCHolder), 0);
     vm.startPrank(solBTCHolder);
     AaveV3InkWhitelabel.POOL.setUserUseReserveAsCollateral(solvBTC_underlying, true);
     AaveV3InkWhitelabel.POOL.borrow(
@@ -65,6 +67,11 @@ contract AaveV3InkWhitelabel_ChangeInkSolvBTCDebtCeiling_20260228_Test is Protoc
       2,
       0,
       solBTCHolder
+    );
+    assertApproxEqAbs(
+      IERC20(AaveV3InkWhitelabelAssets.GHO_V_TOKEN).balanceOf(solBTCHolder),
+      100 ether,
+      0.1 ether
     );
     vm.stopPrank();
   }
