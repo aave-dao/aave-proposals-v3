@@ -16,6 +16,7 @@ import {GovV3Helpers} from 'aave-helpers/src/GovV3Helpers.sol';
 contract AaveV3InkWhitelabel_ChangeInkSolvBTCDebtCeiling_20260228_Test is ProtocolV3TestBase {
   AaveV3InkWhitelabel_ChangeInkSolvBTCDebtCeiling_20260228 internal proposal;
   address internal solBTCHolder = address(0x6CBAF2ae5a1034757DC6F77B42873e9580f211f6);
+  address internal aWETHHolder = address(0xFe4841A4615b8132E6E116A033cA39333c63d121);
   address solvBTC_underlying = address(0xaE4EFbc7736f963982aACb17EFA37fCBAb924cB3); // Ink SolvBTC update with import from address-book when available
 
   function setUp() public {
@@ -61,6 +62,40 @@ contract AaveV3InkWhitelabel_ChangeInkSolvBTCDebtCeiling_20260228_Test is Protoc
     assertEq(IERC20(AaveV3InkWhitelabelAssets.GHO_V_TOKEN).balanceOf(solBTCHolder), 0);
     vm.startPrank(solBTCHolder);
     AaveV3InkWhitelabel.POOL.setUserUseReserveAsCollateral(solvBTC_underlying, true);
+    AaveV3InkWhitelabel.POOL.borrow(
+      AaveV3InkWhitelabelAssets.GHO_UNDERLYING,
+      100 ether,
+      2,
+      0,
+      solBTCHolder
+    );
+    assertApproxEqAbs(
+      IERC20(AaveV3InkWhitelabelAssets.GHO_V_TOKEN).balanceOf(solBTCHolder),
+      100 ether,
+      0.1 ether
+    );
+    vm.stopPrank();
+  }
+
+  /**
+   * @notice Tests that borrowing with SolvBTC + WETH as collateral to verify that asset is not in isolation anymore
+   after debt ceiling change succeeds.
+   */
+  function test_afterChangeBorrowWithSolvBTCAndWETHAsCollateralSucceeds() public {
+    executePayload(vm, address(proposal), AaveV3InkWhitelabel.POOL);
+    skip(3600);
+
+    uint256 aWETHBalance = IERC20(AaveV3InkWhitelabelAssets.WETH_A_TOKEN).balanceOf(aWETHHolder);
+    vm.prank(aWETHHolder);
+    IERC20(AaveV3InkWhitelabelAssets.WETH_A_TOKEN).transfer(solBTCHolder, aWETHBalance); // User aWETHHolder can a current market condition transfer all their awETH keeping hf over 4 so low risk of revert
+
+    assertEq(IERC20(AaveV3InkWhitelabelAssets.GHO_V_TOKEN).balanceOf(solBTCHolder), 0);
+    vm.startPrank(solBTCHolder);
+    AaveV3InkWhitelabel.POOL.setUserUseReserveAsCollateral(solvBTC_underlying, true);
+    AaveV3InkWhitelabel.POOL.setUserUseReserveAsCollateral(
+      AaveV3InkWhitelabelAssets.WETH_UNDERLYING,
+      true
+    );
     AaveV3InkWhitelabel.POOL.borrow(
       AaveV3InkWhitelabelAssets.GHO_UNDERLYING,
       100 ether,
