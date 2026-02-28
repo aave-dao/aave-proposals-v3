@@ -74,8 +74,8 @@ function generateAssetListingSol(cfg: Listing) {
   liqBonus: ${translateJsPercentToSol(cfg.liqBonus)},
   reserveFactor: ${translateJsPercentToSol(cfg.reserveFactor)},
   supplyCap: ${translateJsNumberToSol(cfg.supplyCap)},
-  borrowCap (must be 1 for asset not borrowable): ${translateJsNumberToSol(cfg.borrowCap)},
-  debtCeiling (must be 0 for asset out of isolation): ${translateJsNumberToSol(cfg.debtCeiling)},
+  borrowCap: ${translateJsNumberToSol(cfg.borrowCap)},
+  debtCeiling: ${translateJsNumberToSol(cfg.debtCeiling)},
   liqProtocolFee: ${translateJsPercentToSol(cfg.liqProtocolFee)},
   rateStrategyParams: IAaveV3ConfigEngine.InterestRateInputData({
      optimalUsageRatio: ${translateJsPercentToSol(cfg.rateStrategyParams.optimalUtilizationRate)},
