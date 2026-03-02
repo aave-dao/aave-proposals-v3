@@ -5,10 +5,10 @@
     "test": "vitest generator",
     "lint": "prettier . --check",
     "lint:fix": "prettier . --write",
-    "generate": "tsx generator/cli",
-    "generate:bgd": "tsx generator/cli -a 'BGD Labs @bgdlabs'",
-    "generate:aci": "tsx generator/cli -a 'Aavechan Initiative @aci'",
-    "generate:aci-sky": "tsx generator/cli -a 'TTT (implemented by Aavechan Initiative @aci via Skyward)'",
+    "generate": "vite-node generator/cli",
+    "generate:bgd": "vite-node generator/cli -- -a 'BGD Labs @bgdlabs'",
+    "generate:aci": "vite-node generator/cli -- -a 'Aavechan Initiative @aci'",
+    "generate:aci-sky": "vite-node generator/cli -- -a 'TTT (implemented by Aavechan Initiative @aci via Skyward)'",
     "prepare": "husky install"
   },
   "engines": {
@@ -44,7 +44,6 @@
     "dotenv": "^16.4.7",
     "husky": "^8.0.3",
     "lint-staged": "^15.5.1",
-    "tsx": "^4.19.4",
     "viem": "^2.45.0"
   },
   "lint-staged": {
