@@ -186,12 +186,12 @@ contract CreateProposal is EthereumScript {
 
     {
       IPayloadsControllerCore.ExecutionAction[]
-        memory actionsBase = new IPayloadsControllerCore.ExecutionAction[](1);
-      actionsBase[0] = GovV3Helpers.buildAction(
+        memory actionsLinea = new IPayloadsControllerCore.ExecutionAction[](1);
+      actionsLinea[0] = GovV3Helpers.buildAction(
         type(AaveV3Linea_ActivateCapoRiskAgentAndExpandRatesAgentOnMoreNetworks_20260130)
           .creationCode
       );
-      payloads[4] = GovV3Helpers.buildBasePayload(vm, actionsBase);
+      payloads[4] = GovV3Helpers.buildLineaPayload(vm, actionsLinea);
     }
 
     // create proposal

@@ -1,3 +1,8 @@
+<!--
+Thank you for your contribution! Please ensure you run `npm run lint` and `npm test` to verify the code is properly linted and the tests are passing.
+
+The following checklist is only relevant for proposal PRs. Remove this section if not applicable.
+
 ### Pre-review checklist:
 
 - [ ] I have run a spell check on the write-up and made sure no typos exist.
@@ -9,3 +14,4 @@
 - [ ] I have validated that no unused files and imports are being added.
 - [ ] For an asset listing, the write-up includes a detailed specification of the price feed used, CAPO adapters (with each CAPO layer described separately), and eModes (with tables) if changed.
 - [ ] Wherever possible, I have validated that addresses from the address book are used instead of raw addresses.
+-->
