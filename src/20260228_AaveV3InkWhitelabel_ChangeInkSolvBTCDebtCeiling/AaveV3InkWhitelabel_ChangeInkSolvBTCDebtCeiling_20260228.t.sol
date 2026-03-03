@@ -17,10 +17,10 @@ contract AaveV3InkWhitelabel_ChangeInkSolvBTCDebtCeiling_20260228_Test is Protoc
   AaveV3InkWhitelabel_ChangeInkSolvBTCDebtCeiling_20260228 internal proposal;
   address internal solBTCHolder = address(0x6CBAF2ae5a1034757DC6F77B42873e9580f211f6);
   address internal aWETHHolder = address(0xFe4841A4615b8132E6E116A033cA39333c63d121);
-  address solvBTC_underlying = address(0xaE4EFbc7736f963982aACb17EFA37fCBAb924cB3); // Ink SolvBTC update with import from address-book when available
+  address solvBTC_underlying = AaveV3InkWhitelabelAssets.SolvBTC_UNDERLYING;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('ink'), 38737734);
+    vm.createSelectFork(vm.rpcUrl('ink'), 39041861);
     proposal = new AaveV3InkWhitelabel_ChangeInkSolvBTCDebtCeiling_20260228();
   }
 
