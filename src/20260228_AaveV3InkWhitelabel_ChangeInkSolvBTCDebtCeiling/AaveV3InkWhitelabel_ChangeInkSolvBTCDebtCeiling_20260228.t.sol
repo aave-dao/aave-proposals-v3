@@ -87,7 +87,7 @@ contract AaveV3InkWhitelabel_ChangeInkSolvBTCDebtCeiling_20260228_Test is Protoc
 
     uint256 aWETHBalance = IERC20(AaveV3InkWhitelabelAssets.WETH_A_TOKEN).balanceOf(aWETHHolder);
     vm.prank(aWETHHolder);
-    IERC20(AaveV3InkWhitelabelAssets.WETH_A_TOKEN).transfer(solBTCHolder, aWETHBalance); // User aWETHHolder can a current market condition transfer all their awETH keeping hf over 4 so low risk of revert
+    IERC20(AaveV3InkWhitelabelAssets.WETH_A_TOKEN).transfer(solBTCHolder, aWETHBalance); // User aWETHHolder can at current market conditions transfer all their awETH and keep his hf over 4, so low risk of revert
 
     assertEq(IERC20(AaveV3InkWhitelabelAssets.GHO_V_TOKEN).balanceOf(solBTCHolder), 0);
     vm.startPrank(solBTCHolder);
