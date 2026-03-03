@@ -25,7 +25,7 @@ contract AaveV3InkWhitelabel_ChangeInkSolvBTCDebtCeiling_20260228_Test is Protoc
   }
 
   /**
-   * @notice Tests that borrowing with SolvBTC as collateral before debt ceiling change must fail.
+   * @notice Tests that borrowing with SolvBTC as collateral before the debt ceiling must fail.
    */
   function test_beforeChangeBorrowWithSolvBTCAsCollateralMustFail() public {
     vm.startPrank(solBTCHolder);
@@ -54,7 +54,7 @@ contract AaveV3InkWhitelabel_ChangeInkSolvBTCDebtCeiling_20260228_Test is Protoc
   }
 
   /**
-   * @notice Tests that borrowing with SolvBTC as collateral after debt ceiling change succeeds.
+   * @notice Tests that borrowing with SolvBTC as collateral after the debt ceiling change must succeed.
    */
   function test_afterChangeBorrowWithSolvBTCAsCollateralSucceeds() public {
     executePayload(vm, address(proposal), AaveV3InkWhitelabel.POOL);
@@ -78,8 +78,7 @@ contract AaveV3InkWhitelabel_ChangeInkSolvBTCDebtCeiling_20260228_Test is Protoc
   }
 
   /**
-   * @notice Tests that borrowing with SolvBTC + WETH as collateral to verify that asset is not in isolation anymore
-   after debt ceiling change succeeds.
+   * @notice Tests borrowing with SolvBTC and WETH as collateral to verify that the asset is no longer in isolation after the debt ceiling change.
    */
   function test_afterChangeBorrowWithSolvBTCAndWETHAsCollateralSucceeds() public {
     executePayload(vm, address(proposal), AaveV3InkWhitelabel.POOL);
