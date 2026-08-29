@@ -5,6 +5,7 @@ import {IAccessControl} from 'openzeppelin-contracts/contracts/access/IAccessCon
 
 interface IGhoReserve is IAccessControl {
   function addEntity(address entity) external;
+  function removeEntity(address entity) external;
   function setLimit(address entity, uint256 limit) external;
   function getLimit(address entity) external view returns (uint256);
   function getUsed(address entity) external view returns (uint256);
