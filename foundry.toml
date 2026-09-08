@@ -27,7 +27,12 @@ libs = ['lib']
 solc = '0.8.27'
 optimizer = true
 optimizer_runs = 200
-fs_permissions = [{ access = "write", path = "./reports" }]
+fs_permissions = [
+  { access = "read-write", path = "./reports" },
+  { access = "read-write", path = "./diffs" },
+  { access = "read", path = "./zkout" },
+  { access = "read", path = "./out" },
+]
 ffi = true
 out = 'out/shanghai'
 evm_version = 'shanghai'
