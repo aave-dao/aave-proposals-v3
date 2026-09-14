@@ -17,7 +17,7 @@ contract AaveV3Soneium_LowAdoptionAssetDeprecationOnAaveV3_20260826_Test is Prot
   AaveV3Soneium_LowAdoptionAssetDeprecationOnAaveV3_20260826 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('soneium'), 27294389);
+    vm.createSelectFork(vm.rpcUrl('soneium'), 28132526);
     proposal = new AaveV3Soneium_LowAdoptionAssetDeprecationOnAaveV3_20260826();
   }
 

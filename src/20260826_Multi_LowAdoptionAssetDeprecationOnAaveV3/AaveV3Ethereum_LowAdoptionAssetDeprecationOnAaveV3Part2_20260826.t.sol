@@ -19,7 +19,7 @@ contract AaveV3Ethereum_LowAdoptionAssetDeprecationOnAaveV3Part2_20260826_Test i
   AaveV3Ethereum_LowAdoptionAssetDeprecationOnAaveV3Part2_20260826 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 25837412);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 25976601);
     proposal = new AaveV3Ethereum_LowAdoptionAssetDeprecationOnAaveV3Part2_20260826();
   }
 

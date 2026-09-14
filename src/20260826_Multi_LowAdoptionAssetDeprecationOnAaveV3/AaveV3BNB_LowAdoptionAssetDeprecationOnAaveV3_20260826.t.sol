@@ -17,7 +17,7 @@ contract AaveV3BNB_LowAdoptionAssetDeprecationOnAaveV3_20260826_Test is Protocol
   AaveV3BNB_LowAdoptionAssetDeprecationOnAaveV3_20260826 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('bnb'), 118138918);
+    vm.createSelectFork(vm.rpcUrl('bnb'), 121861936);
     proposal = new AaveV3BNB_LowAdoptionAssetDeprecationOnAaveV3_20260826();
   }
 

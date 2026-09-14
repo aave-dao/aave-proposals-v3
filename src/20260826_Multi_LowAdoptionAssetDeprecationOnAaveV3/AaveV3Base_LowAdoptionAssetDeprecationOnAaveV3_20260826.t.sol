@@ -17,7 +17,7 @@ contract AaveV3Base_LowAdoptionAssetDeprecationOnAaveV3_20260826_Test is Protoco
   AaveV3Base_LowAdoptionAssetDeprecationOnAaveV3_20260826 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('base'), 50467089);
+    vm.createSelectFork(vm.rpcUrl('base'), 51305228);
     proposal = new AaveV3Base_LowAdoptionAssetDeprecationOnAaveV3_20260826();
   }
 

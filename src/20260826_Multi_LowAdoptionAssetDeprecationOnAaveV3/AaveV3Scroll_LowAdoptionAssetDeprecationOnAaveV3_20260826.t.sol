@@ -17,7 +17,7 @@ contract AaveV3Scroll_LowAdoptionAssetDeprecationOnAaveV3_20260826_Test is Proto
   AaveV3Scroll_LowAdoptionAssetDeprecationOnAaveV3_20260826 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('scroll'), 34797720);
+    vm.createSelectFork(vm.rpcUrl('scroll'), 35028372);
     proposal = new AaveV3Scroll_LowAdoptionAssetDeprecationOnAaveV3_20260826();
   }
 

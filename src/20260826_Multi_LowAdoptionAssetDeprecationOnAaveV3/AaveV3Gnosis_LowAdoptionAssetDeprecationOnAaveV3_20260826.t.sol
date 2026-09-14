@@ -19,7 +19,7 @@ contract AaveV3Gnosis_LowAdoptionAssetDeprecationOnAaveV3_20260826_Test is Proto
   AaveV3Gnosis_LowAdoptionAssetDeprecationOnAaveV3_20260826 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('gnosis'), 47919245);
+    vm.createSelectFork(vm.rpcUrl('gnosis'), 48248576);
     proposal = new AaveV3Gnosis_LowAdoptionAssetDeprecationOnAaveV3_20260826();
 
     vm.prank(AaveV3GnosisAssets.EURe_A_TOKEN);

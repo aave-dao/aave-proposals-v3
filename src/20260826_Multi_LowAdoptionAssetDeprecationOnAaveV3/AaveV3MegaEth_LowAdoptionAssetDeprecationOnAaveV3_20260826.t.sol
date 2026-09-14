@@ -17,7 +17,7 @@ contract AaveV3MegaEth_LowAdoptionAssetDeprecationOnAaveV3_20260826_Test is Prot
   AaveV3MegaEth_LowAdoptionAssetDeprecationOnAaveV3_20260826 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('megaeth'), 24926517);
+    vm.createSelectFork(vm.rpcUrl('megaeth'), 26602793);
     proposal = new AaveV3MegaEth_LowAdoptionAssetDeprecationOnAaveV3_20260826();
   }
 

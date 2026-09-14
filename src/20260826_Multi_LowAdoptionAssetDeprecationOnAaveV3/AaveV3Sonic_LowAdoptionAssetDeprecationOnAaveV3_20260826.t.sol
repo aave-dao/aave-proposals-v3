@@ -17,7 +17,7 @@ contract AaveV3Sonic_LowAdoptionAssetDeprecationOnAaveV3_20260826_Test is Protoc
   AaveV3Sonic_LowAdoptionAssetDeprecationOnAaveV3_20260826 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('sonic'), 78180833);
+    vm.createSelectFork(vm.rpcUrl('sonic'), 79203765);
     proposal = new AaveV3Sonic_LowAdoptionAssetDeprecationOnAaveV3_20260826();
   }
 

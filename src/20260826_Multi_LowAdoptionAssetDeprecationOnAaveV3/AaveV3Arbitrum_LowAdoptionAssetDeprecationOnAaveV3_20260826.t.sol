@@ -17,7 +17,7 @@ contract AaveV3Arbitrum_LowAdoptionAssetDeprecationOnAaveV3_20260826_Test is Pro
   AaveV3Arbitrum_LowAdoptionAssetDeprecationOnAaveV3_20260826 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('arbitrum'), 498482602);
+    vm.createSelectFork(vm.rpcUrl('arbitrum'), 505118842);
     proposal = new AaveV3Arbitrum_LowAdoptionAssetDeprecationOnAaveV3_20260826();
   }
 

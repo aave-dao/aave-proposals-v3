@@ -15,7 +15,7 @@ contract AaveV3ZkSync_LowAdoptionAssetDeprecationOnAaveV3_20260826_Test is Proto
   AaveV3ZkSync_LowAdoptionAssetDeprecationOnAaveV3_20260826 internal proposal;
 
   function setUp() public override {
-    vm.createSelectFork(vm.rpcUrl('zksync'), 71724909);
+    vm.createSelectFork(vm.rpcUrl('zksync'), 71964370);
     proposal = new AaveV3ZkSync_LowAdoptionAssetDeprecationOnAaveV3_20260826();
 
     super.setUp();

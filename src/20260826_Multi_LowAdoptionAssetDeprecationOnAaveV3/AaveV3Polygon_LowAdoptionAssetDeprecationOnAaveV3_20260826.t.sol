@@ -17,7 +17,7 @@ contract AaveV3Polygon_LowAdoptionAssetDeprecationOnAaveV3_20260826_Test is Prot
   AaveV3Polygon_LowAdoptionAssetDeprecationOnAaveV3_20260826 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('polygon'), 92679000);
+    vm.createSelectFork(vm.rpcUrl('polygon'), 93796514);
     proposal = new AaveV3Polygon_LowAdoptionAssetDeprecationOnAaveV3_20260826();
   }
 

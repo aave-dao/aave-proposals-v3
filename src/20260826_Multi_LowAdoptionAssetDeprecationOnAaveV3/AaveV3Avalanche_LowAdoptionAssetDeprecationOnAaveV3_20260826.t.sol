@@ -17,7 +17,7 @@ contract AaveV3Avalanche_LowAdoptionAssetDeprecationOnAaveV3_20260826_Test is Pr
   AaveV3Avalanche_LowAdoptionAssetDeprecationOnAaveV3_20260826 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('avalanche'), 93706889);
+    vm.createSelectFork(vm.rpcUrl('avalanche'), 95273299);
     proposal = new AaveV3Avalanche_LowAdoptionAssetDeprecationOnAaveV3_20260826();
   }
 

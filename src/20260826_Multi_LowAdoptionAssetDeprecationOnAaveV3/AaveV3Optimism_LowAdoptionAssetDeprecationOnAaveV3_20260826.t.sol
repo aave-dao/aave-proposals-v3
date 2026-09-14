@@ -17,7 +17,7 @@ contract AaveV3Optimism_LowAdoptionAssetDeprecationOnAaveV3_20260826_Test is Pro
   AaveV3Optimism_LowAdoptionAssetDeprecationOnAaveV3_20260826 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('optimism'), 156062375);
+    vm.createSelectFork(vm.rpcUrl('optimism'), 156900513);
     proposal = new AaveV3Optimism_LowAdoptionAssetDeprecationOnAaveV3_20260826();
   }
 

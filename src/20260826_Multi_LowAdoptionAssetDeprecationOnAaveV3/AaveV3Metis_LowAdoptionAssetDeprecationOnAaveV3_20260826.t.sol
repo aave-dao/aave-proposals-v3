@@ -17,7 +17,7 @@ contract AaveV3Metis_LowAdoptionAssetDeprecationOnAaveV3_20260826_Test is Protoc
   AaveV3Metis_LowAdoptionAssetDeprecationOnAaveV3_20260826 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('metis'), 23074556);
+    vm.createSelectFork(vm.rpcUrl('metis'), 23146028);
     proposal = new AaveV3Metis_LowAdoptionAssetDeprecationOnAaveV3_20260826();
   }
 

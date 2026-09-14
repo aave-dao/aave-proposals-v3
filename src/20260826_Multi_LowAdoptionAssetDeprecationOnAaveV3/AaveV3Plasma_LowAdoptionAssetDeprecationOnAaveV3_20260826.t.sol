@@ -17,7 +17,7 @@ contract AaveV3Plasma_LowAdoptionAssetDeprecationOnAaveV3_20260826_Test is Proto
   AaveV3Plasma_LowAdoptionAssetDeprecationOnAaveV3_20260826 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('plasma'), 30782965);
+    vm.createSelectFork(vm.rpcUrl('plasma'), 32459229);
     proposal = new AaveV3Plasma_LowAdoptionAssetDeprecationOnAaveV3_20260826();
   }
 
