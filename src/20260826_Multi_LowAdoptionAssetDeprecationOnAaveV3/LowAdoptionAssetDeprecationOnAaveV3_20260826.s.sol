@@ -350,12 +350,9 @@ contract DeploySoneium is SoneiumScript {
  * command: make deploy-ledger contract=src/20260826_Multi_LowAdoptionAssetDeprecationOnAaveV3/LowAdoptionAssetDeprecationOnAaveV3_20260826.s.sol:CreateProposal chain=mainnet
  */
 contract CreateProposal is EthereumScript {
-  // TODO: hardcode the verified zkSync payload address after deployment.
-  address internal constant ZKSYNC_PAYLOAD = address(0);
+  address internal constant ZKSYNC_PAYLOAD = 0xCa5E4E52b7520d4dABa6D809E4B33b60212e422d;
 
   function run() external {
-    require(ZKSYNC_PAYLOAD != address(0), 'ZKSYNC_PAYLOAD_ADDRESS_NOT_SET');
-
     // create payloads
     PayloadsControllerUtils.Payload[] memory payloads = new PayloadsControllerUtils.Payload[](17);
 
