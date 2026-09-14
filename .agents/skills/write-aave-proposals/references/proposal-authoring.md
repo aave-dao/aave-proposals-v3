@@ -65,13 +65,6 @@ GovV3Helpers.createPayload(actions);
 - When rewriting a configuration, identify untouched fields at risk and test selected unchanged fields.
 - Inspect generated diffs and events; flag missing instrumentation instead of treating an absent diff as proof of no change.
 
-## Write Markdown
-
-- Use the current generator skeleton and References format; regenerate instead of handcrafting the layout.
-- Fetch the Discourse topic through its `.json` URL, save the post content, and mechanically diff it with the Markdown after normalizing only generator-imposed structure and explicit Disclaimer removal. Content differences are not acceptable.
-- Keep generated repository links on `main` before merge so the IPFS workflow can pin the final commit.
-- Diff against both the generator skeleton and saved forum content, accounting for every difference.
-
 ## Validate large cross-chain dispatches
 
 - Simulate the complete Ethereum `executeProposal` from cold state using real Governance, CrossChainController, and configured adapters rather than per-payload mocks.

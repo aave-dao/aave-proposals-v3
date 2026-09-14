@@ -5,8 +5,9 @@ description: Use automatically when creating, implementing, testing, documenting
 
 # Write Aave Proposals
 
-Read [proposal authoring](references/proposal-authoring.md) for every proposal, then read only the specialist that matches the proposal:
+Read [proposal authoring](references/proposal-authoring.md) for every proposal, then read only the references that match the work:
 
+- For writing or reconciling AIP Markdown, read [AIP authoring](references/aip-authoring.md).
 - For a new asset listing, read [asset listings](references/asset-listing.md).
 
-If no specialist matches, use only the shared proposal-authoring guidance.
+If no additional reference matches, use only the shared proposal-authoring guidance.
