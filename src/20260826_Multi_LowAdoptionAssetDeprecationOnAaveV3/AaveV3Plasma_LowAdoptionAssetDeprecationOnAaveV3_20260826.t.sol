@@ -93,58 +93,6 @@ contract AaveV3Plasma_LowAdoptionAssetDeprecationOnAaveV3_20260826_Test is Proto
     reserveConfigChangesTest(AaveV3Plasma.POOL, address(proposal), updatedAssets);
   }
 
-  /**
-   * @dev on v3.7 freezing a reserve also sets its LTV to 0 (the previous LTV is parked in
-   * pendingLtv), which the generic freeze modeling of the test base does not cover; the
-   * reserves below are the ones in scope with a non-zero LTV
-   */
-  function _expectedCollateralChanges()
-    internal
-    pure
-    override
-    returns (IAaveV3ConfigEngine.CollateralUpdate[] memory)
-  {
-    IAaveV3ConfigEngine.CollateralUpdate[]
-      memory collateralUpdate = new IAaveV3ConfigEngine.CollateralUpdate[](5);
-
-    collateralUpdate[0] = IAaveV3ConfigEngine.CollateralUpdate({
-      asset: AaveV3PlasmaAssets.WETH_UNDERLYING,
-      ltv: 0,
-      liqThreshold: EngineFlags.KEEP_CURRENT,
-      liqBonus: EngineFlags.KEEP_CURRENT,
-      liqProtocolFee: EngineFlags.KEEP_CURRENT
-    });
-    collateralUpdate[1] = IAaveV3ConfigEngine.CollateralUpdate({
-      asset: AaveV3PlasmaAssets.PT_USDe_15JAN2026_UNDERLYING,
-      ltv: 0,
-      liqThreshold: EngineFlags.KEEP_CURRENT,
-      liqBonus: EngineFlags.KEEP_CURRENT,
-      liqProtocolFee: EngineFlags.KEEP_CURRENT
-    });
-    collateralUpdate[2] = IAaveV3ConfigEngine.CollateralUpdate({
-      asset: AaveV3PlasmaAssets.PT_sUSDE_15JAN2026_UNDERLYING,
-      ltv: 0,
-      liqThreshold: EngineFlags.KEEP_CURRENT,
-      liqBonus: EngineFlags.KEEP_CURRENT,
-      liqProtocolFee: EngineFlags.KEEP_CURRENT
-    });
-    collateralUpdate[3] = IAaveV3ConfigEngine.CollateralUpdate({
-      asset: AaveV3PlasmaAssets.PT_sUSDE_9APR2026_UNDERLYING,
-      ltv: 0,
-      liqThreshold: EngineFlags.KEEP_CURRENT,
-      liqBonus: EngineFlags.KEEP_CURRENT,
-      liqProtocolFee: EngineFlags.KEEP_CURRENT
-    });
-    collateralUpdate[4] = IAaveV3ConfigEngine.CollateralUpdate({
-      asset: AaveV3PlasmaAssets.PT_USDe_9APR2026_UNDERLYING,
-      ltv: 0,
-      liqThreshold: EngineFlags.KEEP_CURRENT,
-      liqBonus: EngineFlags.KEEP_CURRENT,
-      liqProtocolFee: EngineFlags.KEEP_CURRENT
-    });
-    return collateralUpdate;
-  }
-
   function _expectedFreezeChanges()
     internal
     pure

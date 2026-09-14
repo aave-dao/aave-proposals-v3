@@ -22,17 +22,18 @@ contract AaveV3ZkSync_LowAdoptionAssetDeprecationOnAaveV3_20260826_Test is Proto
   }
 
   /**
-   * @dev executes the generic test suite including config snapshots; the e2e suite is
-   * skipped as every reserve on the instance is frozen, so no usable collateral exists
+   * @dev includes config snapshots and diffs. E2E is disabled because every reserve is
+   * frozen. Seatbelt is disabled because the zkSync helper reverts when enabled,
+   * citing missing EXTCODECOPY support.
    */
   function test_defaultProposalExecution() public {
-    defaultTest(
-      'AaveV3ZkSync_LowAdoptionAssetDeprecationOnAaveV3_20260826',
-      AaveV3ZkSync.POOL,
-      address(proposal),
-      false,
-      false
-    );
+    defaultTest({
+      reportName: 'AaveV3ZkSync_LowAdoptionAssetDeprecationOnAaveV3_20260826',
+      pool: AaveV3ZkSync.POOL,
+      payload: address(proposal),
+      runE2E: false,
+      runSeatbelt: false
+    });
   }
 
   /**

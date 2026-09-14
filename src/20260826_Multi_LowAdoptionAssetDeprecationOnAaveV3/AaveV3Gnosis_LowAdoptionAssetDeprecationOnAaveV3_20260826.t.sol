@@ -5,8 +5,6 @@ import {AaveV3Gnosis, AaveV3GnosisAssets} from 'aave-address-book/AaveV3Gnosis.s
 import {EngineFlags} from 'aave-v3-origin/contracts/extensions/v3-config-engine/EngineFlags.sol';
 import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config-engine/IAaveV3ConfigEngine.sol';
 
-import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
-
 import 'forge-std/Test.sol';
 import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {AaveV3Gnosis_LowAdoptionAssetDeprecationOnAaveV3_20260826} from './AaveV3Gnosis_LowAdoptionAssetDeprecationOnAaveV3_20260826.sol';
@@ -21,12 +19,6 @@ contract AaveV3Gnosis_LowAdoptionAssetDeprecationOnAaveV3_20260826_Test is Proto
   function setUp() public {
     vm.createSelectFork(vm.rpcUrl('gnosis'), 48248576);
     proposal = new AaveV3Gnosis_LowAdoptionAssetDeprecationOnAaveV3_20260826();
-
-    vm.prank(AaveV3GnosisAssets.EURe_A_TOKEN);
-    IERC20(AaveV3GnosisAssets.EURe_UNDERLYING).transfer(
-      0x845C8bc94610807fCbaB5dd2bc7aC9DAbaFf3c55,
-      2_000_000e18
-    );
   }
 
   /**
@@ -65,30 +57,6 @@ contract AaveV3Gnosis_LowAdoptionAssetDeprecationOnAaveV3_20260826_Test is Proto
     updatedAssets[0] = AaveV3GnosisAssets.WETH_UNDERLYING;
     updatedAssets[1] = AaveV3GnosisAssets.USDC_UNDERLYING;
     reserveConfigChangesTest(AaveV3Gnosis.POOL, address(proposal), updatedAssets);
-  }
-
-  /**
-   * @dev on v3.7 freezing a reserve also sets its LTV to 0 (the previous LTV is parked in
-   * pendingLtv), which the generic freeze modeling of the test base does not cover; the
-   * reserves below are the ones in scope with a non-zero LTV
-   */
-  function _expectedCollateralChanges()
-    internal
-    pure
-    override
-    returns (IAaveV3ConfigEngine.CollateralUpdate[] memory)
-  {
-    IAaveV3ConfigEngine.CollateralUpdate[]
-      memory collateralUpdate = new IAaveV3ConfigEngine.CollateralUpdate[](1);
-
-    collateralUpdate[0] = IAaveV3ConfigEngine.CollateralUpdate({
-      asset: AaveV3GnosisAssets.WETH_UNDERLYING,
-      ltv: 0,
-      liqThreshold: EngineFlags.KEEP_CURRENT,
-      liqBonus: EngineFlags.KEEP_CURRENT,
-      liqProtocolFee: EngineFlags.KEEP_CURRENT
-    });
-    return collateralUpdate;
   }
 
   function _expectedFreezeChanges()

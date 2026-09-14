@@ -2,8 +2,6 @@
 pragma solidity ^0.8.0;
 
 import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
-import {EngineFlags} from 'aave-v3-origin/contracts/extensions/v3-config-engine/EngineFlags.sol';
-import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config-engine/IAaveV3ConfigEngine.sol';
 
 import 'forge-std/Test.sol';
 import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/src/ProtocolV3TestBase.sol';
@@ -167,36 +165,5 @@ contract AaveV3Ethereum_LowAdoptionAssetDeprecationOnAaveV3Part2_20260826_Test i
     frozen[13] = true;
     assets[14] = AaveV3EthereumAssets.PT_srUSDe_25JUN2026_UNDERLYING;
     frozen[14] = true;
-  }
-
-  /**
-   * @dev on v3.7 freezing a reserve also sets its LTV to 0 (the previous LTV is parked in
-   * pendingLtv), which the generic freeze modeling of the test base does not cover; the two
-   * PTs below are the only ones in scope with a non-zero LTV (0.05%)
-   */
-  function _expectedCollateralChanges()
-    internal
-    pure
-    override
-    returns (IAaveV3ConfigEngine.CollateralUpdate[] memory)
-  {
-    IAaveV3ConfigEngine.CollateralUpdate[]
-      memory collateralUpdate = new IAaveV3ConfigEngine.CollateralUpdate[](2);
-
-    collateralUpdate[0] = IAaveV3ConfigEngine.CollateralUpdate({
-      asset: AaveV3EthereumAssets.PT_USDe_5FEB2026_UNDERLYING,
-      ltv: 0,
-      liqThreshold: EngineFlags.KEEP_CURRENT,
-      liqBonus: EngineFlags.KEEP_CURRENT,
-      liqProtocolFee: EngineFlags.KEEP_CURRENT
-    });
-    collateralUpdate[1] = IAaveV3ConfigEngine.CollateralUpdate({
-      asset: AaveV3EthereumAssets.PT_sUSDE_5FEB2026_UNDERLYING,
-      ltv: 0,
-      liqThreshold: EngineFlags.KEEP_CURRENT,
-      liqBonus: EngineFlags.KEEP_CURRENT,
-      liqProtocolFee: EngineFlags.KEEP_CURRENT
-    });
-    return collateralUpdate;
   }
 }

@@ -72,30 +72,6 @@ contract AaveV3Arbitrum_LowAdoptionAssetDeprecationOnAaveV3_20260826_Test is Pro
     reserveConfigChangesTest(AaveV3Arbitrum.POOL, address(proposal), updatedAssets);
   }
 
-  /**
-   * @dev on v3.7 freezing a reserve also sets its LTV to 0 (the previous LTV is parked in
-   * pendingLtv), which the generic freeze modeling of the test base does not cover; the
-   * reserves below are the ones in scope with a non-zero LTV
-   */
-  function _expectedCollateralChanges()
-    internal
-    pure
-    override
-    returns (IAaveV3ConfigEngine.CollateralUpdate[] memory)
-  {
-    IAaveV3ConfigEngine.CollateralUpdate[]
-      memory collateralUpdate = new IAaveV3ConfigEngine.CollateralUpdate[](1);
-
-    collateralUpdate[0] = IAaveV3ConfigEngine.CollateralUpdate({
-      asset: AaveV3ArbitrumAssets.rETH_UNDERLYING,
-      ltv: 0,
-      liqThreshold: EngineFlags.KEEP_CURRENT,
-      liqBonus: EngineFlags.KEEP_CURRENT,
-      liqProtocolFee: EngineFlags.KEEP_CURRENT
-    });
-    return collateralUpdate;
-  }
-
   function _expectedFreezeChanges()
     internal
     pure
