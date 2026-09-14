@@ -484,10 +484,8 @@ contract CreateProposal is EthereumScript {
     {
       IPayloadsControllerCore.ExecutionAction[]
         memory actionsZkSync = new IPayloadsControllerCore.ExecutionAction[](1);
-      actionsZkSync[0] = GovV3Helpers.buildActionZkSync(
-        vm,
-        'AaveV3ZkSync_LowAdoptionAssetDeprecationOnAaveV3_20260826'
-      );
+      // TODO: hardcode the verified zkSync payload address after deployment.
+      actionsZkSync[0] = GovV3Helpers.buildAction(address(0));
       payloads[14] = GovV3Helpers.buildZkSyncPayload(vm, actionsZkSync);
     }
 
