@@ -60,18 +60,10 @@ contract AaveV3Avalanche_OracleDeprecationForLongTailAssets_20260915 is AaveV3Pa
   }
   uint256 public constant FRAX_PRICE_USD = 100000000;
   address public immutable FRAX_PRICE_FEED =
-    FRAX_PRICE_USD == 0
-      ? address(0)
-      : address(
-        new DeprecationPriceAdapter(FRAX_PRICE_USD, address(0), 'FRAX / USD fixed USD target')
-      );
+    address(new DeprecationPriceAdapter(FRAX_PRICE_USD, address(0), 'FRAX / USD fixed USD target'));
   uint256 public constant MAI_PRICE_USD = 100000000;
   address public immutable MAI_PRICE_FEED =
-    MAI_PRICE_USD == 0
-      ? address(0)
-      : address(
-        new DeprecationPriceAdapter(MAI_PRICE_USD, address(0), 'MAI / USD fixed USD target')
-      );
+    address(new DeprecationPriceAdapter(MAI_PRICE_USD, address(0), 'MAI / USD fixed USD target'));
   function priceFeedsUpdates()
     public
     view

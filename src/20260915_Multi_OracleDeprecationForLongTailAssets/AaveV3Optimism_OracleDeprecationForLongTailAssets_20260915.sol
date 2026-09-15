@@ -70,25 +70,13 @@ contract AaveV3Optimism_OracleDeprecationForLongTailAssets_20260915 is AaveV3Pay
   }
   uint256 public constant LUSD_PRICE_USD = 100000000;
   address public immutable LUSD_PRICE_FEED =
-    LUSD_PRICE_USD == 0
-      ? address(0)
-      : address(
-        new DeprecationPriceAdapter(LUSD_PRICE_USD, address(0), 'LUSD / USD fixed USD target')
-      );
+    address(new DeprecationPriceAdapter(LUSD_PRICE_USD, address(0), 'LUSD / USD fixed USD target'));
   uint256 public constant MAI_PRICE_USD = 100000000;
   address public immutable MAI_PRICE_FEED =
-    MAI_PRICE_USD == 0
-      ? address(0)
-      : address(
-        new DeprecationPriceAdapter(MAI_PRICE_USD, address(0), 'MAI / USD fixed USD target')
-      );
+    address(new DeprecationPriceAdapter(MAI_PRICE_USD, address(0), 'MAI / USD fixed USD target'));
   uint256 public constant sUSD_PRICE_USD = 27630000;
   address public immutable sUSD_PRICE_FEED =
-    sUSD_PRICE_USD == 0
-      ? address(0)
-      : address(
-        new DeprecationPriceAdapter(sUSD_PRICE_USD, address(0), 'sUSD / USD fixed USD target')
-      );
+    address(new DeprecationPriceAdapter(sUSD_PRICE_USD, address(0), 'sUSD / USD fixed USD target'));
   function priceFeedsUpdates()
     public
     view

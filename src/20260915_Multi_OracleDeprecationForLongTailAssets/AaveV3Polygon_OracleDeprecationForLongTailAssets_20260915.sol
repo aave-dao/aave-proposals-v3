@@ -70,6 +70,7 @@ contract AaveV3Polygon_OracleDeprecationForLongTailAssets_20260915 is AaveV3Payl
   }
   // TODO: LLR must specify the Aave V3 Polygon BAL fixed USD price.
   uint256 public constant BAL_PRICE_USD = 0;
+  // Keep the draft deployable until this price is specified; _preExecute blocks execution.
   address public immutable BAL_PRICE_FEED =
     BAL_PRICE_USD == 0
       ? address(0)
@@ -78,6 +79,7 @@ contract AaveV3Polygon_OracleDeprecationForLongTailAssets_20260915 is AaveV3Payl
       );
   // TODO: LLR must specify the Aave V3 Polygon GHST fixed USD price.
   uint256 public constant GHST_PRICE_USD = 0;
+  // Keep the draft deployable until this price is specified; _preExecute blocks execution.
   address public immutable GHST_PRICE_FEED =
     GHST_PRICE_USD == 0
       ? address(0)
@@ -86,6 +88,7 @@ contract AaveV3Polygon_OracleDeprecationForLongTailAssets_20260915 is AaveV3Payl
       );
   // TODO: LLR must specify the Aave V3 Polygon miMATIC fixed USD price.
   uint256 public constant miMATIC_PRICE_USD = 0;
+  // Keep the draft deployable until this price is specified; _preExecute blocks execution.
   address public immutable miMATIC_PRICE_FEED =
     miMATIC_PRICE_USD == 0
       ? address(0)
@@ -93,6 +96,7 @@ contract AaveV3Polygon_OracleDeprecationForLongTailAssets_20260915 is AaveV3Payl
         new DeprecationPriceAdapter(miMATIC_PRICE_USD, address(0), 'miMATIC / USD fixed USD target')
       );
   function _preExecute() internal pure override {
+    // Circuit breaker: do not execute until LLR supplies the missing fixed prices.
     require(BAL_PRICE_USD > 0, 'UNSPECIFIED_AaveV3Polygon_BAL_PRICE');
     require(GHST_PRICE_USD > 0, 'UNSPECIFIED_AaveV3Polygon_GHST_PRICE');
     require(miMATIC_PRICE_USD > 0, 'UNSPECIFIED_AaveV3Polygon_miMATIC_PRICE');
@@ -103,9 +107,6 @@ contract AaveV3Polygon_OracleDeprecationForLongTailAssets_20260915 is AaveV3Payl
     override
     returns (IAaveV3ConfigEngine.PriceFeedUpdate[] memory updates)
   {
-    require(BAL_PRICE_USD > 0, 'UNSPECIFIED_AaveV3Polygon_BAL_PRICE');
-    require(GHST_PRICE_USD > 0, 'UNSPECIFIED_AaveV3Polygon_GHST_PRICE');
-    require(miMATIC_PRICE_USD > 0, 'UNSPECIFIED_AaveV3Polygon_miMATIC_PRICE');
     updates = new IAaveV3ConfigEngine.PriceFeedUpdate[](3);
     updates[0] = IAaveV3ConfigEngine.PriceFeedUpdate(
       AaveV3PolygonAssets.BAL_UNDERLYING,

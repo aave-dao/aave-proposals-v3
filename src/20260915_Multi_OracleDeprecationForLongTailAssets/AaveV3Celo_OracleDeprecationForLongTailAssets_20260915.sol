@@ -70,11 +70,7 @@ contract AaveV3Celo_OracleDeprecationForLongTailAssets_20260915 is AaveV3Payload
   }
   uint256 public constant USDm_PRICE_USD = 100000000;
   address public immutable USDm_PRICE_FEED =
-    USDm_PRICE_USD == 0
-      ? address(0)
-      : address(
-        new DeprecationPriceAdapter(USDm_PRICE_USD, address(0), 'USDm / USD fixed USD target')
-      );
+    address(new DeprecationPriceAdapter(USDm_PRICE_USD, address(0), 'USDm / USD fixed USD target'));
   function priceFeedsUpdates()
     public
     view

@@ -62,24 +62,20 @@ contract AaveV2Polygon_OracleDeprecationForLongTailAssets_20260915 is AaveV2Payl
   }
   uint256 public constant BAL_PRICE_USD = 14050000;
   address public immutable BAL_PRICE_FEED =
-    BAL_PRICE_USD == 0
-      ? address(0)
-      : address(
-        new DeprecationPriceAdapter(
-          BAL_PRICE_USD,
-          ChainlinkPolygon.ETH__USD,
-          'BAL / ETH fixed USD target'
-        )
-      );
+    address(
+      new DeprecationPriceAdapter(
+        BAL_PRICE_USD,
+        ChainlinkPolygon.ETH__USD,
+        'BAL / ETH fixed USD target'
+      )
+    );
   uint256 public constant GHST_PRICE_USD = 8670000;
   address public immutable GHST_PRICE_FEED =
-    GHST_PRICE_USD == 0
-      ? address(0)
-      : address(
-        new DeprecationPriceAdapter(
-          GHST_PRICE_USD,
-          ChainlinkPolygon.ETH__USD,
-          'GHST / ETH fixed USD target'
-        )
-      );
+    address(
+      new DeprecationPriceAdapter(
+        GHST_PRICE_USD,
+        ChainlinkPolygon.ETH__USD,
+        'GHST / ETH fixed USD target'
+      )
+    );
 }

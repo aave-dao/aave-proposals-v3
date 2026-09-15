@@ -11,7 +11,7 @@
 | V3 Polygon       | GHST    | Fixed USD price absent from the forum |
 | V3 Polygon       | miMATIC | Fixed USD price absent from the forum |
 
-Each missing value is a named `*_PRICE_USD = 0` constant. `_preExecute()` and `priceFeedsUpdates()` reject it with an asset-specific reason; the corresponding feed remains the zero address and cannot be installed. `test_specificationComplete_*` deliberately fails for every missing value. Fill the authoritative constants and redeploy the payloads before submission; filling the constants automatically creates their adapters.
+Each missing value is a named `*_PRICE_USD = 0` constant. `_preExecute()` rejects it with an asset-specific reason; the corresponding feed remains the zero address and cannot be installed. `test_specificationComplete_*` deliberately fails for every missing value. Fill the authoritative constants and redeploy the payloads before submission; filling the constants automatically creates their adapters.
 
 ## Implementation choices
 
