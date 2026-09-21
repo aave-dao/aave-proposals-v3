@@ -6,7 +6,7 @@ import {AaveV3PayloadCelo} from 'aave-helpers/src/v3-config-engine/AaveV3Payload
 import {EngineFlags} from 'aave-v3-origin/contracts/extensions/v3-config-engine/EngineFlags.sol';
 import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config-engine/IAaveV3ConfigEngine.sol';
 
-import {DeprecationPriceAdapter} from './DeprecationPriceAdapter.sol';
+import {deployPriceAdapter} from './DeprecationPriceAdapter.sol';
 
 /**
  * @title Oracle Deprecation for Long-tail Assets
@@ -69,8 +69,7 @@ contract AaveV3Celo_OracleDeprecationForLongTailAssets_20260915 is AaveV3Payload
     return rateStrategies;
   }
   uint256 public constant USDm_PRICE_USD = 100000000;
-  address public immutable USDm_PRICE_FEED =
-    address(new DeprecationPriceAdapter(USDm_PRICE_USD, address(0), 'USDm / USD fixed USD target'));
+  address public immutable USDm_PRICE_FEED = deployPriceAdapter(USDm_PRICE_USD, address(0), 'USDm');
   function priceFeedsUpdates()
     public
     view

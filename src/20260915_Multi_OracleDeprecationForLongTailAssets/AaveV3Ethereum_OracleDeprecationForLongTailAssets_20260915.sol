@@ -6,7 +6,7 @@ import {AaveV3PayloadEthereum} from 'aave-helpers/src/v3-config-engine/AaveV3Pay
 import {EngineFlags} from 'aave-v3-origin/contracts/extensions/v3-config-engine/EngineFlags.sol';
 import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config-engine/IAaveV3ConfigEngine.sol';
 
-import {DeprecationPriceAdapter} from './DeprecationPriceAdapter.sol';
+import {deployPriceAdapter} from './DeprecationPriceAdapter.sol';
 
 /**
  * @title Oracle Deprecation for Long-tail Assets
@@ -150,26 +150,19 @@ contract AaveV3Ethereum_OracleDeprecationForLongTailAssets_20260915 is AaveV3Pay
     return rateStrategies;
   }
   uint256 public constant BAL_PRICE_USD = 13370000;
-  address public immutable BAL_PRICE_FEED =
-    address(new DeprecationPriceAdapter(BAL_PRICE_USD, address(0), 'BAL / USD fixed USD target'));
+  address public immutable BAL_PRICE_FEED = deployPriceAdapter(BAL_PRICE_USD, address(0), 'BAL');
   uint256 public constant FRAX_PRICE_USD = 100000000;
-  address public immutable FRAX_PRICE_FEED =
-    address(new DeprecationPriceAdapter(FRAX_PRICE_USD, address(0), 'FRAX / USD fixed USD target'));
+  address public immutable FRAX_PRICE_FEED = deployPriceAdapter(FRAX_PRICE_USD, address(0), 'FRAX');
   uint256 public constant FXS_PRICE_USD = 35620000;
-  address public immutable FXS_PRICE_FEED =
-    address(new DeprecationPriceAdapter(FXS_PRICE_USD, address(0), 'FXS / USD fixed USD target'));
+  address public immutable FXS_PRICE_FEED = deployPriceAdapter(FXS_PRICE_USD, address(0), 'FXS');
   uint256 public constant KNC_PRICE_USD = 14000000;
-  address public immutable KNC_PRICE_FEED =
-    address(new DeprecationPriceAdapter(KNC_PRICE_USD, address(0), 'KNC / USD fixed USD target'));
+  address public immutable KNC_PRICE_FEED = deployPriceAdapter(KNC_PRICE_USD, address(0), 'KNC');
   uint256 public constant LUSD_PRICE_USD = 100000000;
-  address public immutable LUSD_PRICE_FEED =
-    address(new DeprecationPriceAdapter(LUSD_PRICE_USD, address(0), 'LUSD / USD fixed USD target'));
+  address public immutable LUSD_PRICE_FEED = deployPriceAdapter(LUSD_PRICE_USD, address(0), 'LUSD');
   uint256 public constant RPL_PRICE_USD = 173380000;
-  address public immutable RPL_PRICE_FEED =
-    address(new DeprecationPriceAdapter(RPL_PRICE_USD, address(0), 'RPL / USD fixed USD target'));
+  address public immutable RPL_PRICE_FEED = deployPriceAdapter(RPL_PRICE_USD, address(0), 'RPL');
   uint256 public constant STG_PRICE_USD = 27340000;
-  address public immutable STG_PRICE_FEED =
-    address(new DeprecationPriceAdapter(STG_PRICE_USD, address(0), 'STG / USD fixed USD target'));
+  address public immutable STG_PRICE_FEED = deployPriceAdapter(STG_PRICE_USD, address(0), 'STG');
   function priceFeedsUpdates()
     public
     view

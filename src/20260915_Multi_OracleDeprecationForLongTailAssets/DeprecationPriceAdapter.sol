@@ -27,3 +27,19 @@ contract DeprecationPriceAdapter {
     return int256((PRICE_USD * 1e18) / uint256(ethUsd));
   }
 }
+
+/// @dev Shared constructor helper for the proposal payloads.
+function deployPriceAdapter(
+  uint256 priceUsd,
+  address ethUsd,
+  string memory symbol
+) returns (address) {
+  return
+    address(
+      new DeprecationPriceAdapter(
+        priceUsd,
+        ethUsd,
+        string.concat(symbol, ethUsd == address(0) ? ' / USD' : ' / ETH', ' fixed USD target')
+      )
+    );
+}
