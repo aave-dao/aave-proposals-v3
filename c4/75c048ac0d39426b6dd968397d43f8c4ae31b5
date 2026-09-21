@@ -1,0 +1,62 @@
+src/20260915_Multi_OracleDeprecationForLongTailAssets/AaveV2Polygon_OracleDeprecationForLongTailAssets_20260915.t.sol
+  s_fcf886f510ff24::t_84f2055ed0b347 120,130
+src/20260915_Multi_OracleDeprecationForLongTailAssets/DRAFT.md
+  s_fcf886f510ff24::t_600333b6304ca6 25-26
+  s_fcf886f510ff24::t_288f7e7d3c5110 5,7,11-12,14,17,27-28,32,34,42-44,46,48,52-56,59-61,63,65-77
+src/20260915_Multi_OracleDeprecationForLongTailAssets/AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915.t.sol
+  s_fcf886f510ff24::t_84f2055ed0b347 475,486,497,518,540,583,594,604
+src/20260915_Multi_OracleDeprecationForLongTailAssets/AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915.sol
+  s_fcf886f510ff24::t_779553d26eb255 162,171,180,198,216,252,261,270
+src/20260915_Multi_OracleDeprecationForLongTailAssets/AaveV2Polygon_OracleDeprecationForLongTailAssets_20260915.sol
+  s_fcf886f510ff24::t_c53c3ea28ce366 63,72
+src/20260915_Multi_OracleDeprecationForLongTailAssets/AaveV3Arbitrum_OracleDeprecationForLongTailAssets_20260915.sol
+  s_fcf886f510ff24::t_d354a5499d9c27 46,52,102
+src/20260915_Multi_OracleDeprecationForLongTailAssets/AaveV3Arbitrum_OracleDeprecationForLongTailAssets_20260915.t.sol
+  s_fcf886f510ff24::t_fa8d3e107090e7 94,100,161,176,185
+src/20260915_Multi_OracleDeprecationForLongTailAssets/AaveV3Avalanche_OracleDeprecationForLongTailAssets_20260915.sol
+  s_fcf886f510ff24::t_40abe002a6905e 64
+src/20260915_Multi_OracleDeprecationForLongTailAssets/AaveV3Avalanche_OracleDeprecationForLongTailAssets_20260915.t.sol
+  s_fcf886f510ff24::t_1b84e402f5da4f 114
+src/20260915_Multi_OracleDeprecationForLongTailAssets/AaveV3Celo_OracleDeprecationForLongTailAssets_20260915.sol
+  s_fcf886f510ff24::t_c8367f78ff102e 45
+src/20260915_Multi_OracleDeprecationForLongTailAssets/AaveV3Celo_OracleDeprecationForLongTailAssets_20260915.t.sol
+  s_fcf886f510ff24::t_9216850cc3e448 90,128
+src/20260915_Multi_OracleDeprecationForLongTailAssets/AaveV3Ethereum_OracleDeprecationForLongTailAssets_20260915.sol
+  s_fcf886f510ff24::t_cffebd03a01159 60,66,72,152,154,158,161,167,170
+src/20260915_Multi_OracleDeprecationForLongTailAssets/AaveV3Ethereum_OracleDeprecationForLongTailAssets_20260915.t.sol
+  s_fcf886f510ff24::t_97444a70ce40fc 114,120,126,203,223,233,253,263,285,308,317
+src/20260915_Multi_OracleDeprecationForLongTailAssets/AaveV3Optimism_OracleDeprecationForLongTailAssets_20260915.sol
+  s_fcf886f510ff24::t_dec676bfe2cb3e 74,77
+src/20260915_Multi_OracleDeprecationForLongTailAssets/AaveV3Optimism_OracleDeprecationForLongTailAssets_20260915.t.sol
+  s_fcf886f510ff24::t_5774356dd484ff 126,136
+src/20260915_Multi_OracleDeprecationForLongTailAssets/AaveV3Polygon_OracleDeprecationForLongTailAssets_20260915.sol
+  s_fcf886f510ff24::t_1cc41f688544be 71,73-74,76-77,79-81
+src/20260915_Multi_OracleDeprecationForLongTailAssets/AaveV3Polygon_OracleDeprecationForLongTailAssets_20260915.t.sol
+  s_fcf886f510ff24::t_b505a3ae8ed8bf 115,125,135
+src/20260915_Multi_OracleDeprecationForLongTailAssets/AaveV3Scroll_OracleDeprecationForLongTailAssets_20260915.sol
+  s_fcf886f510ff24::t_84afe685ff9b32 40
+src/20260915_Multi_OracleDeprecationForLongTailAssets/AaveV3Scroll_OracleDeprecationForLongTailAssets_20260915.t.sol
+  s_fcf886f510ff24::t_f956fec400d5ce 70
+src/20260915_Multi_OracleDeprecationForLongTailAssets/OracleDeprecationForLongTailAssets.md
+  s_fcf886f510ff24::t_e83d0fff41d5cb 654,691,714,720-723,731-747,753-755,757-759,769-774,826-864
+src/20260915_Multi_OracleDeprecationForLongTailAssets/config.ts
+  s_fcf886f510ff24::t_5e31d8302e2a45 177,183,256,294,300,306
+src/20260915_Multi_OracleDeprecationForLongTailAssets/forum-source.txt
+  s_fcf886f510ff24::t_666f35a018ba33 651,688-692,700-703,711,717-720,730-744,750-752,754-756,766-771,823-861
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "c475c048ac0d39426b6dd968397d43f8c4ae31b5",
+  "prompts": {},
+  "sessions": {
+    "s_fcf886f510ff24": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a0a4ab-17d1-7d12-b10d-c9adf50c142b",
+        "model": "gpt-6-astra"
+      },
+      "human_author": "AlbertoCentonze <11707683+AlbertoCentonze@users.noreply.github.com>"
+    }
+  }
+}
