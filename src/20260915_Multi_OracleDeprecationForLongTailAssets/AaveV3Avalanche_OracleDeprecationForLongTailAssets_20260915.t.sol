@@ -111,7 +111,7 @@ contract AaveV3Avalanche_OracleDeprecationForLongTailAssets_20260915_Test is Pro
     );
     assertEq(
       AaveV3Avalanche.ORACLE.getAssetPrice(AaveV3AvalancheAssets.MAI_UNDERLYING),
-      100000000,
+      95300000,
       'MAI oracle output'
     );
   }

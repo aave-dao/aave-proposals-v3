@@ -67,7 +67,7 @@ contract AaveV3Scroll_OracleDeprecationForLongTailAssets_20260915_Test is Protoc
     );
     assertEq(
       AaveV3Scroll.ORACLE.getAssetPrice(AaveV3ScrollAssets.SCR_UNDERLYING),
-      4180000,
+      3350000,
       'SCR oracle output'
     );
   }

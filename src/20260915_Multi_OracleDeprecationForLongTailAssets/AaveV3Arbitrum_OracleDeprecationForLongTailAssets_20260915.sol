@@ -43,13 +43,13 @@ contract AaveV3Arbitrum_OracleDeprecationForLongTailAssets_20260915 is AaveV3Pay
       asset: AaveV3ArbitrumAssets.LUSD_UNDERLYING,
       enabledToBorrow: EngineFlags.KEEP_CURRENT,
       flashloanable: EngineFlags.KEEP_CURRENT,
-      reserveFactor: 99_00
+      reserveFactor: 100_00
     });
     borrowUpdates[1] = IAaveV3ConfigEngine.BorrowUpdate({
       asset: AaveV3ArbitrumAssets.FRAX_UNDERLYING,
       enabledToBorrow: EngineFlags.KEEP_CURRENT,
       flashloanable: EngineFlags.KEEP_CURRENT,
-      reserveFactor: 99_00
+      reserveFactor: 100_00
     });
 
     return borrowUpdates;
@@ -99,7 +99,7 @@ contract AaveV3Arbitrum_OracleDeprecationForLongTailAssets_20260915 is AaveV3Pay
   uint256 public constant LUSD_PRICE_USD = 100000000;
   address public immutable LUSD_PRICE_FEED =
     address(new DeprecationPriceAdapter(LUSD_PRICE_USD, address(0), 'LUSD / USD fixed USD target'));
-  uint256 public constant MAI_PRICE_USD = 100000000;
+  uint256 public constant MAI_PRICE_USD = 95300000;
   address public immutable MAI_PRICE_FEED =
     address(new DeprecationPriceAdapter(MAI_PRICE_USD, address(0), 'MAI / USD fixed USD target'));
   function priceFeedsUpdates()

@@ -123,7 +123,7 @@ contract AaveV3Optimism_OracleDeprecationForLongTailAssets_20260915_Test is Prot
     );
     assertEq(
       AaveV3Optimism.ORACLE.getAssetPrice(AaveV3OptimismAssets.MAI_UNDERLYING),
-      100000000,
+      95300000,
       'MAI oracle output'
     );
     assertEq(
@@ -133,7 +133,7 @@ contract AaveV3Optimism_OracleDeprecationForLongTailAssets_20260915_Test is Prot
     );
     assertEq(
       AaveV3Optimism.ORACLE.getAssetPrice(AaveV3OptimismAssets.sUSD_UNDERLYING),
-      27630000,
+      30290000,
       'sUSD oracle output'
     );
   }

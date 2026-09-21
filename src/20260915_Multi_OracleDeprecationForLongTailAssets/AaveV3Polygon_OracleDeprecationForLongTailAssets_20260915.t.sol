@@ -75,23 +75,6 @@ contract AaveV3Polygon_OracleDeprecationForLongTailAssets_20260915_Test is Proto
     assets[0] = AaveV3PolygonAssets.GHST_UNDERLYING;
     frozen[0] = true;
   }
-  function test_specificationComplete_BAL() public view {
-    assertGt(proposal.BAL_PRICE_USD(), 0, 'LLR has not specified Aave V3 Polygon BAL fixed price');
-  }
-  function test_specificationComplete_GHST() public view {
-    assertGt(
-      proposal.GHST_PRICE_USD(),
-      0,
-      'LLR has not specified Aave V3 Polygon GHST fixed price'
-    );
-  }
-  function test_specificationComplete_miMATIC() public view {
-    assertGt(
-      proposal.miMATIC_PRICE_USD(),
-      0,
-      'LLR has not specified Aave V3 Polygon miMATIC fixed price'
-    );
-  }
   function _assertRates(bool afterExecution) internal view {
     {
       IDefaultInterestRateStrategyV2.InterestRateData memory rate = IDefaultInterestRateStrategyV2(
@@ -129,7 +112,7 @@ contract AaveV3Polygon_OracleDeprecationForLongTailAssets_20260915_Test is Proto
     );
     assertEq(
       AaveV3Polygon.ORACLE.getAssetPrice(AaveV3PolygonAssets.BAL_UNDERLYING),
-      0,
+      13160000,
       'BAL oracle output'
     );
     assertEq(
@@ -139,7 +122,7 @@ contract AaveV3Polygon_OracleDeprecationForLongTailAssets_20260915_Test is Proto
     );
     assertEq(
       AaveV3Polygon.ORACLE.getAssetPrice(AaveV3PolygonAssets.GHST_UNDERLYING),
-      0,
+      8280000,
       'GHST oracle output'
     );
     assertEq(
@@ -149,7 +132,7 @@ contract AaveV3Polygon_OracleDeprecationForLongTailAssets_20260915_Test is Proto
     );
     assertEq(
       AaveV3Polygon.ORACLE.getAssetPrice(AaveV3PolygonAssets.miMATIC_UNDERLYING),
-      0,
+      95300000,
       'miMATIC oracle output'
     );
   }

@@ -117,7 +117,7 @@ contract AaveV2Polygon_OracleDeprecationForLongTailAssets_20260915_Test is Proto
     );
     assertEq(
       AaveV2Polygon.ORACLE.getAssetPrice(AaveV2PolygonAssets.BAL_UNDERLYING),
-      ((14050000 * 1e18) / uint256(IChainlinkAggregator(ChainlinkPolygon.ETH__USD).latestAnswer())),
+      ((12840000 * 1e18) / uint256(IChainlinkAggregator(ChainlinkPolygon.ETH__USD).latestAnswer())),
       'BAL oracle output'
     );
     assertEq(
@@ -127,7 +127,7 @@ contract AaveV2Polygon_OracleDeprecationForLongTailAssets_20260915_Test is Proto
     );
     assertEq(
       AaveV2Polygon.ORACLE.getAssetPrice(AaveV2PolygonAssets.GHST_UNDERLYING),
-      ((8670000 * 1e18) / uint256(IChainlinkAggregator(ChainlinkPolygon.ETH__USD).latestAnswer())),
+      ((7930000 * 1e18) / uint256(IChainlinkAggregator(ChainlinkPolygon.ETH__USD).latestAnswer())),
       'GHST oracle output'
     );
   }

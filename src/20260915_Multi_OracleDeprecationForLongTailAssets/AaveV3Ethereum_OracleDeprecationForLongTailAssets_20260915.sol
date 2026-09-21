@@ -57,19 +57,19 @@ contract AaveV3Ethereum_OracleDeprecationForLongTailAssets_20260915 is AaveV3Pay
       asset: AaveV3EthereumAssets.LUSD_UNDERLYING,
       enabledToBorrow: EngineFlags.KEEP_CURRENT,
       flashloanable: EngineFlags.KEEP_CURRENT,
-      reserveFactor: 99_00
+      reserveFactor: 100_00
     });
     borrowUpdates[1] = IAaveV3ConfigEngine.BorrowUpdate({
       asset: AaveV3EthereumAssets.FRAX_UNDERLYING,
       enabledToBorrow: EngineFlags.KEEP_CURRENT,
       flashloanable: EngineFlags.KEEP_CURRENT,
-      reserveFactor: 99_00
+      reserveFactor: 100_00
     });
     borrowUpdates[2] = IAaveV3ConfigEngine.BorrowUpdate({
       asset: AaveV3EthereumAssets.RPL_UNDERLYING,
       enabledToBorrow: EngineFlags.KEEP_CURRENT,
       flashloanable: EngineFlags.KEEP_CURRENT,
-      reserveFactor: 99_00
+      reserveFactor: 100_00
     });
 
     return borrowUpdates;
@@ -149,37 +149,27 @@ contract AaveV3Ethereum_OracleDeprecationForLongTailAssets_20260915 is AaveV3Pay
 
     return rateStrategies;
   }
-  // TODO: LLR must specify the Aave V3 Ethereum Core BAL fixed USD price.
-  uint256 public constant BAL_PRICE_USD = 0;
-  // Keep the draft deployable until this price is specified; _preExecute blocks execution.
+  uint256 public constant BAL_PRICE_USD = 13370000;
   address public immutable BAL_PRICE_FEED =
-    BAL_PRICE_USD == 0
-      ? address(0)
-      : address(
-        new DeprecationPriceAdapter(BAL_PRICE_USD, address(0), 'BAL / USD fixed USD target')
-      );
+    address(new DeprecationPriceAdapter(BAL_PRICE_USD, address(0), 'BAL / USD fixed USD target'));
   uint256 public constant FRAX_PRICE_USD = 100000000;
   address public immutable FRAX_PRICE_FEED =
     address(new DeprecationPriceAdapter(FRAX_PRICE_USD, address(0), 'FRAX / USD fixed USD target'));
-  uint256 public constant FXS_PRICE_USD = 54150000;
+  uint256 public constant FXS_PRICE_USD = 35620000;
   address public immutable FXS_PRICE_FEED =
     address(new DeprecationPriceAdapter(FXS_PRICE_USD, address(0), 'FXS / USD fixed USD target'));
-  uint256 public constant KNC_PRICE_USD = 14720000;
+  uint256 public constant KNC_PRICE_USD = 14000000;
   address public immutable KNC_PRICE_FEED =
     address(new DeprecationPriceAdapter(KNC_PRICE_USD, address(0), 'KNC / USD fixed USD target'));
   uint256 public constant LUSD_PRICE_USD = 100000000;
   address public immutable LUSD_PRICE_FEED =
     address(new DeprecationPriceAdapter(LUSD_PRICE_USD, address(0), 'LUSD / USD fixed USD target'));
-  uint256 public constant RPL_PRICE_USD = 195430000;
+  uint256 public constant RPL_PRICE_USD = 173380000;
   address public immutable RPL_PRICE_FEED =
     address(new DeprecationPriceAdapter(RPL_PRICE_USD, address(0), 'RPL / USD fixed USD target'));
-  uint256 public constant STG_PRICE_USD = 26660000;
+  uint256 public constant STG_PRICE_USD = 27340000;
   address public immutable STG_PRICE_FEED =
     address(new DeprecationPriceAdapter(STG_PRICE_USD, address(0), 'STG / USD fixed USD target'));
-  function _preExecute() internal pure override {
-    // Circuit breaker: do not execute until LLR supplies the missing fixed prices.
-    require(BAL_PRICE_USD > 0, 'UNSPECIFIED_AaveV3Ethereum_BAL_PRICE');
-  }
   function priceFeedsUpdates()
     public
     view

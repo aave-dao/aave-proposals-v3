@@ -68,39 +68,17 @@ contract AaveV3Polygon_OracleDeprecationForLongTailAssets_20260915 is AaveV3Payl
 
     return rateStrategies;
   }
-  // TODO: LLR must specify the Aave V3 Polygon BAL fixed USD price.
-  uint256 public constant BAL_PRICE_USD = 0;
-  // Keep the draft deployable until this price is specified; _preExecute blocks execution.
+  uint256 public constant BAL_PRICE_USD = 13160000;
   address public immutable BAL_PRICE_FEED =
-    BAL_PRICE_USD == 0
-      ? address(0)
-      : address(
-        new DeprecationPriceAdapter(BAL_PRICE_USD, address(0), 'BAL / USD fixed USD target')
-      );
-  // TODO: LLR must specify the Aave V3 Polygon GHST fixed USD price.
-  uint256 public constant GHST_PRICE_USD = 0;
-  // Keep the draft deployable until this price is specified; _preExecute blocks execution.
+    address(new DeprecationPriceAdapter(BAL_PRICE_USD, address(0), 'BAL / USD fixed USD target'));
+  uint256 public constant GHST_PRICE_USD = 8280000;
   address public immutable GHST_PRICE_FEED =
-    GHST_PRICE_USD == 0
-      ? address(0)
-      : address(
-        new DeprecationPriceAdapter(GHST_PRICE_USD, address(0), 'GHST / USD fixed USD target')
-      );
-  // TODO: LLR must specify the Aave V3 Polygon miMATIC fixed USD price.
-  uint256 public constant miMATIC_PRICE_USD = 0;
-  // Keep the draft deployable until this price is specified; _preExecute blocks execution.
+    address(new DeprecationPriceAdapter(GHST_PRICE_USD, address(0), 'GHST / USD fixed USD target'));
+  uint256 public constant miMATIC_PRICE_USD = 95300000;
   address public immutable miMATIC_PRICE_FEED =
-    miMATIC_PRICE_USD == 0
-      ? address(0)
-      : address(
-        new DeprecationPriceAdapter(miMATIC_PRICE_USD, address(0), 'miMATIC / USD fixed USD target')
-      );
-  function _preExecute() internal pure override {
-    // Circuit breaker: do not execute until LLR supplies the missing fixed prices.
-    require(BAL_PRICE_USD > 0, 'UNSPECIFIED_AaveV3Polygon_BAL_PRICE');
-    require(GHST_PRICE_USD > 0, 'UNSPECIFIED_AaveV3Polygon_GHST_PRICE');
-    require(miMATIC_PRICE_USD > 0, 'UNSPECIFIED_AaveV3Polygon_miMATIC_PRICE');
-  }
+    address(
+      new DeprecationPriceAdapter(miMATIC_PRICE_USD, address(0), 'miMATIC / USD fixed USD target')
+    );
   function priceFeedsUpdates()
     public
     view

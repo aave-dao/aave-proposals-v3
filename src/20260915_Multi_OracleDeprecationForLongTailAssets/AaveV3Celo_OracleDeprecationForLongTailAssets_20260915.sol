@@ -42,7 +42,7 @@ contract AaveV3Celo_OracleDeprecationForLongTailAssets_20260915 is AaveV3Payload
       asset: AaveV3CeloAssets.USDm_UNDERLYING,
       enabledToBorrow: EngineFlags.KEEP_CURRENT,
       flashloanable: EngineFlags.KEEP_CURRENT,
-      reserveFactor: 99_00
+      reserveFactor: 100_00
     });
 
     return borrowUpdates;

@@ -174,13 +174,13 @@ export const config: ConfigFile = {
         BORROWS_UPDATE: [
           {
             asset: 'LUSD',
-            reserveFactor: '99',
+            reserveFactor: '100',
             enabledToBorrow: 'KEEP_CURRENT',
             flashloanable: 'KEEP_CURRENT',
           },
           {
             asset: 'FRAX',
-            reserveFactor: '99',
+            reserveFactor: '100',
             enabledToBorrow: 'KEEP_CURRENT',
             flashloanable: 'KEEP_CURRENT',
           },
@@ -253,7 +253,7 @@ export const config: ConfigFile = {
         BORROWS_UPDATE: [
           {
             asset: 'USDm',
-            reserveFactor: '99',
+            reserveFactor: '100',
             enabledToBorrow: 'KEEP_CURRENT',
             flashloanable: 'KEEP_CURRENT',
           },
@@ -291,19 +291,19 @@ export const config: ConfigFile = {
         BORROWS_UPDATE: [
           {
             asset: 'LUSD',
-            reserveFactor: '99',
+            reserveFactor: '100',
             enabledToBorrow: 'KEEP_CURRENT',
             flashloanable: 'KEEP_CURRENT',
           },
           {
             asset: 'FRAX',
-            reserveFactor: '99',
+            reserveFactor: '100',
             enabledToBorrow: 'KEEP_CURRENT',
             flashloanable: 'KEEP_CURRENT',
           },
           {
             asset: 'RPL',
-            reserveFactor: '99',
+            reserveFactor: '100',
             enabledToBorrow: 'KEEP_CURRENT',
             flashloanable: 'KEEP_CURRENT',
           },

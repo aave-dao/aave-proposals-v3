@@ -91,13 +91,13 @@ contract AaveV3Arbitrum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
       asset: AaveV3ArbitrumAssets.LUSD_UNDERLYING,
       enabledToBorrow: EngineFlags.KEEP_CURRENT,
       flashloanable: EngineFlags.KEEP_CURRENT,
-      reserveFactor: 99_00
+      reserveFactor: 100_00
     });
     borrowUpdates[1] = IAaveV3ConfigEngine.BorrowUpdate({
       asset: AaveV3ArbitrumAssets.FRAX_UNDERLYING,
       enabledToBorrow: EngineFlags.KEEP_CURRENT,
       flashloanable: EngineFlags.KEEP_CURRENT,
-      reserveFactor: 99_00
+      reserveFactor: 100_00
     });
     return borrowUpdates;
   }
@@ -158,7 +158,7 @@ contract AaveV3Arbitrum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
     );
     assertEq(
       AaveV3Arbitrum.ORACLE.getAssetPrice(AaveV3ArbitrumAssets.MAI_UNDERLYING),
-      100000000,
+      95300000,
       'MAI oracle output'
     );
   }
@@ -173,7 +173,7 @@ contract AaveV3Arbitrum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
     assertEq((expected[0] >> 57) & 1, 0, 'FRAX pre freeze');
     expected[0] |= uint256(1) << 57;
     assertEq((expected[0] >> 64) & 65535, 2000, 'FRAX pre RF');
-    expected[0] = (expected[0] & ~(uint256(65535) << 64)) | (uint256(9900) << 64);
+    expected[0] = (expected[0] & ~(uint256(65535) << 64)) | (uint256(10000) << 64);
     expected[1] = AaveV3Arbitrum.POOL.getConfiguration(AaveV3ArbitrumAssets.LUSD_UNDERLYING).data;
     assertEq((expected[1] >> 116) & ((1 << 36) - 1), 1, 'LUSD pre cap');
     expected[1] = (expected[1] & ~(((uint256(1) << 36) - 1) << 116)) | (uint256(1) << 116);
@@ -182,7 +182,7 @@ contract AaveV3Arbitrum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
     assertEq((expected[1] >> 57) & 1, 0, 'LUSD pre freeze');
     expected[1] |= uint256(1) << 57;
     assertEq((expected[1] >> 64) & 65535, 5000, 'LUSD pre RF');
-    expected[1] = (expected[1] & ~(uint256(65535) << 64)) | (uint256(9900) << 64);
+    expected[1] = (expected[1] & ~(uint256(65535) << 64)) | (uint256(10000) << 64);
     expected[2] = AaveV3Arbitrum.POOL.getConfiguration(AaveV3ArbitrumAssets.MAI_UNDERLYING).data;
     assertEq((expected[2] >> 116) & ((1 << 36) - 1), 325000, 'MAI pre cap');
     expected[2] = (expected[2] & ~(((uint256(1) << 36) - 1) << 116)) | (uint256(1) << 116);

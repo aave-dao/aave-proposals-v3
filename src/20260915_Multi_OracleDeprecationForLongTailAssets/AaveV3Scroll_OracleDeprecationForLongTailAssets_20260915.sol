@@ -37,7 +37,7 @@ contract AaveV3Scroll_OracleDeprecationForLongTailAssets_20260915 is AaveV3Paylo
 
     return rateStrategies;
   }
-  uint256 public constant SCR_PRICE_USD = 4180000;
+  uint256 public constant SCR_PRICE_USD = 3350000;
   address public immutable SCR_PRICE_FEED =
     address(new DeprecationPriceAdapter(SCR_PRICE_USD, address(0), 'SCR / USD fixed USD target'));
   function priceFeedsUpdates()

@@ -648,7 +648,7 @@ The table below breaks each reserve's exposure into the same three categories us
 
 The collateral-backing amounts for GHST on Aave V2 Polygon and the other V2 dust reserves sit behind LTs of 0.05% or lower, so their effective borrowing power is negligible even where the wallets have the asset enabled as collateral. The largest genuine collateral use in the set is sUSD on Aave V3 Optimism, where $4,395 backs debt at the reserve's 70% LT, though with sUSD transfers frozen that collateral cannot be seized in practice.
 
-## Specification
+## Specification (updated September 16th, 2026)
 
 ### Freeze and Caps
 
@@ -685,11 +685,11 @@ SCR on Aave V3 Scroll is omitted from this table: it is already frozen with both
 
 | Asset | Instance | Current Price | Recommended Fixed Price |
 |-------|----------|---------------|-------------------------|
-| LUSD  | Aave V3 Ethereum Core | $1.00         | $1.00                   |
-| USDm  | Aave V3 Celo | $1.00         | $1.00                   |
-| LUSD  | Aave V3 Arbitrum | $1.01         | $1.00                   |
-| FRAX  | Aave V3 Arbitrum | $0.99         | $1.00                   |
-| FRAX  | Aave V3 Ethereum Core | $0.99         | $1.00                   |
+| LUSD | Aave V3 Ethereum Core | $1.01 | $1.00 |
+| USDm | Aave V3 Celo | $1.00 | $1.00 |
+| LUSD | Aave V3 Arbitrum | $1.01 | $1.00 |
+| FRAX | Aave V3 Arbitrum | $0.99 | $1.00 |
+| FRAX | Aave V3 Ethereum Core | $0.99 | $1.00 |
 
 #### Aave V2
 
@@ -697,10 +697,10 @@ The V2 hardcodes are encoded in ETH terms for the V2 oracle base: the fixed USD 
 
 | Asset | Instance | Current Price | Recommended Fixed Price |
 |-------|----------|---------------|-------------------------|
-| FRAX  | Aave V2 Ethereum | $0.99         | $1.00                   |
-| LUSD  | Aave V2 Ethereum | $1.01         | $1.00                   |
-| TUSD  | Aave V2 Ethereum | $1.00         | $1.00                   |
-| USDP  | Aave V2 Ethereum | $1.00         | $1.00                   |
+| FRAX | Aave V2 Ethereum | $0.99 | $1.00 |
+| LUSD | Aave V2 Ethereum | $1.01 | $1.00 |
+| TUSD | Aave V2 Ethereum | $1.00 | $1.00 |
+| USDP | Aave V2 Ethereum | $1.00 | $1.00 |
 
 ### Volatile Asset Oracle Adjustment
 
@@ -708,16 +708,16 @@ The V2 hardcodes are encoded in ETH terms for the V2 oracle base: the fixed USD 
 
 | Asset | Instance | Current Price | Recommended Fixed Price | Denomination |
 |-------|----------|---------------|-------------------------|--------------|
-| RPL   | Aave V3 Ethereum Core | $1.6104       | $1.9543                 | USD          |
+| RPL | Aave V3 Ethereum Core | $1.6172 | $1.7338 | USD |
 
 #### Aave V2
 
 | Asset | Instance | Current Price | Recommended Fixed Price | Denomination |
 |-------|----------|---------------|-------------------------|--------------|
-| AMPL  | Aave V2 Ethereum | $1.2792       | $1.1742                 | ETH          |
-| RAI   | Aave V2 Ethereum | $2.1692       | $2.7339                 | ETH          |
-| sUSD  | Aave V2 Ethereum | $0.2952       | $0.2952                 | ETH          |
-| YFI   | Aave V2 Ethereum | $1,998.9956   | $2,396.8163             | ETH          |
+| AMPL | Aave V2 Ethereum | $1.1955 | $1.2396 | ETH |
+| RAI | Aave V2 Ethereum | $2.9495 | $2.6587 | ETH |
+| sUSD | Aave V2 Ethereum | $0.3780 | $0.3780 | ETH |
+| YFI | Aave V2 Ethereum | $2,015.8260 | $2,286.6368 | ETH |
 
 ### Negligible Exposure Oracle Adjustment
 
@@ -727,29 +727,33 @@ Volatile assets are fixed at the trailing 6 month average of the existing feed. 
 
 | Asset | Instance | Current Price | Recommended Fixed Price |
 |-------|----------|---------------|-------------------------|
-| MAI   | Aave V3 Arbitrum | $0.9731       | $1.0000                 |
-| FRAX  | Aave V3 Avalanche | $0.9926       | $1.0000                 |
-| MAI   | Aave V3 Avalanche | $0.9730       | $1.0000                 |
-| FXS   | Aave V3 Ethereum Core | $0.2545       | $0.5415                 |
-| KNC   | Aave V3 Ethereum Core | $0.1064       | $0.1472                 |
-| STG   | Aave V3 Ethereum Core | $0.1256       | $0.2666                 |
-| FRAX  | Aave V3 Ethereum EtherFi | $0.9923       | $1.0000                 |
-| LUSD  | Aave V3 Optimism | $1.0048       | $1.0000                 |
-| MAI   | Aave V3 Optimism | $0.9733       | $1.0000                 |
-| sUSD  | Aave V3 Optimism | $0.2763       | $0.2763                 |
-| SCR   | Aave V3 Scroll | $0.0198       | $0.0418                 |
+| MAI | Aave V3 Arbitrum | $0.9530 | $0.9530 |
+| FRAX | Aave V3 Avalanche | $0.9911 | $1.0000 |
+| MAI | Aave V3 Avalanche | $0.9530 | $0.9530 |
+| BAL | Aave V3 Ethereum Core | $0.1092 | $0.1337 |
+| FXS | Aave V3 Ethereum Core | $0.2582 | $0.3562 |
+| KNC | Aave V3 Ethereum Core | $0.1325 | $0.1400 |
+| STG | Aave V3 Ethereum Core | $0.1478 | $0.2734 |
+| FRAX | Aave V3 Ethereum EtherFi | $0.9910 | $1.0000 |
+| LUSD | Aave V3 Optimism | $1.0096 | $1.0000 |
+| MAI | Aave V3 Optimism | $0.9530 | $0.9530 |
+| sUSD | Aave V3 Optimism | $0.3029 | $0.3029 |
+| BAL | Aave V3 Polygon | $0.1095 | $0.1316 |
+| GHST | Aave V3 Polygon | $0.0640 | $0.0828 |
+| miMATIC | Aave V3 Polygon | $0.9530 | $0.9530 |
+| SCR | Aave V3 Scroll | $0.0209 | $0.0335 |
 
 #### Aave V2
 
 | Asset | Instance | Current Price | Recommended Fixed Price | Denomination |
 |-------|----------|---------------|-------------------------|--------------|
-| BAL | Aave V2 Ethereum | $0.1153 | $0.1424 | ETH |
-| ENJ | Aave V2 Ethereum | $0.0254 | $0.0372 | ETH |
-| KNC | Aave V2 Ethereum | $0.1074 | $0.1356 | ETH |
+| BAL | Aave V2 Ethereum | $0.1100 | $0.1317 | ETH |
+| ENJ | Aave V2 Ethereum | $0.0247 | $0.0461 | ETH |
+| KNC | Aave V2 Ethereum | $0.1352 | $0.1401 | ETH |
 | REN | Aave V2 Ethereum | $0.0033 | $0.0033 | ETH |
-| ZRX | Aave V2 Ethereum | $0.0801 | $0.0966 | ETH |
-| BAL | Aave V2 Polygon | $0.1151 | $0.1405 | ETH |
-| GHST | Aave V2 Polygon | $0.0441 | $0.0867 | ETH |
+| ZRX | Aave V2 Ethereum | $0.1090 | $0.0981 | ETH |
+| BAL | Aave V2 Polygon | $0.1097 | $0.1284 | ETH |
+| GHST | Aave V2 Polygon | $0.0641 | $0.0793 | ETH |
 
 ### Reserve Factor Adjustment
 
@@ -759,12 +763,12 @@ Applied to the reserves where the current borrow rate is too low to encourage re
 
 | Asset | Instance | Current RF | New RF |
 |-------|----------|------------|--------|
-| LUSD  | Aave V3 Ethereum Core | 20%        | 99%    |
-| FRAX  | Aave V3 Ethereum Core | 20%        | 99%    |
-| RPL   | Aave V3 Ethereum Core | 20%        | 99%    |
-| LUSD  | Aave V3 Arbitrum | 50%        | 99%    |
-| FRAX  | Aave V3 Arbitrum | 20%        | 99%    |
-| USDm  | Aave V3 Celo | 15%        | 99%    |
+| LUSD | Aave V3 Ethereum Core | 20% | 100% |
+| FRAX | Aave V3 Ethereum Core | 20% | 100% |
+| RPL | Aave V3 Ethereum Core | 20% | 100% |
+| LUSD | Aave V3 Arbitrum | 50% | 100% |
+| FRAX | Aave V3 Arbitrum | 20% | 100% |
+| USDm | Aave V3 Celo | 15% | 100% |
 
 ### Interest Rate Model Adjustment
 
@@ -815,6 +819,45 @@ Reserves receiving no IRM change (FRAX, USDP, RAI and YFI on Aave V2 Ethereum) a
 ## Next Steps
 
 For Aave V2 the measures in this proposal are terminal. Given the minimal remaining exposure and the deprecated nature of Aave V2, the fixed oracles, 100% RFs and existing rate configurations are not intended to be revisited. For the V3 reserves this is the first step of the deprecation, deliberately calibrated to avoid forcing borrowers into immediate liquidation: the RF moves to 99%, the IRM base rate to 5% and slope2 to 100%. A later round only needs to adjust the IRM further where borrowers have not responded, or reprice a fixed oracle in the unlikely case that market conditions move materially against it.
+
+## Changelog
+
+**September 16th, 2026.** The specification was refreshed ahead of the AIP. The analysis sections above are left as published on July 29th, 2026 and describe the state at that date.
+
+- Freeze status, supply and borrow caps, reserve factors and interest rate model parameters listed as current values in the specification were re-verified on-chain on September 16th, 2026 and are unchanged.
+- The reserve factor target for the six V3 reserves in the Reserve Factor Adjustment table is 100% rather than 99%. The 99% figure was a precaution against a historical issue with 100% reserve factors that does not apply to the current Aave V3 pool implementation, on which GHO on Aave V3 Ethereum Core already runs with a 100% reserve factor.
+- The Current Price columns of the oracle tables are updated to the on-chain oracle values of September 16th, 2026, and the fixed prices are recomputed with the same rules over the trailing 6 month window ending on that date. For the Aave V2 feeds, which report in ETH, the trailing average is taken over the feed value expressed in USD at each round, converting at the contemporaneous ETH/USD price. ETH/USD stood at $2,397.95 on September 16th, 2026 against $1,910.56 at publication.
+- MAI on Aave V3 Arbitrum, Avalanche and Optimism and miMATIC on Aave V3 Polygon now trade 4.7% below their dollar peg, outside the 3% band, so they take the depegged treatment and are fixed at the current feed value instead of $1.00. sUSD on Aave V2 Ethereum and Aave V3 Optimism keep the same treatment at their current feed values.
+- BAL on Aave V3 Ethereum Core and BAL, GHST and miMATIC on Aave V3 Polygon were listed in the freeze and interest rate model tables but missing from the oracle tables. They are added to the Negligible Exposure Oracle Adjustment table with the same treatment as the other reserves in that group.
+- Since publication, AMPL debt on Aave V2 Ethereum has grown from $2.60M to $3.72M through interest accrual at the current 317% borrow rate, which the interest rate model flattening in this proposal stops.
+
+Fixed prices that differ from the published specification:
+
+| Asset | Instance | Published Fixed Price | Updated Fixed Price | Current Price |
+|-------|----------|-----------------------|---------------------|---------------|
+| RPL | Aave V3 Ethereum Core | $1.9543 | $1.7338 | $1.6172 |
+| AMPL | Aave V2 Ethereum | $1.1742 | $1.2396 | $1.1955 |
+| RAI | Aave V2 Ethereum | $2.7339 | $2.6587 | $2.9495 |
+| sUSD | Aave V2 Ethereum | $0.2952 | $0.3780 | $0.3780 |
+| YFI | Aave V2 Ethereum | $2,396.8163 | $2,286.6368 | $2,015.8260 |
+| MAI | Aave V3 Arbitrum | $1.0000 | $0.9530 | $0.9530 |
+| MAI | Aave V3 Avalanche | $1.0000 | $0.9530 | $0.9530 |
+| BAL | Aave V3 Ethereum Core | not listed | $0.1337 | $0.1092 |
+| FXS | Aave V3 Ethereum Core | $0.5415 | $0.3562 | $0.2582 |
+| KNC | Aave V3 Ethereum Core | $0.1472 | $0.1400 | $0.1325 |
+| STG | Aave V3 Ethereum Core | $0.2666 | $0.2734 | $0.1478 |
+| MAI | Aave V3 Optimism | $1.0000 | $0.9530 | $0.9530 |
+| sUSD | Aave V3 Optimism | $0.2763 | $0.3029 | $0.3029 |
+| BAL | Aave V3 Polygon | not listed | $0.1316 | $0.1095 |
+| GHST | Aave V3 Polygon | not listed | $0.0828 | $0.0640 |
+| miMATIC | Aave V3 Polygon | not listed | $0.9530 | $0.9530 |
+| SCR | Aave V3 Scroll | $0.0418 | $0.0335 | $0.0209 |
+| BAL | Aave V2 Ethereum | $0.1424 | $0.1317 | $0.1100 |
+| ENJ | Aave V2 Ethereum | $0.0372 | $0.0461 | $0.0247 |
+| KNC | Aave V2 Ethereum | $0.1356 | $0.1401 | $0.1352 |
+| ZRX | Aave V2 Ethereum | $0.0966 | $0.0981 | $0.1090 |
+| BAL | Aave V2 Polygon | $0.1405 | $0.1284 | $0.1097 |
+| GHST | Aave V2 Polygon | $0.0867 | $0.0793 | $0.0641 |
 
 ## Disclaimer
 

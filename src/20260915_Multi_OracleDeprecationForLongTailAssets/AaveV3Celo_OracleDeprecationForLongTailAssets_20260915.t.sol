@@ -87,7 +87,7 @@ contract AaveV3Celo_OracleDeprecationForLongTailAssets_20260915_Test is Protocol
       asset: AaveV3CeloAssets.USDm_UNDERLYING,
       enabledToBorrow: EngineFlags.KEEP_CURRENT,
       flashloanable: EngineFlags.KEEP_CURRENT,
-      reserveFactor: 99_00
+      reserveFactor: 100_00
     });
     return borrowUpdates;
   }
@@ -125,7 +125,7 @@ contract AaveV3Celo_OracleDeprecationForLongTailAssets_20260915_Test is Protocol
     assertEq((expected[0] >> 57) & 1, 0, 'USDm pre freeze');
     expected[0] |= uint256(1) << 57;
     assertEq((expected[0] >> 64) & 65535, 1500, 'USDm pre RF');
-    expected[0] = (expected[0] & ~(uint256(65535) << 64)) | (uint256(9900) << 64);
+    expected[0] = (expected[0] & ~(uint256(65535) << 64)) | (uint256(10000) << 64);
     GovV3Helpers.executePayload(vm, address(proposal));
     _assertRates(true);
     _assertOracles();

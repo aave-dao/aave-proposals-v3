@@ -159,7 +159,7 @@ contract AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915 is AaveV2Pay
 
     return rateStrategies;
   }
-  uint256 public constant AMPL_PRICE_USD = 117420000;
+  uint256 public constant AMPL_PRICE_USD = 123960000;
   address public immutable AMPL_PRICE_FEED =
     address(
       new DeprecationPriceAdapter(
@@ -168,7 +168,7 @@ contract AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915 is AaveV2Pay
         'AMPL / ETH fixed USD target'
       )
     );
-  uint256 public constant BAL_PRICE_USD = 14240000;
+  uint256 public constant BAL_PRICE_USD = 13170000;
   address public immutable BAL_PRICE_FEED =
     address(
       new DeprecationPriceAdapter(
@@ -177,7 +177,7 @@ contract AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915 is AaveV2Pay
         'BAL / ETH fixed USD target'
       )
     );
-  uint256 public constant ENJ_PRICE_USD = 3720000;
+  uint256 public constant ENJ_PRICE_USD = 4610000;
   address public immutable ENJ_PRICE_FEED =
     address(
       new DeprecationPriceAdapter(
@@ -195,7 +195,7 @@ contract AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915 is AaveV2Pay
         'FRAX / ETH fixed USD target'
       )
     );
-  uint256 public constant KNC_PRICE_USD = 13560000;
+  uint256 public constant KNC_PRICE_USD = 14010000;
   address public immutable KNC_PRICE_FEED =
     address(
       new DeprecationPriceAdapter(
@@ -213,7 +213,7 @@ contract AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915 is AaveV2Pay
         'LUSD / ETH fixed USD target'
       )
     );
-  uint256 public constant RAI_PRICE_USD = 273390000;
+  uint256 public constant RAI_PRICE_USD = 265870000;
   address public immutable RAI_PRICE_FEED =
     address(
       new DeprecationPriceAdapter(
@@ -249,7 +249,7 @@ contract AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915 is AaveV2Pay
         'USDP / ETH fixed USD target'
       )
     );
-  uint256 public constant YFI_PRICE_USD = 239681630000;
+  uint256 public constant YFI_PRICE_USD = 228663680000;
   address public immutable YFI_PRICE_FEED =
     address(
       new DeprecationPriceAdapter(
@@ -258,7 +258,7 @@ contract AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915 is AaveV2Pay
         'YFI / ETH fixed USD target'
       )
     );
-  uint256 public constant ZRX_PRICE_USD = 9660000;
+  uint256 public constant ZRX_PRICE_USD = 9810000;
   address public immutable ZRX_PRICE_FEED =
     address(
       new DeprecationPriceAdapter(
@@ -267,7 +267,7 @@ contract AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915 is AaveV2Pay
         'ZRX / ETH fixed USD target'
       )
     );
-  uint256 public constant sUSD_PRICE_USD = 29520000;
+  uint256 public constant sUSD_PRICE_USD = 37800000;
   address public immutable sUSD_PRICE_FEED =
     address(
       new DeprecationPriceAdapter(

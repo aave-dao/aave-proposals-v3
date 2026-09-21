@@ -111,28 +111,21 @@ contract AaveV3Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
       asset: AaveV3EthereumAssets.LUSD_UNDERLYING,
       enabledToBorrow: EngineFlags.KEEP_CURRENT,
       flashloanable: EngineFlags.KEEP_CURRENT,
-      reserveFactor: 99_00
+      reserveFactor: 100_00
     });
     borrowUpdates[1] = IAaveV3ConfigEngine.BorrowUpdate({
       asset: AaveV3EthereumAssets.FRAX_UNDERLYING,
       enabledToBorrow: EngineFlags.KEEP_CURRENT,
       flashloanable: EngineFlags.KEEP_CURRENT,
-      reserveFactor: 99_00
+      reserveFactor: 100_00
     });
     borrowUpdates[2] = IAaveV3ConfigEngine.BorrowUpdate({
       asset: AaveV3EthereumAssets.RPL_UNDERLYING,
       enabledToBorrow: EngineFlags.KEEP_CURRENT,
       flashloanable: EngineFlags.KEEP_CURRENT,
-      reserveFactor: 99_00
+      reserveFactor: 100_00
     });
     return borrowUpdates;
-  }
-  function test_specificationComplete_BAL() public view {
-    assertGt(
-      proposal.BAL_PRICE_USD(),
-      0,
-      'LLR has not specified Aave V3 Ethereum Core BAL fixed price'
-    );
   }
   function _assertRates(bool afterExecution) internal view {
     {
@@ -207,7 +200,7 @@ contract AaveV3Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
     );
     assertEq(
       AaveV3Ethereum.ORACLE.getAssetPrice(AaveV3EthereumAssets.BAL_UNDERLYING),
-      0,
+      13370000,
       'BAL oracle output'
     );
     assertEq(
@@ -227,7 +220,7 @@ contract AaveV3Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
     );
     assertEq(
       AaveV3Ethereum.ORACLE.getAssetPrice(AaveV3EthereumAssets.FXS_UNDERLYING),
-      54150000,
+      35620000,
       'FXS oracle output'
     );
     assertEq(
@@ -237,7 +230,7 @@ contract AaveV3Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
     );
     assertEq(
       AaveV3Ethereum.ORACLE.getAssetPrice(AaveV3EthereumAssets.KNC_UNDERLYING),
-      14720000,
+      14000000,
       'KNC oracle output'
     );
     assertEq(
@@ -257,7 +250,7 @@ contract AaveV3Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
     );
     assertEq(
       AaveV3Ethereum.ORACLE.getAssetPrice(AaveV3EthereumAssets.RPL_UNDERLYING),
-      195430000,
+      173380000,
       'RPL oracle output'
     );
     assertEq(
@@ -267,7 +260,7 @@ contract AaveV3Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
     );
     assertEq(
       AaveV3Ethereum.ORACLE.getAssetPrice(AaveV3EthereumAssets.STG_UNDERLYING),
-      26660000,
+      27340000,
       'STG oracle output'
     );
   }
@@ -289,7 +282,7 @@ contract AaveV3Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
     assertEq((expected[1] >> 57) & 1, 0, 'FRAX pre freeze');
     expected[1] |= uint256(1) << 57;
     assertEq((expected[1] >> 64) & 65535, 2000, 'FRAX pre RF');
-    expected[1] = (expected[1] & ~(uint256(65535) << 64)) | (uint256(9900) << 64);
+    expected[1] = (expected[1] & ~(uint256(65535) << 64)) | (uint256(10000) << 64);
     expected[2] = AaveV3Ethereum.POOL.getConfiguration(AaveV3EthereumAssets.FXS_UNDERLYING).data;
     assertEq((expected[2] >> 116) & ((1 << 36) - 1), 1200000, 'FXS pre cap');
     expected[2] = (expected[2] & ~(((uint256(1) << 36) - 1) << 116)) | (uint256(1) << 116);
@@ -312,7 +305,7 @@ contract AaveV3Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
     assertEq((expected[4] >> 57) & 1, 0, 'LUSD pre freeze');
     expected[4] |= uint256(1) << 57;
     assertEq((expected[4] >> 64) & 65535, 2000, 'LUSD pre RF');
-    expected[4] = (expected[4] & ~(uint256(65535) << 64)) | (uint256(9900) << 64);
+    expected[4] = (expected[4] & ~(uint256(65535) << 64)) | (uint256(10000) << 64);
     expected[5] = AaveV3Ethereum.POOL.getConfiguration(AaveV3EthereumAssets.RPL_UNDERLYING).data;
     assertEq((expected[5] >> 116) & ((1 << 36) - 1), 550000, 'RPL pre cap');
     expected[5] = (expected[5] & ~(((uint256(1) << 36) - 1) << 116)) | (uint256(1) << 116);
@@ -321,7 +314,7 @@ contract AaveV3Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
     assertEq((expected[5] >> 57) & 1, 0, 'RPL pre freeze');
     expected[5] |= uint256(1) << 57;
     assertEq((expected[5] >> 64) & 65535, 2000, 'RPL pre RF');
-    expected[5] = (expected[5] & ~(uint256(65535) << 64)) | (uint256(9900) << 64);
+    expected[5] = (expected[5] & ~(uint256(65535) << 64)) | (uint256(10000) << 64);
     expected[6] = AaveV3Ethereum.POOL.getConfiguration(AaveV3EthereumAssets.STG_UNDERLYING).data;
     assertEq((expected[6] >> 116) & ((1 << 36) - 1), 10000000, 'STG pre cap');
     expected[6] = (expected[6] & ~(((uint256(1) << 36) - 1) << 116)) | (uint256(1) << 116);
