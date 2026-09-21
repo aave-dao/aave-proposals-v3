@@ -1,12 +1,12 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import {AaveV3ScrollAssets} from 'aave-address-book/AaveV3Scroll.sol';
+import {AaveV3Scroll, AaveV3ScrollAssets} from 'aave-address-book/AaveV3Scroll.sol';
 import {AaveV3PayloadScroll} from 'aave-helpers/src/v3-config-engine/AaveV3PayloadScroll.sol';
 import {EngineFlags} from 'aave-v3-origin/contracts/extensions/v3-config-engine/EngineFlags.sol';
 import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config-engine/IAaveV3ConfigEngine.sol';
 
-import {deployPriceAdapter} from './DeprecationPriceAdapter.sol';
+import {deployPriceAdapter} from './OracleFeedHelpers.sol';
 
 /**
  * @title Oracle Deprecation for Long-tail Assets
@@ -38,7 +38,8 @@ contract AaveV3Scroll_OracleDeprecationForLongTailAssets_20260915 is AaveV3Paylo
     return rateStrategies;
   }
   uint256 public constant SCR_PRICE_USD = 3350000;
-  address public immutable SCR_PRICE_FEED = deployPriceAdapter(SCR_PRICE_USD, address(0), 'SCR');
+  address public immutable SCR_PRICE_FEED =
+    deployPriceAdapter(SCR_PRICE_USD, address(AaveV3Scroll.ACL_MANAGER), address(0), 'SCR');
   function priceFeedsUpdates()
     public
     view

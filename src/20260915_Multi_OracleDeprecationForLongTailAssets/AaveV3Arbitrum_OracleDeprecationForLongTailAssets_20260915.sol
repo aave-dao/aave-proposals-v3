@@ -6,7 +6,7 @@ import {AaveV3PayloadArbitrum} from 'aave-helpers/src/v3-config-engine/AaveV3Pay
 import {EngineFlags} from 'aave-v3-origin/contracts/extensions/v3-config-engine/EngineFlags.sol';
 import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config-engine/IAaveV3ConfigEngine.sol';
 
-import {deployPriceAdapter} from './DeprecationPriceAdapter.sol';
+import {deployPriceAdapter} from './OracleFeedHelpers.sol';
 
 /**
  * @title Oracle Deprecation for Long-tail Assets
@@ -94,11 +94,14 @@ contract AaveV3Arbitrum_OracleDeprecationForLongTailAssets_20260915 is AaveV3Pay
     return rateStrategies;
   }
   uint256 public constant FRAX_PRICE_USD = 100000000;
-  address public immutable FRAX_PRICE_FEED = deployPriceAdapter(FRAX_PRICE_USD, address(0), 'FRAX');
+  address public immutable FRAX_PRICE_FEED =
+    deployPriceAdapter(FRAX_PRICE_USD, address(AaveV3Arbitrum.ACL_MANAGER), address(0), 'FRAX');
   uint256 public constant LUSD_PRICE_USD = 100000000;
-  address public immutable LUSD_PRICE_FEED = deployPriceAdapter(LUSD_PRICE_USD, address(0), 'LUSD');
+  address public immutable LUSD_PRICE_FEED =
+    deployPriceAdapter(LUSD_PRICE_USD, address(AaveV3Arbitrum.ACL_MANAGER), address(0), 'LUSD');
   uint256 public constant MAI_PRICE_USD = 95300000;
-  address public immutable MAI_PRICE_FEED = deployPriceAdapter(MAI_PRICE_USD, address(0), 'MAI');
+  address public immutable MAI_PRICE_FEED =
+    deployPriceAdapter(MAI_PRICE_USD, address(AaveV3Arbitrum.ACL_MANAGER), address(0), 'MAI');
   function priceFeedsUpdates()
     public
     view

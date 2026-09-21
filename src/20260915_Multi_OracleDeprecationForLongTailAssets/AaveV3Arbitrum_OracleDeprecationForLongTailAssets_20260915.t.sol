@@ -9,8 +9,6 @@ import 'forge-std/Test.sol';
 import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {AaveV3Arbitrum_OracleDeprecationForLongTailAssets_20260915} from './AaveV3Arbitrum_OracleDeprecationForLongTailAssets_20260915.sol';
 
-import {DeprecationPriceAdapter} from './DeprecationPriceAdapter.sol';
-
 import {IDefaultInterestRateStrategyV2} from 'aave-v3-origin/contracts/interfaces/IDefaultInterestRateStrategyV2.sol';
 
 import {GovV3Helpers} from 'aave-helpers/src/GovV3Helpers.sol';

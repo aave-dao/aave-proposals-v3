@@ -7,7 +7,6 @@ import 'forge-std/Test.sol';
 import {ProtocolV2TestBase, ReserveConfig} from 'aave-helpers/src/ProtocolV2TestBase.sol';
 import {AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915} from './AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915.sol';
 
-import {DeprecationPriceAdapter} from './DeprecationPriceAdapter.sol';
 import {ChainlinkEthereum} from 'aave-address-book/ChainlinkEthereum.sol';
 import {IChainlinkAggregator} from 'aave-helpers/src/interfaces/IChainlinkAggregator.sol';
 
