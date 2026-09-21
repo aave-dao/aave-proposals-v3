@@ -6,8 +6,6 @@ import {AaveV3PayloadEthereum} from 'aave-helpers/src/v3-config-engine/AaveV3Pay
 import {EngineFlags} from 'aave-v3-origin/contracts/extensions/v3-config-engine/EngineFlags.sol';
 import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config-engine/IAaveV3ConfigEngine.sol';
 
-import {deployPriceAdapter} from './OracleFeedHelpers.sol';
-
 /**
  * @title Oracle Deprecation for Long-tail Assets
  * @author LlamaRisk
@@ -149,30 +147,16 @@ contract AaveV3Ethereum_OracleDeprecationForLongTailAssets_20260915 is AaveV3Pay
 
     return rateStrategies;
   }
-  uint256 public constant BAL_PRICE_USD = 13370000;
-  address public immutable BAL_PRICE_FEED =
-    deployPriceAdapter(BAL_PRICE_USD, address(AaveV3Ethereum.ACL_MANAGER), address(0), 'BAL');
-  uint256 public constant FRAX_PRICE_USD = 100000000;
-  address public immutable FRAX_PRICE_FEED =
-    deployPriceAdapter(FRAX_PRICE_USD, address(AaveV3Ethereum.ACL_MANAGER), address(0), 'FRAX');
-  uint256 public constant FXS_PRICE_USD = 35620000;
-  address public immutable FXS_PRICE_FEED =
-    deployPriceAdapter(FXS_PRICE_USD, address(AaveV3Ethereum.ACL_MANAGER), address(0), 'FXS');
-  uint256 public constant KNC_PRICE_USD = 14000000;
-  address public immutable KNC_PRICE_FEED =
-    deployPriceAdapter(KNC_PRICE_USD, address(AaveV3Ethereum.ACL_MANAGER), address(0), 'KNC');
-  uint256 public constant LUSD_PRICE_USD = 100000000;
-  address public immutable LUSD_PRICE_FEED =
-    deployPriceAdapter(LUSD_PRICE_USD, address(AaveV3Ethereum.ACL_MANAGER), address(0), 'LUSD');
-  uint256 public constant RPL_PRICE_USD = 173380000;
-  address public immutable RPL_PRICE_FEED =
-    deployPriceAdapter(RPL_PRICE_USD, address(AaveV3Ethereum.ACL_MANAGER), address(0), 'RPL');
-  uint256 public constant STG_PRICE_USD = 27340000;
-  address public immutable STG_PRICE_FEED =
-    deployPriceAdapter(STG_PRICE_USD, address(AaveV3Ethereum.ACL_MANAGER), address(0), 'STG');
+  address public constant BAL_PRICE_FEED = 0xfFa88E79E6be7AB1048F44112f56C8F1Cfc33F66;
+  address public constant FRAX_PRICE_FEED = 0xE7A4a6fCB1E7d5052e64E70aEd37b0fD2548bAE7;
+  address public constant FXS_PRICE_FEED = 0x4124b23341FcEa31CF098FE9d801D59BB9F4B3F7;
+  address public constant KNC_PRICE_FEED = 0xfbBa1Fd5dFce36860e46738dc9b83bb0A99551e2;
+  address public constant LUSD_PRICE_FEED = 0xc6E7e1ff334313CeBDe98b7a8A487119CFb6e654;
+  address public constant RPL_PRICE_FEED = 0x3455c45D29f022Ba9367c2c2Ad95432A5d1E9Ed0;
+  address public constant STG_PRICE_FEED = 0x30efE459B6A08a8E92b41e0563bdB15a29DA377e;
   function priceFeedsUpdates()
     public
-    view
+    pure
     override
     returns (IAaveV3ConfigEngine.PriceFeedUpdate[] memory updates)
   {

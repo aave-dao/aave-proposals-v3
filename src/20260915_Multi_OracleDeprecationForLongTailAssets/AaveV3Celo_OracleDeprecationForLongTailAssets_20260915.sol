@@ -6,8 +6,6 @@ import {AaveV3PayloadCelo} from 'aave-helpers/src/v3-config-engine/AaveV3Payload
 import {EngineFlags} from 'aave-v3-origin/contracts/extensions/v3-config-engine/EngineFlags.sol';
 import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config-engine/IAaveV3ConfigEngine.sol';
 
-import {deployPriceAdapter} from './OracleFeedHelpers.sol';
-
 /**
  * @title Oracle Deprecation for Long-tail Assets
  * @author LlamaRisk
@@ -68,12 +66,10 @@ contract AaveV3Celo_OracleDeprecationForLongTailAssets_20260915 is AaveV3Payload
 
     return rateStrategies;
   }
-  uint256 public constant USDm_PRICE_USD = 100000000;
-  address public immutable USDm_PRICE_FEED =
-    deployPriceAdapter(USDm_PRICE_USD, address(AaveV3Celo.ACL_MANAGER), address(0), 'USDm');
+  address public constant USDm_PRICE_FEED = 0x1E1Ef58d6286739a666C9E0eA98af77e65c5f1C1;
   function priceFeedsUpdates()
     public
-    view
+    pure
     override
     returns (IAaveV3ConfigEngine.PriceFeedUpdate[] memory updates)
   {

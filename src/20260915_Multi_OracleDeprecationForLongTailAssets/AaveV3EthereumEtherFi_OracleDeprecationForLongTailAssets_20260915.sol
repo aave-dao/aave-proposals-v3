@@ -6,8 +6,6 @@ import {AaveV3PayloadEthereumEtherFi} from 'aave-helpers/src/v3-config-engine/Aa
 import {EngineFlags} from 'aave-v3-origin/contracts/extensions/v3-config-engine/EngineFlags.sol';
 import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config-engine/IAaveV3ConfigEngine.sol';
 
-import {deployPriceAdapter} from './OracleFeedHelpers.sol';
-
 /**
  * @title Oracle Deprecation for Long-tail Assets
  * @author LlamaRisk
@@ -53,17 +51,10 @@ contract AaveV3EthereumEtherFi_OracleDeprecationForLongTailAssets_20260915 is
 
     return rateStrategies;
   }
-  uint256 public constant FRAX_PRICE_USD = 100000000;
-  address public immutable FRAX_PRICE_FEED =
-    deployPriceAdapter(
-      FRAX_PRICE_USD,
-      address(AaveV3EthereumEtherFi.ACL_MANAGER),
-      address(0),
-      'FRAX'
-    );
+  address public constant FRAX_PRICE_FEED = 0x4501b17229a27eE82F364172928e30526D2215E8;
   function priceFeedsUpdates()
     public
-    view
+    pure
     override
     returns (IAaveV3ConfigEngine.PriceFeedUpdate[] memory updates)
   {

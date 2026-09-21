@@ -6,8 +6,6 @@ import {AaveV3PayloadPolygon} from 'aave-helpers/src/v3-config-engine/AaveV3Payl
 import {EngineFlags} from 'aave-v3-origin/contracts/extensions/v3-config-engine/EngineFlags.sol';
 import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config-engine/IAaveV3ConfigEngine.sol';
 
-import {deployPriceAdapter} from './OracleFeedHelpers.sol';
-
 /**
  * @title Oracle Deprecation for Long-tail Assets
  * @author LlamaRisk
@@ -68,23 +66,12 @@ contract AaveV3Polygon_OracleDeprecationForLongTailAssets_20260915 is AaveV3Payl
 
     return rateStrategies;
   }
-  uint256 public constant BAL_PRICE_USD = 13160000;
-  address public immutable BAL_PRICE_FEED =
-    deployPriceAdapter(BAL_PRICE_USD, address(AaveV3Polygon.ACL_MANAGER), address(0), 'BAL');
-  uint256 public constant GHST_PRICE_USD = 8280000;
-  address public immutable GHST_PRICE_FEED =
-    deployPriceAdapter(GHST_PRICE_USD, address(AaveV3Polygon.ACL_MANAGER), address(0), 'GHST');
-  uint256 public constant miMATIC_PRICE_USD = 95300000;
-  address public immutable miMATIC_PRICE_FEED =
-    deployPriceAdapter(
-      miMATIC_PRICE_USD,
-      address(AaveV3Polygon.ACL_MANAGER),
-      address(0),
-      'miMATIC'
-    );
+  address public constant BAL_PRICE_FEED = 0x55Eb6D9432a9842844b60Cd9D38497c0be7E623D;
+  address public constant GHST_PRICE_FEED = 0x61c417D189A9983B3eD9054692c16451E5391058;
+  address public constant miMATIC_PRICE_FEED = 0xe756E3e985Bb5666ce7CE07d47EA97E1Fd33B834;
   function priceFeedsUpdates()
     public
-    view
+    pure
     override
     returns (IAaveV3ConfigEngine.PriceFeedUpdate[] memory updates)
   {

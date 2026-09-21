@@ -7,11 +7,6 @@ import {EngineFlags} from 'aave-v3-origin/contracts/extensions/v3-config-engine/
 import {IAaveV2ConfigEngine} from 'aave-helpers/src/v2-config-engine/IAaveV2ConfigEngine.sol';
 import {IV2RateStrategyFactory} from 'aave-helpers/src/v2-config-engine/IV2RateStrategyFactory.sol';
 
-import {AaveV3Ethereum} from 'aave-address-book/AaveV3Ethereum.sol';
-
-import {deployPriceAdapter} from './OracleFeedHelpers.sol';
-import {ChainlinkEthereum} from 'aave-address-book/ChainlinkEthereum.sol';
-
 /**
  * @title Oracle Deprecation for Long-tail Assets
  * @author LlamaRisk
@@ -161,108 +156,17 @@ contract AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915 is AaveV2Pay
 
     return rateStrategies;
   }
-  uint256 public constant AMPL_PRICE_USD = 123960000;
-  address public immutable AMPL_PRICE_FEED =
-    deployPriceAdapter(
-      AMPL_PRICE_USD,
-      address(AaveV3Ethereum.ACL_MANAGER),
-      ChainlinkEthereum.ETH__USD,
-      'AMPL'
-    );
-  uint256 public constant BAL_PRICE_USD = 13170000;
-  address public immutable BAL_PRICE_FEED =
-    deployPriceAdapter(
-      BAL_PRICE_USD,
-      address(AaveV3Ethereum.ACL_MANAGER),
-      ChainlinkEthereum.ETH__USD,
-      'BAL'
-    );
-  uint256 public constant ENJ_PRICE_USD = 4610000;
-  address public immutable ENJ_PRICE_FEED =
-    deployPriceAdapter(
-      ENJ_PRICE_USD,
-      address(AaveV3Ethereum.ACL_MANAGER),
-      ChainlinkEthereum.ETH__USD,
-      'ENJ'
-    );
-  uint256 public constant FRAX_PRICE_USD = 100000000;
-  address public immutable FRAX_PRICE_FEED =
-    deployPriceAdapter(
-      FRAX_PRICE_USD,
-      address(AaveV3Ethereum.ACL_MANAGER),
-      ChainlinkEthereum.ETH__USD,
-      'FRAX'
-    );
-  uint256 public constant KNC_PRICE_USD = 14010000;
-  address public immutable KNC_PRICE_FEED =
-    deployPriceAdapter(
-      KNC_PRICE_USD,
-      address(AaveV3Ethereum.ACL_MANAGER),
-      ChainlinkEthereum.ETH__USD,
-      'KNC'
-    );
-  uint256 public constant LUSD_PRICE_USD = 100000000;
-  address public immutable LUSD_PRICE_FEED =
-    deployPriceAdapter(
-      LUSD_PRICE_USD,
-      address(AaveV3Ethereum.ACL_MANAGER),
-      ChainlinkEthereum.ETH__USD,
-      'LUSD'
-    );
-  uint256 public constant RAI_PRICE_USD = 265870000;
-  address public immutable RAI_PRICE_FEED =
-    deployPriceAdapter(
-      RAI_PRICE_USD,
-      address(AaveV3Ethereum.ACL_MANAGER),
-      ChainlinkEthereum.ETH__USD,
-      'RAI'
-    );
-  uint256 public constant REN_PRICE_USD = 330000;
-  address public immutable REN_PRICE_FEED =
-    deployPriceAdapter(
-      REN_PRICE_USD,
-      address(AaveV3Ethereum.ACL_MANAGER),
-      ChainlinkEthereum.ETH__USD,
-      'REN'
-    );
-  uint256 public constant TUSD_PRICE_USD = 100000000;
-  address public immutable TUSD_PRICE_FEED =
-    deployPriceAdapter(
-      TUSD_PRICE_USD,
-      address(AaveV3Ethereum.ACL_MANAGER),
-      ChainlinkEthereum.ETH__USD,
-      'TUSD'
-    );
-  uint256 public constant USDP_PRICE_USD = 100000000;
-  address public immutable USDP_PRICE_FEED =
-    deployPriceAdapter(
-      USDP_PRICE_USD,
-      address(AaveV3Ethereum.ACL_MANAGER),
-      ChainlinkEthereum.ETH__USD,
-      'USDP'
-    );
-  uint256 public constant YFI_PRICE_USD = 228663680000;
-  address public immutable YFI_PRICE_FEED =
-    deployPriceAdapter(
-      YFI_PRICE_USD,
-      address(AaveV3Ethereum.ACL_MANAGER),
-      ChainlinkEthereum.ETH__USD,
-      'YFI'
-    );
-  uint256 public constant ZRX_PRICE_USD = 9810000;
-  address public immutable ZRX_PRICE_FEED =
-    deployPriceAdapter(
-      ZRX_PRICE_USD,
-      address(AaveV3Ethereum.ACL_MANAGER),
-      ChainlinkEthereum.ETH__USD,
-      'ZRX'
-    );
-  uint256 public constant sUSD_PRICE_USD = 37800000;
-  address public immutable sUSD_PRICE_FEED =
-    deployPriceAdapter(
-      sUSD_PRICE_USD,
-      address(AaveV3Ethereum.ACL_MANAGER),
-      ChainlinkEthereum.ETH__USD,
-      'sUSD'
-    );
+  address public constant AMPL_PRICE_FEED = 0x37C6089246750CEad02C0140999cefA063283D4c;
+  address public constant BAL_PRICE_FEED = 0x6215b7ee67f85B7DFe569F077a0D20dEd13a49c3;
+  address public constant ENJ_PRICE_FEED = 0x67E0E09914089d7F50D0dCb55A85C9606A29008e;
+  address public constant FRAX_PRICE_FEED = 0x4d8725f7e86475fa91BDFD17828dB6800A67f4d1;
+  address public constant KNC_PRICE_FEED = 0x2178B420243Fd8934a500f915112dbF07C4356FA;
+  address public constant LUSD_PRICE_FEED = 0x11F6f9b366C27819C3552009bcA9EEAd8d5D8FD7;
+  address public constant RAI_PRICE_FEED = 0xf8B9bD396f990780c5Fae80D97a83c31C799069D;
+  address public constant REN_PRICE_FEED = 0x054B1406B06A5FA6eCcfa04f2EFB9F621d454089;
+  address public constant TUSD_PRICE_FEED = 0xA7572674a3f2fD8045A6A3F6ffd4Bab40FC693be;
+  address public constant USDP_PRICE_FEED = 0xa8FAE5a2f034c2EBDb06BFCc6CEE5CC61644A242;
+  address public constant YFI_PRICE_FEED = 0x949E6a1C7c20409b20faa3eA20cEf8ceC16B41F5;
+  address public constant ZRX_PRICE_FEED = 0xb7C850e4AfCeCbf4532A44AE610156E346CFa209;
+  address public constant sUSD_PRICE_FEED = 0xf05d9e94AF7eB79cE6123aF8034b53a0751222d2;
 }

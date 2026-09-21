@@ -7,11 +7,6 @@ import {EngineFlags} from 'aave-v3-origin/contracts/extensions/v3-config-engine/
 import {IAaveV2ConfigEngine} from 'aave-helpers/src/v2-config-engine/IAaveV2ConfigEngine.sol';
 import {IV2RateStrategyFactory} from 'aave-helpers/src/v2-config-engine/IV2RateStrategyFactory.sol';
 
-import {AaveV3Polygon} from 'aave-address-book/AaveV3Polygon.sol';
-
-import {deployPriceAdapter} from './OracleFeedHelpers.sol';
-import {ChainlinkPolygon} from 'aave-address-book/ChainlinkPolygon.sol';
-
 /**
  * @title Oracle Deprecation for Long-tail Assets
  * @author LlamaRisk
@@ -62,20 +57,6 @@ contract AaveV2Polygon_OracleDeprecationForLongTailAssets_20260915 is AaveV2Payl
 
     return rateStrategies;
   }
-  uint256 public constant BAL_PRICE_USD = 12840000;
-  address public immutable BAL_PRICE_FEED =
-    deployPriceAdapter(
-      BAL_PRICE_USD,
-      address(AaveV3Polygon.ACL_MANAGER),
-      ChainlinkPolygon.ETH__USD,
-      'BAL'
-    );
-  uint256 public constant GHST_PRICE_USD = 7930000;
-  address public immutable GHST_PRICE_FEED =
-    deployPriceAdapter(
-      GHST_PRICE_USD,
-      address(AaveV3Polygon.ACL_MANAGER),
-      ChainlinkPolygon.ETH__USD,
-      'GHST'
-    );
+  address public constant BAL_PRICE_FEED = 0x540FBdE71C7c004Fa9eB4Dd712b5F3fa4C0deD72;
+  address public constant GHST_PRICE_FEED = 0x97F28Df431E02ff4f3A23d9b0b55F4A9F0d3E08b;
 }
