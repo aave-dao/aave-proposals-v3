@@ -88,8 +88,11 @@ jobs:
           echo "$HOME/.foundry-base" >> "$GITHUB_PATH"
           "$HOME/.foundry-base/forge" --version
 
+      # `--network base` turns isolate mode on, which bills every top level call as an op-stack
+      # transaction, so a pranked sender holding no ETH cannot pay the L1 fee and its call reverts
+      # with no data; `--no-isolate` keeps the plain call semantics the tests expect.
       - name: Run Base tests
-        run: forge test --network base --hardfork base:Beryl --match-path 'src/**/AaveV4Base*.t.sol' -vv
+        run: forge test --network base --hardfork base:Beryl --no-isolate --match-path 'src/**/AaveV4Base*.t.sol' -vv
         env:
           FOUNDRY_PROFILE: test
           FOUNDRY_DISABLE_NIGHTLY_WARNING: "1"
