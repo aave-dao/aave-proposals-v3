@@ -63,6 +63,8 @@ GovV3Helpers.createPayload(actions);
 
 - For each material change, propose an exact pre-state assertion, one execution, and a post-state assertion.
 - When rewriting a configuration, identify untouched fields at risk and test selected unchanged fields.
+- Before writing custom assertions, inspect the inherited `ProtocolV2TestBase` or `ProtocolV3TestBase` and helpers in the pinned dependencies. When semantics match, reuse `_validateAssetSourceOnOracle` for oracle wiring, `_validateInterestRateStrategy` for rates, and typed `ReserveConfiguration` getters and setters instead of manual bit masks. Verify helper signatures and units at the pinned revisions; do not upgrade dependencies solely to obtain a helper.
+- Derive expected values independently from the approved specification or verified pre-state. Helper reuse must preserve pre/post checks and unchanged-field coverage; keep local assertions for behavior the abstractions do not cover, such as fixed-price amounts and V2 ETH conversion.
 - Inspect generated diffs and events; flag missing instrumentation instead of treating an absent diff as proof of no change.
 
 ## Validate large cross-chain dispatches
