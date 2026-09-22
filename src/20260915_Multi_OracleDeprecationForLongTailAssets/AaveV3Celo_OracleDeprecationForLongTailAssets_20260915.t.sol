@@ -5,6 +5,9 @@ import {AaveV3Celo, AaveV3CeloAssets} from 'aave-address-book/AaveV3Celo.sol';
 import {EngineFlags} from 'aave-v3-origin/contracts/extensions/v3-config-engine/EngineFlags.sol';
 import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config-engine/IAaveV3ConfigEngine.sol';
 
+import {DataTypes} from 'aave-v3-origin/contracts/protocol/libraries/types/DataTypes.sol';
+import {ReserveConfiguration} from 'aave-v3-origin/contracts/protocol/libraries/configuration/ReserveConfiguration.sol';
+
 import 'forge-std/Test.sol';
 import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {AaveV3Celo_OracleDeprecationForLongTailAssets_20260915} from './AaveV3Celo_OracleDeprecationForLongTailAssets_20260915.sol';
@@ -18,6 +21,8 @@ import {GovV3Helpers} from 'aave-helpers/src/GovV3Helpers.sol';
  * command: FOUNDRY_PROFILE=test forge test --match-path=src/20260915_Multi_OracleDeprecationForLongTailAssets/AaveV3Celo_OracleDeprecationForLongTailAssets_20260915.t.sol -vv
  */
 contract AaveV3Celo_OracleDeprecationForLongTailAssets_20260915_Test is ProtocolV3TestBase {
+  using ReserveConfiguration for DataTypes.ReserveConfigurationMap;
+
   AaveV3Celo_OracleDeprecationForLongTailAssets_20260915 internal proposal;
 
   function setUp() public {
@@ -131,22 +136,23 @@ contract AaveV3Celo_OracleDeprecationForLongTailAssets_20260915_Test is Protocol
   }
   function test_payloadStateTransition() public {
     _assertRates(false);
-    uint256[] memory expected = new uint256[](1);
-    expected[0] = AaveV3Celo.POOL.getConfiguration(AaveV3CeloAssets.USDm_UNDERLYING).data;
-    assertEq((expected[0] >> 116) & ((1 << 36) - 1), 1_100_000, 'USDm pre cap');
-    expected[0] = (expected[0] & ~(((uint256(1) << 36) - 1) << 116)) | (uint256(1) << 116);
-    assertEq((expected[0] >> 80) & ((1 << 36) - 1), 990_000, 'USDm pre cap');
-    expected[0] = (expected[0] & ~(((uint256(1) << 36) - 1) << 80)) | (uint256(1) << 80);
-    assertEq((expected[0] >> 57) & 1, 0, 'USDm pre freeze');
-    expected[0] |= uint256(1) << 57;
-    assertEq((expected[0] >> 64) & 65_535, 1_500, 'USDm pre RF');
-    expected[0] = (expected[0] & ~(uint256(65_535) << 64)) | (uint256(10_000) << 64);
+    DataTypes.ReserveConfigurationMap memory expectedUSDm = AaveV3Celo.POOL.getConfiguration(
+      AaveV3CeloAssets.USDm_UNDERLYING
+    );
+    assertEq(expectedUSDm.getSupplyCap(), 1_100_000, 'USDm pre supply cap');
+    expectedUSDm.setSupplyCap(1);
+    assertEq(expectedUSDm.getBorrowCap(), 990_000, 'USDm pre borrow cap');
+    expectedUSDm.setBorrowCap(1);
+    assertEq(expectedUSDm.getFrozen(), false, 'USDm pre freeze');
+    expectedUSDm.setFrozen(true);
+    assertEq(expectedUSDm.getReserveFactor(), 1_500, 'USDm pre RF');
+    expectedUSDm.setReserveFactor(10_000); // 100% (2 decimals)
     GovV3Helpers.executePayload(vm, address(proposal));
     _assertRates(true);
     _assertOracles();
     assertEq(
       AaveV3Celo.POOL.getConfiguration(AaveV3CeloAssets.USDm_UNDERLYING).data,
-      expected[0],
+      expectedUSDm.data,
       'USDm configuration and untouched fields'
     );
   }

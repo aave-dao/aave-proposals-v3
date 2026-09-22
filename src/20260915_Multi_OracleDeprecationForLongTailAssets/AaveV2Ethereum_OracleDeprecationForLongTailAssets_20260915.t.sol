@@ -69,7 +69,7 @@ contract AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
         'FRAX s2'
       );
       IDefaultInterestRateStrategy previous = IDefaultInterestRateStrategy(
-        address(bytes20(hex'6855e5544cd803bf24c9612b3f12c009116b0ee1'))
+        0x6855E5544Cd803BF24c9612b3F12C009116B0ee1
       );
       assertEq(
         rate.stableRateSlope1(),
@@ -112,7 +112,7 @@ contract AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
         'LUSD s2'
       );
       IDefaultInterestRateStrategy previous = IDefaultInterestRateStrategy(
-        address(bytes20(hex'7b3217a81d1ade9b0666fea260228102e8105e99'))
+        0x7B3217A81D1ADe9B0666feA260228102E8105e99
       );
       assertEq(
         rate.stableRateSlope1(),
@@ -153,7 +153,7 @@ contract AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
         'TUSD s2'
       );
       IDefaultInterestRateStrategy previous = IDefaultInterestRateStrategy(
-        address(bytes20(hex'2821b41f1fa07c0270a3f0de91b24b9766f312fd'))
+        0x2821B41F1fA07c0270A3f0de91B24B9766F312FD
       );
       assertEq(
         rate.stableRateSlope1(),
@@ -194,7 +194,7 @@ contract AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
         'USDP s2'
       );
       IDefaultInterestRateStrategy previous = IDefaultInterestRateStrategy(
-        address(bytes20(hex'6855e5544cd803bf24c9612b3f12c009116b0ee1'))
+        0x6855E5544Cd803BF24c9612b3F12C009116B0ee1
       );
       assertEq(
         rate.stableRateSlope1(),
@@ -235,7 +235,7 @@ contract AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
         'AMPL s2'
       );
       IDefaultInterestRateStrategy previous = IDefaultInterestRateStrategy(
-        address(bytes20(hex'6855e5544cd803bf24c9612b3f12c009116b0ee1'))
+        0x6855E5544Cd803BF24c9612b3F12C009116B0ee1
       );
       assertEq(
         rate.stableRateSlope1(),
@@ -276,7 +276,7 @@ contract AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
         'RAI s2'
       );
       IDefaultInterestRateStrategy previous = IDefaultInterestRateStrategy(
-        address(bytes20(hex'7b3217a81d1ade9b0666fea260228102e8105e99'))
+        0x7B3217A81D1ADe9B0666feA260228102E8105e99
       );
       assertEq(rate.stableRateSlope1(), previous.stableRateSlope1(), 'RAI stable slope1 unchanged');
       assertEq(rate.stableRateSlope2(), previous.stableRateSlope2(), 'RAI stable slope2 unchanged');
@@ -309,7 +309,7 @@ contract AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
         'sUSD s2'
       );
       IDefaultInterestRateStrategy previous = IDefaultInterestRateStrategy(
-        address(bytes20(hex'6855e5544cd803bf24c9612b3f12c009116b0ee1'))
+        0x6855E5544Cd803BF24c9612b3F12C009116B0ee1
       );
       assertEq(
         rate.stableRateSlope1(),
@@ -350,7 +350,7 @@ contract AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
         'YFI s2'
       );
       IDefaultInterestRateStrategy previous = IDefaultInterestRateStrategy(
-        address(bytes20(hex'2c206fa2127ab7f1ce3dc987daf683ed5b9cf069'))
+        0x2c206fa2127aB7f1CE3dc987daf683Ed5B9CF069
       );
       assertEq(rate.stableRateSlope1(), previous.stableRateSlope1(), 'YFI stable slope1 unchanged');
       assertEq(rate.stableRateSlope2(), previous.stableRateSlope2(), 'YFI stable slope2 unchanged');
@@ -385,7 +385,7 @@ contract AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
         'BAL s2'
       );
       IDefaultInterestRateStrategy previous = IDefaultInterestRateStrategy(
-        address(bytes20(hex'503efa3651e247f9078c6f66bb93e2a81566ee00'))
+        0x503eFA3651E247F9078C6F66bb93E2a81566EE00
       );
       assertEq(rate.stableRateSlope1(), previous.stableRateSlope1(), 'BAL stable slope1 unchanged');
       assertEq(rate.stableRateSlope2(), previous.stableRateSlope2(), 'BAL stable slope2 unchanged');
@@ -420,7 +420,7 @@ contract AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
         'ENJ s2'
       );
       IDefaultInterestRateStrategy previous = IDefaultInterestRateStrategy(
-        address(bytes20(hex'2c206fa2127ab7f1ce3dc987daf683ed5b9cf069'))
+        0x2c206fa2127aB7f1CE3dc987daf683Ed5B9CF069
       );
       assertEq(rate.stableRateSlope1(), previous.stableRateSlope1(), 'ENJ stable slope1 unchanged');
       assertEq(rate.stableRateSlope2(), previous.stableRateSlope2(), 'ENJ stable slope2 unchanged');
@@ -455,7 +455,7 @@ contract AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
         'KNC s2'
       );
       IDefaultInterestRateStrategy previous = IDefaultInterestRateStrategy(
-        address(bytes20(hex'2c206fa2127ab7f1ce3dc987daf683ed5b9cf069'))
+        0x2c206fa2127aB7f1CE3dc987daf683Ed5B9CF069
       );
       assertEq(rate.stableRateSlope1(), previous.stableRateSlope1(), 'KNC stable slope1 unchanged');
       assertEq(rate.stableRateSlope2(), previous.stableRateSlope2(), 'KNC stable slope2 unchanged');
@@ -490,7 +490,7 @@ contract AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
         'REN s2'
       );
       IDefaultInterestRateStrategy previous = IDefaultInterestRateStrategy(
-        address(bytes20(hex'2c206fa2127ab7f1ce3dc987daf683ed5b9cf069'))
+        0x2c206fa2127aB7f1CE3dc987daf683Ed5B9CF069
       );
       assertEq(rate.stableRateSlope1(), previous.stableRateSlope1(), 'REN stable slope1 unchanged');
       assertEq(rate.stableRateSlope2(), previous.stableRateSlope2(), 'REN stable slope2 unchanged');
@@ -523,7 +523,7 @@ contract AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
         'ZRX s2'
       );
       IDefaultInterestRateStrategy previous = IDefaultInterestRateStrategy(
-        address(bytes20(hex'91773a61759398d33c252f25a38da77a51e0c9ff'))
+        0x91773a61759398d33C252F25A38DA77a51e0c9Ff
       );
       assertEq(rate.stableRateSlope1(), previous.stableRateSlope1(), 'ZRX stable slope1 unchanged');
       assertEq(rate.stableRateSlope2(), previous.stableRateSlope2(), 'ZRX stable slope2 unchanged');

@@ -71,7 +71,7 @@ contract AaveV2Polygon_OracleDeprecationForLongTailAssets_20260915_Test is Proto
         'BAL s2'
       );
       IDefaultInterestRateStrategy previous = IDefaultInterestRateStrategy(
-        address(bytes20(hex'a78f3bc07035422f6f69c3f2b72fccd0487348fa'))
+        0xA78F3bc07035422f6f69c3f2B72fcCd0487348FA
       );
       assertEq(rate.stableRateSlope1(), previous.stableRateSlope1(), 'BAL stable slope1 unchanged');
       assertEq(rate.stableRateSlope2(), previous.stableRateSlope2(), 'BAL stable slope2 unchanged');
@@ -106,7 +106,7 @@ contract AaveV2Polygon_OracleDeprecationForLongTailAssets_20260915_Test is Proto
         'GHST s2'
       );
       IDefaultInterestRateStrategy previous = IDefaultInterestRateStrategy(
-        address(bytes20(hex'fe72f0c532c4e7cfa65fcbd3b92d926d26fb73a9'))
+        0xfe72F0c532c4E7cfA65FCbd3B92D926d26Fb73a9
       );
       assertEq(
         rate.stableRateSlope1(),

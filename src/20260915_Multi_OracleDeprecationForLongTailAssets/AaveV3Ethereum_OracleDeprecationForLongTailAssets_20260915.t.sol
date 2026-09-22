@@ -5,6 +5,9 @@ import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethe
 import {EngineFlags} from 'aave-v3-origin/contracts/extensions/v3-config-engine/EngineFlags.sol';
 import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config-engine/IAaveV3ConfigEngine.sol';
 
+import {DataTypes} from 'aave-v3-origin/contracts/protocol/libraries/types/DataTypes.sol';
+import {ReserveConfiguration} from 'aave-v3-origin/contracts/protocol/libraries/configuration/ReserveConfiguration.sol';
+
 import 'forge-std/Test.sol';
 import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {AaveV3Ethereum_OracleDeprecationForLongTailAssets_20260915} from './AaveV3Ethereum_OracleDeprecationForLongTailAssets_20260915.sol';
@@ -18,6 +21,8 @@ import {GovV3Helpers} from 'aave-helpers/src/GovV3Helpers.sol';
  * command: FOUNDRY_PROFILE=test forge test --match-path=src/20260915_Multi_OracleDeprecationForLongTailAssets/AaveV3Ethereum_OracleDeprecationForLongTailAssets_20260915.t.sol -vv
  */
 contract AaveV3Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is ProtocolV3TestBase {
+  using ReserveConfiguration for DataTypes.ReserveConfigurationMap;
+
   AaveV3Ethereum_OracleDeprecationForLongTailAssets_20260915 internal proposal;
 
   function setUp() public {
@@ -383,98 +388,102 @@ contract AaveV3Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
   }
   function test_payloadStateTransition() public {
     _assertRates(false);
-    uint256[] memory expected = new uint256[](7);
-    expected[0] = AaveV3Ethereum.POOL.getConfiguration(AaveV3EthereumAssets.BAL_UNDERLYING).data;
-    assertEq((expected[0] >> 116) & ((1 << 36) - 1), 1, 'BAL pre cap');
-    expected[0] = (expected[0] & ~(((uint256(1) << 36) - 1) << 116)) | (uint256(1) << 116);
-    assertEq((expected[0] >> 80) & ((1 << 36) - 1), 1, 'BAL pre cap');
-    expected[0] = (expected[0] & ~(((uint256(1) << 36) - 1) << 80)) | (uint256(1) << 80);
-    assertEq((expected[0] >> 57) & 1, 0, 'BAL pre freeze');
-    expected[0] |= uint256(1) << 57;
-    expected[1] = AaveV3Ethereum.POOL.getConfiguration(AaveV3EthereumAssets.FRAX_UNDERLYING).data;
-    assertEq((expected[1] >> 116) & ((1 << 36) - 1), 1, 'FRAX pre cap');
-    expected[1] = (expected[1] & ~(((uint256(1) << 36) - 1) << 116)) | (uint256(1) << 116);
-    assertEq((expected[1] >> 80) & ((1 << 36) - 1), 1, 'FRAX pre cap');
-    expected[1] = (expected[1] & ~(((uint256(1) << 36) - 1) << 80)) | (uint256(1) << 80);
-    assertEq((expected[1] >> 57) & 1, 0, 'FRAX pre freeze');
-    expected[1] |= uint256(1) << 57;
-    assertEq((expected[1] >> 64) & 65_535, 2_000, 'FRAX pre RF');
-    expected[1] = (expected[1] & ~(uint256(65_535) << 64)) | (uint256(10_000) << 64);
-    expected[2] = AaveV3Ethereum.POOL.getConfiguration(AaveV3EthereumAssets.FXS_UNDERLYING).data;
-    assertEq((expected[2] >> 116) & ((1 << 36) - 1), 1_200_000, 'FXS pre cap');
-    expected[2] = (expected[2] & ~(((uint256(1) << 36) - 1) << 116)) | (uint256(1) << 116);
-    assertEq((expected[2] >> 80) & ((1 << 36) - 1), 330_000, 'FXS pre cap');
-    expected[2] = (expected[2] & ~(((uint256(1) << 36) - 1) << 80)) | (uint256(1) << 80);
-    assertEq((expected[2] >> 57) & 1, 1, 'FXS pre freeze');
-    expected[2] |= uint256(1) << 57;
-    expected[3] = AaveV3Ethereum.POOL.getConfiguration(AaveV3EthereumAssets.KNC_UNDERLYING).data;
-    assertEq((expected[3] >> 116) & ((1 << 36) - 1), 1_200_000, 'KNC pre cap');
-    expected[3] = (expected[3] & ~(((uint256(1) << 36) - 1) << 116)) | (uint256(1) << 116);
-    assertEq((expected[3] >> 80) & ((1 << 36) - 1), 350_000, 'KNC pre cap');
-    expected[3] = (expected[3] & ~(((uint256(1) << 36) - 1) << 80)) | (uint256(1) << 80);
-    assertEq((expected[3] >> 57) & 1, 1, 'KNC pre freeze');
-    expected[3] |= uint256(1) << 57;
-    expected[4] = AaveV3Ethereum.POOL.getConfiguration(AaveV3EthereumAssets.LUSD_UNDERLYING).data;
-    assertEq((expected[4] >> 116) & ((1 << 36) - 1), 5_000_000, 'LUSD pre cap');
-    expected[4] = (expected[4] & ~(((uint256(1) << 36) - 1) << 116)) | (uint256(1) << 116);
-    assertEq((expected[4] >> 80) & ((1 << 36) - 1), 1, 'LUSD pre cap');
-    expected[4] = (expected[4] & ~(((uint256(1) << 36) - 1) << 80)) | (uint256(1) << 80);
-    assertEq((expected[4] >> 57) & 1, 0, 'LUSD pre freeze');
-    expected[4] |= uint256(1) << 57;
-    assertEq((expected[4] >> 64) & 65_535, 2_000, 'LUSD pre RF');
-    expected[4] = (expected[4] & ~(uint256(65_535) << 64)) | (uint256(10_000) << 64);
-    expected[5] = AaveV3Ethereum.POOL.getConfiguration(AaveV3EthereumAssets.RPL_UNDERLYING).data;
-    assertEq((expected[5] >> 116) & ((1 << 36) - 1), 550_000, 'RPL pre cap');
-    expected[5] = (expected[5] & ~(((uint256(1) << 36) - 1) << 116)) | (uint256(1) << 116);
-    assertEq((expected[5] >> 80) & ((1 << 36) - 1), 1, 'RPL pre cap');
-    expected[5] = (expected[5] & ~(((uint256(1) << 36) - 1) << 80)) | (uint256(1) << 80);
-    assertEq((expected[5] >> 57) & 1, 0, 'RPL pre freeze');
-    expected[5] |= uint256(1) << 57;
-    assertEq((expected[5] >> 64) & 65_535, 2_000, 'RPL pre RF');
-    expected[5] = (expected[5] & ~(uint256(65_535) << 64)) | (uint256(10_000) << 64);
-    expected[6] = AaveV3Ethereum.POOL.getConfiguration(AaveV3EthereumAssets.STG_UNDERLYING).data;
-    assertEq((expected[6] >> 116) & ((1 << 36) - 1), 10_000_000, 'STG pre cap');
-    expected[6] = (expected[6] & ~(((uint256(1) << 36) - 1) << 116)) | (uint256(1) << 116);
-    assertEq((expected[6] >> 80) & ((1 << 36) - 1), 3_200_000, 'STG pre cap');
-    expected[6] = (expected[6] & ~(((uint256(1) << 36) - 1) << 80)) | (uint256(1) << 80);
-    assertEq((expected[6] >> 57) & 1, 1, 'STG pre freeze');
-    expected[6] |= uint256(1) << 57;
+    DataTypes.ReserveConfigurationMap memory expectedBAL = AaveV3Ethereum.POOL.getConfiguration(
+      AaveV3EthereumAssets.BAL_UNDERLYING
+    );
+    assertEq(expectedBAL.getSupplyCap(), 1, 'BAL pre supply cap'); // unchanged
+    assertEq(expectedBAL.getBorrowCap(), 1, 'BAL pre borrow cap'); // unchanged
+    assertEq(expectedBAL.getFrozen(), false, 'BAL pre freeze');
+    expectedBAL.setFrozen(true);
+    DataTypes.ReserveConfigurationMap memory expectedFRAX = AaveV3Ethereum.POOL.getConfiguration(
+      AaveV3EthereumAssets.FRAX_UNDERLYING
+    );
+    assertEq(expectedFRAX.getSupplyCap(), 1, 'FRAX pre supply cap'); // unchanged
+    assertEq(expectedFRAX.getBorrowCap(), 1, 'FRAX pre borrow cap'); // unchanged
+    assertEq(expectedFRAX.getFrozen(), false, 'FRAX pre freeze');
+    expectedFRAX.setFrozen(true);
+    assertEq(expectedFRAX.getReserveFactor(), 2_000, 'FRAX pre RF');
+    expectedFRAX.setReserveFactor(10_000); // 100% (2 decimals)
+    DataTypes.ReserveConfigurationMap memory expectedFXS = AaveV3Ethereum.POOL.getConfiguration(
+      AaveV3EthereumAssets.FXS_UNDERLYING
+    );
+    assertEq(expectedFXS.getSupplyCap(), 1_200_000, 'FXS pre supply cap');
+    expectedFXS.setSupplyCap(1);
+    assertEq(expectedFXS.getBorrowCap(), 330_000, 'FXS pre borrow cap');
+    expectedFXS.setBorrowCap(1);
+    assertEq(expectedFXS.getFrozen(), true, 'FXS pre freeze'); // unchanged
+    DataTypes.ReserveConfigurationMap memory expectedKNC = AaveV3Ethereum.POOL.getConfiguration(
+      AaveV3EthereumAssets.KNC_UNDERLYING
+    );
+    assertEq(expectedKNC.getSupplyCap(), 1_200_000, 'KNC pre supply cap');
+    expectedKNC.setSupplyCap(1);
+    assertEq(expectedKNC.getBorrowCap(), 350_000, 'KNC pre borrow cap');
+    expectedKNC.setBorrowCap(1);
+    assertEq(expectedKNC.getFrozen(), true, 'KNC pre freeze'); // unchanged
+    DataTypes.ReserveConfigurationMap memory expectedLUSD = AaveV3Ethereum.POOL.getConfiguration(
+      AaveV3EthereumAssets.LUSD_UNDERLYING
+    );
+    assertEq(expectedLUSD.getSupplyCap(), 5_000_000, 'LUSD pre supply cap');
+    expectedLUSD.setSupplyCap(1);
+    assertEq(expectedLUSD.getBorrowCap(), 1, 'LUSD pre borrow cap'); // unchanged
+    assertEq(expectedLUSD.getFrozen(), false, 'LUSD pre freeze');
+    expectedLUSD.setFrozen(true);
+    assertEq(expectedLUSD.getReserveFactor(), 2_000, 'LUSD pre RF');
+    expectedLUSD.setReserveFactor(10_000); // 100% (2 decimals)
+    DataTypes.ReserveConfigurationMap memory expectedRPL = AaveV3Ethereum.POOL.getConfiguration(
+      AaveV3EthereumAssets.RPL_UNDERLYING
+    );
+    assertEq(expectedRPL.getSupplyCap(), 550_000, 'RPL pre supply cap');
+    expectedRPL.setSupplyCap(1);
+    assertEq(expectedRPL.getBorrowCap(), 1, 'RPL pre borrow cap'); // unchanged
+    assertEq(expectedRPL.getFrozen(), false, 'RPL pre freeze');
+    expectedRPL.setFrozen(true);
+    assertEq(expectedRPL.getReserveFactor(), 2_000, 'RPL pre RF');
+    expectedRPL.setReserveFactor(10_000); // 100% (2 decimals)
+    DataTypes.ReserveConfigurationMap memory expectedSTG = AaveV3Ethereum.POOL.getConfiguration(
+      AaveV3EthereumAssets.STG_UNDERLYING
+    );
+    assertEq(expectedSTG.getSupplyCap(), 10_000_000, 'STG pre supply cap');
+    expectedSTG.setSupplyCap(1);
+    assertEq(expectedSTG.getBorrowCap(), 3_200_000, 'STG pre borrow cap');
+    expectedSTG.setBorrowCap(1);
+    assertEq(expectedSTG.getFrozen(), true, 'STG pre freeze'); // unchanged
     GovV3Helpers.executePayload(vm, address(proposal));
     _assertRates(true);
     _assertOracles();
     assertEq(
       AaveV3Ethereum.POOL.getConfiguration(AaveV3EthereumAssets.BAL_UNDERLYING).data,
-      expected[0],
+      expectedBAL.data,
       'BAL configuration and untouched fields'
     );
     assertEq(
       AaveV3Ethereum.POOL.getConfiguration(AaveV3EthereumAssets.FRAX_UNDERLYING).data,
-      expected[1],
+      expectedFRAX.data,
       'FRAX configuration and untouched fields'
     );
     assertEq(
       AaveV3Ethereum.POOL.getConfiguration(AaveV3EthereumAssets.FXS_UNDERLYING).data,
-      expected[2],
+      expectedFXS.data,
       'FXS configuration and untouched fields'
     );
     assertEq(
       AaveV3Ethereum.POOL.getConfiguration(AaveV3EthereumAssets.KNC_UNDERLYING).data,
-      expected[3],
+      expectedKNC.data,
       'KNC configuration and untouched fields'
     );
     assertEq(
       AaveV3Ethereum.POOL.getConfiguration(AaveV3EthereumAssets.LUSD_UNDERLYING).data,
-      expected[4],
+      expectedLUSD.data,
       'LUSD configuration and untouched fields'
     );
     assertEq(
       AaveV3Ethereum.POOL.getConfiguration(AaveV3EthereumAssets.RPL_UNDERLYING).data,
-      expected[5],
+      expectedRPL.data,
       'RPL configuration and untouched fields'
     );
     assertEq(
       AaveV3Ethereum.POOL.getConfiguration(AaveV3EthereumAssets.STG_UNDERLYING).data,
-      expected[6],
+      expectedSTG.data,
       'STG configuration and untouched fields'
     );
   }

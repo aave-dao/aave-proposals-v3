@@ -4,6 +4,9 @@ pragma solidity ^0.8.0;
 import {AaveV3Polygon, AaveV3PolygonAssets} from 'aave-address-book/AaveV3Polygon.sol';
 import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config-engine/IAaveV3ConfigEngine.sol';
 
+import {DataTypes} from 'aave-v3-origin/contracts/protocol/libraries/types/DataTypes.sol';
+import {ReserveConfiguration} from 'aave-v3-origin/contracts/protocol/libraries/configuration/ReserveConfiguration.sol';
+
 import 'forge-std/Test.sol';
 import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {AaveV3Polygon_OracleDeprecationForLongTailAssets_20260915} from './AaveV3Polygon_OracleDeprecationForLongTailAssets_20260915.sol';
@@ -17,6 +20,8 @@ import {GovV3Helpers} from 'aave-helpers/src/GovV3Helpers.sol';
  * command: FOUNDRY_PROFILE=test forge test --match-path=src/20260915_Multi_OracleDeprecationForLongTailAssets/AaveV3Polygon_OracleDeprecationForLongTailAssets_20260915.t.sol -vv
  */
 contract AaveV3Polygon_OracleDeprecationForLongTailAssets_20260915_Test is ProtocolV3TestBase {
+  using ReserveConfiguration for DataTypes.ReserveConfigurationMap;
+
   AaveV3Polygon_OracleDeprecationForLongTailAssets_20260915 internal proposal;
 
   function setUp() public {
@@ -187,44 +192,45 @@ contract AaveV3Polygon_OracleDeprecationForLongTailAssets_20260915_Test is Proto
   }
   function test_payloadStateTransition() public {
     _assertRates(false);
-    uint256[] memory expected = new uint256[](3);
-    expected[0] = AaveV3Polygon.POOL.getConfiguration(AaveV3PolygonAssets.BAL_UNDERLYING).data;
-    assertEq((expected[0] >> 116) & ((1 << 36) - 1), 361_000, 'BAL pre cap');
-    expected[0] = (expected[0] & ~(((uint256(1) << 36) - 1) << 116)) | (uint256(1) << 116);
-    assertEq((expected[0] >> 80) & ((1 << 36) - 1), 290_000, 'BAL pre cap');
-    expected[0] = (expected[0] & ~(((uint256(1) << 36) - 1) << 80)) | (uint256(1) << 80);
-    assertEq((expected[0] >> 57) & 1, 1, 'BAL pre freeze');
-    expected[0] |= uint256(1) << 57;
-    expected[1] = AaveV3Polygon.POOL.getConfiguration(AaveV3PolygonAssets.GHST_UNDERLYING).data;
-    assertEq((expected[1] >> 116) & ((1 << 36) - 1), 1, 'GHST pre cap');
-    expected[1] = (expected[1] & ~(((uint256(1) << 36) - 1) << 116)) | (uint256(1) << 116);
-    assertEq((expected[1] >> 80) & ((1 << 36) - 1), 1, 'GHST pre cap');
-    expected[1] = (expected[1] & ~(((uint256(1) << 36) - 1) << 80)) | (uint256(1) << 80);
-    assertEq((expected[1] >> 57) & 1, 0, 'GHST pre freeze');
-    expected[1] |= uint256(1) << 57;
-    expected[2] = AaveV3Polygon.POOL.getConfiguration(AaveV3PolygonAssets.miMATIC_UNDERLYING).data;
-    assertEq((expected[2] >> 116) & ((1 << 36) - 1), 900_000, 'miMATIC pre cap');
-    expected[2] = (expected[2] & ~(((uint256(1) << 36) - 1) << 116)) | (uint256(1) << 116);
-    assertEq((expected[2] >> 80) & ((1 << 36) - 1), 700_000, 'miMATIC pre cap');
-    expected[2] = (expected[2] & ~(((uint256(1) << 36) - 1) << 80)) | (uint256(1) << 80);
-    assertEq((expected[2] >> 57) & 1, 1, 'miMATIC pre freeze');
-    expected[2] |= uint256(1) << 57;
+    DataTypes.ReserveConfigurationMap memory expectedBAL = AaveV3Polygon.POOL.getConfiguration(
+      AaveV3PolygonAssets.BAL_UNDERLYING
+    );
+    assertEq(expectedBAL.getSupplyCap(), 361_000, 'BAL pre supply cap');
+    expectedBAL.setSupplyCap(1);
+    assertEq(expectedBAL.getBorrowCap(), 290_000, 'BAL pre borrow cap');
+    expectedBAL.setBorrowCap(1);
+    assertEq(expectedBAL.getFrozen(), true, 'BAL pre freeze'); // unchanged
+    DataTypes.ReserveConfigurationMap memory expectedGHST = AaveV3Polygon.POOL.getConfiguration(
+      AaveV3PolygonAssets.GHST_UNDERLYING
+    );
+    assertEq(expectedGHST.getSupplyCap(), 1, 'GHST pre supply cap'); // unchanged
+    assertEq(expectedGHST.getBorrowCap(), 1, 'GHST pre borrow cap'); // unchanged
+    assertEq(expectedGHST.getFrozen(), false, 'GHST pre freeze');
+    expectedGHST.setFrozen(true);
+    DataTypes.ReserveConfigurationMap memory expectedmiMATIC = AaveV3Polygon.POOL.getConfiguration(
+      AaveV3PolygonAssets.miMATIC_UNDERLYING
+    );
+    assertEq(expectedmiMATIC.getSupplyCap(), 900_000, 'miMATIC pre supply cap');
+    expectedmiMATIC.setSupplyCap(1);
+    assertEq(expectedmiMATIC.getBorrowCap(), 700_000, 'miMATIC pre borrow cap');
+    expectedmiMATIC.setBorrowCap(1);
+    assertEq(expectedmiMATIC.getFrozen(), true, 'miMATIC pre freeze'); // unchanged
     GovV3Helpers.executePayload(vm, address(proposal));
     _assertRates(true);
     _assertOracles();
     assertEq(
       AaveV3Polygon.POOL.getConfiguration(AaveV3PolygonAssets.BAL_UNDERLYING).data,
-      expected[0],
+      expectedBAL.data,
       'BAL configuration and untouched fields'
     );
     assertEq(
       AaveV3Polygon.POOL.getConfiguration(AaveV3PolygonAssets.GHST_UNDERLYING).data,
-      expected[1],
+      expectedGHST.data,
       'GHST configuration and untouched fields'
     );
     assertEq(
       AaveV3Polygon.POOL.getConfiguration(AaveV3PolygonAssets.miMATIC_UNDERLYING).data,
-      expected[2],
+      expectedmiMATIC.data,
       'miMATIC configuration and untouched fields'
     );
   }

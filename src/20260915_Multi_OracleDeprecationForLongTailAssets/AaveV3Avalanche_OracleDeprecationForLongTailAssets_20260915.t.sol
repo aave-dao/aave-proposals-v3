@@ -4,6 +4,9 @@ pragma solidity ^0.8.0;
 import {AaveV3Avalanche, AaveV3AvalancheAssets} from 'aave-address-book/AaveV3Avalanche.sol';
 import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config-engine/IAaveV3ConfigEngine.sol';
 
+import {DataTypes} from 'aave-v3-origin/contracts/protocol/libraries/types/DataTypes.sol';
+import {ReserveConfiguration} from 'aave-v3-origin/contracts/protocol/libraries/configuration/ReserveConfiguration.sol';
+
 import 'forge-std/Test.sol';
 import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {AaveV3Avalanche_OracleDeprecationForLongTailAssets_20260915} from './AaveV3Avalanche_OracleDeprecationForLongTailAssets_20260915.sol';
@@ -17,6 +20,8 @@ import {GovV3Helpers} from 'aave-helpers/src/GovV3Helpers.sol';
  * command: FOUNDRY_PROFILE=test forge test --match-path=src/20260915_Multi_OracleDeprecationForLongTailAssets/AaveV3Avalanche_OracleDeprecationForLongTailAssets_20260915.t.sol -vv
  */
 contract AaveV3Avalanche_OracleDeprecationForLongTailAssets_20260915_Test is ProtocolV3TestBase {
+  using ReserveConfiguration for DataTypes.ReserveConfigurationMap;
+
   AaveV3Avalanche_OracleDeprecationForLongTailAssets_20260915 internal proposal;
 
   function setUp() public {
@@ -149,32 +154,32 @@ contract AaveV3Avalanche_OracleDeprecationForLongTailAssets_20260915_Test is Pro
   }
   function test_payloadStateTransition() public {
     _assertRates(false);
-    uint256[] memory expected = new uint256[](2);
-    expected[0] = AaveV3Avalanche.POOL.getConfiguration(AaveV3AvalancheAssets.FRAX_UNDERLYING).data;
-    assertEq((expected[0] >> 116) & ((1 << 36) - 1), 1, 'FRAX pre cap');
-    expected[0] = (expected[0] & ~(((uint256(1) << 36) - 1) << 116)) | (uint256(1) << 116);
-    assertEq((expected[0] >> 80) & ((1 << 36) - 1), 1, 'FRAX pre cap');
-    expected[0] = (expected[0] & ~(((uint256(1) << 36) - 1) << 80)) | (uint256(1) << 80);
-    assertEq((expected[0] >> 57) & 1, 0, 'FRAX pre freeze');
-    expected[0] |= uint256(1) << 57;
-    expected[1] = AaveV3Avalanche.POOL.getConfiguration(AaveV3AvalancheAssets.MAI_UNDERLYING).data;
-    assertEq((expected[1] >> 116) & ((1 << 36) - 1), 20_000, 'MAI pre cap');
-    expected[1] = (expected[1] & ~(((uint256(1) << 36) - 1) << 116)) | (uint256(1) << 116);
-    assertEq((expected[1] >> 80) & ((1 << 36) - 1), 10_000, 'MAI pre cap');
-    expected[1] = (expected[1] & ~(((uint256(1) << 36) - 1) << 80)) | (uint256(1) << 80);
-    assertEq((expected[1] >> 57) & 1, 1, 'MAI pre freeze');
-    expected[1] |= uint256(1) << 57;
+    DataTypes.ReserveConfigurationMap memory expectedFRAX = AaveV3Avalanche.POOL.getConfiguration(
+      AaveV3AvalancheAssets.FRAX_UNDERLYING
+    );
+    assertEq(expectedFRAX.getSupplyCap(), 1, 'FRAX pre supply cap'); // unchanged
+    assertEq(expectedFRAX.getBorrowCap(), 1, 'FRAX pre borrow cap'); // unchanged
+    assertEq(expectedFRAX.getFrozen(), false, 'FRAX pre freeze');
+    expectedFRAX.setFrozen(true);
+    DataTypes.ReserveConfigurationMap memory expectedMAI = AaveV3Avalanche.POOL.getConfiguration(
+      AaveV3AvalancheAssets.MAI_UNDERLYING
+    );
+    assertEq(expectedMAI.getSupplyCap(), 20_000, 'MAI pre supply cap');
+    expectedMAI.setSupplyCap(1);
+    assertEq(expectedMAI.getBorrowCap(), 10_000, 'MAI pre borrow cap');
+    expectedMAI.setBorrowCap(1);
+    assertEq(expectedMAI.getFrozen(), true, 'MAI pre freeze'); // unchanged
     GovV3Helpers.executePayload(vm, address(proposal));
     _assertRates(true);
     _assertOracles();
     assertEq(
       AaveV3Avalanche.POOL.getConfiguration(AaveV3AvalancheAssets.FRAX_UNDERLYING).data,
-      expected[0],
+      expectedFRAX.data,
       'FRAX configuration and untouched fields'
     );
     assertEq(
       AaveV3Avalanche.POOL.getConfiguration(AaveV3AvalancheAssets.MAI_UNDERLYING).data,
-      expected[1],
+      expectedMAI.data,
       'MAI configuration and untouched fields'
     );
   }

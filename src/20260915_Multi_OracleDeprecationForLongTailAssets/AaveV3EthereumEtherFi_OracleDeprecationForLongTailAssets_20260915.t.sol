@@ -4,6 +4,9 @@ pragma solidity ^0.8.0;
 import {AaveV3EthereumEtherFi, AaveV3EthereumEtherFiAssets} from 'aave-address-book/AaveV3EthereumEtherFi.sol';
 import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config-engine/IAaveV3ConfigEngine.sol';
 
+import {DataTypes} from 'aave-v3-origin/contracts/protocol/libraries/types/DataTypes.sol';
+import {ReserveConfiguration} from 'aave-v3-origin/contracts/protocol/libraries/configuration/ReserveConfiguration.sol';
+
 import 'forge-std/Test.sol';
 import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {AaveV3EthereumEtherFi_OracleDeprecationForLongTailAssets_20260915} from './AaveV3EthereumEtherFi_OracleDeprecationForLongTailAssets_20260915.sol';
@@ -19,6 +22,8 @@ import {GovV3Helpers} from 'aave-helpers/src/GovV3Helpers.sol';
 contract AaveV3EthereumEtherFi_OracleDeprecationForLongTailAssets_20260915_Test is
   ProtocolV3TestBase
 {
+  using ReserveConfiguration for DataTypes.ReserveConfigurationMap;
+
   AaveV3EthereumEtherFi_OracleDeprecationForLongTailAssets_20260915 internal proposal;
 
   function setUp() public {
@@ -113,23 +118,19 @@ contract AaveV3EthereumEtherFi_OracleDeprecationForLongTailAssets_20260915_Test 
   }
   function test_payloadStateTransition() public {
     _assertRates(false);
-    uint256[] memory expected = new uint256[](1);
-    expected[0] = AaveV3EthereumEtherFi
+    DataTypes.ReserveConfigurationMap memory expectedFRAX = AaveV3EthereumEtherFi
       .POOL
-      .getConfiguration(AaveV3EthereumEtherFiAssets.FRAX_UNDERLYING)
-      .data;
-    assertEq((expected[0] >> 116) & ((1 << 36) - 1), 1, 'FRAX pre cap');
-    expected[0] = (expected[0] & ~(((uint256(1) << 36) - 1) << 116)) | (uint256(1) << 116);
-    assertEq((expected[0] >> 80) & ((1 << 36) - 1), 1, 'FRAX pre cap');
-    expected[0] = (expected[0] & ~(((uint256(1) << 36) - 1) << 80)) | (uint256(1) << 80);
-    assertEq((expected[0] >> 57) & 1, 0, 'FRAX pre freeze');
-    expected[0] |= uint256(1) << 57;
+      .getConfiguration(AaveV3EthereumEtherFiAssets.FRAX_UNDERLYING);
+    assertEq(expectedFRAX.getSupplyCap(), 1, 'FRAX pre supply cap'); // unchanged
+    assertEq(expectedFRAX.getBorrowCap(), 1, 'FRAX pre borrow cap'); // unchanged
+    assertEq(expectedFRAX.getFrozen(), false, 'FRAX pre freeze');
+    expectedFRAX.setFrozen(true);
     GovV3Helpers.executePayload(vm, address(proposal));
     _assertRates(true);
     _assertOracles();
     assertEq(
       AaveV3EthereumEtherFi.POOL.getConfiguration(AaveV3EthereumEtherFiAssets.FRAX_UNDERLYING).data,
-      expected[0],
+      expectedFRAX.data,
       'FRAX configuration and untouched fields'
     );
   }

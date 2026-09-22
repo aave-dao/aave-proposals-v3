@@ -5,6 +5,9 @@ import {AaveV3Arbitrum, AaveV3ArbitrumAssets} from 'aave-address-book/AaveV3Arbi
 import {EngineFlags} from 'aave-v3-origin/contracts/extensions/v3-config-engine/EngineFlags.sol';
 import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config-engine/IAaveV3ConfigEngine.sol';
 
+import {DataTypes} from 'aave-v3-origin/contracts/protocol/libraries/types/DataTypes.sol';
+import {ReserveConfiguration} from 'aave-v3-origin/contracts/protocol/libraries/configuration/ReserveConfiguration.sol';
+
 import 'forge-std/Test.sol';
 import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {AaveV3Arbitrum_OracleDeprecationForLongTailAssets_20260915} from './AaveV3Arbitrum_OracleDeprecationForLongTailAssets_20260915.sol';
@@ -18,6 +21,8 @@ import {GovV3Helpers} from 'aave-helpers/src/GovV3Helpers.sol';
  * command: FOUNDRY_PROFILE=test forge test --match-path=src/20260915_Multi_OracleDeprecationForLongTailAssets/AaveV3Arbitrum_OracleDeprecationForLongTailAssets_20260915.t.sol -vv
  */
 contract AaveV3Arbitrum_OracleDeprecationForLongTailAssets_20260915_Test is ProtocolV3TestBase {
+  using ReserveConfiguration for DataTypes.ReserveConfigurationMap;
+
   AaveV3Arbitrum_OracleDeprecationForLongTailAssets_20260915 internal proposal;
 
   function setUp() public {
@@ -213,48 +218,48 @@ contract AaveV3Arbitrum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
   }
   function test_payloadStateTransition() public {
     _assertRates(false);
-    uint256[] memory expected = new uint256[](3);
-    expected[0] = AaveV3Arbitrum.POOL.getConfiguration(AaveV3ArbitrumAssets.FRAX_UNDERLYING).data;
-    assertEq((expected[0] >> 116) & ((1 << 36) - 1), 1, 'FRAX pre cap');
-    expected[0] = (expected[0] & ~(((uint256(1) << 36) - 1) << 116)) | (uint256(1) << 116);
-    assertEq((expected[0] >> 80) & ((1 << 36) - 1), 1, 'FRAX pre cap');
-    expected[0] = (expected[0] & ~(((uint256(1) << 36) - 1) << 80)) | (uint256(1) << 80);
-    assertEq((expected[0] >> 57) & 1, 0, 'FRAX pre freeze');
-    expected[0] |= uint256(1) << 57;
-    assertEq((expected[0] >> 64) & 65_535, 2_000, 'FRAX pre RF');
-    expected[0] = (expected[0] & ~(uint256(65_535) << 64)) | (uint256(10_000) << 64);
-    expected[1] = AaveV3Arbitrum.POOL.getConfiguration(AaveV3ArbitrumAssets.LUSD_UNDERLYING).data;
-    assertEq((expected[1] >> 116) & ((1 << 36) - 1), 1, 'LUSD pre cap');
-    expected[1] = (expected[1] & ~(((uint256(1) << 36) - 1) << 116)) | (uint256(1) << 116);
-    assertEq((expected[1] >> 80) & ((1 << 36) - 1), 1, 'LUSD pre cap');
-    expected[1] = (expected[1] & ~(((uint256(1) << 36) - 1) << 80)) | (uint256(1) << 80);
-    assertEq((expected[1] >> 57) & 1, 0, 'LUSD pre freeze');
-    expected[1] |= uint256(1) << 57;
-    assertEq((expected[1] >> 64) & 65_535, 5_000, 'LUSD pre RF');
-    expected[1] = (expected[1] & ~(uint256(65_535) << 64)) | (uint256(10_000) << 64);
-    expected[2] = AaveV3Arbitrum.POOL.getConfiguration(AaveV3ArbitrumAssets.MAI_UNDERLYING).data;
-    assertEq((expected[2] >> 116) & ((1 << 36) - 1), 325_000, 'MAI pre cap');
-    expected[2] = (expected[2] & ~(((uint256(1) << 36) - 1) << 116)) | (uint256(1) << 116);
-    assertEq((expected[2] >> 80) & ((1 << 36) - 1), 250_000, 'MAI pre cap');
-    expected[2] = (expected[2] & ~(((uint256(1) << 36) - 1) << 80)) | (uint256(1) << 80);
-    assertEq((expected[2] >> 57) & 1, 1, 'MAI pre freeze');
-    expected[2] |= uint256(1) << 57;
+    DataTypes.ReserveConfigurationMap memory expectedFRAX = AaveV3Arbitrum.POOL.getConfiguration(
+      AaveV3ArbitrumAssets.FRAX_UNDERLYING
+    );
+    assertEq(expectedFRAX.getSupplyCap(), 1, 'FRAX pre supply cap'); // unchanged
+    assertEq(expectedFRAX.getBorrowCap(), 1, 'FRAX pre borrow cap'); // unchanged
+    assertEq(expectedFRAX.getFrozen(), false, 'FRAX pre freeze');
+    expectedFRAX.setFrozen(true);
+    assertEq(expectedFRAX.getReserveFactor(), 2_000, 'FRAX pre RF');
+    expectedFRAX.setReserveFactor(10_000); // 100% (2 decimals)
+    DataTypes.ReserveConfigurationMap memory expectedLUSD = AaveV3Arbitrum.POOL.getConfiguration(
+      AaveV3ArbitrumAssets.LUSD_UNDERLYING
+    );
+    assertEq(expectedLUSD.getSupplyCap(), 1, 'LUSD pre supply cap'); // unchanged
+    assertEq(expectedLUSD.getBorrowCap(), 1, 'LUSD pre borrow cap'); // unchanged
+    assertEq(expectedLUSD.getFrozen(), false, 'LUSD pre freeze');
+    expectedLUSD.setFrozen(true);
+    assertEq(expectedLUSD.getReserveFactor(), 5_000, 'LUSD pre RF');
+    expectedLUSD.setReserveFactor(10_000); // 100% (2 decimals)
+    DataTypes.ReserveConfigurationMap memory expectedMAI = AaveV3Arbitrum.POOL.getConfiguration(
+      AaveV3ArbitrumAssets.MAI_UNDERLYING
+    );
+    assertEq(expectedMAI.getSupplyCap(), 325_000, 'MAI pre supply cap');
+    expectedMAI.setSupplyCap(1);
+    assertEq(expectedMAI.getBorrowCap(), 250_000, 'MAI pre borrow cap');
+    expectedMAI.setBorrowCap(1);
+    assertEq(expectedMAI.getFrozen(), true, 'MAI pre freeze'); // unchanged
     GovV3Helpers.executePayload(vm, address(proposal));
     _assertRates(true);
     _assertOracles();
     assertEq(
       AaveV3Arbitrum.POOL.getConfiguration(AaveV3ArbitrumAssets.FRAX_UNDERLYING).data,
-      expected[0],
+      expectedFRAX.data,
       'FRAX configuration and untouched fields'
     );
     assertEq(
       AaveV3Arbitrum.POOL.getConfiguration(AaveV3ArbitrumAssets.LUSD_UNDERLYING).data,
-      expected[1],
+      expectedLUSD.data,
       'LUSD configuration and untouched fields'
     );
     assertEq(
       AaveV3Arbitrum.POOL.getConfiguration(AaveV3ArbitrumAssets.MAI_UNDERLYING).data,
-      expected[2],
+      expectedMAI.data,
       'MAI configuration and untouched fields'
     );
   }
