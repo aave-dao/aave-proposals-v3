@@ -7,7 +7,8 @@ export const config: ConfigFile = {
     date: '20260807',
     author: 'Aave Labs',
     discussion: 'https://governance.aave.com/t/arfc-activate-aave-risk-stewards-on-aave-v4/25510',
-    snapshot: 'TODO',
+    snapshot:
+      'https://snapshot.org/#/s:aavedao.eth/proposal/0xf736fa5f6dd1532d0e2825fe528262479949a923427989384e313490ca9d9f18',
     votingNetwork: 'AVALANCHE',
   },
   marketOptions: {

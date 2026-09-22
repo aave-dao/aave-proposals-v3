@@ -70,6 +70,33 @@ interface IRiskStewardV4 {
     OracleConfig oracle;
   }
 
+  struct HubAssetDebounce {
+    uint40 optimalUsageRatio;
+    uint40 baseDrawnRate;
+    uint40 rateGrowthBeforeOptimal;
+    uint40 rateGrowthAfterOptimal;
+  }
+
+  struct HubSpokeAssetDebounce {
+    uint40 addCap;
+    uint40 drawCap;
+  }
+
+  struct SpokeReserveDebounce {
+    uint40 collateralRisk;
+  }
+
+  struct SpokeDynamicDebounce {
+    uint40 collateralFactor;
+    uint40 maxLiquidationBonus;
+  }
+
+  struct SpokeLiquidationDebounce {
+    uint40 targetHealthFactor;
+    uint40 healthFactorForMaxBonus;
+    uint40 liquidationBonusFactor;
+  }
+
   struct PriceCapLstUpdate {
     address oracle;
     IPriceCapAdapter.PriceCapUpdateParams priceCapUpdateParams;
@@ -112,6 +139,35 @@ interface IRiskStewardV4 {
   function updatePendleDiscountRates(DiscountRatePendleUpdate[] calldata updates) external;
 
   function getConfig() external view returns (Config memory);
+
+  function getHubAssetDebounce(
+    address hub,
+    address asset
+  ) external view returns (HubAssetDebounce memory);
+
+  function getHubSpokeAssetDebounce(
+    address hub,
+    address spoke,
+    address asset
+  ) external view returns (HubSpokeAssetDebounce memory);
+
+  function getSpokeReserveDebounce(
+    address spoke,
+    address hub,
+    address asset
+  ) external view returns (SpokeReserveDebounce memory);
+
+  function getSpokeDynamicDebounce(
+    address spoke,
+    address hub,
+    address asset
+  ) external view returns (SpokeDynamicDebounce memory);
+
+  function getSpokeLiquidationDebounce(
+    address spoke
+  ) external view returns (SpokeLiquidationDebounce memory);
+
+  function getOracleDebounce(address oracle) external view returns (uint40);
 
   function RISK_COUNCIL() external view returns (address);
 

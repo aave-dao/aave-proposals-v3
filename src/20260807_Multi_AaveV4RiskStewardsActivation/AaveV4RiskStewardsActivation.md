@@ -2,6 +2,7 @@
 title: "Aave V4 Risk Stewards Activation"
 author: "Aave Labs"
 discussions: "https://governance.aave.com/t/arfc-activate-aave-risk-stewards-on-aave-v4/25510"
+snapshot: "https://snapshot.org/#/s:aavedao.eth/proposal/0xf736fa5f6dd1532d0e2825fe528262479949a923427989384e313490ca9d9f18"
 ---
 
 ## Simple Summary
@@ -56,7 +57,7 @@ Each Risk Steward is also granted `RISK_ADMIN` on its network's Aave V3 ACL Mana
 
 - Implementation: [AaveV4Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20260807_Multi_AaveV4RiskStewardsActivation/AaveV4Ethereum_AaveV4RiskStewardsActivation_20260807.sol), [AaveV4Avalanche](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20260807_Multi_AaveV4RiskStewardsActivation/AaveV4Avalanche_AaveV4RiskStewardsActivation_20260807.sol), [AaveV4Base](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20260807_Multi_AaveV4RiskStewardsActivation/AaveV4Base_AaveV4RiskStewardsActivation_20260807.sol)
 - Tests: [AaveV4Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20260807_Multi_AaveV4RiskStewardsActivation/AaveV4Ethereum_AaveV4RiskStewardsActivation_20260807.t.sol), [AaveV4Avalanche](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20260807_Multi_AaveV4RiskStewardsActivation/AaveV4Avalanche_AaveV4RiskStewardsActivation_20260807.t.sol), [AaveV4Base](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20260807_Multi_AaveV4RiskStewardsActivation/AaveV4Base_AaveV4RiskStewardsActivation_20260807.t.sol)
-- [Snapshot](TODO)
+- [Snapshot](https://snapshot.org/#/s:aavedao.eth/proposal/0xf736fa5f6dd1532d0e2825fe528262479949a923427989384e313490ca9d9f18)
 - [Discussion](https://governance.aave.com/t/arfc-activate-aave-risk-stewards-on-aave-v4/25510)
 
 ## Copyright
