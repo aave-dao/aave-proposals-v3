@@ -21,7 +21,7 @@ contract AaveV3Arbitrum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
   AaveV3Arbitrum_OracleDeprecationForLongTailAssets_20260915 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('arbitrum'), 505404403);
+    vm.createSelectFork(vm.rpcUrl('arbitrum'), 507750012);
     proposal = new AaveV3Arbitrum_OracleDeprecationForLongTailAssets_20260915();
   }
 

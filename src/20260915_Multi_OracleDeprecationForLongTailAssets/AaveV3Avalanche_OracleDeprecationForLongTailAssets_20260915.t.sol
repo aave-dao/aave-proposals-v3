@@ -20,7 +20,7 @@ contract AaveV3Avalanche_OracleDeprecationForLongTailAssets_20260915_Test is Pro
   AaveV3Avalanche_OracleDeprecationForLongTailAssets_20260915 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('avalanche'), 95341470);
+    vm.createSelectFork(vm.rpcUrl('avalanche'), 95905103);
     proposal = new AaveV3Avalanche_OracleDeprecationForLongTailAssets_20260915();
   }
 

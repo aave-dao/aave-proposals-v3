@@ -20,7 +20,7 @@ contract AaveV3Optimism_OracleDeprecationForLongTailAssets_20260915_Test is Prot
   AaveV3Optimism_OracleDeprecationForLongTailAssets_20260915 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('optimism'), 156936640);
+    vm.createSelectFork(vm.rpcUrl('optimism'), 157236629);
     proposal = new AaveV3Optimism_OracleDeprecationForLongTailAssets_20260915();
   }
 

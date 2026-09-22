@@ -21,7 +21,7 @@ contract AaveV3Celo_OracleDeprecationForLongTailAssets_20260915_Test is Protocol
   AaveV3Celo_OracleDeprecationForLongTailAssets_20260915 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('celo'), 77571299);
+    vm.createSelectFork(vm.rpcUrl('celo'), 78171278);
     proposal = new AaveV3Celo_OracleDeprecationForLongTailAssets_20260915();
   }
 

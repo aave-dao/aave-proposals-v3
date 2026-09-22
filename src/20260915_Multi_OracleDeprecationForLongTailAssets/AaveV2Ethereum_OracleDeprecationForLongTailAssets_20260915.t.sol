@@ -22,7 +22,7 @@ contract AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
   AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 25982593);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 26032357);
     proposal = new AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915();
   }
 

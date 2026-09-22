@@ -19,7 +19,7 @@ contract AaveV3Scroll_OracleDeprecationForLongTailAssets_20260915_Test is Protoc
   AaveV3Scroll_OracleDeprecationForLongTailAssets_20260915 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('scroll'), 35039319);
+    vm.createSelectFork(vm.rpcUrl('scroll'), 35135956);
     proposal = new AaveV3Scroll_OracleDeprecationForLongTailAssets_20260915();
   }
 
@@ -52,7 +52,7 @@ contract AaveV3Scroll_OracleDeprecationForLongTailAssets_20260915_Test is Protoc
         AaveV3Scroll.POOL.RESERVE_INTEREST_RATE_STRATEGY()
       ).getInterestRateDataBps(AaveV3ScrollAssets.SCR_UNDERLYING);
       assertEq(rate.optimalUsageRatio, afterExecution ? 4500 : 4500, 'SCR kink');
-      assertEq(rate.baseVariableBorrowRate, afterExecution ? 2000 : 0, 'SCR base');
+      assertEq(rate.baseVariableBorrowRate, afterExecution ? 2000 : 500, 'SCR base');
       assertEq(rate.variableRateSlope1, afterExecution ? 700 : 700, 'SCR s1');
       assertEq(rate.variableRateSlope2, afterExecution ? 4000 : 30000, 'SCR s2');
     }

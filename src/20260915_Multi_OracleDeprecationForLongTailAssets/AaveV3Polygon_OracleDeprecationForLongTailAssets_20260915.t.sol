@@ -20,7 +20,7 @@ contract AaveV3Polygon_OracleDeprecationForLongTailAssets_20260915_Test is Proto
   AaveV3Polygon_OracleDeprecationForLongTailAssets_20260915 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('polygon'), 93844683);
+    vm.createSelectFork(vm.rpcUrl('polygon'), 94244629);
     proposal = new AaveV3Polygon_OracleDeprecationForLongTailAssets_20260915();
   }
 
