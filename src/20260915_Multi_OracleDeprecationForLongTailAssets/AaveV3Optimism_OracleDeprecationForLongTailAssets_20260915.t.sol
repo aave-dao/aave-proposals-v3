@@ -80,87 +80,51 @@ contract AaveV3Optimism_OracleDeprecationForLongTailAssets_20260915_Test is Prot
     capsUpdate[0] = IAaveV3ConfigEngine.CapsUpdate(AaveV3OptimismAssets.MAI_UNDERLYING, 1, 1);
   }
   function _assertRates(bool afterExecution) internal view {
-    {
-      IDefaultInterestRateStrategyV2.InterestRateData memory rate = IDefaultInterestRateStrategyV2(
-        AaveV3Optimism.POOL.RESERVE_INTEREST_RATE_STRATEGY()
-      ).getInterestRateDataBps(AaveV3OptimismAssets.LUSD_UNDERLYING);
-      assertEq(
-        rate.optimalUsageRatio,
-        8_000, // unchanged; 80% (2 decimals)
-        'LUSD kink'
-      );
-      assertEq(
-        rate.baseVariableBorrowRate,
-        afterExecution ? 2_000 : 200, // 2% -> 20% (2 decimals)
-        'LUSD base'
-      );
-      assertEq(
-        rate.variableRateSlope1,
-        550, // unchanged; 5.5% (2 decimals)
-        'LUSD s1'
-      );
-      assertEq(
-        rate.variableRateSlope2,
-        afterExecution ? 4_000 : 5_000, // 50% -> 40% (2 decimals)
-        'LUSD s2'
-      );
-    }
-    {
-      IDefaultInterestRateStrategyV2.InterestRateData memory rate = IDefaultInterestRateStrategyV2(
-        AaveV3Optimism.POOL.RESERVE_INTEREST_RATE_STRATEGY()
-      ).getInterestRateDataBps(AaveV3OptimismAssets.MAI_UNDERLYING);
-      assertEq(
-        rate.optimalUsageRatio,
-        4_500, // unchanged; 45% (2 decimals)
-        'MAI kink'
-      );
-      assertEq(
-        rate.baseVariableBorrowRate,
-        afterExecution ? 2_000 : 0, // 0% -> 20% (2 decimals)
-        'MAI base'
-      );
-      assertEq(
-        rate.variableRateSlope1,
-        550, // unchanged; 5.5% (2 decimals)
-        'MAI s1'
-      );
-      assertEq(
-        rate.variableRateSlope2,
-        afterExecution ? 4_000 : 30_000, // 300% -> 40% (2 decimals)
-        'MAI s2'
-      );
-    }
-    {
-      IDefaultInterestRateStrategyV2.InterestRateData memory rate = IDefaultInterestRateStrategyV2(
-        AaveV3Optimism.POOL.RESERVE_INTEREST_RATE_STRATEGY()
-      ).getInterestRateDataBps(AaveV3OptimismAssets.sUSD_UNDERLYING);
-      assertEq(
-        rate.optimalUsageRatio,
-        8_000, // unchanged; 80% (2 decimals)
-        'sUSD kink'
-      );
-      assertEq(
-        rate.baseVariableBorrowRate,
-        0, // unchanged; 0% (2 decimals)
-        'sUSD base'
-      );
-      assertEq(
-        rate.variableRateSlope1,
-        afterExecution ? 0 : 550, // 5.5% -> 0% (2 decimals)
-        'sUSD s1'
-      );
-      assertEq(
-        rate.variableRateSlope2,
-        afterExecution ? 0 : 5_000, // 50% -> 0% (2 decimals)
-        'sUSD s2'
-      );
-    }
+    _validateInterestRateStrategy(
+      AaveV3OptimismAssets.LUSD_UNDERLYING,
+      AaveV3Optimism.POOL.RESERVE_INTEREST_RATE_STRATEGY(),
+      AaveV3Optimism.POOL.RESERVE_INTEREST_RATE_STRATEGY(),
+      IDefaultInterestRateStrategyV2.InterestRateDataRay({
+        optimalUsageRatio: 800_000_000_000_000_000_000_000_000, // unchanged; 80% (27 decimals)
+        baseVariableBorrowRate: afterExecution
+          ? 200_000_000_000_000_000_000_000_000
+          : 20_000_000_000_000_000_000_000_000, // 2% -> 20% (27 decimals)
+        variableRateSlope1: 55_000_000_000_000_000_000_000_000, // unchanged; 5.5% (27 decimals)
+        variableRateSlope2: afterExecution
+          ? 400_000_000_000_000_000_000_000_000
+          : 500_000_000_000_000_000_000_000_000 // 50% -> 40% (27 decimals)
+      })
+    );
+    _validateInterestRateStrategy(
+      AaveV3OptimismAssets.MAI_UNDERLYING,
+      AaveV3Optimism.POOL.RESERVE_INTEREST_RATE_STRATEGY(),
+      AaveV3Optimism.POOL.RESERVE_INTEREST_RATE_STRATEGY(),
+      IDefaultInterestRateStrategyV2.InterestRateDataRay({
+        optimalUsageRatio: 450_000_000_000_000_000_000_000_000, // unchanged; 45% (27 decimals)
+        baseVariableBorrowRate: afterExecution ? 200_000_000_000_000_000_000_000_000 : 0, // 0% -> 20% (27 decimals)
+        variableRateSlope1: 55_000_000_000_000_000_000_000_000, // unchanged; 5.5% (27 decimals)
+        variableRateSlope2: afterExecution
+          ? 400_000_000_000_000_000_000_000_000
+          : 3_000_000_000_000_000_000_000_000_000 // 300% -> 40% (27 decimals)
+      })
+    );
+    _validateInterestRateStrategy(
+      AaveV3OptimismAssets.sUSD_UNDERLYING,
+      AaveV3Optimism.POOL.RESERVE_INTEREST_RATE_STRATEGY(),
+      AaveV3Optimism.POOL.RESERVE_INTEREST_RATE_STRATEGY(),
+      IDefaultInterestRateStrategyV2.InterestRateDataRay({
+        optimalUsageRatio: 800_000_000_000_000_000_000_000_000, // unchanged; 80% (27 decimals)
+        baseVariableBorrowRate: 0, // unchanged; 0% (27 decimals)
+        variableRateSlope1: afterExecution ? 0 : 55_000_000_000_000_000_000_000_000, // 5.5% -> 0% (27 decimals)
+        variableRateSlope2: afterExecution ? 0 : 500_000_000_000_000_000_000_000_000 // 50% -> 0% (27 decimals)
+      })
+    );
   }
   function _assertOracles() internal view {
-    assertEq(
-      AaveV3Optimism.ORACLE.getSourceOfAsset(AaveV3OptimismAssets.LUSD_UNDERLYING),
-      proposal.LUSD_PRICE_FEED(),
-      'LUSD source'
+    _validateAssetSourceOnOracle(
+      AaveV3Optimism.POOL_ADDRESSES_PROVIDER,
+      AaveV3OptimismAssets.LUSD_UNDERLYING,
+      proposal.LUSD_PRICE_FEED()
     );
     assertEq(
       AaveV3Optimism.ORACLE.getAssetPrice(AaveV3OptimismAssets.LUSD_UNDERLYING),
@@ -168,10 +132,10 @@ contract AaveV3Optimism_OracleDeprecationForLongTailAssets_20260915_Test is Prot
       100_000_000,
       'LUSD oracle output'
     );
-    assertEq(
-      AaveV3Optimism.ORACLE.getSourceOfAsset(AaveV3OptimismAssets.MAI_UNDERLYING),
-      proposal.MAI_PRICE_FEED(),
-      'MAI source'
+    _validateAssetSourceOnOracle(
+      AaveV3Optimism.POOL_ADDRESSES_PROVIDER,
+      AaveV3OptimismAssets.MAI_UNDERLYING,
+      proposal.MAI_PRICE_FEED()
     );
     assertEq(
       AaveV3Optimism.ORACLE.getAssetPrice(AaveV3OptimismAssets.MAI_UNDERLYING),
@@ -179,10 +143,10 @@ contract AaveV3Optimism_OracleDeprecationForLongTailAssets_20260915_Test is Prot
       95_300_000,
       'MAI oracle output'
     );
-    assertEq(
-      AaveV3Optimism.ORACLE.getSourceOfAsset(AaveV3OptimismAssets.sUSD_UNDERLYING),
-      proposal.sUSD_PRICE_FEED(),
-      'sUSD source'
+    _validateAssetSourceOnOracle(
+      AaveV3Optimism.POOL_ADDRESSES_PROVIDER,
+      AaveV3OptimismAssets.sUSD_UNDERLYING,
+      proposal.sUSD_PRICE_FEED()
     );
     assertEq(
       AaveV3Optimism.ORACLE.getAssetPrice(AaveV3OptimismAssets.sUSD_UNDERLYING),

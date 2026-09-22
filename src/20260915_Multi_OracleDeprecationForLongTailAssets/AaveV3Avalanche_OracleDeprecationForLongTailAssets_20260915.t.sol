@@ -77,62 +77,36 @@ contract AaveV3Avalanche_OracleDeprecationForLongTailAssets_20260915_Test is Pro
     capsUpdate[0] = IAaveV3ConfigEngine.CapsUpdate(AaveV3AvalancheAssets.MAI_UNDERLYING, 1, 1);
   }
   function _assertRates(bool afterExecution) internal view {
-    {
-      IDefaultInterestRateStrategyV2.InterestRateData memory rate = IDefaultInterestRateStrategyV2(
-        AaveV3Avalanche.POOL.RESERVE_INTEREST_RATE_STRATEGY()
-      ).getInterestRateDataBps(AaveV3AvalancheAssets.FRAX_UNDERLYING);
-      assertEq(
-        rate.optimalUsageRatio,
-        9_000, // unchanged; 90% (2 decimals)
-        'FRAX kink'
-      );
-      assertEq(
-        rate.baseVariableBorrowRate,
-        afterExecution ? 2_000 : 0, // 0% -> 20% (2 decimals)
-        'FRAX base'
-      );
-      assertEq(
-        rate.variableRateSlope1,
-        550, // unchanged; 5.5% (2 decimals)
-        'FRAX s1'
-      );
-      assertEq(
-        rate.variableRateSlope2,
-        4_000, // unchanged; 40% (2 decimals)
-        'FRAX s2'
-      );
-    }
-    {
-      IDefaultInterestRateStrategyV2.InterestRateData memory rate = IDefaultInterestRateStrategyV2(
-        AaveV3Avalanche.POOL.RESERVE_INTEREST_RATE_STRATEGY()
-      ).getInterestRateDataBps(AaveV3AvalancheAssets.MAI_UNDERLYING);
-      assertEq(
-        rate.optimalUsageRatio,
-        4_500, // unchanged; 45% (2 decimals)
-        'MAI kink'
-      );
-      assertEq(
-        rate.baseVariableBorrowRate,
-        afterExecution ? 2_000 : 0, // 0% -> 20% (2 decimals)
-        'MAI base'
-      );
-      assertEq(
-        rate.variableRateSlope1,
-        900, // unchanged; 9% (2 decimals)
-        'MAI s1'
-      );
-      assertEq(
-        rate.variableRateSlope2,
-        afterExecution ? 4_000 : 30_000, // 300% -> 40% (2 decimals)
-        'MAI s2'
-      );
-    }
+    _validateInterestRateStrategy(
+      AaveV3AvalancheAssets.FRAX_UNDERLYING,
+      AaveV3Avalanche.POOL.RESERVE_INTEREST_RATE_STRATEGY(),
+      AaveV3Avalanche.POOL.RESERVE_INTEREST_RATE_STRATEGY(),
+      IDefaultInterestRateStrategyV2.InterestRateDataRay({
+        optimalUsageRatio: 900_000_000_000_000_000_000_000_000, // unchanged; 90% (27 decimals)
+        baseVariableBorrowRate: afterExecution ? 200_000_000_000_000_000_000_000_000 : 0, // 0% -> 20% (27 decimals)
+        variableRateSlope1: 55_000_000_000_000_000_000_000_000, // unchanged; 5.5% (27 decimals)
+        variableRateSlope2: 400_000_000_000_000_000_000_000_000 // unchanged; 40% (27 decimals)
+      })
+    );
+    _validateInterestRateStrategy(
+      AaveV3AvalancheAssets.MAI_UNDERLYING,
+      AaveV3Avalanche.POOL.RESERVE_INTEREST_RATE_STRATEGY(),
+      AaveV3Avalanche.POOL.RESERVE_INTEREST_RATE_STRATEGY(),
+      IDefaultInterestRateStrategyV2.InterestRateDataRay({
+        optimalUsageRatio: 450_000_000_000_000_000_000_000_000, // unchanged; 45% (27 decimals)
+        baseVariableBorrowRate: afterExecution ? 200_000_000_000_000_000_000_000_000 : 0, // 0% -> 20% (27 decimals)
+        variableRateSlope1: 90_000_000_000_000_000_000_000_000, // unchanged; 9% (27 decimals)
+        variableRateSlope2: afterExecution
+          ? 400_000_000_000_000_000_000_000_000
+          : 3_000_000_000_000_000_000_000_000_000 // 300% -> 40% (27 decimals)
+      })
+    );
   }
   function _assertOracles() internal view {
-    assertEq(
-      AaveV3Avalanche.ORACLE.getSourceOfAsset(AaveV3AvalancheAssets.FRAX_UNDERLYING),
-      proposal.FRAX_PRICE_FEED(),
-      'FRAX source'
+    _validateAssetSourceOnOracle(
+      AaveV3Avalanche.POOL_ADDRESSES_PROVIDER,
+      AaveV3AvalancheAssets.FRAX_UNDERLYING,
+      proposal.FRAX_PRICE_FEED()
     );
     assertEq(
       AaveV3Avalanche.ORACLE.getAssetPrice(AaveV3AvalancheAssets.FRAX_UNDERLYING),
@@ -140,10 +114,10 @@ contract AaveV3Avalanche_OracleDeprecationForLongTailAssets_20260915_Test is Pro
       100_000_000,
       'FRAX oracle output'
     );
-    assertEq(
-      AaveV3Avalanche.ORACLE.getSourceOfAsset(AaveV3AvalancheAssets.MAI_UNDERLYING),
-      proposal.MAI_PRICE_FEED(),
-      'MAI source'
+    _validateAssetSourceOnOracle(
+      AaveV3Avalanche.POOL_ADDRESSES_PROVIDER,
+      AaveV3AvalancheAssets.MAI_UNDERLYING,
+      proposal.MAI_PRICE_FEED()
     );
     assertEq(
       AaveV3Avalanche.ORACLE.getAssetPrice(AaveV3AvalancheAssets.MAI_UNDERLYING),

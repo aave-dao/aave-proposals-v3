@@ -105,87 +105,53 @@ contract AaveV3Arbitrum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
     return borrowUpdates;
   }
   function _assertRates(bool afterExecution) internal view {
-    {
-      IDefaultInterestRateStrategyV2.InterestRateData memory rate = IDefaultInterestRateStrategyV2(
-        AaveV3Arbitrum.POOL.RESERVE_INTEREST_RATE_STRATEGY()
-      ).getInterestRateDataBps(AaveV3ArbitrumAssets.FRAX_UNDERLYING);
-      assertEq(
-        rate.optimalUsageRatio,
-        9_000, // unchanged; 90% (2 decimals)
-        'FRAX kink'
-      );
-      assertEq(
-        rate.baseVariableBorrowRate,
-        afterExecution ? 500 : 0, // 0% -> 5% (2 decimals)
-        'FRAX base'
-      );
-      assertEq(
-        rate.variableRateSlope1,
-        550, // unchanged; 5.5% (2 decimals)
-        'FRAX s1'
-      );
-      assertEq(
-        rate.variableRateSlope2,
-        afterExecution ? 10_000 : 4_000, // 40% -> 100% (2 decimals)
-        'FRAX s2'
-      );
-    }
-    {
-      IDefaultInterestRateStrategyV2.InterestRateData memory rate = IDefaultInterestRateStrategyV2(
-        AaveV3Arbitrum.POOL.RESERVE_INTEREST_RATE_STRATEGY()
-      ).getInterestRateDataBps(AaveV3ArbitrumAssets.LUSD_UNDERLYING);
-      assertEq(
-        rate.optimalUsageRatio,
-        8_000, // unchanged; 80% (2 decimals)
-        'LUSD kink'
-      );
-      assertEq(
-        rate.baseVariableBorrowRate,
-        afterExecution ? 500 : 200, // 2% -> 5% (2 decimals)
-        'LUSD base'
-      );
-      assertEq(
-        rate.variableRateSlope1,
-        650, // unchanged; 6.5% (2 decimals)
-        'LUSD s1'
-      );
-      assertEq(
-        rate.variableRateSlope2,
-        afterExecution ? 10_000 : 5_000, // 50% -> 100% (2 decimals)
-        'LUSD s2'
-      );
-    }
-    {
-      IDefaultInterestRateStrategyV2.InterestRateData memory rate = IDefaultInterestRateStrategyV2(
-        AaveV3Arbitrum.POOL.RESERVE_INTEREST_RATE_STRATEGY()
-      ).getInterestRateDataBps(AaveV3ArbitrumAssets.MAI_UNDERLYING);
-      assertEq(
-        rate.optimalUsageRatio,
-        4_500, // unchanged; 45% (2 decimals)
-        'MAI kink'
-      );
-      assertEq(
-        rate.baseVariableBorrowRate,
-        afterExecution ? 2_000 : 0, // 0% -> 20% (2 decimals)
-        'MAI base'
-      );
-      assertEq(
-        rate.variableRateSlope1,
-        900, // unchanged; 9% (2 decimals)
-        'MAI s1'
-      );
-      assertEq(
-        rate.variableRateSlope2,
-        afterExecution ? 4_000 : 30_000, // 300% -> 40% (2 decimals)
-        'MAI s2'
-      );
-    }
+    _validateInterestRateStrategy(
+      AaveV3ArbitrumAssets.FRAX_UNDERLYING,
+      AaveV3Arbitrum.POOL.RESERVE_INTEREST_RATE_STRATEGY(),
+      AaveV3Arbitrum.POOL.RESERVE_INTEREST_RATE_STRATEGY(),
+      IDefaultInterestRateStrategyV2.InterestRateDataRay({
+        optimalUsageRatio: 900_000_000_000_000_000_000_000_000, // unchanged; 90% (27 decimals)
+        baseVariableBorrowRate: afterExecution ? 50_000_000_000_000_000_000_000_000 : 0, // 0% -> 5% (27 decimals)
+        variableRateSlope1: 55_000_000_000_000_000_000_000_000, // unchanged; 5.5% (27 decimals)
+        variableRateSlope2: afterExecution
+          ? 1_000_000_000_000_000_000_000_000_000
+          : 400_000_000_000_000_000_000_000_000 // 40% -> 100% (27 decimals)
+      })
+    );
+    _validateInterestRateStrategy(
+      AaveV3ArbitrumAssets.LUSD_UNDERLYING,
+      AaveV3Arbitrum.POOL.RESERVE_INTEREST_RATE_STRATEGY(),
+      AaveV3Arbitrum.POOL.RESERVE_INTEREST_RATE_STRATEGY(),
+      IDefaultInterestRateStrategyV2.InterestRateDataRay({
+        optimalUsageRatio: 800_000_000_000_000_000_000_000_000, // unchanged; 80% (27 decimals)
+        baseVariableBorrowRate: afterExecution
+          ? 50_000_000_000_000_000_000_000_000
+          : 20_000_000_000_000_000_000_000_000, // 2% -> 5% (27 decimals)
+        variableRateSlope1: 65_000_000_000_000_000_000_000_000, // unchanged; 6.5% (27 decimals)
+        variableRateSlope2: afterExecution
+          ? 1_000_000_000_000_000_000_000_000_000
+          : 500_000_000_000_000_000_000_000_000 // 50% -> 100% (27 decimals)
+      })
+    );
+    _validateInterestRateStrategy(
+      AaveV3ArbitrumAssets.MAI_UNDERLYING,
+      AaveV3Arbitrum.POOL.RESERVE_INTEREST_RATE_STRATEGY(),
+      AaveV3Arbitrum.POOL.RESERVE_INTEREST_RATE_STRATEGY(),
+      IDefaultInterestRateStrategyV2.InterestRateDataRay({
+        optimalUsageRatio: 450_000_000_000_000_000_000_000_000, // unchanged; 45% (27 decimals)
+        baseVariableBorrowRate: afterExecution ? 200_000_000_000_000_000_000_000_000 : 0, // 0% -> 20% (27 decimals)
+        variableRateSlope1: 90_000_000_000_000_000_000_000_000, // unchanged; 9% (27 decimals)
+        variableRateSlope2: afterExecution
+          ? 400_000_000_000_000_000_000_000_000
+          : 3_000_000_000_000_000_000_000_000_000 // 300% -> 40% (27 decimals)
+      })
+    );
   }
   function _assertOracles() internal view {
-    assertEq(
-      AaveV3Arbitrum.ORACLE.getSourceOfAsset(AaveV3ArbitrumAssets.FRAX_UNDERLYING),
-      proposal.FRAX_PRICE_FEED(),
-      'FRAX source'
+    _validateAssetSourceOnOracle(
+      AaveV3Arbitrum.POOL_ADDRESSES_PROVIDER,
+      AaveV3ArbitrumAssets.FRAX_UNDERLYING,
+      proposal.FRAX_PRICE_FEED()
     );
     assertEq(
       AaveV3Arbitrum.ORACLE.getAssetPrice(AaveV3ArbitrumAssets.FRAX_UNDERLYING),
@@ -193,10 +159,10 @@ contract AaveV3Arbitrum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
       100_000_000,
       'FRAX oracle output'
     );
-    assertEq(
-      AaveV3Arbitrum.ORACLE.getSourceOfAsset(AaveV3ArbitrumAssets.LUSD_UNDERLYING),
-      proposal.LUSD_PRICE_FEED(),
-      'LUSD source'
+    _validateAssetSourceOnOracle(
+      AaveV3Arbitrum.POOL_ADDRESSES_PROVIDER,
+      AaveV3ArbitrumAssets.LUSD_UNDERLYING,
+      proposal.LUSD_PRICE_FEED()
     );
     assertEq(
       AaveV3Arbitrum.ORACLE.getAssetPrice(AaveV3ArbitrumAssets.LUSD_UNDERLYING),
@@ -204,10 +170,10 @@ contract AaveV3Arbitrum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
       100_000_000,
       'LUSD oracle output'
     );
-    assertEq(
-      AaveV3Arbitrum.ORACLE.getSourceOfAsset(AaveV3ArbitrumAssets.MAI_UNDERLYING),
-      proposal.MAI_PRICE_FEED(),
-      'MAI source'
+    _validateAssetSourceOnOracle(
+      AaveV3Arbitrum.POOL_ADDRESSES_PROVIDER,
+      AaveV3ArbitrumAssets.MAI_UNDERLYING,
+      proposal.MAI_PRICE_FEED()
     );
     assertEq(
       AaveV3Arbitrum.ORACLE.getAssetPrice(AaveV3ArbitrumAssets.MAI_UNDERLYING),

@@ -79,87 +79,53 @@ contract AaveV3Polygon_OracleDeprecationForLongTailAssets_20260915_Test is Proto
     frozen[0] = true;
   }
   function _assertRates(bool afterExecution) internal view {
-    {
-      IDefaultInterestRateStrategyV2.InterestRateData memory rate = IDefaultInterestRateStrategyV2(
-        AaveV3Polygon.POOL.RESERVE_INTEREST_RATE_STRATEGY()
-      ).getInterestRateDataBps(AaveV3PolygonAssets.BAL_UNDERLYING);
-      assertEq(
-        rate.optimalUsageRatio,
-        4_500, // unchanged; 45% (2 decimals)
-        'BAL kink'
-      );
-      assertEq(
-        rate.baseVariableBorrowRate,
-        afterExecution ? 2_000 : 500, // 5% -> 20% (2 decimals)
-        'BAL base'
-      );
-      assertEq(
-        rate.variableRateSlope1,
-        1_500, // unchanged; 15% (2 decimals)
-        'BAL s1'
-      );
-      assertEq(
-        rate.variableRateSlope2,
-        afterExecution ? 4_000 : 15_000, // 150% -> 40% (2 decimals)
-        'BAL s2'
-      );
-    }
-    {
-      IDefaultInterestRateStrategyV2.InterestRateData memory rate = IDefaultInterestRateStrategyV2(
-        AaveV3Polygon.POOL.RESERVE_INTEREST_RATE_STRATEGY()
-      ).getInterestRateDataBps(AaveV3PolygonAssets.GHST_UNDERLYING);
-      assertEq(
-        rate.optimalUsageRatio,
-        4_500, // unchanged; 45% (2 decimals)
-        'GHST kink'
-      );
-      assertEq(
-        rate.baseVariableBorrowRate,
-        afterExecution ? 2_000 : 0, // 0% -> 20% (2 decimals)
-        'GHST base'
-      );
-      assertEq(
-        rate.variableRateSlope1,
-        700, // unchanged; 7% (2 decimals)
-        'GHST s1'
-      );
-      assertEq(
-        rate.variableRateSlope2,
-        afterExecution ? 4_000 : 30_000, // 300% -> 40% (2 decimals)
-        'GHST s2'
-      );
-    }
-    {
-      IDefaultInterestRateStrategyV2.InterestRateData memory rate = IDefaultInterestRateStrategyV2(
-        AaveV3Polygon.POOL.RESERVE_INTEREST_RATE_STRATEGY()
-      ).getInterestRateDataBps(AaveV3PolygonAssets.miMATIC_UNDERLYING);
-      assertEq(
-        rate.optimalUsageRatio,
-        4_500, // unchanged; 45% (2 decimals)
-        'miMATIC kink'
-      );
-      assertEq(
-        rate.baseVariableBorrowRate,
-        afterExecution ? 2_000 : 0, // 0% -> 20% (2 decimals)
-        'miMATIC base'
-      );
-      assertEq(
-        rate.variableRateSlope1,
-        900, // unchanged; 9% (2 decimals)
-        'miMATIC s1'
-      );
-      assertEq(
-        rate.variableRateSlope2,
-        afterExecution ? 4_000 : 30_000, // 300% -> 40% (2 decimals)
-        'miMATIC s2'
-      );
-    }
+    _validateInterestRateStrategy(
+      AaveV3PolygonAssets.BAL_UNDERLYING,
+      AaveV3Polygon.POOL.RESERVE_INTEREST_RATE_STRATEGY(),
+      AaveV3Polygon.POOL.RESERVE_INTEREST_RATE_STRATEGY(),
+      IDefaultInterestRateStrategyV2.InterestRateDataRay({
+        optimalUsageRatio: 450_000_000_000_000_000_000_000_000, // unchanged; 45% (27 decimals)
+        baseVariableBorrowRate: afterExecution
+          ? 200_000_000_000_000_000_000_000_000
+          : 50_000_000_000_000_000_000_000_000, // 5% -> 20% (27 decimals)
+        variableRateSlope1: 150_000_000_000_000_000_000_000_000, // unchanged; 15% (27 decimals)
+        variableRateSlope2: afterExecution
+          ? 400_000_000_000_000_000_000_000_000
+          : 1_500_000_000_000_000_000_000_000_000 // 150% -> 40% (27 decimals)
+      })
+    );
+    _validateInterestRateStrategy(
+      AaveV3PolygonAssets.GHST_UNDERLYING,
+      AaveV3Polygon.POOL.RESERVE_INTEREST_RATE_STRATEGY(),
+      AaveV3Polygon.POOL.RESERVE_INTEREST_RATE_STRATEGY(),
+      IDefaultInterestRateStrategyV2.InterestRateDataRay({
+        optimalUsageRatio: 450_000_000_000_000_000_000_000_000, // unchanged; 45% (27 decimals)
+        baseVariableBorrowRate: afterExecution ? 200_000_000_000_000_000_000_000_000 : 0, // 0% -> 20% (27 decimals)
+        variableRateSlope1: 70_000_000_000_000_000_000_000_000, // unchanged; 7% (27 decimals)
+        variableRateSlope2: afterExecution
+          ? 400_000_000_000_000_000_000_000_000
+          : 3_000_000_000_000_000_000_000_000_000 // 300% -> 40% (27 decimals)
+      })
+    );
+    _validateInterestRateStrategy(
+      AaveV3PolygonAssets.miMATIC_UNDERLYING,
+      AaveV3Polygon.POOL.RESERVE_INTEREST_RATE_STRATEGY(),
+      AaveV3Polygon.POOL.RESERVE_INTEREST_RATE_STRATEGY(),
+      IDefaultInterestRateStrategyV2.InterestRateDataRay({
+        optimalUsageRatio: 450_000_000_000_000_000_000_000_000, // unchanged; 45% (27 decimals)
+        baseVariableBorrowRate: afterExecution ? 200_000_000_000_000_000_000_000_000 : 0, // 0% -> 20% (27 decimals)
+        variableRateSlope1: 90_000_000_000_000_000_000_000_000, // unchanged; 9% (27 decimals)
+        variableRateSlope2: afterExecution
+          ? 400_000_000_000_000_000_000_000_000
+          : 3_000_000_000_000_000_000_000_000_000 // 300% -> 40% (27 decimals)
+      })
+    );
   }
   function _assertOracles() internal view {
-    assertEq(
-      AaveV3Polygon.ORACLE.getSourceOfAsset(AaveV3PolygonAssets.BAL_UNDERLYING),
-      proposal.BAL_PRICE_FEED(),
-      'BAL source'
+    _validateAssetSourceOnOracle(
+      AaveV3Polygon.POOL_ADDRESSES_PROVIDER,
+      AaveV3PolygonAssets.BAL_UNDERLYING,
+      proposal.BAL_PRICE_FEED()
     );
     assertEq(
       AaveV3Polygon.ORACLE.getAssetPrice(AaveV3PolygonAssets.BAL_UNDERLYING),
@@ -167,10 +133,10 @@ contract AaveV3Polygon_OracleDeprecationForLongTailAssets_20260915_Test is Proto
       13_160_000,
       'BAL oracle output'
     );
-    assertEq(
-      AaveV3Polygon.ORACLE.getSourceOfAsset(AaveV3PolygonAssets.GHST_UNDERLYING),
-      proposal.GHST_PRICE_FEED(),
-      'GHST source'
+    _validateAssetSourceOnOracle(
+      AaveV3Polygon.POOL_ADDRESSES_PROVIDER,
+      AaveV3PolygonAssets.GHST_UNDERLYING,
+      proposal.GHST_PRICE_FEED()
     );
     assertEq(
       AaveV3Polygon.ORACLE.getAssetPrice(AaveV3PolygonAssets.GHST_UNDERLYING),
@@ -178,10 +144,10 @@ contract AaveV3Polygon_OracleDeprecationForLongTailAssets_20260915_Test is Proto
       8_280_000,
       'GHST oracle output'
     );
-    assertEq(
-      AaveV3Polygon.ORACLE.getSourceOfAsset(AaveV3PolygonAssets.miMATIC_UNDERLYING),
-      proposal.miMATIC_PRICE_FEED(),
-      'miMATIC source'
+    _validateAssetSourceOnOracle(
+      AaveV3Polygon.POOL_ADDRESSES_PROVIDER,
+      AaveV3PolygonAssets.miMATIC_UNDERLYING,
+      proposal.miMATIC_PRICE_FEED()
     );
     assertEq(
       AaveV3Polygon.ORACLE.getAssetPrice(AaveV3PolygonAssets.miMATIC_UNDERLYING),

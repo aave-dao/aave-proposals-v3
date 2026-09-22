@@ -77,37 +77,23 @@ contract AaveV3EthereumEtherFi_OracleDeprecationForLongTailAssets_20260915_Test 
     capsUpdate = new IAaveV3ConfigEngine.CapsUpdate[](0);
   }
   function _assertRates(bool afterExecution) internal view {
-    {
-      IDefaultInterestRateStrategyV2.InterestRateData memory rate = IDefaultInterestRateStrategyV2(
-        AaveV3EthereumEtherFi.POOL.RESERVE_INTEREST_RATE_STRATEGY()
-      ).getInterestRateDataBps(AaveV3EthereumEtherFiAssets.FRAX_UNDERLYING);
-      assertEq(
-        rate.optimalUsageRatio,
-        9_000, // unchanged; 90% (2 decimals)
-        'FRAX kink'
-      );
-      assertEq(
-        rate.baseVariableBorrowRate,
-        afterExecution ? 2_000 : 0, // 0% -> 20% (2 decimals)
-        'FRAX base'
-      );
-      assertEq(
-        rate.variableRateSlope1,
-        550, // unchanged; 5.5% (2 decimals)
-        'FRAX s1'
-      );
-      assertEq(
-        rate.variableRateSlope2,
-        4_000, // unchanged; 40% (2 decimals)
-        'FRAX s2'
-      );
-    }
+    _validateInterestRateStrategy(
+      AaveV3EthereumEtherFiAssets.FRAX_UNDERLYING,
+      AaveV3EthereumEtherFi.POOL.RESERVE_INTEREST_RATE_STRATEGY(),
+      AaveV3EthereumEtherFi.POOL.RESERVE_INTEREST_RATE_STRATEGY(),
+      IDefaultInterestRateStrategyV2.InterestRateDataRay({
+        optimalUsageRatio: 900_000_000_000_000_000_000_000_000, // unchanged; 90% (27 decimals)
+        baseVariableBorrowRate: afterExecution ? 200_000_000_000_000_000_000_000_000 : 0, // 0% -> 20% (27 decimals)
+        variableRateSlope1: 55_000_000_000_000_000_000_000_000, // unchanged; 5.5% (27 decimals)
+        variableRateSlope2: 400_000_000_000_000_000_000_000_000 // unchanged; 40% (27 decimals)
+      })
+    );
   }
   function _assertOracles() internal view {
-    assertEq(
-      AaveV3EthereumEtherFi.ORACLE.getSourceOfAsset(AaveV3EthereumEtherFiAssets.FRAX_UNDERLYING),
-      proposal.FRAX_PRICE_FEED(),
-      'FRAX source'
+    _validateAssetSourceOnOracle(
+      AaveV3EthereumEtherFi.POOL_ADDRESSES_PROVIDER,
+      AaveV3EthereumEtherFiAssets.FRAX_UNDERLYING,
+      proposal.FRAX_PRICE_FEED()
     );
     assertEq(
       AaveV3EthereumEtherFi.ORACLE.getAssetPrice(AaveV3EthereumEtherFiAssets.FRAX_UNDERLYING),

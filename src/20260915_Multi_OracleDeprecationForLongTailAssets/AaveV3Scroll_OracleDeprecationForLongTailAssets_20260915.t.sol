@@ -49,37 +49,27 @@ contract AaveV3Scroll_OracleDeprecationForLongTailAssets_20260915_Test is Protoc
     reserveConfigChangesTest(AaveV3Scroll.POOL, address(proposal), updatedAssets);
   }
   function _assertRates(bool afterExecution) internal view {
-    {
-      IDefaultInterestRateStrategyV2.InterestRateData memory rate = IDefaultInterestRateStrategyV2(
-        AaveV3Scroll.POOL.RESERVE_INTEREST_RATE_STRATEGY()
-      ).getInterestRateDataBps(AaveV3ScrollAssets.SCR_UNDERLYING);
-      assertEq(
-        rate.optimalUsageRatio,
-        4_500, // unchanged; 45% (2 decimals)
-        'SCR kink'
-      );
-      assertEq(
-        rate.baseVariableBorrowRate,
-        afterExecution ? 2_000 : 500, // 5% -> 20% (2 decimals)
-        'SCR base'
-      );
-      assertEq(
-        rate.variableRateSlope1,
-        700, // unchanged; 7% (2 decimals)
-        'SCR s1'
-      );
-      assertEq(
-        rate.variableRateSlope2,
-        afterExecution ? 4_000 : 30_000, // 300% -> 40% (2 decimals)
-        'SCR s2'
-      );
-    }
+    _validateInterestRateStrategy(
+      AaveV3ScrollAssets.SCR_UNDERLYING,
+      AaveV3Scroll.POOL.RESERVE_INTEREST_RATE_STRATEGY(),
+      AaveV3Scroll.POOL.RESERVE_INTEREST_RATE_STRATEGY(),
+      IDefaultInterestRateStrategyV2.InterestRateDataRay({
+        optimalUsageRatio: 450_000_000_000_000_000_000_000_000, // unchanged; 45% (27 decimals)
+        baseVariableBorrowRate: afterExecution
+          ? 200_000_000_000_000_000_000_000_000
+          : 50_000_000_000_000_000_000_000_000, // 5% -> 20% (27 decimals)
+        variableRateSlope1: 70_000_000_000_000_000_000_000_000, // unchanged; 7% (27 decimals)
+        variableRateSlope2: afterExecution
+          ? 400_000_000_000_000_000_000_000_000
+          : 3_000_000_000_000_000_000_000_000_000 // 300% -> 40% (27 decimals)
+      })
+    );
   }
   function _assertOracles() internal view {
-    assertEq(
-      AaveV3Scroll.ORACLE.getSourceOfAsset(AaveV3ScrollAssets.SCR_UNDERLYING),
-      proposal.SCR_PRICE_FEED(),
-      'SCR source'
+    _validateAssetSourceOnOracle(
+      AaveV3Scroll.POOL_ADDRESSES_PROVIDER,
+      AaveV3ScrollAssets.SCR_UNDERLYING,
+      proposal.SCR_PRICE_FEED()
     );
     assertEq(
       AaveV3Scroll.ORACLE.getAssetPrice(AaveV3ScrollAssets.SCR_UNDERLYING),

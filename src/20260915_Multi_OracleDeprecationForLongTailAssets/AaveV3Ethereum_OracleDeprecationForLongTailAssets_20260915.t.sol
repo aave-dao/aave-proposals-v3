@@ -131,187 +131,105 @@ contract AaveV3Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
     return borrowUpdates;
   }
   function _assertRates(bool afterExecution) internal view {
-    {
-      IDefaultInterestRateStrategyV2.InterestRateData memory rate = IDefaultInterestRateStrategyV2(
-        AaveV3Ethereum.POOL.RESERVE_INTEREST_RATE_STRATEGY()
-      ).getInterestRateDataBps(AaveV3EthereumAssets.BAL_UNDERLYING);
-      assertEq(
-        rate.optimalUsageRatio,
-        4_500, // unchanged; 45% (2 decimals)
-        'BAL kink'
-      );
-      assertEq(
-        rate.baseVariableBorrowRate,
-        afterExecution ? 2_000 : 500, // 5% -> 20% (2 decimals)
-        'BAL base'
-      );
-      assertEq(
-        rate.variableRateSlope1,
-        1_500, // unchanged; 15% (2 decimals)
-        'BAL s1'
-      );
-      assertEq(
-        rate.variableRateSlope2,
-        afterExecution ? 4_000 : 15_000, // 150% -> 40% (2 decimals)
-        'BAL s2'
-      );
-    }
-    {
-      IDefaultInterestRateStrategyV2.InterestRateData memory rate = IDefaultInterestRateStrategyV2(
-        AaveV3Ethereum.POOL.RESERVE_INTEREST_RATE_STRATEGY()
-      ).getInterestRateDataBps(AaveV3EthereumAssets.FRAX_UNDERLYING);
-      assertEq(
-        rate.optimalUsageRatio,
-        9_000, // unchanged; 90% (2 decimals)
-        'FRAX kink'
-      );
-      assertEq(
-        rate.baseVariableBorrowRate,
-        afterExecution ? 500 : 0, // 0% -> 5% (2 decimals)
-        'FRAX base'
-      );
-      assertEq(
-        rate.variableRateSlope1,
-        550, // unchanged; 5.5% (2 decimals)
-        'FRAX s1'
-      );
-      assertEq(
-        rate.variableRateSlope2,
-        afterExecution ? 10_000 : 4_000, // 40% -> 100% (2 decimals)
-        'FRAX s2'
-      );
-    }
-    {
-      IDefaultInterestRateStrategyV2.InterestRateData memory rate = IDefaultInterestRateStrategyV2(
-        AaveV3Ethereum.POOL.RESERVE_INTEREST_RATE_STRATEGY()
-      ).getInterestRateDataBps(AaveV3EthereumAssets.FXS_UNDERLYING);
-      assertEq(
-        rate.optimalUsageRatio,
-        4_500, // unchanged; 45% (2 decimals)
-        'FXS kink'
-      );
-      assertEq(
-        rate.baseVariableBorrowRate,
-        afterExecution ? 2_000 : 0, // 0% -> 20% (2 decimals)
-        'FXS base'
-      );
-      assertEq(
-        rate.variableRateSlope1,
-        900, // unchanged; 9% (2 decimals)
-        'FXS s1'
-      );
-      assertEq(
-        rate.variableRateSlope2,
-        afterExecution ? 4_000 : 30_000, // 300% -> 40% (2 decimals)
-        'FXS s2'
-      );
-    }
-    {
-      IDefaultInterestRateStrategyV2.InterestRateData memory rate = IDefaultInterestRateStrategyV2(
-        AaveV3Ethereum.POOL.RESERVE_INTEREST_RATE_STRATEGY()
-      ).getInterestRateDataBps(AaveV3EthereumAssets.KNC_UNDERLYING);
-      assertEq(
-        rate.optimalUsageRatio,
-        4_500, // unchanged; 45% (2 decimals)
-        'KNC kink'
-      );
-      assertEq(
-        rate.baseVariableBorrowRate,
-        afterExecution ? 2_000 : 0, // 0% -> 20% (2 decimals)
-        'KNC base'
-      );
-      assertEq(
-        rate.variableRateSlope1,
-        900, // unchanged; 9% (2 decimals)
-        'KNC s1'
-      );
-      assertEq(
-        rate.variableRateSlope2,
-        afterExecution ? 4_000 : 30_000, // 300% -> 40% (2 decimals)
-        'KNC s2'
-      );
-    }
-    {
-      IDefaultInterestRateStrategyV2.InterestRateData memory rate = IDefaultInterestRateStrategyV2(
-        AaveV3Ethereum.POOL.RESERVE_INTEREST_RATE_STRATEGY()
-      ).getInterestRateDataBps(AaveV3EthereumAssets.LUSD_UNDERLYING);
-      assertEq(
-        rate.optimalUsageRatio,
-        8_000, // unchanged; 80% (2 decimals)
-        'LUSD kink'
-      );
-      assertEq(
-        rate.baseVariableBorrowRate,
-        afterExecution ? 500 : 0, // 0% -> 5% (2 decimals)
-        'LUSD base'
-      );
-      assertEq(
-        rate.variableRateSlope1,
-        500, // unchanged; 5% (2 decimals)
-        'LUSD s1'
-      );
-      assertEq(
-        rate.variableRateSlope2,
-        afterExecution ? 10_000 : 5_000, // 50% -> 100% (2 decimals)
-        'LUSD s2'
-      );
-    }
-    {
-      IDefaultInterestRateStrategyV2.InterestRateData memory rate = IDefaultInterestRateStrategyV2(
-        AaveV3Ethereum.POOL.RESERVE_INTEREST_RATE_STRATEGY()
-      ).getInterestRateDataBps(AaveV3EthereumAssets.RPL_UNDERLYING);
-      assertEq(
-        rate.optimalUsageRatio,
-        8_000, // unchanged; 80% (2 decimals)
-        'RPL kink'
-      );
-      assertEq(
-        rate.baseVariableBorrowRate,
-        afterExecution ? 500 : 0, // 0% -> 5% (2 decimals)
-        'RPL base'
-      );
-      assertEq(
-        rate.variableRateSlope1,
-        850, // unchanged; 8.5% (2 decimals)
-        'RPL s1'
-      );
-      assertEq(
-        rate.variableRateSlope2,
-        afterExecution ? 10_000 : 8_700, // 87% -> 100% (2 decimals)
-        'RPL s2'
-      );
-    }
-    {
-      IDefaultInterestRateStrategyV2.InterestRateData memory rate = IDefaultInterestRateStrategyV2(
-        AaveV3Ethereum.POOL.RESERVE_INTEREST_RATE_STRATEGY()
-      ).getInterestRateDataBps(AaveV3EthereumAssets.STG_UNDERLYING);
-      assertEq(
-        rate.optimalUsageRatio,
-        4_500, // unchanged; 45% (2 decimals)
-        'STG kink'
-      );
-      assertEq(
-        rate.baseVariableBorrowRate,
-        afterExecution ? 2_000 : 0, // 0% -> 20% (2 decimals)
-        'STG base'
-      );
-      assertEq(
-        rate.variableRateSlope1,
-        700, // unchanged; 7% (2 decimals)
-        'STG s1'
-      );
-      assertEq(
-        rate.variableRateSlope2,
-        afterExecution ? 4_000 : 30_000, // 300% -> 40% (2 decimals)
-        'STG s2'
-      );
-    }
+    _validateInterestRateStrategy(
+      AaveV3EthereumAssets.BAL_UNDERLYING,
+      AaveV3Ethereum.POOL.RESERVE_INTEREST_RATE_STRATEGY(),
+      AaveV3Ethereum.POOL.RESERVE_INTEREST_RATE_STRATEGY(),
+      IDefaultInterestRateStrategyV2.InterestRateDataRay({
+        optimalUsageRatio: 450_000_000_000_000_000_000_000_000, // unchanged; 45% (27 decimals)
+        baseVariableBorrowRate: afterExecution
+          ? 200_000_000_000_000_000_000_000_000
+          : 50_000_000_000_000_000_000_000_000, // 5% -> 20% (27 decimals)
+        variableRateSlope1: 150_000_000_000_000_000_000_000_000, // unchanged; 15% (27 decimals)
+        variableRateSlope2: afterExecution
+          ? 400_000_000_000_000_000_000_000_000
+          : 1_500_000_000_000_000_000_000_000_000 // 150% -> 40% (27 decimals)
+      })
+    );
+    _validateInterestRateStrategy(
+      AaveV3EthereumAssets.FRAX_UNDERLYING,
+      AaveV3Ethereum.POOL.RESERVE_INTEREST_RATE_STRATEGY(),
+      AaveV3Ethereum.POOL.RESERVE_INTEREST_RATE_STRATEGY(),
+      IDefaultInterestRateStrategyV2.InterestRateDataRay({
+        optimalUsageRatio: 900_000_000_000_000_000_000_000_000, // unchanged; 90% (27 decimals)
+        baseVariableBorrowRate: afterExecution ? 50_000_000_000_000_000_000_000_000 : 0, // 0% -> 5% (27 decimals)
+        variableRateSlope1: 55_000_000_000_000_000_000_000_000, // unchanged; 5.5% (27 decimals)
+        variableRateSlope2: afterExecution
+          ? 1_000_000_000_000_000_000_000_000_000
+          : 400_000_000_000_000_000_000_000_000 // 40% -> 100% (27 decimals)
+      })
+    );
+    _validateInterestRateStrategy(
+      AaveV3EthereumAssets.FXS_UNDERLYING,
+      AaveV3Ethereum.POOL.RESERVE_INTEREST_RATE_STRATEGY(),
+      AaveV3Ethereum.POOL.RESERVE_INTEREST_RATE_STRATEGY(),
+      IDefaultInterestRateStrategyV2.InterestRateDataRay({
+        optimalUsageRatio: 450_000_000_000_000_000_000_000_000, // unchanged; 45% (27 decimals)
+        baseVariableBorrowRate: afterExecution ? 200_000_000_000_000_000_000_000_000 : 0, // 0% -> 20% (27 decimals)
+        variableRateSlope1: 90_000_000_000_000_000_000_000_000, // unchanged; 9% (27 decimals)
+        variableRateSlope2: afterExecution
+          ? 400_000_000_000_000_000_000_000_000
+          : 3_000_000_000_000_000_000_000_000_000 // 300% -> 40% (27 decimals)
+      })
+    );
+    _validateInterestRateStrategy(
+      AaveV3EthereumAssets.KNC_UNDERLYING,
+      AaveV3Ethereum.POOL.RESERVE_INTEREST_RATE_STRATEGY(),
+      AaveV3Ethereum.POOL.RESERVE_INTEREST_RATE_STRATEGY(),
+      IDefaultInterestRateStrategyV2.InterestRateDataRay({
+        optimalUsageRatio: 450_000_000_000_000_000_000_000_000, // unchanged; 45% (27 decimals)
+        baseVariableBorrowRate: afterExecution ? 200_000_000_000_000_000_000_000_000 : 0, // 0% -> 20% (27 decimals)
+        variableRateSlope1: 90_000_000_000_000_000_000_000_000, // unchanged; 9% (27 decimals)
+        variableRateSlope2: afterExecution
+          ? 400_000_000_000_000_000_000_000_000
+          : 3_000_000_000_000_000_000_000_000_000 // 300% -> 40% (27 decimals)
+      })
+    );
+    _validateInterestRateStrategy(
+      AaveV3EthereumAssets.LUSD_UNDERLYING,
+      AaveV3Ethereum.POOL.RESERVE_INTEREST_RATE_STRATEGY(),
+      AaveV3Ethereum.POOL.RESERVE_INTEREST_RATE_STRATEGY(),
+      IDefaultInterestRateStrategyV2.InterestRateDataRay({
+        optimalUsageRatio: 800_000_000_000_000_000_000_000_000, // unchanged; 80% (27 decimals)
+        baseVariableBorrowRate: afterExecution ? 50_000_000_000_000_000_000_000_000 : 0, // 0% -> 5% (27 decimals)
+        variableRateSlope1: 50_000_000_000_000_000_000_000_000, // unchanged; 5% (27 decimals)
+        variableRateSlope2: afterExecution
+          ? 1_000_000_000_000_000_000_000_000_000
+          : 500_000_000_000_000_000_000_000_000 // 50% -> 100% (27 decimals)
+      })
+    );
+    _validateInterestRateStrategy(
+      AaveV3EthereumAssets.RPL_UNDERLYING,
+      AaveV3Ethereum.POOL.RESERVE_INTEREST_RATE_STRATEGY(),
+      AaveV3Ethereum.POOL.RESERVE_INTEREST_RATE_STRATEGY(),
+      IDefaultInterestRateStrategyV2.InterestRateDataRay({
+        optimalUsageRatio: 800_000_000_000_000_000_000_000_000, // unchanged; 80% (27 decimals)
+        baseVariableBorrowRate: afterExecution ? 50_000_000_000_000_000_000_000_000 : 0, // 0% -> 5% (27 decimals)
+        variableRateSlope1: 85_000_000_000_000_000_000_000_000, // unchanged; 8.5% (27 decimals)
+        variableRateSlope2: afterExecution
+          ? 1_000_000_000_000_000_000_000_000_000
+          : 870_000_000_000_000_000_000_000_000 // 87% -> 100% (27 decimals)
+      })
+    );
+    _validateInterestRateStrategy(
+      AaveV3EthereumAssets.STG_UNDERLYING,
+      AaveV3Ethereum.POOL.RESERVE_INTEREST_RATE_STRATEGY(),
+      AaveV3Ethereum.POOL.RESERVE_INTEREST_RATE_STRATEGY(),
+      IDefaultInterestRateStrategyV2.InterestRateDataRay({
+        optimalUsageRatio: 450_000_000_000_000_000_000_000_000, // unchanged; 45% (27 decimals)
+        baseVariableBorrowRate: afterExecution ? 200_000_000_000_000_000_000_000_000 : 0, // 0% -> 20% (27 decimals)
+        variableRateSlope1: 70_000_000_000_000_000_000_000_000, // unchanged; 7% (27 decimals)
+        variableRateSlope2: afterExecution
+          ? 400_000_000_000_000_000_000_000_000
+          : 3_000_000_000_000_000_000_000_000_000 // 300% -> 40% (27 decimals)
+      })
+    );
   }
   function _assertOracles() internal view {
-    assertEq(
-      AaveV3Ethereum.ORACLE.getSourceOfAsset(AaveV3EthereumAssets.BAL_UNDERLYING),
-      proposal.BAL_PRICE_FEED(),
-      'BAL source'
+    _validateAssetSourceOnOracle(
+      AaveV3Ethereum.POOL_ADDRESSES_PROVIDER,
+      AaveV3EthereumAssets.BAL_UNDERLYING,
+      proposal.BAL_PRICE_FEED()
     );
     assertEq(
       AaveV3Ethereum.ORACLE.getAssetPrice(AaveV3EthereumAssets.BAL_UNDERLYING),
@@ -319,10 +237,10 @@ contract AaveV3Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
       13_370_000,
       'BAL oracle output'
     );
-    assertEq(
-      AaveV3Ethereum.ORACLE.getSourceOfAsset(AaveV3EthereumAssets.FRAX_UNDERLYING),
-      proposal.FRAX_PRICE_FEED(),
-      'FRAX source'
+    _validateAssetSourceOnOracle(
+      AaveV3Ethereum.POOL_ADDRESSES_PROVIDER,
+      AaveV3EthereumAssets.FRAX_UNDERLYING,
+      proposal.FRAX_PRICE_FEED()
     );
     assertEq(
       AaveV3Ethereum.ORACLE.getAssetPrice(AaveV3EthereumAssets.FRAX_UNDERLYING),
@@ -330,10 +248,10 @@ contract AaveV3Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
       100_000_000,
       'FRAX oracle output'
     );
-    assertEq(
-      AaveV3Ethereum.ORACLE.getSourceOfAsset(AaveV3EthereumAssets.FXS_UNDERLYING),
-      proposal.FXS_PRICE_FEED(),
-      'FXS source'
+    _validateAssetSourceOnOracle(
+      AaveV3Ethereum.POOL_ADDRESSES_PROVIDER,
+      AaveV3EthereumAssets.FXS_UNDERLYING,
+      proposal.FXS_PRICE_FEED()
     );
     assertEq(
       AaveV3Ethereum.ORACLE.getAssetPrice(AaveV3EthereumAssets.FXS_UNDERLYING),
@@ -341,10 +259,10 @@ contract AaveV3Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
       35_620_000,
       'FXS oracle output'
     );
-    assertEq(
-      AaveV3Ethereum.ORACLE.getSourceOfAsset(AaveV3EthereumAssets.KNC_UNDERLYING),
-      proposal.KNC_PRICE_FEED(),
-      'KNC source'
+    _validateAssetSourceOnOracle(
+      AaveV3Ethereum.POOL_ADDRESSES_PROVIDER,
+      AaveV3EthereumAssets.KNC_UNDERLYING,
+      proposal.KNC_PRICE_FEED()
     );
     assertEq(
       AaveV3Ethereum.ORACLE.getAssetPrice(AaveV3EthereumAssets.KNC_UNDERLYING),
@@ -352,10 +270,10 @@ contract AaveV3Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
       14_000_000,
       'KNC oracle output'
     );
-    assertEq(
-      AaveV3Ethereum.ORACLE.getSourceOfAsset(AaveV3EthereumAssets.LUSD_UNDERLYING),
-      proposal.LUSD_PRICE_FEED(),
-      'LUSD source'
+    _validateAssetSourceOnOracle(
+      AaveV3Ethereum.POOL_ADDRESSES_PROVIDER,
+      AaveV3EthereumAssets.LUSD_UNDERLYING,
+      proposal.LUSD_PRICE_FEED()
     );
     assertEq(
       AaveV3Ethereum.ORACLE.getAssetPrice(AaveV3EthereumAssets.LUSD_UNDERLYING),
@@ -363,10 +281,10 @@ contract AaveV3Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
       100_000_000,
       'LUSD oracle output'
     );
-    assertEq(
-      AaveV3Ethereum.ORACLE.getSourceOfAsset(AaveV3EthereumAssets.RPL_UNDERLYING),
-      proposal.RPL_PRICE_FEED(),
-      'RPL source'
+    _validateAssetSourceOnOracle(
+      AaveV3Ethereum.POOL_ADDRESSES_PROVIDER,
+      AaveV3EthereumAssets.RPL_UNDERLYING,
+      proposal.RPL_PRICE_FEED()
     );
     assertEq(
       AaveV3Ethereum.ORACLE.getAssetPrice(AaveV3EthereumAssets.RPL_UNDERLYING),
@@ -374,10 +292,10 @@ contract AaveV3Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
       173_380_000,
       'RPL oracle output'
     );
-    assertEq(
-      AaveV3Ethereum.ORACLE.getSourceOfAsset(AaveV3EthereumAssets.STG_UNDERLYING),
-      proposal.STG_PRICE_FEED(),
-      'STG source'
+    _validateAssetSourceOnOracle(
+      AaveV3Ethereum.POOL_ADDRESSES_PROVIDER,
+      AaveV3EthereumAssets.STG_UNDERLYING,
+      proposal.STG_PRICE_FEED()
     );
     assertEq(
       AaveV3Ethereum.ORACLE.getAssetPrice(AaveV3EthereumAssets.STG_UNDERLYING),

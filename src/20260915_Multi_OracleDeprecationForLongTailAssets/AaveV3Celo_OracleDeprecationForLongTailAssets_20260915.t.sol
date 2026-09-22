@@ -95,37 +95,25 @@ contract AaveV3Celo_OracleDeprecationForLongTailAssets_20260915_Test is Protocol
     return borrowUpdates;
   }
   function _assertRates(bool afterExecution) internal view {
-    {
-      IDefaultInterestRateStrategyV2.InterestRateData memory rate = IDefaultInterestRateStrategyV2(
-        AaveV3Celo.POOL.RESERVE_INTEREST_RATE_STRATEGY()
-      ).getInterestRateDataBps(AaveV3CeloAssets.USDm_UNDERLYING);
-      assertEq(
-        rate.optimalUsageRatio,
-        9_000, // unchanged; 90% (2 decimals)
-        'USDm kink'
-      );
-      assertEq(
-        rate.baseVariableBorrowRate,
-        afterExecution ? 500 : 0, // 0% -> 5% (2 decimals)
-        'USDm base'
-      );
-      assertEq(
-        rate.variableRateSlope1,
-        400, // unchanged; 4% (2 decimals)
-        'USDm s1'
-      );
-      assertEq(
-        rate.variableRateSlope2,
-        afterExecution ? 10_000 : 7_500, // 75% -> 100% (2 decimals)
-        'USDm s2'
-      );
-    }
+    _validateInterestRateStrategy(
+      AaveV3CeloAssets.USDm_UNDERLYING,
+      AaveV3Celo.POOL.RESERVE_INTEREST_RATE_STRATEGY(),
+      AaveV3Celo.POOL.RESERVE_INTEREST_RATE_STRATEGY(),
+      IDefaultInterestRateStrategyV2.InterestRateDataRay({
+        optimalUsageRatio: 900_000_000_000_000_000_000_000_000, // unchanged; 90% (27 decimals)
+        baseVariableBorrowRate: afterExecution ? 50_000_000_000_000_000_000_000_000 : 0, // 0% -> 5% (27 decimals)
+        variableRateSlope1: 40_000_000_000_000_000_000_000_000, // unchanged; 4% (27 decimals)
+        variableRateSlope2: afterExecution
+          ? 1_000_000_000_000_000_000_000_000_000
+          : 750_000_000_000_000_000_000_000_000 // 75% -> 100% (27 decimals)
+      })
+    );
   }
   function _assertOracles() internal view {
-    assertEq(
-      AaveV3Celo.ORACLE.getSourceOfAsset(AaveV3CeloAssets.USDm_UNDERLYING),
-      proposal.USDm_PRICE_FEED(),
-      'USDm source'
+    _validateAssetSourceOnOracle(
+      AaveV3Celo.POOL_ADDRESSES_PROVIDER,
+      AaveV3CeloAssets.USDm_UNDERLYING,
+      proposal.USDm_PRICE_FEED()
     );
     assertEq(
       AaveV3Celo.ORACLE.getAssetPrice(AaveV3CeloAssets.USDm_UNDERLYING),

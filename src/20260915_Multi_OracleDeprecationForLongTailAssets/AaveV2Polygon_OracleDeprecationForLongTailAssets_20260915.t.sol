@@ -4,7 +4,7 @@ pragma solidity ^0.8.0;
 import {AaveV2Polygon, AaveV2PolygonAssets} from 'aave-address-book/AaveV2Polygon.sol';
 
 import 'forge-std/Test.sol';
-import {ProtocolV2TestBase, ReserveConfig} from 'aave-helpers/src/ProtocolV2TestBase.sol';
+import {ProtocolV2TestBase, ReserveConfig, InterestStrategyValues} from 'aave-helpers/src/ProtocolV2TestBase.sol';
 import {AaveV2Polygon_OracleDeprecationForLongTailAssets_20260915} from './AaveV2Polygon_OracleDeprecationForLongTailAssets_20260915.sol';
 
 import {ChainlinkPolygon} from 'aave-address-book/ChainlinkPolygon.sol';
@@ -42,89 +42,59 @@ contract AaveV2Polygon_OracleDeprecationForLongTailAssets_20260915_Test is Proto
   }
   function _assertRates(bool afterExecution) internal view {
     {
-      IDefaultInterestRateStrategy rate = IDefaultInterestRateStrategy(
-        AaveV2Polygon
-          .POOL
-          .getReserveData(AaveV2PolygonAssets.BAL_UNDERLYING)
-          .interestRateStrategyAddress
-      );
-      assertEq(
-        rate.OPTIMAL_UTILIZATION_RATE(),
-        450_000_000_000_000_000_000_000_000, // unchanged; 45% (27 decimals)
-        'BAL kink'
-      );
-      assertEq(
-        rate.baseVariableBorrowRate(),
-        200_000_000_000_000_000_000_000_000, // unchanged; 20% (27 decimals)
-        'BAL base'
-      );
-      assertEq(
-        rate.variableRateSlope1(),
-        0, // unchanged; 0% (27 decimals)
-        'BAL s1'
-      );
-      assertEq(
-        rate.variableRateSlope2(),
-        afterExecution
-          ? 400_000_000_000_000_000_000_000_000
-          : 3_000_000_000_000_000_000_000_000_000, // 300% -> 40% (27 decimals)
-        'BAL s2'
-      );
+      address strategy = AaveV2Polygon
+        .POOL
+        .getReserveData(AaveV2PolygonAssets.BAL_UNDERLYING)
+        .interestRateStrategyAddress;
       IDefaultInterestRateStrategy previous = IDefaultInterestRateStrategy(
         0xA78F3bc07035422f6f69c3f2B72fcCd0487348FA
       );
-      assertEq(rate.stableRateSlope1(), previous.stableRateSlope1(), 'BAL stable slope1 unchanged');
-      assertEq(rate.stableRateSlope2(), previous.stableRateSlope2(), 'BAL stable slope2 unchanged');
+      _validateInterestRateStrategy(
+        strategy,
+        strategy,
+        InterestStrategyValues({
+          addressesProvider: address(AaveV2Polygon.POOL_ADDRESSES_PROVIDER),
+          stableRateSlope1: previous.stableRateSlope1(), // unchanged
+          stableRateSlope2: previous.stableRateSlope2(), // unchanged
+          optimalUsageRatio: 450_000_000_000_000_000_000_000_000, // unchanged; 45% (27 decimals)
+          baseVariableBorrowRate: 200_000_000_000_000_000_000_000_000, // unchanged; 20% (27 decimals)
+          variableRateSlope1: 0, // unchanged; 0% (27 decimals)
+          variableRateSlope2: afterExecution
+            ? 400_000_000_000_000_000_000_000_000
+            : 3_000_000_000_000_000_000_000_000_000 // 300% -> 40% (27 decimals)
+        })
+      );
     }
     {
-      IDefaultInterestRateStrategy rate = IDefaultInterestRateStrategy(
-        AaveV2Polygon
-          .POOL
-          .getReserveData(AaveV2PolygonAssets.GHST_UNDERLYING)
-          .interestRateStrategyAddress
-      );
-      assertEq(
-        rate.OPTIMAL_UTILIZATION_RATE(),
-        450_000_000_000_000_000_000_000_000, // unchanged; 45% (27 decimals)
-        'GHST kink'
-      );
-      assertEq(
-        rate.baseVariableBorrowRate(),
-        200_000_000_000_000_000_000_000_000, // unchanged; 20% (27 decimals)
-        'GHST base'
-      );
-      assertEq(
-        rate.variableRateSlope1(),
-        0, // unchanged; 0% (27 decimals)
-        'GHST s1'
-      );
-      assertEq(
-        rate.variableRateSlope2(),
-        afterExecution
-          ? 400_000_000_000_000_000_000_000_000
-          : 3_000_000_000_000_000_000_000_000_000, // 300% -> 40% (27 decimals)
-        'GHST s2'
-      );
+      address strategy = AaveV2Polygon
+        .POOL
+        .getReserveData(AaveV2PolygonAssets.GHST_UNDERLYING)
+        .interestRateStrategyAddress;
       IDefaultInterestRateStrategy previous = IDefaultInterestRateStrategy(
         0xfe72F0c532c4E7cfA65FCbd3B92D926d26Fb73a9
       );
-      assertEq(
-        rate.stableRateSlope1(),
-        previous.stableRateSlope1(),
-        'GHST stable slope1 unchanged'
-      );
-      assertEq(
-        rate.stableRateSlope2(),
-        previous.stableRateSlope2(),
-        'GHST stable slope2 unchanged'
+      _validateInterestRateStrategy(
+        strategy,
+        strategy,
+        InterestStrategyValues({
+          addressesProvider: address(AaveV2Polygon.POOL_ADDRESSES_PROVIDER),
+          stableRateSlope1: previous.stableRateSlope1(), // unchanged
+          stableRateSlope2: previous.stableRateSlope2(), // unchanged
+          optimalUsageRatio: 450_000_000_000_000_000_000_000_000, // unchanged; 45% (27 decimals)
+          baseVariableBorrowRate: 200_000_000_000_000_000_000_000_000, // unchanged; 20% (27 decimals)
+          variableRateSlope1: 0, // unchanged; 0% (27 decimals)
+          variableRateSlope2: afterExecution
+            ? 400_000_000_000_000_000_000_000_000
+            : 3_000_000_000_000_000_000_000_000_000 // 300% -> 40% (27 decimals)
+        })
       );
     }
   }
   function _assertOracles() internal view {
-    assertEq(
-      AaveV2Polygon.ORACLE.getSourceOfAsset(AaveV2PolygonAssets.BAL_UNDERLYING),
-      proposal.BAL_PRICE_FEED(),
-      'BAL source'
+    _validateAssetSourceOnOracle(
+      AaveV2Polygon.POOL_ADDRESSES_PROVIDER,
+      AaveV2PolygonAssets.BAL_UNDERLYING,
+      proposal.BAL_PRICE_FEED()
     );
     assertEq(
       AaveV2Polygon.ORACLE.getAssetPrice(AaveV2PolygonAssets.BAL_UNDERLYING),
@@ -133,10 +103,10 @@ contract AaveV2Polygon_OracleDeprecationForLongTailAssets_20260915_Test is Proto
         uint256(IChainlinkAggregator(ChainlinkPolygon.ETH__USD).latestAnswer())),
       'BAL oracle output'
     );
-    assertEq(
-      AaveV2Polygon.ORACLE.getSourceOfAsset(AaveV2PolygonAssets.GHST_UNDERLYING),
-      proposal.GHST_PRICE_FEED(),
-      'GHST source'
+    _validateAssetSourceOnOracle(
+      AaveV2Polygon.POOL_ADDRESSES_PROVIDER,
+      AaveV2PolygonAssets.GHST_UNDERLYING,
+      proposal.GHST_PRICE_FEED()
     );
     assertEq(
       AaveV2Polygon.ORACLE.getAssetPrice(AaveV2PolygonAssets.GHST_UNDERLYING),
