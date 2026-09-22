@@ -400,7 +400,7 @@ contract AaveV4Ethereum_OnboardPAXGGlobalDollarHub_20260824_Test is ProtocolV4Te
           )
         )
       ),
-      AaveV4EthereumSpokePriceFeeds.USDG_PENDLE_SPOKE_USDG_PRICE_FEED,
+      AaveV4EthereumSpokePriceFeeds.USDG_PENDLE_SPOKE_GLOBAL_DOLLAR_USDG_PRICE_FEED,
       'USDG price source mismatch'
     );
   }
@@ -581,7 +581,7 @@ contract AaveV4Ethereum_OnboardPAXGGlobalDollarHub_20260824_Test is ProtocolV4Te
     assertEq(items[2].underlying, address(AaveV4EthereumAssets.USDG_UNDERLYING), 'underlying');
     assertEq(
       items[2].priceSource,
-      AaveV4EthereumSpokePriceFeeds.USDG_PENDLE_SPOKE_USDG_PRICE_FEED,
+      AaveV4EthereumSpokePriceFeeds.USDG_PENDLE_SPOKE_GLOBAL_DOLLAR_USDG_PRICE_FEED,
       'priceSource'
     );
     assertEq(uint256(items[2].config.collateralRisk), 0, 'collateralRisk');

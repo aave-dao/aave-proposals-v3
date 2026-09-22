@@ -86,11 +86,11 @@ contract AaveV3XLayer_AaveV3XLayerUSDCListing_20260818_Test is ProtocolV3TestBas
     uint256 usdcReserveId = AaveV3XLayer.POOL.getReserveData(proposal.USDC()).id;
 
     uint8[5] memory eModeIds = [
-      AaveV3XLayerEModes.xBTC__USDT_USDG_GHO,
-      AaveV3XLayerEModes.xETH__USDT_USDG_GHO,
-      AaveV3XLayerEModes.xSOL__USDT_USDG_GHO,
-      AaveV3XLayerEModes.WOKB__USDT_USDG_GHO,
-      AaveV3XLayerEModes.PT_USDG_29OCT2026__USDT_USDG_GHO
+      AaveV3XLayerEModes.xBTC__USDT_USDG_GHO_USDC,
+      AaveV3XLayerEModes.xETH__USDT_USDG_GHO_USDC,
+      AaveV3XLayerEModes.xSOL__USDT_USDG_GHO_USDC,
+      AaveV3XLayerEModes.WOKB__USDT_USDG_GHO_USDC,
+      AaveV3XLayerEModes.PT_USDG_29OCT2026__USDT_USDG_GHO_USDC
     ];
 
     for (uint256 i = 0; i < eModeIds.length; i++) {
@@ -140,7 +140,7 @@ contract AaveV3XLayer_AaveV3XLayerUSDCListing_20260818_Test is ProtocolV3TestBas
   function test_eModeBorrowUsdc() public {
     GovV3Helpers.executePayload(vm, address(proposal));
 
-    uint8 eModeId = AaveV3XLayerEModes.PT_USDG_29OCT2026__USDT_USDG_GHO;
+    uint8 eModeId = AaveV3XLayerEModes.PT_USDG_29OCT2026__USDT_USDG_GHO_USDC;
 
     address user = makeAddr('eModeBorrower');
     address collateral = PT_USDG_29OCT2026;
@@ -171,7 +171,7 @@ contract AaveV3XLayer_AaveV3XLayerUSDCListing_20260818_Test is ProtocolV3TestBas
 
   function test_eModeLabelsAndParams() public {
     assertEq(
-      AaveV3XLayer.POOL.getEModeCategoryLabel(AaveV3XLayerEModes.xBTC__USDT_USDG_GHO),
+      AaveV3XLayer.POOL.getEModeCategoryLabel(AaveV3XLayerEModes.xBTC__USDT_USDG_GHO_USDC),
       'xBTC__USDT0_USDG_GHO',
       'xBTC eMode should carry the pre-rename label before execution'
     );
@@ -179,35 +179,35 @@ contract AaveV3XLayer_AaveV3XLayerUSDCListing_20260818_Test is ProtocolV3TestBas
     GovV3Helpers.executePayload(vm, address(proposal));
 
     _assertEModeLabelAndParams(
-      AaveV3XLayerEModes.xBTC__USDT_USDG_GHO,
+      AaveV3XLayerEModes.xBTC__USDT_USDG_GHO_USDC,
       'xBTC__Stablecoins',
       78_00,
       81_00,
       106_00
     );
     _assertEModeLabelAndParams(
-      AaveV3XLayerEModes.xETH__USDT_USDG_GHO,
+      AaveV3XLayerEModes.xETH__USDT_USDG_GHO_USDC,
       'xETH__Stablecoins',
       78_00,
       80_00,
       106_00
     );
     _assertEModeLabelAndParams(
-      AaveV3XLayerEModes.xSOL__USDT_USDG_GHO,
+      AaveV3XLayerEModes.xSOL__USDT_USDG_GHO_USDC,
       'xSOL__Stablecoins',
       65_00,
       70_00,
       107_50
     );
     _assertEModeLabelAndParams(
-      AaveV3XLayerEModes.WOKB__USDT_USDG_GHO,
+      AaveV3XLayerEModes.WOKB__USDT_USDG_GHO_USDC,
       'WOKB__Stablecoins',
       50_00,
       55_00,
       110_00
     );
     _assertEModeLabelAndParams(
-      AaveV3XLayerEModes.PT_USDG_29OCT2026__USDT_USDG_GHO,
+      AaveV3XLayerEModes.PT_USDG_29OCT2026__USDT_USDG_GHO_USDC,
       'PT_USDG__Stablecoins',
       92_66,
       94_66,

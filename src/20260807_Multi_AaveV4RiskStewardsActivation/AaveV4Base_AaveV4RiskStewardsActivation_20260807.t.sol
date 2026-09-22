@@ -3,9 +3,9 @@ pragma solidity ^0.8.0;
 
 import 'forge-std/Test.sol';
 import {GovV3Helpers} from 'aave-helpers/src/GovV3Helpers.sol';
-import {GovernanceV3Avalanche} from 'aave-address-book/GovernanceV3Avalanche.sol';
-import {AaveV3Avalanche} from 'aave-address-book/AaveV3Avalanche.sol';
-import {AaveV4Avalanche, AaveV4AvalancheHubs, AaveV4AvalancheSpokes, AaveV4AvalancheSpokePriceFeeds, AaveV4AvalancheAssets} from 'aave-address-book/AaveV4Avalanche.sol';
+import {GovernanceV3Base} from 'aave-address-book/GovernanceV3Base.sol';
+import {AaveV3Base, AaveV3BaseAssets} from 'aave-address-book/AaveV3Base.sol';
+import {AaveV4Base, AaveV4BaseHubs, AaveV4BaseSpokes, AaveV4BaseSpokePriceFeeds, AaveV4BaseAssets} from 'aave-address-book/AaveV4Base.sol';
 import {IAaveV4ConfigEngine as IConfigEngine, IHub, ISpoke} from 'aave-address-book/AaveV4.sol';
 import {EngineFlags} from 'aave-v4/config-engine/libraries/EngineFlags.sol';
 import {IAssetInterestRateStrategy} from 'aave-v4/hub/interfaces/IAssetInterestRateStrategy.sol';
@@ -14,30 +14,31 @@ import {IPriceCapAdapter} from 'src/interfaces/IPriceCapAdapter.sol';
 import {IPriceCapAdapterStable} from 'src/interfaces/IPriceCapAdapterStable.sol';
 import {IRiskSteward} from 'src/interfaces/IRiskSteward.sol';
 import {IRiskStewardV4} from 'src/interfaces/IRiskStewardV4.sol';
-import {ProtocolV4TestBaseAvalanche} from 'aave-helpers/src/v4-protocol-test/ProtocolV4TestBaseAvalanche.sol';
-import {AaveV4Avalanche_AaveV4RiskStewardsActivation_20260807} from './AaveV4Avalanche_AaveV4RiskStewardsActivation_20260807.sol';
+import {ProtocolV4TestBaseBase} from 'aave-helpers/src/v4-protocol-test/ProtocolV4TestBaseBase.sol';
+import {AaveV4Base_AaveV4RiskStewardsActivation_20260807} from './AaveV4Base_AaveV4RiskStewardsActivation_20260807.sol';
 
 /**
- * @dev Test for AaveV4Avalanche_AaveV4RiskStewardsActivation_20260807
- * command: FOUNDRY_PROFILE=test forge test --match-path=src/20260807_Multi_AaveV4RiskStewardsActivation/AaveV4Avalanche_AaveV4RiskStewardsActivation_20260807.t.sol -vv
+ * @dev Test for AaveV4Base_AaveV4RiskStewardsActivation_20260807
+ * command: FOUNDRY_PROFILE=test forge test --match-path=src/20260807_Multi_AaveV4RiskStewardsActivation/AaveV4Base_AaveV4RiskStewardsActivation_20260807.t.sol -vv
  */
-contract AaveV4Avalanche_AaveV4RiskStewardsActivation_20260807_Test is ProtocolV4TestBaseAvalanche {
-  IHub internal constant CORE_HUB = AaveV4AvalancheHubs.CORE_HUB;
-  ISpoke internal constant MAIN_SPOKE = AaveV4AvalancheSpokes.MAIN_SPOKE;
-  address internal constant WAVAX = AaveV4AvalancheAssets.WAVAX_UNDERLYING;
-  // capped sAVAX / AVAX / USD, the price source of sAVAX on the AVAX correlated spoke
-  IPriceCapAdapter internal constant sAVAX_CAPO_ADAPTER =
-    IPriceCapAdapter(0xB2B332f27e4B7305649a228C31Ed9858c5a6bAD9);
+contract AaveV4Base_AaveV4RiskStewardsActivation_20260807_Test is ProtocolV4TestBaseBase {
+  IHub internal constant EQUITIES_HUB = AaveV4BaseHubs.EQUITIES_HUB;
+  ISpoke internal constant MAG7_SPOKE = AaveV4BaseSpokes.MAG7_SPOKE;
+  address internal constant AAPLc = AaveV4BaseAssets.AAPLc_UNDERLYING;
+  // v4 Base lists no LST, so the lst bound is exercised on the v3 wstETH adapter, which the same
+  // risk admin role unlocks
+  IPriceCapAdapter internal constant wstETH_CAPO_ADAPTER =
+    IPriceCapAdapter(AaveV3BaseAssets.wstETH_ORACLE);
   IPriceCapAdapterStable internal constant USDC_CAPO_ADAPTER =
-    IPriceCapAdapterStable(AaveV4AvalancheSpokePriceFeeds.MAIN_SPOKE_USDC_PRICE_FEED);
+    IPriceCapAdapterStable(AaveV4BaseSpokePriceFeeds.MAG7_SPOKE_USDC_PRICE_FEED);
 
-  AaveV4Avalanche_AaveV4RiskStewardsActivation_20260807 internal proposal;
+  AaveV4Base_AaveV4RiskStewardsActivation_20260807 internal proposal;
   IRiskStewardV4 internal steward;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('avalanche'), 92229650);
-    proposal = new AaveV4Avalanche_AaveV4RiskStewardsActivation_20260807();
-    steward = IRiskStewardV4(AaveV4Avalanche.RISK_STEWARD);
+    vm.createSelectFork(vm.rpcUrl('base'), 51642134);
+    proposal = new AaveV4Base_AaveV4RiskStewardsActivation_20260807();
+    steward = IRiskStewardV4(AaveV4Base.RISK_STEWARD);
   }
 
   modifier activated() {
@@ -46,18 +47,39 @@ contract AaveV4Avalanche_AaveV4RiskStewardsActivation_20260807_Test is ProtocolV
   }
 
   /**
-   * @dev executes the generic test suite including e2e and config snapshots
+   * @dev executes the payload with config snapshots and diff; the e2e runs in `test_e2e`
    * forge-config: default.isolate = true
    */
   function test_defaultProposalExecution() public {
-    defaultTest('AaveV4Avalanche_AaveV4RiskStewardsActivation_20260807', address(proposal));
+    defaultTest({
+      reportName: 'AaveV4Base_AaveV4RiskStewardsActivation_20260807',
+      payload: address(proposal),
+      runE2E: false,
+      testPositionManagers: false
+    });
+  }
+
+  /// @dev The generic e2e suite over every spoke and tokenization spoke. The seven equities are B20
+  /// tokens (node-native, code 0xef, balances outside EVM storage): stable forge cannot execute
+  /// them, so this test only runs under a forge that selects the Base EVM (`--network base`) and is
+  /// skipped, not passed, anywhere else. See `_requireB20Semantics`.
+  function test_e2e() public {
+    _requireB20Semantics();
+    GovV3Helpers.executePayload(vm, address(proposal));
+    e2eTestAllSpokes({spokes: _getSpokes(), testPositionManagers: false});
+    e2eTestAllTokenizationSpokes(_getTokenizationSpokes());
+  }
+
+  function _requireB20Semantics() internal {
+    (bool ok, ) = AAPLc.staticcall(abi.encodeWithSignature('decimals()'));
+    vm.skip(!ok, 'requires forge with --network base for the B20 equity precompiles');
   }
 
   function test_stewardOwnerAndCouncil() public view {
-    assertEq(steward.owner(), GovernanceV3Avalanche.EXECUTOR_LVL_1, 'owner mismatch');
+    assertEq(steward.owner(), GovernanceV3Base.EXECUTOR_LVL_1, 'owner mismatch');
     assertEq(
       steward.RISK_COUNCIL(),
-      IRiskSteward(AaveV3Avalanche.RISK_STEWARD).RISK_COUNCIL(),
+      IRiskSteward(AaveV3Base.RISK_STEWARD).RISK_COUNCIL(),
       'council diverges from the v3 risk steward'
     );
   }
@@ -68,22 +90,22 @@ contract AaveV4Avalanche_AaveV4RiskStewardsActivation_20260807_Test is ProtocolV
     granted[1] = Roles.SPOKE_CONFIGURATOR_DOMAIN_ADMIN_ROLE;
 
     for (uint256 i; i < granted.length; ++i) {
-      (bool hasRole, uint32 delay) = AaveV4Avalanche.ACCESS_MANAGER.hasRole(
+      (bool hasRole, uint32 delay) = AaveV4Base.ACCESS_MANAGER.hasRole(
         granted[i],
-        AaveV4Avalanche.RISK_STEWARD
+        AaveV4Base.RISK_STEWARD
       );
       assertTrue(hasRole, string.concat('role not granted: ', vm.toString(granted[i])));
       assertEq(uint256(delay), 0, string.concat('role delay: ', vm.toString(granted[i])));
     }
 
     assertTrue(
-      AaveV3Avalanche.ACL_MANAGER.isRiskAdmin(AaveV4Avalanche.RISK_STEWARD),
+      AaveV3Base.ACL_MANAGER.isRiskAdmin(AaveV4Base.RISK_STEWARD),
       'risk admin role not granted'
     );
   }
 
   function test_riskCouncilCanUpdateLstPriceCap() public activated {
-    uint16 growthBefore = uint16(sAVAX_CAPO_ADAPTER.getMaxYearlyGrowthRatePercent());
+    uint16 growthBefore = uint16(wstETH_CAPO_ADAPTER.getMaxYearlyGrowthRatePercent());
     uint16 growthAfter = growthBefore + growthBefore / 20;
     IRiskStewardV4.PriceCapLstUpdate[] memory updates = _lstPriceCapUpdate(growthAfter);
     address riskCouncil = steward.RISK_COUNCIL();
@@ -92,14 +114,14 @@ contract AaveV4Avalanche_AaveV4RiskStewardsActivation_20260807_Test is ProtocolV
     steward.updateLstPriceCaps(updates);
 
     assertEq(
-      sAVAX_CAPO_ADAPTER.getMaxYearlyGrowthRatePercent(),
+      wstETH_CAPO_ADAPTER.getMaxYearlyGrowthRatePercent(),
       growthAfter,
       'maxYearlyGrowthRatePercent not updated'
     );
   }
 
   function test_riskCouncilCannotUpdateLstPriceCapAboveBound() public activated {
-    uint16 growthBefore = uint16(sAVAX_CAPO_ADAPTER.getMaxYearlyGrowthRatePercent());
+    uint16 growthBefore = uint16(wstETH_CAPO_ADAPTER.getMaxYearlyGrowthRatePercent());
     IRiskStewardV4.PriceCapLstUpdate[] memory updates = _lstPriceCapUpdate(
       growthBefore + growthBefore / 20 + 1
     );
@@ -115,10 +137,10 @@ contract AaveV4Avalanche_AaveV4RiskStewardsActivation_20260807_Test is ProtocolV
   ) internal view returns (IRiskStewardV4.PriceCapLstUpdate[] memory) {
     IRiskStewardV4.PriceCapLstUpdate[] memory updates = new IRiskStewardV4.PriceCapLstUpdate[](1);
     updates[0] = IRiskStewardV4.PriceCapLstUpdate({
-      oracle: address(sAVAX_CAPO_ADAPTER),
+      oracle: address(wstETH_CAPO_ADAPTER),
       priceCapUpdateParams: IPriceCapAdapter.PriceCapUpdateParams({
-        snapshotRatio: uint104(uint256(sAVAX_CAPO_ADAPTER.getRatio())),
-        snapshotTimestamp: uint48(block.timestamp - sAVAX_CAPO_ADAPTER.MINIMUM_SNAPSHOT_DELAY()),
+        snapshotRatio: uint104(uint256(wstETH_CAPO_ADAPTER.getRatio())),
+        snapshotTimestamp: uint48(block.timestamp - wstETH_CAPO_ADAPTER.MINIMUM_SNAPSHOT_DELAY()),
         maxYearlyRatioGrowthPercent: maxYearlyRatioGrowthPercent
       })
     });
@@ -133,7 +155,7 @@ contract AaveV4Avalanche_AaveV4RiskStewardsActivation_20260807_Test is ProtocolV
   /// they widened (baseDrawnRate, rateGrowthBeforeOptimal, collateralRisk, the dynamicAdd bounds)
   /// and those with no v3 counterpart are asserted in `_assertConfig` only.
   function test_boundsMatchV3RiskSteward() public activated {
-    IRiskSteward.Config memory v3 = IRiskSteward(AaveV3Avalanche.RISK_STEWARD).getRiskConfig();
+    IRiskSteward.Config memory v3 = IRiskSteward(AaveV3Base.RISK_STEWARD).getRiskConfig();
     IRiskStewardV4.Config memory v4 = steward.getConfig();
 
     assertEq(
@@ -228,22 +250,22 @@ contract AaveV4Avalanche_AaveV4RiskStewardsActivation_20260807_Test is ProtocolV
   }
 
   function test_riskCouncilCanUpdateHubSpokeCaps() public activated {
-    uint256 assetId = CORE_HUB.getAssetId(WAVAX);
-    IHub.SpokeConfig memory before = CORE_HUB.getSpokeConfig(assetId, address(MAIN_SPOKE));
+    uint256 assetId = EQUITIES_HUB.getAssetId(AAPLc);
+    IHub.SpokeConfig memory before = EQUITIES_HUB.getSpokeConfig(assetId, address(MAG7_SPOKE));
     uint256 addCap = 2 * uint256(before.addCap);
     uint256 drawCap = 2 * uint256(before.drawCap);
 
     vm.prank(steward.RISK_COUNCIL());
     steward.updateHubSpokeCaps(_capsUpdate(addCap, drawCap));
 
-    IHub.SpokeConfig memory current = CORE_HUB.getSpokeConfig(assetId, address(MAIN_SPOKE));
+    IHub.SpokeConfig memory current = EQUITIES_HUB.getSpokeConfig(assetId, address(MAG7_SPOKE));
     assertEq(uint256(current.addCap), addCap, 'addCap not updated');
     assertEq(uint256(current.drawCap), drawCap, 'drawCap not updated');
   }
 
   function test_riskCouncilCannotUpdateHubSpokeCapsAboveBound() public activated {
-    uint256 assetId = CORE_HUB.getAssetId(WAVAX);
-    uint256 addCapBefore = CORE_HUB.getSpokeConfig(assetId, address(MAIN_SPOKE)).addCap;
+    uint256 assetId = EQUITIES_HUB.getAssetId(AAPLc);
+    uint256 addCapBefore = EQUITIES_HUB.getSpokeConfig(assetId, address(MAG7_SPOKE)).addCap;
     address riskCouncil = steward.RISK_COUNCIL();
 
     vm.expectRevert(IRiskStewardV4.UpdateNotInRange.selector);
@@ -253,21 +275,21 @@ contract AaveV4Avalanche_AaveV4RiskStewardsActivation_20260807_Test is ProtocolV
 
   function test_riskCouncilCanUpdateReserveConfigs() public activated {
     uint256 reserveId = _reserveId();
-    uint256 collateralRisk = uint256(MAIN_SPOKE.getReserveConfig(reserveId).collateralRisk) +
+    uint256 collateralRisk = uint256(MAG7_SPOKE.getReserveConfig(reserveId).collateralRisk) +
       300_00;
 
     vm.prank(steward.RISK_COUNCIL());
     steward.updateReserveConfigs(_reserveConfigUpdate(collateralRisk));
 
     assertEq(
-      uint256(MAIN_SPOKE.getReserveConfig(reserveId).collateralRisk),
+      uint256(MAG7_SPOKE.getReserveConfig(reserveId).collateralRisk),
       collateralRisk,
       'collateralRisk not updated'
     );
   }
 
   function test_riskCouncilCannotUpdateReserveConfigsAboveBound() public activated {
-    uint256 collateralRisk = uint256(MAIN_SPOKE.getReserveConfig(_reserveId()).collateralRisk) +
+    uint256 collateralRisk = uint256(MAG7_SPOKE.getReserveConfig(_reserveId()).collateralRisk) +
       300_00 +
       1;
     address riskCouncil = steward.RISK_COUNCIL();
@@ -279,8 +301,8 @@ contract AaveV4Avalanche_AaveV4RiskStewardsActivation_20260807_Test is ProtocolV
 
   function test_riskCouncilCanUpdateDynamicReserveConfigs() public activated {
     uint256 reserveId = _reserveId();
-    uint32 key = MAIN_SPOKE.getReserve(reserveId).dynamicConfigKey;
-    ISpoke.DynamicReserveConfig memory before = MAIN_SPOKE.getDynamicReserveConfig(reserveId, key);
+    uint32 key = MAG7_SPOKE.getReserve(reserveId).dynamicConfigKey;
+    ISpoke.DynamicReserveConfig memory before = MAG7_SPOKE.getDynamicReserveConfig(reserveId, key);
     uint256 collateralFactor = uint256(before.collateralFactor) + 50;
     uint256 maxLiquidationBonus = uint256(before.maxLiquidationBonus) + 50;
 
@@ -289,7 +311,7 @@ contract AaveV4Avalanche_AaveV4RiskStewardsActivation_20260807_Test is ProtocolV
       _dynamicReserveConfigUpdate(key, collateralFactor, maxLiquidationBonus)
     );
 
-    ISpoke.DynamicReserveConfig memory current = MAIN_SPOKE.getDynamicReserveConfig(reserveId, key);
+    ISpoke.DynamicReserveConfig memory current = MAG7_SPOKE.getDynamicReserveConfig(reserveId, key);
     assertEq(uint256(current.collateralFactor), collateralFactor, 'collateralFactor not updated');
     assertEq(
       uint256(current.maxLiquidationBonus),
@@ -300,9 +322,9 @@ contract AaveV4Avalanche_AaveV4RiskStewardsActivation_20260807_Test is ProtocolV
 
   function test_riskCouncilCannotUpdateDynamicReserveConfigsAboveBound() public activated {
     uint256 reserveId = _reserveId();
-    uint32 key = MAIN_SPOKE.getReserve(reserveId).dynamicConfigKey;
+    uint32 key = MAG7_SPOKE.getReserve(reserveId).dynamicConfigKey;
     uint256 collateralFactor = uint256(
-      MAIN_SPOKE.getDynamicReserveConfig(reserveId, key).collateralFactor
+      MAG7_SPOKE.getDynamicReserveConfig(reserveId, key).collateralFactor
     ) +
       50 +
       1;
@@ -317,8 +339,8 @@ contract AaveV4Avalanche_AaveV4RiskStewardsActivation_20260807_Test is ProtocolV
 
   function test_riskCouncilCanAddDynamicReserveConfigs() public activated {
     uint256 reserveId = _reserveId();
-    uint32 keyBefore = MAIN_SPOKE.getReserve(reserveId).dynamicConfigKey;
-    ISpoke.DynamicReserveConfig memory added = MAIN_SPOKE.getDynamicReserveConfig(
+    uint32 keyBefore = MAG7_SPOKE.getReserve(reserveId).dynamicConfigKey;
+    ISpoke.DynamicReserveConfig memory added = MAG7_SPOKE.getDynamicReserveConfig(
       reserveId,
       keyBefore
     );
@@ -328,10 +350,10 @@ contract AaveV4Avalanche_AaveV4RiskStewardsActivation_20260807_Test is ProtocolV
     vm.prank(steward.RISK_COUNCIL());
     steward.addDynamicReserveConfigs(_dynamicReserveConfigAddition(added));
 
-    uint32 keyAfter = MAIN_SPOKE.getReserve(reserveId).dynamicConfigKey;
+    uint32 keyAfter = MAG7_SPOKE.getReserve(reserveId).dynamicConfigKey;
     assertEq(uint256(keyAfter), uint256(keyBefore) + 1, 'dynamic config key not bumped');
 
-    ISpoke.DynamicReserveConfig memory current = MAIN_SPOKE.getDynamicReserveConfig(
+    ISpoke.DynamicReserveConfig memory current = MAG7_SPOKE.getDynamicReserveConfig(
       reserveId,
       keyAfter
     );
@@ -349,10 +371,10 @@ contract AaveV4Avalanche_AaveV4RiskStewardsActivation_20260807_Test is ProtocolV
 
   function test_riskCouncilCannotAddDynamicReserveConfigsAboveBound() public activated {
     uint256 reserveId = _reserveId();
-    uint32 key = MAIN_SPOKE.getReserve(reserveId).dynamicConfigKey;
+    uint32 key = MAG7_SPOKE.getReserve(reserveId).dynamicConfigKey;
     address riskCouncil = steward.RISK_COUNCIL();
 
-    ISpoke.DynamicReserveConfig memory outOfRange = MAIN_SPOKE.getDynamicReserveConfig(
+    ISpoke.DynamicReserveConfig memory outOfRange = MAG7_SPOKE.getDynamicReserveConfig(
       reserveId,
       key
     );
@@ -362,7 +384,7 @@ contract AaveV4Avalanche_AaveV4RiskStewardsActivation_20260807_Test is ProtocolV
     vm.prank(riskCouncil);
     steward.addDynamicReserveConfigs(_dynamicReserveConfigAddition(outOfRange));
 
-    outOfRange = MAIN_SPOKE.getDynamicReserveConfig(reserveId, key);
+    outOfRange = MAG7_SPOKE.getDynamicReserveConfig(reserveId, key);
     outOfRange.maxLiquidationBonus += 50 + 1;
 
     vm.expectRevert(IRiskStewardV4.UpdateNotInRange.selector);
@@ -371,7 +393,7 @@ contract AaveV4Avalanche_AaveV4RiskStewardsActivation_20260807_Test is ProtocolV
   }
 
   function test_riskCouncilCanUpdateSpokeLiquidationConfigs() public activated {
-    ISpoke.LiquidationConfig memory before = MAIN_SPOKE.getLiquidationConfig();
+    ISpoke.LiquidationConfig memory before = MAG7_SPOKE.getLiquidationConfig();
     uint256 targetHealthFactor = uint256(before.targetHealthFactor) +
       (uint256(before.targetHealthFactor) * 5_00) /
       100_00;
@@ -385,7 +407,7 @@ contract AaveV4Avalanche_AaveV4RiskStewardsActivation_20260807_Test is ProtocolV
       _liquidationConfigUpdate(targetHealthFactor, healthFactorForMaxBonus, liquidationBonusFactor)
     );
 
-    ISpoke.LiquidationConfig memory current = MAIN_SPOKE.getLiquidationConfig();
+    ISpoke.LiquidationConfig memory current = MAG7_SPOKE.getLiquidationConfig();
     assertEq(
       uint256(current.targetHealthFactor),
       targetHealthFactor,
@@ -404,7 +426,7 @@ contract AaveV4Avalanche_AaveV4RiskStewardsActivation_20260807_Test is ProtocolV
   }
 
   function test_riskCouncilCannotUpdateSpokeLiquidationConfigsAboveBound() public activated {
-    uint256 targetHealthFactorBefore = MAIN_SPOKE.getLiquidationConfig().targetHealthFactor;
+    uint256 targetHealthFactorBefore = MAG7_SPOKE.getLiquidationConfig().targetHealthFactor;
     uint256 targetHealthFactor = targetHealthFactorBefore +
       (targetHealthFactorBefore * 5_00) /
       100_00 +
@@ -443,7 +465,7 @@ contract AaveV4Avalanche_AaveV4RiskStewardsActivation_20260807_Test is ProtocolV
   }
 
   function _reserveId() internal view returns (uint256) {
-    return MAIN_SPOKE.getReserveId(address(CORE_HUB), CORE_HUB.getAssetId(WAVAX));
+    return MAG7_SPOKE.getReserveId(address(EQUITIES_HUB), EQUITIES_HUB.getAssetId(AAPLc));
   }
 
   function _currentIrData()
@@ -451,11 +473,10 @@ contract AaveV4Avalanche_AaveV4RiskStewardsActivation_20260807_Test is ProtocolV
     view
     returns (IAssetInterestRateStrategy.InterestRateData memory)
   {
-    uint256 assetId = CORE_HUB.getAssetId(WAVAX);
+    uint256 assetId = EQUITIES_HUB.getAssetId(AAPLc);
     return
-      IAssetInterestRateStrategy(CORE_HUB.getAssetConfig(assetId).irStrategy).getInterestRateData(
-        assetId
-      );
+      IAssetInterestRateStrategy(EQUITIES_HUB.getAssetConfig(assetId).irStrategy)
+        .getInterestRateData(assetId);
   }
 
   function _irUpdate(
@@ -463,9 +484,9 @@ contract AaveV4Avalanche_AaveV4RiskStewardsActivation_20260807_Test is ProtocolV
   ) internal pure returns (IConfigEngine.AssetConfigUpdate[] memory) {
     IConfigEngine.AssetConfigUpdate[] memory updates = new IConfigEngine.AssetConfigUpdate[](1);
     updates[0] = IConfigEngine.AssetConfigUpdate({
-      hubConfigurator: AaveV4Avalanche.HUB_CONFIGURATOR,
-      hub: address(CORE_HUB),
-      underlying: WAVAX,
+      hubConfigurator: AaveV4Base.HUB_CONFIGURATOR,
+      hub: address(EQUITIES_HUB),
+      underlying: AAPLc,
       liquidityFee: EngineFlags.KEEP_CURRENT,
       feeReceiver: EngineFlags.KEEP_CURRENT_ADDRESS,
       irStrategy: EngineFlags.KEEP_CURRENT_ADDRESS,
@@ -481,10 +502,10 @@ contract AaveV4Avalanche_AaveV4RiskStewardsActivation_20260807_Test is ProtocolV
   ) internal pure returns (IConfigEngine.SpokeConfigUpdate[] memory) {
     IConfigEngine.SpokeConfigUpdate[] memory updates = new IConfigEngine.SpokeConfigUpdate[](1);
     updates[0] = IConfigEngine.SpokeConfigUpdate({
-      hubConfigurator: AaveV4Avalanche.HUB_CONFIGURATOR,
-      hub: address(CORE_HUB),
-      underlying: WAVAX,
-      spoke: address(MAIN_SPOKE),
+      hubConfigurator: AaveV4Base.HUB_CONFIGURATOR,
+      hub: address(EQUITIES_HUB),
+      underlying: AAPLc,
+      spoke: address(MAG7_SPOKE),
       addCap: addCap,
       drawCap: drawCap,
       riskPremiumThreshold: EngineFlags.KEEP_CURRENT,
@@ -499,10 +520,10 @@ contract AaveV4Avalanche_AaveV4RiskStewardsActivation_20260807_Test is ProtocolV
   ) internal pure returns (IConfigEngine.ReserveConfigUpdate[] memory) {
     IConfigEngine.ReserveConfigUpdate[] memory updates = new IConfigEngine.ReserveConfigUpdate[](1);
     updates[0] = IConfigEngine.ReserveConfigUpdate({
-      spokeConfigurator: AaveV4Avalanche.SPOKE_CONFIGURATOR,
-      spoke: address(MAIN_SPOKE),
-      hub: address(CORE_HUB),
-      underlying: WAVAX,
+      spokeConfigurator: AaveV4Base.SPOKE_CONFIGURATOR,
+      spoke: address(MAG7_SPOKE),
+      hub: address(EQUITIES_HUB),
+      underlying: AAPLc,
       priceSource: EngineFlags.KEEP_CURRENT_ADDRESS,
       collateralRisk: collateralRisk,
       paused: EngineFlags.KEEP_CURRENT,
@@ -521,10 +542,10 @@ contract AaveV4Avalanche_AaveV4RiskStewardsActivation_20260807_Test is ProtocolV
     IConfigEngine.DynamicReserveConfigUpdate[]
       memory updates = new IConfigEngine.DynamicReserveConfigUpdate[](1);
     updates[0] = IConfigEngine.DynamicReserveConfigUpdate({
-      spokeConfigurator: AaveV4Avalanche.SPOKE_CONFIGURATOR,
-      spoke: address(MAIN_SPOKE),
-      hub: address(CORE_HUB),
-      underlying: WAVAX,
+      spokeConfigurator: AaveV4Base.SPOKE_CONFIGURATOR,
+      spoke: address(MAG7_SPOKE),
+      hub: address(EQUITIES_HUB),
+      underlying: AAPLc,
       dynamicConfigKey: dynamicConfigKey,
       collateralFactor: collateralFactor,
       maxLiquidationBonus: maxLiquidationBonus,
@@ -539,10 +560,10 @@ contract AaveV4Avalanche_AaveV4RiskStewardsActivation_20260807_Test is ProtocolV
     IConfigEngine.DynamicReserveConfigAddition[]
       memory additions = new IConfigEngine.DynamicReserveConfigAddition[](1);
     additions[0] = IConfigEngine.DynamicReserveConfigAddition({
-      spokeConfigurator: AaveV4Avalanche.SPOKE_CONFIGURATOR,
-      spoke: address(MAIN_SPOKE),
-      hub: address(CORE_HUB),
-      underlying: WAVAX,
+      spokeConfigurator: AaveV4Base.SPOKE_CONFIGURATOR,
+      spoke: address(MAG7_SPOKE),
+      hub: address(EQUITIES_HUB),
+      underlying: AAPLc,
       dynamicConfig: dynamicConfig
     });
     return additions;
@@ -556,8 +577,8 @@ contract AaveV4Avalanche_AaveV4RiskStewardsActivation_20260807_Test is ProtocolV
     IConfigEngine.LiquidationConfigUpdate[]
       memory updates = new IConfigEngine.LiquidationConfigUpdate[](1);
     updates[0] = IConfigEngine.LiquidationConfigUpdate({
-      spokeConfigurator: AaveV4Avalanche.SPOKE_CONFIGURATOR,
-      spoke: address(MAIN_SPOKE),
+      spokeConfigurator: AaveV4Base.SPOKE_CONFIGURATOR,
+      spoke: address(MAG7_SPOKE),
       targetHealthFactor: targetHealthFactor,
       healthFactorForMaxBonus: healthFactorForMaxBonus,
       liquidationBonusFactor: liquidationBonusFactor
@@ -580,12 +601,12 @@ contract AaveV4Avalanche_AaveV4RiskStewardsActivation_20260807_Test is ProtocolV
   function _assertConfig(IRiskStewardV4.Config memory config) internal pure {
     assertEq(
       address(config.hub.configurator),
-      address(AaveV4Avalanche.HUB_CONFIGURATOR),
+      address(AaveV4Base.HUB_CONFIGURATOR),
       'hub configurator mismatch'
     );
     assertEq(
       address(config.spoke.configurator),
-      address(AaveV4Avalanche.SPOKE_CONFIGURATOR),
+      address(AaveV4Base.SPOKE_CONFIGURATOR),
       'spoke configurator mismatch'
     );
 

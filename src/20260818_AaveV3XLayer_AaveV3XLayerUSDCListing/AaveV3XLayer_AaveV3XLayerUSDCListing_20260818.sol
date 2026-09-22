@@ -65,7 +65,7 @@ contract AaveV3XLayer_AaveV3XLayerUSDCListing_20260818 is AaveV3PayloadXLayer {
       memory eModeUpdates = new IAaveV3ConfigEngine.EModeCategoryUpdate[](4);
 
     eModeUpdates[0] = IAaveV3ConfigEngine.EModeCategoryUpdate({
-      eModeCategory: AaveV3XLayerEModes.xBTC__USDT_USDG_GHO,
+      eModeCategory: AaveV3XLayerEModes.xBTC__USDT_USDG_GHO_USDC,
       ltv: EngineFlags.KEEP_CURRENT,
       liqThreshold: EngineFlags.KEEP_CURRENT,
       liqBonus: EngineFlags.KEEP_CURRENT,
@@ -73,7 +73,7 @@ contract AaveV3XLayer_AaveV3XLayerUSDCListing_20260818 is AaveV3PayloadXLayer {
       isolated: EngineFlags.KEEP_CURRENT
     });
     eModeUpdates[1] = IAaveV3ConfigEngine.EModeCategoryUpdate({
-      eModeCategory: AaveV3XLayerEModes.xETH__USDT_USDG_GHO,
+      eModeCategory: AaveV3XLayerEModes.xETH__USDT_USDG_GHO_USDC,
       ltv: EngineFlags.KEEP_CURRENT,
       liqThreshold: EngineFlags.KEEP_CURRENT,
       liqBonus: EngineFlags.KEEP_CURRENT,
@@ -81,7 +81,7 @@ contract AaveV3XLayer_AaveV3XLayerUSDCListing_20260818 is AaveV3PayloadXLayer {
       isolated: EngineFlags.KEEP_CURRENT
     });
     eModeUpdates[2] = IAaveV3ConfigEngine.EModeCategoryUpdate({
-      eModeCategory: AaveV3XLayerEModes.xSOL__USDT_USDG_GHO,
+      eModeCategory: AaveV3XLayerEModes.xSOL__USDT_USDG_GHO_USDC,
       ltv: EngineFlags.KEEP_CURRENT,
       liqThreshold: EngineFlags.KEEP_CURRENT,
       liqBonus: EngineFlags.KEEP_CURRENT,
@@ -89,7 +89,7 @@ contract AaveV3XLayer_AaveV3XLayerUSDCListing_20260818 is AaveV3PayloadXLayer {
       isolated: EngineFlags.KEEP_CURRENT
     });
     eModeUpdates[3] = IAaveV3ConfigEngine.EModeCategoryUpdate({
-      eModeCategory: AaveV3XLayerEModes.WOKB__USDT_USDG_GHO,
+      eModeCategory: AaveV3XLayerEModes.WOKB__USDT_USDG_GHO_USDC,
       ltv: EngineFlags.KEEP_CURRENT,
       liqThreshold: EngineFlags.KEEP_CURRENT,
       liqBonus: EngineFlags.KEEP_CURRENT,
@@ -111,35 +111,35 @@ contract AaveV3XLayer_AaveV3XLayerUSDCListing_20260818 is AaveV3PayloadXLayer {
 
     assetEModeUpdates[0] = IAaveV3ConfigEngine.AssetEModeUpdate({
       asset: USDC,
-      eModeCategory: AaveV3XLayerEModes.xBTC__USDT_USDG_GHO,
+      eModeCategory: AaveV3XLayerEModes.xBTC__USDT_USDG_GHO_USDC,
       borrowable: EngineFlags.ENABLED,
       collateral: EngineFlags.DISABLED,
       ltvzero: EngineFlags.DISABLED
     });
     assetEModeUpdates[1] = IAaveV3ConfigEngine.AssetEModeUpdate({
       asset: USDC,
-      eModeCategory: AaveV3XLayerEModes.xETH__USDT_USDG_GHO,
+      eModeCategory: AaveV3XLayerEModes.xETH__USDT_USDG_GHO_USDC,
       borrowable: EngineFlags.ENABLED,
       collateral: EngineFlags.DISABLED,
       ltvzero: EngineFlags.DISABLED
     });
     assetEModeUpdates[2] = IAaveV3ConfigEngine.AssetEModeUpdate({
       asset: USDC,
-      eModeCategory: AaveV3XLayerEModes.xSOL__USDT_USDG_GHO,
+      eModeCategory: AaveV3XLayerEModes.xSOL__USDT_USDG_GHO_USDC,
       borrowable: EngineFlags.ENABLED,
       collateral: EngineFlags.DISABLED,
       ltvzero: EngineFlags.DISABLED
     });
     assetEModeUpdates[3] = IAaveV3ConfigEngine.AssetEModeUpdate({
       asset: USDC,
-      eModeCategory: AaveV3XLayerEModes.WOKB__USDT_USDG_GHO,
+      eModeCategory: AaveV3XLayerEModes.WOKB__USDT_USDG_GHO_USDC,
       borrowable: EngineFlags.ENABLED,
       collateral: EngineFlags.DISABLED,
       ltvzero: EngineFlags.DISABLED
     });
     assetEModeUpdates[4] = IAaveV3ConfigEngine.AssetEModeUpdate({
       asset: USDC,
-      eModeCategory: AaveV3XLayerEModes.PT_USDG_29OCT2026__USDT_USDG_GHO,
+      eModeCategory: AaveV3XLayerEModes.PT_USDG_29OCT2026__USDT_USDG_GHO_USDC,
       borrowable: EngineFlags.ENABLED,
       collateral: EngineFlags.DISABLED,
       ltvzero: EngineFlags.DISABLED

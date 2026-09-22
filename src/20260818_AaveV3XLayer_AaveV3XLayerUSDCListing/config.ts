@@ -41,28 +41,28 @@ export const config: ConfigFile = {
         EMODES_ASSETS: [
           {
             asset: 'USDC',
-            eModeCategory: 'AaveV3XLayerEModes.xBTC__USDT_USDG_GHO',
+            eModeCategory: 'AaveV3XLayerEModes.xBTC__USDT_USDG_GHO_USDC',
             collateral: 'DISABLED',
             borrowable: 'ENABLED',
             ltvzero: 'DISABLED',
           },
           {
             asset: 'USDC',
-            eModeCategory: 'AaveV3XLayerEModes.xETH__USDT_USDG_GHO',
+            eModeCategory: 'AaveV3XLayerEModes.xETH__USDT_USDG_GHO_USDC',
             collateral: 'DISABLED',
             borrowable: 'ENABLED',
             ltvzero: 'DISABLED',
           },
           {
             asset: 'USDC',
-            eModeCategory: 'AaveV3XLayerEModes.xSOL__USDT_USDG_GHO',
+            eModeCategory: 'AaveV3XLayerEModes.xSOL__USDT_USDG_GHO_USDC',
             collateral: 'DISABLED',
             borrowable: 'ENABLED',
             ltvzero: 'DISABLED',
           },
           {
             asset: 'USDC',
-            eModeCategory: 'AaveV3XLayerEModes.WOKB__USDT_USDG_GHO',
+            eModeCategory: 'AaveV3XLayerEModes.WOKB__USDT_USDG_GHO_USDC',
             collateral: 'DISABLED',
             borrowable: 'ENABLED',
             ltvzero: 'DISABLED',

@@ -2,8 +2,8 @@
 pragma solidity ^0.8.0;
 
 import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGenericExecutor.sol';
-import {AaveV3Avalanche} from 'aave-address-book/AaveV3Avalanche.sol';
-import {AaveV4Avalanche} from 'aave-address-book/AaveV4Avalanche.sol';
+import {AaveV3Base} from 'aave-address-book/AaveV3Base.sol';
+import {AaveV4Base} from 'aave-address-book/AaveV4Base.sol';
 import {Roles} from 'aave-v4/deployments/utils/libraries/Roles.sol';
 import {IRiskStewardV4} from 'src/interfaces/IRiskStewardV4.sol';
 
@@ -13,29 +13,29 @@ import {IRiskStewardV4} from 'src/interfaces/IRiskStewardV4.sol';
  * - Snapshot: TODO
  * - Discussion: https://governance.aave.com/t/arfc-activate-aave-risk-stewards-on-aave-v4/25510
  */
-contract AaveV4Avalanche_AaveV4RiskStewardsActivation_20260807 is IProposalGenericExecutor {
+contract AaveV4Base_AaveV4RiskStewardsActivation_20260807 is IProposalGenericExecutor {
   function execute() external override {
-    AaveV4Avalanche.ACCESS_MANAGER.grantRole({
+    AaveV4Base.ACCESS_MANAGER.grantRole({
       roleId: Roles.HUB_CONFIGURATOR_DOMAIN_ADMIN_ROLE,
-      account: AaveV4Avalanche.RISK_STEWARD,
+      account: AaveV4Base.RISK_STEWARD,
       executionDelay: 0
     });
-    AaveV4Avalanche.ACCESS_MANAGER.grantRole({
+    AaveV4Base.ACCESS_MANAGER.grantRole({
       roleId: Roles.SPOKE_CONFIGURATOR_DOMAIN_ADMIN_ROLE,
-      account: AaveV4Avalanche.RISK_STEWARD,
+      account: AaveV4Base.RISK_STEWARD,
       executionDelay: 0
     });
     // the CAPO adapters behind the v4 price sources gate setCapParameters on the v3 ACL manager
-    AaveV3Avalanche.ACL_MANAGER.addRiskAdmin(AaveV4Avalanche.RISK_STEWARD);
+    AaveV3Base.ACL_MANAGER.addRiskAdmin(AaveV4Base.RISK_STEWARD);
 
-    IRiskStewardV4(AaveV4Avalanche.RISK_STEWARD).setConfig(_riskStewardConfig());
+    IRiskStewardV4(AaveV4Base.RISK_STEWARD).setConfig(_riskStewardConfig());
   }
 
   function _riskStewardConfig() internal pure returns (IRiskStewardV4.Config memory) {
     return
       IRiskStewardV4.Config({
         hub: IRiskStewardV4.HubConfig({
-          configurator: AaveV4Avalanche.HUB_CONFIGURATOR,
+          configurator: AaveV4Base.HUB_CONFIGURATOR,
           rate: IRiskStewardV4.HubRateConfig({
             optimalUsageRatio: IRiskStewardV4.RiskParamConfig({
               minDelay: 36 hours,
@@ -72,7 +72,7 @@ contract AaveV4Avalanche_AaveV4RiskStewardsActivation_20260807 is IProposalGener
           })
         }),
         spoke: IRiskStewardV4.SpokeConfig({
-          configurator: AaveV4Avalanche.SPOKE_CONFIGURATOR,
+          configurator: AaveV4Base.SPOKE_CONFIGURATOR,
           collateralRisk: IRiskStewardV4.RiskParamConfig({
             minDelay: 36 hours,
             maxPercentChange: 300_00,

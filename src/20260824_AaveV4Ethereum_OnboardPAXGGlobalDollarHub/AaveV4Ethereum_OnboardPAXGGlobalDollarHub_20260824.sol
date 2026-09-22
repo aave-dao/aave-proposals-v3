@@ -105,7 +105,7 @@ contract AaveV4Ethereum_OnboardPAXGGlobalDollarHub_20260824 is AaveV4PayloadEthe
       spoke: address(AaveV4EthereumSpokes.USDG_PENDLE_SPOKE),
       hub: address(AaveV4EthereumHubs.GLOBAL_DOLLAR_HUB),
       underlying: AaveV4EthereumAssets.USDG_UNDERLYING,
-      priceSource: AaveV4EthereumSpokePriceFeeds.USDG_PENDLE_SPOKE_USDG_PRICE_FEED,
+      priceSource: AaveV4EthereumSpokePriceFeeds.USDG_PENDLE_SPOKE_GLOBAL_DOLLAR_USDG_PRICE_FEED,
       config: ISpoke.ReserveConfig({
         collateralRisk: uint24(0),
         paused: false,
