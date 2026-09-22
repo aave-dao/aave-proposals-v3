@@ -1,0 +1,148 @@
+## Reserve changes
+
+### Reserves altered
+
+#### tBTC ([0x236aa50979D5f3De3Bd1Eeb40E81137F22ab794b](https://basescan.org/address/0x236aa50979D5f3De3Bd1Eeb40E81137F22ab794b))
+
+| description | value before | value after |
+| --- | --- | --- |
+| isFrozen | :x: | :white_check_mark: |
+| supplyCap | 8 tBTC | 1 tBTC |
+| reserveFactor | 20 % [2000] | 50 % [5000] |
+
+
+#### ezETH ([0x2416092f143378750bb29b79eD961ab195CcEea5](https://basescan.org/address/0x2416092f143378750bb29b79eD961ab195CcEea5))
+
+| description | value before | value after |
+| --- | --- | --- |
+| isFrozen | :x: | :white_check_mark: |
+| supplyCap | 23 ezETH | 1 ezETH |
+
+
+#### USDbC ([0xd9aAEc86B65D86f6A7B5B1b0c42FFA531710b6CA](https://basescan.org/address/0xd9aAEc86B65D86f6A7B5B1b0c42FFA531710b6CA))
+
+| description | value before | value after |
+| --- | --- | --- |
+| isFrozen | :x: | :white_check_mark: |
+| supplyCap | 500,000 USDbC | 1 USDbC |
+| borrowCap | 450,000 USDbC | 1 USDbC |
+| reserveFactor | 50 % [5000] | 75 % [7500] |
+
+
+## Event logs
+
+#### 0x5731a04B1E775f0fdd454Bf70f3335886e9A96be (AaveV3Base.POOL_CONFIGURATOR)
+
+| index | event |
+| --- | --- |
+| 0 | ReserveFactorChanged(asset: 0x236aa50979D5f3De3Bd1Eeb40E81137F22ab794b (symbol: tBTC), oldReserveFactor: 2000, newReserveFactor: 5000) |
+| 2 | ReserveFactorChanged(asset: 0xd9aAEc86B65D86f6A7B5B1b0c42FFA531710b6CA (symbol: USDbC), oldReserveFactor: 5000, newReserveFactor: 7500) |
+| 4 | SupplyCapChanged(asset: 0x236aa50979D5f3De3Bd1Eeb40E81137F22ab794b (symbol: tBTC), oldSupplyCap: 8, newSupplyCap: 1) |
+| 5 | SupplyCapChanged(asset: 0x2416092f143378750bb29b79eD961ab195CcEea5 (symbol: ezETH), oldSupplyCap: 23, newSupplyCap: 1) |
+| 6 | SupplyCapChanged(asset: 0xd9aAEc86B65D86f6A7B5B1b0c42FFA531710b6CA (symbol: USDbC), oldSupplyCap: 500000, newSupplyCap: 1) |
+| 7 | BorrowCapChanged(asset: 0xd9aAEc86B65D86f6A7B5B1b0c42FFA531710b6CA (symbol: USDbC), oldBorrowCap: 450000, newBorrowCap: 1) |
+| 8 | AssetLtvzeroInEModeChanged(asset: 0x236aa50979D5f3De3Bd1Eeb40E81137F22ab794b (symbol: tBTC), categoryId: 15, ltvzero: true) |
+| 9 | ReserveFrozen(asset: 0x236aa50979D5f3De3Bd1Eeb40E81137F22ab794b (symbol: tBTC), frozen: true) |
+| 10 | AssetLtvzeroInEModeChanged(asset: 0x2416092f143378750bb29b79eD961ab195CcEea5 (symbol: ezETH), categoryId: 2, ltvzero: true) |
+| 11 | AssetLtvzeroInEModeChanged(asset: 0x2416092f143378750bb29b79eD961ab195CcEea5 (symbol: ezETH), categoryId: 3, ltvzero: true) |
+| 12 | ReserveFrozen(asset: 0x2416092f143378750bb29b79eD961ab195CcEea5 (symbol: ezETH), frozen: true) |
+| 13 | ReserveFrozen(asset: 0xd9aAEc86B65D86f6A7B5B1b0c42FFA531710b6CA (symbol: USDbC), frozen: true) |
+
+#### 0xA238Dd80C259a72e81d7e4664a9801593F98d1c5 (AaveV3Base.POOL)
+
+| index | event |
+| --- | --- |
+| 1 | ReserveDataUpdated(reserve: 0x236aa50979D5f3De3Bd1Eeb40E81137F22ab794b (symbol: tBTC), liquidityRate: 1029948993102987679870060, stableBorrowRate: 0, variableBorrowRate: 16260524819602345260315507, liquidityIndex: 1.0009 [1000990362602428511984381954, 27 decimals], variableBorrowIndex: 1.0122 [1012202597308759936654999940, 27 decimals]) |
+| 3 | ReserveDataUpdated(reserve: 0xd9aAEc86B65D86f6A7B5B1b0c42FFA531710b6CA (symbol: USDbC), liquidityRate: 14237211957500856829199480, stableBorrowRate: 0, variableBorrowRate: 79549707518976401690200642, liquidityIndex: 1.1381 [1138114308490285209210722812, 27 decimals], variableBorrowIndex: 1.2995 [1299584026653216557744274432, 27 decimals]) |
+
+#### 0x9390B1735def18560c509E2d0bc090E9d6BA257a (AaveV3Base.ACL_ADMIN, GovernanceV3Base.EXECUTOR_LVL_1)
+
+| index | event |
+| --- | --- |
+| 14 | ExecutedAction(target: 0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f, value: 0, signature: execute(), data: 0x, executionTime: 1789399803, withDelegatecall: true, resultData: 0x) |
+
+#### 0x2DC219E716793fb4b21548C0f009Ba3Af753ab01 (GovernanceV3Base.PAYLOADS_CONTROLLER)
+
+| index | event |
+| --- | --- |
+| 15 | PayloadExecuted(payloadId: 116) |
+
+## Raw storage changes
+
+### 0x2dc219e716793fb4b21548c0f009ba3af753ab01 (GovernanceV3Base.PAYLOADS_CONTROLLER)
+
+| slot | previous value | new value |
+| --- | --- | --- |
+| 0x158cf96e390593ec3d9db70f55562909ef65f4603e50b9bf4a3df75ee2795f30 | 0x006aa812fa000000000002000000000000000000000000000000000000000000 | 0x006aa812fa000000000003000000000000000000000000000000000000000000 |
+| 0x158cf96e390593ec3d9db70f55562909ef65f4603e50b9bf4a3df75ee2795f31 | 0x000000000000000000093a800000000000006ad6377b00000000000000000000 | 0x000000000000000000093a800000000000006ad6377b0000000000006aa812fb |
+
+### 0xa238dd80c259a72e81d7e4664a9801593f98d1c5 (AaveV3Base.POOL)
+
+| slot | previous value | new value |
+| --- | --- | --- |
+| 0x576d2086a3d5f0898768a114197adc4053263301f03ff1504528cd2771084b42 | 0x100000000000000000000003e800007a12000006ddd01388810629041e780000 | 0x100000000000000000000003e80000000010000000011d4c830629041e780000 |
+| 0x576d2086a3d5f0898768a114197adc4053263301f03ff1504528cd2771084b43 | 0x0000000000178dacc27c4977632ddd750000000003ad6c9a117806fdaa81a0fa | 0x00000000000bc6d8ce856535aafbc4780000000003ad6d144a4402650f3219fc |
+| 0x576d2086a3d5f0898768a114197adc4053263301f03ff1504528cd2771084b44 | 0x000000000041cd47819d6a789646f774000000000432fc195a595f93c3aa3603 | 0x000000000041cd4e491f3f1c0ada0a42000000000432fd9f4051846a65e83c00 |
+| 0x576d2086a3d5f0898768a114197adc4053263301f03ff1504528cd2771084b45 | 0x0000000000000000000002006aa80a6900000000000000000000000000bfd3de | 0x0000000000000000000002006aa812fb00000000000000000000000000bfd3de |
+| 0x576d2086a3d5f0898768a114197adc4053263301f03ff1504528cd2771084b4a | 0x00000000000000000000000a64a04818000000000000000000000000004b34c5 | 0x00000000000000000000000a64a04818000000000000000000000000004f6152 |
+| 0x67dcc86da9aaaf40a183002157e56801115aa6057705e43279b4c1c90942d6b4 | 0x0000000000000000000000000000000000000000000000000000000000000008 | 0x0000000000000000000000000000008000000000000000000000000000000008 |
+| 0x769cad6e4f69fb39d4bdc2ee07759d8d4955411817e0dd7fe8899ea55308f3d9 | 0x0000000000000000000000000000000000000000000000000000000000000110 | 0x0000000000000000000000000000200000000000000000000000000000000110 |
+| 0x80d3b16018b60b749d2bc1c0b179418bf0067c8de4f67a7e0e09c0f02bf661b2 | 0x100000000000000000000003e800000001700000000105dc811229fe000a0000 | 0x100000000000000000000003e800000000100000000105dc831229fe000a0000 |
+| 0x81d0999fde243adcc41b7fa1be5cea14f789e3a6065b815ac58f4bc0838c3157 | 0x0000000000000000000000000000000000000000000000000000000000000010 | 0x0000000000000000000000000000008000000000000000000000000000000010 |
+| 0x96beb4f9742350119893c92f4298c1cc379c4d82d0886b6326a3a5b4c22e68a7 | 0x100000000000000000000003e800000000800000000107d0811229fe1e780000 | 0x100000000000000000000003e80000000010000000011388831229fe1e780000 |
+| 0x96beb4f9742350119893c92f4298c1cc379c4d82d0886b6326a3a5b4c22e68a8 | 0x0000000000015cf4da64f6bd9509c6b600000000033bffcb667331746a2387ae | 0x000000000000da19a59443878d79ac6c00000000033bfff449dd1f04bd8d7002 |
+| 0x96beb4f9742350119893c92f4298c1cc379c4d82d0886b6326a3a5b4c22e68a9 | 0x00000000000d7348da61596d5ba0b7ce00000000034544a4c5738b24781909a0 | 0x00000000000d734cd117138861817373000000000345463cbff839fe43a58184 |
+| 0x96beb4f9742350119893c92f4298c1cc379c4d82d0886b6326a3a5b4c22e68aa | 0x000000000000000000000d006aa7daa7000000000000000000000000afd1b792 | 0x000000000000000000000d006aa812fb000000000000000000000000afd1b792 |
+| 0x96beb4f9742350119893c92f4298c1cc379c4d82d0886b6326a3a5b4c22e68af | 0x000000000000000046b4117c93aeefe00000000000000000000006541c0a07c7 | 0x000000000000000046b4117c93aeefe0000000000000000000000753b9be3948 |
+
+
+## Raw diff
+
+```json
+{
+  "reserves": {
+    "0x236aa50979D5f3De3Bd1Eeb40E81137F22ab794b": {
+      "isFrozen": {
+        "from": false,
+        "to": true
+      },
+      "reserveFactor": {
+        "from": 2000,
+        "to": 5000
+      },
+      "supplyCap": {
+        "from": 8,
+        "to": 1
+      }
+    },
+    "0x2416092f143378750bb29b79eD961ab195CcEea5": {
+      "isFrozen": {
+        "from": false,
+        "to": true
+      },
+      "supplyCap": {
+        "from": 23,
+        "to": 1
+      }
+    },
+    "0xd9aAEc86B65D86f6A7B5B1b0c42FFA531710b6CA": {
+      "borrowCap": {
+        "from": 450000,
+        "to": 1
+      },
+      "isFrozen": {
+        "from": false,
+        "to": true
+      },
+      "reserveFactor": {
+        "from": 5000,
+        "to": 7500
+      },
+      "supplyCap": {
+        "from": 500000,
+        "to": 1
+      }
+    }
+  }
+}
+```
