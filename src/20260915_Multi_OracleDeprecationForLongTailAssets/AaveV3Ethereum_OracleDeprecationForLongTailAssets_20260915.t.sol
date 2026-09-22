@@ -21,7 +21,7 @@ contract AaveV3Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
   AaveV3Ethereum_OracleDeprecationForLongTailAssets_20260915 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 26032357);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 26_032_357);
     proposal = new AaveV3Ethereum_OracleDeprecationForLongTailAssets_20260915();
   }
 
@@ -130,64 +130,176 @@ contract AaveV3Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
       IDefaultInterestRateStrategyV2.InterestRateData memory rate = IDefaultInterestRateStrategyV2(
         AaveV3Ethereum.POOL.RESERVE_INTEREST_RATE_STRATEGY()
       ).getInterestRateDataBps(AaveV3EthereumAssets.BAL_UNDERLYING);
-      assertEq(rate.optimalUsageRatio, afterExecution ? 4500 : 4500, 'BAL kink');
-      assertEq(rate.baseVariableBorrowRate, afterExecution ? 2000 : 500, 'BAL base');
-      assertEq(rate.variableRateSlope1, afterExecution ? 1500 : 1500, 'BAL s1');
-      assertEq(rate.variableRateSlope2, afterExecution ? 4000 : 15000, 'BAL s2');
+      assertEq(
+        rate.optimalUsageRatio,
+        4_500, // unchanged; 45% (2 decimals)
+        'BAL kink'
+      );
+      assertEq(
+        rate.baseVariableBorrowRate,
+        afterExecution ? 2_000 : 500, // 5% -> 20% (2 decimals)
+        'BAL base'
+      );
+      assertEq(
+        rate.variableRateSlope1,
+        1_500, // unchanged; 15% (2 decimals)
+        'BAL s1'
+      );
+      assertEq(
+        rate.variableRateSlope2,
+        afterExecution ? 4_000 : 15_000, // 150% -> 40% (2 decimals)
+        'BAL s2'
+      );
     }
     {
       IDefaultInterestRateStrategyV2.InterestRateData memory rate = IDefaultInterestRateStrategyV2(
         AaveV3Ethereum.POOL.RESERVE_INTEREST_RATE_STRATEGY()
       ).getInterestRateDataBps(AaveV3EthereumAssets.FRAX_UNDERLYING);
-      assertEq(rate.optimalUsageRatio, afterExecution ? 9000 : 9000, 'FRAX kink');
-      assertEq(rate.baseVariableBorrowRate, afterExecution ? 500 : 0, 'FRAX base');
-      assertEq(rate.variableRateSlope1, afterExecution ? 550 : 550, 'FRAX s1');
-      assertEq(rate.variableRateSlope2, afterExecution ? 10000 : 4000, 'FRAX s2');
+      assertEq(
+        rate.optimalUsageRatio,
+        9_000, // unchanged; 90% (2 decimals)
+        'FRAX kink'
+      );
+      assertEq(
+        rate.baseVariableBorrowRate,
+        afterExecution ? 500 : 0, // 0% -> 5% (2 decimals)
+        'FRAX base'
+      );
+      assertEq(
+        rate.variableRateSlope1,
+        550, // unchanged; 5.5% (2 decimals)
+        'FRAX s1'
+      );
+      assertEq(
+        rate.variableRateSlope2,
+        afterExecution ? 10_000 : 4_000, // 40% -> 100% (2 decimals)
+        'FRAX s2'
+      );
     }
     {
       IDefaultInterestRateStrategyV2.InterestRateData memory rate = IDefaultInterestRateStrategyV2(
         AaveV3Ethereum.POOL.RESERVE_INTEREST_RATE_STRATEGY()
       ).getInterestRateDataBps(AaveV3EthereumAssets.FXS_UNDERLYING);
-      assertEq(rate.optimalUsageRatio, afterExecution ? 4500 : 4500, 'FXS kink');
-      assertEq(rate.baseVariableBorrowRate, afterExecution ? 2000 : 0, 'FXS base');
-      assertEq(rate.variableRateSlope1, afterExecution ? 900 : 900, 'FXS s1');
-      assertEq(rate.variableRateSlope2, afterExecution ? 4000 : 30000, 'FXS s2');
+      assertEq(
+        rate.optimalUsageRatio,
+        4_500, // unchanged; 45% (2 decimals)
+        'FXS kink'
+      );
+      assertEq(
+        rate.baseVariableBorrowRate,
+        afterExecution ? 2_000 : 0, // 0% -> 20% (2 decimals)
+        'FXS base'
+      );
+      assertEq(
+        rate.variableRateSlope1,
+        900, // unchanged; 9% (2 decimals)
+        'FXS s1'
+      );
+      assertEq(
+        rate.variableRateSlope2,
+        afterExecution ? 4_000 : 30_000, // 300% -> 40% (2 decimals)
+        'FXS s2'
+      );
     }
     {
       IDefaultInterestRateStrategyV2.InterestRateData memory rate = IDefaultInterestRateStrategyV2(
         AaveV3Ethereum.POOL.RESERVE_INTEREST_RATE_STRATEGY()
       ).getInterestRateDataBps(AaveV3EthereumAssets.KNC_UNDERLYING);
-      assertEq(rate.optimalUsageRatio, afterExecution ? 4500 : 4500, 'KNC kink');
-      assertEq(rate.baseVariableBorrowRate, afterExecution ? 2000 : 0, 'KNC base');
-      assertEq(rate.variableRateSlope1, afterExecution ? 900 : 900, 'KNC s1');
-      assertEq(rate.variableRateSlope2, afterExecution ? 4000 : 30000, 'KNC s2');
+      assertEq(
+        rate.optimalUsageRatio,
+        4_500, // unchanged; 45% (2 decimals)
+        'KNC kink'
+      );
+      assertEq(
+        rate.baseVariableBorrowRate,
+        afterExecution ? 2_000 : 0, // 0% -> 20% (2 decimals)
+        'KNC base'
+      );
+      assertEq(
+        rate.variableRateSlope1,
+        900, // unchanged; 9% (2 decimals)
+        'KNC s1'
+      );
+      assertEq(
+        rate.variableRateSlope2,
+        afterExecution ? 4_000 : 30_000, // 300% -> 40% (2 decimals)
+        'KNC s2'
+      );
     }
     {
       IDefaultInterestRateStrategyV2.InterestRateData memory rate = IDefaultInterestRateStrategyV2(
         AaveV3Ethereum.POOL.RESERVE_INTEREST_RATE_STRATEGY()
       ).getInterestRateDataBps(AaveV3EthereumAssets.LUSD_UNDERLYING);
-      assertEq(rate.optimalUsageRatio, afterExecution ? 8000 : 8000, 'LUSD kink');
-      assertEq(rate.baseVariableBorrowRate, afterExecution ? 500 : 0, 'LUSD base');
-      assertEq(rate.variableRateSlope1, afterExecution ? 500 : 500, 'LUSD s1');
-      assertEq(rate.variableRateSlope2, afterExecution ? 10000 : 5000, 'LUSD s2');
+      assertEq(
+        rate.optimalUsageRatio,
+        8_000, // unchanged; 80% (2 decimals)
+        'LUSD kink'
+      );
+      assertEq(
+        rate.baseVariableBorrowRate,
+        afterExecution ? 500 : 0, // 0% -> 5% (2 decimals)
+        'LUSD base'
+      );
+      assertEq(
+        rate.variableRateSlope1,
+        500, // unchanged; 5% (2 decimals)
+        'LUSD s1'
+      );
+      assertEq(
+        rate.variableRateSlope2,
+        afterExecution ? 10_000 : 5_000, // 50% -> 100% (2 decimals)
+        'LUSD s2'
+      );
     }
     {
       IDefaultInterestRateStrategyV2.InterestRateData memory rate = IDefaultInterestRateStrategyV2(
         AaveV3Ethereum.POOL.RESERVE_INTEREST_RATE_STRATEGY()
       ).getInterestRateDataBps(AaveV3EthereumAssets.RPL_UNDERLYING);
-      assertEq(rate.optimalUsageRatio, afterExecution ? 8000 : 8000, 'RPL kink');
-      assertEq(rate.baseVariableBorrowRate, afterExecution ? 500 : 0, 'RPL base');
-      assertEq(rate.variableRateSlope1, afterExecution ? 850 : 850, 'RPL s1');
-      assertEq(rate.variableRateSlope2, afterExecution ? 10000 : 8700, 'RPL s2');
+      assertEq(
+        rate.optimalUsageRatio,
+        8_000, // unchanged; 80% (2 decimals)
+        'RPL kink'
+      );
+      assertEq(
+        rate.baseVariableBorrowRate,
+        afterExecution ? 500 : 0, // 0% -> 5% (2 decimals)
+        'RPL base'
+      );
+      assertEq(
+        rate.variableRateSlope1,
+        850, // unchanged; 8.5% (2 decimals)
+        'RPL s1'
+      );
+      assertEq(
+        rate.variableRateSlope2,
+        afterExecution ? 10_000 : 8_700, // 87% -> 100% (2 decimals)
+        'RPL s2'
+      );
     }
     {
       IDefaultInterestRateStrategyV2.InterestRateData memory rate = IDefaultInterestRateStrategyV2(
         AaveV3Ethereum.POOL.RESERVE_INTEREST_RATE_STRATEGY()
       ).getInterestRateDataBps(AaveV3EthereumAssets.STG_UNDERLYING);
-      assertEq(rate.optimalUsageRatio, afterExecution ? 4500 : 4500, 'STG kink');
-      assertEq(rate.baseVariableBorrowRate, afterExecution ? 2000 : 0, 'STG base');
-      assertEq(rate.variableRateSlope1, afterExecution ? 700 : 700, 'STG s1');
-      assertEq(rate.variableRateSlope2, afterExecution ? 4000 : 30000, 'STG s2');
+      assertEq(
+        rate.optimalUsageRatio,
+        4_500, // unchanged; 45% (2 decimals)
+        'STG kink'
+      );
+      assertEq(
+        rate.baseVariableBorrowRate,
+        afterExecution ? 2_000 : 0, // 0% -> 20% (2 decimals)
+        'STG base'
+      );
+      assertEq(
+        rate.variableRateSlope1,
+        700, // unchanged; 7% (2 decimals)
+        'STG s1'
+      );
+      assertEq(
+        rate.variableRateSlope2,
+        afterExecution ? 4_000 : 30_000, // 300% -> 40% (2 decimals)
+        'STG s2'
+      );
     }
   }
   function _assertOracles() internal view {
@@ -198,7 +310,8 @@ contract AaveV3Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
     );
     assertEq(
       AaveV3Ethereum.ORACLE.getAssetPrice(AaveV3EthereumAssets.BAL_UNDERLYING),
-      13370000,
+      // $0.1337 (8 decimals)
+      13_370_000,
       'BAL oracle output'
     );
     assertEq(
@@ -208,7 +321,8 @@ contract AaveV3Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
     );
     assertEq(
       AaveV3Ethereum.ORACLE.getAssetPrice(AaveV3EthereumAssets.FRAX_UNDERLYING),
-      100000000,
+      // $1 (8 decimals)
+      100_000_000,
       'FRAX oracle output'
     );
     assertEq(
@@ -218,7 +332,8 @@ contract AaveV3Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
     );
     assertEq(
       AaveV3Ethereum.ORACLE.getAssetPrice(AaveV3EthereumAssets.FXS_UNDERLYING),
-      35620000,
+      // $0.3562 (8 decimals)
+      35_620_000,
       'FXS oracle output'
     );
     assertEq(
@@ -228,7 +343,8 @@ contract AaveV3Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
     );
     assertEq(
       AaveV3Ethereum.ORACLE.getAssetPrice(AaveV3EthereumAssets.KNC_UNDERLYING),
-      14000000,
+      // $0.14 (8 decimals)
+      14_000_000,
       'KNC oracle output'
     );
     assertEq(
@@ -238,7 +354,8 @@ contract AaveV3Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
     );
     assertEq(
       AaveV3Ethereum.ORACLE.getAssetPrice(AaveV3EthereumAssets.LUSD_UNDERLYING),
-      100000000,
+      // $1 (8 decimals)
+      100_000_000,
       'LUSD oracle output'
     );
     assertEq(
@@ -248,7 +365,8 @@ contract AaveV3Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
     );
     assertEq(
       AaveV3Ethereum.ORACLE.getAssetPrice(AaveV3EthereumAssets.RPL_UNDERLYING),
-      173380000,
+      // $1.7338 (8 decimals)
+      173_380_000,
       'RPL oracle output'
     );
     assertEq(
@@ -258,7 +376,8 @@ contract AaveV3Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
     );
     assertEq(
       AaveV3Ethereum.ORACLE.getAssetPrice(AaveV3EthereumAssets.STG_UNDERLYING),
-      27340000,
+      // $0.2734 (8 decimals)
+      27_340_000,
       'STG oracle output'
     );
   }
@@ -279,44 +398,44 @@ contract AaveV3Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
     expected[1] = (expected[1] & ~(((uint256(1) << 36) - 1) << 80)) | (uint256(1) << 80);
     assertEq((expected[1] >> 57) & 1, 0, 'FRAX pre freeze');
     expected[1] |= uint256(1) << 57;
-    assertEq((expected[1] >> 64) & 65535, 2000, 'FRAX pre RF');
-    expected[1] = (expected[1] & ~(uint256(65535) << 64)) | (uint256(10000) << 64);
+    assertEq((expected[1] >> 64) & 65_535, 2_000, 'FRAX pre RF');
+    expected[1] = (expected[1] & ~(uint256(65_535) << 64)) | (uint256(10_000) << 64);
     expected[2] = AaveV3Ethereum.POOL.getConfiguration(AaveV3EthereumAssets.FXS_UNDERLYING).data;
-    assertEq((expected[2] >> 116) & ((1 << 36) - 1), 1200000, 'FXS pre cap');
+    assertEq((expected[2] >> 116) & ((1 << 36) - 1), 1_200_000, 'FXS pre cap');
     expected[2] = (expected[2] & ~(((uint256(1) << 36) - 1) << 116)) | (uint256(1) << 116);
-    assertEq((expected[2] >> 80) & ((1 << 36) - 1), 330000, 'FXS pre cap');
+    assertEq((expected[2] >> 80) & ((1 << 36) - 1), 330_000, 'FXS pre cap');
     expected[2] = (expected[2] & ~(((uint256(1) << 36) - 1) << 80)) | (uint256(1) << 80);
     assertEq((expected[2] >> 57) & 1, 1, 'FXS pre freeze');
     expected[2] |= uint256(1) << 57;
     expected[3] = AaveV3Ethereum.POOL.getConfiguration(AaveV3EthereumAssets.KNC_UNDERLYING).data;
-    assertEq((expected[3] >> 116) & ((1 << 36) - 1), 1200000, 'KNC pre cap');
+    assertEq((expected[3] >> 116) & ((1 << 36) - 1), 1_200_000, 'KNC pre cap');
     expected[3] = (expected[3] & ~(((uint256(1) << 36) - 1) << 116)) | (uint256(1) << 116);
-    assertEq((expected[3] >> 80) & ((1 << 36) - 1), 350000, 'KNC pre cap');
+    assertEq((expected[3] >> 80) & ((1 << 36) - 1), 350_000, 'KNC pre cap');
     expected[3] = (expected[3] & ~(((uint256(1) << 36) - 1) << 80)) | (uint256(1) << 80);
     assertEq((expected[3] >> 57) & 1, 1, 'KNC pre freeze');
     expected[3] |= uint256(1) << 57;
     expected[4] = AaveV3Ethereum.POOL.getConfiguration(AaveV3EthereumAssets.LUSD_UNDERLYING).data;
-    assertEq((expected[4] >> 116) & ((1 << 36) - 1), 5000000, 'LUSD pre cap');
+    assertEq((expected[4] >> 116) & ((1 << 36) - 1), 5_000_000, 'LUSD pre cap');
     expected[4] = (expected[4] & ~(((uint256(1) << 36) - 1) << 116)) | (uint256(1) << 116);
     assertEq((expected[4] >> 80) & ((1 << 36) - 1), 1, 'LUSD pre cap');
     expected[4] = (expected[4] & ~(((uint256(1) << 36) - 1) << 80)) | (uint256(1) << 80);
     assertEq((expected[4] >> 57) & 1, 0, 'LUSD pre freeze');
     expected[4] |= uint256(1) << 57;
-    assertEq((expected[4] >> 64) & 65535, 2000, 'LUSD pre RF');
-    expected[4] = (expected[4] & ~(uint256(65535) << 64)) | (uint256(10000) << 64);
+    assertEq((expected[4] >> 64) & 65_535, 2_000, 'LUSD pre RF');
+    expected[4] = (expected[4] & ~(uint256(65_535) << 64)) | (uint256(10_000) << 64);
     expected[5] = AaveV3Ethereum.POOL.getConfiguration(AaveV3EthereumAssets.RPL_UNDERLYING).data;
-    assertEq((expected[5] >> 116) & ((1 << 36) - 1), 550000, 'RPL pre cap');
+    assertEq((expected[5] >> 116) & ((1 << 36) - 1), 550_000, 'RPL pre cap');
     expected[5] = (expected[5] & ~(((uint256(1) << 36) - 1) << 116)) | (uint256(1) << 116);
     assertEq((expected[5] >> 80) & ((1 << 36) - 1), 1, 'RPL pre cap');
     expected[5] = (expected[5] & ~(((uint256(1) << 36) - 1) << 80)) | (uint256(1) << 80);
     assertEq((expected[5] >> 57) & 1, 0, 'RPL pre freeze');
     expected[5] |= uint256(1) << 57;
-    assertEq((expected[5] >> 64) & 65535, 2000, 'RPL pre RF');
-    expected[5] = (expected[5] & ~(uint256(65535) << 64)) | (uint256(10000) << 64);
+    assertEq((expected[5] >> 64) & 65_535, 2_000, 'RPL pre RF');
+    expected[5] = (expected[5] & ~(uint256(65_535) << 64)) | (uint256(10_000) << 64);
     expected[6] = AaveV3Ethereum.POOL.getConfiguration(AaveV3EthereumAssets.STG_UNDERLYING).data;
-    assertEq((expected[6] >> 116) & ((1 << 36) - 1), 10000000, 'STG pre cap');
+    assertEq((expected[6] >> 116) & ((1 << 36) - 1), 10_000_000, 'STG pre cap');
     expected[6] = (expected[6] & ~(((uint256(1) << 36) - 1) << 116)) | (uint256(1) << 116);
-    assertEq((expected[6] >> 80) & ((1 << 36) - 1), 3200000, 'STG pre cap');
+    assertEq((expected[6] >> 80) & ((1 << 36) - 1), 3_200_000, 'STG pre cap');
     expected[6] = (expected[6] & ~(((uint256(1) << 36) - 1) << 80)) | (uint256(1) << 80);
     assertEq((expected[6] >> 57) & 1, 1, 'STG pre freeze');
     expected[6] |= uint256(1) << 57;

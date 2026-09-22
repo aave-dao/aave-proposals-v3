@@ -22,7 +22,7 @@ contract AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
   AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 26032357);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 26_032_357);
     proposal = new AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915();
   }
 
@@ -50,18 +50,22 @@ contract AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
       );
       assertEq(
         rate.OPTIMAL_UTILIZATION_RATE(),
-        afterExecution ? 450000000000000000000000000 : 450000000000000000000000000,
+        450_000_000_000_000_000_000_000_000, // unchanged; 45% (27 decimals)
         'FRAX kink'
       );
       assertEq(
         rate.baseVariableBorrowRate(),
-        afterExecution ? 200000000000000000000000000 : 200000000000000000000000000,
+        200_000_000_000_000_000_000_000_000, // unchanged; 20% (27 decimals)
         'FRAX base'
       );
-      assertEq(rate.variableRateSlope1(), afterExecution ? 0 : 0, 'FRAX s1');
+      assertEq(
+        rate.variableRateSlope1(),
+        0, // unchanged; 0% (27 decimals)
+        'FRAX s1'
+      );
       assertEq(
         rate.variableRateSlope2(),
-        afterExecution ? 3000000000000000000000000000 : 3000000000000000000000000000,
+        3_000_000_000_000_000_000_000_000_000, // unchanged; 300% (27 decimals)
         'FRAX s2'
       );
       IDefaultInterestRateStrategy previous = IDefaultInterestRateStrategy(
@@ -87,18 +91,24 @@ contract AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
       );
       assertEq(
         rate.OPTIMAL_UTILIZATION_RATE(),
-        afterExecution ? 450000000000000000000000000 : 450000000000000000000000000,
+        450_000_000_000_000_000_000_000_000, // unchanged; 45% (27 decimals)
         'LUSD kink'
       );
       assertEq(
         rate.baseVariableBorrowRate(),
-        afterExecution ? 200000000000000000000000000 : 200000000000000000000000000,
+        200_000_000_000_000_000_000_000_000, // unchanged; 20% (27 decimals)
         'LUSD base'
       );
-      assertEq(rate.variableRateSlope1(), afterExecution ? 0 : 0, 'LUSD s1');
+      assertEq(
+        rate.variableRateSlope1(),
+        0, // unchanged; 0% (27 decimals)
+        'LUSD s1'
+      );
       assertEq(
         rate.variableRateSlope2(),
-        afterExecution ? 400000000000000000000000000 : 3000000000000000000000000000,
+        afterExecution
+          ? 400_000_000_000_000_000_000_000_000
+          : 3_000_000_000_000_000_000_000_000_000, // 300% -> 40% (27 decimals)
         'LUSD s2'
       );
       IDefaultInterestRateStrategy previous = IDefaultInterestRateStrategy(
@@ -124,16 +134,24 @@ contract AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
       );
       assertEq(
         rate.OPTIMAL_UTILIZATION_RATE(),
-        afterExecution ? 10000000000000000000000000 : 10000000000000000000000000,
+        10_000_000_000_000_000_000_000_000, // unchanged; 1% (27 decimals)
         'TUSD kink'
       );
       assertEq(
         rate.baseVariableBorrowRate(),
-        afterExecution ? 200000000000000000000000000 : 10000000000000000000000000,
+        afterExecution ? 200_000_000_000_000_000_000_000_000 : 10_000_000_000_000_000_000_000_000, // 1% -> 20% (27 decimals)
         'TUSD base'
       );
-      assertEq(rate.variableRateSlope1(), afterExecution ? 0 : 0, 'TUSD s1');
-      assertEq(rate.variableRateSlope2(), afterExecution ? 0 : 0, 'TUSD s2');
+      assertEq(
+        rate.variableRateSlope1(),
+        0, // unchanged; 0% (27 decimals)
+        'TUSD s1'
+      );
+      assertEq(
+        rate.variableRateSlope2(),
+        0, // unchanged; 0% (27 decimals)
+        'TUSD s2'
+      );
       IDefaultInterestRateStrategy previous = IDefaultInterestRateStrategy(
         address(bytes20(hex'2821b41f1fa07c0270a3f0de91b24b9766f312fd'))
       );
@@ -157,18 +175,22 @@ contract AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
       );
       assertEq(
         rate.OPTIMAL_UTILIZATION_RATE(),
-        afterExecution ? 450000000000000000000000000 : 450000000000000000000000000,
+        450_000_000_000_000_000_000_000_000, // unchanged; 45% (27 decimals)
         'USDP kink'
       );
       assertEq(
         rate.baseVariableBorrowRate(),
-        afterExecution ? 200000000000000000000000000 : 200000000000000000000000000,
+        200_000_000_000_000_000_000_000_000, // unchanged; 20% (27 decimals)
         'USDP base'
       );
-      assertEq(rate.variableRateSlope1(), afterExecution ? 0 : 0, 'USDP s1');
+      assertEq(
+        rate.variableRateSlope1(),
+        0, // unchanged; 0% (27 decimals)
+        'USDP s1'
+      );
       assertEq(
         rate.variableRateSlope2(),
-        afterExecution ? 3000000000000000000000000000 : 3000000000000000000000000000,
+        3_000_000_000_000_000_000_000_000_000, // unchanged; 300% (27 decimals)
         'USDP s2'
       );
       IDefaultInterestRateStrategy previous = IDefaultInterestRateStrategy(
@@ -194,18 +216,22 @@ contract AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
       );
       assertEq(
         rate.OPTIMAL_UTILIZATION_RATE(),
-        afterExecution ? 450000000000000000000000000 : 450000000000000000000000000,
+        450_000_000_000_000_000_000_000_000, // unchanged; 45% (27 decimals)
         'AMPL kink'
       );
       assertEq(
         rate.baseVariableBorrowRate(),
-        afterExecution ? 0 : 200000000000000000000000000,
+        afterExecution ? 0 : 200_000_000_000_000_000_000_000_000, // 20% -> 0% (27 decimals)
         'AMPL base'
       );
-      assertEq(rate.variableRateSlope1(), afterExecution ? 0 : 0, 'AMPL s1');
+      assertEq(
+        rate.variableRateSlope1(),
+        0, // unchanged; 0% (27 decimals)
+        'AMPL s1'
+      );
       assertEq(
         rate.variableRateSlope2(),
-        afterExecution ? 0 : 3000000000000000000000000000,
+        afterExecution ? 0 : 3_000_000_000_000_000_000_000_000_000, // 300% -> 0% (27 decimals)
         'AMPL s2'
       );
       IDefaultInterestRateStrategy previous = IDefaultInterestRateStrategy(
@@ -231,18 +257,22 @@ contract AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
       );
       assertEq(
         rate.OPTIMAL_UTILIZATION_RATE(),
-        afterExecution ? 450000000000000000000000000 : 450000000000000000000000000,
+        450_000_000_000_000_000_000_000_000, // unchanged; 45% (27 decimals)
         'RAI kink'
       );
       assertEq(
         rate.baseVariableBorrowRate(),
-        afterExecution ? 200000000000000000000000000 : 200000000000000000000000000,
+        200_000_000_000_000_000_000_000_000, // unchanged; 20% (27 decimals)
         'RAI base'
       );
-      assertEq(rate.variableRateSlope1(), afterExecution ? 0 : 0, 'RAI s1');
+      assertEq(
+        rate.variableRateSlope1(),
+        0, // unchanged; 0% (27 decimals)
+        'RAI s1'
+      );
       assertEq(
         rate.variableRateSlope2(),
-        afterExecution ? 3000000000000000000000000000 : 3000000000000000000000000000,
+        3_000_000_000_000_000_000_000_000_000, // unchanged; 300% (27 decimals)
         'RAI s2'
       );
       IDefaultInterestRateStrategy previous = IDefaultInterestRateStrategy(
@@ -260,18 +290,22 @@ contract AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
       );
       assertEq(
         rate.OPTIMAL_UTILIZATION_RATE(),
-        afterExecution ? 450000000000000000000000000 : 450000000000000000000000000,
+        450_000_000_000_000_000_000_000_000, // unchanged; 45% (27 decimals)
         'sUSD kink'
       );
       assertEq(
         rate.baseVariableBorrowRate(),
-        afterExecution ? 0 : 200000000000000000000000000,
+        afterExecution ? 0 : 200_000_000_000_000_000_000_000_000, // 20% -> 0% (27 decimals)
         'sUSD base'
       );
-      assertEq(rate.variableRateSlope1(), afterExecution ? 0 : 0, 'sUSD s1');
+      assertEq(
+        rate.variableRateSlope1(),
+        0, // unchanged; 0% (27 decimals)
+        'sUSD s1'
+      );
       assertEq(
         rate.variableRateSlope2(),
-        afterExecution ? 0 : 3000000000000000000000000000,
+        afterExecution ? 0 : 3_000_000_000_000_000_000_000_000_000, // 300% -> 0% (27 decimals)
         'sUSD s2'
       );
       IDefaultInterestRateStrategy previous = IDefaultInterestRateStrategy(
@@ -297,18 +331,22 @@ contract AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
       );
       assertEq(
         rate.OPTIMAL_UTILIZATION_RATE(),
-        afterExecution ? 450000000000000000000000000 : 450000000000000000000000000,
+        450_000_000_000_000_000_000_000_000, // unchanged; 45% (27 decimals)
         'YFI kink'
       );
       assertEq(
         rate.baseVariableBorrowRate(),
-        afterExecution ? 200000000000000000000000000 : 200000000000000000000000000,
+        200_000_000_000_000_000_000_000_000, // unchanged; 20% (27 decimals)
         'YFI base'
       );
-      assertEq(rate.variableRateSlope1(), afterExecution ? 0 : 0, 'YFI s1');
+      assertEq(
+        rate.variableRateSlope1(),
+        0, // unchanged; 0% (27 decimals)
+        'YFI s1'
+      );
       assertEq(
         rate.variableRateSlope2(),
-        afterExecution ? 3000000000000000000000000000 : 3000000000000000000000000000,
+        3_000_000_000_000_000_000_000_000_000, // unchanged; 300% (27 decimals)
         'YFI s2'
       );
       IDefaultInterestRateStrategy previous = IDefaultInterestRateStrategy(
@@ -326,18 +364,24 @@ contract AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
       );
       assertEq(
         rate.OPTIMAL_UTILIZATION_RATE(),
-        afterExecution ? 450000000000000000000000000 : 450000000000000000000000000,
+        450_000_000_000_000_000_000_000_000, // unchanged; 45% (27 decimals)
         'BAL kink'
       );
       assertEq(
         rate.baseVariableBorrowRate(),
-        afterExecution ? 200000000000000000000000000 : 200000000000000000000000000,
+        200_000_000_000_000_000_000_000_000, // unchanged; 20% (27 decimals)
         'BAL base'
       );
-      assertEq(rate.variableRateSlope1(), afterExecution ? 0 : 0, 'BAL s1');
+      assertEq(
+        rate.variableRateSlope1(),
+        0, // unchanged; 0% (27 decimals)
+        'BAL s1'
+      );
       assertEq(
         rate.variableRateSlope2(),
-        afterExecution ? 400000000000000000000000000 : 3000000000000000000000000000,
+        afterExecution
+          ? 400_000_000_000_000_000_000_000_000
+          : 3_000_000_000_000_000_000_000_000_000, // 300% -> 40% (27 decimals)
         'BAL s2'
       );
       IDefaultInterestRateStrategy previous = IDefaultInterestRateStrategy(
@@ -355,18 +399,24 @@ contract AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
       );
       assertEq(
         rate.OPTIMAL_UTILIZATION_RATE(),
-        afterExecution ? 450000000000000000000000000 : 450000000000000000000000000,
+        450_000_000_000_000_000_000_000_000, // unchanged; 45% (27 decimals)
         'ENJ kink'
       );
       assertEq(
         rate.baseVariableBorrowRate(),
-        afterExecution ? 200000000000000000000000000 : 200000000000000000000000000,
+        200_000_000_000_000_000_000_000_000, // unchanged; 20% (27 decimals)
         'ENJ base'
       );
-      assertEq(rate.variableRateSlope1(), afterExecution ? 0 : 0, 'ENJ s1');
+      assertEq(
+        rate.variableRateSlope1(),
+        0, // unchanged; 0% (27 decimals)
+        'ENJ s1'
+      );
       assertEq(
         rate.variableRateSlope2(),
-        afterExecution ? 400000000000000000000000000 : 3000000000000000000000000000,
+        afterExecution
+          ? 400_000_000_000_000_000_000_000_000
+          : 3_000_000_000_000_000_000_000_000_000, // 300% -> 40% (27 decimals)
         'ENJ s2'
       );
       IDefaultInterestRateStrategy previous = IDefaultInterestRateStrategy(
@@ -384,18 +434,24 @@ contract AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
       );
       assertEq(
         rate.OPTIMAL_UTILIZATION_RATE(),
-        afterExecution ? 450000000000000000000000000 : 450000000000000000000000000,
+        450_000_000_000_000_000_000_000_000, // unchanged; 45% (27 decimals)
         'KNC kink'
       );
       assertEq(
         rate.baseVariableBorrowRate(),
-        afterExecution ? 200000000000000000000000000 : 200000000000000000000000000,
+        200_000_000_000_000_000_000_000_000, // unchanged; 20% (27 decimals)
         'KNC base'
       );
-      assertEq(rate.variableRateSlope1(), afterExecution ? 0 : 0, 'KNC s1');
+      assertEq(
+        rate.variableRateSlope1(),
+        0, // unchanged; 0% (27 decimals)
+        'KNC s1'
+      );
       assertEq(
         rate.variableRateSlope2(),
-        afterExecution ? 400000000000000000000000000 : 3000000000000000000000000000,
+        afterExecution
+          ? 400_000_000_000_000_000_000_000_000
+          : 3_000_000_000_000_000_000_000_000_000, // 300% -> 40% (27 decimals)
         'KNC s2'
       );
       IDefaultInterestRateStrategy previous = IDefaultInterestRateStrategy(
@@ -413,18 +469,24 @@ contract AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
       );
       assertEq(
         rate.OPTIMAL_UTILIZATION_RATE(),
-        afterExecution ? 450000000000000000000000000 : 450000000000000000000000000,
+        450_000_000_000_000_000_000_000_000, // unchanged; 45% (27 decimals)
         'REN kink'
       );
       assertEq(
         rate.baseVariableBorrowRate(),
-        afterExecution ? 200000000000000000000000000 : 200000000000000000000000000,
+        200_000_000_000_000_000_000_000_000, // unchanged; 20% (27 decimals)
         'REN base'
       );
-      assertEq(rate.variableRateSlope1(), afterExecution ? 0 : 0, 'REN s1');
+      assertEq(
+        rate.variableRateSlope1(),
+        0, // unchanged; 0% (27 decimals)
+        'REN s1'
+      );
       assertEq(
         rate.variableRateSlope2(),
-        afterExecution ? 400000000000000000000000000 : 3000000000000000000000000000,
+        afterExecution
+          ? 400_000_000_000_000_000_000_000_000
+          : 3_000_000_000_000_000_000_000_000_000, // 300% -> 40% (27 decimals)
         'REN s2'
       );
       IDefaultInterestRateStrategy previous = IDefaultInterestRateStrategy(
@@ -442,18 +504,22 @@ contract AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
       );
       assertEq(
         rate.OPTIMAL_UTILIZATION_RATE(),
-        afterExecution ? 10000000000000000000000000 : 10000000000000000000000000,
+        10_000_000_000_000_000_000_000_000, // unchanged; 1% (27 decimals)
         'ZRX kink'
       );
       assertEq(
         rate.baseVariableBorrowRate(),
-        afterExecution ? 200000000000000000000000000 : 10000000000000000000000000,
+        afterExecution ? 200_000_000_000_000_000_000_000_000 : 10_000_000_000_000_000_000_000_000, // 1% -> 20% (27 decimals)
         'ZRX base'
       );
-      assertEq(rate.variableRateSlope1(), afterExecution ? 0 : 0, 'ZRX s1');
+      assertEq(
+        rate.variableRateSlope1(),
+        0, // unchanged; 0% (27 decimals)
+        'ZRX s1'
+      );
       assertEq(
         rate.variableRateSlope2(),
-        afterExecution ? 400000000000000000000000000 : 0,
+        afterExecution ? 400_000_000_000_000_000_000_000_000 : 0, // 0% -> 40% (27 decimals)
         'ZRX s2'
       );
       IDefaultInterestRateStrategy previous = IDefaultInterestRateStrategy(
@@ -471,7 +537,8 @@ contract AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
     );
     assertEq(
       AaveV2Ethereum.ORACLE.getAssetPrice(AaveV2EthereumAssets.AMPL_UNDERLYING),
-      ((123960000 * 1e18) /
+      // $1.2396 (8 decimals); converted to ETH (18 decimals)
+      ((123_960_000 * 1e18) /
         uint256(IChainlinkAggregator(ChainlinkEthereum.ETH__USD).latestAnswer())),
       'AMPL oracle output'
     );
@@ -482,7 +549,8 @@ contract AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
     );
     assertEq(
       AaveV2Ethereum.ORACLE.getAssetPrice(AaveV2EthereumAssets.BAL_UNDERLYING),
-      ((13170000 * 1e18) /
+      // $0.1317 (8 decimals); converted to ETH (18 decimals)
+      ((13_170_000 * 1e18) /
         uint256(IChainlinkAggregator(ChainlinkEthereum.ETH__USD).latestAnswer())),
       'BAL oracle output'
     );
@@ -493,7 +561,9 @@ contract AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
     );
     assertEq(
       AaveV2Ethereum.ORACLE.getAssetPrice(AaveV2EthereumAssets.ENJ_UNDERLYING),
-      ((4610000 * 1e18) / uint256(IChainlinkAggregator(ChainlinkEthereum.ETH__USD).latestAnswer())),
+      // $0.0461 (8 decimals); converted to ETH (18 decimals)
+      ((4_610_000 * 1e18) /
+        uint256(IChainlinkAggregator(ChainlinkEthereum.ETH__USD).latestAnswer())),
       'ENJ oracle output'
     );
     assertEq(
@@ -503,7 +573,8 @@ contract AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
     );
     assertEq(
       AaveV2Ethereum.ORACLE.getAssetPrice(AaveV2EthereumAssets.FRAX_UNDERLYING),
-      ((100000000 * 1e18) /
+      // $1 (8 decimals); converted to ETH (18 decimals)
+      ((100_000_000 * 1e18) /
         uint256(IChainlinkAggregator(ChainlinkEthereum.ETH__USD).latestAnswer())),
       'FRAX oracle output'
     );
@@ -514,7 +585,8 @@ contract AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
     );
     assertEq(
       AaveV2Ethereum.ORACLE.getAssetPrice(AaveV2EthereumAssets.KNC_UNDERLYING),
-      ((14010000 * 1e18) /
+      // $0.1401 (8 decimals); converted to ETH (18 decimals)
+      ((14_010_000 * 1e18) /
         uint256(IChainlinkAggregator(ChainlinkEthereum.ETH__USD).latestAnswer())),
       'KNC oracle output'
     );
@@ -525,7 +597,8 @@ contract AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
     );
     assertEq(
       AaveV2Ethereum.ORACLE.getAssetPrice(AaveV2EthereumAssets.LUSD_UNDERLYING),
-      ((100000000 * 1e18) /
+      // $1 (8 decimals); converted to ETH (18 decimals)
+      ((100_000_000 * 1e18) /
         uint256(IChainlinkAggregator(ChainlinkEthereum.ETH__USD).latestAnswer())),
       'LUSD oracle output'
     );
@@ -536,7 +609,8 @@ contract AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
     );
     assertEq(
       AaveV2Ethereum.ORACLE.getAssetPrice(AaveV2EthereumAssets.RAI_UNDERLYING),
-      ((265870000 * 1e18) /
+      // $2.6587 (8 decimals); converted to ETH (18 decimals)
+      ((265_870_000 * 1e18) /
         uint256(IChainlinkAggregator(ChainlinkEthereum.ETH__USD).latestAnswer())),
       'RAI oracle output'
     );
@@ -547,7 +621,8 @@ contract AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
     );
     assertEq(
       AaveV2Ethereum.ORACLE.getAssetPrice(AaveV2EthereumAssets.REN_UNDERLYING),
-      ((330000 * 1e18) / uint256(IChainlinkAggregator(ChainlinkEthereum.ETH__USD).latestAnswer())),
+      // $0.0033 (8 decimals); converted to ETH (18 decimals)
+      ((330_000 * 1e18) / uint256(IChainlinkAggregator(ChainlinkEthereum.ETH__USD).latestAnswer())),
       'REN oracle output'
     );
     assertEq(
@@ -557,7 +632,8 @@ contract AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
     );
     assertEq(
       AaveV2Ethereum.ORACLE.getAssetPrice(AaveV2EthereumAssets.TUSD_UNDERLYING),
-      ((100000000 * 1e18) /
+      // $1 (8 decimals); converted to ETH (18 decimals)
+      ((100_000_000 * 1e18) /
         uint256(IChainlinkAggregator(ChainlinkEthereum.ETH__USD).latestAnswer())),
       'TUSD oracle output'
     );
@@ -568,7 +644,8 @@ contract AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
     );
     assertEq(
       AaveV2Ethereum.ORACLE.getAssetPrice(AaveV2EthereumAssets.USDP_UNDERLYING),
-      ((100000000 * 1e18) /
+      // $1 (8 decimals); converted to ETH (18 decimals)
+      ((100_000_000 * 1e18) /
         uint256(IChainlinkAggregator(ChainlinkEthereum.ETH__USD).latestAnswer())),
       'USDP oracle output'
     );
@@ -579,7 +656,8 @@ contract AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
     );
     assertEq(
       AaveV2Ethereum.ORACLE.getAssetPrice(AaveV2EthereumAssets.YFI_UNDERLYING),
-      ((228663680000 * 1e18) /
+      // $2286.6368 (8 decimals); converted to ETH (18 decimals)
+      ((228_663_680_000 * 1e18) /
         uint256(IChainlinkAggregator(ChainlinkEthereum.ETH__USD).latestAnswer())),
       'YFI oracle output'
     );
@@ -590,7 +668,9 @@ contract AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
     );
     assertEq(
       AaveV2Ethereum.ORACLE.getAssetPrice(AaveV2EthereumAssets.ZRX_UNDERLYING),
-      ((9810000 * 1e18) / uint256(IChainlinkAggregator(ChainlinkEthereum.ETH__USD).latestAnswer())),
+      // $0.0981 (8 decimals); converted to ETH (18 decimals)
+      ((9_810_000 * 1e18) /
+        uint256(IChainlinkAggregator(ChainlinkEthereum.ETH__USD).latestAnswer())),
       'ZRX oracle output'
     );
     assertEq(
@@ -600,7 +680,8 @@ contract AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
     );
     assertEq(
       AaveV2Ethereum.ORACLE.getAssetPrice(AaveV2EthereumAssets.sUSD_UNDERLYING),
-      ((37800000 * 1e18) /
+      // $0.378 (8 decimals); converted to ETH (18 decimals)
+      ((37_800_000 * 1e18) /
         uint256(IChainlinkAggregator(ChainlinkEthereum.ETH__USD).latestAnswer())),
       'sUSD oracle output'
     );

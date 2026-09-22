@@ -20,7 +20,7 @@ contract AaveV3Polygon_OracleDeprecationForLongTailAssets_20260915_Test is Proto
   AaveV3Polygon_OracleDeprecationForLongTailAssets_20260915 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('polygon'), 94244629);
+    vm.createSelectFork(vm.rpcUrl('polygon'), 94_244_629);
     proposal = new AaveV3Polygon_OracleDeprecationForLongTailAssets_20260915();
   }
 
@@ -78,28 +78,76 @@ contract AaveV3Polygon_OracleDeprecationForLongTailAssets_20260915_Test is Proto
       IDefaultInterestRateStrategyV2.InterestRateData memory rate = IDefaultInterestRateStrategyV2(
         AaveV3Polygon.POOL.RESERVE_INTEREST_RATE_STRATEGY()
       ).getInterestRateDataBps(AaveV3PolygonAssets.BAL_UNDERLYING);
-      assertEq(rate.optimalUsageRatio, afterExecution ? 4500 : 4500, 'BAL kink');
-      assertEq(rate.baseVariableBorrowRate, afterExecution ? 2000 : 500, 'BAL base');
-      assertEq(rate.variableRateSlope1, afterExecution ? 1500 : 1500, 'BAL s1');
-      assertEq(rate.variableRateSlope2, afterExecution ? 4000 : 15000, 'BAL s2');
+      assertEq(
+        rate.optimalUsageRatio,
+        4_500, // unchanged; 45% (2 decimals)
+        'BAL kink'
+      );
+      assertEq(
+        rate.baseVariableBorrowRate,
+        afterExecution ? 2_000 : 500, // 5% -> 20% (2 decimals)
+        'BAL base'
+      );
+      assertEq(
+        rate.variableRateSlope1,
+        1_500, // unchanged; 15% (2 decimals)
+        'BAL s1'
+      );
+      assertEq(
+        rate.variableRateSlope2,
+        afterExecution ? 4_000 : 15_000, // 150% -> 40% (2 decimals)
+        'BAL s2'
+      );
     }
     {
       IDefaultInterestRateStrategyV2.InterestRateData memory rate = IDefaultInterestRateStrategyV2(
         AaveV3Polygon.POOL.RESERVE_INTEREST_RATE_STRATEGY()
       ).getInterestRateDataBps(AaveV3PolygonAssets.GHST_UNDERLYING);
-      assertEq(rate.optimalUsageRatio, afterExecution ? 4500 : 4500, 'GHST kink');
-      assertEq(rate.baseVariableBorrowRate, afterExecution ? 2000 : 0, 'GHST base');
-      assertEq(rate.variableRateSlope1, afterExecution ? 700 : 700, 'GHST s1');
-      assertEq(rate.variableRateSlope2, afterExecution ? 4000 : 30000, 'GHST s2');
+      assertEq(
+        rate.optimalUsageRatio,
+        4_500, // unchanged; 45% (2 decimals)
+        'GHST kink'
+      );
+      assertEq(
+        rate.baseVariableBorrowRate,
+        afterExecution ? 2_000 : 0, // 0% -> 20% (2 decimals)
+        'GHST base'
+      );
+      assertEq(
+        rate.variableRateSlope1,
+        700, // unchanged; 7% (2 decimals)
+        'GHST s1'
+      );
+      assertEq(
+        rate.variableRateSlope2,
+        afterExecution ? 4_000 : 30_000, // 300% -> 40% (2 decimals)
+        'GHST s2'
+      );
     }
     {
       IDefaultInterestRateStrategyV2.InterestRateData memory rate = IDefaultInterestRateStrategyV2(
         AaveV3Polygon.POOL.RESERVE_INTEREST_RATE_STRATEGY()
       ).getInterestRateDataBps(AaveV3PolygonAssets.miMATIC_UNDERLYING);
-      assertEq(rate.optimalUsageRatio, afterExecution ? 4500 : 4500, 'miMATIC kink');
-      assertEq(rate.baseVariableBorrowRate, afterExecution ? 2000 : 0, 'miMATIC base');
-      assertEq(rate.variableRateSlope1, afterExecution ? 900 : 900, 'miMATIC s1');
-      assertEq(rate.variableRateSlope2, afterExecution ? 4000 : 30000, 'miMATIC s2');
+      assertEq(
+        rate.optimalUsageRatio,
+        4_500, // unchanged; 45% (2 decimals)
+        'miMATIC kink'
+      );
+      assertEq(
+        rate.baseVariableBorrowRate,
+        afterExecution ? 2_000 : 0, // 0% -> 20% (2 decimals)
+        'miMATIC base'
+      );
+      assertEq(
+        rate.variableRateSlope1,
+        900, // unchanged; 9% (2 decimals)
+        'miMATIC s1'
+      );
+      assertEq(
+        rate.variableRateSlope2,
+        afterExecution ? 4_000 : 30_000, // 300% -> 40% (2 decimals)
+        'miMATIC s2'
+      );
     }
   }
   function _assertOracles() internal view {
@@ -110,7 +158,8 @@ contract AaveV3Polygon_OracleDeprecationForLongTailAssets_20260915_Test is Proto
     );
     assertEq(
       AaveV3Polygon.ORACLE.getAssetPrice(AaveV3PolygonAssets.BAL_UNDERLYING),
-      13160000,
+      // $0.1316 (8 decimals)
+      13_160_000,
       'BAL oracle output'
     );
     assertEq(
@@ -120,7 +169,8 @@ contract AaveV3Polygon_OracleDeprecationForLongTailAssets_20260915_Test is Proto
     );
     assertEq(
       AaveV3Polygon.ORACLE.getAssetPrice(AaveV3PolygonAssets.GHST_UNDERLYING),
-      8280000,
+      // $0.0828 (8 decimals)
+      8_280_000,
       'GHST oracle output'
     );
     assertEq(
@@ -130,7 +180,8 @@ contract AaveV3Polygon_OracleDeprecationForLongTailAssets_20260915_Test is Proto
     );
     assertEq(
       AaveV3Polygon.ORACLE.getAssetPrice(AaveV3PolygonAssets.miMATIC_UNDERLYING),
-      95300000,
+      // $0.953 (8 decimals)
+      95_300_000,
       'miMATIC oracle output'
     );
   }
@@ -138,9 +189,9 @@ contract AaveV3Polygon_OracleDeprecationForLongTailAssets_20260915_Test is Proto
     _assertRates(false);
     uint256[] memory expected = new uint256[](3);
     expected[0] = AaveV3Polygon.POOL.getConfiguration(AaveV3PolygonAssets.BAL_UNDERLYING).data;
-    assertEq((expected[0] >> 116) & ((1 << 36) - 1), 361000, 'BAL pre cap');
+    assertEq((expected[0] >> 116) & ((1 << 36) - 1), 361_000, 'BAL pre cap');
     expected[0] = (expected[0] & ~(((uint256(1) << 36) - 1) << 116)) | (uint256(1) << 116);
-    assertEq((expected[0] >> 80) & ((1 << 36) - 1), 290000, 'BAL pre cap');
+    assertEq((expected[0] >> 80) & ((1 << 36) - 1), 290_000, 'BAL pre cap');
     expected[0] = (expected[0] & ~(((uint256(1) << 36) - 1) << 80)) | (uint256(1) << 80);
     assertEq((expected[0] >> 57) & 1, 1, 'BAL pre freeze');
     expected[0] |= uint256(1) << 57;
@@ -152,9 +203,9 @@ contract AaveV3Polygon_OracleDeprecationForLongTailAssets_20260915_Test is Proto
     assertEq((expected[1] >> 57) & 1, 0, 'GHST pre freeze');
     expected[1] |= uint256(1) << 57;
     expected[2] = AaveV3Polygon.POOL.getConfiguration(AaveV3PolygonAssets.miMATIC_UNDERLYING).data;
-    assertEq((expected[2] >> 116) & ((1 << 36) - 1), 900000, 'miMATIC pre cap');
+    assertEq((expected[2] >> 116) & ((1 << 36) - 1), 900_000, 'miMATIC pre cap');
     expected[2] = (expected[2] & ~(((uint256(1) << 36) - 1) << 116)) | (uint256(1) << 116);
-    assertEq((expected[2] >> 80) & ((1 << 36) - 1), 700000, 'miMATIC pre cap');
+    assertEq((expected[2] >> 80) & ((1 << 36) - 1), 700_000, 'miMATIC pre cap');
     expected[2] = (expected[2] & ~(((uint256(1) << 36) - 1) << 80)) | (uint256(1) << 80);
     assertEq((expected[2] >> 57) & 1, 1, 'miMATIC pre freeze');
     expected[2] |= uint256(1) << 57;

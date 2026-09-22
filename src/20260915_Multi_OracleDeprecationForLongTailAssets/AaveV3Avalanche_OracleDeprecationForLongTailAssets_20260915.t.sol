@@ -20,7 +20,7 @@ contract AaveV3Avalanche_OracleDeprecationForLongTailAssets_20260915_Test is Pro
   AaveV3Avalanche_OracleDeprecationForLongTailAssets_20260915 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('avalanche'), 95905103);
+    vm.createSelectFork(vm.rpcUrl('avalanche'), 95_905_103);
     proposal = new AaveV3Avalanche_OracleDeprecationForLongTailAssets_20260915();
   }
 
@@ -76,19 +76,51 @@ contract AaveV3Avalanche_OracleDeprecationForLongTailAssets_20260915_Test is Pro
       IDefaultInterestRateStrategyV2.InterestRateData memory rate = IDefaultInterestRateStrategyV2(
         AaveV3Avalanche.POOL.RESERVE_INTEREST_RATE_STRATEGY()
       ).getInterestRateDataBps(AaveV3AvalancheAssets.FRAX_UNDERLYING);
-      assertEq(rate.optimalUsageRatio, afterExecution ? 9000 : 9000, 'FRAX kink');
-      assertEq(rate.baseVariableBorrowRate, afterExecution ? 2000 : 0, 'FRAX base');
-      assertEq(rate.variableRateSlope1, afterExecution ? 550 : 550, 'FRAX s1');
-      assertEq(rate.variableRateSlope2, afterExecution ? 4000 : 4000, 'FRAX s2');
+      assertEq(
+        rate.optimalUsageRatio,
+        9_000, // unchanged; 90% (2 decimals)
+        'FRAX kink'
+      );
+      assertEq(
+        rate.baseVariableBorrowRate,
+        afterExecution ? 2_000 : 0, // 0% -> 20% (2 decimals)
+        'FRAX base'
+      );
+      assertEq(
+        rate.variableRateSlope1,
+        550, // unchanged; 5.5% (2 decimals)
+        'FRAX s1'
+      );
+      assertEq(
+        rate.variableRateSlope2,
+        4_000, // unchanged; 40% (2 decimals)
+        'FRAX s2'
+      );
     }
     {
       IDefaultInterestRateStrategyV2.InterestRateData memory rate = IDefaultInterestRateStrategyV2(
         AaveV3Avalanche.POOL.RESERVE_INTEREST_RATE_STRATEGY()
       ).getInterestRateDataBps(AaveV3AvalancheAssets.MAI_UNDERLYING);
-      assertEq(rate.optimalUsageRatio, afterExecution ? 4500 : 4500, 'MAI kink');
-      assertEq(rate.baseVariableBorrowRate, afterExecution ? 2000 : 0, 'MAI base');
-      assertEq(rate.variableRateSlope1, afterExecution ? 900 : 900, 'MAI s1');
-      assertEq(rate.variableRateSlope2, afterExecution ? 4000 : 30000, 'MAI s2');
+      assertEq(
+        rate.optimalUsageRatio,
+        4_500, // unchanged; 45% (2 decimals)
+        'MAI kink'
+      );
+      assertEq(
+        rate.baseVariableBorrowRate,
+        afterExecution ? 2_000 : 0, // 0% -> 20% (2 decimals)
+        'MAI base'
+      );
+      assertEq(
+        rate.variableRateSlope1,
+        900, // unchanged; 9% (2 decimals)
+        'MAI s1'
+      );
+      assertEq(
+        rate.variableRateSlope2,
+        afterExecution ? 4_000 : 30_000, // 300% -> 40% (2 decimals)
+        'MAI s2'
+      );
     }
   }
   function _assertOracles() internal view {
@@ -99,7 +131,8 @@ contract AaveV3Avalanche_OracleDeprecationForLongTailAssets_20260915_Test is Pro
     );
     assertEq(
       AaveV3Avalanche.ORACLE.getAssetPrice(AaveV3AvalancheAssets.FRAX_UNDERLYING),
-      100000000,
+      // $1 (8 decimals)
+      100_000_000,
       'FRAX oracle output'
     );
     assertEq(
@@ -109,7 +142,8 @@ contract AaveV3Avalanche_OracleDeprecationForLongTailAssets_20260915_Test is Pro
     );
     assertEq(
       AaveV3Avalanche.ORACLE.getAssetPrice(AaveV3AvalancheAssets.MAI_UNDERLYING),
-      95300000,
+      // $0.953 (8 decimals)
+      95_300_000,
       'MAI oracle output'
     );
   }
@@ -124,9 +158,9 @@ contract AaveV3Avalanche_OracleDeprecationForLongTailAssets_20260915_Test is Pro
     assertEq((expected[0] >> 57) & 1, 0, 'FRAX pre freeze');
     expected[0] |= uint256(1) << 57;
     expected[1] = AaveV3Avalanche.POOL.getConfiguration(AaveV3AvalancheAssets.MAI_UNDERLYING).data;
-    assertEq((expected[1] >> 116) & ((1 << 36) - 1), 20000, 'MAI pre cap');
+    assertEq((expected[1] >> 116) & ((1 << 36) - 1), 20_000, 'MAI pre cap');
     expected[1] = (expected[1] & ~(((uint256(1) << 36) - 1) << 116)) | (uint256(1) << 116);
-    assertEq((expected[1] >> 80) & ((1 << 36) - 1), 10000, 'MAI pre cap');
+    assertEq((expected[1] >> 80) & ((1 << 36) - 1), 10_000, 'MAI pre cap');
     expected[1] = (expected[1] & ~(((uint256(1) << 36) - 1) << 80)) | (uint256(1) << 80);
     assertEq((expected[1] >> 57) & 1, 1, 'MAI pre freeze');
     expected[1] |= uint256(1) << 57;

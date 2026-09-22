@@ -22,7 +22,7 @@ contract AaveV3EthereumEtherFi_OracleDeprecationForLongTailAssets_20260915_Test 
   AaveV3EthereumEtherFi_OracleDeprecationForLongTailAssets_20260915 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 26032357);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 26_032_357);
     proposal = new AaveV3EthereumEtherFi_OracleDeprecationForLongTailAssets_20260915();
   }
 
@@ -76,10 +76,26 @@ contract AaveV3EthereumEtherFi_OracleDeprecationForLongTailAssets_20260915_Test 
       IDefaultInterestRateStrategyV2.InterestRateData memory rate = IDefaultInterestRateStrategyV2(
         AaveV3EthereumEtherFi.POOL.RESERVE_INTEREST_RATE_STRATEGY()
       ).getInterestRateDataBps(AaveV3EthereumEtherFiAssets.FRAX_UNDERLYING);
-      assertEq(rate.optimalUsageRatio, afterExecution ? 9000 : 9000, 'FRAX kink');
-      assertEq(rate.baseVariableBorrowRate, afterExecution ? 2000 : 0, 'FRAX base');
-      assertEq(rate.variableRateSlope1, afterExecution ? 550 : 550, 'FRAX s1');
-      assertEq(rate.variableRateSlope2, afterExecution ? 4000 : 4000, 'FRAX s2');
+      assertEq(
+        rate.optimalUsageRatio,
+        9_000, // unchanged; 90% (2 decimals)
+        'FRAX kink'
+      );
+      assertEq(
+        rate.baseVariableBorrowRate,
+        afterExecution ? 2_000 : 0, // 0% -> 20% (2 decimals)
+        'FRAX base'
+      );
+      assertEq(
+        rate.variableRateSlope1,
+        550, // unchanged; 5.5% (2 decimals)
+        'FRAX s1'
+      );
+      assertEq(
+        rate.variableRateSlope2,
+        4_000, // unchanged; 40% (2 decimals)
+        'FRAX s2'
+      );
     }
   }
   function _assertOracles() internal view {
@@ -90,7 +106,8 @@ contract AaveV3EthereumEtherFi_OracleDeprecationForLongTailAssets_20260915_Test 
     );
     assertEq(
       AaveV3EthereumEtherFi.ORACLE.getAssetPrice(AaveV3EthereumEtherFiAssets.FRAX_UNDERLYING),
-      100000000,
+      // $1 (8 decimals)
+      100_000_000,
       'FRAX oracle output'
     );
   }

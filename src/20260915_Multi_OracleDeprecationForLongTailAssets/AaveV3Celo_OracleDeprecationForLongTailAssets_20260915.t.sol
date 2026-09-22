@@ -21,7 +21,7 @@ contract AaveV3Celo_OracleDeprecationForLongTailAssets_20260915_Test is Protocol
   AaveV3Celo_OracleDeprecationForLongTailAssets_20260915 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('celo'), 78171278);
+    vm.createSelectFork(vm.rpcUrl('celo'), 78_171_278);
     proposal = new AaveV3Celo_OracleDeprecationForLongTailAssets_20260915();
   }
 
@@ -94,10 +94,26 @@ contract AaveV3Celo_OracleDeprecationForLongTailAssets_20260915_Test is Protocol
       IDefaultInterestRateStrategyV2.InterestRateData memory rate = IDefaultInterestRateStrategyV2(
         AaveV3Celo.POOL.RESERVE_INTEREST_RATE_STRATEGY()
       ).getInterestRateDataBps(AaveV3CeloAssets.USDm_UNDERLYING);
-      assertEq(rate.optimalUsageRatio, afterExecution ? 9000 : 9000, 'USDm kink');
-      assertEq(rate.baseVariableBorrowRate, afterExecution ? 500 : 0, 'USDm base');
-      assertEq(rate.variableRateSlope1, afterExecution ? 400 : 400, 'USDm s1');
-      assertEq(rate.variableRateSlope2, afterExecution ? 10000 : 7500, 'USDm s2');
+      assertEq(
+        rate.optimalUsageRatio,
+        9_000, // unchanged; 90% (2 decimals)
+        'USDm kink'
+      );
+      assertEq(
+        rate.baseVariableBorrowRate,
+        afterExecution ? 500 : 0, // 0% -> 5% (2 decimals)
+        'USDm base'
+      );
+      assertEq(
+        rate.variableRateSlope1,
+        400, // unchanged; 4% (2 decimals)
+        'USDm s1'
+      );
+      assertEq(
+        rate.variableRateSlope2,
+        afterExecution ? 10_000 : 7_500, // 75% -> 100% (2 decimals)
+        'USDm s2'
+      );
     }
   }
   function _assertOracles() internal view {
@@ -108,7 +124,8 @@ contract AaveV3Celo_OracleDeprecationForLongTailAssets_20260915_Test is Protocol
     );
     assertEq(
       AaveV3Celo.ORACLE.getAssetPrice(AaveV3CeloAssets.USDm_UNDERLYING),
-      100000000,
+      // $1 (8 decimals)
+      100_000_000,
       'USDm oracle output'
     );
   }
@@ -116,14 +133,14 @@ contract AaveV3Celo_OracleDeprecationForLongTailAssets_20260915_Test is Protocol
     _assertRates(false);
     uint256[] memory expected = new uint256[](1);
     expected[0] = AaveV3Celo.POOL.getConfiguration(AaveV3CeloAssets.USDm_UNDERLYING).data;
-    assertEq((expected[0] >> 116) & ((1 << 36) - 1), 1100000, 'USDm pre cap');
+    assertEq((expected[0] >> 116) & ((1 << 36) - 1), 1_100_000, 'USDm pre cap');
     expected[0] = (expected[0] & ~(((uint256(1) << 36) - 1) << 116)) | (uint256(1) << 116);
-    assertEq((expected[0] >> 80) & ((1 << 36) - 1), 990000, 'USDm pre cap');
+    assertEq((expected[0] >> 80) & ((1 << 36) - 1), 990_000, 'USDm pre cap');
     expected[0] = (expected[0] & ~(((uint256(1) << 36) - 1) << 80)) | (uint256(1) << 80);
     assertEq((expected[0] >> 57) & 1, 0, 'USDm pre freeze');
     expected[0] |= uint256(1) << 57;
-    assertEq((expected[0] >> 64) & 65535, 1500, 'USDm pre RF');
-    expected[0] = (expected[0] & ~(uint256(65535) << 64)) | (uint256(10000) << 64);
+    assertEq((expected[0] >> 64) & 65_535, 1_500, 'USDm pre RF');
+    expected[0] = (expected[0] & ~(uint256(65_535) << 64)) | (uint256(10_000) << 64);
     GovV3Helpers.executePayload(vm, address(proposal));
     _assertRates(true);
     _assertOracles();

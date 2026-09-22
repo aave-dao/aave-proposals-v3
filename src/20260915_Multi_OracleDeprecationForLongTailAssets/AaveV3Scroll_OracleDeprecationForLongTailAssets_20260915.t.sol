@@ -19,7 +19,7 @@ contract AaveV3Scroll_OracleDeprecationForLongTailAssets_20260915_Test is Protoc
   AaveV3Scroll_OracleDeprecationForLongTailAssets_20260915 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('scroll'), 35135956);
+    vm.createSelectFork(vm.rpcUrl('scroll'), 35_135_956);
     proposal = new AaveV3Scroll_OracleDeprecationForLongTailAssets_20260915();
   }
 
@@ -51,10 +51,26 @@ contract AaveV3Scroll_OracleDeprecationForLongTailAssets_20260915_Test is Protoc
       IDefaultInterestRateStrategyV2.InterestRateData memory rate = IDefaultInterestRateStrategyV2(
         AaveV3Scroll.POOL.RESERVE_INTEREST_RATE_STRATEGY()
       ).getInterestRateDataBps(AaveV3ScrollAssets.SCR_UNDERLYING);
-      assertEq(rate.optimalUsageRatio, afterExecution ? 4500 : 4500, 'SCR kink');
-      assertEq(rate.baseVariableBorrowRate, afterExecution ? 2000 : 500, 'SCR base');
-      assertEq(rate.variableRateSlope1, afterExecution ? 700 : 700, 'SCR s1');
-      assertEq(rate.variableRateSlope2, afterExecution ? 4000 : 30000, 'SCR s2');
+      assertEq(
+        rate.optimalUsageRatio,
+        4_500, // unchanged; 45% (2 decimals)
+        'SCR kink'
+      );
+      assertEq(
+        rate.baseVariableBorrowRate,
+        afterExecution ? 2_000 : 500, // 5% -> 20% (2 decimals)
+        'SCR base'
+      );
+      assertEq(
+        rate.variableRateSlope1,
+        700, // unchanged; 7% (2 decimals)
+        'SCR s1'
+      );
+      assertEq(
+        rate.variableRateSlope2,
+        afterExecution ? 4_000 : 30_000, // 300% -> 40% (2 decimals)
+        'SCR s2'
+      );
     }
   }
   function _assertOracles() internal view {
@@ -65,7 +81,8 @@ contract AaveV3Scroll_OracleDeprecationForLongTailAssets_20260915_Test is Protoc
     );
     assertEq(
       AaveV3Scroll.ORACLE.getAssetPrice(AaveV3ScrollAssets.SCR_UNDERLYING),
-      3350000,
+      // $0.0335 (8 decimals)
+      3_350_000,
       'SCR oracle output'
     );
   }

@@ -22,7 +22,7 @@ contract AaveV2Polygon_OracleDeprecationForLongTailAssets_20260915_Test is Proto
   AaveV2Polygon_OracleDeprecationForLongTailAssets_20260915 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('polygon'), 94244629);
+    vm.createSelectFork(vm.rpcUrl('polygon'), 94_244_629);
     proposal = new AaveV2Polygon_OracleDeprecationForLongTailAssets_20260915();
   }
 
@@ -50,18 +50,24 @@ contract AaveV2Polygon_OracleDeprecationForLongTailAssets_20260915_Test is Proto
       );
       assertEq(
         rate.OPTIMAL_UTILIZATION_RATE(),
-        afterExecution ? 450000000000000000000000000 : 450000000000000000000000000,
+        450_000_000_000_000_000_000_000_000, // unchanged; 45% (27 decimals)
         'BAL kink'
       );
       assertEq(
         rate.baseVariableBorrowRate(),
-        afterExecution ? 200000000000000000000000000 : 200000000000000000000000000,
+        200_000_000_000_000_000_000_000_000, // unchanged; 20% (27 decimals)
         'BAL base'
       );
-      assertEq(rate.variableRateSlope1(), afterExecution ? 0 : 0, 'BAL s1');
+      assertEq(
+        rate.variableRateSlope1(),
+        0, // unchanged; 0% (27 decimals)
+        'BAL s1'
+      );
       assertEq(
         rate.variableRateSlope2(),
-        afterExecution ? 400000000000000000000000000 : 3000000000000000000000000000,
+        afterExecution
+          ? 400_000_000_000_000_000_000_000_000
+          : 3_000_000_000_000_000_000_000_000_000, // 300% -> 40% (27 decimals)
         'BAL s2'
       );
       IDefaultInterestRateStrategy previous = IDefaultInterestRateStrategy(
@@ -79,18 +85,24 @@ contract AaveV2Polygon_OracleDeprecationForLongTailAssets_20260915_Test is Proto
       );
       assertEq(
         rate.OPTIMAL_UTILIZATION_RATE(),
-        afterExecution ? 450000000000000000000000000 : 450000000000000000000000000,
+        450_000_000_000_000_000_000_000_000, // unchanged; 45% (27 decimals)
         'GHST kink'
       );
       assertEq(
         rate.baseVariableBorrowRate(),
-        afterExecution ? 200000000000000000000000000 : 200000000000000000000000000,
+        200_000_000_000_000_000_000_000_000, // unchanged; 20% (27 decimals)
         'GHST base'
       );
-      assertEq(rate.variableRateSlope1(), afterExecution ? 0 : 0, 'GHST s1');
+      assertEq(
+        rate.variableRateSlope1(),
+        0, // unchanged; 0% (27 decimals)
+        'GHST s1'
+      );
       assertEq(
         rate.variableRateSlope2(),
-        afterExecution ? 400000000000000000000000000 : 3000000000000000000000000000,
+        afterExecution
+          ? 400_000_000_000_000_000_000_000_000
+          : 3_000_000_000_000_000_000_000_000_000, // 300% -> 40% (27 decimals)
         'GHST s2'
       );
       IDefaultInterestRateStrategy previous = IDefaultInterestRateStrategy(
@@ -116,7 +128,9 @@ contract AaveV2Polygon_OracleDeprecationForLongTailAssets_20260915_Test is Proto
     );
     assertEq(
       AaveV2Polygon.ORACLE.getAssetPrice(AaveV2PolygonAssets.BAL_UNDERLYING),
-      ((12840000 * 1e18) / uint256(IChainlinkAggregator(ChainlinkPolygon.ETH__USD).latestAnswer())),
+      // $0.1284 (8 decimals); converted to ETH (18 decimals)
+      ((12_840_000 * 1e18) /
+        uint256(IChainlinkAggregator(ChainlinkPolygon.ETH__USD).latestAnswer())),
       'BAL oracle output'
     );
     assertEq(
@@ -126,7 +140,9 @@ contract AaveV2Polygon_OracleDeprecationForLongTailAssets_20260915_Test is Proto
     );
     assertEq(
       AaveV2Polygon.ORACLE.getAssetPrice(AaveV2PolygonAssets.GHST_UNDERLYING),
-      ((7930000 * 1e18) / uint256(IChainlinkAggregator(ChainlinkPolygon.ETH__USD).latestAnswer())),
+      // $0.0793 (8 decimals); converted to ETH (18 decimals)
+      ((7_930_000 * 1e18) /
+        uint256(IChainlinkAggregator(ChainlinkPolygon.ETH__USD).latestAnswer())),
       'GHST oracle output'
     );
   }
