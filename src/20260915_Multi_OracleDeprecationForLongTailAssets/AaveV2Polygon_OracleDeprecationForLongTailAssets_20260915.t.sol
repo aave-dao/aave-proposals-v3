@@ -56,9 +56,9 @@ contract AaveV2Polygon_OracleDeprecationForLongTailAssets_20260915_Test is Proto
           addressesProvider: address(AaveV2Polygon.POOL_ADDRESSES_PROVIDER),
           stableRateSlope1: previous.stableRateSlope1(), // unchanged
           stableRateSlope2: previous.stableRateSlope2(), // unchanged
-          optimalUsageRatio: 450_000_000_000_000_000_000_000_000, // unchanged; 45% (27 decimals)
-          baseVariableBorrowRate: 200_000_000_000_000_000_000_000_000, // unchanged; 20% (27 decimals)
-          variableRateSlope1: 0, // unchanged; 0% (27 decimals)
+          optimalUsageRatio: previous.OPTIMAL_UTILIZATION_RATE(), // unchanged
+          baseVariableBorrowRate: previous.baseVariableBorrowRate(), // unchanged
+          variableRateSlope1: previous.variableRateSlope1(), // unchanged
           variableRateSlope2: afterExecution
             ? 400_000_000_000_000_000_000_000_000
             : 3_000_000_000_000_000_000_000_000_000 // 300% -> 40% (27 decimals)
@@ -80,9 +80,9 @@ contract AaveV2Polygon_OracleDeprecationForLongTailAssets_20260915_Test is Proto
           addressesProvider: address(AaveV2Polygon.POOL_ADDRESSES_PROVIDER),
           stableRateSlope1: previous.stableRateSlope1(), // unchanged
           stableRateSlope2: previous.stableRateSlope2(), // unchanged
-          optimalUsageRatio: 450_000_000_000_000_000_000_000_000, // unchanged; 45% (27 decimals)
-          baseVariableBorrowRate: 200_000_000_000_000_000_000_000_000, // unchanged; 20% (27 decimals)
-          variableRateSlope1: 0, // unchanged; 0% (27 decimals)
+          optimalUsageRatio: previous.OPTIMAL_UTILIZATION_RATE(), // unchanged
+          baseVariableBorrowRate: previous.baseVariableBorrowRate(), // unchanged
+          variableRateSlope1: previous.variableRateSlope1(), // unchanged
           variableRateSlope2: afterExecution
             ? 400_000_000_000_000_000_000_000_000
             : 3_000_000_000_000_000_000_000_000_000 // 300% -> 40% (27 decimals)

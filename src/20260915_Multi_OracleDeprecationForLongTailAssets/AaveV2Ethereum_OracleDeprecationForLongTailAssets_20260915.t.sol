@@ -56,10 +56,10 @@ contract AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
           addressesProvider: address(AaveV2Ethereum.POOL_ADDRESSES_PROVIDER),
           stableRateSlope1: previous.stableRateSlope1(), // unchanged
           stableRateSlope2: previous.stableRateSlope2(), // unchanged
-          optimalUsageRatio: 450_000_000_000_000_000_000_000_000, // unchanged; 45% (27 decimals)
-          baseVariableBorrowRate: 200_000_000_000_000_000_000_000_000, // unchanged; 20% (27 decimals)
-          variableRateSlope1: 0, // unchanged; 0% (27 decimals)
-          variableRateSlope2: 3_000_000_000_000_000_000_000_000_000 // unchanged; 300% (27 decimals)
+          optimalUsageRatio: previous.OPTIMAL_UTILIZATION_RATE(), // unchanged
+          baseVariableBorrowRate: previous.baseVariableBorrowRate(), // unchanged
+          variableRateSlope1: previous.variableRateSlope1(), // unchanged
+          variableRateSlope2: previous.variableRateSlope2() // unchanged
         })
       );
     }
@@ -78,9 +78,9 @@ contract AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
           addressesProvider: address(AaveV2Ethereum.POOL_ADDRESSES_PROVIDER),
           stableRateSlope1: previous.stableRateSlope1(), // unchanged
           stableRateSlope2: previous.stableRateSlope2(), // unchanged
-          optimalUsageRatio: 450_000_000_000_000_000_000_000_000, // unchanged; 45% (27 decimals)
-          baseVariableBorrowRate: 200_000_000_000_000_000_000_000_000, // unchanged; 20% (27 decimals)
-          variableRateSlope1: 0, // unchanged; 0% (27 decimals)
+          optimalUsageRatio: previous.OPTIMAL_UTILIZATION_RATE(), // unchanged
+          baseVariableBorrowRate: previous.baseVariableBorrowRate(), // unchanged
+          variableRateSlope1: previous.variableRateSlope1(), // unchanged
           variableRateSlope2: afterExecution
             ? 400_000_000_000_000_000_000_000_000
             : 3_000_000_000_000_000_000_000_000_000 // 300% -> 40% (27 decimals)
@@ -102,12 +102,12 @@ contract AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
           addressesProvider: address(AaveV2Ethereum.POOL_ADDRESSES_PROVIDER),
           stableRateSlope1: previous.stableRateSlope1(), // unchanged
           stableRateSlope2: previous.stableRateSlope2(), // unchanged
-          optimalUsageRatio: 10_000_000_000_000_000_000_000_000, // unchanged; 1% (27 decimals)
+          optimalUsageRatio: previous.OPTIMAL_UTILIZATION_RATE(), // unchanged
           baseVariableBorrowRate: afterExecution
             ? 200_000_000_000_000_000_000_000_000
             : 10_000_000_000_000_000_000_000_000, // 1% -> 20% (27 decimals)
-          variableRateSlope1: 0, // unchanged; 0% (27 decimals)
-          variableRateSlope2: 0 // unchanged; 0% (27 decimals)
+          variableRateSlope1: previous.variableRateSlope1(), // unchanged
+          variableRateSlope2: previous.variableRateSlope2() // unchanged
         })
       );
     }
@@ -126,10 +126,10 @@ contract AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
           addressesProvider: address(AaveV2Ethereum.POOL_ADDRESSES_PROVIDER),
           stableRateSlope1: previous.stableRateSlope1(), // unchanged
           stableRateSlope2: previous.stableRateSlope2(), // unchanged
-          optimalUsageRatio: 450_000_000_000_000_000_000_000_000, // unchanged; 45% (27 decimals)
-          baseVariableBorrowRate: 200_000_000_000_000_000_000_000_000, // unchanged; 20% (27 decimals)
-          variableRateSlope1: 0, // unchanged; 0% (27 decimals)
-          variableRateSlope2: 3_000_000_000_000_000_000_000_000_000 // unchanged; 300% (27 decimals)
+          optimalUsageRatio: previous.OPTIMAL_UTILIZATION_RATE(), // unchanged
+          baseVariableBorrowRate: previous.baseVariableBorrowRate(), // unchanged
+          variableRateSlope1: previous.variableRateSlope1(), // unchanged
+          variableRateSlope2: previous.variableRateSlope2() // unchanged
         })
       );
     }
@@ -148,9 +148,9 @@ contract AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
           addressesProvider: address(AaveV2Ethereum.POOL_ADDRESSES_PROVIDER),
           stableRateSlope1: previous.stableRateSlope1(), // unchanged
           stableRateSlope2: previous.stableRateSlope2(), // unchanged
-          optimalUsageRatio: 450_000_000_000_000_000_000_000_000, // unchanged; 45% (27 decimals)
+          optimalUsageRatio: previous.OPTIMAL_UTILIZATION_RATE(), // unchanged
           baseVariableBorrowRate: afterExecution ? 0 : 200_000_000_000_000_000_000_000_000, // 20% -> 0% (27 decimals)
-          variableRateSlope1: 0, // unchanged; 0% (27 decimals)
+          variableRateSlope1: previous.variableRateSlope1(), // unchanged
           variableRateSlope2: afterExecution ? 0 : 3_000_000_000_000_000_000_000_000_000 // 300% -> 0% (27 decimals)
         })
       );
@@ -170,10 +170,10 @@ contract AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
           addressesProvider: address(AaveV2Ethereum.POOL_ADDRESSES_PROVIDER),
           stableRateSlope1: previous.stableRateSlope1(), // unchanged
           stableRateSlope2: previous.stableRateSlope2(), // unchanged
-          optimalUsageRatio: 450_000_000_000_000_000_000_000_000, // unchanged; 45% (27 decimals)
-          baseVariableBorrowRate: 200_000_000_000_000_000_000_000_000, // unchanged; 20% (27 decimals)
-          variableRateSlope1: 0, // unchanged; 0% (27 decimals)
-          variableRateSlope2: 3_000_000_000_000_000_000_000_000_000 // unchanged; 300% (27 decimals)
+          optimalUsageRatio: previous.OPTIMAL_UTILIZATION_RATE(), // unchanged
+          baseVariableBorrowRate: previous.baseVariableBorrowRate(), // unchanged
+          variableRateSlope1: previous.variableRateSlope1(), // unchanged
+          variableRateSlope2: previous.variableRateSlope2() // unchanged
         })
       );
     }
@@ -192,9 +192,9 @@ contract AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
           addressesProvider: address(AaveV2Ethereum.POOL_ADDRESSES_PROVIDER),
           stableRateSlope1: previous.stableRateSlope1(), // unchanged
           stableRateSlope2: previous.stableRateSlope2(), // unchanged
-          optimalUsageRatio: 450_000_000_000_000_000_000_000_000, // unchanged; 45% (27 decimals)
+          optimalUsageRatio: previous.OPTIMAL_UTILIZATION_RATE(), // unchanged
           baseVariableBorrowRate: afterExecution ? 0 : 200_000_000_000_000_000_000_000_000, // 20% -> 0% (27 decimals)
-          variableRateSlope1: 0, // unchanged; 0% (27 decimals)
+          variableRateSlope1: previous.variableRateSlope1(), // unchanged
           variableRateSlope2: afterExecution ? 0 : 3_000_000_000_000_000_000_000_000_000 // 300% -> 0% (27 decimals)
         })
       );
@@ -214,10 +214,10 @@ contract AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
           addressesProvider: address(AaveV2Ethereum.POOL_ADDRESSES_PROVIDER),
           stableRateSlope1: previous.stableRateSlope1(), // unchanged
           stableRateSlope2: previous.stableRateSlope2(), // unchanged
-          optimalUsageRatio: 450_000_000_000_000_000_000_000_000, // unchanged; 45% (27 decimals)
-          baseVariableBorrowRate: 200_000_000_000_000_000_000_000_000, // unchanged; 20% (27 decimals)
-          variableRateSlope1: 0, // unchanged; 0% (27 decimals)
-          variableRateSlope2: 3_000_000_000_000_000_000_000_000_000 // unchanged; 300% (27 decimals)
+          optimalUsageRatio: previous.OPTIMAL_UTILIZATION_RATE(), // unchanged
+          baseVariableBorrowRate: previous.baseVariableBorrowRate(), // unchanged
+          variableRateSlope1: previous.variableRateSlope1(), // unchanged
+          variableRateSlope2: previous.variableRateSlope2() // unchanged
         })
       );
     }
@@ -236,9 +236,9 @@ contract AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
           addressesProvider: address(AaveV2Ethereum.POOL_ADDRESSES_PROVIDER),
           stableRateSlope1: previous.stableRateSlope1(), // unchanged
           stableRateSlope2: previous.stableRateSlope2(), // unchanged
-          optimalUsageRatio: 450_000_000_000_000_000_000_000_000, // unchanged; 45% (27 decimals)
-          baseVariableBorrowRate: 200_000_000_000_000_000_000_000_000, // unchanged; 20% (27 decimals)
-          variableRateSlope1: 0, // unchanged; 0% (27 decimals)
+          optimalUsageRatio: previous.OPTIMAL_UTILIZATION_RATE(), // unchanged
+          baseVariableBorrowRate: previous.baseVariableBorrowRate(), // unchanged
+          variableRateSlope1: previous.variableRateSlope1(), // unchanged
           variableRateSlope2: afterExecution
             ? 400_000_000_000_000_000_000_000_000
             : 3_000_000_000_000_000_000_000_000_000 // 300% -> 40% (27 decimals)
@@ -260,9 +260,9 @@ contract AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
           addressesProvider: address(AaveV2Ethereum.POOL_ADDRESSES_PROVIDER),
           stableRateSlope1: previous.stableRateSlope1(), // unchanged
           stableRateSlope2: previous.stableRateSlope2(), // unchanged
-          optimalUsageRatio: 450_000_000_000_000_000_000_000_000, // unchanged; 45% (27 decimals)
-          baseVariableBorrowRate: 200_000_000_000_000_000_000_000_000, // unchanged; 20% (27 decimals)
-          variableRateSlope1: 0, // unchanged; 0% (27 decimals)
+          optimalUsageRatio: previous.OPTIMAL_UTILIZATION_RATE(), // unchanged
+          baseVariableBorrowRate: previous.baseVariableBorrowRate(), // unchanged
+          variableRateSlope1: previous.variableRateSlope1(), // unchanged
           variableRateSlope2: afterExecution
             ? 400_000_000_000_000_000_000_000_000
             : 3_000_000_000_000_000_000_000_000_000 // 300% -> 40% (27 decimals)
@@ -284,9 +284,9 @@ contract AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
           addressesProvider: address(AaveV2Ethereum.POOL_ADDRESSES_PROVIDER),
           stableRateSlope1: previous.stableRateSlope1(), // unchanged
           stableRateSlope2: previous.stableRateSlope2(), // unchanged
-          optimalUsageRatio: 450_000_000_000_000_000_000_000_000, // unchanged; 45% (27 decimals)
-          baseVariableBorrowRate: 200_000_000_000_000_000_000_000_000, // unchanged; 20% (27 decimals)
-          variableRateSlope1: 0, // unchanged; 0% (27 decimals)
+          optimalUsageRatio: previous.OPTIMAL_UTILIZATION_RATE(), // unchanged
+          baseVariableBorrowRate: previous.baseVariableBorrowRate(), // unchanged
+          variableRateSlope1: previous.variableRateSlope1(), // unchanged
           variableRateSlope2: afterExecution
             ? 400_000_000_000_000_000_000_000_000
             : 3_000_000_000_000_000_000_000_000_000 // 300% -> 40% (27 decimals)
@@ -308,9 +308,9 @@ contract AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
           addressesProvider: address(AaveV2Ethereum.POOL_ADDRESSES_PROVIDER),
           stableRateSlope1: previous.stableRateSlope1(), // unchanged
           stableRateSlope2: previous.stableRateSlope2(), // unchanged
-          optimalUsageRatio: 450_000_000_000_000_000_000_000_000, // unchanged; 45% (27 decimals)
-          baseVariableBorrowRate: 200_000_000_000_000_000_000_000_000, // unchanged; 20% (27 decimals)
-          variableRateSlope1: 0, // unchanged; 0% (27 decimals)
+          optimalUsageRatio: previous.OPTIMAL_UTILIZATION_RATE(), // unchanged
+          baseVariableBorrowRate: previous.baseVariableBorrowRate(), // unchanged
+          variableRateSlope1: previous.variableRateSlope1(), // unchanged
           variableRateSlope2: afterExecution
             ? 400_000_000_000_000_000_000_000_000
             : 3_000_000_000_000_000_000_000_000_000 // 300% -> 40% (27 decimals)
@@ -332,11 +332,11 @@ contract AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
           addressesProvider: address(AaveV2Ethereum.POOL_ADDRESSES_PROVIDER),
           stableRateSlope1: previous.stableRateSlope1(), // unchanged
           stableRateSlope2: previous.stableRateSlope2(), // unchanged
-          optimalUsageRatio: 10_000_000_000_000_000_000_000_000, // unchanged; 1% (27 decimals)
+          optimalUsageRatio: previous.OPTIMAL_UTILIZATION_RATE(), // unchanged
           baseVariableBorrowRate: afterExecution
             ? 200_000_000_000_000_000_000_000_000
             : 10_000_000_000_000_000_000_000_000, // 1% -> 20% (27 decimals)
-          variableRateSlope1: 0, // unchanged; 0% (27 decimals)
+          variableRateSlope1: previous.variableRateSlope1(), // unchanged
           variableRateSlope2: afterExecution ? 400_000_000_000_000_000_000_000_000 : 0 // 0% -> 40% (27 decimals)
         })
       );
