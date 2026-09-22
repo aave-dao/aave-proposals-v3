@@ -7,23 +7,23 @@ snapshot: "https://snapshot.org/#/s:aavedao.eth/proposal/0xf736fa5f6dd1532d0e282
 
 ## Simple Summary
 
-This proposal activates the Risk Stewards on Aave V4 Ethereum, Aave V4 Avalanche and Aave V4 Base, by setting their risk configuration and granting them the AccessManager roles they need to operate.
+This proposal activates the Risk Stewards on Aave V4 Ethereum and Aave V4 Avalanche, by setting their risk configuration and granting them the AccessManager roles they need to operate.
 
 The bounds (`maxPercentChange`) follow LlamaRisk's recommended configuration, which carries most of them over from the corresponding V3 Risk Stewards unchanged. The cooldowns (`minDelay`) on the interest rate, cap and `collateralRisk` parameters are set to 36 hours, in line with the reduction ratified for the V3 Risk Stewards; every other parameter keeps a 72 hour cooldown, and the Pendle discount rate keeps its 48 hour cooldown.
 
 ## Motivation
 
-The V4 Risk Stewards are deployed on the three networks but hold no configuration and no permissions, so risk parameter maintenance on V4 still requires a full governance cycle for every change.
+The V4 Risk Stewards are deployed on both networks but hold no configuration and no permissions, so risk parameter maintenance on V4 still requires a full governance cycle for every change.
 
 Configuring them alongside their V3 counterparts keeps a single risk mandate across protocol versions: the same risk council, and the same limits on how far a single update can move a parameter wherever V4 has a V3 equivalent. The parameters that are new in V4 — `collateralRisk`, the bounds applied when appending a new dynamic reserve config, and the spoke liquidation config — follow LlamaRisk's recommendation, as do the two interest rate parameters they widened relative to their V3 analogs.
 
 `collateralRisk` sits at or near 0 under normal conditions and is bounded absolutely, so it gets a wide 300% bound and the reduced 36 hour cooldown: that combination lets the risk premium be lifted far enough, fast enough, to push borrowers toward repayment inside a single stress window.
 
-The same configuration is applied on the three networks so the V4 Risk Stewards do not diverge. Base runs the equities market, which lists no LST and no Pendle asset today, so the `priceCapLst` and `discountRatePendle` bounds are inert there until one is listed.
+The same configuration is applied on both networks so the two V4 Risk Stewards do not diverge.
 
 ## Specification
 
-On Aave V4 Ethereum, the payload targets the Risk Steward at [0x6f48d9Cdb8EE6E17c96B2d8Aec128af426A295c1](https://etherscan.io/address/0x6f48d9Cdb8EE6E17c96B2d8Aec128af426A295c1). On Aave V4 Avalanche, it targets the Risk Steward at [0xd8d7AbC42c1c938BdEC94fF8da1b3cd5b7e3b107](https://snowscan.xyz/address/0xd8d7AbC42c1c938BdEC94fF8da1b3cd5b7e3b107). On Aave V4 Base, it targets the Risk Steward at [0x22c28Bfc9708740938e3d7C0C49791571435eC8b](https://basescan.org/address/0x22c28Bfc9708740938e3d7C0C49791571435eC8b). The three payloads apply the same configuration:
+On Aave V4 Ethereum, the payload targets the Risk Steward at [0x6f48d9Cdb8EE6E17c96B2d8Aec128af426A295c1](https://etherscan.io/address/0x6f48d9Cdb8EE6E17c96B2d8Aec128af426A295c1). On Aave V4 Avalanche, it targets the Risk Steward at [0xd8d7AbC42c1c938BdEC94fF8da1b3cd5b7e3b107](https://snowscan.xyz/address/0xd8d7AbC42c1c938BdEC94fF8da1b3cd5b7e3b107). Both payloads apply the same configuration:
 
 | Scope  | Parameter                        | Cooldown | Max change per update | Mode     |
 | ------ | -------------------------------- | -------- | --------------------- | -------- |
@@ -55,8 +55,8 @@ Each Risk Steward is also granted `RISK_ADMIN` on its network's Aave V3 ACL Mana
 
 ## References
 
-- Implementation: [AaveV4Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20260807_Multi_AaveV4RiskStewardsActivation/AaveV4Ethereum_AaveV4RiskStewardsActivation_20260807.sol), [AaveV4Avalanche](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20260807_Multi_AaveV4RiskStewardsActivation/AaveV4Avalanche_AaveV4RiskStewardsActivation_20260807.sol), [AaveV4Base](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20260807_Multi_AaveV4RiskStewardsActivation/AaveV4Base_AaveV4RiskStewardsActivation_20260807.sol)
-- Tests: [AaveV4Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20260807_Multi_AaveV4RiskStewardsActivation/AaveV4Ethereum_AaveV4RiskStewardsActivation_20260807.t.sol), [AaveV4Avalanche](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20260807_Multi_AaveV4RiskStewardsActivation/AaveV4Avalanche_AaveV4RiskStewardsActivation_20260807.t.sol), [AaveV4Base](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20260807_Multi_AaveV4RiskStewardsActivation/AaveV4Base_AaveV4RiskStewardsActivation_20260807.t.sol)
+- Implementation: [AaveV4Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20260807_Multi_AaveV4RiskStewardsActivation/AaveV4Ethereum_AaveV4RiskStewardsActivation_20260807.sol), [AaveV4Avalanche](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20260807_Multi_AaveV4RiskStewardsActivation/AaveV4Avalanche_AaveV4RiskStewardsActivation_20260807.sol)
+- Tests: [AaveV4Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20260807_Multi_AaveV4RiskStewardsActivation/AaveV4Ethereum_AaveV4RiskStewardsActivation_20260807.t.sol), [AaveV4Avalanche](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20260807_Multi_AaveV4RiskStewardsActivation/AaveV4Avalanche_AaveV4RiskStewardsActivation_20260807.t.sol)
 - [Snapshot](https://snapshot.org/#/s:aavedao.eth/proposal/0xf736fa5f6dd1532d0e2825fe528262479949a923427989384e313490ca9d9f18)
 - [Discussion](https://governance.aave.com/t/arfc-activate-aave-risk-stewards-on-aave-v4/25510)
 

@@ -56,47 +56,6 @@ jobs:
           echo "tests failed"
           exit 1
 
-  test-base:
-    name: Foundry build n test (--network base)
-    runs-on: ubuntu-latest
-    env:
-      # Upstream foundry nightly with native Base execution (foundry-rs/foundry#16809 and #16224). Bump
-      # the tag and checksum together; move to a stable release once one ships the Base network. The
-      # `base:Beryl` hardfork below must become `base:Cobalt` once the forked blocks pass
-      # 2026-09-30T10:00Z (Base mainnet Cobalt activation, timestamp 1790791200).
-      FOUNDRY_NIGHTLY: nightly-cc29fe1ce8ba9366dc3bdb57ddf790d51420cfd5
-      FOUNDRY_SHA256: 3bea287e11b92cf8144a0d0aaffe8cba9fe9dc6d7bcaf88c8d1375f060ae4ee7
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          submodules: recursive
-
-      - uses: aave-dao/action-rpc-env@main
-        with:
-          ALCHEMY_API_KEY: ${{ secrets.ALCHEMY_API_KEY }}
-
-      # The Base V4 equities are B20 tokens: node-native precompiles whose account code is the single
-      # byte 0xef. Stable forge (the job above) cannot execute them, so the Base e2e test self-skips
-      # there and only runs here, under a forge that selects the Base EVM with `--network base`.
-      - name: Install foundry nightly
-        run: |
-          set -euo pipefail
-          f=foundry_nightly_linux_amd64.tar.gz
-          curl -sSfLO "https://github.com/foundry-rs/foundry/releases/download/$FOUNDRY_NIGHTLY/$f"
-          echo "$FOUNDRY_SHA256  $f" | sha256sum -c -
-          mkdir -p "$HOME/.foundry-base" && tar -xzf "$f" -C "$HOME/.foundry-base" forge
-          echo "$HOME/.foundry-base" >> "$GITHUB_PATH"
-          "$HOME/.foundry-base/forge" --version
-
-      # `--network base` turns isolate mode on, which bills every top level call as an op-stack
-      # transaction, so a pranked sender holding no ETH cannot pay the L1 fee and its call reverts
-      # with no data; `--no-isolate` keeps the plain call semantics the tests expect.
-      - name: Run Base tests
-        run: forge test --network base --hardfork base:Beryl --no-isolate --match-path 'src/**/AaveV4Base*.t.sol' -vv
-        env:
-          FOUNDRY_PROFILE: test
-          FOUNDRY_DISABLE_NIGHTLY_WARNING: "1"
-
   test-codegen:
     name: Generated payloads build
     runs-on: ubuntu-latest
