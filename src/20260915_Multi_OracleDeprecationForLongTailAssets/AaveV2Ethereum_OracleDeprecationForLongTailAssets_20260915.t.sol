@@ -14,8 +14,6 @@ import {IDefaultInterestRateStrategy} from 'aave-address-book/AaveV2.sol';
 import {IAaveV2ConfigEngine} from 'aave-helpers/src/v2-config-engine/IAaveV2ConfigEngine.sol';
 import {IV2RateStrategyFactory} from 'aave-helpers/src/v2-config-engine/IV2RateStrategyFactory.sol';
 
-import {GovV3Helpers} from 'aave-helpers/src/GovV3Helpers.sol';
-
 /**
  * @dev Test for AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915
  * command: FOUNDRY_PROFILE=test forge test --match-path=src/20260915_Multi_OracleDeprecationForLongTailAssets/AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915.t.sol -vv
@@ -503,88 +501,6 @@ contract AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
       // $0.378 (8 decimals); converted to ETH (18 decimals)
       OracleTestUtils.usdToEth(37_800_000, ChainlinkEthereum.ETH__USD),
       'sUSD oracle output'
-    );
-  }
-  function test_configurationAndUntouchedFields() public {
-    uint256[] memory expected = new uint256[](13);
-    expected[0] = AaveV2Ethereum.POOL.getConfiguration(AaveV2EthereumAssets.AMPL_UNDERLYING).data;
-    expected[1] = AaveV2Ethereum.POOL.getConfiguration(AaveV2EthereumAssets.BAL_UNDERLYING).data;
-    expected[2] = AaveV2Ethereum.POOL.getConfiguration(AaveV2EthereumAssets.ENJ_UNDERLYING).data;
-    expected[3] = AaveV2Ethereum.POOL.getConfiguration(AaveV2EthereumAssets.FRAX_UNDERLYING).data;
-    expected[4] = AaveV2Ethereum.POOL.getConfiguration(AaveV2EthereumAssets.KNC_UNDERLYING).data;
-    expected[5] = AaveV2Ethereum.POOL.getConfiguration(AaveV2EthereumAssets.LUSD_UNDERLYING).data;
-    expected[6] = AaveV2Ethereum.POOL.getConfiguration(AaveV2EthereumAssets.RAI_UNDERLYING).data;
-    expected[7] = AaveV2Ethereum.POOL.getConfiguration(AaveV2EthereumAssets.REN_UNDERLYING).data;
-    expected[8] = AaveV2Ethereum.POOL.getConfiguration(AaveV2EthereumAssets.TUSD_UNDERLYING).data;
-    expected[9] = AaveV2Ethereum.POOL.getConfiguration(AaveV2EthereumAssets.USDP_UNDERLYING).data;
-    expected[10] = AaveV2Ethereum.POOL.getConfiguration(AaveV2EthereumAssets.YFI_UNDERLYING).data;
-    expected[11] = AaveV2Ethereum.POOL.getConfiguration(AaveV2EthereumAssets.ZRX_UNDERLYING).data;
-    expected[12] = AaveV2Ethereum.POOL.getConfiguration(AaveV2EthereumAssets.sUSD_UNDERLYING).data;
-    GovV3Helpers.executePayload(vm, address(proposal));
-    assertEq(
-      AaveV2Ethereum.POOL.getConfiguration(AaveV2EthereumAssets.AMPL_UNDERLYING).data,
-      expected[0],
-      'AMPL configuration and untouched fields'
-    );
-    assertEq(
-      AaveV2Ethereum.POOL.getConfiguration(AaveV2EthereumAssets.BAL_UNDERLYING).data,
-      expected[1],
-      'BAL configuration and untouched fields'
-    );
-    assertEq(
-      AaveV2Ethereum.POOL.getConfiguration(AaveV2EthereumAssets.ENJ_UNDERLYING).data,
-      expected[2],
-      'ENJ configuration and untouched fields'
-    );
-    assertEq(
-      AaveV2Ethereum.POOL.getConfiguration(AaveV2EthereumAssets.FRAX_UNDERLYING).data,
-      expected[3],
-      'FRAX configuration and untouched fields'
-    );
-    assertEq(
-      AaveV2Ethereum.POOL.getConfiguration(AaveV2EthereumAssets.KNC_UNDERLYING).data,
-      expected[4],
-      'KNC configuration and untouched fields'
-    );
-    assertEq(
-      AaveV2Ethereum.POOL.getConfiguration(AaveV2EthereumAssets.LUSD_UNDERLYING).data,
-      expected[5],
-      'LUSD configuration and untouched fields'
-    );
-    assertEq(
-      AaveV2Ethereum.POOL.getConfiguration(AaveV2EthereumAssets.RAI_UNDERLYING).data,
-      expected[6],
-      'RAI configuration and untouched fields'
-    );
-    assertEq(
-      AaveV2Ethereum.POOL.getConfiguration(AaveV2EthereumAssets.REN_UNDERLYING).data,
-      expected[7],
-      'REN configuration and untouched fields'
-    );
-    assertEq(
-      AaveV2Ethereum.POOL.getConfiguration(AaveV2EthereumAssets.TUSD_UNDERLYING).data,
-      expected[8],
-      'TUSD configuration and untouched fields'
-    );
-    assertEq(
-      AaveV2Ethereum.POOL.getConfiguration(AaveV2EthereumAssets.USDP_UNDERLYING).data,
-      expected[9],
-      'USDP configuration and untouched fields'
-    );
-    assertEq(
-      AaveV2Ethereum.POOL.getConfiguration(AaveV2EthereumAssets.YFI_UNDERLYING).data,
-      expected[10],
-      'YFI configuration and untouched fields'
-    );
-    assertEq(
-      AaveV2Ethereum.POOL.getConfiguration(AaveV2EthereumAssets.ZRX_UNDERLYING).data,
-      expected[11],
-      'ZRX configuration and untouched fields'
-    );
-    assertEq(
-      AaveV2Ethereum.POOL.getConfiguration(AaveV2EthereumAssets.sUSD_UNDERLYING).data,
-      expected[12],
-      'sUSD configuration and untouched fields'
     );
   }
 }

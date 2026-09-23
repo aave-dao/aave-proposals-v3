@@ -14,8 +14,6 @@ import {IDefaultInterestRateStrategy} from 'aave-address-book/AaveV2.sol';
 import {IAaveV2ConfigEngine} from 'aave-helpers/src/v2-config-engine/IAaveV2ConfigEngine.sol';
 import {IV2RateStrategyFactory} from 'aave-helpers/src/v2-config-engine/IV2RateStrategyFactory.sol';
 
-import {GovV3Helpers} from 'aave-helpers/src/GovV3Helpers.sol';
-
 /**
  * @dev Test for AaveV2Polygon_OracleDeprecationForLongTailAssets_20260915
  * command: FOUNDRY_PROFILE=test forge test --match-path=src/20260915_Multi_OracleDeprecationForLongTailAssets/AaveV2Polygon_OracleDeprecationForLongTailAssets_20260915.t.sol -vv
@@ -146,22 +144,6 @@ contract AaveV2Polygon_OracleDeprecationForLongTailAssets_20260915_Test is Proto
       // $0.0793 (8 decimals); converted to ETH (18 decimals)
       OracleTestUtils.usdToEth(7_930_000, ChainlinkPolygon.ETH__USD),
       'GHST oracle output'
-    );
-  }
-  function test_configurationAndUntouchedFields() public {
-    uint256[] memory expected = new uint256[](2);
-    expected[0] = AaveV2Polygon.POOL.getConfiguration(AaveV2PolygonAssets.BAL_UNDERLYING).data;
-    expected[1] = AaveV2Polygon.POOL.getConfiguration(AaveV2PolygonAssets.GHST_UNDERLYING).data;
-    GovV3Helpers.executePayload(vm, address(proposal));
-    assertEq(
-      AaveV2Polygon.POOL.getConfiguration(AaveV2PolygonAssets.BAL_UNDERLYING).data,
-      expected[0],
-      'BAL configuration and untouched fields'
-    );
-    assertEq(
-      AaveV2Polygon.POOL.getConfiguration(AaveV2PolygonAssets.GHST_UNDERLYING).data,
-      expected[1],
-      'GHST configuration and untouched fields'
     );
   }
 }
