@@ -1,0 +1,37 @@
+src/20260915_Multi_OracleDeprecationForLongTailAssets/AaveV3Polygon_OracleDeprecationForLongTailAssets_20260915.t.sol
+  s_fcf886f510ff24::t_6340c61d077130 9,106,108,117,119,128,130
+src/20260915_Multi_OracleDeprecationForLongTailAssets/AaveV3Avalanche_OracleDeprecationForLongTailAssets_20260915.t.sol
+  s_fcf886f510ff24::t_6340c61d077130 9,101,112,114
+src/20260915_Multi_OracleDeprecationForLongTailAssets/AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915.t.sol
+  s_fcf886f510ff24::t_6340c61d077130 8,156,172,198,200,224,226,252,270,288,306,322,324
+src/20260915_Multi_OracleDeprecationForLongTailAssets/AaveV3Arbitrum_OracleDeprecationForLongTailAssets_20260915.t.sol
+  s_fcf886f510ff24::t_6340c61d077130 10,132,134,143,145,154,156
+src/20260915_Multi_OracleDeprecationForLongTailAssets/AaveV3EthereumEtherFi_OracleDeprecationForLongTailAssets_20260915.t.sol
+  s_fcf886f510ff24::t_6340c61d077130 9,99
+src/20260915_Multi_OracleDeprecationForLongTailAssets/AaveV3Scroll_OracleDeprecationForLongTailAssets_20260915.t.sol
+  s_fcf886f510ff24::t_6340c61d077130 8,73,75
+src/20260915_Multi_OracleDeprecationForLongTailAssets/AaveV3Optimism_OracleDeprecationForLongTailAssets_20260915.t.sol
+  s_fcf886f510ff24::t_6340c61d077130 9,107,109,118,120,131-132
+src/20260915_Multi_OracleDeprecationForLongTailAssets/AaveV2Polygon_OracleDeprecationForLongTailAssets_20260915.t.sol
+  s_fcf886f510ff24::t_6340c61d077130 8,80,98
+src/20260915_Multi_OracleDeprecationForLongTailAssets/AaveV3Celo_OracleDeprecationForLongTailAssets_20260915.t.sol
+  s_fcf886f510ff24::t_6340c61d077130 10,116,118
+src/20260915_Multi_OracleDeprecationForLongTailAssets/AaveV3Ethereum_OracleDeprecationForLongTailAssets_20260915.t.sol
+  s_fcf886f510ff24::t_6340c61d077130 10,170,172,181,183,192,194,203,205,214,216,225,227,236,238
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "c279d168644c884d2a1b65f34d6074563c2b10cc",
+  "prompts": {},
+  "sessions": {
+    "s_fcf886f510ff24": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a0a4ab-17d1-7d12-b10d-c9adf50c142b",
+        "model": "gpt-6-astra"
+      },
+      "human_author": "AlbertoCentonze <11707683+AlbertoCentonze@users.noreply.github.com>"
+    }
+  }
+}
