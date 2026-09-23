@@ -129,7 +129,7 @@ contract AaveV3Optimism_OracleDeprecationForLongTailAssets_20260915_Test is Prot
       IDefaultInterestRateStrategyV2.InterestRateDataRay({
         optimalUsageRatio: _ratesBefore[AaveV3OptimismAssets.sUSD_UNDERLYING].optimalUsageRatio,
         baseVariableBorrowRate: _ratesBefore[AaveV3OptimismAssets.sUSD_UNDERLYING]
-          .baseVariableBorrowRate, // unchanged
+          .baseVariableBorrowRate,
         variableRateSlope1: afterExecution ? 0 : 55_000_000_000_000_000_000_000_000, // 5.5% -> 0% (27 decimals)
         variableRateSlope2: afterExecution ? 0 : 500_000_000_000_000_000_000_000_000 // 50% -> 0% (27 decimals)
       })

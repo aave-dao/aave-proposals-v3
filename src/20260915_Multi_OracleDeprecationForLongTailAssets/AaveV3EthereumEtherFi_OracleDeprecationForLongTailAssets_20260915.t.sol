@@ -91,12 +91,12 @@ contract AaveV3EthereumEtherFi_OracleDeprecationForLongTailAssets_20260915_Test 
       AaveV3EthereumEtherFi.POOL.RESERVE_INTEREST_RATE_STRATEGY(),
       IDefaultInterestRateStrategyV2.InterestRateDataRay({
         optimalUsageRatio: _ratesBefore[AaveV3EthereumEtherFiAssets.FRAX_UNDERLYING]
-          .optimalUsageRatio, // unchanged
+          .optimalUsageRatio,
         baseVariableBorrowRate: afterExecution ? 200_000_000_000_000_000_000_000_000 : 0, // 0% -> 20% (27 decimals)
         variableRateSlope1: _ratesBefore[AaveV3EthereumEtherFiAssets.FRAX_UNDERLYING]
-          .variableRateSlope1, // unchanged
+          .variableRateSlope1,
         variableRateSlope2: _ratesBefore[AaveV3EthereumEtherFiAssets.FRAX_UNDERLYING]
-          .variableRateSlope2 // unchanged
+          .variableRateSlope2
       })
     );
   }
