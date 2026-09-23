@@ -1,0 +1,37 @@
+diffs/AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915_before_AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915_after.md
+  s_6cdcd3de924400::t_3af58ee2ad9be4 1-571
+diffs/AaveV2Polygon_OracleDeprecationForLongTailAssets_20260915_before_AaveV2Polygon_OracleDeprecationForLongTailAssets_20260915_after.md
+  s_6cdcd3de924400::t_05f79f61e95005 1-142
+diffs/AaveV3Arbitrum_OracleDeprecationForLongTailAssets_20260915_before_AaveV3Arbitrum_OracleDeprecationForLongTailAssets_20260915_after.md
+  s_6cdcd3de924400::t_03ee89f619ad89 1-267
+diffs/AaveV3Avalanche_OracleDeprecationForLongTailAssets_20260915_before_AaveV3Avalanche_OracleDeprecationForLongTailAssets_20260915_after.md
+  s_6cdcd3de924400::t_137d2155773318 1-192
+diffs/AaveV3Celo_OracleDeprecationForLongTailAssets_20260915_before_AaveV3Celo_OracleDeprecationForLongTailAssets_20260915_after.md
+  s_6cdcd3de924400::t_25e080cece8356 1-150
+diffs/AaveV3EthereumEtherFi_OracleDeprecationForLongTailAssets_20260915_before_AaveV3EthereumEtherFi_OracleDeprecationForLongTailAssets_20260915_after.md
+  s_6cdcd3de924400::t_e1e2ab3187d05c 1-126
+diffs/AaveV3Ethereum_OracleDeprecationForLongTailAssets_20260915_before_AaveV3Ethereum_OracleDeprecationForLongTailAssets_20260915_after.md
+  s_6cdcd3de924400::t_14e0c8b3a43c81 1-530
+diffs/AaveV3Optimism_OracleDeprecationForLongTailAssets_20260915_before_AaveV3Optimism_OracleDeprecationForLongTailAssets_20260915_after.md
+  s_6cdcd3de924400::t_aa7afc52e07869 1-255
+diffs/AaveV3Polygon_OracleDeprecationForLongTailAssets_20260915_before_AaveV3Polygon_OracleDeprecationForLongTailAssets_20260915_after.md
+  s_6cdcd3de924400::t_676fa7b1797296 1-259
+diffs/AaveV3Scroll_OracleDeprecationForLongTailAssets_20260915_before_AaveV3Scroll_OracleDeprecationForLongTailAssets_20260915_after.md
+  s_6cdcd3de924400::t_e245770d9e4342 1-124
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "b382493febf3d1c24f6043e46f1ed94ed07a4486",
+  "prompts": {},
+  "sessions": {
+    "s_6cdcd3de924400": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "8c3a78ab-1989-45fe-9759-0da00a30cdfe",
+        "model": "unknown"
+      },
+      "human_author": "AlbertoCentonze <11707683+AlbertoCentonze@users.noreply.github.com>"
+    }
+  }
+}
