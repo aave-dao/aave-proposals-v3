@@ -4,6 +4,7 @@ pragma solidity ^0.8.0;
 import {AaveV3Scroll, AaveV3ScrollAssets} from 'aave-address-book/AaveV3Scroll.sol';
 
 import 'forge-std/Test.sol';
+import {GovV3Helpers} from 'aave-helpers/src/GovV3Helpers.sol';
 import {ProtocolV3TestBase} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {AaveV3Scroll_OracleDeprecationForLongTailAssets_20260915} from './AaveV3Scroll_OracleDeprecationForLongTailAssets_20260915.sol';
 
@@ -35,13 +36,21 @@ contract AaveV3Scroll_OracleDeprecationForLongTailAssets_20260915_Test is Protoc
    * forge-config: default.isolate = true
    */
   function test_defaultProposalExecution() public {
-    _assertRates(false);
     defaultTest(
       'AaveV3Scroll_OracleDeprecationForLongTailAssets_20260915',
       AaveV3Scroll.POOL,
       address(proposal)
     );
+  }
+
+  function test_rateStrategies() public {
+    _assertRates(false);
+    GovV3Helpers.executePayload(vm, address(proposal));
     _assertRates(true);
+  }
+
+  function test_oracles() public {
+    GovV3Helpers.executePayload(vm, address(proposal));
     _assertOracles();
   }
 

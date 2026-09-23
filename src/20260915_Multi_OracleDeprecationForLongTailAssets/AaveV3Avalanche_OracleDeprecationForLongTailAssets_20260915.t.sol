@@ -5,6 +5,7 @@ import {AaveV3Avalanche, AaveV3AvalancheAssets} from 'aave-address-book/AaveV3Av
 import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config-engine/IAaveV3ConfigEngine.sol';
 
 import 'forge-std/Test.sol';
+import {GovV3Helpers} from 'aave-helpers/src/GovV3Helpers.sol';
 import {ProtocolV3TestBase} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {AaveV3Avalanche_OracleDeprecationForLongTailAssets_20260915} from './AaveV3Avalanche_OracleDeprecationForLongTailAssets_20260915.sol';
 
@@ -39,13 +40,21 @@ contract AaveV3Avalanche_OracleDeprecationForLongTailAssets_20260915_Test is Pro
    * forge-config: default.isolate = true
    */
   function test_defaultProposalExecution() public {
-    _assertRates(false);
     defaultTest(
       'AaveV3Avalanche_OracleDeprecationForLongTailAssets_20260915',
       AaveV3Avalanche.POOL,
       address(proposal)
     );
+  }
+
+  function test_rateStrategies() public {
+    _assertRates(false);
+    GovV3Helpers.executePayload(vm, address(proposal));
     _assertRates(true);
+  }
+
+  function test_oracles() public {
+    GovV3Helpers.executePayload(vm, address(proposal));
     _assertOracles();
   }
 

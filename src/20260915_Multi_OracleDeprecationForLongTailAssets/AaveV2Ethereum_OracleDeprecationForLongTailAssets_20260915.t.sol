@@ -4,6 +4,7 @@ pragma solidity ^0.8.0;
 import {AaveV2Ethereum, AaveV2EthereumAssets} from 'aave-address-book/AaveV2Ethereum.sol';
 
 import 'forge-std/Test.sol';
+import {GovV3Helpers} from 'aave-helpers/src/GovV3Helpers.sol';
 import {ProtocolV2TestBase, ReserveConfig, InterestStrategyValues} from 'aave-helpers/src/ProtocolV2TestBase.sol';
 import {AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915} from './AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915.sol';
 
@@ -111,13 +112,21 @@ contract AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
    * forge-config: default.isolate = true
    */
   function test_defaultProposalExecution() public {
-    _assertRates(false);
     defaultTest(
       'AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915',
       AaveV2Ethereum.POOL,
       address(proposal)
     );
+  }
+
+  function test_rateStrategies() public {
+    _assertRates(false);
+    GovV3Helpers.executePayload(vm, address(proposal));
     _assertRates(true);
+  }
+
+  function test_oracles() public {
+    GovV3Helpers.executePayload(vm, address(proposal));
     _assertOracles();
   }
   function _assertRates(bool afterExecution) internal view {
