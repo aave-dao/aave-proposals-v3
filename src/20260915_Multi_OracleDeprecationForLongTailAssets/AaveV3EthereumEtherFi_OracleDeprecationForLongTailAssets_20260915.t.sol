@@ -26,9 +26,17 @@ contract AaveV3EthereumEtherFi_OracleDeprecationForLongTailAssets_20260915_Test 
 
   AaveV3EthereumEtherFi_OracleDeprecationForLongTailAssets_20260915 internal proposal;
 
+  mapping(address => IDefaultInterestRateStrategyV2.InterestRateDataRay) internal _ratesBefore;
+
   function setUp() public {
     vm.createSelectFork(vm.rpcUrl('mainnet'), 26_032_357);
     proposal = new AaveV3EthereumEtherFi_OracleDeprecationForLongTailAssets_20260915();
+    IDefaultInterestRateStrategyV2 strategy = IDefaultInterestRateStrategyV2(
+      AaveV3EthereumEtherFi.POOL.RESERVE_INTEREST_RATE_STRATEGY()
+    );
+    _ratesBefore[AaveV3EthereumEtherFiAssets.FRAX_UNDERLYING] = strategy.getInterestRateData(
+      AaveV3EthereumEtherFiAssets.FRAX_UNDERLYING
+    );
   }
 
   /**
@@ -82,10 +90,13 @@ contract AaveV3EthereumEtherFi_OracleDeprecationForLongTailAssets_20260915_Test 
       AaveV3EthereumEtherFi.POOL.RESERVE_INTEREST_RATE_STRATEGY(),
       AaveV3EthereumEtherFi.POOL.RESERVE_INTEREST_RATE_STRATEGY(),
       IDefaultInterestRateStrategyV2.InterestRateDataRay({
-        optimalUsageRatio: 900_000_000_000_000_000_000_000_000, // unchanged; 90% (27 decimals)
+        optimalUsageRatio: _ratesBefore[AaveV3EthereumEtherFiAssets.FRAX_UNDERLYING]
+          .optimalUsageRatio, // unchanged
         baseVariableBorrowRate: afterExecution ? 200_000_000_000_000_000_000_000_000 : 0, // 0% -> 20% (27 decimals)
-        variableRateSlope1: 55_000_000_000_000_000_000_000_000, // unchanged; 5.5% (27 decimals)
-        variableRateSlope2: 400_000_000_000_000_000_000_000_000 // unchanged; 40% (27 decimals)
+        variableRateSlope1: _ratesBefore[AaveV3EthereumEtherFiAssets.FRAX_UNDERLYING]
+          .variableRateSlope1, // unchanged
+        variableRateSlope2: _ratesBefore[AaveV3EthereumEtherFiAssets.FRAX_UNDERLYING]
+          .variableRateSlope2 // unchanged
       })
     );
   }

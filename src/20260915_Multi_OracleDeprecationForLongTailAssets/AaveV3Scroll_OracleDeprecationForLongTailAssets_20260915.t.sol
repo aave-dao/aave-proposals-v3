@@ -20,9 +20,17 @@ import {GovV3Helpers} from 'aave-helpers/src/GovV3Helpers.sol';
 contract AaveV3Scroll_OracleDeprecationForLongTailAssets_20260915_Test is ProtocolV3TestBase {
   AaveV3Scroll_OracleDeprecationForLongTailAssets_20260915 internal proposal;
 
+  mapping(address => IDefaultInterestRateStrategyV2.InterestRateDataRay) internal _ratesBefore;
+
   function setUp() public {
     vm.createSelectFork(vm.rpcUrl('scroll'), 35_135_956);
     proposal = new AaveV3Scroll_OracleDeprecationForLongTailAssets_20260915();
+    IDefaultInterestRateStrategyV2 strategy = IDefaultInterestRateStrategyV2(
+      AaveV3Scroll.POOL.RESERVE_INTEREST_RATE_STRATEGY()
+    );
+    _ratesBefore[AaveV3ScrollAssets.SCR_UNDERLYING] = strategy.getInterestRateData(
+      AaveV3ScrollAssets.SCR_UNDERLYING
+    );
   }
 
   /**
@@ -54,11 +62,11 @@ contract AaveV3Scroll_OracleDeprecationForLongTailAssets_20260915_Test is Protoc
       AaveV3Scroll.POOL.RESERVE_INTEREST_RATE_STRATEGY(),
       AaveV3Scroll.POOL.RESERVE_INTEREST_RATE_STRATEGY(),
       IDefaultInterestRateStrategyV2.InterestRateDataRay({
-        optimalUsageRatio: 450_000_000_000_000_000_000_000_000, // unchanged; 45% (27 decimals)
+        optimalUsageRatio: _ratesBefore[AaveV3ScrollAssets.SCR_UNDERLYING].optimalUsageRatio, // unchanged
         baseVariableBorrowRate: afterExecution
           ? 200_000_000_000_000_000_000_000_000
           : 50_000_000_000_000_000_000_000_000, // 5% -> 20% (27 decimals)
-        variableRateSlope1: 70_000_000_000_000_000_000_000_000, // unchanged; 7% (27 decimals)
+        variableRateSlope1: _ratesBefore[AaveV3ScrollAssets.SCR_UNDERLYING].variableRateSlope1, // unchanged
         variableRateSlope2: afterExecution
           ? 400_000_000_000_000_000_000_000_000
           : 3_000_000_000_000_000_000_000_000_000 // 300% -> 40% (27 decimals)

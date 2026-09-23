@@ -25,9 +25,17 @@ contract AaveV3Celo_OracleDeprecationForLongTailAssets_20260915_Test is Protocol
 
   AaveV3Celo_OracleDeprecationForLongTailAssets_20260915 internal proposal;
 
+  mapping(address => IDefaultInterestRateStrategyV2.InterestRateDataRay) internal _ratesBefore;
+
   function setUp() public {
     vm.createSelectFork(vm.rpcUrl('celo'), 78_171_278);
     proposal = new AaveV3Celo_OracleDeprecationForLongTailAssets_20260915();
+    IDefaultInterestRateStrategyV2 strategy = IDefaultInterestRateStrategyV2(
+      AaveV3Celo.POOL.RESERVE_INTEREST_RATE_STRATEGY()
+    );
+    _ratesBefore[AaveV3CeloAssets.USDm_UNDERLYING] = strategy.getInterestRateData(
+      AaveV3CeloAssets.USDm_UNDERLYING
+    );
   }
 
   /**
@@ -100,9 +108,9 @@ contract AaveV3Celo_OracleDeprecationForLongTailAssets_20260915_Test is Protocol
       AaveV3Celo.POOL.RESERVE_INTEREST_RATE_STRATEGY(),
       AaveV3Celo.POOL.RESERVE_INTEREST_RATE_STRATEGY(),
       IDefaultInterestRateStrategyV2.InterestRateDataRay({
-        optimalUsageRatio: 900_000_000_000_000_000_000_000_000, // unchanged; 90% (27 decimals)
+        optimalUsageRatio: _ratesBefore[AaveV3CeloAssets.USDm_UNDERLYING].optimalUsageRatio, // unchanged
         baseVariableBorrowRate: afterExecution ? 50_000_000_000_000_000_000_000_000 : 0, // 0% -> 5% (27 decimals)
-        variableRateSlope1: 40_000_000_000_000_000_000_000_000, // unchanged; 4% (27 decimals)
+        variableRateSlope1: _ratesBefore[AaveV3CeloAssets.USDm_UNDERLYING].variableRateSlope1, // unchanged
         variableRateSlope2: afterExecution
           ? 1_000_000_000_000_000_000_000_000_000
           : 750_000_000_000_000_000_000_000_000 // 75% -> 100% (27 decimals)

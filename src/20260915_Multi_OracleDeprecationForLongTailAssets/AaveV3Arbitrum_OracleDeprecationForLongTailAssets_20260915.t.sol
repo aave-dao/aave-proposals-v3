@@ -25,9 +25,23 @@ contract AaveV3Arbitrum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
 
   AaveV3Arbitrum_OracleDeprecationForLongTailAssets_20260915 internal proposal;
 
+  mapping(address => IDefaultInterestRateStrategyV2.InterestRateDataRay) internal _ratesBefore;
+
   function setUp() public {
     vm.createSelectFork(vm.rpcUrl('arbitrum'), 507_750_012);
     proposal = new AaveV3Arbitrum_OracleDeprecationForLongTailAssets_20260915();
+    IDefaultInterestRateStrategyV2 strategy = IDefaultInterestRateStrategyV2(
+      AaveV3Arbitrum.POOL.RESERVE_INTEREST_RATE_STRATEGY()
+    );
+    _ratesBefore[AaveV3ArbitrumAssets.FRAX_UNDERLYING] = strategy.getInterestRateData(
+      AaveV3ArbitrumAssets.FRAX_UNDERLYING
+    );
+    _ratesBefore[AaveV3ArbitrumAssets.LUSD_UNDERLYING] = strategy.getInterestRateData(
+      AaveV3ArbitrumAssets.LUSD_UNDERLYING
+    );
+    _ratesBefore[AaveV3ArbitrumAssets.MAI_UNDERLYING] = strategy.getInterestRateData(
+      AaveV3ArbitrumAssets.MAI_UNDERLYING
+    );
   }
 
   /**
@@ -110,9 +124,9 @@ contract AaveV3Arbitrum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
       AaveV3Arbitrum.POOL.RESERVE_INTEREST_RATE_STRATEGY(),
       AaveV3Arbitrum.POOL.RESERVE_INTEREST_RATE_STRATEGY(),
       IDefaultInterestRateStrategyV2.InterestRateDataRay({
-        optimalUsageRatio: 900_000_000_000_000_000_000_000_000, // unchanged; 90% (27 decimals)
+        optimalUsageRatio: _ratesBefore[AaveV3ArbitrumAssets.FRAX_UNDERLYING].optimalUsageRatio, // unchanged
         baseVariableBorrowRate: afterExecution ? 50_000_000_000_000_000_000_000_000 : 0, // 0% -> 5% (27 decimals)
-        variableRateSlope1: 55_000_000_000_000_000_000_000_000, // unchanged; 5.5% (27 decimals)
+        variableRateSlope1: _ratesBefore[AaveV3ArbitrumAssets.FRAX_UNDERLYING].variableRateSlope1, // unchanged
         variableRateSlope2: afterExecution
           ? 1_000_000_000_000_000_000_000_000_000
           : 400_000_000_000_000_000_000_000_000 // 40% -> 100% (27 decimals)
@@ -123,11 +137,11 @@ contract AaveV3Arbitrum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
       AaveV3Arbitrum.POOL.RESERVE_INTEREST_RATE_STRATEGY(),
       AaveV3Arbitrum.POOL.RESERVE_INTEREST_RATE_STRATEGY(),
       IDefaultInterestRateStrategyV2.InterestRateDataRay({
-        optimalUsageRatio: 800_000_000_000_000_000_000_000_000, // unchanged; 80% (27 decimals)
+        optimalUsageRatio: _ratesBefore[AaveV3ArbitrumAssets.LUSD_UNDERLYING].optimalUsageRatio, // unchanged
         baseVariableBorrowRate: afterExecution
           ? 50_000_000_000_000_000_000_000_000
           : 20_000_000_000_000_000_000_000_000, // 2% -> 5% (27 decimals)
-        variableRateSlope1: 65_000_000_000_000_000_000_000_000, // unchanged; 6.5% (27 decimals)
+        variableRateSlope1: _ratesBefore[AaveV3ArbitrumAssets.LUSD_UNDERLYING].variableRateSlope1, // unchanged
         variableRateSlope2: afterExecution
           ? 1_000_000_000_000_000_000_000_000_000
           : 500_000_000_000_000_000_000_000_000 // 50% -> 100% (27 decimals)
@@ -138,9 +152,9 @@ contract AaveV3Arbitrum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
       AaveV3Arbitrum.POOL.RESERVE_INTEREST_RATE_STRATEGY(),
       AaveV3Arbitrum.POOL.RESERVE_INTEREST_RATE_STRATEGY(),
       IDefaultInterestRateStrategyV2.InterestRateDataRay({
-        optimalUsageRatio: 450_000_000_000_000_000_000_000_000, // unchanged; 45% (27 decimals)
+        optimalUsageRatio: _ratesBefore[AaveV3ArbitrumAssets.MAI_UNDERLYING].optimalUsageRatio, // unchanged
         baseVariableBorrowRate: afterExecution ? 200_000_000_000_000_000_000_000_000 : 0, // 0% -> 20% (27 decimals)
-        variableRateSlope1: 90_000_000_000_000_000_000_000_000, // unchanged; 9% (27 decimals)
+        variableRateSlope1: _ratesBefore[AaveV3ArbitrumAssets.MAI_UNDERLYING].variableRateSlope1, // unchanged
         variableRateSlope2: afterExecution
           ? 400_000_000_000_000_000_000_000_000
           : 3_000_000_000_000_000_000_000_000_000 // 300% -> 40% (27 decimals)
