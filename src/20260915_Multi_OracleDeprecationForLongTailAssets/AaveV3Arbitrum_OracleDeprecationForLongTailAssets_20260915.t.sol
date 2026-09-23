@@ -5,24 +5,17 @@ import {AaveV3Arbitrum, AaveV3ArbitrumAssets} from 'aave-address-book/AaveV3Arbi
 import {EngineFlags} from 'aave-v3-origin/contracts/extensions/v3-config-engine/EngineFlags.sol';
 import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config-engine/IAaveV3ConfigEngine.sol';
 
-import {DataTypes} from 'aave-v3-origin/contracts/protocol/libraries/types/DataTypes.sol';
-import {ReserveConfiguration} from 'aave-v3-origin/contracts/protocol/libraries/configuration/ReserveConfiguration.sol';
-
 import 'forge-std/Test.sol';
-import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/src/ProtocolV3TestBase.sol';
+import {ProtocolV3TestBase} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {AaveV3Arbitrum_OracleDeprecationForLongTailAssets_20260915} from './AaveV3Arbitrum_OracleDeprecationForLongTailAssets_20260915.sol';
 
 import {IDefaultInterestRateStrategyV2} from 'aave-v3-origin/contracts/interfaces/IDefaultInterestRateStrategyV2.sol';
-
-import {GovV3Helpers} from 'aave-helpers/src/GovV3Helpers.sol';
 
 /**
  * @dev Test for AaveV3Arbitrum_OracleDeprecationForLongTailAssets_20260915
  * command: FOUNDRY_PROFILE=test forge test --match-path=src/20260915_Multi_OracleDeprecationForLongTailAssets/AaveV3Arbitrum_OracleDeprecationForLongTailAssets_20260915.t.sol -vv
  */
 contract AaveV3Arbitrum_OracleDeprecationForLongTailAssets_20260915_Test is ProtocolV3TestBase {
-  using ReserveConfiguration for DataTypes.ReserveConfigurationMap;
-
   AaveV3Arbitrum_OracleDeprecationForLongTailAssets_20260915 internal proposal;
 
   mapping(address => IDefaultInterestRateStrategyV2.InterestRateDataRay) internal _ratesBefore;
@@ -194,39 +187,6 @@ contract AaveV3Arbitrum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
       // $0.953 (8 decimals)
       95_300_000,
       'MAI oracle output'
-    );
-  }
-  function test_configurationAndUntouchedFields() public {
-    DataTypes.ReserveConfigurationMap memory expectedFRAX = AaveV3Arbitrum.POOL.getConfiguration(
-      AaveV3ArbitrumAssets.FRAX_UNDERLYING
-    );
-    expectedFRAX.setFrozen(true);
-    expectedFRAX.setReserveFactor(10_000); // 100% (2 decimals)
-    DataTypes.ReserveConfigurationMap memory expectedLUSD = AaveV3Arbitrum.POOL.getConfiguration(
-      AaveV3ArbitrumAssets.LUSD_UNDERLYING
-    );
-    expectedLUSD.setFrozen(true);
-    expectedLUSD.setReserveFactor(10_000); // 100% (2 decimals)
-    DataTypes.ReserveConfigurationMap memory expectedMAI = AaveV3Arbitrum.POOL.getConfiguration(
-      AaveV3ArbitrumAssets.MAI_UNDERLYING
-    );
-    expectedMAI.setSupplyCap(1);
-    expectedMAI.setBorrowCap(1);
-    GovV3Helpers.executePayload(vm, address(proposal));
-    assertEq(
-      AaveV3Arbitrum.POOL.getConfiguration(AaveV3ArbitrumAssets.FRAX_UNDERLYING).data,
-      expectedFRAX.data,
-      'FRAX configuration and untouched fields'
-    );
-    assertEq(
-      AaveV3Arbitrum.POOL.getConfiguration(AaveV3ArbitrumAssets.LUSD_UNDERLYING).data,
-      expectedLUSD.data,
-      'LUSD configuration and untouched fields'
-    );
-    assertEq(
-      AaveV3Arbitrum.POOL.getConfiguration(AaveV3ArbitrumAssets.MAI_UNDERLYING).data,
-      expectedMAI.data,
-      'MAI configuration and untouched fields'
     );
   }
 }

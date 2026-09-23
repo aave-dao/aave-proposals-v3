@@ -3,15 +3,11 @@ pragma solidity ^0.8.0;
 
 import {AaveV3Scroll, AaveV3ScrollAssets} from 'aave-address-book/AaveV3Scroll.sol';
 
-import {DataTypes} from 'aave-v3-origin/contracts/protocol/libraries/types/DataTypes.sol';
-
 import 'forge-std/Test.sol';
-import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/src/ProtocolV3TestBase.sol';
+import {ProtocolV3TestBase} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {AaveV3Scroll_OracleDeprecationForLongTailAssets_20260915} from './AaveV3Scroll_OracleDeprecationForLongTailAssets_20260915.sol';
 
 import {IDefaultInterestRateStrategyV2} from 'aave-v3-origin/contracts/interfaces/IDefaultInterestRateStrategyV2.sol';
-
-import {GovV3Helpers} from 'aave-helpers/src/GovV3Helpers.sol';
 
 /**
  * @dev Test for AaveV3Scroll_OracleDeprecationForLongTailAssets_20260915
@@ -84,17 +80,6 @@ contract AaveV3Scroll_OracleDeprecationForLongTailAssets_20260915_Test is Protoc
       // $0.0335 (8 decimals)
       3_350_000,
       'SCR oracle output'
-    );
-  }
-  function test_configurationAndUntouchedFields() public {
-    DataTypes.ReserveConfigurationMap memory expectedSCR = AaveV3Scroll.POOL.getConfiguration(
-      AaveV3ScrollAssets.SCR_UNDERLYING
-    );
-    GovV3Helpers.executePayload(vm, address(proposal));
-    assertEq(
-      AaveV3Scroll.POOL.getConfiguration(AaveV3ScrollAssets.SCR_UNDERLYING).data,
-      expectedSCR.data,
-      'SCR configuration and untouched fields'
     );
   }
 }

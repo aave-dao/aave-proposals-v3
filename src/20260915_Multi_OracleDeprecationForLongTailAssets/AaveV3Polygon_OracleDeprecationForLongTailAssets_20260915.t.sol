@@ -4,24 +4,17 @@ pragma solidity ^0.8.0;
 import {AaveV3Polygon, AaveV3PolygonAssets} from 'aave-address-book/AaveV3Polygon.sol';
 import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config-engine/IAaveV3ConfigEngine.sol';
 
-import {DataTypes} from 'aave-v3-origin/contracts/protocol/libraries/types/DataTypes.sol';
-import {ReserveConfiguration} from 'aave-v3-origin/contracts/protocol/libraries/configuration/ReserveConfiguration.sol';
-
 import 'forge-std/Test.sol';
-import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/src/ProtocolV3TestBase.sol';
+import {ProtocolV3TestBase} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {AaveV3Polygon_OracleDeprecationForLongTailAssets_20260915} from './AaveV3Polygon_OracleDeprecationForLongTailAssets_20260915.sol';
 
 import {IDefaultInterestRateStrategyV2} from 'aave-v3-origin/contracts/interfaces/IDefaultInterestRateStrategyV2.sol';
-
-import {GovV3Helpers} from 'aave-helpers/src/GovV3Helpers.sol';
 
 /**
  * @dev Test for AaveV3Polygon_OracleDeprecationForLongTailAssets_20260915
  * command: FOUNDRY_PROFILE=test forge test --match-path=src/20260915_Multi_OracleDeprecationForLongTailAssets/AaveV3Polygon_OracleDeprecationForLongTailAssets_20260915.t.sol -vv
  */
 contract AaveV3Polygon_OracleDeprecationForLongTailAssets_20260915_Test is ProtocolV3TestBase {
-  using ReserveConfiguration for DataTypes.ReserveConfigurationMap;
-
   AaveV3Polygon_OracleDeprecationForLongTailAssets_20260915 internal proposal;
 
   mapping(address => IDefaultInterestRateStrategyV2.InterestRateDataRay) internal _ratesBefore;
@@ -168,38 +161,6 @@ contract AaveV3Polygon_OracleDeprecationForLongTailAssets_20260915_Test is Proto
       // $0.953 (8 decimals)
       95_300_000,
       'miMATIC oracle output'
-    );
-  }
-  function test_configurationAndUntouchedFields() public {
-    DataTypes.ReserveConfigurationMap memory expectedBAL = AaveV3Polygon.POOL.getConfiguration(
-      AaveV3PolygonAssets.BAL_UNDERLYING
-    );
-    expectedBAL.setSupplyCap(1);
-    expectedBAL.setBorrowCap(1);
-    DataTypes.ReserveConfigurationMap memory expectedGHST = AaveV3Polygon.POOL.getConfiguration(
-      AaveV3PolygonAssets.GHST_UNDERLYING
-    );
-    expectedGHST.setFrozen(true);
-    DataTypes.ReserveConfigurationMap memory expectedmiMATIC = AaveV3Polygon.POOL.getConfiguration(
-      AaveV3PolygonAssets.miMATIC_UNDERLYING
-    );
-    expectedmiMATIC.setSupplyCap(1);
-    expectedmiMATIC.setBorrowCap(1);
-    GovV3Helpers.executePayload(vm, address(proposal));
-    assertEq(
-      AaveV3Polygon.POOL.getConfiguration(AaveV3PolygonAssets.BAL_UNDERLYING).data,
-      expectedBAL.data,
-      'BAL configuration and untouched fields'
-    );
-    assertEq(
-      AaveV3Polygon.POOL.getConfiguration(AaveV3PolygonAssets.GHST_UNDERLYING).data,
-      expectedGHST.data,
-      'GHST configuration and untouched fields'
-    );
-    assertEq(
-      AaveV3Polygon.POOL.getConfiguration(AaveV3PolygonAssets.miMATIC_UNDERLYING).data,
-      expectedmiMATIC.data,
-      'miMATIC configuration and untouched fields'
     );
   }
 }

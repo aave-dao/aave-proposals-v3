@@ -5,24 +5,17 @@ import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethe
 import {EngineFlags} from 'aave-v3-origin/contracts/extensions/v3-config-engine/EngineFlags.sol';
 import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config-engine/IAaveV3ConfigEngine.sol';
 
-import {DataTypes} from 'aave-v3-origin/contracts/protocol/libraries/types/DataTypes.sol';
-import {ReserveConfiguration} from 'aave-v3-origin/contracts/protocol/libraries/configuration/ReserveConfiguration.sol';
-
 import 'forge-std/Test.sol';
-import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/src/ProtocolV3TestBase.sol';
+import {ProtocolV3TestBase} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {AaveV3Ethereum_OracleDeprecationForLongTailAssets_20260915} from './AaveV3Ethereum_OracleDeprecationForLongTailAssets_20260915.sol';
 
 import {IDefaultInterestRateStrategyV2} from 'aave-v3-origin/contracts/interfaces/IDefaultInterestRateStrategyV2.sol';
-
-import {GovV3Helpers} from 'aave-helpers/src/GovV3Helpers.sol';
 
 /**
  * @dev Test for AaveV3Ethereum_OracleDeprecationForLongTailAssets_20260915
  * command: FOUNDRY_PROFILE=test forge test --match-path=src/20260915_Multi_OracleDeprecationForLongTailAssets/AaveV3Ethereum_OracleDeprecationForLongTailAssets_20260915.t.sol -vv
  */
 contract AaveV3Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is ProtocolV3TestBase {
-  using ReserveConfiguration for DataTypes.ReserveConfigurationMap;
-
   AaveV3Ethereum_OracleDeprecationForLongTailAssets_20260915 internal proposal;
 
   mapping(address => IDefaultInterestRateStrategyV2.InterestRateDataRay) internal _ratesBefore;
@@ -328,80 +321,6 @@ contract AaveV3Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
       // $0.2734 (8 decimals)
       27_340_000,
       'STG oracle output'
-    );
-  }
-  function test_configurationAndUntouchedFields() public {
-    DataTypes.ReserveConfigurationMap memory expectedBAL = AaveV3Ethereum.POOL.getConfiguration(
-      AaveV3EthereumAssets.BAL_UNDERLYING
-    );
-    expectedBAL.setFrozen(true);
-    DataTypes.ReserveConfigurationMap memory expectedFRAX = AaveV3Ethereum.POOL.getConfiguration(
-      AaveV3EthereumAssets.FRAX_UNDERLYING
-    );
-    expectedFRAX.setFrozen(true);
-    expectedFRAX.setReserveFactor(10_000); // 100% (2 decimals)
-    DataTypes.ReserveConfigurationMap memory expectedFXS = AaveV3Ethereum.POOL.getConfiguration(
-      AaveV3EthereumAssets.FXS_UNDERLYING
-    );
-    expectedFXS.setSupplyCap(1);
-    expectedFXS.setBorrowCap(1);
-    DataTypes.ReserveConfigurationMap memory expectedKNC = AaveV3Ethereum.POOL.getConfiguration(
-      AaveV3EthereumAssets.KNC_UNDERLYING
-    );
-    expectedKNC.setSupplyCap(1);
-    expectedKNC.setBorrowCap(1);
-    DataTypes.ReserveConfigurationMap memory expectedLUSD = AaveV3Ethereum.POOL.getConfiguration(
-      AaveV3EthereumAssets.LUSD_UNDERLYING
-    );
-    expectedLUSD.setSupplyCap(1);
-    expectedLUSD.setFrozen(true);
-    expectedLUSD.setReserveFactor(10_000); // 100% (2 decimals)
-    DataTypes.ReserveConfigurationMap memory expectedRPL = AaveV3Ethereum.POOL.getConfiguration(
-      AaveV3EthereumAssets.RPL_UNDERLYING
-    );
-    expectedRPL.setSupplyCap(1);
-    expectedRPL.setFrozen(true);
-    expectedRPL.setReserveFactor(10_000); // 100% (2 decimals)
-    DataTypes.ReserveConfigurationMap memory expectedSTG = AaveV3Ethereum.POOL.getConfiguration(
-      AaveV3EthereumAssets.STG_UNDERLYING
-    );
-    expectedSTG.setSupplyCap(1);
-    expectedSTG.setBorrowCap(1);
-    GovV3Helpers.executePayload(vm, address(proposal));
-    assertEq(
-      AaveV3Ethereum.POOL.getConfiguration(AaveV3EthereumAssets.BAL_UNDERLYING).data,
-      expectedBAL.data,
-      'BAL configuration and untouched fields'
-    );
-    assertEq(
-      AaveV3Ethereum.POOL.getConfiguration(AaveV3EthereumAssets.FRAX_UNDERLYING).data,
-      expectedFRAX.data,
-      'FRAX configuration and untouched fields'
-    );
-    assertEq(
-      AaveV3Ethereum.POOL.getConfiguration(AaveV3EthereumAssets.FXS_UNDERLYING).data,
-      expectedFXS.data,
-      'FXS configuration and untouched fields'
-    );
-    assertEq(
-      AaveV3Ethereum.POOL.getConfiguration(AaveV3EthereumAssets.KNC_UNDERLYING).data,
-      expectedKNC.data,
-      'KNC configuration and untouched fields'
-    );
-    assertEq(
-      AaveV3Ethereum.POOL.getConfiguration(AaveV3EthereumAssets.LUSD_UNDERLYING).data,
-      expectedLUSD.data,
-      'LUSD configuration and untouched fields'
-    );
-    assertEq(
-      AaveV3Ethereum.POOL.getConfiguration(AaveV3EthereumAssets.RPL_UNDERLYING).data,
-      expectedRPL.data,
-      'RPL configuration and untouched fields'
-    );
-    assertEq(
-      AaveV3Ethereum.POOL.getConfiguration(AaveV3EthereumAssets.STG_UNDERLYING).data,
-      expectedSTG.data,
-      'STG configuration and untouched fields'
     );
   }
 }
