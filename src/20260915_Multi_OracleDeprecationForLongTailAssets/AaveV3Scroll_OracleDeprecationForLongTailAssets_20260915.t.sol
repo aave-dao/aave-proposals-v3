@@ -5,6 +5,7 @@ import {AaveV3Scroll, AaveV3ScrollAssets} from 'aave-address-book/AaveV3Scroll.s
 
 import 'forge-std/Test.sol';
 import {GovV3Helpers} from 'aave-helpers/src/GovV3Helpers.sol';
+import {WadRayMath} from 'aave-v4/libraries/math/WadRayMath.sol';
 import {ProtocolV3TestBase} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {AaveV3Scroll_OracleDeprecationForLongTailAssets_20260915} from './AaveV3Scroll_OracleDeprecationForLongTailAssets_20260915.sol';
 
@@ -69,13 +70,9 @@ contract AaveV3Scroll_OracleDeprecationForLongTailAssets_20260915_Test is Protoc
       _strategyBefore,
       IDefaultInterestRateStrategyV2.InterestRateDataRay({
         optimalUsageRatio: _ratesBefore[AaveV3ScrollAssets.SCR_UNDERLYING].optimalUsageRatio,
-        baseVariableBorrowRate: afterExecution
-          ? 200_000_000_000_000_000_000_000_000
-          : 50_000_000_000_000_000_000_000_000, // 5% -> 20% (27 decimals)
+        baseVariableBorrowRate: WadRayMath.bpsToRay(afterExecution ? 20_00 : 5_00), // 5% -> 20% (2 decimals converted to 27 decimals)
         variableRateSlope1: _ratesBefore[AaveV3ScrollAssets.SCR_UNDERLYING].variableRateSlope1,
-        variableRateSlope2: afterExecution
-          ? 400_000_000_000_000_000_000_000_000
-          : 3_000_000_000_000_000_000_000_000_000 // 300% -> 40% (27 decimals)
+        variableRateSlope2: WadRayMath.bpsToRay(afterExecution ? 40_00 : 300_00) // 300% -> 40% (2 decimals converted to 27 decimals)
       })
     );
   }

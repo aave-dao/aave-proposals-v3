@@ -6,6 +6,7 @@ import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config
 
 import 'forge-std/Test.sol';
 import {GovV3Helpers} from 'aave-helpers/src/GovV3Helpers.sol';
+import {WadRayMath} from 'aave-v4/libraries/math/WadRayMath.sol';
 import {ProtocolV3TestBase} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {AaveV3Avalanche_OracleDeprecationForLongTailAssets_20260915} from './AaveV3Avalanche_OracleDeprecationForLongTailAssets_20260915.sol';
 
@@ -97,7 +98,7 @@ contract AaveV3Avalanche_OracleDeprecationForLongTailAssets_20260915_Test is Pro
       _strategyBefore,
       IDefaultInterestRateStrategyV2.InterestRateDataRay({
         optimalUsageRatio: _ratesBefore[AaveV3AvalancheAssets.FRAX_UNDERLYING].optimalUsageRatio,
-        baseVariableBorrowRate: afterExecution ? 200_000_000_000_000_000_000_000_000 : 0, // 0% -> 20% (27 decimals)
+        baseVariableBorrowRate: WadRayMath.bpsToRay(afterExecution ? 20_00 : 0), // 0% -> 20% (2 decimals converted to 27 decimals)
         variableRateSlope1: _ratesBefore[AaveV3AvalancheAssets.FRAX_UNDERLYING].variableRateSlope1,
         variableRateSlope2: _ratesBefore[AaveV3AvalancheAssets.FRAX_UNDERLYING].variableRateSlope2
       })
@@ -108,11 +109,9 @@ contract AaveV3Avalanche_OracleDeprecationForLongTailAssets_20260915_Test is Pro
       _strategyBefore,
       IDefaultInterestRateStrategyV2.InterestRateDataRay({
         optimalUsageRatio: _ratesBefore[AaveV3AvalancheAssets.MAI_UNDERLYING].optimalUsageRatio,
-        baseVariableBorrowRate: afterExecution ? 200_000_000_000_000_000_000_000_000 : 0, // 0% -> 20% (27 decimals)
+        baseVariableBorrowRate: WadRayMath.bpsToRay(afterExecution ? 20_00 : 0), // 0% -> 20% (2 decimals converted to 27 decimals)
         variableRateSlope1: _ratesBefore[AaveV3AvalancheAssets.MAI_UNDERLYING].variableRateSlope1,
-        variableRateSlope2: afterExecution
-          ? 400_000_000_000_000_000_000_000_000
-          : 3_000_000_000_000_000_000_000_000_000 // 300% -> 40% (27 decimals)
+        variableRateSlope2: WadRayMath.bpsToRay(afterExecution ? 40_00 : 300_00) // 300% -> 40% (2 decimals converted to 27 decimals)
       })
     );
   }

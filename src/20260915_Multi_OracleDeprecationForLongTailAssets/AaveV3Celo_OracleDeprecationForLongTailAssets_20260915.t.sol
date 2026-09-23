@@ -7,6 +7,7 @@ import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config
 
 import 'forge-std/Test.sol';
 import {GovV3Helpers} from 'aave-helpers/src/GovV3Helpers.sol';
+import {WadRayMath} from 'aave-v4/libraries/math/WadRayMath.sol';
 import {ProtocolV3TestBase} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {AaveV3Celo_OracleDeprecationForLongTailAssets_20260915} from './AaveV3Celo_OracleDeprecationForLongTailAssets_20260915.sol';
 
@@ -112,11 +113,9 @@ contract AaveV3Celo_OracleDeprecationForLongTailAssets_20260915_Test is Protocol
       _strategyBefore,
       IDefaultInterestRateStrategyV2.InterestRateDataRay({
         optimalUsageRatio: _ratesBefore[AaveV3CeloAssets.USDm_UNDERLYING].optimalUsageRatio,
-        baseVariableBorrowRate: afterExecution ? 50_000_000_000_000_000_000_000_000 : 0, // 0% -> 5% (27 decimals)
+        baseVariableBorrowRate: WadRayMath.bpsToRay(afterExecution ? 5_00 : 0), // 0% -> 5% (2 decimals converted to 27 decimals)
         variableRateSlope1: _ratesBefore[AaveV3CeloAssets.USDm_UNDERLYING].variableRateSlope1,
-        variableRateSlope2: afterExecution
-          ? 1_000_000_000_000_000_000_000_000_000
-          : 750_000_000_000_000_000_000_000_000 // 75% -> 100% (27 decimals)
+        variableRateSlope2: WadRayMath.bpsToRay(afterExecution ? 100_00 : 75_00) // 75% -> 100% (2 decimals converted to 27 decimals)
       })
     );
   }

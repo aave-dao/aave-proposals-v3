@@ -5,6 +5,7 @@ import {AaveV2Polygon, AaveV2PolygonAssets} from 'aave-address-book/AaveV2Polygo
 
 import 'forge-std/Test.sol';
 import {GovV3Helpers} from 'aave-helpers/src/GovV3Helpers.sol';
+import {WadRayMath} from 'aave-v4/libraries/math/WadRayMath.sol';
 import {ProtocolV2TestBase, ReserveConfig, InterestStrategyValues} from 'aave-helpers/src/ProtocolV2TestBase.sol';
 import {AaveV2Polygon_OracleDeprecationForLongTailAssets_20260915} from './AaveV2Polygon_OracleDeprecationForLongTailAssets_20260915.sol';
 
@@ -76,9 +77,7 @@ contract AaveV2Polygon_OracleDeprecationForLongTailAssets_20260915_Test is Proto
           optimalUsageRatio: previous.OPTIMAL_UTILIZATION_RATE(),
           baseVariableBorrowRate: previous.baseVariableBorrowRate(),
           variableRateSlope1: previous.variableRateSlope1(),
-          variableRateSlope2: afterExecution
-            ? 400_000_000_000_000_000_000_000_000
-            : 3_000_000_000_000_000_000_000_000_000 // 300% -> 40% (27 decimals)
+          variableRateSlope2: WadRayMath.bpsToRay(afterExecution ? 40_00 : 300_00) // 300% -> 40% (2 decimals converted to 27 decimals)
         })
       );
     }
@@ -96,9 +95,7 @@ contract AaveV2Polygon_OracleDeprecationForLongTailAssets_20260915_Test is Proto
           optimalUsageRatio: previous.OPTIMAL_UTILIZATION_RATE(),
           baseVariableBorrowRate: previous.baseVariableBorrowRate(),
           variableRateSlope1: previous.variableRateSlope1(),
-          variableRateSlope2: afterExecution
-            ? 400_000_000_000_000_000_000_000_000
-            : 3_000_000_000_000_000_000_000_000_000 // 300% -> 40% (27 decimals)
+          variableRateSlope2: WadRayMath.bpsToRay(afterExecution ? 40_00 : 300_00) // 300% -> 40% (2 decimals converted to 27 decimals)
         })
       );
     }

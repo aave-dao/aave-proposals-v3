@@ -7,6 +7,7 @@ import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config
 
 import 'forge-std/Test.sol';
 import {GovV3Helpers} from 'aave-helpers/src/GovV3Helpers.sol';
+import {WadRayMath} from 'aave-v4/libraries/math/WadRayMath.sol';
 import {ProtocolV3TestBase} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {AaveV3Ethereum_OracleDeprecationForLongTailAssets_20260915} from './AaveV3Ethereum_OracleDeprecationForLongTailAssets_20260915.sol';
 
@@ -166,13 +167,9 @@ contract AaveV3Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
       _strategyBefore,
       IDefaultInterestRateStrategyV2.InterestRateDataRay({
         optimalUsageRatio: _ratesBefore[AaveV3EthereumAssets.BAL_UNDERLYING].optimalUsageRatio,
-        baseVariableBorrowRate: afterExecution
-          ? 200_000_000_000_000_000_000_000_000
-          : 50_000_000_000_000_000_000_000_000, // 5% -> 20% (27 decimals)
+        baseVariableBorrowRate: WadRayMath.bpsToRay(afterExecution ? 20_00 : 5_00), // 5% -> 20% (2 decimals converted to 27 decimals)
         variableRateSlope1: _ratesBefore[AaveV3EthereumAssets.BAL_UNDERLYING].variableRateSlope1,
-        variableRateSlope2: afterExecution
-          ? 400_000_000_000_000_000_000_000_000
-          : 1_500_000_000_000_000_000_000_000_000 // 150% -> 40% (27 decimals)
+        variableRateSlope2: WadRayMath.bpsToRay(afterExecution ? 40_00 : 150_00) // 150% -> 40% (2 decimals converted to 27 decimals)
       })
     );
     _validateInterestRateStrategy(
@@ -181,11 +178,9 @@ contract AaveV3Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
       _strategyBefore,
       IDefaultInterestRateStrategyV2.InterestRateDataRay({
         optimalUsageRatio: _ratesBefore[AaveV3EthereumAssets.FRAX_UNDERLYING].optimalUsageRatio,
-        baseVariableBorrowRate: afterExecution ? 50_000_000_000_000_000_000_000_000 : 0, // 0% -> 5% (27 decimals)
+        baseVariableBorrowRate: WadRayMath.bpsToRay(afterExecution ? 5_00 : 0), // 0% -> 5% (2 decimals converted to 27 decimals)
         variableRateSlope1: _ratesBefore[AaveV3EthereumAssets.FRAX_UNDERLYING].variableRateSlope1,
-        variableRateSlope2: afterExecution
-          ? 1_000_000_000_000_000_000_000_000_000
-          : 400_000_000_000_000_000_000_000_000 // 40% -> 100% (27 decimals)
+        variableRateSlope2: WadRayMath.bpsToRay(afterExecution ? 100_00 : 40_00) // 40% -> 100% (2 decimals converted to 27 decimals)
       })
     );
     _validateInterestRateStrategy(
@@ -194,11 +189,9 @@ contract AaveV3Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
       _strategyBefore,
       IDefaultInterestRateStrategyV2.InterestRateDataRay({
         optimalUsageRatio: _ratesBefore[AaveV3EthereumAssets.FXS_UNDERLYING].optimalUsageRatio,
-        baseVariableBorrowRate: afterExecution ? 200_000_000_000_000_000_000_000_000 : 0, // 0% -> 20% (27 decimals)
+        baseVariableBorrowRate: WadRayMath.bpsToRay(afterExecution ? 20_00 : 0), // 0% -> 20% (2 decimals converted to 27 decimals)
         variableRateSlope1: _ratesBefore[AaveV3EthereumAssets.FXS_UNDERLYING].variableRateSlope1,
-        variableRateSlope2: afterExecution
-          ? 400_000_000_000_000_000_000_000_000
-          : 3_000_000_000_000_000_000_000_000_000 // 300% -> 40% (27 decimals)
+        variableRateSlope2: WadRayMath.bpsToRay(afterExecution ? 40_00 : 300_00) // 300% -> 40% (2 decimals converted to 27 decimals)
       })
     );
     _validateInterestRateStrategy(
@@ -207,11 +200,9 @@ contract AaveV3Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
       _strategyBefore,
       IDefaultInterestRateStrategyV2.InterestRateDataRay({
         optimalUsageRatio: _ratesBefore[AaveV3EthereumAssets.KNC_UNDERLYING].optimalUsageRatio,
-        baseVariableBorrowRate: afterExecution ? 200_000_000_000_000_000_000_000_000 : 0, // 0% -> 20% (27 decimals)
+        baseVariableBorrowRate: WadRayMath.bpsToRay(afterExecution ? 20_00 : 0), // 0% -> 20% (2 decimals converted to 27 decimals)
         variableRateSlope1: _ratesBefore[AaveV3EthereumAssets.KNC_UNDERLYING].variableRateSlope1,
-        variableRateSlope2: afterExecution
-          ? 400_000_000_000_000_000_000_000_000
-          : 3_000_000_000_000_000_000_000_000_000 // 300% -> 40% (27 decimals)
+        variableRateSlope2: WadRayMath.bpsToRay(afterExecution ? 40_00 : 300_00) // 300% -> 40% (2 decimals converted to 27 decimals)
       })
     );
     _validateInterestRateStrategy(
@@ -220,11 +211,9 @@ contract AaveV3Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
       _strategyBefore,
       IDefaultInterestRateStrategyV2.InterestRateDataRay({
         optimalUsageRatio: _ratesBefore[AaveV3EthereumAssets.LUSD_UNDERLYING].optimalUsageRatio,
-        baseVariableBorrowRate: afterExecution ? 50_000_000_000_000_000_000_000_000 : 0, // 0% -> 5% (27 decimals)
+        baseVariableBorrowRate: WadRayMath.bpsToRay(afterExecution ? 5_00 : 0), // 0% -> 5% (2 decimals converted to 27 decimals)
         variableRateSlope1: _ratesBefore[AaveV3EthereumAssets.LUSD_UNDERLYING].variableRateSlope1,
-        variableRateSlope2: afterExecution
-          ? 1_000_000_000_000_000_000_000_000_000
-          : 500_000_000_000_000_000_000_000_000 // 50% -> 100% (27 decimals)
+        variableRateSlope2: WadRayMath.bpsToRay(afterExecution ? 100_00 : 50_00) // 50% -> 100% (2 decimals converted to 27 decimals)
       })
     );
     _validateInterestRateStrategy(
@@ -233,11 +222,9 @@ contract AaveV3Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
       _strategyBefore,
       IDefaultInterestRateStrategyV2.InterestRateDataRay({
         optimalUsageRatio: _ratesBefore[AaveV3EthereumAssets.RPL_UNDERLYING].optimalUsageRatio,
-        baseVariableBorrowRate: afterExecution ? 50_000_000_000_000_000_000_000_000 : 0, // 0% -> 5% (27 decimals)
+        baseVariableBorrowRate: WadRayMath.bpsToRay(afterExecution ? 5_00 : 0), // 0% -> 5% (2 decimals converted to 27 decimals)
         variableRateSlope1: _ratesBefore[AaveV3EthereumAssets.RPL_UNDERLYING].variableRateSlope1,
-        variableRateSlope2: afterExecution
-          ? 1_000_000_000_000_000_000_000_000_000
-          : 870_000_000_000_000_000_000_000_000 // 87% -> 100% (27 decimals)
+        variableRateSlope2: WadRayMath.bpsToRay(afterExecution ? 100_00 : 87_00) // 87% -> 100% (2 decimals converted to 27 decimals)
       })
     );
     _validateInterestRateStrategy(
@@ -246,11 +233,9 @@ contract AaveV3Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
       _strategyBefore,
       IDefaultInterestRateStrategyV2.InterestRateDataRay({
         optimalUsageRatio: _ratesBefore[AaveV3EthereumAssets.STG_UNDERLYING].optimalUsageRatio,
-        baseVariableBorrowRate: afterExecution ? 200_000_000_000_000_000_000_000_000 : 0, // 0% -> 20% (27 decimals)
+        baseVariableBorrowRate: WadRayMath.bpsToRay(afterExecution ? 20_00 : 0), // 0% -> 20% (2 decimals converted to 27 decimals)
         variableRateSlope1: _ratesBefore[AaveV3EthereumAssets.STG_UNDERLYING].variableRateSlope1,
-        variableRateSlope2: afterExecution
-          ? 400_000_000_000_000_000_000_000_000
-          : 3_000_000_000_000_000_000_000_000_000 // 300% -> 40% (27 decimals)
+        variableRateSlope2: WadRayMath.bpsToRay(afterExecution ? 40_00 : 300_00) // 300% -> 40% (2 decimals converted to 27 decimals)
       })
     );
   }

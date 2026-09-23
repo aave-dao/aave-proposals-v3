@@ -5,6 +5,7 @@ import {AaveV2Ethereum, AaveV2EthereumAssets} from 'aave-address-book/AaveV2Ethe
 
 import 'forge-std/Test.sol';
 import {GovV3Helpers} from 'aave-helpers/src/GovV3Helpers.sol';
+import {WadRayMath} from 'aave-v4/libraries/math/WadRayMath.sol';
 import {ProtocolV2TestBase, ReserveConfig, InterestStrategyValues} from 'aave-helpers/src/ProtocolV2TestBase.sol';
 import {AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915} from './AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915.sol';
 
@@ -152,9 +153,7 @@ contract AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
           optimalUsageRatio: previous.OPTIMAL_UTILIZATION_RATE(),
           baseVariableBorrowRate: previous.baseVariableBorrowRate(),
           variableRateSlope1: previous.variableRateSlope1(),
-          variableRateSlope2: afterExecution
-            ? 400_000_000_000_000_000_000_000_000
-            : 3_000_000_000_000_000_000_000_000_000 // 300% -> 40% (27 decimals)
+          variableRateSlope2: WadRayMath.bpsToRay(afterExecution ? 40_00 : 300_00) // 300% -> 40% (2 decimals converted to 27 decimals)
         })
       );
     }
@@ -170,9 +169,7 @@ contract AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
           stableRateSlope1: previous.stableRateSlope1(),
           stableRateSlope2: previous.stableRateSlope2(),
           optimalUsageRatio: previous.OPTIMAL_UTILIZATION_RATE(),
-          baseVariableBorrowRate: afterExecution
-            ? 200_000_000_000_000_000_000_000_000
-            : 10_000_000_000_000_000_000_000_000, // 1% -> 20% (27 decimals)
+          baseVariableBorrowRate: WadRayMath.bpsToRay(afterExecution ? 20_00 : 1_00), // 1% -> 20% (2 decimals converted to 27 decimals)
           variableRateSlope1: previous.variableRateSlope1(),
           variableRateSlope2: previous.variableRateSlope2()
         })
@@ -198,9 +195,9 @@ contract AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
           stableRateSlope1: previous.stableRateSlope1(),
           stableRateSlope2: previous.stableRateSlope2(),
           optimalUsageRatio: previous.OPTIMAL_UTILIZATION_RATE(),
-          baseVariableBorrowRate: afterExecution ? 0 : 200_000_000_000_000_000_000_000_000, // 20% -> 0% (27 decimals)
+          baseVariableBorrowRate: WadRayMath.bpsToRay(afterExecution ? 0 : 20_00), // 20% -> 0% (2 decimals converted to 27 decimals)
           variableRateSlope1: previous.variableRateSlope1(),
-          variableRateSlope2: afterExecution ? 0 : 3_000_000_000_000_000_000_000_000_000 // 300% -> 0% (27 decimals)
+          variableRateSlope2: WadRayMath.bpsToRay(afterExecution ? 0 : 300_00) // 300% -> 0% (2 decimals converted to 27 decimals)
         })
       );
     }
@@ -224,9 +221,9 @@ contract AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
           stableRateSlope1: previous.stableRateSlope1(),
           stableRateSlope2: previous.stableRateSlope2(),
           optimalUsageRatio: previous.OPTIMAL_UTILIZATION_RATE(),
-          baseVariableBorrowRate: afterExecution ? 0 : 200_000_000_000_000_000_000_000_000, // 20% -> 0% (27 decimals)
+          baseVariableBorrowRate: WadRayMath.bpsToRay(afterExecution ? 0 : 20_00), // 20% -> 0% (2 decimals converted to 27 decimals)
           variableRateSlope1: previous.variableRateSlope1(),
-          variableRateSlope2: afterExecution ? 0 : 3_000_000_000_000_000_000_000_000_000 // 300% -> 0% (27 decimals)
+          variableRateSlope2: WadRayMath.bpsToRay(afterExecution ? 0 : 300_00) // 300% -> 0% (2 decimals converted to 27 decimals)
         })
       );
     }
@@ -252,9 +249,7 @@ contract AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
           optimalUsageRatio: previous.OPTIMAL_UTILIZATION_RATE(),
           baseVariableBorrowRate: previous.baseVariableBorrowRate(),
           variableRateSlope1: previous.variableRateSlope1(),
-          variableRateSlope2: afterExecution
-            ? 400_000_000_000_000_000_000_000_000
-            : 3_000_000_000_000_000_000_000_000_000 // 300% -> 40% (27 decimals)
+          variableRateSlope2: WadRayMath.bpsToRay(afterExecution ? 40_00 : 300_00) // 300% -> 40% (2 decimals converted to 27 decimals)
         })
       );
     }
@@ -272,9 +267,7 @@ contract AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
           optimalUsageRatio: previous.OPTIMAL_UTILIZATION_RATE(),
           baseVariableBorrowRate: previous.baseVariableBorrowRate(),
           variableRateSlope1: previous.variableRateSlope1(),
-          variableRateSlope2: afterExecution
-            ? 400_000_000_000_000_000_000_000_000
-            : 3_000_000_000_000_000_000_000_000_000 // 300% -> 40% (27 decimals)
+          variableRateSlope2: WadRayMath.bpsToRay(afterExecution ? 40_00 : 300_00) // 300% -> 40% (2 decimals converted to 27 decimals)
         })
       );
     }
@@ -292,9 +285,7 @@ contract AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
           optimalUsageRatio: previous.OPTIMAL_UTILIZATION_RATE(),
           baseVariableBorrowRate: previous.baseVariableBorrowRate(),
           variableRateSlope1: previous.variableRateSlope1(),
-          variableRateSlope2: afterExecution
-            ? 400_000_000_000_000_000_000_000_000
-            : 3_000_000_000_000_000_000_000_000_000 // 300% -> 40% (27 decimals)
+          variableRateSlope2: WadRayMath.bpsToRay(afterExecution ? 40_00 : 300_00) // 300% -> 40% (2 decimals converted to 27 decimals)
         })
       );
     }
@@ -312,9 +303,7 @@ contract AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
           optimalUsageRatio: previous.OPTIMAL_UTILIZATION_RATE(),
           baseVariableBorrowRate: previous.baseVariableBorrowRate(),
           variableRateSlope1: previous.variableRateSlope1(),
-          variableRateSlope2: afterExecution
-            ? 400_000_000_000_000_000_000_000_000
-            : 3_000_000_000_000_000_000_000_000_000 // 300% -> 40% (27 decimals)
+          variableRateSlope2: WadRayMath.bpsToRay(afterExecution ? 40_00 : 300_00) // 300% -> 40% (2 decimals converted to 27 decimals)
         })
       );
     }
@@ -330,11 +319,9 @@ contract AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
           stableRateSlope1: previous.stableRateSlope1(),
           stableRateSlope2: previous.stableRateSlope2(),
           optimalUsageRatio: previous.OPTIMAL_UTILIZATION_RATE(),
-          baseVariableBorrowRate: afterExecution
-            ? 200_000_000_000_000_000_000_000_000
-            : 10_000_000_000_000_000_000_000_000, // 1% -> 20% (27 decimals)
+          baseVariableBorrowRate: WadRayMath.bpsToRay(afterExecution ? 20_00 : 1_00), // 1% -> 20% (2 decimals converted to 27 decimals)
           variableRateSlope1: previous.variableRateSlope1(),
-          variableRateSlope2: afterExecution ? 400_000_000_000_000_000_000_000_000 : 0 // 0% -> 40% (27 decimals)
+          variableRateSlope2: WadRayMath.bpsToRay(afterExecution ? 40_00 : 0) // 0% -> 40% (2 decimals converted to 27 decimals)
         })
       );
     }

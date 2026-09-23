@@ -6,6 +6,7 @@ import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config
 
 import 'forge-std/Test.sol';
 import {GovV3Helpers} from 'aave-helpers/src/GovV3Helpers.sol';
+import {WadRayMath} from 'aave-v4/libraries/math/WadRayMath.sol';
 import {ProtocolV3TestBase} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {AaveV3EthereumEtherFi_OracleDeprecationForLongTailAssets_20260915} from './AaveV3EthereumEtherFi_OracleDeprecationForLongTailAssets_20260915.sol';
 
@@ -95,7 +96,7 @@ contract AaveV3EthereumEtherFi_OracleDeprecationForLongTailAssets_20260915_Test 
       IDefaultInterestRateStrategyV2.InterestRateDataRay({
         optimalUsageRatio: _ratesBefore[AaveV3EthereumEtherFiAssets.FRAX_UNDERLYING]
           .optimalUsageRatio,
-        baseVariableBorrowRate: afterExecution ? 200_000_000_000_000_000_000_000_000 : 0, // 0% -> 20% (27 decimals)
+        baseVariableBorrowRate: WadRayMath.bpsToRay(afterExecution ? 20_00 : 0), // 0% -> 20% (2 decimals converted to 27 decimals)
         variableRateSlope1: _ratesBefore[AaveV3EthereumEtherFiAssets.FRAX_UNDERLYING]
           .variableRateSlope1,
         variableRateSlope2: _ratesBefore[AaveV3EthereumEtherFiAssets.FRAX_UNDERLYING]

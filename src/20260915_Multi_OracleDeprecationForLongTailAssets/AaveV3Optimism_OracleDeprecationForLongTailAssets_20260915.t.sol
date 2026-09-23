@@ -6,6 +6,7 @@ import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config
 
 import 'forge-std/Test.sol';
 import {GovV3Helpers} from 'aave-helpers/src/GovV3Helpers.sol';
+import {WadRayMath} from 'aave-v4/libraries/math/WadRayMath.sol';
 import {ProtocolV3TestBase} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {AaveV3Optimism_OracleDeprecationForLongTailAssets_20260915} from './AaveV3Optimism_OracleDeprecationForLongTailAssets_20260915.sol';
 
@@ -103,13 +104,9 @@ contract AaveV3Optimism_OracleDeprecationForLongTailAssets_20260915_Test is Prot
       _strategyBefore,
       IDefaultInterestRateStrategyV2.InterestRateDataRay({
         optimalUsageRatio: _ratesBefore[AaveV3OptimismAssets.LUSD_UNDERLYING].optimalUsageRatio,
-        baseVariableBorrowRate: afterExecution
-          ? 200_000_000_000_000_000_000_000_000
-          : 20_000_000_000_000_000_000_000_000, // 2% -> 20% (27 decimals)
+        baseVariableBorrowRate: WadRayMath.bpsToRay(afterExecution ? 20_00 : 2_00), // 2% -> 20% (2 decimals converted to 27 decimals)
         variableRateSlope1: _ratesBefore[AaveV3OptimismAssets.LUSD_UNDERLYING].variableRateSlope1,
-        variableRateSlope2: afterExecution
-          ? 400_000_000_000_000_000_000_000_000
-          : 500_000_000_000_000_000_000_000_000 // 50% -> 40% (27 decimals)
+        variableRateSlope2: WadRayMath.bpsToRay(afterExecution ? 40_00 : 50_00) // 50% -> 40% (2 decimals converted to 27 decimals)
       })
     );
     _validateInterestRateStrategy(
@@ -118,11 +115,9 @@ contract AaveV3Optimism_OracleDeprecationForLongTailAssets_20260915_Test is Prot
       _strategyBefore,
       IDefaultInterestRateStrategyV2.InterestRateDataRay({
         optimalUsageRatio: _ratesBefore[AaveV3OptimismAssets.MAI_UNDERLYING].optimalUsageRatio,
-        baseVariableBorrowRate: afterExecution ? 200_000_000_000_000_000_000_000_000 : 0, // 0% -> 20% (27 decimals)
+        baseVariableBorrowRate: WadRayMath.bpsToRay(afterExecution ? 20_00 : 0), // 0% -> 20% (2 decimals converted to 27 decimals)
         variableRateSlope1: _ratesBefore[AaveV3OptimismAssets.MAI_UNDERLYING].variableRateSlope1,
-        variableRateSlope2: afterExecution
-          ? 400_000_000_000_000_000_000_000_000
-          : 3_000_000_000_000_000_000_000_000_000 // 300% -> 40% (27 decimals)
+        variableRateSlope2: WadRayMath.bpsToRay(afterExecution ? 40_00 : 300_00) // 300% -> 40% (2 decimals converted to 27 decimals)
       })
     );
     _validateInterestRateStrategy(
@@ -133,8 +128,8 @@ contract AaveV3Optimism_OracleDeprecationForLongTailAssets_20260915_Test is Prot
         optimalUsageRatio: _ratesBefore[AaveV3OptimismAssets.sUSD_UNDERLYING].optimalUsageRatio,
         baseVariableBorrowRate: _ratesBefore[AaveV3OptimismAssets.sUSD_UNDERLYING]
           .baseVariableBorrowRate,
-        variableRateSlope1: afterExecution ? 0 : 55_000_000_000_000_000_000_000_000, // 5.5% -> 0% (27 decimals)
-        variableRateSlope2: afterExecution ? 0 : 500_000_000_000_000_000_000_000_000 // 50% -> 0% (27 decimals)
+        variableRateSlope1: WadRayMath.bpsToRay(afterExecution ? 0 : 5_50), // 5.5% -> 0% (2 decimals converted to 27 decimals)
+        variableRateSlope2: WadRayMath.bpsToRay(afterExecution ? 0 : 50_00) // 50% -> 0% (2 decimals converted to 27 decimals)
       })
     );
   }
