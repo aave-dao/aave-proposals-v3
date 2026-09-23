@@ -1,0 +1,21 @@
+src/20260915_Multi_OracleDeprecationForLongTailAssets/AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915.t.sol
+  s_fcf886f510ff24::t_0cda77ae0b0148 24-25,29-106,129-131,151-153,175-177,199-201,221-223,243-245,265-267,287-289,309-311,333-335,357-359,381-383,405-407
+src/20260915_Multi_OracleDeprecationForLongTailAssets/AaveV2Polygon_OracleDeprecationForLongTailAssets_20260915.t.sol
+  s_fcf886f510ff24::t_0cda77ae0b0148 24-25,29-40,63,85-87
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "b545291918e3c54061c10042663e8fa1a3c55ae7",
+  "prompts": {},
+  "sessions": {
+    "s_fcf886f510ff24": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a0a4ab-17d1-7d12-b10d-c9adf50c142b",
+        "model": "gpt-6-astra"
+      },
+      "human_author": "AlbertoCentonze <11707683+AlbertoCentonze@users.noreply.github.com>"
+    }
+  }
+}
