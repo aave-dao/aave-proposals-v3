@@ -13,8 +13,11 @@ import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config
  * - Discussion: https://governance.aave.com/t/arfc-oracle-deprecation-for-long-tail-assets-across-aave-v2-and-v3/25400
  */
 contract AaveV3Polygon_OracleDeprecationForLongTailAssets_20260915 is AaveV3PayloadPolygon {
+  // https://polygonscan.com/address/0x55Eb6D9432a9842844b60Cd9D38497c0be7E623D#code
   address public constant BAL_PRICE_FEED = 0x55Eb6D9432a9842844b60Cd9D38497c0be7E623D;
+  // https://polygonscan.com/address/0x61c417D189A9983B3eD9054692c16451E5391058#code
   address public constant GHST_PRICE_FEED = 0x61c417D189A9983B3eD9054692c16451E5391058;
+  // https://polygonscan.com/address/0xe756E3e985Bb5666ce7CE07d47EA97E1Fd33B834#code
   address public constant miMATIC_PRICE_FEED = 0xe756E3e985Bb5666ce7CE07d47EA97E1Fd33B834;
 
   function _postExecute() internal override {

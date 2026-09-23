@@ -14,7 +14,9 @@ import {IV2RateStrategyFactory} from 'aave-helpers/src/v2-config-engine/IV2RateS
  * - Discussion: https://governance.aave.com/t/arfc-oracle-deprecation-for-long-tail-assets-across-aave-v2-and-v3/25400
  */
 contract AaveV2Polygon_OracleDeprecationForLongTailAssets_20260915 is AaveV2PayloadPolygon {
+  // https://polygonscan.com/address/0x540FBdE71C7c004Fa9eB4Dd712b5F3fa4C0deD72#code
   address public constant BAL_PRICE_FEED = 0x540FBdE71C7c004Fa9eB4Dd712b5F3fa4C0deD72;
+  // https://polygonscan.com/address/0x97F28Df431E02ff4f3A23d9b0b55F4A9F0d3E08b#code
   address public constant GHST_PRICE_FEED = 0x97F28Df431E02ff4f3A23d9b0b55F4A9F0d3E08b;
 
   function _postExecute() internal override {

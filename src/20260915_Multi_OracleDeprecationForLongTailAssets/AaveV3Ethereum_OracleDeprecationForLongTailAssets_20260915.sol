@@ -13,12 +13,19 @@ import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config
  * - Discussion: https://governance.aave.com/t/arfc-oracle-deprecation-for-long-tail-assets-across-aave-v2-and-v3/25400
  */
 contract AaveV3Ethereum_OracleDeprecationForLongTailAssets_20260915 is AaveV3PayloadEthereum {
+  // https://etherscan.io/address/0xfFa88E79E6be7AB1048F44112f56C8F1Cfc33F66#code
   address public constant BAL_PRICE_FEED = 0xfFa88E79E6be7AB1048F44112f56C8F1Cfc33F66;
+  // https://etherscan.io/address/0xE7A4a6fCB1E7d5052e64E70aEd37b0fD2548bAE7#code
   address public constant FRAX_PRICE_FEED = 0xE7A4a6fCB1E7d5052e64E70aEd37b0fD2548bAE7;
+  // https://etherscan.io/address/0x4124b23341FcEa31CF098FE9d801D59BB9F4B3F7#code
   address public constant FXS_PRICE_FEED = 0x4124b23341FcEa31CF098FE9d801D59BB9F4B3F7;
+  // https://etherscan.io/address/0xfbBa1Fd5dFce36860e46738dc9b83bb0A99551e2#code
   address public constant KNC_PRICE_FEED = 0xfbBa1Fd5dFce36860e46738dc9b83bb0A99551e2;
+  // https://etherscan.io/address/0xc6E7e1ff334313CeBDe98b7a8A487119CFb6e654#code
   address public constant LUSD_PRICE_FEED = 0xc6E7e1ff334313CeBDe98b7a8A487119CFb6e654;
+  // https://etherscan.io/address/0x3455c45D29f022Ba9367c2c2Ad95432A5d1E9Ed0#code
   address public constant RPL_PRICE_FEED = 0x3455c45D29f022Ba9367c2c2Ad95432A5d1E9Ed0;
+  // https://etherscan.io/address/0x30efE459B6A08a8E92b41e0563bdB15a29DA377e#code
   address public constant STG_PRICE_FEED = 0x30efE459B6A08a8E92b41e0563bdB15a29DA377e;
 
   function _postExecute() internal override {

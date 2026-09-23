@@ -13,6 +13,7 @@ import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config
  * - Discussion: https://governance.aave.com/t/arfc-oracle-deprecation-for-long-tail-assets-across-aave-v2-and-v3/25400
  */
 contract AaveV3Celo_OracleDeprecationForLongTailAssets_20260915 is AaveV3PayloadCelo {
+  // https://celoscan.io/address/0x1E1Ef58d6286739a666C9E0eA98af77e65c5f1C1#code
   address public constant USDm_PRICE_FEED = 0x1E1Ef58d6286739a666C9E0eA98af77e65c5f1C1;
 
   function _postExecute() internal override {

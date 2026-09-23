@@ -13,8 +13,11 @@ import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config
  * - Discussion: https://governance.aave.com/t/arfc-oracle-deprecation-for-long-tail-assets-across-aave-v2-and-v3/25400
  */
 contract AaveV3Arbitrum_OracleDeprecationForLongTailAssets_20260915 is AaveV3PayloadArbitrum {
+  // https://arbiscan.io/address/0xC3B102d52dB93fE3B22B356085C5854c6Bcc2091#code
   address public constant FRAX_PRICE_FEED = 0xC3B102d52dB93fE3B22B356085C5854c6Bcc2091;
+  // https://arbiscan.io/address/0x0EB34b917D500a7736555f4508BFE77452cb261d#code
   address public constant LUSD_PRICE_FEED = 0x0EB34b917D500a7736555f4508BFE77452cb261d;
+  // https://arbiscan.io/address/0x80e8F4b3698A079d7f2397cd71ab4bb17a12924e#code
   address public constant MAI_PRICE_FEED = 0x80e8F4b3698A079d7f2397cd71ab4bb17a12924e;
 
   function _postExecute() internal override {
