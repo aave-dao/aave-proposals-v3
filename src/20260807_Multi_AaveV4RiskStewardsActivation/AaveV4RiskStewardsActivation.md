@@ -7,7 +7,7 @@ snapshot: "https://snapshot.org/#/s:aavedao.eth/proposal/0xf736fa5f6dd1532d0e282
 
 ## Simple Summary
 
-This proposal activates the Risk Stewards on Aave V4 Ethereum and Aave V4 Avalanche, by setting their risk configuration and granting them the AccessManager roles they need to operate.
+This proposal activates the Risk Stewards on Aave V4 Ethereum and Aave V4 Avalanche, by setting their risk configuration and granting them the AccessManager roles they need to operate. GHO is excluded from the Risk Steward's scope on V4 Ethereum, as it stays under the GHO Steward.
 
 The bounds (`maxPercentChange`) follow LlamaRisk's recommended configuration, which carries most of them over from the corresponding V3 Risk Stewards unchanged. The cooldowns (`minDelay`) on the interest rate, cap and `collateralRisk` parameters are set to 36 hours, in line with the reduction ratified for the V3 Risk Stewards; every other parameter keeps a 72 hour cooldown, and the Pendle discount rate keeps its 48 hour cooldown.
 
@@ -52,6 +52,10 @@ Each Risk Steward is granted `HUB_CONFIGURATOR_DOMAIN_ADMIN_ROLE` (200) and `SPO
 The grants are therefore wider at the AccessManager than the mandate they serve. What keeps the mandate narrow is the Risk Steward contract itself: it only exposes the bounded entrypoints listed above, it enforces the cooldown and the maximum change on each of them, and its configuration can only be replaced by governance, which also remains able to revoke either role at any time. Breaking the two domain admin roles into granular ones, so the grant matches the mandate at the AccessManager level as well, is left to a follow-up proposal.
 
 Each Risk Steward is also granted `RISK_ADMIN` on its network's Aave V3 ACL Manager. The CAPO adapters serving the V4 price sources are shared with V3 and gate `setCapParameters` on the V3 ACL Manager, so without this role the `priceCapLst`, `priceCapStable` and `discountRatePendle` bounds above would be unusable.
+
+### GHO restriction
+
+GHO falls under the GHO Steward's mandate, so on Aave V4 Ethereum the payload also restricts the GHO underlying ([0x40D16FC0246aD3160Ccc09B8D0D3A2cD28aE6C2f](https://etherscan.io/address/0x40D16FC0246aD3160Ccc09B8D0D3A2cD28aE6C2f)) on the Risk Steward. Restrictions are checked against the underlying of every hub and spoke update, so this single call blocks the Risk Steward from touching GHO on every hub and spoke it is listed on. GHO is not listed on Aave V4 Avalanche, so nothing is restricted there.
 
 ## References
 
