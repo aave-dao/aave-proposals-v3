@@ -47,27 +47,27 @@ contract AaveV3Optimism_OracleDeprecationForLongTailAssets_20260915 is AaveV3Pay
       asset: AaveV3OptimismAssets.LUSD_UNDERLYING,
       params: IAaveV3ConfigEngine.InterestRateInputData({
         optimalUsageRatio: EngineFlags.KEEP_CURRENT,
-        baseVariableBorrowRate: 20_00,
-        variableRateSlope1: 5_50,
-        variableRateSlope2: 40_00
+        baseVariableBorrowRate: 20_00, // 20% (2 decimals)
+        variableRateSlope1: 5_50, // 5.5% (2 decimals)
+        variableRateSlope2: 40_00 // 40% (2 decimals)
       })
     });
     rateStrategies[1] = IAaveV3ConfigEngine.RateStrategyUpdate({
       asset: AaveV3OptimismAssets.MAI_UNDERLYING,
       params: IAaveV3ConfigEngine.InterestRateInputData({
         optimalUsageRatio: EngineFlags.KEEP_CURRENT,
-        baseVariableBorrowRate: 20_00,
-        variableRateSlope1: 5_50,
-        variableRateSlope2: 40_00
+        baseVariableBorrowRate: 20_00, // 20% (2 decimals)
+        variableRateSlope1: 5_50, // 5.5% (2 decimals)
+        variableRateSlope2: 40_00 // 40% (2 decimals)
       })
     });
     rateStrategies[2] = IAaveV3ConfigEngine.RateStrategyUpdate({
       asset: AaveV3OptimismAssets.sUSD_UNDERLYING,
       params: IAaveV3ConfigEngine.InterestRateInputData({
         optimalUsageRatio: EngineFlags.KEEP_CURRENT,
-        baseVariableBorrowRate: 0,
-        variableRateSlope1: 0,
-        variableRateSlope2: 0
+        baseVariableBorrowRate: 0, // 0% (2 decimals)
+        variableRateSlope1: 0, // 0% (2 decimals)
+        variableRateSlope2: 0 // 0% (2 decimals)
       })
     });
 

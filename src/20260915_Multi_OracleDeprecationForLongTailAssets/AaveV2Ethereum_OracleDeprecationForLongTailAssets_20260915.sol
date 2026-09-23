@@ -85,9 +85,9 @@ contract AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915 is AaveV2Pay
       asset: AaveV2EthereumAssets.AMPL_UNDERLYING,
       params: IV2RateStrategyFactory.RateStrategyParams({
         optimalUtilizationRate: EngineFlags.KEEP_CURRENT,
-        baseVariableBorrowRate: _bpsToRay(0),
-        variableRateSlope1: _bpsToRay(0),
-        variableRateSlope2: _bpsToRay(0),
+        baseVariableBorrowRate: _bpsToRay(0), // 0% (2 decimals; converted to 27 decimals)
+        variableRateSlope1: _bpsToRay(0), // 0% (2 decimals; converted to 27 decimals)
+        variableRateSlope2: _bpsToRay(0), // 0% (2 decimals; converted to 27 decimals)
         stableRateSlope1: EngineFlags.KEEP_CURRENT,
         stableRateSlope2: EngineFlags.KEEP_CURRENT
       })
@@ -96,9 +96,9 @@ contract AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915 is AaveV2Pay
       asset: AaveV2EthereumAssets.TUSD_UNDERLYING,
       params: IV2RateStrategyFactory.RateStrategyParams({
         optimalUtilizationRate: EngineFlags.KEEP_CURRENT,
-        baseVariableBorrowRate: _bpsToRay(20_00),
+        baseVariableBorrowRate: _bpsToRay(20_00), // 20% (2 decimals; converted to 27 decimals)
         variableRateSlope1: EngineFlags.KEEP_CURRENT,
-        variableRateSlope2: _bpsToRay(0),
+        variableRateSlope2: _bpsToRay(0), // 0% (2 decimals; converted to 27 decimals)
         stableRateSlope1: EngineFlags.KEEP_CURRENT,
         stableRateSlope2: EngineFlags.KEEP_CURRENT
       })
@@ -107,9 +107,9 @@ contract AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915 is AaveV2Pay
       asset: AaveV2EthereumAssets.BAL_UNDERLYING,
       params: IV2RateStrategyFactory.RateStrategyParams({
         optimalUtilizationRate: EngineFlags.KEEP_CURRENT,
-        baseVariableBorrowRate: _bpsToRay(20_00),
+        baseVariableBorrowRate: _bpsToRay(20_00), // 20% (2 decimals; converted to 27 decimals)
         variableRateSlope1: EngineFlags.KEEP_CURRENT,
-        variableRateSlope2: _bpsToRay(40_00),
+        variableRateSlope2: _bpsToRay(40_00), // 40% (2 decimals; converted to 27 decimals)
         stableRateSlope1: EngineFlags.KEEP_CURRENT,
         stableRateSlope2: EngineFlags.KEEP_CURRENT
       })
@@ -118,9 +118,9 @@ contract AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915 is AaveV2Pay
       asset: AaveV2EthereumAssets.ENJ_UNDERLYING,
       params: IV2RateStrategyFactory.RateStrategyParams({
         optimalUtilizationRate: EngineFlags.KEEP_CURRENT,
-        baseVariableBorrowRate: _bpsToRay(20_00),
+        baseVariableBorrowRate: _bpsToRay(20_00), // 20% (2 decimals; converted to 27 decimals)
         variableRateSlope1: EngineFlags.KEEP_CURRENT,
-        variableRateSlope2: _bpsToRay(40_00),
+        variableRateSlope2: _bpsToRay(40_00), // 40% (2 decimals; converted to 27 decimals)
         stableRateSlope1: EngineFlags.KEEP_CURRENT,
         stableRateSlope2: EngineFlags.KEEP_CURRENT
       })
@@ -129,9 +129,9 @@ contract AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915 is AaveV2Pay
       asset: AaveV2EthereumAssets.sUSD_UNDERLYING,
       params: IV2RateStrategyFactory.RateStrategyParams({
         optimalUtilizationRate: EngineFlags.KEEP_CURRENT,
-        baseVariableBorrowRate: _bpsToRay(0),
-        variableRateSlope1: _bpsToRay(0),
-        variableRateSlope2: _bpsToRay(0),
+        baseVariableBorrowRate: _bpsToRay(0), // 0% (2 decimals; converted to 27 decimals)
+        variableRateSlope1: _bpsToRay(0), // 0% (2 decimals; converted to 27 decimals)
+        variableRateSlope2: _bpsToRay(0), // 0% (2 decimals; converted to 27 decimals)
         stableRateSlope1: EngineFlags.KEEP_CURRENT,
         stableRateSlope2: EngineFlags.KEEP_CURRENT
       })
@@ -140,9 +140,9 @@ contract AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915 is AaveV2Pay
       asset: AaveV2EthereumAssets.KNC_UNDERLYING,
       params: IV2RateStrategyFactory.RateStrategyParams({
         optimalUtilizationRate: EngineFlags.KEEP_CURRENT,
-        baseVariableBorrowRate: _bpsToRay(20_00),
+        baseVariableBorrowRate: _bpsToRay(20_00), // 20% (2 decimals; converted to 27 decimals)
         variableRateSlope1: EngineFlags.KEEP_CURRENT,
-        variableRateSlope2: _bpsToRay(40_00),
+        variableRateSlope2: _bpsToRay(40_00), // 40% (2 decimals; converted to 27 decimals)
         stableRateSlope1: EngineFlags.KEEP_CURRENT,
         stableRateSlope2: EngineFlags.KEEP_CURRENT
       })
@@ -151,9 +151,9 @@ contract AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915 is AaveV2Pay
       asset: AaveV2EthereumAssets.LUSD_UNDERLYING,
       params: IV2RateStrategyFactory.RateStrategyParams({
         optimalUtilizationRate: EngineFlags.KEEP_CURRENT,
-        baseVariableBorrowRate: _bpsToRay(20_00),
+        baseVariableBorrowRate: _bpsToRay(20_00), // 20% (2 decimals; converted to 27 decimals)
         variableRateSlope1: EngineFlags.KEEP_CURRENT,
-        variableRateSlope2: _bpsToRay(40_00),
+        variableRateSlope2: _bpsToRay(40_00), // 40% (2 decimals; converted to 27 decimals)
         stableRateSlope1: EngineFlags.KEEP_CURRENT,
         stableRateSlope2: EngineFlags.KEEP_CURRENT
       })
@@ -162,9 +162,9 @@ contract AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915 is AaveV2Pay
       asset: AaveV2EthereumAssets.REN_UNDERLYING,
       params: IV2RateStrategyFactory.RateStrategyParams({
         optimalUtilizationRate: EngineFlags.KEEP_CURRENT,
-        baseVariableBorrowRate: _bpsToRay(20_00),
+        baseVariableBorrowRate: _bpsToRay(20_00), // 20% (2 decimals; converted to 27 decimals)
         variableRateSlope1: EngineFlags.KEEP_CURRENT,
-        variableRateSlope2: _bpsToRay(40_00),
+        variableRateSlope2: _bpsToRay(40_00), // 40% (2 decimals; converted to 27 decimals)
         stableRateSlope1: EngineFlags.KEEP_CURRENT,
         stableRateSlope2: EngineFlags.KEEP_CURRENT
       })
@@ -173,9 +173,9 @@ contract AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915 is AaveV2Pay
       asset: AaveV2EthereumAssets.ZRX_UNDERLYING,
       params: IV2RateStrategyFactory.RateStrategyParams({
         optimalUtilizationRate: EngineFlags.KEEP_CURRENT,
-        baseVariableBorrowRate: _bpsToRay(20_00),
+        baseVariableBorrowRate: _bpsToRay(20_00), // 20% (2 decimals; converted to 27 decimals)
         variableRateSlope1: EngineFlags.KEEP_CURRENT,
-        variableRateSlope2: _bpsToRay(40_00),
+        variableRateSlope2: _bpsToRay(40_00), // 40% (2 decimals; converted to 27 decimals)
         stableRateSlope1: EngineFlags.KEEP_CURRENT,
         stableRateSlope2: EngineFlags.KEEP_CURRENT
       })

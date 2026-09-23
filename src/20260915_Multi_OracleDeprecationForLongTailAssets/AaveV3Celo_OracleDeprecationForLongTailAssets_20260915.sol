@@ -43,7 +43,7 @@ contract AaveV3Celo_OracleDeprecationForLongTailAssets_20260915 is AaveV3Payload
       asset: AaveV3CeloAssets.USDm_UNDERLYING,
       enabledToBorrow: EngineFlags.KEEP_CURRENT,
       flashloanable: EngineFlags.KEEP_CURRENT,
-      reserveFactor: 100_00
+      reserveFactor: 100_00 // 100% (2 decimals)
     });
 
     return borrowUpdates;
@@ -61,9 +61,9 @@ contract AaveV3Celo_OracleDeprecationForLongTailAssets_20260915 is AaveV3Payload
       asset: AaveV3CeloAssets.USDm_UNDERLYING,
       params: IAaveV3ConfigEngine.InterestRateInputData({
         optimalUsageRatio: EngineFlags.KEEP_CURRENT,
-        baseVariableBorrowRate: 5_00,
-        variableRateSlope1: 4_00,
-        variableRateSlope2: 100_00
+        baseVariableBorrowRate: 5_00, // 5% (2 decimals)
+        variableRateSlope1: 4_00, // 4% (2 decimals)
+        variableRateSlope2: 100_00 // 100% (2 decimals)
       })
     });
 

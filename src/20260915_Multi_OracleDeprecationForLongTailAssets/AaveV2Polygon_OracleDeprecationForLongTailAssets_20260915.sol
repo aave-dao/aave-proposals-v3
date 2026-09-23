@@ -41,9 +41,9 @@ contract AaveV2Polygon_OracleDeprecationForLongTailAssets_20260915 is AaveV2Payl
       asset: AaveV2PolygonAssets.BAL_UNDERLYING,
       params: IV2RateStrategyFactory.RateStrategyParams({
         optimalUtilizationRate: EngineFlags.KEEP_CURRENT,
-        baseVariableBorrowRate: _bpsToRay(20_00),
+        baseVariableBorrowRate: _bpsToRay(20_00), // 20% (2 decimals; converted to 27 decimals)
         variableRateSlope1: EngineFlags.KEEP_CURRENT,
-        variableRateSlope2: _bpsToRay(40_00),
+        variableRateSlope2: _bpsToRay(40_00), // 40% (2 decimals; converted to 27 decimals)
         stableRateSlope1: EngineFlags.KEEP_CURRENT,
         stableRateSlope2: EngineFlags.KEEP_CURRENT
       })
@@ -52,9 +52,9 @@ contract AaveV2Polygon_OracleDeprecationForLongTailAssets_20260915 is AaveV2Payl
       asset: AaveV2PolygonAssets.GHST_UNDERLYING,
       params: IV2RateStrategyFactory.RateStrategyParams({
         optimalUtilizationRate: EngineFlags.KEEP_CURRENT,
-        baseVariableBorrowRate: _bpsToRay(20_00),
+        baseVariableBorrowRate: _bpsToRay(20_00), // 20% (2 decimals; converted to 27 decimals)
         variableRateSlope1: EngineFlags.KEEP_CURRENT,
-        variableRateSlope2: _bpsToRay(40_00),
+        variableRateSlope2: _bpsToRay(40_00), // 40% (2 decimals; converted to 27 decimals)
         stableRateSlope1: EngineFlags.KEEP_CURRENT,
         stableRateSlope2: EngineFlags.KEEP_CURRENT
       })

@@ -30,9 +30,9 @@ contract AaveV3Scroll_OracleDeprecationForLongTailAssets_20260915 is AaveV3Paylo
       asset: AaveV3ScrollAssets.SCR_UNDERLYING,
       params: IAaveV3ConfigEngine.InterestRateInputData({
         optimalUsageRatio: EngineFlags.KEEP_CURRENT,
-        baseVariableBorrowRate: 20_00,
-        variableRateSlope1: 7_00,
-        variableRateSlope2: 40_00
+        baseVariableBorrowRate: 20_00, // 20% (2 decimals)
+        variableRateSlope1: 7_00, // 7% (2 decimals)
+        variableRateSlope2: 40_00 // 40% (2 decimals)
       })
     });
 

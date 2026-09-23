@@ -44,18 +44,18 @@ contract AaveV3Avalanche_OracleDeprecationForLongTailAssets_20260915 is AaveV3Pa
       asset: AaveV3AvalancheAssets.FRAX_UNDERLYING,
       params: IAaveV3ConfigEngine.InterestRateInputData({
         optimalUsageRatio: EngineFlags.KEEP_CURRENT,
-        baseVariableBorrowRate: 20_00,
-        variableRateSlope1: 5_50,
-        variableRateSlope2: 40_00
+        baseVariableBorrowRate: 20_00, // 20% (2 decimals)
+        variableRateSlope1: 5_50, // 5.5% (2 decimals)
+        variableRateSlope2: 40_00 // 40% (2 decimals)
       })
     });
     rateStrategies[1] = IAaveV3ConfigEngine.RateStrategyUpdate({
       asset: AaveV3AvalancheAssets.MAI_UNDERLYING,
       params: IAaveV3ConfigEngine.InterestRateInputData({
         optimalUsageRatio: EngineFlags.KEEP_CURRENT,
-        baseVariableBorrowRate: 20_00,
-        variableRateSlope1: 9_00,
-        variableRateSlope2: 40_00
+        baseVariableBorrowRate: 20_00, // 20% (2 decimals)
+        variableRateSlope1: 9_00, // 9% (2 decimals)
+        variableRateSlope2: 40_00 // 40% (2 decimals)
       })
     });
 

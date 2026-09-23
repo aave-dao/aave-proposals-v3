@@ -108,13 +108,13 @@ contract AaveV3Arbitrum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
       asset: AaveV3ArbitrumAssets.LUSD_UNDERLYING,
       enabledToBorrow: EngineFlags.KEEP_CURRENT,
       flashloanable: EngineFlags.KEEP_CURRENT,
-      reserveFactor: 100_00
+      reserveFactor: 100_00 // 100% (2 decimals)
     });
     borrowUpdates[1] = IAaveV3ConfigEngine.BorrowUpdate({
       asset: AaveV3ArbitrumAssets.FRAX_UNDERLYING,
       enabledToBorrow: EngineFlags.KEEP_CURRENT,
       flashloanable: EngineFlags.KEEP_CURRENT,
-      reserveFactor: 100_00
+      reserveFactor: 100_00 // 100% (2 decimals)
     });
     return borrowUpdates;
   }

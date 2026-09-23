@@ -140,19 +140,19 @@ contract AaveV3Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
       asset: AaveV3EthereumAssets.LUSD_UNDERLYING,
       enabledToBorrow: EngineFlags.KEEP_CURRENT,
       flashloanable: EngineFlags.KEEP_CURRENT,
-      reserveFactor: 100_00
+      reserveFactor: 100_00 // 100% (2 decimals)
     });
     borrowUpdates[1] = IAaveV3ConfigEngine.BorrowUpdate({
       asset: AaveV3EthereumAssets.FRAX_UNDERLYING,
       enabledToBorrow: EngineFlags.KEEP_CURRENT,
       flashloanable: EngineFlags.KEEP_CURRENT,
-      reserveFactor: 100_00
+      reserveFactor: 100_00 // 100% (2 decimals)
     });
     borrowUpdates[2] = IAaveV3ConfigEngine.BorrowUpdate({
       asset: AaveV3EthereumAssets.RPL_UNDERLYING,
       enabledToBorrow: EngineFlags.KEEP_CURRENT,
       flashloanable: EngineFlags.KEEP_CURRENT,
-      reserveFactor: 100_00
+      reserveFactor: 100_00 // 100% (2 decimals)
     });
     return borrowUpdates;
   }

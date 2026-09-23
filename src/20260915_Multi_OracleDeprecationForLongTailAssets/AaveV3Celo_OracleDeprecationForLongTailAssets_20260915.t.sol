@@ -98,7 +98,7 @@ contract AaveV3Celo_OracleDeprecationForLongTailAssets_20260915_Test is Protocol
       asset: AaveV3CeloAssets.USDm_UNDERLYING,
       enabledToBorrow: EngineFlags.KEEP_CURRENT,
       flashloanable: EngineFlags.KEEP_CURRENT,
-      reserveFactor: 100_00
+      reserveFactor: 100_00 // 100% (2 decimals)
     });
     return borrowUpdates;
   }

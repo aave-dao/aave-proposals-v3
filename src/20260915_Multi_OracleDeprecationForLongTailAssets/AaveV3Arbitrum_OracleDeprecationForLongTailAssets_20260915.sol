@@ -48,13 +48,13 @@ contract AaveV3Arbitrum_OracleDeprecationForLongTailAssets_20260915 is AaveV3Pay
       asset: AaveV3ArbitrumAssets.LUSD_UNDERLYING,
       enabledToBorrow: EngineFlags.KEEP_CURRENT,
       flashloanable: EngineFlags.KEEP_CURRENT,
-      reserveFactor: 100_00
+      reserveFactor: 100_00 // 100% (2 decimals)
     });
     borrowUpdates[1] = IAaveV3ConfigEngine.BorrowUpdate({
       asset: AaveV3ArbitrumAssets.FRAX_UNDERLYING,
       enabledToBorrow: EngineFlags.KEEP_CURRENT,
       flashloanable: EngineFlags.KEEP_CURRENT,
-      reserveFactor: 100_00
+      reserveFactor: 100_00 // 100% (2 decimals)
     });
 
     return borrowUpdates;
@@ -72,27 +72,27 @@ contract AaveV3Arbitrum_OracleDeprecationForLongTailAssets_20260915 is AaveV3Pay
       asset: AaveV3ArbitrumAssets.FRAX_UNDERLYING,
       params: IAaveV3ConfigEngine.InterestRateInputData({
         optimalUsageRatio: EngineFlags.KEEP_CURRENT,
-        baseVariableBorrowRate: 5_00,
-        variableRateSlope1: 5_50,
-        variableRateSlope2: 100_00
+        baseVariableBorrowRate: 5_00, // 5% (2 decimals)
+        variableRateSlope1: 5_50, // 5.5% (2 decimals)
+        variableRateSlope2: 100_00 // 100% (2 decimals)
       })
     });
     rateStrategies[1] = IAaveV3ConfigEngine.RateStrategyUpdate({
       asset: AaveV3ArbitrumAssets.LUSD_UNDERLYING,
       params: IAaveV3ConfigEngine.InterestRateInputData({
         optimalUsageRatio: EngineFlags.KEEP_CURRENT,
-        baseVariableBorrowRate: 5_00,
-        variableRateSlope1: 6_50,
-        variableRateSlope2: 100_00
+        baseVariableBorrowRate: 5_00, // 5% (2 decimals)
+        variableRateSlope1: 6_50, // 6.5% (2 decimals)
+        variableRateSlope2: 100_00 // 100% (2 decimals)
       })
     });
     rateStrategies[2] = IAaveV3ConfigEngine.RateStrategyUpdate({
       asset: AaveV3ArbitrumAssets.MAI_UNDERLYING,
       params: IAaveV3ConfigEngine.InterestRateInputData({
         optimalUsageRatio: EngineFlags.KEEP_CURRENT,
-        baseVariableBorrowRate: 20_00,
-        variableRateSlope1: 9_00,
-        variableRateSlope2: 40_00
+        baseVariableBorrowRate: 20_00, // 20% (2 decimals)
+        variableRateSlope1: 9_00, // 9% (2 decimals)
+        variableRateSlope2: 40_00 // 40% (2 decimals)
       })
     });
 

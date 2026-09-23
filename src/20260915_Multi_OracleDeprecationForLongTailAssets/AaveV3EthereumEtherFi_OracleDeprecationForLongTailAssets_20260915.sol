@@ -46,9 +46,9 @@ contract AaveV3EthereumEtherFi_OracleDeprecationForLongTailAssets_20260915 is
       asset: AaveV3EthereumEtherFiAssets.FRAX_UNDERLYING,
       params: IAaveV3ConfigEngine.InterestRateInputData({
         optimalUsageRatio: EngineFlags.KEEP_CURRENT,
-        baseVariableBorrowRate: 20_00,
-        variableRateSlope1: 5_50,
-        variableRateSlope2: 40_00
+        baseVariableBorrowRate: 20_00, // 20% (2 decimals)
+        variableRateSlope1: 5_50, // 5.5% (2 decimals)
+        variableRateSlope2: 40_00 // 40% (2 decimals)
       })
     });
 
