@@ -21,9 +21,23 @@ import {GovV3Helpers} from 'aave-helpers/src/GovV3Helpers.sol';
 contract AaveV2Polygon_OracleDeprecationForLongTailAssets_20260915_Test is ProtocolV2TestBase {
   AaveV2Polygon_OracleDeprecationForLongTailAssets_20260915 internal proposal;
 
+  mapping(address => IDefaultInterestRateStrategy) internal _strategiesBefore;
+
   function setUp() public {
     vm.createSelectFork(vm.rpcUrl('polygon'), 94_244_629);
     proposal = new AaveV2Polygon_OracleDeprecationForLongTailAssets_20260915();
+    _strategiesBefore[AaveV2PolygonAssets.BAL_UNDERLYING] = IDefaultInterestRateStrategy(
+      AaveV2Polygon
+        .POOL
+        .getReserveData(AaveV2PolygonAssets.BAL_UNDERLYING)
+        .interestRateStrategyAddress
+    );
+    _strategiesBefore[AaveV2PolygonAssets.GHST_UNDERLYING] = IDefaultInterestRateStrategy(
+      AaveV2Polygon
+        .POOL
+        .getReserveData(AaveV2PolygonAssets.GHST_UNDERLYING)
+        .interestRateStrategyAddress
+    );
   }
 
   /**
@@ -46,9 +60,7 @@ contract AaveV2Polygon_OracleDeprecationForLongTailAssets_20260915_Test is Proto
         .POOL
         .getReserveData(AaveV2PolygonAssets.BAL_UNDERLYING)
         .interestRateStrategyAddress;
-      IDefaultInterestRateStrategy previous = IDefaultInterestRateStrategy(
-        0xA78F3bc07035422f6f69c3f2B72fcCd0487348FA
-      );
+      IDefaultInterestRateStrategy previous = _strategiesBefore[AaveV2PolygonAssets.BAL_UNDERLYING];
       _validateInterestRateStrategy(
         strategy,
         strategy,
@@ -70,9 +82,9 @@ contract AaveV2Polygon_OracleDeprecationForLongTailAssets_20260915_Test is Proto
         .POOL
         .getReserveData(AaveV2PolygonAssets.GHST_UNDERLYING)
         .interestRateStrategyAddress;
-      IDefaultInterestRateStrategy previous = IDefaultInterestRateStrategy(
-        0xfe72F0c532c4E7cfA65FCbd3B92D926d26Fb73a9
-      );
+      IDefaultInterestRateStrategy previous = _strategiesBefore[
+        AaveV2PolygonAssets.GHST_UNDERLYING
+      ];
       _validateInterestRateStrategy(
         strategy,
         strategy,

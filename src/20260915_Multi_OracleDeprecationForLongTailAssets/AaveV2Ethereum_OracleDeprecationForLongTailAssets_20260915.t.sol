@@ -21,9 +21,89 @@ import {GovV3Helpers} from 'aave-helpers/src/GovV3Helpers.sol';
 contract AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is ProtocolV2TestBase {
   AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915 internal proposal;
 
+  mapping(address => IDefaultInterestRateStrategy) internal _strategiesBefore;
+
   function setUp() public {
     vm.createSelectFork(vm.rpcUrl('mainnet'), 26_032_357);
     proposal = new AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915();
+    _strategiesBefore[AaveV2EthereumAssets.FRAX_UNDERLYING] = IDefaultInterestRateStrategy(
+      AaveV2Ethereum
+        .POOL
+        .getReserveData(AaveV2EthereumAssets.FRAX_UNDERLYING)
+        .interestRateStrategyAddress
+    );
+    _strategiesBefore[AaveV2EthereumAssets.LUSD_UNDERLYING] = IDefaultInterestRateStrategy(
+      AaveV2Ethereum
+        .POOL
+        .getReserveData(AaveV2EthereumAssets.LUSD_UNDERLYING)
+        .interestRateStrategyAddress
+    );
+    _strategiesBefore[AaveV2EthereumAssets.TUSD_UNDERLYING] = IDefaultInterestRateStrategy(
+      AaveV2Ethereum
+        .POOL
+        .getReserveData(AaveV2EthereumAssets.TUSD_UNDERLYING)
+        .interestRateStrategyAddress
+    );
+    _strategiesBefore[AaveV2EthereumAssets.USDP_UNDERLYING] = IDefaultInterestRateStrategy(
+      AaveV2Ethereum
+        .POOL
+        .getReserveData(AaveV2EthereumAssets.USDP_UNDERLYING)
+        .interestRateStrategyAddress
+    );
+    _strategiesBefore[AaveV2EthereumAssets.AMPL_UNDERLYING] = IDefaultInterestRateStrategy(
+      AaveV2Ethereum
+        .POOL
+        .getReserveData(AaveV2EthereumAssets.AMPL_UNDERLYING)
+        .interestRateStrategyAddress
+    );
+    _strategiesBefore[AaveV2EthereumAssets.RAI_UNDERLYING] = IDefaultInterestRateStrategy(
+      AaveV2Ethereum
+        .POOL
+        .getReserveData(AaveV2EthereumAssets.RAI_UNDERLYING)
+        .interestRateStrategyAddress
+    );
+    _strategiesBefore[AaveV2EthereumAssets.sUSD_UNDERLYING] = IDefaultInterestRateStrategy(
+      AaveV2Ethereum
+        .POOL
+        .getReserveData(AaveV2EthereumAssets.sUSD_UNDERLYING)
+        .interestRateStrategyAddress
+    );
+    _strategiesBefore[AaveV2EthereumAssets.YFI_UNDERLYING] = IDefaultInterestRateStrategy(
+      AaveV2Ethereum
+        .POOL
+        .getReserveData(AaveV2EthereumAssets.YFI_UNDERLYING)
+        .interestRateStrategyAddress
+    );
+    _strategiesBefore[AaveV2EthereumAssets.BAL_UNDERLYING] = IDefaultInterestRateStrategy(
+      AaveV2Ethereum
+        .POOL
+        .getReserveData(AaveV2EthereumAssets.BAL_UNDERLYING)
+        .interestRateStrategyAddress
+    );
+    _strategiesBefore[AaveV2EthereumAssets.ENJ_UNDERLYING] = IDefaultInterestRateStrategy(
+      AaveV2Ethereum
+        .POOL
+        .getReserveData(AaveV2EthereumAssets.ENJ_UNDERLYING)
+        .interestRateStrategyAddress
+    );
+    _strategiesBefore[AaveV2EthereumAssets.KNC_UNDERLYING] = IDefaultInterestRateStrategy(
+      AaveV2Ethereum
+        .POOL
+        .getReserveData(AaveV2EthereumAssets.KNC_UNDERLYING)
+        .interestRateStrategyAddress
+    );
+    _strategiesBefore[AaveV2EthereumAssets.REN_UNDERLYING] = IDefaultInterestRateStrategy(
+      AaveV2Ethereum
+        .POOL
+        .getReserveData(AaveV2EthereumAssets.REN_UNDERLYING)
+        .interestRateStrategyAddress
+    );
+    _strategiesBefore[AaveV2EthereumAssets.ZRX_UNDERLYING] = IDefaultInterestRateStrategy(
+      AaveV2Ethereum
+        .POOL
+        .getReserveData(AaveV2EthereumAssets.ZRX_UNDERLYING)
+        .interestRateStrategyAddress
+    );
   }
 
   /**
@@ -46,9 +126,9 @@ contract AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
         .POOL
         .getReserveData(AaveV2EthereumAssets.FRAX_UNDERLYING)
         .interestRateStrategyAddress;
-      IDefaultInterestRateStrategy previous = IDefaultInterestRateStrategy(
-        0x6855E5544Cd803BF24c9612b3F12C009116B0ee1
-      );
+      IDefaultInterestRateStrategy previous = _strategiesBefore[
+        AaveV2EthereumAssets.FRAX_UNDERLYING
+      ];
       _validateInterestRateStrategy(
         strategy,
         strategy,
@@ -68,9 +148,9 @@ contract AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
         .POOL
         .getReserveData(AaveV2EthereumAssets.LUSD_UNDERLYING)
         .interestRateStrategyAddress;
-      IDefaultInterestRateStrategy previous = IDefaultInterestRateStrategy(
-        0x7B3217A81D1ADe9B0666feA260228102E8105e99
-      );
+      IDefaultInterestRateStrategy previous = _strategiesBefore[
+        AaveV2EthereumAssets.LUSD_UNDERLYING
+      ];
       _validateInterestRateStrategy(
         strategy,
         strategy,
@@ -92,9 +172,9 @@ contract AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
         .POOL
         .getReserveData(AaveV2EthereumAssets.TUSD_UNDERLYING)
         .interestRateStrategyAddress;
-      IDefaultInterestRateStrategy previous = IDefaultInterestRateStrategy(
-        0x2821B41F1fA07c0270A3f0de91B24B9766F312FD
-      );
+      IDefaultInterestRateStrategy previous = _strategiesBefore[
+        AaveV2EthereumAssets.TUSD_UNDERLYING
+      ];
       _validateInterestRateStrategy(
         strategy,
         strategy,
@@ -116,9 +196,9 @@ contract AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
         .POOL
         .getReserveData(AaveV2EthereumAssets.USDP_UNDERLYING)
         .interestRateStrategyAddress;
-      IDefaultInterestRateStrategy previous = IDefaultInterestRateStrategy(
-        0x6855E5544Cd803BF24c9612b3F12C009116B0ee1
-      );
+      IDefaultInterestRateStrategy previous = _strategiesBefore[
+        AaveV2EthereumAssets.USDP_UNDERLYING
+      ];
       _validateInterestRateStrategy(
         strategy,
         strategy,
@@ -138,9 +218,9 @@ contract AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
         .POOL
         .getReserveData(AaveV2EthereumAssets.AMPL_UNDERLYING)
         .interestRateStrategyAddress;
-      IDefaultInterestRateStrategy previous = IDefaultInterestRateStrategy(
-        0x6855E5544Cd803BF24c9612b3F12C009116B0ee1
-      );
+      IDefaultInterestRateStrategy previous = _strategiesBefore[
+        AaveV2EthereumAssets.AMPL_UNDERLYING
+      ];
       _validateInterestRateStrategy(
         strategy,
         strategy,
@@ -160,9 +240,9 @@ contract AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
         .POOL
         .getReserveData(AaveV2EthereumAssets.RAI_UNDERLYING)
         .interestRateStrategyAddress;
-      IDefaultInterestRateStrategy previous = IDefaultInterestRateStrategy(
-        0x7B3217A81D1ADe9B0666feA260228102E8105e99
-      );
+      IDefaultInterestRateStrategy previous = _strategiesBefore[
+        AaveV2EthereumAssets.RAI_UNDERLYING
+      ];
       _validateInterestRateStrategy(
         strategy,
         strategy,
@@ -182,9 +262,9 @@ contract AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
         .POOL
         .getReserveData(AaveV2EthereumAssets.sUSD_UNDERLYING)
         .interestRateStrategyAddress;
-      IDefaultInterestRateStrategy previous = IDefaultInterestRateStrategy(
-        0x6855E5544Cd803BF24c9612b3F12C009116B0ee1
-      );
+      IDefaultInterestRateStrategy previous = _strategiesBefore[
+        AaveV2EthereumAssets.sUSD_UNDERLYING
+      ];
       _validateInterestRateStrategy(
         strategy,
         strategy,
@@ -204,9 +284,9 @@ contract AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
         .POOL
         .getReserveData(AaveV2EthereumAssets.YFI_UNDERLYING)
         .interestRateStrategyAddress;
-      IDefaultInterestRateStrategy previous = IDefaultInterestRateStrategy(
-        0x2c206fa2127aB7f1CE3dc987daf683Ed5B9CF069
-      );
+      IDefaultInterestRateStrategy previous = _strategiesBefore[
+        AaveV2EthereumAssets.YFI_UNDERLYING
+      ];
       _validateInterestRateStrategy(
         strategy,
         strategy,
@@ -226,9 +306,9 @@ contract AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
         .POOL
         .getReserveData(AaveV2EthereumAssets.BAL_UNDERLYING)
         .interestRateStrategyAddress;
-      IDefaultInterestRateStrategy previous = IDefaultInterestRateStrategy(
-        0x503eFA3651E247F9078C6F66bb93E2a81566EE00
-      );
+      IDefaultInterestRateStrategy previous = _strategiesBefore[
+        AaveV2EthereumAssets.BAL_UNDERLYING
+      ];
       _validateInterestRateStrategy(
         strategy,
         strategy,
@@ -250,9 +330,9 @@ contract AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
         .POOL
         .getReserveData(AaveV2EthereumAssets.ENJ_UNDERLYING)
         .interestRateStrategyAddress;
-      IDefaultInterestRateStrategy previous = IDefaultInterestRateStrategy(
-        0x2c206fa2127aB7f1CE3dc987daf683Ed5B9CF069
-      );
+      IDefaultInterestRateStrategy previous = _strategiesBefore[
+        AaveV2EthereumAssets.ENJ_UNDERLYING
+      ];
       _validateInterestRateStrategy(
         strategy,
         strategy,
@@ -274,9 +354,9 @@ contract AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
         .POOL
         .getReserveData(AaveV2EthereumAssets.KNC_UNDERLYING)
         .interestRateStrategyAddress;
-      IDefaultInterestRateStrategy previous = IDefaultInterestRateStrategy(
-        0x2c206fa2127aB7f1CE3dc987daf683Ed5B9CF069
-      );
+      IDefaultInterestRateStrategy previous = _strategiesBefore[
+        AaveV2EthereumAssets.KNC_UNDERLYING
+      ];
       _validateInterestRateStrategy(
         strategy,
         strategy,
@@ -298,9 +378,9 @@ contract AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
         .POOL
         .getReserveData(AaveV2EthereumAssets.REN_UNDERLYING)
         .interestRateStrategyAddress;
-      IDefaultInterestRateStrategy previous = IDefaultInterestRateStrategy(
-        0x2c206fa2127aB7f1CE3dc987daf683Ed5B9CF069
-      );
+      IDefaultInterestRateStrategy previous = _strategiesBefore[
+        AaveV2EthereumAssets.REN_UNDERLYING
+      ];
       _validateInterestRateStrategy(
         strategy,
         strategy,
@@ -322,9 +402,9 @@ contract AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
         .POOL
         .getReserveData(AaveV2EthereumAssets.ZRX_UNDERLYING)
         .interestRateStrategyAddress;
-      IDefaultInterestRateStrategy previous = IDefaultInterestRateStrategy(
-        0x91773a61759398d33C252F25A38DA77a51e0c9Ff
-      );
+      IDefaultInterestRateStrategy previous = _strategiesBefore[
+        AaveV2EthereumAssets.ZRX_UNDERLYING
+      ];
       _validateInterestRateStrategy(
         strategy,
         strategy,
