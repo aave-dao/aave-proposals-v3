@@ -1,0 +1,43 @@
+src/20260915_Multi_OracleDeprecationForLongTailAssets/AaveV3EthereumEtherFi_OracleDeprecationForLongTailAssets_20260915.sol
+  s_fcf886f510ff24::t_44a99b736ce853 49-51
+src/20260915_Multi_OracleDeprecationForLongTailAssets/AaveV3Scroll_OracleDeprecationForLongTailAssets_20260915.sol
+  s_fcf886f510ff24::t_44a99b736ce853 33-35
+src/20260915_Multi_OracleDeprecationForLongTailAssets/AaveV3Arbitrum_OracleDeprecationForLongTailAssets_20260915.sol
+  s_fcf886f510ff24::t_44a99b736ce853 51,57,75-77,84-86,93-95
+src/20260915_Multi_OracleDeprecationForLongTailAssets/AaveV3Ethereum_OracleDeprecationForLongTailAssets_20260915.t.sol
+  s_fcf886f510ff24::t_44a99b736ce853 143,149,155
+src/20260915_Multi_OracleDeprecationForLongTailAssets/AaveV2Polygon_OracleDeprecationForLongTailAssets_20260915.sol
+  s_fcf886f510ff24::t_44a99b736ce853 44,46,55,57
+src/20260915_Multi_OracleDeprecationForLongTailAssets/AaveV3Polygon_OracleDeprecationForLongTailAssets_20260915.sol
+  s_fcf886f510ff24::t_44a99b736ce853 50-52,59-61,68-70
+src/20260915_Multi_OracleDeprecationForLongTailAssets/AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915.sol
+  s_fcf886f510ff24::t_44a99b736ce853 88-90,99,101,110,112,121,123,132-134,143,145,154,156,165,167,176,178
+src/20260915_Multi_OracleDeprecationForLongTailAssets/AaveV3Avalanche_OracleDeprecationForLongTailAssets_20260915.sol
+  s_fcf886f510ff24::t_44a99b736ce853 47-49,56-58
+src/20260915_Multi_OracleDeprecationForLongTailAssets/AaveV3Celo_OracleDeprecationForLongTailAssets_20260915.sol
+  s_fcf886f510ff24::t_44a99b736ce853 46,64-66
+src/20260915_Multi_OracleDeprecationForLongTailAssets/AaveV3Ethereum_OracleDeprecationForLongTailAssets_20260915.sol
+  s_fcf886f510ff24::t_44a99b736ce853 73,79,85,103-105,112-114,121-123,130-132,139-141,148-150,157-159
+src/20260915_Multi_OracleDeprecationForLongTailAssets/AaveV3Optimism_OracleDeprecationForLongTailAssets_20260915.sol
+  s_fcf886f510ff24::t_44a99b736ce853 50-52,59-61,68-70
+src/20260915_Multi_OracleDeprecationForLongTailAssets/AaveV3Celo_OracleDeprecationForLongTailAssets_20260915.t.sol
+  s_fcf886f510ff24::t_44a99b736ce853 101
+src/20260915_Multi_OracleDeprecationForLongTailAssets/AaveV3Arbitrum_OracleDeprecationForLongTailAssets_20260915.t.sol
+  s_fcf886f510ff24::t_44a99b736ce853 111,117
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "21dd57e79582784517bb6b53e0940edab60b8405",
+  "prompts": {},
+  "sessions": {
+    "s_fcf886f510ff24": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a0a4ab-17d1-7d12-b10d-c9adf50c142b",
+        "model": "gpt-6-astra"
+      },
+      "human_author": "AlbertoCentonze <11707683+AlbertoCentonze@users.noreply.github.com>"
+    }
+  }
+}
