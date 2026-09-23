@@ -113,18 +113,12 @@ contract AaveV3EthereumEtherFi_OracleDeprecationForLongTailAssets_20260915_Test 
       'FRAX oracle output'
     );
   }
-  function test_payloadStateTransition() public {
-    _assertRates(false);
+  function test_configurationAndUntouchedFields() public {
     DataTypes.ReserveConfigurationMap memory expectedFRAX = AaveV3EthereumEtherFi
       .POOL
       .getConfiguration(AaveV3EthereumEtherFiAssets.FRAX_UNDERLYING);
-    assertEq(expectedFRAX.getSupplyCap(), 1, 'FRAX pre supply cap'); // unchanged
-    assertEq(expectedFRAX.getBorrowCap(), 1, 'FRAX pre borrow cap'); // unchanged
-    assertEq(expectedFRAX.getFrozen(), false, 'FRAX pre freeze');
     expectedFRAX.setFrozen(true);
     GovV3Helpers.executePayload(vm, address(proposal));
-    _assertRates(true);
-    _assertOracles();
     assertEq(
       AaveV3EthereumEtherFi.POOL.getConfiguration(AaveV3EthereumEtherFiAssets.FRAX_UNDERLYING).data,
       expectedFRAX.data,

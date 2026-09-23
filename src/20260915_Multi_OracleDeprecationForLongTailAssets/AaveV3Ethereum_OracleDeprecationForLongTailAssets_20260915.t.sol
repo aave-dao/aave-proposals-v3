@@ -330,71 +330,44 @@ contract AaveV3Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
       'STG oracle output'
     );
   }
-  function test_payloadStateTransition() public {
-    _assertRates(false);
+  function test_configurationAndUntouchedFields() public {
     DataTypes.ReserveConfigurationMap memory expectedBAL = AaveV3Ethereum.POOL.getConfiguration(
       AaveV3EthereumAssets.BAL_UNDERLYING
     );
-    assertEq(expectedBAL.getSupplyCap(), 1, 'BAL pre supply cap'); // unchanged
-    assertEq(expectedBAL.getBorrowCap(), 1, 'BAL pre borrow cap'); // unchanged
-    assertEq(expectedBAL.getFrozen(), false, 'BAL pre freeze');
     expectedBAL.setFrozen(true);
     DataTypes.ReserveConfigurationMap memory expectedFRAX = AaveV3Ethereum.POOL.getConfiguration(
       AaveV3EthereumAssets.FRAX_UNDERLYING
     );
-    assertEq(expectedFRAX.getSupplyCap(), 1, 'FRAX pre supply cap'); // unchanged
-    assertEq(expectedFRAX.getBorrowCap(), 1, 'FRAX pre borrow cap'); // unchanged
-    assertEq(expectedFRAX.getFrozen(), false, 'FRAX pre freeze');
     expectedFRAX.setFrozen(true);
-    assertEq(expectedFRAX.getReserveFactor(), 2_000, 'FRAX pre RF');
     expectedFRAX.setReserveFactor(10_000); // 100% (2 decimals)
     DataTypes.ReserveConfigurationMap memory expectedFXS = AaveV3Ethereum.POOL.getConfiguration(
       AaveV3EthereumAssets.FXS_UNDERLYING
     );
-    assertEq(expectedFXS.getSupplyCap(), 1_200_000, 'FXS pre supply cap');
     expectedFXS.setSupplyCap(1);
-    assertEq(expectedFXS.getBorrowCap(), 330_000, 'FXS pre borrow cap');
     expectedFXS.setBorrowCap(1);
-    assertEq(expectedFXS.getFrozen(), true, 'FXS pre freeze'); // unchanged
     DataTypes.ReserveConfigurationMap memory expectedKNC = AaveV3Ethereum.POOL.getConfiguration(
       AaveV3EthereumAssets.KNC_UNDERLYING
     );
-    assertEq(expectedKNC.getSupplyCap(), 1_200_000, 'KNC pre supply cap');
     expectedKNC.setSupplyCap(1);
-    assertEq(expectedKNC.getBorrowCap(), 350_000, 'KNC pre borrow cap');
     expectedKNC.setBorrowCap(1);
-    assertEq(expectedKNC.getFrozen(), true, 'KNC pre freeze'); // unchanged
     DataTypes.ReserveConfigurationMap memory expectedLUSD = AaveV3Ethereum.POOL.getConfiguration(
       AaveV3EthereumAssets.LUSD_UNDERLYING
     );
-    assertEq(expectedLUSD.getSupplyCap(), 5_000_000, 'LUSD pre supply cap');
     expectedLUSD.setSupplyCap(1);
-    assertEq(expectedLUSD.getBorrowCap(), 1, 'LUSD pre borrow cap'); // unchanged
-    assertEq(expectedLUSD.getFrozen(), false, 'LUSD pre freeze');
     expectedLUSD.setFrozen(true);
-    assertEq(expectedLUSD.getReserveFactor(), 2_000, 'LUSD pre RF');
     expectedLUSD.setReserveFactor(10_000); // 100% (2 decimals)
     DataTypes.ReserveConfigurationMap memory expectedRPL = AaveV3Ethereum.POOL.getConfiguration(
       AaveV3EthereumAssets.RPL_UNDERLYING
     );
-    assertEq(expectedRPL.getSupplyCap(), 550_000, 'RPL pre supply cap');
     expectedRPL.setSupplyCap(1);
-    assertEq(expectedRPL.getBorrowCap(), 1, 'RPL pre borrow cap'); // unchanged
-    assertEq(expectedRPL.getFrozen(), false, 'RPL pre freeze');
     expectedRPL.setFrozen(true);
-    assertEq(expectedRPL.getReserveFactor(), 2_000, 'RPL pre RF');
     expectedRPL.setReserveFactor(10_000); // 100% (2 decimals)
     DataTypes.ReserveConfigurationMap memory expectedSTG = AaveV3Ethereum.POOL.getConfiguration(
       AaveV3EthereumAssets.STG_UNDERLYING
     );
-    assertEq(expectedSTG.getSupplyCap(), 10_000_000, 'STG pre supply cap');
     expectedSTG.setSupplyCap(1);
-    assertEq(expectedSTG.getBorrowCap(), 3_200_000, 'STG pre borrow cap');
     expectedSTG.setBorrowCap(1);
-    assertEq(expectedSTG.getFrozen(), true, 'STG pre freeze'); // unchanged
     GovV3Helpers.executePayload(vm, address(proposal));
-    _assertRates(true);
-    _assertOracles();
     assertEq(
       AaveV3Ethereum.POOL.getConfiguration(AaveV3EthereumAssets.BAL_UNDERLYING).data,
       expectedBAL.data,

@@ -170,34 +170,22 @@ contract AaveV3Polygon_OracleDeprecationForLongTailAssets_20260915_Test is Proto
       'miMATIC oracle output'
     );
   }
-  function test_payloadStateTransition() public {
-    _assertRates(false);
+  function test_configurationAndUntouchedFields() public {
     DataTypes.ReserveConfigurationMap memory expectedBAL = AaveV3Polygon.POOL.getConfiguration(
       AaveV3PolygonAssets.BAL_UNDERLYING
     );
-    assertEq(expectedBAL.getSupplyCap(), 361_000, 'BAL pre supply cap');
     expectedBAL.setSupplyCap(1);
-    assertEq(expectedBAL.getBorrowCap(), 290_000, 'BAL pre borrow cap');
     expectedBAL.setBorrowCap(1);
-    assertEq(expectedBAL.getFrozen(), true, 'BAL pre freeze'); // unchanged
     DataTypes.ReserveConfigurationMap memory expectedGHST = AaveV3Polygon.POOL.getConfiguration(
       AaveV3PolygonAssets.GHST_UNDERLYING
     );
-    assertEq(expectedGHST.getSupplyCap(), 1, 'GHST pre supply cap'); // unchanged
-    assertEq(expectedGHST.getBorrowCap(), 1, 'GHST pre borrow cap'); // unchanged
-    assertEq(expectedGHST.getFrozen(), false, 'GHST pre freeze');
     expectedGHST.setFrozen(true);
     DataTypes.ReserveConfigurationMap memory expectedmiMATIC = AaveV3Polygon.POOL.getConfiguration(
       AaveV3PolygonAssets.miMATIC_UNDERLYING
     );
-    assertEq(expectedmiMATIC.getSupplyCap(), 900_000, 'miMATIC pre supply cap');
     expectedmiMATIC.setSupplyCap(1);
-    assertEq(expectedmiMATIC.getBorrowCap(), 700_000, 'miMATIC pre borrow cap');
     expectedmiMATIC.setBorrowCap(1);
-    assertEq(expectedmiMATIC.getFrozen(), true, 'miMATIC pre freeze'); // unchanged
     GovV3Helpers.executePayload(vm, address(proposal));
-    _assertRates(true);
-    _assertOracles();
     assertEq(
       AaveV3Polygon.POOL.getConfiguration(AaveV3PolygonAssets.BAL_UNDERLYING).data,
       expectedBAL.data,

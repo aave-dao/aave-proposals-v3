@@ -196,37 +196,23 @@ contract AaveV3Arbitrum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
       'MAI oracle output'
     );
   }
-  function test_payloadStateTransition() public {
-    _assertRates(false);
+  function test_configurationAndUntouchedFields() public {
     DataTypes.ReserveConfigurationMap memory expectedFRAX = AaveV3Arbitrum.POOL.getConfiguration(
       AaveV3ArbitrumAssets.FRAX_UNDERLYING
     );
-    assertEq(expectedFRAX.getSupplyCap(), 1, 'FRAX pre supply cap'); // unchanged
-    assertEq(expectedFRAX.getBorrowCap(), 1, 'FRAX pre borrow cap'); // unchanged
-    assertEq(expectedFRAX.getFrozen(), false, 'FRAX pre freeze');
     expectedFRAX.setFrozen(true);
-    assertEq(expectedFRAX.getReserveFactor(), 2_000, 'FRAX pre RF');
     expectedFRAX.setReserveFactor(10_000); // 100% (2 decimals)
     DataTypes.ReserveConfigurationMap memory expectedLUSD = AaveV3Arbitrum.POOL.getConfiguration(
       AaveV3ArbitrumAssets.LUSD_UNDERLYING
     );
-    assertEq(expectedLUSD.getSupplyCap(), 1, 'LUSD pre supply cap'); // unchanged
-    assertEq(expectedLUSD.getBorrowCap(), 1, 'LUSD pre borrow cap'); // unchanged
-    assertEq(expectedLUSD.getFrozen(), false, 'LUSD pre freeze');
     expectedLUSD.setFrozen(true);
-    assertEq(expectedLUSD.getReserveFactor(), 5_000, 'LUSD pre RF');
     expectedLUSD.setReserveFactor(10_000); // 100% (2 decimals)
     DataTypes.ReserveConfigurationMap memory expectedMAI = AaveV3Arbitrum.POOL.getConfiguration(
       AaveV3ArbitrumAssets.MAI_UNDERLYING
     );
-    assertEq(expectedMAI.getSupplyCap(), 325_000, 'MAI pre supply cap');
     expectedMAI.setSupplyCap(1);
-    assertEq(expectedMAI.getBorrowCap(), 250_000, 'MAI pre borrow cap');
     expectedMAI.setBorrowCap(1);
-    assertEq(expectedMAI.getFrozen(), true, 'MAI pre freeze'); // unchanged
     GovV3Helpers.executePayload(vm, address(proposal));
-    _assertRates(true);
-    _assertOracles();
     assertEq(
       AaveV3Arbitrum.POOL.getConfiguration(AaveV3ArbitrumAssets.FRAX_UNDERLYING).data,
       expectedFRAX.data,

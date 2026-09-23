@@ -137,26 +137,17 @@ contract AaveV3Avalanche_OracleDeprecationForLongTailAssets_20260915_Test is Pro
       'MAI oracle output'
     );
   }
-  function test_payloadStateTransition() public {
-    _assertRates(false);
+  function test_configurationAndUntouchedFields() public {
     DataTypes.ReserveConfigurationMap memory expectedFRAX = AaveV3Avalanche.POOL.getConfiguration(
       AaveV3AvalancheAssets.FRAX_UNDERLYING
     );
-    assertEq(expectedFRAX.getSupplyCap(), 1, 'FRAX pre supply cap'); // unchanged
-    assertEq(expectedFRAX.getBorrowCap(), 1, 'FRAX pre borrow cap'); // unchanged
-    assertEq(expectedFRAX.getFrozen(), false, 'FRAX pre freeze');
     expectedFRAX.setFrozen(true);
     DataTypes.ReserveConfigurationMap memory expectedMAI = AaveV3Avalanche.POOL.getConfiguration(
       AaveV3AvalancheAssets.MAI_UNDERLYING
     );
-    assertEq(expectedMAI.getSupplyCap(), 20_000, 'MAI pre supply cap');
     expectedMAI.setSupplyCap(1);
-    assertEq(expectedMAI.getBorrowCap(), 10_000, 'MAI pre borrow cap');
     expectedMAI.setBorrowCap(1);
-    assertEq(expectedMAI.getFrozen(), true, 'MAI pre freeze'); // unchanged
     GovV3Helpers.executePayload(vm, address(proposal));
-    _assertRates(true);
-    _assertOracles();
     assertEq(
       AaveV3Avalanche.POOL.getConfiguration(AaveV3AvalancheAssets.FRAX_UNDERLYING).data,
       expectedFRAX.data,

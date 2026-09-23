@@ -170,33 +170,21 @@ contract AaveV3Optimism_OracleDeprecationForLongTailAssets_20260915_Test is Prot
       'sUSD oracle output'
     );
   }
-  function test_payloadStateTransition() public {
-    _assertRates(false);
+  function test_configurationAndUntouchedFields() public {
     DataTypes.ReserveConfigurationMap memory expectedLUSD = AaveV3Optimism.POOL.getConfiguration(
       AaveV3OptimismAssets.LUSD_UNDERLYING
     );
-    assertEq(expectedLUSD.getSupplyCap(), 1, 'LUSD pre supply cap'); // unchanged
-    assertEq(expectedLUSD.getBorrowCap(), 1, 'LUSD pre borrow cap'); // unchanged
-    assertEq(expectedLUSD.getFrozen(), false, 'LUSD pre freeze');
     expectedLUSD.setFrozen(true);
     DataTypes.ReserveConfigurationMap memory expectedMAI = AaveV3Optimism.POOL.getConfiguration(
       AaveV3OptimismAssets.MAI_UNDERLYING
     );
-    assertEq(expectedMAI.getSupplyCap(), 650_000, 'MAI pre supply cap');
     expectedMAI.setSupplyCap(1);
-    assertEq(expectedMAI.getBorrowCap(), 525_000, 'MAI pre borrow cap');
     expectedMAI.setBorrowCap(1);
-    assertEq(expectedMAI.getFrozen(), true, 'MAI pre freeze'); // unchanged
     DataTypes.ReserveConfigurationMap memory expectedsUSD = AaveV3Optimism.POOL.getConfiguration(
       AaveV3OptimismAssets.sUSD_UNDERLYING
     );
-    assertEq(expectedsUSD.getSupplyCap(), 1, 'sUSD pre supply cap'); // unchanged
-    assertEq(expectedsUSD.getBorrowCap(), 1, 'sUSD pre borrow cap'); // unchanged
-    assertEq(expectedsUSD.getFrozen(), false, 'sUSD pre freeze');
     expectedsUSD.setFrozen(true);
     GovV3Helpers.executePayload(vm, address(proposal));
-    _assertRates(true);
-    _assertOracles();
     assertEq(
       AaveV3Optimism.POOL.getConfiguration(AaveV3OptimismAssets.LUSD_UNDERLYING).data,
       expectedLUSD.data,

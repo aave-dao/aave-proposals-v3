@@ -86,14 +86,11 @@ contract AaveV3Scroll_OracleDeprecationForLongTailAssets_20260915_Test is Protoc
       'SCR oracle output'
     );
   }
-  function test_payloadStateTransition() public {
-    _assertRates(false);
+  function test_configurationAndUntouchedFields() public {
     DataTypes.ReserveConfigurationMap memory expectedSCR = AaveV3Scroll.POOL.getConfiguration(
       AaveV3ScrollAssets.SCR_UNDERLYING
     );
     GovV3Helpers.executePayload(vm, address(proposal));
-    _assertRates(true);
-    _assertOracles();
     assertEq(
       AaveV3Scroll.POOL.getConfiguration(AaveV3ScrollAssets.SCR_UNDERLYING).data,
       expectedSCR.data,

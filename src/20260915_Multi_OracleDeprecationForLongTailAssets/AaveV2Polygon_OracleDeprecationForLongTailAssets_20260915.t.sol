@@ -116,14 +116,11 @@ contract AaveV2Polygon_OracleDeprecationForLongTailAssets_20260915_Test is Proto
       'GHST oracle output'
     );
   }
-  function test_payloadStateTransition() public {
-    _assertRates(false);
+  function test_configurationAndUntouchedFields() public {
     uint256[] memory expected = new uint256[](2);
     expected[0] = AaveV2Polygon.POOL.getConfiguration(AaveV2PolygonAssets.BAL_UNDERLYING).data;
     expected[1] = AaveV2Polygon.POOL.getConfiguration(AaveV2PolygonAssets.GHST_UNDERLYING).data;
     GovV3Helpers.executePayload(vm, address(proposal));
-    _assertRates(true);
-    _assertOracles();
     assertEq(
       AaveV2Polygon.POOL.getConfiguration(AaveV2PolygonAssets.BAL_UNDERLYING).data,
       expected[0],

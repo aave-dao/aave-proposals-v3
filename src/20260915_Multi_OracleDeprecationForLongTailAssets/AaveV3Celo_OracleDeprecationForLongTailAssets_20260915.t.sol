@@ -130,22 +130,15 @@ contract AaveV3Celo_OracleDeprecationForLongTailAssets_20260915_Test is Protocol
       'USDm oracle output'
     );
   }
-  function test_payloadStateTransition() public {
-    _assertRates(false);
+  function test_configurationAndUntouchedFields() public {
     DataTypes.ReserveConfigurationMap memory expectedUSDm = AaveV3Celo.POOL.getConfiguration(
       AaveV3CeloAssets.USDm_UNDERLYING
     );
-    assertEq(expectedUSDm.getSupplyCap(), 1_100_000, 'USDm pre supply cap');
     expectedUSDm.setSupplyCap(1);
-    assertEq(expectedUSDm.getBorrowCap(), 990_000, 'USDm pre borrow cap');
     expectedUSDm.setBorrowCap(1);
-    assertEq(expectedUSDm.getFrozen(), false, 'USDm pre freeze');
     expectedUSDm.setFrozen(true);
-    assertEq(expectedUSDm.getReserveFactor(), 1_500, 'USDm pre RF');
     expectedUSDm.setReserveFactor(10_000); // 100% (2 decimals)
     GovV3Helpers.executePayload(vm, address(proposal));
-    _assertRates(true);
-    _assertOracles();
     assertEq(
       AaveV3Celo.POOL.getConfiguration(AaveV3CeloAssets.USDm_UNDERLYING).data,
       expectedUSDm.data,

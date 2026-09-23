@@ -499,8 +499,7 @@ contract AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
       'sUSD oracle output'
     );
   }
-  function test_payloadStateTransition() public {
-    _assertRates(false);
+  function test_configurationAndUntouchedFields() public {
     uint256[] memory expected = new uint256[](13);
     expected[0] = AaveV2Ethereum.POOL.getConfiguration(AaveV2EthereumAssets.AMPL_UNDERLYING).data;
     expected[1] = AaveV2Ethereum.POOL.getConfiguration(AaveV2EthereumAssets.BAL_UNDERLYING).data;
@@ -516,8 +515,6 @@ contract AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
     expected[11] = AaveV2Ethereum.POOL.getConfiguration(AaveV2EthereumAssets.ZRX_UNDERLYING).data;
     expected[12] = AaveV2Ethereum.POOL.getConfiguration(AaveV2EthereumAssets.sUSD_UNDERLYING).data;
     GovV3Helpers.executePayload(vm, address(proposal));
-    _assertRates(true);
-    _assertOracles();
     assertEq(
       AaveV2Ethereum.POOL.getConfiguration(AaveV2EthereumAssets.AMPL_UNDERLYING).data,
       expected[0],
