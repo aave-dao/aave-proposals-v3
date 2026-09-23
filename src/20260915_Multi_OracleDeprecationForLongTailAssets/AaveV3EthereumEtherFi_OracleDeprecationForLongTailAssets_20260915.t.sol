@@ -21,12 +21,13 @@ contract AaveV3EthereumEtherFi_OracleDeprecationForLongTailAssets_20260915_Test 
 
   mapping(address => IDefaultInterestRateStrategyV2.InterestRateDataRay) internal _ratesBefore;
 
+  address internal _strategyBefore;
+
   function setUp() public {
     vm.createSelectFork(vm.rpcUrl('mainnet'), 26_032_357);
     proposal = new AaveV3EthereumEtherFi_OracleDeprecationForLongTailAssets_20260915();
-    IDefaultInterestRateStrategyV2 strategy = IDefaultInterestRateStrategyV2(
-      AaveV3EthereumEtherFi.POOL.RESERVE_INTEREST_RATE_STRATEGY()
-    );
+    _strategyBefore = AaveV3EthereumEtherFi.POOL.RESERVE_INTEREST_RATE_STRATEGY();
+    IDefaultInterestRateStrategyV2 strategy = IDefaultInterestRateStrategyV2(_strategyBefore);
     _ratesBefore[AaveV3EthereumEtherFiAssets.FRAX_UNDERLYING] = strategy.getInterestRateData(
       AaveV3EthereumEtherFiAssets.FRAX_UNDERLYING
     );
@@ -81,7 +82,7 @@ contract AaveV3EthereumEtherFi_OracleDeprecationForLongTailAssets_20260915_Test 
     _validateInterestRateStrategy(
       AaveV3EthereumEtherFiAssets.FRAX_UNDERLYING,
       AaveV3EthereumEtherFi.POOL.RESERVE_INTEREST_RATE_STRATEGY(),
-      AaveV3EthereumEtherFi.POOL.RESERVE_INTEREST_RATE_STRATEGY(),
+      _strategyBefore,
       IDefaultInterestRateStrategyV2.InterestRateDataRay({
         optimalUsageRatio: _ratesBefore[AaveV3EthereumEtherFiAssets.FRAX_UNDERLYING]
           .optimalUsageRatio,

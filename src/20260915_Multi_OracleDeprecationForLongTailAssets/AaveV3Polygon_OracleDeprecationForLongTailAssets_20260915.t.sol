@@ -19,12 +19,13 @@ contract AaveV3Polygon_OracleDeprecationForLongTailAssets_20260915_Test is Proto
 
   mapping(address => IDefaultInterestRateStrategyV2.InterestRateDataRay) internal _ratesBefore;
 
+  address internal _strategyBefore;
+
   function setUp() public {
     vm.createSelectFork(vm.rpcUrl('polygon'), 94_244_629);
     proposal = new AaveV3Polygon_OracleDeprecationForLongTailAssets_20260915();
-    IDefaultInterestRateStrategyV2 strategy = IDefaultInterestRateStrategyV2(
-      AaveV3Polygon.POOL.RESERVE_INTEREST_RATE_STRATEGY()
-    );
+    _strategyBefore = AaveV3Polygon.POOL.RESERVE_INTEREST_RATE_STRATEGY();
+    IDefaultInterestRateStrategyV2 strategy = IDefaultInterestRateStrategyV2(_strategyBefore);
     _ratesBefore[AaveV3PolygonAssets.BAL_UNDERLYING] = strategy.getInterestRateData(
       AaveV3PolygonAssets.BAL_UNDERLYING
     );
@@ -89,7 +90,7 @@ contract AaveV3Polygon_OracleDeprecationForLongTailAssets_20260915_Test is Proto
     _validateInterestRateStrategy(
       AaveV3PolygonAssets.BAL_UNDERLYING,
       AaveV3Polygon.POOL.RESERVE_INTEREST_RATE_STRATEGY(),
-      AaveV3Polygon.POOL.RESERVE_INTEREST_RATE_STRATEGY(),
+      _strategyBefore,
       IDefaultInterestRateStrategyV2.InterestRateDataRay({
         optimalUsageRatio: _ratesBefore[AaveV3PolygonAssets.BAL_UNDERLYING].optimalUsageRatio,
         baseVariableBorrowRate: afterExecution
@@ -104,7 +105,7 @@ contract AaveV3Polygon_OracleDeprecationForLongTailAssets_20260915_Test is Proto
     _validateInterestRateStrategy(
       AaveV3PolygonAssets.GHST_UNDERLYING,
       AaveV3Polygon.POOL.RESERVE_INTEREST_RATE_STRATEGY(),
-      AaveV3Polygon.POOL.RESERVE_INTEREST_RATE_STRATEGY(),
+      _strategyBefore,
       IDefaultInterestRateStrategyV2.InterestRateDataRay({
         optimalUsageRatio: _ratesBefore[AaveV3PolygonAssets.GHST_UNDERLYING].optimalUsageRatio,
         baseVariableBorrowRate: afterExecution ? 200_000_000_000_000_000_000_000_000 : 0, // 0% -> 20% (27 decimals)
@@ -117,7 +118,7 @@ contract AaveV3Polygon_OracleDeprecationForLongTailAssets_20260915_Test is Proto
     _validateInterestRateStrategy(
       AaveV3PolygonAssets.miMATIC_UNDERLYING,
       AaveV3Polygon.POOL.RESERVE_INTEREST_RATE_STRATEGY(),
-      AaveV3Polygon.POOL.RESERVE_INTEREST_RATE_STRATEGY(),
+      _strategyBefore,
       IDefaultInterestRateStrategyV2.InterestRateDataRay({
         optimalUsageRatio: _ratesBefore[AaveV3PolygonAssets.miMATIC_UNDERLYING].optimalUsageRatio,
         baseVariableBorrowRate: afterExecution ? 200_000_000_000_000_000_000_000_000 : 0, // 0% -> 20% (27 decimals)

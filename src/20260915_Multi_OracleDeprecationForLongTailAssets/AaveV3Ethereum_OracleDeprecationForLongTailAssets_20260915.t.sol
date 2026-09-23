@@ -20,12 +20,13 @@ contract AaveV3Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
 
   mapping(address => IDefaultInterestRateStrategyV2.InterestRateDataRay) internal _ratesBefore;
 
+  address internal _strategyBefore;
+
   function setUp() public {
     vm.createSelectFork(vm.rpcUrl('mainnet'), 26_032_357);
     proposal = new AaveV3Ethereum_OracleDeprecationForLongTailAssets_20260915();
-    IDefaultInterestRateStrategyV2 strategy = IDefaultInterestRateStrategyV2(
-      AaveV3Ethereum.POOL.RESERVE_INTEREST_RATE_STRATEGY()
-    );
+    _strategyBefore = AaveV3Ethereum.POOL.RESERVE_INTEREST_RATE_STRATEGY();
+    IDefaultInterestRateStrategyV2 strategy = IDefaultInterestRateStrategyV2(_strategyBefore);
     _ratesBefore[AaveV3EthereumAssets.BAL_UNDERLYING] = strategy.getInterestRateData(
       AaveV3EthereumAssets.BAL_UNDERLYING
     );
@@ -153,7 +154,7 @@ contract AaveV3Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
     _validateInterestRateStrategy(
       AaveV3EthereumAssets.BAL_UNDERLYING,
       AaveV3Ethereum.POOL.RESERVE_INTEREST_RATE_STRATEGY(),
-      AaveV3Ethereum.POOL.RESERVE_INTEREST_RATE_STRATEGY(),
+      _strategyBefore,
       IDefaultInterestRateStrategyV2.InterestRateDataRay({
         optimalUsageRatio: _ratesBefore[AaveV3EthereumAssets.BAL_UNDERLYING].optimalUsageRatio,
         baseVariableBorrowRate: afterExecution
@@ -168,7 +169,7 @@ contract AaveV3Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
     _validateInterestRateStrategy(
       AaveV3EthereumAssets.FRAX_UNDERLYING,
       AaveV3Ethereum.POOL.RESERVE_INTEREST_RATE_STRATEGY(),
-      AaveV3Ethereum.POOL.RESERVE_INTEREST_RATE_STRATEGY(),
+      _strategyBefore,
       IDefaultInterestRateStrategyV2.InterestRateDataRay({
         optimalUsageRatio: _ratesBefore[AaveV3EthereumAssets.FRAX_UNDERLYING].optimalUsageRatio,
         baseVariableBorrowRate: afterExecution ? 50_000_000_000_000_000_000_000_000 : 0, // 0% -> 5% (27 decimals)
@@ -181,7 +182,7 @@ contract AaveV3Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
     _validateInterestRateStrategy(
       AaveV3EthereumAssets.FXS_UNDERLYING,
       AaveV3Ethereum.POOL.RESERVE_INTEREST_RATE_STRATEGY(),
-      AaveV3Ethereum.POOL.RESERVE_INTEREST_RATE_STRATEGY(),
+      _strategyBefore,
       IDefaultInterestRateStrategyV2.InterestRateDataRay({
         optimalUsageRatio: _ratesBefore[AaveV3EthereumAssets.FXS_UNDERLYING].optimalUsageRatio,
         baseVariableBorrowRate: afterExecution ? 200_000_000_000_000_000_000_000_000 : 0, // 0% -> 20% (27 decimals)
@@ -194,7 +195,7 @@ contract AaveV3Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
     _validateInterestRateStrategy(
       AaveV3EthereumAssets.KNC_UNDERLYING,
       AaveV3Ethereum.POOL.RESERVE_INTEREST_RATE_STRATEGY(),
-      AaveV3Ethereum.POOL.RESERVE_INTEREST_RATE_STRATEGY(),
+      _strategyBefore,
       IDefaultInterestRateStrategyV2.InterestRateDataRay({
         optimalUsageRatio: _ratesBefore[AaveV3EthereumAssets.KNC_UNDERLYING].optimalUsageRatio,
         baseVariableBorrowRate: afterExecution ? 200_000_000_000_000_000_000_000_000 : 0, // 0% -> 20% (27 decimals)
@@ -207,7 +208,7 @@ contract AaveV3Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
     _validateInterestRateStrategy(
       AaveV3EthereumAssets.LUSD_UNDERLYING,
       AaveV3Ethereum.POOL.RESERVE_INTEREST_RATE_STRATEGY(),
-      AaveV3Ethereum.POOL.RESERVE_INTEREST_RATE_STRATEGY(),
+      _strategyBefore,
       IDefaultInterestRateStrategyV2.InterestRateDataRay({
         optimalUsageRatio: _ratesBefore[AaveV3EthereumAssets.LUSD_UNDERLYING].optimalUsageRatio,
         baseVariableBorrowRate: afterExecution ? 50_000_000_000_000_000_000_000_000 : 0, // 0% -> 5% (27 decimals)
@@ -220,7 +221,7 @@ contract AaveV3Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
     _validateInterestRateStrategy(
       AaveV3EthereumAssets.RPL_UNDERLYING,
       AaveV3Ethereum.POOL.RESERVE_INTEREST_RATE_STRATEGY(),
-      AaveV3Ethereum.POOL.RESERVE_INTEREST_RATE_STRATEGY(),
+      _strategyBefore,
       IDefaultInterestRateStrategyV2.InterestRateDataRay({
         optimalUsageRatio: _ratesBefore[AaveV3EthereumAssets.RPL_UNDERLYING].optimalUsageRatio,
         baseVariableBorrowRate: afterExecution ? 50_000_000_000_000_000_000_000_000 : 0, // 0% -> 5% (27 decimals)
@@ -233,7 +234,7 @@ contract AaveV3Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
     _validateInterestRateStrategy(
       AaveV3EthereumAssets.STG_UNDERLYING,
       AaveV3Ethereum.POOL.RESERVE_INTEREST_RATE_STRATEGY(),
-      AaveV3Ethereum.POOL.RESERVE_INTEREST_RATE_STRATEGY(),
+      _strategyBefore,
       IDefaultInterestRateStrategyV2.InterestRateDataRay({
         optimalUsageRatio: _ratesBefore[AaveV3EthereumAssets.STG_UNDERLYING].optimalUsageRatio,
         baseVariableBorrowRate: afterExecution ? 200_000_000_000_000_000_000_000_000 : 0, // 0% -> 20% (27 decimals)

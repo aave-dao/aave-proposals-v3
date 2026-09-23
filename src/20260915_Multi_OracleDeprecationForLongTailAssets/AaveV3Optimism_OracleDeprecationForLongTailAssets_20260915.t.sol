@@ -19,12 +19,13 @@ contract AaveV3Optimism_OracleDeprecationForLongTailAssets_20260915_Test is Prot
 
   mapping(address => IDefaultInterestRateStrategyV2.InterestRateDataRay) internal _ratesBefore;
 
+  address internal _strategyBefore;
+
   function setUp() public {
     vm.createSelectFork(vm.rpcUrl('optimism'), 157_236_629);
     proposal = new AaveV3Optimism_OracleDeprecationForLongTailAssets_20260915();
-    IDefaultInterestRateStrategyV2 strategy = IDefaultInterestRateStrategyV2(
-      AaveV3Optimism.POOL.RESERVE_INTEREST_RATE_STRATEGY()
-    );
+    _strategyBefore = AaveV3Optimism.POOL.RESERVE_INTEREST_RATE_STRATEGY();
+    IDefaultInterestRateStrategyV2 strategy = IDefaultInterestRateStrategyV2(_strategyBefore);
     _ratesBefore[AaveV3OptimismAssets.LUSD_UNDERLYING] = strategy.getInterestRateData(
       AaveV3OptimismAssets.LUSD_UNDERLYING
     );
@@ -90,7 +91,7 @@ contract AaveV3Optimism_OracleDeprecationForLongTailAssets_20260915_Test is Prot
     _validateInterestRateStrategy(
       AaveV3OptimismAssets.LUSD_UNDERLYING,
       AaveV3Optimism.POOL.RESERVE_INTEREST_RATE_STRATEGY(),
-      AaveV3Optimism.POOL.RESERVE_INTEREST_RATE_STRATEGY(),
+      _strategyBefore,
       IDefaultInterestRateStrategyV2.InterestRateDataRay({
         optimalUsageRatio: _ratesBefore[AaveV3OptimismAssets.LUSD_UNDERLYING].optimalUsageRatio,
         baseVariableBorrowRate: afterExecution
@@ -105,7 +106,7 @@ contract AaveV3Optimism_OracleDeprecationForLongTailAssets_20260915_Test is Prot
     _validateInterestRateStrategy(
       AaveV3OptimismAssets.MAI_UNDERLYING,
       AaveV3Optimism.POOL.RESERVE_INTEREST_RATE_STRATEGY(),
-      AaveV3Optimism.POOL.RESERVE_INTEREST_RATE_STRATEGY(),
+      _strategyBefore,
       IDefaultInterestRateStrategyV2.InterestRateDataRay({
         optimalUsageRatio: _ratesBefore[AaveV3OptimismAssets.MAI_UNDERLYING].optimalUsageRatio,
         baseVariableBorrowRate: afterExecution ? 200_000_000_000_000_000_000_000_000 : 0, // 0% -> 20% (27 decimals)
@@ -118,7 +119,7 @@ contract AaveV3Optimism_OracleDeprecationForLongTailAssets_20260915_Test is Prot
     _validateInterestRateStrategy(
       AaveV3OptimismAssets.sUSD_UNDERLYING,
       AaveV3Optimism.POOL.RESERVE_INTEREST_RATE_STRATEGY(),
-      AaveV3Optimism.POOL.RESERVE_INTEREST_RATE_STRATEGY(),
+      _strategyBefore,
       IDefaultInterestRateStrategyV2.InterestRateDataRay({
         optimalUsageRatio: _ratesBefore[AaveV3OptimismAssets.sUSD_UNDERLYING].optimalUsageRatio,
         baseVariableBorrowRate: _ratesBefore[AaveV3OptimismAssets.sUSD_UNDERLYING]

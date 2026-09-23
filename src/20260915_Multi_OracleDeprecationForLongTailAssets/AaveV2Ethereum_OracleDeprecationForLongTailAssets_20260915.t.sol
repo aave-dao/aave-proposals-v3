@@ -11,6 +11,8 @@ import {ChainlinkEthereum} from 'aave-address-book/ChainlinkEthereum.sol';
 import {OracleTestUtils} from './OracleTestUtils.sol';
 
 import {IDefaultInterestRateStrategy} from 'aave-address-book/AaveV2.sol';
+import {IAaveV2ConfigEngine} from 'aave-helpers/src/v2-config-engine/IAaveV2ConfigEngine.sol';
+import {IV2RateStrategyFactory} from 'aave-helpers/src/v2-config-engine/IV2RateStrategyFactory.sol';
 
 import {GovV3Helpers} from 'aave-helpers/src/GovV3Helpers.sol';
 
@@ -121,39 +123,21 @@ contract AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
     _assertOracles();
   }
   function _assertRates(bool afterExecution) internal view {
-    {
-      address strategy = AaveV2Ethereum
+    assertEq(
+      AaveV2Ethereum
         .POOL
         .getReserveData(AaveV2EthereumAssets.FRAX_UNDERLYING)
-        .interestRateStrategyAddress;
-      IDefaultInterestRateStrategy previous = _strategiesBefore[
-        AaveV2EthereumAssets.FRAX_UNDERLYING
-      ];
-      _validateInterestRateStrategy(
-        strategy,
-        strategy,
-        InterestStrategyValues({
-          addressesProvider: address(AaveV2Ethereum.POOL_ADDRESSES_PROVIDER),
-          stableRateSlope1: previous.stableRateSlope1(),
-          stableRateSlope2: previous.stableRateSlope2(),
-          optimalUsageRatio: previous.OPTIMAL_UTILIZATION_RATE(),
-          baseVariableBorrowRate: previous.baseVariableBorrowRate(),
-          variableRateSlope1: previous.variableRateSlope1(),
-          variableRateSlope2: previous.variableRateSlope2()
-        })
-      );
-    }
+        .interestRateStrategyAddress,
+      address(_strategiesBefore[AaveV2EthereumAssets.FRAX_UNDERLYING]),
+      'FRAX strategy changed'
+    );
     {
-      address strategy = AaveV2Ethereum
-        .POOL
-        .getReserveData(AaveV2EthereumAssets.LUSD_UNDERLYING)
-        .interestRateStrategyAddress;
       IDefaultInterestRateStrategy previous = _strategiesBefore[
         AaveV2EthereumAssets.LUSD_UNDERLYING
       ];
-      _validateInterestRateStrategy(
-        strategy,
-        strategy,
+      _validateRates(
+        AaveV2EthereumAssets.LUSD_UNDERLYING,
+        afterExecution,
         InterestStrategyValues({
           addressesProvider: address(AaveV2Ethereum.POOL_ADDRESSES_PROVIDER),
           stableRateSlope1: previous.stableRateSlope1(),
@@ -168,16 +152,12 @@ contract AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
       );
     }
     {
-      address strategy = AaveV2Ethereum
-        .POOL
-        .getReserveData(AaveV2EthereumAssets.TUSD_UNDERLYING)
-        .interestRateStrategyAddress;
       IDefaultInterestRateStrategy previous = _strategiesBefore[
         AaveV2EthereumAssets.TUSD_UNDERLYING
       ];
-      _validateInterestRateStrategy(
-        strategy,
-        strategy,
+      _validateRates(
+        AaveV2EthereumAssets.TUSD_UNDERLYING,
+        afterExecution,
         InterestStrategyValues({
           addressesProvider: address(AaveV2Ethereum.POOL_ADDRESSES_PROVIDER),
           stableRateSlope1: previous.stableRateSlope1(),
@@ -191,39 +171,21 @@ contract AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
         })
       );
     }
-    {
-      address strategy = AaveV2Ethereum
+    assertEq(
+      AaveV2Ethereum
         .POOL
         .getReserveData(AaveV2EthereumAssets.USDP_UNDERLYING)
-        .interestRateStrategyAddress;
-      IDefaultInterestRateStrategy previous = _strategiesBefore[
-        AaveV2EthereumAssets.USDP_UNDERLYING
-      ];
-      _validateInterestRateStrategy(
-        strategy,
-        strategy,
-        InterestStrategyValues({
-          addressesProvider: address(AaveV2Ethereum.POOL_ADDRESSES_PROVIDER),
-          stableRateSlope1: previous.stableRateSlope1(),
-          stableRateSlope2: previous.stableRateSlope2(),
-          optimalUsageRatio: previous.OPTIMAL_UTILIZATION_RATE(),
-          baseVariableBorrowRate: previous.baseVariableBorrowRate(),
-          variableRateSlope1: previous.variableRateSlope1(),
-          variableRateSlope2: previous.variableRateSlope2()
-        })
-      );
-    }
+        .interestRateStrategyAddress,
+      address(_strategiesBefore[AaveV2EthereumAssets.USDP_UNDERLYING]),
+      'USDP strategy changed'
+    );
     {
-      address strategy = AaveV2Ethereum
-        .POOL
-        .getReserveData(AaveV2EthereumAssets.AMPL_UNDERLYING)
-        .interestRateStrategyAddress;
       IDefaultInterestRateStrategy previous = _strategiesBefore[
         AaveV2EthereumAssets.AMPL_UNDERLYING
       ];
-      _validateInterestRateStrategy(
-        strategy,
-        strategy,
+      _validateRates(
+        AaveV2EthereumAssets.AMPL_UNDERLYING,
+        afterExecution,
         InterestStrategyValues({
           addressesProvider: address(AaveV2Ethereum.POOL_ADDRESSES_PROVIDER),
           stableRateSlope1: previous.stableRateSlope1(),
@@ -235,39 +197,21 @@ contract AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
         })
       );
     }
-    {
-      address strategy = AaveV2Ethereum
+    assertEq(
+      AaveV2Ethereum
         .POOL
         .getReserveData(AaveV2EthereumAssets.RAI_UNDERLYING)
-        .interestRateStrategyAddress;
-      IDefaultInterestRateStrategy previous = _strategiesBefore[
-        AaveV2EthereumAssets.RAI_UNDERLYING
-      ];
-      _validateInterestRateStrategy(
-        strategy,
-        strategy,
-        InterestStrategyValues({
-          addressesProvider: address(AaveV2Ethereum.POOL_ADDRESSES_PROVIDER),
-          stableRateSlope1: previous.stableRateSlope1(),
-          stableRateSlope2: previous.stableRateSlope2(),
-          optimalUsageRatio: previous.OPTIMAL_UTILIZATION_RATE(),
-          baseVariableBorrowRate: previous.baseVariableBorrowRate(),
-          variableRateSlope1: previous.variableRateSlope1(),
-          variableRateSlope2: previous.variableRateSlope2()
-        })
-      );
-    }
+        .interestRateStrategyAddress,
+      address(_strategiesBefore[AaveV2EthereumAssets.RAI_UNDERLYING]),
+      'RAI strategy changed'
+    );
     {
-      address strategy = AaveV2Ethereum
-        .POOL
-        .getReserveData(AaveV2EthereumAssets.sUSD_UNDERLYING)
-        .interestRateStrategyAddress;
       IDefaultInterestRateStrategy previous = _strategiesBefore[
         AaveV2EthereumAssets.sUSD_UNDERLYING
       ];
-      _validateInterestRateStrategy(
-        strategy,
-        strategy,
+      _validateRates(
+        AaveV2EthereumAssets.sUSD_UNDERLYING,
+        afterExecution,
         InterestStrategyValues({
           addressesProvider: address(AaveV2Ethereum.POOL_ADDRESSES_PROVIDER),
           stableRateSlope1: previous.stableRateSlope1(),
@@ -279,39 +223,21 @@ contract AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
         })
       );
     }
-    {
-      address strategy = AaveV2Ethereum
+    assertEq(
+      AaveV2Ethereum
         .POOL
         .getReserveData(AaveV2EthereumAssets.YFI_UNDERLYING)
-        .interestRateStrategyAddress;
-      IDefaultInterestRateStrategy previous = _strategiesBefore[
-        AaveV2EthereumAssets.YFI_UNDERLYING
-      ];
-      _validateInterestRateStrategy(
-        strategy,
-        strategy,
-        InterestStrategyValues({
-          addressesProvider: address(AaveV2Ethereum.POOL_ADDRESSES_PROVIDER),
-          stableRateSlope1: previous.stableRateSlope1(),
-          stableRateSlope2: previous.stableRateSlope2(),
-          optimalUsageRatio: previous.OPTIMAL_UTILIZATION_RATE(),
-          baseVariableBorrowRate: previous.baseVariableBorrowRate(),
-          variableRateSlope1: previous.variableRateSlope1(),
-          variableRateSlope2: previous.variableRateSlope2()
-        })
-      );
-    }
+        .interestRateStrategyAddress,
+      address(_strategiesBefore[AaveV2EthereumAssets.YFI_UNDERLYING]),
+      'YFI strategy changed'
+    );
     {
-      address strategy = AaveV2Ethereum
-        .POOL
-        .getReserveData(AaveV2EthereumAssets.BAL_UNDERLYING)
-        .interestRateStrategyAddress;
       IDefaultInterestRateStrategy previous = _strategiesBefore[
         AaveV2EthereumAssets.BAL_UNDERLYING
       ];
-      _validateInterestRateStrategy(
-        strategy,
-        strategy,
+      _validateRates(
+        AaveV2EthereumAssets.BAL_UNDERLYING,
+        afterExecution,
         InterestStrategyValues({
           addressesProvider: address(AaveV2Ethereum.POOL_ADDRESSES_PROVIDER),
           stableRateSlope1: previous.stableRateSlope1(),
@@ -326,16 +252,12 @@ contract AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
       );
     }
     {
-      address strategy = AaveV2Ethereum
-        .POOL
-        .getReserveData(AaveV2EthereumAssets.ENJ_UNDERLYING)
-        .interestRateStrategyAddress;
       IDefaultInterestRateStrategy previous = _strategiesBefore[
         AaveV2EthereumAssets.ENJ_UNDERLYING
       ];
-      _validateInterestRateStrategy(
-        strategy,
-        strategy,
+      _validateRates(
+        AaveV2EthereumAssets.ENJ_UNDERLYING,
+        afterExecution,
         InterestStrategyValues({
           addressesProvider: address(AaveV2Ethereum.POOL_ADDRESSES_PROVIDER),
           stableRateSlope1: previous.stableRateSlope1(),
@@ -350,16 +272,12 @@ contract AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
       );
     }
     {
-      address strategy = AaveV2Ethereum
-        .POOL
-        .getReserveData(AaveV2EthereumAssets.KNC_UNDERLYING)
-        .interestRateStrategyAddress;
       IDefaultInterestRateStrategy previous = _strategiesBefore[
         AaveV2EthereumAssets.KNC_UNDERLYING
       ];
-      _validateInterestRateStrategy(
-        strategy,
-        strategy,
+      _validateRates(
+        AaveV2EthereumAssets.KNC_UNDERLYING,
+        afterExecution,
         InterestStrategyValues({
           addressesProvider: address(AaveV2Ethereum.POOL_ADDRESSES_PROVIDER),
           stableRateSlope1: previous.stableRateSlope1(),
@@ -374,16 +292,12 @@ contract AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
       );
     }
     {
-      address strategy = AaveV2Ethereum
-        .POOL
-        .getReserveData(AaveV2EthereumAssets.REN_UNDERLYING)
-        .interestRateStrategyAddress;
       IDefaultInterestRateStrategy previous = _strategiesBefore[
         AaveV2EthereumAssets.REN_UNDERLYING
       ];
-      _validateInterestRateStrategy(
-        strategy,
-        strategy,
+      _validateRates(
+        AaveV2EthereumAssets.REN_UNDERLYING,
+        afterExecution,
         InterestStrategyValues({
           addressesProvider: address(AaveV2Ethereum.POOL_ADDRESSES_PROVIDER),
           stableRateSlope1: previous.stableRateSlope1(),
@@ -398,16 +312,12 @@ contract AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
       );
     }
     {
-      address strategy = AaveV2Ethereum
-        .POOL
-        .getReserveData(AaveV2EthereumAssets.ZRX_UNDERLYING)
-        .interestRateStrategyAddress;
       IDefaultInterestRateStrategy previous = _strategiesBefore[
         AaveV2EthereumAssets.ZRX_UNDERLYING
       ];
-      _validateInterestRateStrategy(
-        strategy,
-        strategy,
+      _validateRates(
+        AaveV2EthereumAssets.ZRX_UNDERLYING,
+        afterExecution,
         InterestStrategyValues({
           addressesProvider: address(AaveV2Ethereum.POOL_ADDRESSES_PROVIDER),
           stableRateSlope1: previous.stableRateSlope1(),
@@ -422,6 +332,34 @@ contract AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
       );
     }
   }
+  function _validateRates(
+    address asset,
+    bool afterExecution,
+    InterestStrategyValues memory expected
+  ) internal view {
+    address expectedStrategy = address(_strategiesBefore[asset]);
+    if (afterExecution) {
+      expectedStrategy = IAaveV2ConfigEngine(AaveV2Ethereum.CONFIG_ENGINE)
+        .RATE_STRATEGIES_FACTORY()
+        .getStrategyByParams(
+          IV2RateStrategyFactory.RateStrategyParams({
+            optimalUtilizationRate: expected.optimalUsageRatio,
+            baseVariableBorrowRate: expected.baseVariableBorrowRate,
+            variableRateSlope1: expected.variableRateSlope1,
+            variableRateSlope2: expected.variableRateSlope2,
+            stableRateSlope1: expected.stableRateSlope1,
+            stableRateSlope2: expected.stableRateSlope2
+          })
+        );
+      assertNotEq(expectedStrategy, address(0), 'Expected strategy missing from factory');
+    }
+    _validateInterestRateStrategy(
+      AaveV2Ethereum.POOL.getReserveData(asset).interestRateStrategyAddress,
+      expectedStrategy,
+      expected
+    );
+  }
+
   function _assertOracles() internal view {
     _validateAssetSourceOnOracle(
       AaveV2Ethereum.POOL_ADDRESSES_PROVIDER,

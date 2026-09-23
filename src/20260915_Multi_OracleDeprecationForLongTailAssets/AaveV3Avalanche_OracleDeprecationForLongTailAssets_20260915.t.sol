@@ -19,12 +19,13 @@ contract AaveV3Avalanche_OracleDeprecationForLongTailAssets_20260915_Test is Pro
 
   mapping(address => IDefaultInterestRateStrategyV2.InterestRateDataRay) internal _ratesBefore;
 
+  address internal _strategyBefore;
+
   function setUp() public {
     vm.createSelectFork(vm.rpcUrl('avalanche'), 95_905_103);
     proposal = new AaveV3Avalanche_OracleDeprecationForLongTailAssets_20260915();
-    IDefaultInterestRateStrategyV2 strategy = IDefaultInterestRateStrategyV2(
-      AaveV3Avalanche.POOL.RESERVE_INTEREST_RATE_STRATEGY()
-    );
+    _strategyBefore = AaveV3Avalanche.POOL.RESERVE_INTEREST_RATE_STRATEGY();
+    IDefaultInterestRateStrategyV2 strategy = IDefaultInterestRateStrategyV2(_strategyBefore);
     _ratesBefore[AaveV3AvalancheAssets.FRAX_UNDERLYING] = strategy.getInterestRateData(
       AaveV3AvalancheAssets.FRAX_UNDERLYING
     );
@@ -84,7 +85,7 @@ contract AaveV3Avalanche_OracleDeprecationForLongTailAssets_20260915_Test is Pro
     _validateInterestRateStrategy(
       AaveV3AvalancheAssets.FRAX_UNDERLYING,
       AaveV3Avalanche.POOL.RESERVE_INTEREST_RATE_STRATEGY(),
-      AaveV3Avalanche.POOL.RESERVE_INTEREST_RATE_STRATEGY(),
+      _strategyBefore,
       IDefaultInterestRateStrategyV2.InterestRateDataRay({
         optimalUsageRatio: _ratesBefore[AaveV3AvalancheAssets.FRAX_UNDERLYING].optimalUsageRatio,
         baseVariableBorrowRate: afterExecution ? 200_000_000_000_000_000_000_000_000 : 0, // 0% -> 20% (27 decimals)
@@ -95,7 +96,7 @@ contract AaveV3Avalanche_OracleDeprecationForLongTailAssets_20260915_Test is Pro
     _validateInterestRateStrategy(
       AaveV3AvalancheAssets.MAI_UNDERLYING,
       AaveV3Avalanche.POOL.RESERVE_INTEREST_RATE_STRATEGY(),
-      AaveV3Avalanche.POOL.RESERVE_INTEREST_RATE_STRATEGY(),
+      _strategyBefore,
       IDefaultInterestRateStrategyV2.InterestRateDataRay({
         optimalUsageRatio: _ratesBefore[AaveV3AvalancheAssets.MAI_UNDERLYING].optimalUsageRatio,
         baseVariableBorrowRate: afterExecution ? 200_000_000_000_000_000_000_000_000 : 0, // 0% -> 20% (27 decimals)

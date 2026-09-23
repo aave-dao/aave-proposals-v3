@@ -11,6 +11,8 @@ import {ChainlinkPolygon} from 'aave-address-book/ChainlinkPolygon.sol';
 import {OracleTestUtils} from './OracleTestUtils.sol';
 
 import {IDefaultInterestRateStrategy} from 'aave-address-book/AaveV2.sol';
+import {IAaveV2ConfigEngine} from 'aave-helpers/src/v2-config-engine/IAaveV2ConfigEngine.sol';
+import {IV2RateStrategyFactory} from 'aave-helpers/src/v2-config-engine/IV2RateStrategyFactory.sol';
 
 import {GovV3Helpers} from 'aave-helpers/src/GovV3Helpers.sol';
 
@@ -56,14 +58,10 @@ contract AaveV2Polygon_OracleDeprecationForLongTailAssets_20260915_Test is Proto
   }
   function _assertRates(bool afterExecution) internal view {
     {
-      address strategy = AaveV2Polygon
-        .POOL
-        .getReserveData(AaveV2PolygonAssets.BAL_UNDERLYING)
-        .interestRateStrategyAddress;
       IDefaultInterestRateStrategy previous = _strategiesBefore[AaveV2PolygonAssets.BAL_UNDERLYING];
-      _validateInterestRateStrategy(
-        strategy,
-        strategy,
+      _validateRates(
+        AaveV2PolygonAssets.BAL_UNDERLYING,
+        afterExecution,
         InterestStrategyValues({
           addressesProvider: address(AaveV2Polygon.POOL_ADDRESSES_PROVIDER),
           stableRateSlope1: previous.stableRateSlope1(),
@@ -78,16 +76,12 @@ contract AaveV2Polygon_OracleDeprecationForLongTailAssets_20260915_Test is Proto
       );
     }
     {
-      address strategy = AaveV2Polygon
-        .POOL
-        .getReserveData(AaveV2PolygonAssets.GHST_UNDERLYING)
-        .interestRateStrategyAddress;
       IDefaultInterestRateStrategy previous = _strategiesBefore[
         AaveV2PolygonAssets.GHST_UNDERLYING
       ];
-      _validateInterestRateStrategy(
-        strategy,
-        strategy,
+      _validateRates(
+        AaveV2PolygonAssets.GHST_UNDERLYING,
+        afterExecution,
         InterestStrategyValues({
           addressesProvider: address(AaveV2Polygon.POOL_ADDRESSES_PROVIDER),
           stableRateSlope1: previous.stableRateSlope1(),
@@ -102,6 +96,34 @@ contract AaveV2Polygon_OracleDeprecationForLongTailAssets_20260915_Test is Proto
       );
     }
   }
+  function _validateRates(
+    address asset,
+    bool afterExecution,
+    InterestStrategyValues memory expected
+  ) internal view {
+    address expectedStrategy = address(_strategiesBefore[asset]);
+    if (afterExecution) {
+      expectedStrategy = IAaveV2ConfigEngine(AaveV2Polygon.CONFIG_ENGINE)
+        .RATE_STRATEGIES_FACTORY()
+        .getStrategyByParams(
+          IV2RateStrategyFactory.RateStrategyParams({
+            optimalUtilizationRate: expected.optimalUsageRatio,
+            baseVariableBorrowRate: expected.baseVariableBorrowRate,
+            variableRateSlope1: expected.variableRateSlope1,
+            variableRateSlope2: expected.variableRateSlope2,
+            stableRateSlope1: expected.stableRateSlope1,
+            stableRateSlope2: expected.stableRateSlope2
+          })
+        );
+      assertNotEq(expectedStrategy, address(0), 'Expected strategy missing from factory');
+    }
+    _validateInterestRateStrategy(
+      AaveV2Polygon.POOL.getReserveData(asset).interestRateStrategyAddress,
+      expectedStrategy,
+      expected
+    );
+  }
+
   function _assertOracles() internal view {
     _validateAssetSourceOnOracle(
       AaveV2Polygon.POOL_ADDRESSES_PROVIDER,

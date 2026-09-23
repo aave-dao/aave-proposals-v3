@@ -20,12 +20,13 @@ contract AaveV3Celo_OracleDeprecationForLongTailAssets_20260915_Test is Protocol
 
   mapping(address => IDefaultInterestRateStrategyV2.InterestRateDataRay) internal _ratesBefore;
 
+  address internal _strategyBefore;
+
   function setUp() public {
     vm.createSelectFork(vm.rpcUrl('celo'), 78_171_278);
     proposal = new AaveV3Celo_OracleDeprecationForLongTailAssets_20260915();
-    IDefaultInterestRateStrategyV2 strategy = IDefaultInterestRateStrategyV2(
-      AaveV3Celo.POOL.RESERVE_INTEREST_RATE_STRATEGY()
-    );
+    _strategyBefore = AaveV3Celo.POOL.RESERVE_INTEREST_RATE_STRATEGY();
+    IDefaultInterestRateStrategyV2 strategy = IDefaultInterestRateStrategyV2(_strategyBefore);
     _ratesBefore[AaveV3CeloAssets.USDm_UNDERLYING] = strategy.getInterestRateData(
       AaveV3CeloAssets.USDm_UNDERLYING
     );
@@ -99,7 +100,7 @@ contract AaveV3Celo_OracleDeprecationForLongTailAssets_20260915_Test is Protocol
     _validateInterestRateStrategy(
       AaveV3CeloAssets.USDm_UNDERLYING,
       AaveV3Celo.POOL.RESERVE_INTEREST_RATE_STRATEGY(),
-      AaveV3Celo.POOL.RESERVE_INTEREST_RATE_STRATEGY(),
+      _strategyBefore,
       IDefaultInterestRateStrategyV2.InterestRateDataRay({
         optimalUsageRatio: _ratesBefore[AaveV3CeloAssets.USDm_UNDERLYING].optimalUsageRatio,
         baseVariableBorrowRate: afterExecution ? 50_000_000_000_000_000_000_000_000 : 0, // 0% -> 5% (27 decimals)

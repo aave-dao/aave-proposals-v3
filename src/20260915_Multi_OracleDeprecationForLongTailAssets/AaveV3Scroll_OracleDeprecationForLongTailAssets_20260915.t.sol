@@ -18,12 +18,13 @@ contract AaveV3Scroll_OracleDeprecationForLongTailAssets_20260915_Test is Protoc
 
   mapping(address => IDefaultInterestRateStrategyV2.InterestRateDataRay) internal _ratesBefore;
 
+  address internal _strategyBefore;
+
   function setUp() public {
     vm.createSelectFork(vm.rpcUrl('scroll'), 35_135_956);
     proposal = new AaveV3Scroll_OracleDeprecationForLongTailAssets_20260915();
-    IDefaultInterestRateStrategyV2 strategy = IDefaultInterestRateStrategyV2(
-      AaveV3Scroll.POOL.RESERVE_INTEREST_RATE_STRATEGY()
-    );
+    _strategyBefore = AaveV3Scroll.POOL.RESERVE_INTEREST_RATE_STRATEGY();
+    IDefaultInterestRateStrategyV2 strategy = IDefaultInterestRateStrategyV2(_strategyBefore);
     _ratesBefore[AaveV3ScrollAssets.SCR_UNDERLYING] = strategy.getInterestRateData(
       AaveV3ScrollAssets.SCR_UNDERLYING
     );
@@ -56,7 +57,7 @@ contract AaveV3Scroll_OracleDeprecationForLongTailAssets_20260915_Test is Protoc
     _validateInterestRateStrategy(
       AaveV3ScrollAssets.SCR_UNDERLYING,
       AaveV3Scroll.POOL.RESERVE_INTEREST_RATE_STRATEGY(),
-      AaveV3Scroll.POOL.RESERVE_INTEREST_RATE_STRATEGY(),
+      _strategyBefore,
       IDefaultInterestRateStrategyV2.InterestRateDataRay({
         optimalUsageRatio: _ratesBefore[AaveV3ScrollAssets.SCR_UNDERLYING].optimalUsageRatio,
         baseVariableBorrowRate: afterExecution
