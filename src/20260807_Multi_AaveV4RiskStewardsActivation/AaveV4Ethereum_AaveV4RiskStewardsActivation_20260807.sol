@@ -30,7 +30,7 @@ contract AaveV4Ethereum_AaveV4RiskStewardsActivation_20260807 is IProposalGeneri
     AaveV3Ethereum.ACL_MANAGER.addRiskAdmin(AaveV4Ethereum.RISK_STEWARD);
 
     IRiskStewardV4(AaveV4Ethereum.RISK_STEWARD).setConfig(
-      RiskStewardV4Config.llamaRisk(
+      RiskStewardV4Config.defaultConfig(
         AaveV4Ethereum.HUB_CONFIGURATOR,
         AaveV4Ethereum.SPOKE_CONFIGURATOR
       )

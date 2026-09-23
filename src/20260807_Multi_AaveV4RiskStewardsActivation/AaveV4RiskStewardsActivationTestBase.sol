@@ -139,7 +139,7 @@ abstract contract AaveV4RiskStewardsActivationTestBase is ProtocolV4TestBase {
     _assertConfig(steward.getConfig());
     assertEq(
       abi.encode(steward.getConfig()),
-      abi.encode(RiskStewardV4Config.llamaRisk(_hubConfigurator(), _spokeConfigurator())),
+      abi.encode(RiskStewardV4Config.defaultConfig(_hubConfigurator(), _spokeConfigurator())),
       'config diverges from the shared configuration'
     );
   }

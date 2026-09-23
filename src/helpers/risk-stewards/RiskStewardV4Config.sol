@@ -7,11 +7,11 @@ import {IRiskStewardV4} from 'src/interfaces/IRiskStewardV4.sol';
 /**
  * @title RiskStewardV4Config
  * @author Aave Labs
- * @notice LlamaRisk's recommended bounds and cooldowns for the Aave V4 Risk Steward, identical on
+ * @notice Default bounds and cooldowns config for the Aave V4 Risk Steward, identical on
  *         every network it is activated on. Only the two configurators are network specific.
  */
 library RiskStewardV4Config {
-  function llamaRisk(
+  function defaultConfig(
     IHubConfigurator hubConfigurator,
     ISpokeConfigurator spokeConfigurator
   ) internal pure returns (IRiskStewardV4.Config memory) {
