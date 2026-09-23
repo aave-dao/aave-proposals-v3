@@ -54,12 +54,12 @@ contract AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
         strategy,
         InterestStrategyValues({
           addressesProvider: address(AaveV2Ethereum.POOL_ADDRESSES_PROVIDER),
-          stableRateSlope1: previous.stableRateSlope1(), // unchanged
-          stableRateSlope2: previous.stableRateSlope2(), // unchanged
-          optimalUsageRatio: previous.OPTIMAL_UTILIZATION_RATE(), // unchanged
-          baseVariableBorrowRate: previous.baseVariableBorrowRate(), // unchanged
-          variableRateSlope1: previous.variableRateSlope1(), // unchanged
-          variableRateSlope2: previous.variableRateSlope2() // unchanged
+          stableRateSlope1: previous.stableRateSlope1(),
+          stableRateSlope2: previous.stableRateSlope2(),
+          optimalUsageRatio: previous.OPTIMAL_UTILIZATION_RATE(),
+          baseVariableBorrowRate: previous.baseVariableBorrowRate(),
+          variableRateSlope1: previous.variableRateSlope1(),
+          variableRateSlope2: previous.variableRateSlope2()
         })
       );
     }
@@ -76,11 +76,11 @@ contract AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
         strategy,
         InterestStrategyValues({
           addressesProvider: address(AaveV2Ethereum.POOL_ADDRESSES_PROVIDER),
-          stableRateSlope1: previous.stableRateSlope1(), // unchanged
-          stableRateSlope2: previous.stableRateSlope2(), // unchanged
-          optimalUsageRatio: previous.OPTIMAL_UTILIZATION_RATE(), // unchanged
-          baseVariableBorrowRate: previous.baseVariableBorrowRate(), // unchanged
-          variableRateSlope1: previous.variableRateSlope1(), // unchanged
+          stableRateSlope1: previous.stableRateSlope1(),
+          stableRateSlope2: previous.stableRateSlope2(),
+          optimalUsageRatio: previous.OPTIMAL_UTILIZATION_RATE(),
+          baseVariableBorrowRate: previous.baseVariableBorrowRate(),
+          variableRateSlope1: previous.variableRateSlope1(),
           variableRateSlope2: afterExecution
             ? 400_000_000_000_000_000_000_000_000
             : 3_000_000_000_000_000_000_000_000_000 // 300% -> 40% (27 decimals)
@@ -100,14 +100,14 @@ contract AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
         strategy,
         InterestStrategyValues({
           addressesProvider: address(AaveV2Ethereum.POOL_ADDRESSES_PROVIDER),
-          stableRateSlope1: previous.stableRateSlope1(), // unchanged
-          stableRateSlope2: previous.stableRateSlope2(), // unchanged
-          optimalUsageRatio: previous.OPTIMAL_UTILIZATION_RATE(), // unchanged
+          stableRateSlope1: previous.stableRateSlope1(),
+          stableRateSlope2: previous.stableRateSlope2(),
+          optimalUsageRatio: previous.OPTIMAL_UTILIZATION_RATE(),
           baseVariableBorrowRate: afterExecution
             ? 200_000_000_000_000_000_000_000_000
             : 10_000_000_000_000_000_000_000_000, // 1% -> 20% (27 decimals)
-          variableRateSlope1: previous.variableRateSlope1(), // unchanged
-          variableRateSlope2: previous.variableRateSlope2() // unchanged
+          variableRateSlope1: previous.variableRateSlope1(),
+          variableRateSlope2: previous.variableRateSlope2()
         })
       );
     }
@@ -124,12 +124,12 @@ contract AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
         strategy,
         InterestStrategyValues({
           addressesProvider: address(AaveV2Ethereum.POOL_ADDRESSES_PROVIDER),
-          stableRateSlope1: previous.stableRateSlope1(), // unchanged
-          stableRateSlope2: previous.stableRateSlope2(), // unchanged
-          optimalUsageRatio: previous.OPTIMAL_UTILIZATION_RATE(), // unchanged
-          baseVariableBorrowRate: previous.baseVariableBorrowRate(), // unchanged
-          variableRateSlope1: previous.variableRateSlope1(), // unchanged
-          variableRateSlope2: previous.variableRateSlope2() // unchanged
+          stableRateSlope1: previous.stableRateSlope1(),
+          stableRateSlope2: previous.stableRateSlope2(),
+          optimalUsageRatio: previous.OPTIMAL_UTILIZATION_RATE(),
+          baseVariableBorrowRate: previous.baseVariableBorrowRate(),
+          variableRateSlope1: previous.variableRateSlope1(),
+          variableRateSlope2: previous.variableRateSlope2()
         })
       );
     }
@@ -146,11 +146,11 @@ contract AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
         strategy,
         InterestStrategyValues({
           addressesProvider: address(AaveV2Ethereum.POOL_ADDRESSES_PROVIDER),
-          stableRateSlope1: previous.stableRateSlope1(), // unchanged
-          stableRateSlope2: previous.stableRateSlope2(), // unchanged
-          optimalUsageRatio: previous.OPTIMAL_UTILIZATION_RATE(), // unchanged
+          stableRateSlope1: previous.stableRateSlope1(),
+          stableRateSlope2: previous.stableRateSlope2(),
+          optimalUsageRatio: previous.OPTIMAL_UTILIZATION_RATE(),
           baseVariableBorrowRate: afterExecution ? 0 : 200_000_000_000_000_000_000_000_000, // 20% -> 0% (27 decimals)
-          variableRateSlope1: previous.variableRateSlope1(), // unchanged
+          variableRateSlope1: previous.variableRateSlope1(),
           variableRateSlope2: afterExecution ? 0 : 3_000_000_000_000_000_000_000_000_000 // 300% -> 0% (27 decimals)
         })
       );
@@ -168,12 +168,12 @@ contract AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
         strategy,
         InterestStrategyValues({
           addressesProvider: address(AaveV2Ethereum.POOL_ADDRESSES_PROVIDER),
-          stableRateSlope1: previous.stableRateSlope1(), // unchanged
-          stableRateSlope2: previous.stableRateSlope2(), // unchanged
-          optimalUsageRatio: previous.OPTIMAL_UTILIZATION_RATE(), // unchanged
-          baseVariableBorrowRate: previous.baseVariableBorrowRate(), // unchanged
-          variableRateSlope1: previous.variableRateSlope1(), // unchanged
-          variableRateSlope2: previous.variableRateSlope2() // unchanged
+          stableRateSlope1: previous.stableRateSlope1(),
+          stableRateSlope2: previous.stableRateSlope2(),
+          optimalUsageRatio: previous.OPTIMAL_UTILIZATION_RATE(),
+          baseVariableBorrowRate: previous.baseVariableBorrowRate(),
+          variableRateSlope1: previous.variableRateSlope1(),
+          variableRateSlope2: previous.variableRateSlope2()
         })
       );
     }
@@ -190,11 +190,11 @@ contract AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
         strategy,
         InterestStrategyValues({
           addressesProvider: address(AaveV2Ethereum.POOL_ADDRESSES_PROVIDER),
-          stableRateSlope1: previous.stableRateSlope1(), // unchanged
-          stableRateSlope2: previous.stableRateSlope2(), // unchanged
-          optimalUsageRatio: previous.OPTIMAL_UTILIZATION_RATE(), // unchanged
+          stableRateSlope1: previous.stableRateSlope1(),
+          stableRateSlope2: previous.stableRateSlope2(),
+          optimalUsageRatio: previous.OPTIMAL_UTILIZATION_RATE(),
           baseVariableBorrowRate: afterExecution ? 0 : 200_000_000_000_000_000_000_000_000, // 20% -> 0% (27 decimals)
-          variableRateSlope1: previous.variableRateSlope1(), // unchanged
+          variableRateSlope1: previous.variableRateSlope1(),
           variableRateSlope2: afterExecution ? 0 : 3_000_000_000_000_000_000_000_000_000 // 300% -> 0% (27 decimals)
         })
       );
@@ -212,12 +212,12 @@ contract AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
         strategy,
         InterestStrategyValues({
           addressesProvider: address(AaveV2Ethereum.POOL_ADDRESSES_PROVIDER),
-          stableRateSlope1: previous.stableRateSlope1(), // unchanged
-          stableRateSlope2: previous.stableRateSlope2(), // unchanged
-          optimalUsageRatio: previous.OPTIMAL_UTILIZATION_RATE(), // unchanged
-          baseVariableBorrowRate: previous.baseVariableBorrowRate(), // unchanged
-          variableRateSlope1: previous.variableRateSlope1(), // unchanged
-          variableRateSlope2: previous.variableRateSlope2() // unchanged
+          stableRateSlope1: previous.stableRateSlope1(),
+          stableRateSlope2: previous.stableRateSlope2(),
+          optimalUsageRatio: previous.OPTIMAL_UTILIZATION_RATE(),
+          baseVariableBorrowRate: previous.baseVariableBorrowRate(),
+          variableRateSlope1: previous.variableRateSlope1(),
+          variableRateSlope2: previous.variableRateSlope2()
         })
       );
     }
@@ -234,11 +234,11 @@ contract AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
         strategy,
         InterestStrategyValues({
           addressesProvider: address(AaveV2Ethereum.POOL_ADDRESSES_PROVIDER),
-          stableRateSlope1: previous.stableRateSlope1(), // unchanged
-          stableRateSlope2: previous.stableRateSlope2(), // unchanged
-          optimalUsageRatio: previous.OPTIMAL_UTILIZATION_RATE(), // unchanged
-          baseVariableBorrowRate: previous.baseVariableBorrowRate(), // unchanged
-          variableRateSlope1: previous.variableRateSlope1(), // unchanged
+          stableRateSlope1: previous.stableRateSlope1(),
+          stableRateSlope2: previous.stableRateSlope2(),
+          optimalUsageRatio: previous.OPTIMAL_UTILIZATION_RATE(),
+          baseVariableBorrowRate: previous.baseVariableBorrowRate(),
+          variableRateSlope1: previous.variableRateSlope1(),
           variableRateSlope2: afterExecution
             ? 400_000_000_000_000_000_000_000_000
             : 3_000_000_000_000_000_000_000_000_000 // 300% -> 40% (27 decimals)
@@ -258,11 +258,11 @@ contract AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
         strategy,
         InterestStrategyValues({
           addressesProvider: address(AaveV2Ethereum.POOL_ADDRESSES_PROVIDER),
-          stableRateSlope1: previous.stableRateSlope1(), // unchanged
-          stableRateSlope2: previous.stableRateSlope2(), // unchanged
-          optimalUsageRatio: previous.OPTIMAL_UTILIZATION_RATE(), // unchanged
-          baseVariableBorrowRate: previous.baseVariableBorrowRate(), // unchanged
-          variableRateSlope1: previous.variableRateSlope1(), // unchanged
+          stableRateSlope1: previous.stableRateSlope1(),
+          stableRateSlope2: previous.stableRateSlope2(),
+          optimalUsageRatio: previous.OPTIMAL_UTILIZATION_RATE(),
+          baseVariableBorrowRate: previous.baseVariableBorrowRate(),
+          variableRateSlope1: previous.variableRateSlope1(),
           variableRateSlope2: afterExecution
             ? 400_000_000_000_000_000_000_000_000
             : 3_000_000_000_000_000_000_000_000_000 // 300% -> 40% (27 decimals)
@@ -282,11 +282,11 @@ contract AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
         strategy,
         InterestStrategyValues({
           addressesProvider: address(AaveV2Ethereum.POOL_ADDRESSES_PROVIDER),
-          stableRateSlope1: previous.stableRateSlope1(), // unchanged
-          stableRateSlope2: previous.stableRateSlope2(), // unchanged
-          optimalUsageRatio: previous.OPTIMAL_UTILIZATION_RATE(), // unchanged
-          baseVariableBorrowRate: previous.baseVariableBorrowRate(), // unchanged
-          variableRateSlope1: previous.variableRateSlope1(), // unchanged
+          stableRateSlope1: previous.stableRateSlope1(),
+          stableRateSlope2: previous.stableRateSlope2(),
+          optimalUsageRatio: previous.OPTIMAL_UTILIZATION_RATE(),
+          baseVariableBorrowRate: previous.baseVariableBorrowRate(),
+          variableRateSlope1: previous.variableRateSlope1(),
           variableRateSlope2: afterExecution
             ? 400_000_000_000_000_000_000_000_000
             : 3_000_000_000_000_000_000_000_000_000 // 300% -> 40% (27 decimals)
@@ -306,11 +306,11 @@ contract AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
         strategy,
         InterestStrategyValues({
           addressesProvider: address(AaveV2Ethereum.POOL_ADDRESSES_PROVIDER),
-          stableRateSlope1: previous.stableRateSlope1(), // unchanged
-          stableRateSlope2: previous.stableRateSlope2(), // unchanged
-          optimalUsageRatio: previous.OPTIMAL_UTILIZATION_RATE(), // unchanged
-          baseVariableBorrowRate: previous.baseVariableBorrowRate(), // unchanged
-          variableRateSlope1: previous.variableRateSlope1(), // unchanged
+          stableRateSlope1: previous.stableRateSlope1(),
+          stableRateSlope2: previous.stableRateSlope2(),
+          optimalUsageRatio: previous.OPTIMAL_UTILIZATION_RATE(),
+          baseVariableBorrowRate: previous.baseVariableBorrowRate(),
+          variableRateSlope1: previous.variableRateSlope1(),
           variableRateSlope2: afterExecution
             ? 400_000_000_000_000_000_000_000_000
             : 3_000_000_000_000_000_000_000_000_000 // 300% -> 40% (27 decimals)
@@ -330,13 +330,13 @@ contract AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
         strategy,
         InterestStrategyValues({
           addressesProvider: address(AaveV2Ethereum.POOL_ADDRESSES_PROVIDER),
-          stableRateSlope1: previous.stableRateSlope1(), // unchanged
-          stableRateSlope2: previous.stableRateSlope2(), // unchanged
-          optimalUsageRatio: previous.OPTIMAL_UTILIZATION_RATE(), // unchanged
+          stableRateSlope1: previous.stableRateSlope1(),
+          stableRateSlope2: previous.stableRateSlope2(),
+          optimalUsageRatio: previous.OPTIMAL_UTILIZATION_RATE(),
           baseVariableBorrowRate: afterExecution
             ? 200_000_000_000_000_000_000_000_000
             : 10_000_000_000_000_000_000_000_000, // 1% -> 20% (27 decimals)
-          variableRateSlope1: previous.variableRateSlope1(), // unchanged
+          variableRateSlope1: previous.variableRateSlope1(),
           variableRateSlope2: afterExecution ? 400_000_000_000_000_000_000_000_000 : 0 // 0% -> 40% (27 decimals)
         })
       );

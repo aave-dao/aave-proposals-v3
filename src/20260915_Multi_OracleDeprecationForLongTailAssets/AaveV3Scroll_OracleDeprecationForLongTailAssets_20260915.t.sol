@@ -62,11 +62,11 @@ contract AaveV3Scroll_OracleDeprecationForLongTailAssets_20260915_Test is Protoc
       AaveV3Scroll.POOL.RESERVE_INTEREST_RATE_STRATEGY(),
       AaveV3Scroll.POOL.RESERVE_INTEREST_RATE_STRATEGY(),
       IDefaultInterestRateStrategyV2.InterestRateDataRay({
-        optimalUsageRatio: _ratesBefore[AaveV3ScrollAssets.SCR_UNDERLYING].optimalUsageRatio, // unchanged
+        optimalUsageRatio: _ratesBefore[AaveV3ScrollAssets.SCR_UNDERLYING].optimalUsageRatio,
         baseVariableBorrowRate: afterExecution
           ? 200_000_000_000_000_000_000_000_000
           : 50_000_000_000_000_000_000_000_000, // 5% -> 20% (27 decimals)
-        variableRateSlope1: _ratesBefore[AaveV3ScrollAssets.SCR_UNDERLYING].variableRateSlope1, // unchanged
+        variableRateSlope1: _ratesBefore[AaveV3ScrollAssets.SCR_UNDERLYING].variableRateSlope1,
         variableRateSlope2: afterExecution
           ? 400_000_000_000_000_000_000_000_000
           : 3_000_000_000_000_000_000_000_000_000 // 300% -> 40% (27 decimals)

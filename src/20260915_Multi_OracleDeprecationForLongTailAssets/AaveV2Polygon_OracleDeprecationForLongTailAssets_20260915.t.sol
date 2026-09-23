@@ -54,11 +54,11 @@ contract AaveV2Polygon_OracleDeprecationForLongTailAssets_20260915_Test is Proto
         strategy,
         InterestStrategyValues({
           addressesProvider: address(AaveV2Polygon.POOL_ADDRESSES_PROVIDER),
-          stableRateSlope1: previous.stableRateSlope1(), // unchanged
-          stableRateSlope2: previous.stableRateSlope2(), // unchanged
-          optimalUsageRatio: previous.OPTIMAL_UTILIZATION_RATE(), // unchanged
-          baseVariableBorrowRate: previous.baseVariableBorrowRate(), // unchanged
-          variableRateSlope1: previous.variableRateSlope1(), // unchanged
+          stableRateSlope1: previous.stableRateSlope1(),
+          stableRateSlope2: previous.stableRateSlope2(),
+          optimalUsageRatio: previous.OPTIMAL_UTILIZATION_RATE(),
+          baseVariableBorrowRate: previous.baseVariableBorrowRate(),
+          variableRateSlope1: previous.variableRateSlope1(),
           variableRateSlope2: afterExecution
             ? 400_000_000_000_000_000_000_000_000
             : 3_000_000_000_000_000_000_000_000_000 // 300% -> 40% (27 decimals)
@@ -78,11 +78,11 @@ contract AaveV2Polygon_OracleDeprecationForLongTailAssets_20260915_Test is Proto
         strategy,
         InterestStrategyValues({
           addressesProvider: address(AaveV2Polygon.POOL_ADDRESSES_PROVIDER),
-          stableRateSlope1: previous.stableRateSlope1(), // unchanged
-          stableRateSlope2: previous.stableRateSlope2(), // unchanged
-          optimalUsageRatio: previous.OPTIMAL_UTILIZATION_RATE(), // unchanged
-          baseVariableBorrowRate: previous.baseVariableBorrowRate(), // unchanged
-          variableRateSlope1: previous.variableRateSlope1(), // unchanged
+          stableRateSlope1: previous.stableRateSlope1(),
+          stableRateSlope2: previous.stableRateSlope2(),
+          optimalUsageRatio: previous.OPTIMAL_UTILIZATION_RATE(),
+          baseVariableBorrowRate: previous.baseVariableBorrowRate(),
+          variableRateSlope1: previous.variableRateSlope1(),
           variableRateSlope2: afterExecution
             ? 400_000_000_000_000_000_000_000_000
             : 3_000_000_000_000_000_000_000_000_000 // 300% -> 40% (27 decimals)

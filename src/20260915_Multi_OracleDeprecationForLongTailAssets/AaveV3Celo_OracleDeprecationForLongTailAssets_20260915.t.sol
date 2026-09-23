@@ -108,9 +108,9 @@ contract AaveV3Celo_OracleDeprecationForLongTailAssets_20260915_Test is Protocol
       AaveV3Celo.POOL.RESERVE_INTEREST_RATE_STRATEGY(),
       AaveV3Celo.POOL.RESERVE_INTEREST_RATE_STRATEGY(),
       IDefaultInterestRateStrategyV2.InterestRateDataRay({
-        optimalUsageRatio: _ratesBefore[AaveV3CeloAssets.USDm_UNDERLYING].optimalUsageRatio, // unchanged
+        optimalUsageRatio: _ratesBefore[AaveV3CeloAssets.USDm_UNDERLYING].optimalUsageRatio,
         baseVariableBorrowRate: afterExecution ? 50_000_000_000_000_000_000_000_000 : 0, // 0% -> 5% (27 decimals)
-        variableRateSlope1: _ratesBefore[AaveV3CeloAssets.USDm_UNDERLYING].variableRateSlope1, // unchanged
+        variableRateSlope1: _ratesBefore[AaveV3CeloAssets.USDm_UNDERLYING].variableRateSlope1,
         variableRateSlope2: afterExecution
           ? 1_000_000_000_000_000_000_000_000_000
           : 750_000_000_000_000_000_000_000_000 // 75% -> 100% (27 decimals)
