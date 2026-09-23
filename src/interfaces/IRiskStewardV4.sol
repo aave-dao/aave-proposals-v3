@@ -178,4 +178,8 @@ interface IRiskStewardV4 {
   function RISK_COUNCIL() external view returns (address);
 
   function owner() external view returns (address);
+
+  function pendingOwner() external view returns (address);
+
+  function acceptOwnership() external;
 }

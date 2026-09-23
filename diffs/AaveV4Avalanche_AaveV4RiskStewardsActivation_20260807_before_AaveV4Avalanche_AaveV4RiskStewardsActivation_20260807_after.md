@@ -23,7 +23,7 @@
 | --- | --- |
 | 2 | RoleGranted(role: 0x8aa855a911518ecfbe5bc3088c8f3dda7badf130faaf8ace33fdc33828e18167, account: 0xd8d7AbC42c1c938BdEC94fF8da1b3cd5b7e3b107, sender: 0x3C06dce358add17aAf230f2234bCCC4afd50d090) |
 
-#### 0xd8d7AbC42c1c938BdEC94fF8da1b3cd5b7e3b107
+#### 0xd8d7AbC42c1c938BdEC94fF8da1b3cd5b7e3b107 (AaveV4Avalanche.RISK_STEWARD)
 
 | index | event |
 | --- | --- |
@@ -56,7 +56,7 @@
 | --- | --- | --- |
 | 0xa6e98b9d4b61083554d3215798b04fea9ba5219508b982cf5c1e47b0014f8ddf | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000000000000000000000000001 |
 
-### 0xd8d7abc42c1c938bdec94ff8da1b3cd5b7e3b107
+### 0xd8d7abc42c1c938bdec94ff8da1b3cd5b7e3b107 (AaveV4Avalanche.RISK_STEWARD)
 
 | slot | previous value | new value |
 | --- | --- | --- |
