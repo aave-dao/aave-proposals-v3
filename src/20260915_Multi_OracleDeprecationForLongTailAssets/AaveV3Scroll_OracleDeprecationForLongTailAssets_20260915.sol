@@ -13,6 +13,8 @@ import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config
  * - Discussion: https://governance.aave.com/t/arfc-oracle-deprecation-for-long-tail-assets-across-aave-v2-and-v3/25400
  */
 contract AaveV3Scroll_OracleDeprecationForLongTailAssets_20260915 is AaveV3PayloadScroll {
+  address public constant SCR_PRICE_FEED = 0xe90AA642db69c78959aFF4FC7d0E47866233BF43;
+
   function _postExecute() internal override {}
 
   function rateStrategiesUpdates()
@@ -35,7 +37,6 @@ contract AaveV3Scroll_OracleDeprecationForLongTailAssets_20260915 is AaveV3Paylo
 
     return rateStrategies;
   }
-  address public constant SCR_PRICE_FEED = 0xe90AA642db69c78959aFF4FC7d0E47866233BF43;
   function priceFeedsUpdates()
     public
     pure

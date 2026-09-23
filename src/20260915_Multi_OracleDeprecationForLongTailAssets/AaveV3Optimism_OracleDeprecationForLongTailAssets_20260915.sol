@@ -13,6 +13,10 @@ import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config
  * - Discussion: https://governance.aave.com/t/arfc-oracle-deprecation-for-long-tail-assets-across-aave-v2-and-v3/25400
  */
 contract AaveV3Optimism_OracleDeprecationForLongTailAssets_20260915 is AaveV3PayloadOptimism {
+  address public constant LUSD_PRICE_FEED = 0x0EB34b917D500a7736555f4508BFE77452cb261d;
+  address public constant MAI_PRICE_FEED = 0x80e8F4b3698A079d7f2397cd71ab4bb17a12924e;
+  address public constant sUSD_PRICE_FEED = 0x70371a0c40e8497Ce491f889D546AB760d644Eec;
+
   function _postExecute() internal override {
     AaveV3Optimism.POOL_CONFIGURATOR.setReserveFreeze(AaveV3OptimismAssets.LUSD_UNDERLYING, true);
     AaveV3Optimism.POOL_CONFIGURATOR.setReserveFreeze(AaveV3OptimismAssets.sUSD_UNDERLYING, true);
@@ -66,9 +70,6 @@ contract AaveV3Optimism_OracleDeprecationForLongTailAssets_20260915 is AaveV3Pay
 
     return rateStrategies;
   }
-  address public constant LUSD_PRICE_FEED = 0x0EB34b917D500a7736555f4508BFE77452cb261d;
-  address public constant MAI_PRICE_FEED = 0x80e8F4b3698A079d7f2397cd71ab4bb17a12924e;
-  address public constant sUSD_PRICE_FEED = 0x70371a0c40e8497Ce491f889D546AB760d644Eec;
   function priceFeedsUpdates()
     public
     pure

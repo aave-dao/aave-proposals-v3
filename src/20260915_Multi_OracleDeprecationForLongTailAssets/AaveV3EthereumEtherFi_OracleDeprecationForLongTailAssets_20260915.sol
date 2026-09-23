@@ -15,6 +15,8 @@ import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config
 contract AaveV3EthereumEtherFi_OracleDeprecationForLongTailAssets_20260915 is
   AaveV3PayloadEthereumEtherFi
 {
+  address public constant FRAX_PRICE_FEED = 0x4501b17229a27eE82F364172928e30526D2215E8;
+
   function _postExecute() internal override {
     AaveV3EthereumEtherFi.POOL_CONFIGURATOR.setReserveFreeze(
       AaveV3EthereumEtherFiAssets.FRAX_UNDERLYING,
@@ -51,7 +53,6 @@ contract AaveV3EthereumEtherFi_OracleDeprecationForLongTailAssets_20260915 is
 
     return rateStrategies;
   }
-  address public constant FRAX_PRICE_FEED = 0x4501b17229a27eE82F364172928e30526D2215E8;
   function priceFeedsUpdates()
     public
     pure

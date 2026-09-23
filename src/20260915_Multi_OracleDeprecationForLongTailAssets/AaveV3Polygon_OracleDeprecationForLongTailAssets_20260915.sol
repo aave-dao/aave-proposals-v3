@@ -13,6 +13,10 @@ import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config
  * - Discussion: https://governance.aave.com/t/arfc-oracle-deprecation-for-long-tail-assets-across-aave-v2-and-v3/25400
  */
 contract AaveV3Polygon_OracleDeprecationForLongTailAssets_20260915 is AaveV3PayloadPolygon {
+  address public constant BAL_PRICE_FEED = 0x55Eb6D9432a9842844b60Cd9D38497c0be7E623D;
+  address public constant GHST_PRICE_FEED = 0x61c417D189A9983B3eD9054692c16451E5391058;
+  address public constant miMATIC_PRICE_FEED = 0xe756E3e985Bb5666ce7CE07d47EA97E1Fd33B834;
+
   function _postExecute() internal override {
     AaveV3Polygon.POOL_CONFIGURATOR.setReserveFreeze(AaveV3PolygonAssets.GHST_UNDERLYING, true);
   }
@@ -66,9 +70,6 @@ contract AaveV3Polygon_OracleDeprecationForLongTailAssets_20260915 is AaveV3Payl
 
     return rateStrategies;
   }
-  address public constant BAL_PRICE_FEED = 0x55Eb6D9432a9842844b60Cd9D38497c0be7E623D;
-  address public constant GHST_PRICE_FEED = 0x61c417D189A9983B3eD9054692c16451E5391058;
-  address public constant miMATIC_PRICE_FEED = 0xe756E3e985Bb5666ce7CE07d47EA97E1Fd33B834;
   function priceFeedsUpdates()
     public
     pure
