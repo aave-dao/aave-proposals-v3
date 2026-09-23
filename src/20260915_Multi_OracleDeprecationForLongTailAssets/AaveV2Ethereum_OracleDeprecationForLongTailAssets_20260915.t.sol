@@ -8,7 +8,7 @@ import {ProtocolV2TestBase, ReserveConfig, InterestStrategyValues} from 'aave-he
 import {AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915} from './AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915.sol';
 
 import {ChainlinkEthereum} from 'aave-address-book/ChainlinkEthereum.sol';
-import {IChainlinkAggregator} from 'aave-helpers/src/interfaces/IChainlinkAggregator.sol';
+import {OracleTestUtils} from './OracleTestUtils.sol';
 
 import {IDefaultInterestRateStrategy} from 'aave-address-book/AaveV2.sol';
 
@@ -351,8 +351,7 @@ contract AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
     assertEq(
       AaveV2Ethereum.ORACLE.getAssetPrice(AaveV2EthereumAssets.AMPL_UNDERLYING),
       // $1.2396 (8 decimals); converted to ETH (18 decimals)
-      ((123_960_000 * 1e18) /
-        uint256(IChainlinkAggregator(ChainlinkEthereum.ETH__USD).latestAnswer())),
+      OracleTestUtils.usdToEth(123_960_000, ChainlinkEthereum.ETH__USD),
       'AMPL oracle output'
     );
     _validateAssetSourceOnOracle(
@@ -363,8 +362,7 @@ contract AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
     assertEq(
       AaveV2Ethereum.ORACLE.getAssetPrice(AaveV2EthereumAssets.BAL_UNDERLYING),
       // $0.1317 (8 decimals); converted to ETH (18 decimals)
-      ((13_170_000 * 1e18) /
-        uint256(IChainlinkAggregator(ChainlinkEthereum.ETH__USD).latestAnswer())),
+      OracleTestUtils.usdToEth(13_170_000, ChainlinkEthereum.ETH__USD),
       'BAL oracle output'
     );
     _validateAssetSourceOnOracle(
@@ -375,8 +373,7 @@ contract AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
     assertEq(
       AaveV2Ethereum.ORACLE.getAssetPrice(AaveV2EthereumAssets.ENJ_UNDERLYING),
       // $0.0461 (8 decimals); converted to ETH (18 decimals)
-      ((4_610_000 * 1e18) /
-        uint256(IChainlinkAggregator(ChainlinkEthereum.ETH__USD).latestAnswer())),
+      OracleTestUtils.usdToEth(4_610_000, ChainlinkEthereum.ETH__USD),
       'ENJ oracle output'
     );
     _validateAssetSourceOnOracle(
@@ -387,8 +384,7 @@ contract AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
     assertEq(
       AaveV2Ethereum.ORACLE.getAssetPrice(AaveV2EthereumAssets.FRAX_UNDERLYING),
       // $1 (8 decimals); converted to ETH (18 decimals)
-      ((100_000_000 * 1e18) /
-        uint256(IChainlinkAggregator(ChainlinkEthereum.ETH__USD).latestAnswer())),
+      OracleTestUtils.usdToEth(100_000_000, ChainlinkEthereum.ETH__USD),
       'FRAX oracle output'
     );
     _validateAssetSourceOnOracle(
@@ -399,8 +395,7 @@ contract AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
     assertEq(
       AaveV2Ethereum.ORACLE.getAssetPrice(AaveV2EthereumAssets.KNC_UNDERLYING),
       // $0.1401 (8 decimals); converted to ETH (18 decimals)
-      ((14_010_000 * 1e18) /
-        uint256(IChainlinkAggregator(ChainlinkEthereum.ETH__USD).latestAnswer())),
+      OracleTestUtils.usdToEth(14_010_000, ChainlinkEthereum.ETH__USD),
       'KNC oracle output'
     );
     _validateAssetSourceOnOracle(
@@ -411,8 +406,7 @@ contract AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
     assertEq(
       AaveV2Ethereum.ORACLE.getAssetPrice(AaveV2EthereumAssets.LUSD_UNDERLYING),
       // $1 (8 decimals); converted to ETH (18 decimals)
-      ((100_000_000 * 1e18) /
-        uint256(IChainlinkAggregator(ChainlinkEthereum.ETH__USD).latestAnswer())),
+      OracleTestUtils.usdToEth(100_000_000, ChainlinkEthereum.ETH__USD),
       'LUSD oracle output'
     );
     _validateAssetSourceOnOracle(
@@ -423,8 +417,7 @@ contract AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
     assertEq(
       AaveV2Ethereum.ORACLE.getAssetPrice(AaveV2EthereumAssets.RAI_UNDERLYING),
       // $2.6587 (8 decimals); converted to ETH (18 decimals)
-      ((265_870_000 * 1e18) /
-        uint256(IChainlinkAggregator(ChainlinkEthereum.ETH__USD).latestAnswer())),
+      OracleTestUtils.usdToEth(265_870_000, ChainlinkEthereum.ETH__USD),
       'RAI oracle output'
     );
     _validateAssetSourceOnOracle(
@@ -435,7 +428,7 @@ contract AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
     assertEq(
       AaveV2Ethereum.ORACLE.getAssetPrice(AaveV2EthereumAssets.REN_UNDERLYING),
       // $0.0033 (8 decimals); converted to ETH (18 decimals)
-      ((330_000 * 1e18) / uint256(IChainlinkAggregator(ChainlinkEthereum.ETH__USD).latestAnswer())),
+      OracleTestUtils.usdToEth(330_000, ChainlinkEthereum.ETH__USD),
       'REN oracle output'
     );
     _validateAssetSourceOnOracle(
@@ -446,8 +439,7 @@ contract AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
     assertEq(
       AaveV2Ethereum.ORACLE.getAssetPrice(AaveV2EthereumAssets.TUSD_UNDERLYING),
       // $1 (8 decimals); converted to ETH (18 decimals)
-      ((100_000_000 * 1e18) /
-        uint256(IChainlinkAggregator(ChainlinkEthereum.ETH__USD).latestAnswer())),
+      OracleTestUtils.usdToEth(100_000_000, ChainlinkEthereum.ETH__USD),
       'TUSD oracle output'
     );
     _validateAssetSourceOnOracle(
@@ -458,8 +450,7 @@ contract AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
     assertEq(
       AaveV2Ethereum.ORACLE.getAssetPrice(AaveV2EthereumAssets.USDP_UNDERLYING),
       // $1 (8 decimals); converted to ETH (18 decimals)
-      ((100_000_000 * 1e18) /
-        uint256(IChainlinkAggregator(ChainlinkEthereum.ETH__USD).latestAnswer())),
+      OracleTestUtils.usdToEth(100_000_000, ChainlinkEthereum.ETH__USD),
       'USDP oracle output'
     );
     _validateAssetSourceOnOracle(
@@ -470,8 +461,7 @@ contract AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
     assertEq(
       AaveV2Ethereum.ORACLE.getAssetPrice(AaveV2EthereumAssets.YFI_UNDERLYING),
       // $2286.6368 (8 decimals); converted to ETH (18 decimals)
-      ((228_663_680_000 * 1e18) /
-        uint256(IChainlinkAggregator(ChainlinkEthereum.ETH__USD).latestAnswer())),
+      OracleTestUtils.usdToEth(228_663_680_000, ChainlinkEthereum.ETH__USD),
       'YFI oracle output'
     );
     _validateAssetSourceOnOracle(
@@ -482,8 +472,7 @@ contract AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
     assertEq(
       AaveV2Ethereum.ORACLE.getAssetPrice(AaveV2EthereumAssets.ZRX_UNDERLYING),
       // $0.0981 (8 decimals); converted to ETH (18 decimals)
-      ((9_810_000 * 1e18) /
-        uint256(IChainlinkAggregator(ChainlinkEthereum.ETH__USD).latestAnswer())),
+      OracleTestUtils.usdToEth(9_810_000, ChainlinkEthereum.ETH__USD),
       'ZRX oracle output'
     );
     _validateAssetSourceOnOracle(
@@ -494,8 +483,7 @@ contract AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915_Test is Prot
     assertEq(
       AaveV2Ethereum.ORACLE.getAssetPrice(AaveV2EthereumAssets.sUSD_UNDERLYING),
       // $0.378 (8 decimals); converted to ETH (18 decimals)
-      ((37_800_000 * 1e18) /
-        uint256(IChainlinkAggregator(ChainlinkEthereum.ETH__USD).latestAnswer())),
+      OracleTestUtils.usdToEth(37_800_000, ChainlinkEthereum.ETH__USD),
       'sUSD oracle output'
     );
   }

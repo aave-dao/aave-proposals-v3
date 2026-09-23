@@ -8,7 +8,7 @@ import {ProtocolV2TestBase, ReserveConfig, InterestStrategyValues} from 'aave-he
 import {AaveV2Polygon_OracleDeprecationForLongTailAssets_20260915} from './AaveV2Polygon_OracleDeprecationForLongTailAssets_20260915.sol';
 
 import {ChainlinkPolygon} from 'aave-address-book/ChainlinkPolygon.sol';
-import {IChainlinkAggregator} from 'aave-helpers/src/interfaces/IChainlinkAggregator.sol';
+import {OracleTestUtils} from './OracleTestUtils.sol';
 
 import {IDefaultInterestRateStrategy} from 'aave-address-book/AaveV2.sol';
 
@@ -99,8 +99,7 @@ contract AaveV2Polygon_OracleDeprecationForLongTailAssets_20260915_Test is Proto
     assertEq(
       AaveV2Polygon.ORACLE.getAssetPrice(AaveV2PolygonAssets.BAL_UNDERLYING),
       // $0.1284 (8 decimals); converted to ETH (18 decimals)
-      ((12_840_000 * 1e18) /
-        uint256(IChainlinkAggregator(ChainlinkPolygon.ETH__USD).latestAnswer())),
+      OracleTestUtils.usdToEth(12_840_000, ChainlinkPolygon.ETH__USD),
       'BAL oracle output'
     );
     _validateAssetSourceOnOracle(
@@ -111,8 +110,7 @@ contract AaveV2Polygon_OracleDeprecationForLongTailAssets_20260915_Test is Proto
     assertEq(
       AaveV2Polygon.ORACLE.getAssetPrice(AaveV2PolygonAssets.GHST_UNDERLYING),
       // $0.0793 (8 decimals); converted to ETH (18 decimals)
-      ((7_930_000 * 1e18) /
-        uint256(IChainlinkAggregator(ChainlinkPolygon.ETH__USD).latestAnswer())),
+      OracleTestUtils.usdToEth(7_930_000, ChainlinkPolygon.ETH__USD),
       'GHST oracle output'
     );
   }
