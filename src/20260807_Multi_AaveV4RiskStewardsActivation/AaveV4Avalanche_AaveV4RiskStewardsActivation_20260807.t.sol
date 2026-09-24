@@ -12,7 +12,7 @@ import {IHub, IHubConfigurator, ISpoke} from 'aave-address-book/AaveV4.sol';
 import {IPriceCapAdapter} from 'src/interfaces/IPriceCapAdapter.sol';
 import {IPriceCapAdapterStable} from 'src/interfaces/IPriceCapAdapterStable.sol';
 import {IRiskSteward} from 'src/interfaces/IRiskSteward.sol';
-import {AaveV4RiskStewardsActivationTestBase} from './AaveV4RiskStewardsActivationTestBase.sol';
+import {AaveV4RiskStewardsActivationTestBase} from 'src/helpers/risk-stewards/AaveV4RiskStewardsActivationTestBase.sol';
 import {AaveV4Avalanche_AaveV4RiskStewardsActivation_20260807} from './AaveV4Avalanche_AaveV4RiskStewardsActivation_20260807.sol';
 
 /**

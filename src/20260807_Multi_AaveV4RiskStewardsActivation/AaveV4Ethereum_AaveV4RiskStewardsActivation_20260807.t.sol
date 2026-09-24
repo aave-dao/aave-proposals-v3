@@ -17,7 +17,7 @@ import {IPriceCapAdapter} from 'src/interfaces/IPriceCapAdapter.sol';
 import {IPriceCapAdapterStable} from 'src/interfaces/IPriceCapAdapterStable.sol';
 import {IRiskSteward} from 'src/interfaces/IRiskSteward.sol';
 import {IRiskStewardV4} from 'src/interfaces/IRiskStewardV4.sol';
-import {AaveV4RiskStewardsActivationTestBase} from './AaveV4RiskStewardsActivationTestBase.sol';
+import {AaveV4RiskStewardsActivationTestBase} from 'src/helpers/risk-stewards/AaveV4RiskStewardsActivationTestBase.sol';
 import {AaveV4Ethereum_AaveV4RiskStewardsActivation_20260807} from './AaveV4Ethereum_AaveV4RiskStewardsActivation_20260807.sol';
 
 /**

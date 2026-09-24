@@ -8,7 +8,7 @@ import {GovernanceV3Base} from 'aave-address-book/GovernanceV3Base.sol';
 import {AaveV3Base} from 'aave-address-book/AaveV3Base.sol';
 import {AaveV4Base, AaveV4BaseHubs, AaveV4BaseSpokes, AaveV4BaseSpokePriceFeeds, AaveV4BaseAssets} from 'aave-address-book/AaveV4Base.sol';
 import {GhoBase} from 'aave-address-book/GhoBase.sol';
-import {IAaveV4ConfigEngine as IConfigEngine} from 'aave-address-book/AaveV4.sol';
+import {IAaveV4ConfigEngine as IConfigEngine, IHub, IHubConfigurator} from 'aave-address-book/AaveV4.sol';
 import {EngineFlags} from 'aave-v4/config-engine/libraries/EngineFlags.sol';
 import {IPriceCapAdapterStable} from 'src/interfaces/IPriceCapAdapterStable.sol';
 import {IRiskStewardV4} from 'src/interfaces/IRiskStewardV4.sol';
@@ -16,7 +16,13 @@ import {AaveV4Base_AaveV4RiskStewardsActivation_20260807} from './AaveV4Base_Aav
 
 /**
  * @dev Test for AaveV4Base_AaveV4RiskStewardsActivation_20260807
- *      The e2e suite only runs under a forge that can execute the B20 equities (`--network base`).
+ *      Runs on forge's Base EVM (nightly), which executes the B20 equity precompiles. The fork block is
+ *      on the Beryl upgrade; switch to base:cobalt if the fork moves past 1790791200 (2026-09-30T10:00Z).
+ *      Isolation is off because isolated top-level calls are charged the L1 data fee and revert for
+ *      0-ETH pranked callers (foundry-rs/foundry#17010).
+ * forge-config: default.networks.network = "base"
+ * forge-config: default.hardfork = "base:beryl"
+ * forge-config: default.isolate = false
  * command: FOUNDRY_PROFILE=test forge test --match-path=src/20260807_Multi_AaveV4RiskStewardsActivation/AaveV4Base_AaveV4RiskStewardsActivation_20260807.t.sol -vv
  */
 contract AaveV4Base_AaveV4RiskStewardsActivation_20260807_Test is ProtocolV4TestBaseBase {
@@ -30,18 +36,26 @@ contract AaveV4Base_AaveV4RiskStewardsActivation_20260807_Test is ProtocolV4Test
     proposal = new AaveV4Base_AaveV4RiskStewardsActivation_20260807();
   }
 
-  /**
-   * @dev executes the generic test suite including e2e and config snapshots
-   * forge-config: default.isolate = true
-   */
+  /// @dev executes the payload with config snapshots and diff; the e2e runs in `test_e2e`
+  /// forge-config: default.isolate = true
   function test_defaultProposalExecution() public {
     defaultTest({
       reportName: 'AaveV4Base_AaveV4RiskStewardsActivation_20260807',
       payload: address(proposal),
-      runE2E: _canExecuteB20(),
+      runE2E: false,
       testPositionManagers: false,
       runSeatbelt: false
     });
+  }
+
+  /// @dev The equities are B20 tokens (node-native, code 0xef): only forge's Base EVM executes them, so
+  /// this test is skipped, not passed, anywhere else. See `_requireB20Semantics`.
+  function test_e2e() public {
+    _requireB20Semantics();
+    _unhaltMarket();
+    GovV3Helpers.executePayload(vm, address(proposal));
+    e2eTestAllSpokes({spokes: _getSpokes(), testPositionManagers: false});
+    e2eTestAllTokenizationSpokes(_getTokenizationSpokes());
   }
 
   function test_ownershipAccepted() public {
@@ -137,10 +151,29 @@ contract AaveV4Base_AaveV4RiskStewardsActivation_20260807_Test is ProtocolV4Test
     assertEq(uint256(stableAdapter.getPriceCap()), updates[0].priceCap, 'priceCap not updated');
   }
 
-  /// @dev B20 equities are node-native (code 0xef): upstream forge burns all forwarded gas on them
-  function _canExecuteB20() internal view returns (bool ok) {
-    (ok, ) = AaveV4BaseAssets.AAPLc_UNDERLYING.staticcall{gas: 100_000}(
+  /// @dev The Base market is deployed halted until its activation (Security Council) executes
+  function _unhaltMarket() internal {
+    IHub hub = AaveV4BaseHubs.EQUITIES_HUB;
+    vm.startPrank(GovernanceV3Base.EXECUTOR_LVL_1);
+    for (uint256 assetId; assetId < hub.getAssetCount(); ++assetId) {
+      for (uint256 i; i < hub.getSpokeCount(assetId); ++i) {
+        IHubConfigurator(AaveV4Base.HUB_CONFIGURATOR).updateSpokeHalted({
+          hub: address(hub),
+          assetId: assetId,
+          spoke: hub.getSpokeAddress(assetId, i),
+          halted: false
+        });
+      }
+    }
+    vm.stopPrank();
+  }
+
+  /// @dev Without the Base EVM, forge burns all forwarded gas on a B20 token. Probe it and skip rather
+  /// than pass.
+  function _requireB20Semantics() internal {
+    (bool ok, ) = AaveV4BaseAssets.AAPLc_UNDERLYING.staticcall{gas: 100_000}(
       abi.encodeWithSignature('symbol()')
     );
+    vm.skip(!ok, 'requires forge with the Base EVM for the B20 equity precompiles');
   }
 }

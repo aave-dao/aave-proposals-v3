@@ -96,8 +96,8 @@
 | index | event |
 | --- | --- |
 | 1 | Initialized(underlyingAsset: 0xB6CEceAB302E2E4948951eE7843FC24E92933061, pool: 0xE3F3Caefdd7180F884c01E57f65Df979Af84f116, treasury: 0x3E9CfB4FDe8180C48b823C12DD2c4B841843f92E, incentivesController: 0x5404934c8F472818135176C80095283d78EB32D6, aTokenDecimals: 6, aTokenName: Aave XLayer USDC, aTokenSymbol: aXlrUSDC, params: 0x) |
-| 35 | Transfer(from: 0x0000000000000000000000000000000000000000, to: 0xF1910d5abaedd330d2C235E6608D519B660097a6, value: 100 [100000000, 6 decimals]) |
-| 36 | Mint(caller: 0xE2E8Badc5d50f8a6188577B89f50701cDE2D4e19, onBehalfOf: 0xF1910d5abaedd330d2C235E6608D519B660097a6, value: 100 [100000000, 6 decimals], balanceIncrease: 0, index: 1 [1000000000000000000000000000, 27 decimals]) |
+| 35 | Transfer(from: 0x0000000000000000000000000000000000000000, to: 0xF1910d5abaedd330d2C235E6608D519B660097a6, value: 100,000,000 [100000000, 0 decimals]) |
+| 36 | Mint(caller: 0xE2E8Badc5d50f8a6188577B89f50701cDE2D4e19, onBehalfOf: 0xF1910d5abaedd330d2C235E6608D519B660097a6, value: 100,000,000 [100000000, 0 decimals], balanceIncrease: 0, index: 1 [1000000000000000000000000000, 27 decimals]) |
 
 #### 0x585Eb919387F82bc9B2B440C4F3D8615B079465A
 
@@ -125,13 +125,13 @@
 | 12 | CollateralConfigurationChanged(asset: 0xB6CEceAB302E2E4948951eE7843FC24E92933061 (symbol: USDC), ltv: 7500, liquidationThreshold: 7800, liquidationBonus: 10750) |
 | 13 | LiquidationProtocolFeeChanged(asset: 0xB6CEceAB302E2E4948951eE7843FC24E92933061 (symbol: USDC), oldFee: 0, newFee: 1000) |
 | 14 | EModeCategoryAdded(categoryId: 1, ltv: 7800, liquidationThreshold: 8100, liquidationBonus: 10600, oracle: 0x0000000000000000000000000000000000000000, label: xBTC__Stablecoins) |
-| 15 | topics: `0xea07f8a4f488dcc1dc8c27b9c526ac8ba2d04b8024e206616f306c51d9b16826`, `0x0000000000000000000000000000000000000000000000000000000000000001`, data: `0x0000000000000000000000000000000000000000000000000000000000000000` |
+| 15 | EModeCategoryIsolationChanged(categoryId: 1, isolated: false) |
 | 16 | EModeCategoryAdded(categoryId: 2, ltv: 7800, liquidationThreshold: 8000, liquidationBonus: 10600, oracle: 0x0000000000000000000000000000000000000000, label: xETH__Stablecoins) |
-| 17 | topics: `0xea07f8a4f488dcc1dc8c27b9c526ac8ba2d04b8024e206616f306c51d9b16826`, `0x0000000000000000000000000000000000000000000000000000000000000002`, data: `0x0000000000000000000000000000000000000000000000000000000000000000` |
+| 17 | EModeCategoryIsolationChanged(categoryId: 2, isolated: false) |
 | 18 | EModeCategoryAdded(categoryId: 3, ltv: 6500, liquidationThreshold: 7000, liquidationBonus: 10750, oracle: 0x0000000000000000000000000000000000000000, label: xSOL__Stablecoins) |
-| 19 | topics: `0xea07f8a4f488dcc1dc8c27b9c526ac8ba2d04b8024e206616f306c51d9b16826`, `0x0000000000000000000000000000000000000000000000000000000000000003`, data: `0x0000000000000000000000000000000000000000000000000000000000000000` |
+| 19 | EModeCategoryIsolationChanged(categoryId: 3, isolated: false) |
 | 20 | EModeCategoryAdded(categoryId: 4, ltv: 5000, liquidationThreshold: 5500, liquidationBonus: 11000, oracle: 0x0000000000000000000000000000000000000000, label: WOKB__Stablecoins) |
-| 21 | topics: `0xea07f8a4f488dcc1dc8c27b9c526ac8ba2d04b8024e206616f306c51d9b16826`, `0x0000000000000000000000000000000000000000000000000000000000000004`, data: `0x0000000000000000000000000000000000000000000000000000000000000000` |
+| 21 | EModeCategoryIsolationChanged(categoryId: 4, isolated: false) |
 | 22 | AssetCollateralInEModeChanged(asset: 0xB6CEceAB302E2E4948951eE7843FC24E92933061 (symbol: USDC), categoryId: 1, collateral: false) |
 | 23 | AssetBorrowableInEModeChanged(asset: 0xB6CEceAB302E2E4948951eE7843FC24E92933061 (symbol: USDC), categoryId: 1, borrowable: true) |
 | 24 | AssetCollateralInEModeChanged(asset: 0xB6CEceAB302E2E4948951eE7843FC24E92933061 (symbol: USDC), categoryId: 2, collateral: false) |

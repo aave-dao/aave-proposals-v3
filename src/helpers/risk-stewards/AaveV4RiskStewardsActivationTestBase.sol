@@ -113,6 +113,23 @@ abstract contract AaveV4RiskStewardsActivationTestBase is ProtocolV4TestBase {
     assertFalse(_aclManager().isFlashBorrower(_riskSteward()), 'flash borrower granted');
   }
 
+  function test_allRolesMatchesAccessManager() public view {
+    IAccessManagerEnumerable accessManager = IAccessManagerEnumerable(_accessManager());
+    uint64[] memory onchainRoles = accessManager.getRoles(0, accessManager.getRoleCount());
+    uint64[] memory allRoles = _allRoles();
+
+    // the AccessManager does not enumerate ACCESS_MANAGER_ADMIN_ROLE
+    assertEq(allRoles[0], Roles.ACCESS_MANAGER_ADMIN_ROLE, 'admin role not first');
+    assertEq(onchainRoles.length, allRoles.length - 1, 'role count mismatch');
+    for (uint256 i; i < onchainRoles.length; ++i) {
+      bool listed;
+      for (uint256 j = 1; j < allRoles.length; ++j) {
+        listed = listed || allRoles[j] == onchainRoles[i];
+      }
+      assertTrue(listed, string.concat('role not listed: ', vm.toString(onchainRoles[i])));
+    }
+  }
+
   /// @dev `Roles` exposes no enumeration, so this mirrors every id it defines. PUBLIC_ROLE is left
   /// out: the AccessManager holds it for every address by construction.
   function _allRoles() internal pure returns (uint64[] memory) {

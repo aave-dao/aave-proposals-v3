@@ -8,7 +8,7 @@ import {IRiskStewardV4} from 'src/interfaces/IRiskStewardV4.sol';
  * @title RiskStewardV4Config
  * @author Aave Labs
  * @notice Default bounds and cooldowns config for the Aave V4 Risk Steward, identical on
- *         every network it is activated on. Only the two configurators are network specific.
+ *         every network it is activated on.
  */
 library RiskStewardV4Config {
   function defaultConfig(
