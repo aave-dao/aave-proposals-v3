@@ -7,7 +7,7 @@ snapshot: "https://snapshot.org/#/s:aavedao.eth/proposal/0xf736fa5f6dd1532d0e282
 
 ## Simple Summary
 
-This proposal activates the Risk Stewards on Aave V4 Ethereum and Aave V4 Avalanche, by setting their risk configuration and granting them the AccessManager roles they need to operate. On Aave V4 Base, where the Risk Steward is already configured, it takes ownership of the Risk Steward and grants it the Aave V3 ACL Manager role it needs to update price caps.
+This proposal activates the Risk Stewards on Aave V4 Ethereum and Aave V4 Avalanche, by setting their risk configuration and granting them the AccessManager roles they need to operate. On Aave V4 Base, where the Risk Steward is already configured, it takes ownership of the Risk Steward and grants it the `RISK_ADMIN` role on the Aave V3 ACL Manager, needed to manage CAPO feeds.
 
 The bounds (`maxPercentChange`) follow LlamaRisk's recommended configuration, which carries most of them over from the corresponding V3 Risk Stewards unchanged. The cooldowns (`minDelay`) on the interest rate, cap and `collateralRisk` parameters are set to 36 hours, in line with the reduction ratified for the V3 Risk Stewards; every other parameter keeps a 72 hour cooldown, and the Pendle discount rate keeps its 48 hour cooldown.
 

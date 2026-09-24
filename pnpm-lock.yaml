@@ -12,8 +12,8 @@ importers:
         specifier: ^4.66.0
         version: 4.66.0(viem@2.50.4(zod@4.5.4))
       '@aave-dao/aave-helpers-js':
-        specifier: ^1.6.2
-        version: 1.6.2(prettier-plugin-solidity@1.3.1(prettier@3.8.3))(prettier@3.8.3)
+        specifier: ^1.6.3
+        version: 1.6.3(prettier-plugin-solidity@1.3.1(prettier@3.8.3))(prettier@3.8.3)
       '@aave-dao/toolbox':
         specifier: ^0.6.1
         version: 0.6.1(prettier-plugin-solidity@1.3.1(prettier@3.8.3))(prettier@3.8.3)(viem@2.50.4(zod@4.5.4))
@@ -85,8 +85,8 @@ packages:
     peerDependencies:
       viem: ^2.23.5
 
-  '@aave-dao/aave-helpers-js@1.6.2':
-    resolution: {integrity: sha512-A+0NBu8MaAIhEgmtQQiU8RT0sjpfnZvVUYlgAwp+v1QnVFjSmnI3KaXFQeZ1KlO/UdriBYLY4twcJzPi9Fz7tA==}
+  '@aave-dao/aave-helpers-js@1.6.3':
+    resolution: {integrity: sha512-KyoUBnKmOBR5DFHREHUnQyP7XtudRNnHd/axLrCWsnzw4jkvywk3A3IzmKQrqg8lccwIQ6QwUovcMHymAqBXzw==}
     engines: {node: '>=22'}
     hasBin: true
 
@@ -1256,7 +1256,7 @@ snapshots:
     dependencies:
       viem: 2.50.4(zod@4.5.4)
 
-  '@aave-dao/aave-helpers-js@1.6.2(prettier-plugin-solidity@1.3.1(prettier@3.8.3))(prettier@3.8.3)':
+  '@aave-dao/aave-helpers-js@1.6.3(prettier-plugin-solidity@1.3.1(prettier@3.8.3))(prettier@3.8.3)':
     dependencies:
       '@aave-dao/aave-address-book': 4.70.2(viem@2.50.4(zod@4.5.4))
       '@aave-dao/toolbox': 0.7.0(prettier-plugin-solidity@1.3.1(prettier@3.8.3))(prettier@3.8.3)(viem@2.50.4(zod@4.5.4))

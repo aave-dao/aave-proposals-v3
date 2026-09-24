@@ -6,8 +6,8 @@ import {GovV3Helpers} from 'aave-helpers/src/GovV3Helpers.sol';
 import {ProtocolV4TestBaseBase} from 'aave-helpers/src/v4-protocol-test/ProtocolV4TestBaseBase.sol';
 import {GovernanceV3Base} from 'aave-address-book/GovernanceV3Base.sol';
 import {AaveV3Base} from 'aave-address-book/AaveV3Base.sol';
-import {AaveV4Base, AaveV4BaseHubs, AaveV4BaseSpokePriceFeeds, AaveV4BaseAssets} from 'aave-address-book/AaveV4Base.sol';
-import {IHub, IHubConfigurator} from 'aave-address-book/AaveV4.sol';
+import {AaveV4Base, AaveV4BaseSpokePriceFeeds, AaveV4BaseAssets} from 'aave-address-book/AaveV4Base.sol';
+import {RiskStewardV4Config} from 'src/helpers/risk-stewards/RiskStewardV4Config.sol';
 import {IPriceCapAdapterStable} from 'src/interfaces/IPriceCapAdapterStable.sol';
 import {IRiskStewardV4} from 'src/interfaces/IRiskStewardV4.sol';
 import {AaveV4Base_AaveV4RiskStewardsActivation_20260807} from './AaveV4Base_AaveV4RiskStewardsActivation_20260807.sol';
@@ -24,6 +24,9 @@ import {AaveV4Base_AaveV4RiskStewardsActivation_20260807} from './AaveV4Base_Aav
  * command: FOUNDRY_PROFILE=test forge test --match-path=src/20260807_Multi_AaveV4RiskStewardsActivation/AaveV4Base_AaveV4RiskStewardsActivation_20260807.t.sol -vv
  */
 contract AaveV4Base_AaveV4RiskStewardsActivation_20260807_Test is ProtocolV4TestBaseBase {
+  /// @dev The Base market is deployed halted until this activation payload (Security Council) executes
+  address internal constant BASE_ACTIVATION_PAYLOAD = 0x6BDf957Ff2AE324fe23911f549aff9b5621b198E;
+
   AaveV4Base_AaveV4RiskStewardsActivation_20260807 internal proposal;
   IRiskStewardV4 internal steward = IRiskStewardV4(AaveV4Base.RISK_STEWARD);
   IPriceCapAdapterStable internal stableAdapter =
@@ -50,9 +53,9 @@ contract AaveV4Base_AaveV4RiskStewardsActivation_20260807_Test is ProtocolV4Test
   /// this test is skipped, not passed, anywhere else. See `_requireB20Semantics`.
   function test_e2e() public {
     _requireB20Semantics();
-    _unhaltMarket();
+    GovV3Helpers.executePayload(vm, BASE_ACTIVATION_PAYLOAD);
     GovV3Helpers.executePayload(vm, address(proposal));
-    e2eTestAllSpokes({spokes: _getSpokes(), testPositionManagers: false});
+    e2eTestAllSpokes({spokes: _getSpokes(), testPositionManagers: true});
     e2eTestAllTokenizationSpokes(_getTokenizationSpokes());
   }
 
@@ -67,11 +70,24 @@ contract AaveV4Base_AaveV4RiskStewardsActivation_20260807_Test is ProtocolV4Test
   }
 
   function test_configUnchanged() public {
-    bytes memory configBefore = abi.encode(steward.getConfig());
+    IRiskStewardV4.Config memory expected = RiskStewardV4Config.defaultConfig(
+      AaveV4Base.HUB_CONFIGURATOR,
+      AaveV4Base.SPOKE_CONFIGURATOR
+    );
+    expected.hub.cap.addCap.minDelay = 12 hours;
+    expected.hub.cap.drawCap.minDelay = 12 hours;
+    expected.spoke.dynamicUpdate.collateralFactor.minDelay = 36 hours;
+    expected.spoke.dynamicUpdate.maxLiquidationBonus.minDelay = 36 hours;
+    expected.spoke.dynamicAdd.collateralFactor.minDelay = 36 hours;
+    expected.spoke.dynamicAdd.maxLiquidationBonus.minDelay = 36 hours;
+    expected.spoke.liquidation.targetHealthFactor.minDelay = 36 hours;
+    expected.spoke.liquidation.healthFactorForMaxBonus.minDelay = 36 hours;
+    expected.spoke.liquidation.liquidationBonusFactor.minDelay = 36 hours;
+    assertEq(abi.encode(steward.getConfig()), abi.encode(expected), 'config mismatch');
 
     GovV3Helpers.executePayload(vm, address(proposal));
 
-    assertEq(abi.encode(steward.getConfig()), configBefore, 'config changed');
+    assertEq(abi.encode(steward.getConfig()), abi.encode(expected), 'config changed');
   }
 
   function test_riskAdminGranted() public {
@@ -115,23 +131,6 @@ contract AaveV4Base_AaveV4RiskStewardsActivation_20260807_Test is ProtocolV4Test
     vm.prank(riskCouncil);
     steward.updateStablePriceCaps(updates);
     assertEq(uint256(stableAdapter.getPriceCap()), updates[0].priceCap, 'priceCap not updated');
-  }
-
-  /// @dev The Base market is deployed halted until its activation (Security Council) executes
-  function _unhaltMarket() internal {
-    IHub hub = AaveV4BaseHubs.EQUITIES_HUB;
-    vm.startPrank(GovernanceV3Base.EXECUTOR_LVL_1);
-    for (uint256 assetId; assetId < hub.getAssetCount(); ++assetId) {
-      for (uint256 i; i < hub.getSpokeCount(assetId); ++i) {
-        IHubConfigurator(AaveV4Base.HUB_CONFIGURATOR).updateSpokeHalted({
-          hub: address(hub),
-          assetId: assetId,
-          spoke: hub.getSpokeAddress(assetId, i),
-          halted: false
-        });
-      }
-    }
-    vm.stopPrank();
   }
 
   /// @dev Without the Base EVM, forge burns all forwarded gas on a B20 token. Probe it and skip rather
