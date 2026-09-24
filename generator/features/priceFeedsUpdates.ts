@@ -1,4 +1,4 @@
-import {CodeArtifact, FEATURE, FeatureModule} from '../types';
+import {CodeArtifact, FEATURE, FeatureModule, MarketIdentifier} from '../types';
 import {PriceFeedUpdate, PriceFeedUpdatePartial} from './types';
 import {addressPrompt, translateJsAddressToSol} from '../prompts/addressPrompt';
 import {
@@ -13,6 +13,20 @@ async function fetchPriceFeedUpdate(): Promise<PriceFeedUpdatePartial> {
       required: true,
     }),
   };
+}
+
+function priceFeedUpdateTests(market: MarketIdentifier, cfgs: PriceFeedUpdate[]): string[] {
+  return cfgs.map(
+    (cfg, ix) => `function test_priceFeedUpdate_${ix}() public {
+      GovV3Helpers.executePayload(vm, address(proposal));
+
+      assertEq(
+        ${market}.ORACLE.getSourceOfAsset(${translateAssetToAssetLibUnderlying(cfg.asset, market)}),
+        ${translateJsAddressToSol(cfg.priceFeed)},
+        'unexpected price feed'
+      );
+    }`,
+  );
 }
 
 export const priceFeedsUpdates: FeatureModule<PriceFeedUpdate[]> = {
@@ -51,6 +65,9 @@ export const priceFeedsUpdates: FeatureModule<PriceFeedUpdate[]> = {
           return priceFeedUpdates;
         }`,
         ],
+      },
+      test: {
+        fn: priceFeedUpdateTests(market, cfg),
       },
     };
     return response;

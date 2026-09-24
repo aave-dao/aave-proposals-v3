@@ -1,10 +1,58 @@
-import {CodeArtifact, FEATURE, FeatureModule} from '../types';
+import {CodeArtifact, FEATURE, FeatureModule, MarketIdentifier} from '../types';
 import {RateStrategyParams, RateStrategyUpdate} from './types';
 import {
   assetsSelectPrompt,
   translateAssetToAssetLibUnderlying,
 } from '../prompts/assetsSelectPrompt';
 import {percentPrompt, translateJsPercentToSol} from '../prompts/percentPrompt';
+
+function specifiedRateAssertions(
+  params: RateStrategyParams,
+  strategy: string,
+  asset: string,
+  v2: boolean,
+): string[] {
+  const args = v2 ? '' : asset;
+  const values = [
+    ['optimalUtilizationRate', v2 ? 'OPTIMAL_UTILIZATION_RATE' : 'getOptimalUsageRatio'],
+    ['baseVariableBorrowRate', v2 ? 'baseVariableBorrowRate' : 'getBaseVariableBorrowRate'],
+    ['variableRateSlope1', v2 ? 'variableRateSlope1' : 'getVariableRateSlope1'],
+    ['variableRateSlope2', v2 ? 'variableRateSlope2' : 'getVariableRateSlope2'],
+    ...(v2
+      ? [
+          ['stableRateSlope1', 'stableRateSlope1'],
+          ['stableRateSlope2', 'stableRateSlope2'],
+        ]
+      : []),
+  ] as const;
+
+  return values
+    .filter(([field]) => params[field] !== '')
+    .map(
+      ([field, getter]) =>
+        `assertEq(${strategy}.${getter}(${args}), ${translateJsPercentToSol(params[field])} * 1e23, '${field} mismatch');`,
+    );
+}
+
+function rateUpdateTests(
+  market: MarketIdentifier,
+  cfgs: RateStrategyUpdate[],
+  v2: boolean,
+): string[] {
+  return cfgs.map((cfg, ix) => {
+    const asset = translateAssetToAssetLibUnderlying(cfg.asset, market);
+    const strategyType = v2 ? 'IDefaultInterestRateStrategy' : 'IDefaultInterestRateStrategyV2';
+    const strategyAddress = v2
+      ? `${market}.POOL.getReserveData(${asset}).interestRateStrategyAddress`
+      : `${market}.AAVE_PROTOCOL_DATA_PROVIDER.getInterestRateStrategyAddress(${asset})`;
+    return `function test_rateStrategyUpdate_${ix}() public {
+      GovV3Helpers.executePayload(vm, address(proposal));
+
+      ${strategyType} strategy = ${strategyType}(${strategyAddress});
+      ${specifiedRateAssertions(cfg.params, 'strategy', asset, v2).join('\n      ')}
+    }`;
+  });
+}
 
 export async function fetchRateStrategyParamsV2(required?: boolean): Promise<RateStrategyParams> {
   return {
@@ -118,6 +166,9 @@ export const rateUpdatesV2: FeatureModule<RateStrategyUpdate[]> = {
         }`,
         ],
       },
+      test: {
+        fn: rateUpdateTests(market, cfg, true),
+      },
     };
     return response;
   },
@@ -174,6 +225,9 @@ export const rateUpdatesV3: FeatureModule<RateStrategyUpdate[]> = {
           return rateStrategies;
         }`,
         ],
+      },
+      test: {
+        fn: rateUpdateTests(market, cfg, false),
       },
     };
     return response;
