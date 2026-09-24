@@ -15,8 +15,6 @@ interface IRiskStewardV4 {
 
   error UpdateNotInRange();
 
-  error RestrictedAddress(address addr);
-
   struct RiskParamConfig {
     uint40 minDelay;
     uint208 maxPercentChange;
@@ -116,8 +114,6 @@ interface IRiskStewardV4 {
 
   function setConfig(Config calldata config) external;
 
-  function setAddressRestricted(address addr, bool isRestricted) external;
-
   function updateHubAssetIRs(IConfigEngine.AssetConfigUpdate[] calldata updates) external;
 
   function updateHubSpokeCaps(IConfigEngine.SpokeConfigUpdate[] calldata updates) external;
@@ -172,8 +168,6 @@ interface IRiskStewardV4 {
   ) external view returns (SpokeLiquidationDebounce memory);
 
   function getOracleDebounce(address oracle) external view returns (uint40);
-
-  function isAddressRestricted(address addr) external view returns (bool);
 
   function RISK_COUNCIL() external view returns (address);
 

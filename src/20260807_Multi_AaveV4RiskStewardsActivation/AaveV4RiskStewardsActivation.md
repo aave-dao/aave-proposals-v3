@@ -7,7 +7,7 @@ snapshot: "https://snapshot.org/#/s:aavedao.eth/proposal/0xf736fa5f6dd1532d0e282
 
 ## Simple Summary
 
-This proposal activates the Risk Stewards on Aave V4 Ethereum and Aave V4 Avalanche, by setting their risk configuration and granting them the AccessManager roles they need to operate. On Aave V4 Base, where the Risk Steward is already configured, it takes ownership of the Risk Steward and grants it the Aave V3 ACL Manager role it needs to update price caps. GHO is excluded from the Risk Steward's scope on V4 Ethereum and V4 Base, as it stays under the GHO Steward.
+This proposal activates the Risk Stewards on Aave V4 Ethereum and Aave V4 Avalanche, by setting their risk configuration and granting them the AccessManager roles they need to operate. On Aave V4 Base, where the Risk Steward is already configured, it takes ownership of the Risk Steward and grants it the Aave V3 ACL Manager role it needs to update price caps.
 
 The bounds (`maxPercentChange`) follow LlamaRisk's recommended configuration, which carries most of them over from the corresponding V3 Risk Stewards unchanged. The cooldowns (`minDelay`) on the interest rate, cap and `collateralRisk` parameters are set to 36 hours, in line with the reduction ratified for the V3 Risk Stewards; every other parameter keeps a 72 hour cooldown, and the Pendle discount rate keeps its 48 hour cooldown.
 
@@ -55,17 +55,12 @@ The grants are therefore wider at the AccessManager than the mandate they serve.
 
 Each Risk Steward is also granted `RISK_ADMIN` on its network's Aave V3 ACL Manager. The CAPO adapters serving the V4 price sources are shared with V3 and gate `setCapParameters` on the V3 ACL Manager, so without this role the `priceCapLst`, `priceCapStable` and `discountRatePendle` bounds above would be unusable.
 
-### GHO restriction
-
-GHO falls under the GHO Steward's mandate, so on Aave V4 Ethereum the payload also restricts the GHO underlying ([0x40D16FC0246aD3160Ccc09B8D0D3A2cD28aE6C2f](https://etherscan.io/address/0x40D16FC0246aD3160Ccc09B8D0D3A2cD28aE6C2f)) on the Risk Steward. Restrictions are checked against the underlying of every hub and spoke update, so this single call blocks the Risk Steward from touching GHO on every hub and spoke it is listed on. GHO is not listed on Aave V4 Avalanche, so nothing is restricted there.
-
 ### Aave V4 Base
 
 On Aave V4 Base, the payload targets the Risk Steward at [0x577dD4c67d4c7278CdF3bC03aE9a391C4C72DB4f](https://basescan.org/address/0x577dD4c67d4c7278CdF3bC03aE9a391C4C72DB4f) and:
 
-1. Accepts its ownership, which is pending transfer to the Base governance Executor ([0x9390B1735def18560c509E2d0bc090E9d6BA257a](https://basescan.org/address/0x9390B1735def18560c509E2d0bc090E9d6BA257a)), so its configuration and restrictions can only be changed by governance.
+1. Accepts its ownership, which is pending transfer to the Base governance Executor ([0x9390B1735def18560c509E2d0bc090E9d6BA257a](https://basescan.org/address/0x9390B1735def18560c509E2d0bc090E9d6BA257a)), so its configuration can only be changed by governance.
 2. Grants it `RISK_ADMIN` on the Aave V3 Base ACL Manager ([0x43955b0899Ab7232E3a454cf84AedD22Ad46FD33](https://basescan.org/address/0x43955b0899Ab7232E3a454cf84AedD22Ad46FD33)), which gates `setPriceCap` on the USDC CAPO adapter behind the V4 Base price source, so the `priceCapStable` bound is usable.
-3. Restricts GHO ([0x6Bb7a212910682DCFdbd5BCBb3e28FB4E8da10Ee](https://basescan.org/address/0x6Bb7a212910682DCFdbd5BCBb3e28FB4E8da10Ee)) on the Risk Steward. GHO is not listed on Aave V4 Base today, so this keeps it out of the Risk Steward's scope ahead of any future listing.
 
 The payload leaves the Base Risk Steward's configuration unchanged. It uses the same maximum changes as the table above, with shorter cooldowns: 12 hours on `addCap` and `drawCap`, and 36 hours on the spoke `collateralFactor`, `maxLiquidationBonus`, `targetHealthFactor`, `healthFactorForMaxBonus` and `liquidationBonusFactor` bounds.
 

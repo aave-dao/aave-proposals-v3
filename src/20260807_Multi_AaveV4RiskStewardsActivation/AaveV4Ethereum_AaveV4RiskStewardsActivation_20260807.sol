@@ -3,7 +3,7 @@ pragma solidity ^0.8.0;
 
 import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGenericExecutor.sol';
 import {AaveV3Ethereum} from 'aave-address-book/AaveV3Ethereum.sol';
-import {AaveV4Ethereum, AaveV4EthereumAssets} from 'aave-address-book/AaveV4Ethereum.sol';
+import {AaveV4Ethereum} from 'aave-address-book/AaveV4Ethereum.sol';
 import {Roles} from 'aave-v4/deployments/utils/libraries/Roles.sol';
 import {RiskStewardV4Config} from 'src/helpers/risk-stewards/RiskStewardV4Config.sol';
 import {IRiskStewardV4} from 'src/interfaces/IRiskStewardV4.sol';
@@ -35,10 +35,5 @@ contract AaveV4Ethereum_AaveV4RiskStewardsActivation_20260807 is IProposalGeneri
         AaveV4Ethereum.SPOKE_CONFIGURATOR
       )
     );
-    // GHO is under the GHO Steward's jurisdiction
-    IRiskStewardV4(AaveV4Ethereum.RISK_STEWARD).setAddressRestricted({
-      addr: AaveV4EthereumAssets.GHO_UNDERLYING,
-      isRestricted: true
-    });
   }
 }

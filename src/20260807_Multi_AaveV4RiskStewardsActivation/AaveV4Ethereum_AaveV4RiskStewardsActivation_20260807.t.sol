@@ -7,16 +7,13 @@ import {ProtocolV4TestBase} from 'aave-helpers/src/ProtocolV4TestBase.sol';
 import {ProtocolV4TestBaseEthereum} from 'aave-helpers/src/v4-protocol-test/ProtocolV4TestBaseEthereum.sol';
 import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
 import {AaveV3Ethereum} from 'aave-address-book/AaveV3Ethereum.sol';
-import {AaveV4Ethereum, AaveV4EthereumHubs, AaveV4EthereumSpokes, AaveV4EthereumSpokePriceFeeds, AaveV4EthereumAssets, AaveV4EthereumGetters} from 'aave-address-book/AaveV4Ethereum.sol';
+import {AaveV4Ethereum, AaveV4EthereumHubs, AaveV4EthereumSpokes, AaveV4EthereumSpokePriceFeeds, AaveV4EthereumAssets} from 'aave-address-book/AaveV4Ethereum.sol';
 import {IACLManager} from 'aave-address-book/AaveV3.sol';
-import {IAaveV4ConfigEngine as IConfigEngine, IHub, IHubConfigurator, ISpoke, ITokenizationSpoke} from 'aave-address-book/AaveV4.sol';
-import {EngineFlags} from 'aave-v4/config-engine/libraries/EngineFlags.sol';
-import {IAssetInterestRateStrategy} from 'aave-v4/hub/interfaces/IAssetInterestRateStrategy.sol';
+import {IHub, IHubConfigurator, ISpoke, ITokenizationSpoke} from 'aave-address-book/AaveV4.sol';
 import {IPendlePriceCapAdapter} from 'src/interfaces/IPendlePriceCapAdapter.sol';
 import {IPriceCapAdapter} from 'src/interfaces/IPriceCapAdapter.sol';
 import {IPriceCapAdapterStable} from 'src/interfaces/IPriceCapAdapterStable.sol';
 import {IRiskSteward} from 'src/interfaces/IRiskSteward.sol';
-import {IRiskStewardV4} from 'src/interfaces/IRiskStewardV4.sol';
 import {AaveV4RiskStewardsActivationTestBase} from 'src/helpers/risk-stewards/AaveV4RiskStewardsActivationTestBase.sol';
 import {AaveV4Ethereum_AaveV4RiskStewardsActivation_20260807} from './AaveV4Ethereum_AaveV4RiskStewardsActivation_20260807.sol';
 
@@ -95,129 +92,6 @@ contract AaveV4Ethereum_AaveV4RiskStewardsActivation_20260807_Test is
    */
   function test_defaultProposalExecution() public {
     defaultTest('AaveV4Ethereum_AaveV4RiskStewardsActivation_20260807', address(proposal));
-  }
-
-  function test_ghoRestricted() public {
-    assertFalse(
-      steward.isAddressRestricted(AaveV4EthereumAssets.GHO_UNDERLYING),
-      'gho restricted before activation'
-    );
-
-    _activate();
-
-    assertTrue(
-      steward.isAddressRestricted(AaveV4EthereumAssets.GHO_UNDERLYING),
-      'gho not restricted'
-    );
-  }
-
-  function test_riskCouncilCannotUpdateGhoOnAnyHubOrSpoke() public activated {
-    address gho = AaveV4EthereumAssets.GHO_UNDERLYING;
-    address riskCouncil = steward.RISK_COUNCIL();
-    IHub[] memory hubs = AaveV4EthereumGetters.getAllHubs();
-    uint256 spokesChecked;
-
-    for (uint256 i; i < hubs.length; ++i) {
-      if (!hubs[i].isUnderlyingListed(gho)) continue;
-
-      IConfigEngine.AssetConfigUpdate[] memory irUpdates = new IConfigEngine.AssetConfigUpdate[](1);
-      IAssetInterestRateStrategy.InterestRateData memory irData;
-      irUpdates[0] = IConfigEngine.AssetConfigUpdate({
-        hubConfigurator: _hubConfigurator(),
-        hub: address(hubs[i]),
-        underlying: gho,
-        liquidityFee: EngineFlags.KEEP_CURRENT,
-        feeReceiver: EngineFlags.KEEP_CURRENT_ADDRESS,
-        irStrategy: EngineFlags.KEEP_CURRENT_ADDRESS,
-        irData: irData,
-        reinvestmentController: EngineFlags.KEEP_CURRENT_ADDRESS
-      });
-      vm.expectRevert(abi.encodeWithSelector(IRiskStewardV4.RestrictedAddress.selector, gho));
-      vm.prank(riskCouncil);
-      steward.updateHubAssetIRs(irUpdates);
-
-      uint256 assetId = hubs[i].getAssetId(gho);
-      uint256 spokeCount = hubs[i].getSpokeCount(assetId);
-      for (uint256 j; j < spokeCount; ++j) {
-        _assertGhoSpokeUpdatesRestricted(hubs[i], hubs[i].getSpokeAddress(assetId, j));
-        ++spokesChecked;
-      }
-    }
-
-    assertGt(spokesChecked, 0, 'gho not listed on any spoke');
-  }
-
-  function _assertGhoSpokeUpdatesRestricted(IHub hub, address spoke) internal {
-    address gho = AaveV4EthereumAssets.GHO_UNDERLYING;
-    address riskCouncil = steward.RISK_COUNCIL();
-    bytes memory restricted = abi.encodeWithSelector(
-      IRiskStewardV4.RestrictedAddress.selector,
-      gho
-    );
-
-    IConfigEngine.SpokeConfigUpdate[] memory capUpdates = new IConfigEngine.SpokeConfigUpdate[](1);
-    capUpdates[0] = IConfigEngine.SpokeConfigUpdate({
-      hubConfigurator: _hubConfigurator(),
-      hub: address(hub),
-      underlying: gho,
-      spoke: spoke,
-      addCap: EngineFlags.KEEP_CURRENT,
-      drawCap: EngineFlags.KEEP_CURRENT,
-      riskPremiumThreshold: EngineFlags.KEEP_CURRENT,
-      active: EngineFlags.KEEP_CURRENT,
-      halted: EngineFlags.KEEP_CURRENT
-    });
-    vm.expectRevert(restricted);
-    vm.prank(riskCouncil);
-    steward.updateHubSpokeCaps(capUpdates);
-
-    IConfigEngine.ReserveConfigUpdate[]
-      memory reserveUpdates = new IConfigEngine.ReserveConfigUpdate[](1);
-    reserveUpdates[0] = IConfigEngine.ReserveConfigUpdate({
-      spokeConfigurator: _spokeConfigurator(),
-      spoke: spoke,
-      hub: address(hub),
-      underlying: gho,
-      priceSource: EngineFlags.KEEP_CURRENT_ADDRESS,
-      collateralRisk: EngineFlags.KEEP_CURRENT,
-      paused: EngineFlags.KEEP_CURRENT,
-      frozen: EngineFlags.KEEP_CURRENT,
-      borrowable: EngineFlags.KEEP_CURRENT,
-      receiveSharesEnabled: EngineFlags.KEEP_CURRENT
-    });
-    vm.expectRevert(restricted);
-    vm.prank(riskCouncil);
-    steward.updateReserveConfigs(reserveUpdates);
-
-    IConfigEngine.DynamicReserveConfigUpdate[]
-      memory dynamicUpdates = new IConfigEngine.DynamicReserveConfigUpdate[](1);
-    dynamicUpdates[0] = IConfigEngine.DynamicReserveConfigUpdate({
-      spokeConfigurator: _spokeConfigurator(),
-      spoke: spoke,
-      hub: address(hub),
-      underlying: gho,
-      dynamicConfigKey: 0,
-      collateralFactor: EngineFlags.KEEP_CURRENT,
-      maxLiquidationBonus: EngineFlags.KEEP_CURRENT,
-      liquidationFee: EngineFlags.KEEP_CURRENT
-    });
-    vm.expectRevert(restricted);
-    vm.prank(riskCouncil);
-    steward.updateDynamicReserveConfigs(dynamicUpdates);
-
-    IConfigEngine.DynamicReserveConfigAddition[]
-      memory dynamicAdditions = new IConfigEngine.DynamicReserveConfigAddition[](1);
-    ISpoke.DynamicReserveConfig memory dynamicConfig;
-    dynamicAdditions[0] = IConfigEngine.DynamicReserveConfigAddition({
-      spokeConfigurator: _spokeConfigurator(),
-      spoke: spoke,
-      hub: address(hub),
-      underlying: gho,
-      dynamicConfig: dynamicConfig
-    });
-    vm.expectRevert(restricted);
-    vm.prank(riskCouncil);
-    steward.addDynamicReserveConfigs(dynamicAdditions);
   }
 
   function _getTokenizationSpokes()

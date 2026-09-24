@@ -6,10 +6,8 @@ import {GovV3Helpers} from 'aave-helpers/src/GovV3Helpers.sol';
 import {ProtocolV4TestBaseBase} from 'aave-helpers/src/v4-protocol-test/ProtocolV4TestBaseBase.sol';
 import {GovernanceV3Base} from 'aave-address-book/GovernanceV3Base.sol';
 import {AaveV3Base} from 'aave-address-book/AaveV3Base.sol';
-import {AaveV4Base, AaveV4BaseHubs, AaveV4BaseSpokes, AaveV4BaseSpokePriceFeeds, AaveV4BaseAssets} from 'aave-address-book/AaveV4Base.sol';
-import {GhoBase} from 'aave-address-book/GhoBase.sol';
-import {IAaveV4ConfigEngine as IConfigEngine, IHub, IHubConfigurator} from 'aave-address-book/AaveV4.sol';
-import {EngineFlags} from 'aave-v4/config-engine/libraries/EngineFlags.sol';
+import {AaveV4Base, AaveV4BaseHubs, AaveV4BaseSpokePriceFeeds, AaveV4BaseAssets} from 'aave-address-book/AaveV4Base.sol';
+import {IHub, IHubConfigurator} from 'aave-address-book/AaveV4.sol';
 import {IPriceCapAdapterStable} from 'src/interfaces/IPriceCapAdapterStable.sol';
 import {IRiskStewardV4} from 'src/interfaces/IRiskStewardV4.sol';
 import {AaveV4Base_AaveV4RiskStewardsActivation_20260807} from './AaveV4Base_AaveV4RiskStewardsActivation_20260807.sol';
@@ -96,38 +94,6 @@ contract AaveV4Base_AaveV4RiskStewardsActivation_20260807_Test is ProtocolV4Test
     );
     assertFalse(AaveV3Base.ACL_MANAGER.isBridge(address(steward)), 'bridge granted');
     assertFalse(AaveV3Base.ACL_MANAGER.isFlashBorrower(address(steward)), 'flash borrower granted');
-  }
-
-  function test_ghoRestricted() public {
-    assertFalse(steward.isAddressRestricted(GhoBase.GHO_TOKEN), 'gho restricted before activation');
-
-    GovV3Helpers.executePayload(vm, address(proposal));
-
-    assertTrue(steward.isAddressRestricted(GhoBase.GHO_TOKEN), 'gho not restricted');
-  }
-
-  function test_riskCouncilCannotUpdateGho() public {
-    GovV3Helpers.executePayload(vm, address(proposal));
-
-    IConfigEngine.SpokeConfigUpdate[] memory updates = new IConfigEngine.SpokeConfigUpdate[](1);
-    updates[0] = IConfigEngine.SpokeConfigUpdate({
-      hubConfigurator: AaveV4Base.HUB_CONFIGURATOR,
-      hub: address(AaveV4BaseHubs.EQUITIES_HUB),
-      underlying: GhoBase.GHO_TOKEN,
-      spoke: address(AaveV4BaseSpokes.MAG7_SPOKE),
-      addCap: EngineFlags.KEEP_CURRENT,
-      drawCap: EngineFlags.KEEP_CURRENT,
-      riskPremiumThreshold: EngineFlags.KEEP_CURRENT,
-      active: EngineFlags.KEEP_CURRENT,
-      halted: EngineFlags.KEEP_CURRENT
-    });
-    address riskCouncil = steward.RISK_COUNCIL();
-
-    vm.expectRevert(
-      abi.encodeWithSelector(IRiskStewardV4.RestrictedAddress.selector, GhoBase.GHO_TOKEN)
-    );
-    vm.prank(riskCouncil);
-    steward.updateHubSpokeCaps(updates);
   }
 
   function test_riskCouncilCanUpdateStablePriceCap() public {
