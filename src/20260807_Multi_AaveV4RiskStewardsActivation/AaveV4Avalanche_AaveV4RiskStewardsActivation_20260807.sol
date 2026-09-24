@@ -30,10 +30,10 @@ contract AaveV4Avalanche_AaveV4RiskStewardsActivation_20260807 is IProposalGener
     AaveV3Avalanche.ACL_MANAGER.addRiskAdmin(AaveV4Avalanche.RISK_STEWARD);
 
     IRiskStewardV4(AaveV4Avalanche.RISK_STEWARD).setConfig(
-      RiskStewardV4Config.defaultConfig(
-        AaveV4Avalanche.HUB_CONFIGURATOR,
-        AaveV4Avalanche.SPOKE_CONFIGURATOR
-      )
+      RiskStewardV4Config.defaultConfig({
+        hubConfigurator: AaveV4Avalanche.HUB_CONFIGURATOR,
+        spokeConfigurator: AaveV4Avalanche.SPOKE_CONFIGURATOR
+      })
     );
   }
 }
