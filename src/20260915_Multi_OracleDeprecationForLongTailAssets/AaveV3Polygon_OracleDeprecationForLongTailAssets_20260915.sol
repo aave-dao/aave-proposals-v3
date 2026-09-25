@@ -1,0 +1,96 @@
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+import {AaveV3Polygon, AaveV3PolygonAssets} from 'aave-address-book/AaveV3Polygon.sol';
+import {AaveV3PayloadPolygon} from 'aave-helpers/src/v3-config-engine/AaveV3PayloadPolygon.sol';
+import {EngineFlags} from 'aave-v3-origin/contracts/extensions/v3-config-engine/EngineFlags.sol';
+import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config-engine/IAaveV3ConfigEngine.sol';
+
+/**
+ * @title Oracle Deprecation for Long-tail Assets
+ * @author LlamaRisk
+ * - Snapshot: https://snapshot.box/#/s:aavedao.eth/proposal/0xaa683250ff2e2835b9ac945d6219a35cdca1d4134f49e3bce6763ca8d8944c08
+ * - Discussion: https://governance.aave.com/t/arfc-oracle-deprecation-for-long-tail-assets-across-aave-v2-and-v3/25400
+ */
+contract AaveV3Polygon_OracleDeprecationForLongTailAssets_20260915 is AaveV3PayloadPolygon {
+  // https://polygonscan.com/address/0x55Eb6D9432a9842844b60Cd9D38497c0be7E623D#code
+  address public constant BAL_PRICE_FEED = 0x55Eb6D9432a9842844b60Cd9D38497c0be7E623D;
+  // https://polygonscan.com/address/0x61c417D189A9983B3eD9054692c16451E5391058#code
+  address public constant GHST_PRICE_FEED = 0x61c417D189A9983B3eD9054692c16451E5391058;
+  // https://polygonscan.com/address/0xe756E3e985Bb5666ce7CE07d47EA97E1Fd33B834#code
+  address public constant miMATIC_PRICE_FEED = 0xe756E3e985Bb5666ce7CE07d47EA97E1Fd33B834;
+
+  function _postExecute() internal override {
+    AaveV3Polygon.POOL_CONFIGURATOR.setReserveFreeze(AaveV3PolygonAssets.GHST_UNDERLYING, true);
+  }
+
+  function capsUpdates()
+    public
+    pure
+    override
+    returns (IAaveV3ConfigEngine.CapsUpdate[] memory capsUpdate)
+  {
+    capsUpdate = new IAaveV3ConfigEngine.CapsUpdate[](2);
+    capsUpdate[0] = IAaveV3ConfigEngine.CapsUpdate(AaveV3PolygonAssets.BAL_UNDERLYING, 1, 1);
+    capsUpdate[1] = IAaveV3ConfigEngine.CapsUpdate(AaveV3PolygonAssets.miMATIC_UNDERLYING, 1, 1);
+  }
+
+  function rateStrategiesUpdates()
+    public
+    pure
+    override
+    returns (IAaveV3ConfigEngine.RateStrategyUpdate[] memory)
+  {
+    IAaveV3ConfigEngine.RateStrategyUpdate[]
+      memory rateStrategies = new IAaveV3ConfigEngine.RateStrategyUpdate[](3);
+    rateStrategies[0] = IAaveV3ConfigEngine.RateStrategyUpdate({
+      asset: AaveV3PolygonAssets.BAL_UNDERLYING,
+      params: IAaveV3ConfigEngine.InterestRateInputData({
+        optimalUsageRatio: EngineFlags.KEEP_CURRENT,
+        baseVariableBorrowRate: 20_00, // 20% (2 decimals)
+        variableRateSlope1: 15_00, // 15% (2 decimals)
+        variableRateSlope2: 40_00 // 40% (2 decimals)
+      })
+    });
+    rateStrategies[1] = IAaveV3ConfigEngine.RateStrategyUpdate({
+      asset: AaveV3PolygonAssets.GHST_UNDERLYING,
+      params: IAaveV3ConfigEngine.InterestRateInputData({
+        optimalUsageRatio: EngineFlags.KEEP_CURRENT,
+        baseVariableBorrowRate: 20_00, // 20% (2 decimals)
+        variableRateSlope1: 7_00, // 7% (2 decimals)
+        variableRateSlope2: 40_00 // 40% (2 decimals)
+      })
+    });
+    rateStrategies[2] = IAaveV3ConfigEngine.RateStrategyUpdate({
+      asset: AaveV3PolygonAssets.miMATIC_UNDERLYING,
+      params: IAaveV3ConfigEngine.InterestRateInputData({
+        optimalUsageRatio: EngineFlags.KEEP_CURRENT,
+        baseVariableBorrowRate: 20_00, // 20% (2 decimals)
+        variableRateSlope1: 9_00, // 9% (2 decimals)
+        variableRateSlope2: 40_00 // 40% (2 decimals)
+      })
+    });
+
+    return rateStrategies;
+  }
+  function priceFeedsUpdates()
+    public
+    pure
+    override
+    returns (IAaveV3ConfigEngine.PriceFeedUpdate[] memory updates)
+  {
+    updates = new IAaveV3ConfigEngine.PriceFeedUpdate[](3);
+    updates[0] = IAaveV3ConfigEngine.PriceFeedUpdate(
+      AaveV3PolygonAssets.BAL_UNDERLYING,
+      BAL_PRICE_FEED
+    );
+    updates[1] = IAaveV3ConfigEngine.PriceFeedUpdate(
+      AaveV3PolygonAssets.GHST_UNDERLYING,
+      GHST_PRICE_FEED
+    );
+    updates[2] = IAaveV3ConfigEngine.PriceFeedUpdate(
+      AaveV3PolygonAssets.miMATIC_UNDERLYING,
+      miMATIC_PRICE_FEED
+    );
+  }
+}
