@@ -1,0 +1,49 @@
+## Event logs
+
+#### 0xfc421aD3C883Bf9E7C4f42dE845C4e4405799e73 (AaveV3Monad.ASSETS.GHO.UNDERLYING, GhoMonad.GHO_TOKEN)
+
+| index | event |
+| --- | --- |
+| 0 | FacilitatorBucketCapacityUpdated(facilitatorAddress: 0xA5AE05b71c3F170E12E7620Fdf7679721aec1EC8, oldCapacity: 200000000000000000000000000, newCapacity: 225000000000000000000000000) |
+
+#### 0xa9d0EAFF48cE1DF468f9eAeb7e628c413343F6A2 (AaveV3Monad.ACL_ADMIN, GovernanceV3Monad.EXECUTOR_LVL_1)
+
+| index | event |
+| --- | --- |
+| 1 | ExecutedAction(target: 0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f, value: 0, signature: execute(), data: 0x, executionTime: 1786443964, withDelegatecall: true, resultData: 0x) |
+
+#### 0x442CA936e5E6Db875357d0A16481145c96dd9a82 (GovernanceV3Monad.PAYLOADS_CONTROLLER)
+
+| index | event |
+| --- | --- |
+| 2 | PayloadExecuted(payloadId: 6) |
+
+## Raw storage changes
+
+### 0x442ca936e5e6db875357d0a16481145c96dd9a82 (GovernanceV3Monad.PAYLOADS_CONTROLLER)
+
+| slot | previous value | new value |
+| --- | --- | --- |
+| 0xc69056f16cbaa3c616b828e333ab7d3a32310765507f8f58359e99ebb7a885f3 | 0x006a7af8bb000000000002000000000000000000000000000000000000000000 | 0x006a7af8bb000000000003000000000000000000000000000000000000000000 |
+| 0xc69056f16cbaa3c616b828e333ab7d3a32310765507f8f58359e99ebb7a885f4 | 0x000000000000000000093a800000000000006aa91d3c00000000000000000000 | 0x000000000000000000093a800000000000006aa91d3c0000000000006a7af8bc |
+
+### 0x4e13adcbdf4a388650fb280715b3391f89619397
+
+**Nonce diff**: 0 → 1
+
+### 0x4e59b44847b379578588920ca78fbf26c0b4956c
+
+**Nonce diff**: 2 → 0
+
+### 0xfc421ad3c883bf9e7c4f42de845c4e4405799e73 (AaveV3Monad.ASSETS.GHO.UNDERLYING, GhoMonad.GHO_TOKEN)
+
+| slot | previous value | new value |
+| --- | --- | --- |
+| 0x354d7f5d04814d7480bcb45a27dffa655c2756e9871624e7edf4779aa118db16 | 0x0000000000309366b1f80b2ff69d10350000000000a56fa5b99019a5c8000000 | 0x0000000000309366b1f80b2ff69d10350000000000ba1d9a70c21cda81000000 |
+
+
+## Raw diff
+
+```json
+{}
+```
