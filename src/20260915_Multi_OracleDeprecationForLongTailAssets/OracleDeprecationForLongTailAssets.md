@@ -29,8 +29,6 @@ LUSD is the decentralised, ETH-backed stablecoin issued by the Liquity protocol.
 
 [The active feed](https://etherscan.io/address/0xEbb721daf3DA9f1b3dcEc590cDf648137172d7CB) is a Chainlink LUSD/USD secondary market price feed used in a stable price cap adapter with a $1.10 price cap, currently reporting a price of $1.00. Hardcoding the oracle to a fixed value removes the price manipulation vector for both the LUSD collateral and LUSD debt without materially repricing the position relative to its current accounting value.
 
-![LUSD position concentration|2520x1260](upload://8qUCNWzXNic6zOIz1yUgmtkpCVz.png)
-
 _Source: LlamaRisk, July 28th, 2026_
 
 **Position breakdown**
@@ -43,15 +41,11 @@ _Source: LlamaRisk, July 28th, 2026_
 
 Across the 63 wallets that borrow LUSD or post it as collateral, the median HF is 1.81 and the 10th percentile is 1.03. 6 are already below HF 1, 2 more sit in the [1.0, 1.05] band where a 1% adverse move would tip them into liquidation, and 26 sit above HF 2.
 
-![LUSD borrower HF distribution|2520x900](upload://9EdMurrAbZ17A18eLPC4F55tiv6.png)
-
 _Source: LlamaRisk, July 28th, 2026_
 
 **Co-position patterns**
 
 The top 10 LUSD borrowers post $11.40M of collateral between them, almost entirely WETH at $8.02M and WBTC at $3.18M, with a small LINK remainder. LUSD is being borrowed against blue-chip collateral, not held as a directional position.
-
-![Top LUSD borrowers: portfolio composition and HF|2520x1260](upload://wyhs7RWPDUrNSnxhs6tgeVt56Rk.png)
 
 _Source: LlamaRisk, July 28th, 2026_
 
@@ -69,8 +63,6 @@ USDm is the Celo-native dollar stablecoin issued by the Mento protocol. On Aave 
 
 Supply side: 545 wallets holding $503.7K, with the top five holding 99%. None of it is enabled as collateral, so the whole balance is supply-only. Debt side: 20 wallets holding $435.9K, with the top five holding 100%.
 
-![USDm position concentration|2520x1260](upload://w2b6bKMAh7daWbPDTlFnXyQDlH.png)
-
 _Source: LlamaRisk, July 28th, 2026_
 
 **Position breakdown**
@@ -83,15 +75,11 @@ _Source: LlamaRisk, July 28th, 2026_
 
 Across the 20 wallets that borrow USDm, the median HF is 1.13 and the 10th percentile is 1.03. 1 position is already below HF 1.
 
-![USDm borrower HF distribution|2520x900](upload://aqY71992EHjnM8Yy3Z7ssAN58ON.png)
-
 _Source: LlamaRisk, July 28th, 2026_
 
 **Co-position patterns**
 
 The top 10 USDm borrowers post $806.0K of collateral, effectively all of it USDT. Borrowing one dollar stable against another points to carry or basis trades rather than directional positions.
-
-![Top USDm borrowers: portfolio composition and HF|2520x1260](upload://5DbQTNwc0t8NcuPl1nAVJV7lA8g.png)
 
 _Source: LlamaRisk, July 28th, 2026_
 
@@ -107,19 +95,13 @@ RPL is the Rocket Pool governance token. Its market price has fallen substantial
 
 [The active feed](https://etherscan.io/address/0x4E155eD98aFE9034b7A5962f6C84c86d869daA9d) is a Chainlink RPL/USD price feed. Trailing 6 month realised annualised volatility is 126.3%, maximum drawdown is 54.7%. Current spot is $1.6104 and the trailing 6 month average is $1.9543. The recommended fixed price of $1.9543 is the trailing 6 month average, 21% above current spot. Fixing the price above spot is deliberate and serves two purposes. First, it protects liquidation execution: if RPL later trades materially above the fixed oracle level, liquidators would have to acquire it on the market at a higher price than the oracle reports for the repaid debt, making liquidations economically unattractive, and the upward buffer absorbs that discrepancy. Second, valuing the outstanding RPL debt above spot pushes marginal borrowing positions closer to liquidation (where the debt is not heavily mixed with other assets), facilitating the unwinding of smaller positions and accelerating the wind-down of the deprecated reserve.
 
-![RPL daily log-return distribution|1980x900](upload://ocKd3KWZFp7jP4RqBtQu1WZko0B.png)
-
 _Source: LlamaRisk, July 28th, 2026_
-
-![RPL Price history (6 months in focus) with recommended fixed level|2160x900](upload://Q1lsCAn3SNbgaqS6p4zstiGmpq.png)
 
 _Source: LlamaRisk, July 28th, 2026_
 
 **Position concentration**
 
 Supply side: 180 wallets holding $583.6K, with the top five holding 66%. None of it is enabled as collateral, so the whole balance is supply that backs no borrowing. Debt side: 45 wallets holding $203.7K, with the top five holding 96%.
-
-![RPL position concentration|2520x1260](upload://jBpBAKyIp3ocwN6BfxXiEkoWzTp.png)
 
 _Source: LlamaRisk, July 28th, 2026_
 
@@ -133,15 +115,11 @@ _Source: LlamaRisk, July 28th, 2026_
 
 Across the 45 wallets that borrow RPL, the median HF is 7.51 and the 10th percentile is 1.51. 2 sit in the [1.0, 1.05] band where a 1% adverse move would tip them into liquidation. 35 of the 45 sit above HF 2.
 
-![RPL borrower HF distribution|2520x900](upload://jVLEqbBPSYzF7UxmjNR7K48AFjj.png)
-
 _Source: LlamaRisk, July 28th, 2026_
 
 **Co-position patterns**
 
 The top 10 RPL borrowers post $7.36M of collateral, dominated by a single large tBTC position of $5.68M, with wstETH and WETH covering most of the rest. RPL is borrowed against BTC and ETH majors, likely for shorting or liquidity provision rather than as a directional holding.
-
-![Top RPL borrowers: portfolio composition and HF|2520x1260](upload://wbsDBfyA63RZ9abhpG3iFfDiv0P.png)
 
 _Source: LlamaRisk, July 28th, 2026_
 
@@ -159,8 +137,6 @@ LUSD is the decentralised, ETH-backed stablecoin issued by the Liquity protocol.
 
 Supply side: 214 wallets holding $192.1K, with the top five holding 97%. None of it is enabled as collateral, so the whole balance is supply that backs no borrowing. Debt side: 176 wallets holding $74.8K, with the top five holding 52%.
 
-![LUSD position concentration|2520x1260](upload://fUjFmoLi6jsAs5ZkNdQkbO0hJmR.png)
-
 _Source: LlamaRisk, July 28th, 2026_
 
 **Position breakdown**
@@ -173,15 +149,11 @@ _Source: LlamaRisk, July 28th, 2026_
 
 Across the 176 wallets that borrow LUSD, the median HF is 1.65 and the 10th percentile is 1.03. 12 of the dust positions are already below HF 1. 7 more sit in the [1.0, 1.05] band where a 1% adverse move would tip them into liquidation. 73 of the 176 sit above HF 2.
 
-![LUSD borrower HF distribution|2520x900](upload://cowqwzsGYSYp2znjOg9KrOOpjk7.png)
-
 _Source: LlamaRisk, July 28th, 2026_
 
 **Co-position patterns**
 
 The top 10 LUSD borrowers on Arbitrum post $419.0K of collateral spread across WBTC, WETH and USDT, with no single asset dominating. As on Ethereum, LUSD is borrowed against mainstream collateral rather than held directionally.
-
-![Top LUSD borrowers: portfolio composition and HF|2520x1260](upload://h0HxqlrohPAdqfSeEqvNTsv3go6.png)
 
 _Source: LlamaRisk, July 28th, 2026_
 
@@ -199,8 +171,6 @@ FRAX is the dollar stablecoin issued by Frax Finance. On Aave V3 Arbitrum it car
 
 Supply side: 116 wallets holding $170.2K, with the top five holding 100%. Of that, $717 across 3 wallets is enabled as collateral and $169.4K across 113 wallets is supplied without a collateral function. Debt side: 130 wallets holding $48.5K, with the top five holding 72%.
 
-![FRAX position concentration|2520x1260](upload://rua51mpIcQaLcd0zOlQgTRIvM89.png)
-
 _Source: LlamaRisk, July 28th, 2026_
 
 **Position breakdown**
@@ -213,15 +183,11 @@ _Source: LlamaRisk, July 28th, 2026_
 
 Across the 131 wallets that borrow FRAX or post it as collateral, the median HF is 2.19 and the 10th percentile is 1.14. 3 dust positions are below HF 1. 68 of the 131 sit above HF 2.
 
-![FRAX borrower HF distribution|2520x900](upload://6xZVYt7Zoel6eO3cx7mH6OfSh5t.png)
-
 _Source: LlamaRisk, July 28th, 2026_
 
 **Co-position patterns**
 
 The top 10 FRAX borrowers post $389.2K of collateral, almost all of it WBTC at $339.8K. On the other side, the largest FRAX suppliers that borrow at all borrow native USDC against their position.
-
-![Top FRAX borrowers: portfolio composition and HF|2520x1260](upload://q4s3b0TgpxDVKqqcDsIiReFCiRn.png)
 
 _Source: LlamaRisk, July 28th, 2026_
 
@@ -239,8 +205,6 @@ FRAX is the dollar stablecoin issued by Frax Finance. On Aave V3 Ethereum Core i
 
 Supply side: 42 wallets holding $38.4K, with the top five holding 99%. Of that, $60 across 2 wallets is enabled as collateral and $38.3K across 40 wallets is supplied without a collateral function. Debt side: 23 wallets holding $28.7K, with the top five holding 100%.
 
-![FRAX position concentration|2520x1260](upload://960qIH1KSO7U8GvJom3TQG1SeY9.png)
-
 _Source: LlamaRisk, July 28th, 2026_
 
 **Position breakdown**
@@ -253,15 +217,11 @@ _Source: LlamaRisk, July 28th, 2026_
 
 Across the 24 wallets that borrow FRAX or post it as collateral, the median HF is 5.23 and the 10th percentile is 1.24. 17 of the 24 sit above HF 2.
 
-![FRAX borrower HF distribution|2520x900](upload://pghLyPPbDF7aU2UckeiOg44d5ji.png)
-
 _Source: LlamaRisk, July 28th, 2026_
 
 **Co-position patterns**
 
 The top 10 FRAX borrowers post $310.2K of collateral, roughly half of it WBTC at $149.7K, with similarly sized WETH and wstETH positions behind it. FRAX is borrowed against majors, not held directionally.
-
-![Top FRAX borrowers: portfolio composition and HF|2520x1260](upload://2ZMwBlNXCcqSkURC8abVyObY7Oj.png)
 
 _Source: LlamaRisk, July 28th, 2026_
 
@@ -281,19 +241,13 @@ AMPL is Ampleforth's rebasing, elastic-supply token. [Its price feed](https://et
 
 Current spot is $1.2792 and the trailing 6 month average is $1.1742. The recommended fixed price of $1.1742 is the trailing 6 month average, 8% below current spot. Fixing the asset below its current reported price will increase the health factor of the current borrow positions which are healthy, however, given that the reserve is already stressed (majority of the reserve being at the bad debt threshold), it will not result in meaningful changes or consequences to the overall health of the reserve.
 
-![AMPL daily log-return distribution|1980x900](upload://bMNCAs4iRBOMXom4hsPSj4GZDzH.png)
-
 _Source: LlamaRisk, July 28th, 2026_
-
-![AMPL Price history (6 months in focus) with recommended fixed level|2160x900](upload://ysAHSlOCT6EcvEIbtOccveiT1G5.png)
 
 _Source: LlamaRisk, July 28th, 2026_
 
 **Position concentration**
 
 Supply side: 1004 wallets holding $1.66M, with the top five holding 98%. None of it is enabled as collateral, so the whole balance is supply that backs no borrowing. Debt side: 34 wallets holding $2.60M, with the top five holding 81%.
-
-![AMPL position concentration|2520x1260](upload://kSArkpJ1aTf14RJPV4vYTAHRCND.png)
 
 _Source: LlamaRisk, July 28th, 2026_
 
@@ -307,15 +261,11 @@ _Source: LlamaRisk, July 28th, 2026_
 
 Across the 34 wallets that borrow AMPL, 30 (88%) are already below HF 1 and not recoverable through ordinary interest accrual or parameter changes. The remaining 4 sit at or above HF 1 with a median of 48.0.
 
-![AMPL borrower HF distribution|2520x900](upload://9223MZWRjXdnRMPhugf99yZROQs.png)
-
 _Source: LlamaRisk, July 28th, 2026_
 
 **Co-position patterns**
 
 The top 10 AMPL borrowers carry only a few dollars of combined collateral against their debt, so no meaningful cross-asset pattern exists. The debt is almost entirely unbacked, consistent with 88% of borrowers sitting below HF 1.
-
-![Top AMPL borrowers: portfolio composition and HF|2520x1260](upload://fGYdxZIWd5RKD3l69OiPXt2UmRm.png)
 
 _Source: LlamaRisk, July 28th, 2026_
 
@@ -333,8 +283,6 @@ FRAX is the dollar stablecoin issued by Frax Finance. On Aave V2 Ethereum it car
 
 Supply side: 126 wallets holding $551.6K, with the top five holding 100%. None of it is enabled as collateral, so the whole balance is supply that backs no borrowing. Debt side: 39 wallets holding $4.5K, with the top five holding 99%.
 
-![FRAX position concentration|2520x1260](upload://hQgNPMpHH9T5xlE8DGJ9wvQQKn1.png)
-
 _Source: LlamaRisk, July 28th, 2026_
 
 **Position breakdown**
@@ -347,15 +295,11 @@ _Source: LlamaRisk, July 28th, 2026_
 
 Across the 39 wallets that borrow FRAX, the median HF is 1.21 and the 10th percentile is 0.00. 15 are already below HF 1. 1 more sits in the [1.0, 1.05] band where a 1% adverse move would tip it into liquidation. 13 of the 39 sit above HF 2.
 
-![FRAX borrower HF distribution|2520x900](upload://kjoT6YB8AwSs3NZoJ7AdQcUPfqv.png)
-
 _Source: LlamaRisk, July 28th, 2026_
 
 **Co-position patterns**
 
 The residual FRAX borrowing is small: the top 10 borrowers post $15.4K between them, nearly all of it WBTC. As flagged above, part of the dust positions are already at bad debt levels, however, the largest borrow positions are still adequately backed.
-
-![Top FRAX borrowers: portfolio composition and HF|2520x1260](upload://rd7cSCuFNDSIVT7iLJZNplbAqqz.png)
 
 _Source: LlamaRisk, July 28th, 2026_
 
@@ -373,8 +317,6 @@ TUSD (TrueUSD) is a centrally issued, fiat-backed stablecoin. On Aave V2 Ethereu
 
 Supply side: 308 wallets holding $284.5K, with the top five holding 93%. Of that, $168.9K across 295 wallets is enabled as collateral and $115.7K across 13 wallets is supplied without a collateral function. Debt side: 69 wallets holding $59.1K, with the top five holding 90%.
 
-![TUSD position concentration|2520x1260](upload://a4j824aUSTU8znb6lcKEQ0shWLM.png)
-
 _Source: LlamaRisk, July 28th, 2026_
 
 **Position breakdown**
@@ -387,15 +329,11 @@ _Source: LlamaRisk, July 28th, 2026_
 
 Across the 97 wallets that borrow TUSD or post it as collateral, the median HF is 1.36 and the 10th percentile is 0.00. 28 are already below HF 1. 2 more sit in the [1.0, 1.05] band where a 1% adverse move would tip them into liquidation. 36 of the 97 sit above HF 2.
 
-![TUSD borrower HF distribution|2520x900](upload://llp0IKD7R4LIopgdHH6pqRaDycH.png)
-
 _Source: LlamaRisk, July 28th, 2026_
 
 **Value at risk (price decline)**
 
 33 wallets post TUSD as collateral ($115.8K) at its 65% LT. The sensitivity below counts, at each 5% step of a TUSD price decline, the wallets that newly cross below HF 1 and the collateral they carry. A 10% decline newly liquidates 1 wallet ($12 of collateral), a 20% decline 4 ($166), a 30% decline 5 ($166), and a 50% decline 7 ($734).
-
-![TUSD value-at-risk sensitivity to a price decline|1980x900](upload://4C44tRmkRtZiJ1wS6r3Elbq0CZz.png)
 
 _Source: LlamaRisk, July 28th, 2026_
 
@@ -403,13 +341,9 @@ _Source: LlamaRisk, July 28th, 2026_
 
 The top 10 TUSD borrowers post $340.1K of collateral, mostly WBTC at $234.5K with WETH covering nearly all of the remainder. The largest TUSD suppliers that also borrow do so exclusively in WETH, around $29K between them. While the majority of borrows is healthy, some dust positions are at bad debt levels.
 
-![Top TUSD borrowers: portfolio composition and HF|2520x1260](upload://8eLc9nLq6xfQsD3qscWdAlZt3U5.png)
-
 _Source: LlamaRisk, July 28th, 2026_
 
 On the collateral side, the TUSD posted as collateral backing debt is concentrated in a single wallet: $114.0K of the $115.8K total, borrowing WETH against it at an HF of 2.54. The remaining 32 collateral positions are dust.
-
-![Top TUSD collateral positions: portfolio composition and HF|2520x1260](upload://7bGxzSzGXpZl6CBlaCrk1juuzp5.png)
 
 _Source: LlamaRisk, July 28th, 2026_
 
@@ -427,8 +361,6 @@ USDP (Pax Dollar) is a centrally issued, fiat-backed stablecoin from Paxos. On A
 
 Supply side: 39 wallets holding $201.3K, with the top five holding 100%. None of it is enabled as collateral, so the whole balance is supply that backs no borrowing. Debt side: 24 wallets holding $50.4K, with the top five holding 99%.
 
-![USDP position concentration|2520x1260](upload://j2T60TqU5dV7Xo6jHJtCCqeBCcu.png)
-
 _Source: LlamaRisk, July 28th, 2026_
 
 **Position breakdown**
@@ -441,15 +373,11 @@ _Source: LlamaRisk, July 28th, 2026_
 
 Across the 24 wallets that borrow USDP, the median HF is 0.81 and 12 are already below HF 1, but those are dust positions holding only $1.6K of the $50.4K debt. The 12 wallets at or above HF 1 hold 97% of the debt with a median HF of 1.50.
 
-![USDP borrower HF distribution|2520x900](upload://y6zm1281ChRAsitvE41mULT2pcX.png)
-
 _Source: LlamaRisk, July 28th, 2026_
 
 **Co-position patterns**
 
 The top 10 USDP borrowers post $89.5K of collateral, mostly WBTC at $79.2K with small stETH and USDC balances behind it. The residual USDP debt is borrowed against majors.
-
-![Top USDP borrowers: portfolio composition and HF|2520x1260](upload://1hVnAsDMg1gzS1KvF3QCTSFXi1L.png)
 
 _Source: LlamaRisk, July 28th, 2026_
 
@@ -465,19 +393,13 @@ RAI is the floating-peg stablecoin from Reflexer, and its non-standard reference
 
 [The active feed](https://etherscan.io/address/0x4ad7B025127e89263242aB68F0f9c4E5C033B489) is a Chainlink RAI/ETH price feed. Trailing 6 month realised annualised volatility is 56.2%, maximum drawdown is 37.9%. The reported price ranged from $2.15 to $3.54 over the trailing six months, with the most recent reported value at $2.1692. The recommended fixed price of $2.7339 is the trailing 6 month average, 26% above current spot. Revaluing the outstanding RAI debt 26% above spot pushes one dust wallet below HF 1, while the dominant borrower, which holds nearly all of the $50.5K RAI debt, moves from HF 2.93 to roughly 2.32 and remains comfortably safe.
 
-![RAI daily log-return distribution|1980x900](upload://l4xyx818EbrFyW5TH9sQAIOP9M7.png)
-
 _Source: LlamaRisk, July 28th, 2026_
-
-![RAI Price history (6 months in focus) with recommended fixed level|2160x900](upload://ecpWQIBT36zVX7n2ToXzDKCM5Kq.png)
 
 _Source: LlamaRisk, July 28th, 2026_
 
 **Position concentration**
 
 Supply side: 65 wallets holding $160.4K, with the top five holding 98%. None of it is enabled as collateral, so the whole balance is supply that backs no borrowing. Debt side: 7 wallets holding $50.5K, with the top five holding 100%.
-
-![RAI position concentration|2520x1260](upload://p7VfgUzmjeYO1T3EANETDH1zbTd.png)
 
 _Source: LlamaRisk, July 28th, 2026_
 
@@ -491,15 +413,11 @@ _Source: LlamaRisk, July 28th, 2026_
 
 Across the 7 wallets that borrow RAI, the median HF is 2.93 and the 10th percentile is 1.49. 4 of the 7 sit above HF 2.
 
-![RAI borrower HF distribution|2520x900](upload://9Ri7mz5MC5GjZORvtmW2rFUabzz.png)
-
 _Source: LlamaRisk, July 28th, 2026_
 
 **Co-position patterns**
 
 The 7 RAI borrowers post $170.6K of collateral, essentially all of it USDC posted as collateral by a single borrower. Borrowing a floating-peg stable against USDC is either a carry, short, or a directional bet on RAI.
-
-![Top RAI borrowers: portfolio composition and HF|2520x1260](upload://fp4CIyieVC8uXk5EG5OCJa6vAMb.png)
 
 _Source: LlamaRisk, July 28th, 2026_
 
@@ -517,8 +435,6 @@ sUSD is the Synthetix-issued stablecoin. [SIP-423](https://sips.synthetix.io/sip
 
 Supply side: 374 wallets holding $68.8K, with the top five holding 91%. None of it is enabled as collateral, so the whole balance is supply that backs no borrowing. Debt side: 73 wallets holding $13.2K, with the top five holding 90%.
 
-![sUSD position concentration|2520x1260](upload://oHbjU4vEZAT7LApUJWkzNKHPbbL.png)
-
 _Source: LlamaRisk, July 28th, 2026_
 
 **Position breakdown**
@@ -531,15 +447,11 @@ _Source: LlamaRisk, July 28th, 2026_
 
 Across the 73 wallets that borrow sUSD, the median HF is 2.98 and the 10th percentile is 0.00. 16 are already below HF 1. Because repayment is impossible while transfers are suspended, the outstanding debt is effectively unrecoverable regardless of the reported HFs.
 
-![sUSD borrower HF distribution|2520x900](upload://vXtRu8D7WOqixg804LafQXPvRS2.png)
-
 _Source: LlamaRisk, July 28th, 2026_
 
 **Co-position patterns**
 
 The top 10 sUSD borrowers post $58.9K of collateral, mostly WETH at $50.2K with small LINK and DAI balances behind it. The residual sUSD debt is borrowed against majors. Part of the debt is already stressed, with 3 of the top 10 positions being at bad debt levels.
-
-![Top sUSD borrowers: portfolio composition and HF|2520x1260](upload://hjv7xaDpH6u8ZbH7sIF7fepLXiw.png)
 
 _Source: LlamaRisk, July 28th, 2026_
 
@@ -555,19 +467,13 @@ YFI is the governance token of Yearn Finance and was deprecation-flagged in one 
 
 [The active feed](https://etherscan.io/address/0x7c5d4F8345e66f68099581Db340cd65B078C41f4) is a Chainlink YFI/ETH price feed. Trailing 6 month realised annualised volatility is 74.8%, maximum drawdown is 34.0%. Current spot is $1,998.9956 and the trailing 6 month average is $2,396.8163. The recommended fixed price of $2,396.8163 is the trailing 6 month average, 20% above current spot.
 
-![YFI daily log-return distribution|1980x900](upload://kcccLss4VnLCIzGUXFbtoUGwQ35.png)
-
 _Source: LlamaRisk, July 28th, 2026_
-
-![YFI Price history (6 months in focus) with recommended fixed level|2160x900](upload://e5bL9AZSG73oG3rn2gNDdHVcMc0.png)
 
 _Source: LlamaRisk, July 28th, 2026_
 
 **Position concentration**
 
 Supply side: 662 wallets holding $69.2K, with the top five holding 77%. Of that, $68.9K across 641 wallets is enabled as collateral and $339 across 21 wallets is supplied without a collateral function. Debt side: 31 wallets holding $45, with the top five holding 70%.
-
-![YFI position concentration|2520x1260](upload://mY0vQSmaW4Kl6XUBXTIBDXL7PBe.png)
 
 _Source: LlamaRisk, July 28th, 2026_
 
@@ -580,8 +486,6 @@ _Source: LlamaRisk, July 28th, 2026_
 **Borrower health**
 
 Across the 86 wallets that borrow YFI or post it as collateral, the median HF is 2.45 and the 10th percentile is 1.03. 6 are already below HF 1. 4 more sit in the [1.0, 1.05] band where a 1% adverse move would tip them into liquidation. 46 of the 86 sit above HF 2.
-
-![YFI borrower HF distribution|2520x900](upload://3MJOO7umeee6aDxFfrug1cTIfFu.png)
 
 _Source: LlamaRisk, July 28th, 2026_
 
@@ -612,8 +516,6 @@ Finally, where the outstanding debt sits predominantly with wallets already belo
 | RAI   | Aave V2 Ethereum      | 31%         | 20%        | 100%       | 0%              | no change                             |
 | sUSD  | Aave V2 Ethereum      | 100%        | 20%        | 100%       | 6%              | flatten IRM to zero                   |
 | YFI   | Aave V2 Ethereum      | 0%          | 20%        | 100%       | n/a ($45 debt)  | no change                             |
-
-![Debt composition by health, log scale|2340x1845](upload://bPmIQDfrDPVaEWzcoBGD1utcgdn.png)
 
 _Source: LlamaRisk, July 28th, 2026_
 
