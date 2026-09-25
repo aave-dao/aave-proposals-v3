@@ -194,7 +194,9 @@ contract AaveV2EthereumAMM_Test_20231023 is AaveV2PayloadEthereumAMM {
       "test": "// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import {AaveV2EthereumAMM} from 'aave-address-book/AaveV2EthereumAMM.sol';
+import {GovV3Helpers} from 'aave-helpers/src/GovV3Helpers.sol';
+import {AaveV2EthereumAMM, AaveV2EthereumAMMAssets} from 'aave-address-book/AaveV2EthereumAMM.sol';
+import {IDefaultInterestRateStrategy} from 'aave-address-book/AaveV2.sol';
 
 import 'forge-std/Test.sol';
 import {ProtocolV2TestBase, ReserveConfig} from 'aave-helpers/src/ProtocolV2TestBase.sol';
@@ -218,6 +220,69 @@ contract AaveV2EthereumAMM_Test_20231023_Test is ProtocolV2TestBase {
    */
   function test_defaultProposalExecution() public {
     defaultTest('AaveV2EthereumAMM_Test_20231023', AaveV2EthereumAMM.POOL, address(proposal));
+  }
+
+  function test_rateStrategyUpdate_0() public {
+    GovV3Helpers.executePayload(vm, address(proposal));
+
+    IDefaultInterestRateStrategy strategy = IDefaultInterestRateStrategy(
+      AaveV2EthereumAMM
+        .POOL
+        .getReserveData(AaveV2EthereumAMMAssets.WETH_UNDERLYING)
+        .interestRateStrategyAddress
+    );
+    assertEq(strategy.baseVariableBorrowRate(), 6_00 * 1e23, 'baseVariableBorrowRate mismatch');
+  }
+
+  function test_rateStrategyUpdate_1() public {
+    GovV3Helpers.executePayload(vm, address(proposal));
+
+    IDefaultInterestRateStrategy strategy = IDefaultInterestRateStrategy(
+      AaveV2EthereumAMM
+        .POOL
+        .getReserveData(AaveV2EthereumAMMAssets.DAI_UNDERLYING)
+        .interestRateStrategyAddress
+    );
+    assertEq(strategy.baseVariableBorrowRate(), 4_00 * 1e23, 'baseVariableBorrowRate mismatch');
+    assertEq(strategy.variableRateSlope1(), 10_00 * 1e23, 'variableRateSlope1 mismatch');
+  }
+
+  function test_rateStrategyUpdate_2() public {
+    GovV3Helpers.executePayload(vm, address(proposal));
+
+    IDefaultInterestRateStrategy strategy = IDefaultInterestRateStrategy(
+      AaveV2EthereumAMM
+        .POOL
+        .getReserveData(AaveV2EthereumAMMAssets.USDC_UNDERLYING)
+        .interestRateStrategyAddress
+    );
+    assertEq(strategy.baseVariableBorrowRate(), 4_00 * 1e23, 'baseVariableBorrowRate mismatch');
+    assertEq(strategy.variableRateSlope1(), 10_00 * 1e23, 'variableRateSlope1 mismatch');
+  }
+
+  function test_rateStrategyUpdate_3() public {
+    GovV3Helpers.executePayload(vm, address(proposal));
+
+    IDefaultInterestRateStrategy strategy = IDefaultInterestRateStrategy(
+      AaveV2EthereumAMM
+        .POOL
+        .getReserveData(AaveV2EthereumAMMAssets.USDT_UNDERLYING)
+        .interestRateStrategyAddress
+    );
+    assertEq(strategy.baseVariableBorrowRate(), 6_00 * 1e23, 'baseVariableBorrowRate mismatch');
+    assertEq(strategy.variableRateSlope1(), 10_00 * 1e23, 'variableRateSlope1 mismatch');
+  }
+
+  function test_rateStrategyUpdate_4() public {
+    GovV3Helpers.executePayload(vm, address(proposal));
+
+    IDefaultInterestRateStrategy strategy = IDefaultInterestRateStrategy(
+      AaveV2EthereumAMM
+        .POOL
+        .getReserveData(AaveV2EthereumAMMAssets.WBTC_UNDERLYING)
+        .interestRateStrategyAddress
+    );
+    assertEq(strategy.baseVariableBorrowRate(), 5_00 * 1e23, 'baseVariableBorrowRate mismatch');
   }
 }
 ",
@@ -359,6 +424,43 @@ rateStrategies[4] = IAaveV2ConfigEngine.RateStrategyUpdate({
 
           return rateStrategies;
         }",
+    ],
+  },
+  "test": {
+    "fn": [
+      "function test_rateStrategyUpdate_0() public {
+      GovV3Helpers.executePayload(vm, address(proposal));
+
+      IDefaultInterestRateStrategy strategy = IDefaultInterestRateStrategy(AaveV2EthereumAMM.POOL.getReserveData(AaveV2EthereumAMMAssets.WETH_UNDERLYING).interestRateStrategyAddress);
+      assertEq(strategy.baseVariableBorrowRate(), 6_00 * 1e23, 'baseVariableBorrowRate mismatch');
+    }",
+      "function test_rateStrategyUpdate_1() public {
+      GovV3Helpers.executePayload(vm, address(proposal));
+
+      IDefaultInterestRateStrategy strategy = IDefaultInterestRateStrategy(AaveV2EthereumAMM.POOL.getReserveData(AaveV2EthereumAMMAssets.DAI_UNDERLYING).interestRateStrategyAddress);
+      assertEq(strategy.baseVariableBorrowRate(), 4_00 * 1e23, 'baseVariableBorrowRate mismatch');
+      assertEq(strategy.variableRateSlope1(), 10_00 * 1e23, 'variableRateSlope1 mismatch');
+    }",
+      "function test_rateStrategyUpdate_2() public {
+      GovV3Helpers.executePayload(vm, address(proposal));
+
+      IDefaultInterestRateStrategy strategy = IDefaultInterestRateStrategy(AaveV2EthereumAMM.POOL.getReserveData(AaveV2EthereumAMMAssets.USDC_UNDERLYING).interestRateStrategyAddress);
+      assertEq(strategy.baseVariableBorrowRate(), 4_00 * 1e23, 'baseVariableBorrowRate mismatch');
+      assertEq(strategy.variableRateSlope1(), 10_00 * 1e23, 'variableRateSlope1 mismatch');
+    }",
+      "function test_rateStrategyUpdate_3() public {
+      GovV3Helpers.executePayload(vm, address(proposal));
+
+      IDefaultInterestRateStrategy strategy = IDefaultInterestRateStrategy(AaveV2EthereumAMM.POOL.getReserveData(AaveV2EthereumAMMAssets.USDT_UNDERLYING).interestRateStrategyAddress);
+      assertEq(strategy.baseVariableBorrowRate(), 6_00 * 1e23, 'baseVariableBorrowRate mismatch');
+      assertEq(strategy.variableRateSlope1(), 10_00 * 1e23, 'variableRateSlope1 mismatch');
+    }",
+      "function test_rateStrategyUpdate_4() public {
+      GovV3Helpers.executePayload(vm, address(proposal));
+
+      IDefaultInterestRateStrategy strategy = IDefaultInterestRateStrategy(AaveV2EthereumAMM.POOL.getReserveData(AaveV2EthereumAMMAssets.WBTC_UNDERLYING).interestRateStrategyAddress);
+      assertEq(strategy.baseVariableBorrowRate(), 5_00 * 1e23, 'baseVariableBorrowRate mismatch');
+    }",
     ],
   },
 }
