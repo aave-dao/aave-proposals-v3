@@ -26,7 +26,7 @@ contract AaveV3Plasma_Onboard_PTsUSDe22OCT2026_Oracle_20260925_Test is ProtocolV
   uint256 internal discountAgentId;
   uint256 internal eModeAgentId;
 
-  uint256 internal constant FORK_BLOCK = 33398691;
+  uint256 internal constant FORK_BLOCK = 33644200;
 
   function setUp() public {
     vm.createSelectFork(vm.rpcUrl('plasma'), FORK_BLOCK);
