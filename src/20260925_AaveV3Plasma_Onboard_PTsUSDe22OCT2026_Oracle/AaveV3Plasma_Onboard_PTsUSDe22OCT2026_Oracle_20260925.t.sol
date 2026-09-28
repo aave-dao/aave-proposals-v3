@@ -2,7 +2,6 @@
 pragma solidity ^0.8.0;
 
 import {AaveV3Plasma, AaveV3PlasmaAssets, AaveV3PlasmaEModes} from 'aave-address-book/AaveV3Plasma.sol';
-import {GovernanceV3Plasma} from 'aave-address-book/GovernanceV3Plasma.sol';
 import {MiscPlasma} from 'aave-address-book/MiscPlasma.sol';
 
 import 'forge-std/Test.sol';
