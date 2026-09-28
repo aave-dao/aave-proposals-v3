@@ -38,7 +38,7 @@
     "vitest": "^4.0.0"
   },
   "dependencies": {
-    "@aave-dao/aave-address-book": "^4.70.3",
+    "@aave-dao/aave-address-book": "^4.71.0",
     "@aave-dao/aave-helpers-js": "^1.6.3",
     "@aave-dao/toolbox": "^0.6.1",
     "@inquirer/core": "^11.0.0",
