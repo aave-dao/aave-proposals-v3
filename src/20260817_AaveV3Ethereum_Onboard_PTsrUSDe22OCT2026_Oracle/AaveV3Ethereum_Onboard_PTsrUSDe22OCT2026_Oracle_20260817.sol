@@ -20,9 +20,6 @@ contract AaveV3Ethereum_Onboard_PTsrUSDe22OCT2026_Oracle_20260817 is
   ///      Registration stays governance-only: `registerAgent` and `setAgentAdmin` are `onlyOwner`.
   address public constant AGENT_ADMIN = MiscEthereum.PROTOCOL_GUARDIAN;
 
-  /// @dev No suffix is needed because this RiskOracle is dedicated to the LlamaGuard stack.
-  string public constant UPDATE_TYPE_SUFFIX = '';
-
   function execute() external {
     AgentHubConfig memory agentHubConfig = AgentHubConfig({
       aclManager: address(AaveV3Ethereum.ACL_MANAGER),

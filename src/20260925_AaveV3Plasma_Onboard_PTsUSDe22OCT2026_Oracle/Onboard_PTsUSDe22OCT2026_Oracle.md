@@ -83,8 +83,8 @@ Both predeployed agents are verified deployments of the stock implementations fr
 
 ## References
 
-- Implementation: **TBD — payload PR in aave-proposals-v3**
-- Tests: **TBD — payload PR in aave-proposals-v3**
+- [Implementation](https://github.com/llama-risk/aave-proposals-v3/blob/feat/onboard-pt-susde-22oct2026-oracle-plasma/src/20260925_AaveV3Plasma_Onboard_PTsUSDe22OCT2026_Oracle/AaveV3Plasma_Onboard_PTsUSDe22OCT2026_Oracle_20260925.sol)
+- [Tests](https://github.com/llama-risk/aave-proposals-v3/blob/feat/onboard-pt-susde-22oct2026-oracle-plasma/src/20260925_AaveV3Plasma_Onboard_PTsUSDe22OCT2026_Oracle/AaveV3Plasma_Onboard_PTsUSDe22OCT2026_Oracle_20260925.t.sol)
 - Agent implementations: [aave-dao/aave-risk-agents](https://github.com/aave-dao/aave-risk-agents)
 - Snapshot: Direct-to-AIP
 - [Discussion](https://governance.aave.com/t/arfc-upgrade-pt-risk-oracle-to-protocol-owned-infrastructure-on-cre/25119/5?u=llamarisk)

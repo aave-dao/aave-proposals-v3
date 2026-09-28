@@ -2,7 +2,6 @@
 pragma solidity ^0.8.0;
 
 import {AaveV3Plasma, AaveV3PlasmaAssets, AaveV3PlasmaEModes} from 'aave-address-book/AaveV3Plasma.sol';
-import {GovernanceV3Plasma} from 'aave-address-book/GovernanceV3Plasma.sol';
 import {MiscPlasma} from 'aave-address-book/MiscPlasma.sol';
 import {AgentHubAgentActivationPayload} from '../helpers/agent-hub/AgentHubAgentActivationPayload.sol';
 import {AgentHubConfigs} from '../helpers/agent-hub/Configs.sol';
@@ -17,9 +16,6 @@ contract AaveV3Plasma_Onboard_PTsUSDe22OCT2026_Oracle_20260925 is AgentHubAgentA
   /// @dev Protocol guardian, so a misbehaving agent can be disabled without a governance cycle.
   ///      Registration stays governance-only: `registerAgent` and `setAgentAdmin` are `onlyOwner`.
   address public constant AGENT_ADMIN = MiscPlasma.PROTOCOL_GUARDIAN;
-
-  /// @dev No suffix is needed because this RiskOracle is dedicated to the LlamaGuard stack.
-  string public constant UPDATE_TYPE_SUFFIX = '';
 
   function execute() external {
     AgentHubConfig memory agentHubConfig = AgentHubConfig({

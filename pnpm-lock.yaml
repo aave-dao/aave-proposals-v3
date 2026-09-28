@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@aave-dao/aave-address-book':
-        specifier: ^4.66.0
-        version: 4.66.0(viem@2.50.4(zod@4.5.4))
+        specifier: ^4.70.3
+        version: 4.70.3(viem@2.50.4(zod@4.5.4))
       '@aave-dao/aave-helpers-js':
         specifier: ^1.6.3
         version: 1.6.3(prettier-plugin-solidity@1.3.1(prettier@3.8.3))(prettier@3.8.3)
@@ -75,13 +75,13 @@ importers:
 
 packages:
 
-  '@aave-dao/aave-address-book@4.66.0':
-    resolution: {integrity: sha512-Tc2fsC+rk47+TT3nheLbTuHGnK8m8BMmA+VuD8thf0CsAzaT4Ouc8yBNrpzaEYizO26jdDVsEJvqdjWJDJ559w==}
+  '@aave-dao/aave-address-book@4.70.2':
+    resolution: {integrity: sha512-jbDUx9TqLcfV0CtU1kMptUk7pgTuFzJvxKECmnuF1gkH7noJjtcVTZTbFIKvo8EmwMeIEULOo+sCJA0Znppn9g==}
     peerDependencies:
       viem: ^2.23.5
 
-  '@aave-dao/aave-address-book@4.70.2':
-    resolution: {integrity: sha512-jbDUx9TqLcfV0CtU1kMptUk7pgTuFzJvxKECmnuF1gkH7noJjtcVTZTbFIKvo8EmwMeIEULOo+sCJA0Znppn9g==}
+  '@aave-dao/aave-address-book@4.70.3':
+    resolution: {integrity: sha512-CV/JuIdlo3fL0pTuXCXH4oEntJV8rMxqjMbYrDVxDnrqkl1bwHgViYzzc0jmYTr9eSM1w1bIYca8Oh3MlVwNZw==}
     peerDependencies:
       viem: ^2.23.5
 
@@ -1248,11 +1248,11 @@ packages:
 
 snapshots:
 
-  '@aave-dao/aave-address-book@4.66.0(viem@2.50.4(zod@4.5.4))':
+  '@aave-dao/aave-address-book@4.70.2(viem@2.50.4(zod@4.5.4))':
     dependencies:
       viem: 2.50.4(zod@4.5.4)
 
-  '@aave-dao/aave-address-book@4.70.2(viem@2.50.4(zod@4.5.4))':
+  '@aave-dao/aave-address-book@4.70.3(viem@2.50.4(zod@4.5.4))':
     dependencies:
       viem: 2.50.4(zod@4.5.4)
 

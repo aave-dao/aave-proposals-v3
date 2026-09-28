@@ -7,6 +7,9 @@ import {IAgentHub, IAgentConfigurator} from '../../interfaces/IAgentHub.sol';
 import {IRangeValidationModule} from '../../interfaces/IRangeValidationModule.sol';
 
 abstract contract AgentHubAgentActivationPayload is IProposalGenericExecutor {
+  /// @dev No suffix is needed while each RiskOracle is dedicated to a single LlamaGuard stack.
+  string public constant UPDATE_TYPE_SUFFIX = '';
+
   struct AgentHubConfig {
     address aclManager;
     address agentHub;
