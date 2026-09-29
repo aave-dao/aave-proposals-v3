@@ -1,4 +1,4 @@
-import {CodeArtifact, FEATURE, FeatureModule, MarketIdentifier} from '../types';
+import {CodeArtifact, ENGINE_FLAGS, FEATURE, FeatureModule, MarketIdentifier} from '../types';
 import {eModeSelect} from '../prompts';
 import {AssetEModeUpdate} from './types';
 import {
@@ -41,6 +41,55 @@ async function subCli(market: MarketIdentifier, additionalAssets: string[]) {
 
 type EmodeAssetUpdates = AssetEModeUpdate[];
 
+function eModeAssetUpdateTests(
+  market: MarketIdentifier,
+  cfgs: EmodeAssetUpdates,
+  newListings: Set<string>,
+): string[] {
+  return cfgs.map((cfg, ix) => {
+    const asset = translateAssetToAssetLibUnderlying(cfg.asset, market, newListings);
+    const isNewListing = newListings.has(cfg.asset);
+    const checks = [
+      ['Collateral', 'getEModeCategoryCollateralBitmap', cfg.collateral],
+      ['Borrowable', 'getEModeCategoryBorrowableBitmap', cfg.borrowable],
+      ['Ltvzero', 'getEModeCategoryLtvzeroBitmap', cfg.ltvzero],
+    ] as const;
+    // A newly listed asset has no reserve (and therefore no reserve id or
+    // pre-existing eMode bitmap state) until the payload lists it, so the
+    // reserve mask can only be resolved after execution, and KEEP_CURRENT
+    // has no prior state to preserve for it.
+    const reserveMaskDecl = `uint128 reserveMask = uint128(1) << ${market}.POOL.getReserveData(${asset}).id;`;
+    return `function test_eModeAssetUpdate_${ix}() public {
+      ${isNewListing ? '' : reserveMaskDecl}
+      ${checks
+        .filter(([, , value]) => !isNewListing && value === ENGINE_FLAGS.KEEP_CURRENT)
+        .map(
+          ([name, getter]) =>
+            `bool before${name} = (${market}.POOL.${getter}(${cfg.eModeCategory}) & reserveMask) != 0;`,
+        )
+        .join('\n      ')}
+
+      GovV3Helpers.executePayload(vm, address(proposal));
+
+      ${isNewListing ? reserveMaskDecl : ''}
+      ${checks
+        .filter(([, , value]) => !isNewListing || value !== ENGINE_FLAGS.KEEP_CURRENT)
+        .map(([name, getter, value]) => {
+          const expected =
+            value === ENGINE_FLAGS.KEEP_CURRENT
+              ? `before${name}`
+              : String(value === ENGINE_FLAGS.ENABLED);
+          return `assertEq(
+        (${market}.POOL.${getter}(${cfg.eModeCategory}) & reserveMask) != 0,
+        ${expected},
+        'unexpected eMode ${name.toLowerCase()} state'
+      );`;
+        })
+        .join('\n      ')}
+    }`;
+  });
+}
+
 export const eModeAssets: FeatureModule<EmodeAssetUpdates> = {
   value: FEATURE.EMODES_ASSETS,
   description: 'assetsEModeUpdates (setting eMode for an asset)',
@@ -73,6 +122,9 @@ export const eModeAssets: FeatureModule<EmodeAssetUpdates> = {
           return assetEModeUpdates;
         }`,
         ],
+      },
+      test: {
+        fn: eModeAssetUpdateTests(market, cfg, newListings),
       },
     };
     return response;
