@@ -20,15 +20,15 @@ The pipeline publishes to a RiskOracle that only LlamaRisk's router can write to
 
 The payload performs three groups of actions.
 
-**1. Register the discount rate agent.** The payload registers the predeployed `AaveDiscountRateAgent` at `LLAMARISK_PT_DISCOUNT_RATE_AGENT` on the AgentHub, consuming `PendleDiscountRateUpdate` records from the LlamaRisk RiskOracle and allowed to act only on PT-AUSD-17DEC2026. Minimum delay 2 days, expiration period 2 days.
+**1. Register the discount rate agent.** The payload registers the predeployed `AaveDiscountRateAgent` from `MiscMonad.LLAMARISK_PT_DISCOUNT_RATE_AGENT` on `MiscMonad.AGENT_HUB`, consuming `PendleDiscountRateUpdate` records from the LlamaRisk RiskOracle and allowed to act only on PT-AUSD-17DEC2026. Minimum delay 2 days, expiration period 2 days.
 
-**2. Register the eMode agent.** The predeployed `AaveEModeAgent` at `LLAMARISK_PT_EMODE_AGENT` is registered for the same oracle, consuming `EModeCategoryUpdate` and allowed to act only on eMode category 6. Minimum delay 3 days, expiration period 3 days. Its agent context encodes `AaveV3Monad.CONFIG_ENGINE`, which it delegatecalls to apply category updates.
+**2. Register the eMode agent.** The predeployed `AaveEModeAgent` from `MiscMonad.LLAMARISK_PT_EMODE_AGENT` is registered for the same oracle, consuming `EModeCategoryUpdate` and allowed to act only on eMode category 6. Minimum delay 3 days, expiration period 3 days. Its agent context encodes `AaveV3Monad.CONFIG_ENGINE`, which it delegatecalls to apply category updates.
 
 Both are registered with `admin` set to `MiscMonad.PROTOCOL_GUARDIAN`, so a misbehaving agent can be disabled without a governance cycle. Registration stays governance-only: `registerAgent` and `setAgentAdmin` are `onlyOwner`, and the AgentHub is owned by `GovernanceV3Monad.EXECUTOR_LVL_1`. Both `isAgentPermissioned` and `isMarketsFromAgentEnabled` are left at their defaults.
 
-These are the first agents on the Monad AgentHub, so they take agent ids 0 and 1. Neither agent is registered with a suffixed update type: the LlamaRisk RiskOracle serves this stack alone, so the base types are unambiguous.
+These are the first agents on the Monad AgentHub, so they take agent ids 0 and 1. Both agent addresses and the RiskOracle are imported from `MiscMonad`. Neither agent is registered with a suffixed update type: the LlamaRisk RiskOracle serves this stack alone, so the base types are unambiguous.
 
-**3. Grant RISK_ADMIN and bound the ranges.** `addRiskAdmin` on `AaveV3Monad.ACL_MANAGER` for both predeployed agents, then `setDefaultRangeConfig` on the RangeValidationModule for each parameter each agent can move.
+**3. Grant RISK_ADMIN and bound the ranges.** `addRiskAdmin` on `AaveV3Monad.ACL_MANAGER` for both predeployed agents, then `setDefaultRangeConfig` on `MiscMonad.RANGE_VALIDATION_MODULE` for each parameter each agent can move.
 
 The role is required because of how the agents write. The discount rate agent resolves the PT price source through the Aave oracle and calls `setDiscountRatePerYear` on the `PendlePriceCapAdapter`, which gates that call on `isRiskAdmin || isPoolAdmin`. The eMode agent delegatecalls the config engine, and because delegatecall preserves the caller, the PoolConfigurator sees the agent rather than the engine, so the role has to sit on the agent there as well.
 
@@ -59,24 +59,24 @@ No reserve configuration is changed by this payload. The snapshot diff is empty 
 
 ## Deployed Contracts
 
-- `LLAMARISK_RISK_ORACLE`: [0x4b00A38ee9396E952d07F81B26Ed1514e480dCFC](https://monadscan.com/address/0x4b00A38ee9396E952d07F81B26Ed1514e480dCFC)
-- `LLAMARISK_RISK_ORACLE_ROUTER`: [0x8fDdd4Ab11Ecd6A95F6d67f13166031604624B71](https://monadscan.com/address/0x8fDdd4Ab11Ecd6A95F6d67f13166031604624B71)
-- `LLAMARISK_PT_DISCOUNT_RATE_AGENT`: [0x9047f3084Dd26d0d8a6b0Ef9Bb8643b01dA726D3](https://monadscan.com/address/0x9047f3084Dd26d0d8a6b0Ef9Bb8643b01dA726D3)
-- `LLAMARISK_PT_EMODE_AGENT`: [0xa89C6f877380af190AFD839c0F9cBF57474162f1](https://monadscan.com/address/0xa89C6f877380af190AFD839c0F9cBF57474162f1)
+- `MiscMonad.LLAMARISK_RISK_ORACLE`: [0x4b00A38ee9396E952d07F81B26Ed1514e480dCFC](https://monadscan.com/address/0x4b00A38ee9396E952d07F81B26Ed1514e480dCFC)
+- `MiscMonad.LLAMARISK_RISK_ORACLE_ROUTER`: [0x8fDdd4Ab11Ecd6A95F6d67f13166031604624B71](https://monadscan.com/address/0x8fDdd4Ab11Ecd6A95F6d67f13166031604624B71)
+- `MiscMonad.LLAMARISK_PT_DISCOUNT_RATE_AGENT`: [0x9047f3084Dd26d0d8a6b0Ef9Bb8643b01dA726D3](https://monadscan.com/address/0x9047f3084Dd26d0d8a6b0Ef9Bb8643b01dA726D3)
+- `MiscMonad.LLAMARISK_PT_EMODE_AGENT`: [0xa89C6f877380af190AFD839c0F9cBF57474162f1](https://monadscan.com/address/0xa89C6f877380af190AFD839c0F9cBF57474162f1)
 - `CHAINLINK_CRE_FORWARDER`: [0x76c9cf548b4179F8901cda1f8623568b58215E62](https://monadscan.com/address/0x76c9cf548b4179F8901cda1f8623568b58215E62)
 
 The payload references the RiskOracle and both agents directly. The Router and CRE Forwarder are included above to make the complete write path easier to review.
 
-Aave contracts referenced:
+Existing Aave contracts referenced, all from the address book:
 
-- AgentHub: [0xa1Cf1e3D3fC743c0fd0e38f631A843372b7169DB](https://monadscan.com/address/0xa1Cf1e3D3fC743c0fd0e38f631A843372b7169DB)
-- RangeValidationModule: [0x863D5B3f24E6b84564432dd20606a82bB1C61dC5](https://monadscan.com/address/0x863D5B3f24E6b84564432dd20606a82bB1C61dC5)
+- AgentHub: `MiscMonad.AGENT_HUB`
+- RangeValidationModule: `MiscMonad.RANGE_VALIDATION_MODULE`
+- PT-AUSD-17DEC2026: `AaveV3MonadAssets.PT_AUSD_17DEC2026_UNDERLYING`
+- eMode category 6: `AaveV3MonadEModes.PT_AUSD_17DEC2026__USDT0_USDC_USDe_mUSD_GHO`
 - ACL manager: `AaveV3Monad.ACL_MANAGER`
 - Config engine: `AaveV3Monad.CONFIG_ENGINE`
 - Agent admin: `MiscMonad.PROTOCOL_GUARDIAN`
 - AgentHub owner: `GovernanceV3Monad.EXECUTOR_LVL_1`
-
-The AgentHub, the RangeValidationModule, the LlamaRisk contracts, PT-AUSD-17DEC2026 and eMode category 6 are not yet in the address book, so the payload declares them as constants under the address book key names.
 
 ### Agent source
 

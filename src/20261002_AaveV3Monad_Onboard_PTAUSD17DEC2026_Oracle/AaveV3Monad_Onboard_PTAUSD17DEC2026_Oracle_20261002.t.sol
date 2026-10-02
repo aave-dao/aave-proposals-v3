@@ -1,14 +1,14 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import {AaveV3Monad} from 'aave-address-book/AaveV3Monad.sol';
+import {AaveV3Monad, AaveV3MonadAssets, AaveV3MonadEModes} from 'aave-address-book/AaveV3Monad.sol';
 import {MiscMonad} from 'aave-address-book/MiscMonad.sol';
 import {GovernanceV3Monad} from 'aave-address-book/GovernanceV3Monad.sol';
 
 import 'forge-std/Test.sol';
 import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {DataTypes} from 'aave-v3-origin/contracts/protocol/libraries/types/DataTypes.sol';
-import {AaveV3Monad_Onboard_PTAUSD17DEC2026_Oracle_20261002, MonadLlamaGuard} from './AaveV3Monad_Onboard_PTAUSD17DEC2026_Oracle_20261002.sol';
+import {AaveV3Monad_Onboard_PTAUSD17DEC2026_Oracle_20261002} from './AaveV3Monad_Onboard_PTAUSD17DEC2026_Oracle_20261002.sol';
 import {AgentHubConfigs} from '../helpers/agent-hub/Configs.sol';
 import {IAgentHub} from '../interfaces/IAgentHub.sol';
 import {IBaseAaveAgent, IAaveDiscountRateAgent} from '../interfaces/IBaseAaveAgent.sol';
@@ -28,7 +28,7 @@ contract AaveV3Monad_Onboard_PTAUSD17DEC2026_Oracle_20261002_Test is ProtocolV3T
 
   uint256 internal constant FORK_BLOCK = 109947773;
 
-  /// @dev PT-AUSD-17DEC2026 price feed set by the onboarding AIP (aave-dao/aave-proposals-v3#1210).
+  /// @dev PT-AUSD-17DEC2026 price feed set by the onboarding AIP.
   address internal constant PT_AUSD_17DEC2026_PRICE_FEED =
     0x4dc9Ee8d739411242303f7F78C6610d5B0371a2C;
 
@@ -39,7 +39,7 @@ contract AaveV3Monad_Onboard_PTAUSD17DEC2026_Oracle_20261002_Test is ProtocolV3T
 
     // The ids the payload will be handed, derived from the live count rather than hardcoded, since
     // anything registered between now and execution shifts them.
-    uint256 startCount = IAgentHub(MonadLlamaGuard.AGENT_HUB).getAgentCount();
+    uint256 startCount = IAgentHub(MiscMonad.AGENT_HUB).getAgentCount();
     discountAgentId = startCount;
     eModeAgentId = startCount + 1;
   }
@@ -79,43 +79,40 @@ contract AaveV3Monad_Onboard_PTAUSD17DEC2026_Oracle_20261002_Test is ProtocolV3T
   /// @dev Both agents are pre-deployed. Their immutable dependencies are checked before the payload
   ///      registers their addresses in the AgentHub.
   function test_agentsPredeployedAndWired() public {
-    IAgentHub hub = IAgentHub(MonadLlamaGuard.AGENT_HUB);
+    IAgentHub hub = IAgentHub(MiscMonad.AGENT_HUB);
     IAaveDiscountRateAgent discountAgent = IAaveDiscountRateAgent(
-      MonadLlamaGuard.LLAMARISK_PT_DISCOUNT_RATE_AGENT
+      MiscMonad.LLAMARISK_PT_DISCOUNT_RATE_AGENT
     );
-    IBaseAaveAgent eModeAgent = IBaseAaveAgent(MonadLlamaGuard.LLAMARISK_PT_EMODE_AGENT);
+    IBaseAaveAgent eModeAgent = IBaseAaveAgent(MiscMonad.LLAMARISK_PT_EMODE_AGENT);
 
     assertGt(
-      MonadLlamaGuard.LLAMARISK_PT_DISCOUNT_RATE_AGENT.code.length,
+      MiscMonad.LLAMARISK_PT_DISCOUNT_RATE_AGENT.code.length,
       0,
       'discount agent has no code'
     );
-    assertGt(MonadLlamaGuard.LLAMARISK_PT_EMODE_AGENT.code.length, 0, 'eMode agent has no code');
+    assertGt(MiscMonad.LLAMARISK_PT_EMODE_AGENT.code.length, 0, 'eMode agent has no code');
 
-    assertEq(discountAgent.AGENT_HUB(), MonadLlamaGuard.AGENT_HUB);
-    assertEq(discountAgent.RANGE_VALIDATION_MODULE(), MonadLlamaGuard.RANGE_VALIDATION_MODULE);
+    assertEq(discountAgent.AGENT_HUB(), MiscMonad.AGENT_HUB);
+    assertEq(discountAgent.RANGE_VALIDATION_MODULE(), MiscMonad.RANGE_VALIDATION_MODULE);
     assertEq(discountAgent.POOL(), address(AaveV3Monad.POOL));
     assertEq(discountAgent.AAVE_ORACLE(), address(AaveV3Monad.ORACLE));
     assertEq(discountAgent.getUpdateType(), AgentHubConfigs.DISCOUNT_UPDATE_TYPE);
 
-    assertEq(eModeAgent.AGENT_HUB(), MonadLlamaGuard.AGENT_HUB);
-    assertEq(eModeAgent.RANGE_VALIDATION_MODULE(), MonadLlamaGuard.RANGE_VALIDATION_MODULE);
+    assertEq(eModeAgent.AGENT_HUB(), MiscMonad.AGENT_HUB);
+    assertEq(eModeAgent.RANGE_VALIDATION_MODULE(), MiscMonad.RANGE_VALIDATION_MODULE);
     assertEq(eModeAgent.POOL(), address(AaveV3Monad.POOL));
     assertEq(eModeAgent.getUpdateType(), AgentHubConfigs.EMODE_UPDATE_TYPE);
 
     executePayload(vm, address(proposal));
 
-    assertEq(
-      hub.getAgentAddress(discountAgentId),
-      MonadLlamaGuard.LLAMARISK_PT_DISCOUNT_RATE_AGENT
-    );
-    assertEq(hub.getAgentAddress(eModeAgentId), MonadLlamaGuard.LLAMARISK_PT_EMODE_AGENT);
+    assertEq(hub.getAgentAddress(discountAgentId), MiscMonad.LLAMARISK_PT_DISCOUNT_RATE_AGENT);
+    assertEq(hub.getAgentAddress(eModeAgentId), MiscMonad.LLAMARISK_PT_EMODE_AGENT);
     assertEq(discountAgent.getUpdateType(), hub.getUpdateType(discountAgentId));
     assertEq(eModeAgent.getUpdateType(), hub.getUpdateType(eModeAgentId));
   }
 
   function test_agentsRegisteredAndRiskAdminGranted() public {
-    IAgentHub hub = IAgentHub(MonadLlamaGuard.AGENT_HUB);
+    IAgentHub hub = IAgentHub(MiscMonad.AGENT_HUB);
     uint256 countBefore = hub.getAgentCount();
 
     executePayload(vm, address(proposal));
@@ -124,13 +121,10 @@ contract AaveV3Monad_Onboard_PTAUSD17DEC2026_Oracle_20261002_Test is ProtocolV3T
 
     // Discount agent.
     assertTrue(hub.isAgentEnabled(discountAgentId), 'discount agent not enabled');
-    assertEq(hub.getRiskOracle(discountAgentId), MonadLlamaGuard.LLAMARISK_RISK_ORACLE);
+    assertEq(hub.getRiskOracle(discountAgentId), MiscMonad.LLAMARISK_RISK_ORACLE);
     assertEq(hub.getUpdateType(discountAgentId), AgentHubConfigs.DISCOUNT_UPDATE_TYPE);
     assertEq(hub.getAgentAdmin(discountAgentId), MiscMonad.PROTOCOL_GUARDIAN);
-    assertEq(
-      hub.getAgentAddress(discountAgentId),
-      MonadLlamaGuard.LLAMARISK_PT_DISCOUNT_RATE_AGENT
-    );
+    assertEq(hub.getAgentAddress(discountAgentId), MiscMonad.LLAMARISK_PT_DISCOUNT_RATE_AGENT);
     assertEq(hub.getExpirationPeriod(discountAgentId), AgentHubConfigs.DISCOUNT_EXPIRATION_PERIOD);
     assertEq(hub.getMinimumDelay(discountAgentId), AgentHubConfigs.DISCOUNT_MINIMUM_DELAY);
     assertEq(hub.getAgentContext(discountAgentId), bytes(''));
@@ -141,14 +135,14 @@ contract AaveV3Monad_Onboard_PTAUSD17DEC2026_Oracle_20261002_Test is ProtocolV3T
 
     address[] memory discountMarkets = hub.getAllowedMarkets(discountAgentId);
     assertEq(discountMarkets.length, 1, 'discount agent should allow one market');
-    assertEq(discountMarkets[0], MonadLlamaGuard.PT_AUSD_17DEC2026_UNDERLYING);
+    assertEq(discountMarkets[0], AaveV3MonadAssets.PT_AUSD_17DEC2026_UNDERLYING);
 
     // eMode agent
     assertTrue(hub.isAgentEnabled(eModeAgentId), 'eMode agent not enabled');
-    assertEq(hub.getRiskOracle(eModeAgentId), MonadLlamaGuard.LLAMARISK_RISK_ORACLE);
+    assertEq(hub.getRiskOracle(eModeAgentId), MiscMonad.LLAMARISK_RISK_ORACLE);
     assertEq(hub.getUpdateType(eModeAgentId), AgentHubConfigs.EMODE_UPDATE_TYPE);
     assertEq(hub.getAgentAdmin(eModeAgentId), MiscMonad.PROTOCOL_GUARDIAN);
-    assertEq(hub.getAgentAddress(eModeAgentId), MonadLlamaGuard.LLAMARISK_PT_EMODE_AGENT);
+    assertEq(hub.getAgentAddress(eModeAgentId), MiscMonad.LLAMARISK_PT_EMODE_AGENT);
     assertEq(hub.getExpirationPeriod(eModeAgentId), AgentHubConfigs.EMODE_EXPIRATION_PERIOD);
     assertEq(hub.getMinimumDelay(eModeAgentId), AgentHubConfigs.EMODE_MINIMUM_DELAY);
     assertFalse(hub.isAgentPermissioned(eModeAgentId));
@@ -166,7 +160,10 @@ contract AaveV3Monad_Onboard_PTAUSD17DEC2026_Oracle_20261002_Test is ProtocolV3T
 
     address[] memory eModeMarkets = hub.getAllowedMarkets(eModeAgentId);
     assertEq(eModeMarkets.length, 1, 'eMode agent should allow one category');
-    assertEq(eModeMarkets[0], address(uint160(MonadLlamaGuard.PT_AUSD_17DEC2026__STABLECOINS)));
+    assertEq(
+      eModeMarkets[0],
+      address(uint160(AaveV3MonadEModes.PT_AUSD_17DEC2026__USDT0_USDC_USDe_mUSD_GHO))
+    );
 
     // Without the role neither agent can write: the discount one is rejected by the
     // PendlePriceCapAdapter, the eMode one by the PoolConfigurator.
@@ -183,8 +180,8 @@ contract AaveV3Monad_Onboard_PTAUSD17DEC2026_Oracle_20261002_Test is ProtocolV3T
   function test_e2eAgentsInjectRiskOracleUpdates() public {
     executePayload(vm, address(proposal));
 
-    IAgentHub hub = IAgentHub(MonadLlamaGuard.AGENT_HUB);
-    address pt = MonadLlamaGuard.PT_AUSD_17DEC2026_UNDERLYING;
+    IAgentHub hub = IAgentHub(MiscMonad.AGENT_HUB);
+    address pt = AaveV3MonadAssets.PT_AUSD_17DEC2026_UNDERLYING;
     IPendlePriceCapAdapter adapter = IPendlePriceCapAdapter(
       AaveV3Monad.ORACLE.getSourceOfAsset(pt)
     );
@@ -192,7 +189,7 @@ contract AaveV3Monad_Onboard_PTAUSD17DEC2026_Oracle_20261002_Test is ProtocolV3T
       AgentHubConfigs.DISCOUNT_RANGE_ABS /
       2;
 
-    uint8 eModeCategory = MonadLlamaGuard.PT_AUSD_17DEC2026__STABLECOINS;
+    uint8 eModeCategory = AaveV3MonadEModes.PT_AUSD_17DEC2026__USDT0_USDC_USDe_mUSD_GHO;
     address eModeMarket = address(uint160(eModeCategory));
     DataTypes.CollateralConfig memory eModeBefore = AaveV3Monad
       .POOL
@@ -241,8 +238,8 @@ contract AaveV3Monad_Onboard_PTAUSD17DEC2026_Oracle_20261002_Test is ProtocolV3T
   function test_revertOutOfRangeDiscountUpdate() public {
     executePayload(vm, address(proposal));
 
-    IAgentHub hub = IAgentHub(MonadLlamaGuard.AGENT_HUB);
-    address pt = MonadLlamaGuard.PT_AUSD_17DEC2026_UNDERLYING;
+    IAgentHub hub = IAgentHub(MiscMonad.AGENT_HUB);
+    address pt = AaveV3MonadAssets.PT_AUSD_17DEC2026_UNDERLYING;
     IPendlePriceCapAdapter adapter = IPendlePriceCapAdapter(
       AaveV3Monad.ORACLE.getSourceOfAsset(pt)
     );
@@ -297,8 +294,8 @@ contract AaveV3Monad_Onboard_PTAUSD17DEC2026_Oracle_20261002_Test is ProtocolV3T
     uint120 expected
   ) internal view {
     IRangeValidationModule.RangeConfig memory config = IRangeValidationModule(
-      MonadLlamaGuard.RANGE_VALIDATION_MODULE
-    ).getDefaultRangeConfig(MonadLlamaGuard.AGENT_HUB, agentId, updateType);
+      MiscMonad.RANGE_VALIDATION_MODULE
+    ).getDefaultRangeConfig(MiscMonad.AGENT_HUB, agentId, updateType);
 
     assertEq(config.maxIncrease, expected, 'unexpected maxIncrease');
     assertEq(config.maxDecrease, expected, 'unexpected maxDecrease');
@@ -314,14 +311,14 @@ contract AaveV3Monad_Onboard_PTAUSD17DEC2026_Oracle_20261002_Test is ProtocolV3T
   ///      its execution.
   function _simulateAssetListing() internal {
     address[] memory assets = new address[](1);
-    assets[0] = MonadLlamaGuard.PT_AUSD_17DEC2026_UNDERLYING;
+    assets[0] = AaveV3MonadAssets.PT_AUSD_17DEC2026_UNDERLYING;
     address[] memory sources = new address[](1);
     sources[0] = PT_AUSD_17DEC2026_PRICE_FEED;
 
     vm.startPrank(GovernanceV3Monad.EXECUTOR_LVL_1);
     AaveV3Monad.ORACLE.setAssetSources(assets, sources);
     AaveV3Monad.POOL_CONFIGURATOR.setEModeCategory(
-      MonadLlamaGuard.PT_AUSD_17DEC2026__STABLECOINS,
+      AaveV3MonadEModes.PT_AUSD_17DEC2026__USDT0_USDC_USDe_mUSD_GHO,
       93_00,
       95_00,
       102_62,
@@ -336,8 +333,8 @@ contract AaveV3Monad_Onboard_PTAUSD17DEC2026_Oracle_20261002_Test is ProtocolV3T
     address market,
     bytes memory newValue
   ) internal {
-    IRiskOracle riskOracle = IRiskOracle(MonadLlamaGuard.LLAMARISK_RISK_ORACLE);
-    vm.prank(MonadLlamaGuard.LLAMARISK_RISK_ORACLE_ROUTER);
+    IRiskOracle riskOracle = IRiskOracle(MiscMonad.LLAMARISK_RISK_ORACLE);
+    vm.prank(MiscMonad.LLAMARISK_RISK_ORACLE_ROUTER);
     riskOracle.publishRiskParameterUpdate('e2e-test', newValue, updateType, market, bytes(''));
   }
 }
