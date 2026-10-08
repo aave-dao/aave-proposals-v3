@@ -1,0 +1,20 @@
+.agents/skills/write-aave-proposals/references/proposal-authoring.md
+  s_215cf904a2e561::t_56b8e8b67bc245 17-21
+  s_215cf904a2e561::t_2827badfba4a15 22
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.24",
+  "base_commit_sha": "4e4c74ab24c11eaaefade4a2e281d0a7e8f41103",
+  "prompts": {},
+  "sessions": {
+    "s_215cf904a2e561": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a03318-2422-7010-8891-82126247fd68",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "AlbertoCentonze <11707683+AlbertoCentonze@users.noreply.github.com>"
+    }
+  }
+}

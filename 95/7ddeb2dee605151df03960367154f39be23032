@@ -9,6 +9,7 @@ generator/features/eModesCreation.spec.ts
   s_0221e6de41ee68::t_886fa4fd2b145b 66
 generator/utils/compileGeneratedFiles.ts
   s_0221e6de41ee68::t_66bb844bc695da 1-41
+  s_0221e6de41ee68::t_2871215cc99d67 1,3-7,8-10,13,17-19,21,23-29,31-41
 .github/workflows/test.yml
   s_0221e6de41ee68::t_66bb844bc695da 69-70
   s_0221e6de41ee68::t_2871215cc99d67 58-68

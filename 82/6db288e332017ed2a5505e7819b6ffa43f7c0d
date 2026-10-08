@@ -1,0 +1,14 @@
+src/20260909_AaveV4Arc_AaveV4ArcActivation/AaveV4ArcActivation_20260909.s.sol
+  h_739c25e72c37fb 8
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.2",
+  "base_commit_sha": "826db288e332017ed2a5505e7819b6ffa43f7c0d",
+  "prompts": {},
+  "humans": {
+    "h_739c25e72c37fb": {
+      "author": "DhairyaSethi <55102840+DhairyaSethi@users.noreply.github.com>"
+    }
+  }
+}

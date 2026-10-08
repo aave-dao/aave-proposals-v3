@@ -1,0 +1,51 @@
+.gitignore
+  s_cec81b7cbe2326::t_ac069a7af16371 17
+src/20260824_AaveV4Ethereum_OnboardPAXGGlobalDollarHub/config.ts
+  s_7beae98c896c24::t_ac7d7fd598a1e2 4-5
+  s_7beae98c896c24::t_b5572ef222200a 1-3,6-39,41-58,60-77,79-97,101-149
+  s_7beae98c896c24::t_91b776f79aa934 98-100
+  s_7beae98c896c24::t_c474a3f50b332b 40,59,78
+src/20260824_AaveV4Ethereum_OnboardPAXGGlobalDollarHub/AaveV4Ethereum_OnboardPAXGGlobalDollarHub_20260824.t.sol
+  s_7beae98c896c24::t_302027e33e4cf1 92,237,438
+  s_7beae98c896c24::t_034f81bbba8f15 5,89,93,96,99,125,131,135,139,144,240-241,252,270,292,295,353,376-381,393-397,409-413
+  s_7beae98c896c24::t_f0ca58e9dea01d 279,282,284-288,428-430
+  s_7beae98c896c24::t_e7e108cb7705da 38-88
+  s_7beae98c896c24::t_ac7d7fd598a1e2 1-4,6-37,90-91,94-95,97-98,100-124,126-130,132-134,136-138,140-143,145-236,238-239,242-251,253-269,271-278,280-281,283,289-291,293-294,296-352,354-375,382-392,398-408,414-427,431-437,439-467
+src/20260824_AaveV4Ethereum_OnboardPAXGGlobalDollarHub/OnboardPAXGGlobalDollarHub_20260824.s.sol
+  s_7beae98c896c24::t_ac7d7fd598a1e2 1-63
+src/20260824_AaveV4Ethereum_OnboardPAXGGlobalDollarHub/AaveV4Ethereum_OnboardPAXGGlobalDollarHub_20260824.sol
+  s_7beae98c896c24::t_ac7d7fd598a1e2 1-3,5-17,20-25,27-46,49-66,68-85,87-113,117-132,134-180
+  s_7beae98c896c24::t_f0ca58e9dea01d 114-116
+  s_7beae98c896c24::t_ac97e07da19eb0 4,18-19,26,47-48,67,86,133
+src/20260824_AaveV4Ethereum_OnboardPAXGGlobalDollarHub/OnboardPAXGGlobalDollarHub.md
+  s_7beae98c896c24::t_a0f538b2de8bd2 10,24,26,28,30-31,38,40,47,50-54,57-58,63-66,70
+  s_7beae98c896c24::t_302027e33e4cf1 42-46,62
+  s_7beae98c896c24::t_33e79acca2e158 11,13-20,23,25,27,29,32-37,39,41,48-49,55-56,59-61,67-69,78-79
+  s_7beae98c896c24::t_ac7d7fd598a1e2 1-9,12,21-22,71-77,80-83
+diffs/AaveV4Ethereum_OnboardPAXGGlobalDollarHub_20260824_before_AaveV4Ethereum_OnboardPAXGGlobalDollarHub_20260824_after.md
+  s_7beae98c896c24::t_8fae97a95a2905 1-530
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.24",
+  "base_commit_sha": "e92c9bf66bcbb9fb8ef366758dc7282111fce6df",
+  "prompts": {},
+  "sessions": {
+    "s_7beae98c896c24": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a0331c-5e9e-71c1-9ea2-b73ddc122861",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "AlbertoCentonze <11707683+AlbertoCentonze@users.noreply.github.com>"
+    },
+    "s_cec81b7cbe2326": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a0346d-9c2e-72a0-b9d0-971362724afc",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "AlbertoCentonze <11707683+AlbertoCentonze@users.noreply.github.com>"
+    }
+  }
+}

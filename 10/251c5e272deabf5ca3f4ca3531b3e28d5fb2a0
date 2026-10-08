@@ -1,16 +1,16 @@
 generator/templates/test.template.ts
-  s_a29e3e9eb1cbe2::t_2248fcff850915 35
+  s_3c139ce5290e35::t_c1a6c83aba573d 35
 ---
 {
   "schema_version": "authorship/3.0.0",
-  "git_ai_version": "1.6.14",
+  "git_ai_version": "1.6.22",
   "base_commit_sha": "10251c5e272deabf5ca3f4ca3531b3e28d5fb2a0",
   "prompts": {},
   "sessions": {
-    "s_a29e3e9eb1cbe2": {
+    "s_3c139ce5290e35": {
       "agent_id": {
         "tool": "codex",
-        "id": "019f5c09-bfa0-79a3-837c-8c1d7945ecbf",
+        "id": "01a01f25-ed71-71e2-9996-184e34a2b97f",
         "model": "gpt-5.6-sol"
       },
       "human_author": "AlbertoCentonze <11707683+AlbertoCentonze@users.noreply.github.com>"

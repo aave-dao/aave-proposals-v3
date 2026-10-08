@@ -1,0 +1,19 @@
+src/20260715_Multi_July2026FundingUpdate/July2026FundingUpdate.md
+  s_18aa613b08cfc7::t_0a9a989f26f258 179-180
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "19fa69501ff2e1cc464f91f73642af39cd16e35e",
+  "prompts": {},
+  "sessions": {
+    "s_18aa613b08cfc7": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "89ae8b89-f4d5-4013-a3ec-f1392e221a79",
+        "model": "claude-fable-5"
+      },
+      "human_author": "DhairyaSethi <55102840+DhairyaSethi@users.noreply.github.com>"
+    }
+  }
+}

@@ -1,0 +1,19 @@
+src/20260720_Multi_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment/RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment.md
+  s_230ef88db3c189::t_a55321448e106d 10,14,16,20,22-24,26,36
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "c2df9da4e9d9a76eaa8f7ffe1749e1b97830807a",
+  "prompts": {},
+  "sessions": {
+    "s_230ef88db3c189": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f7e82-9f09-7752-9ac6-6984381a9ded",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "AlbertoCentonze <11707683+AlbertoCentonze@users.noreply.github.com>"
+    }
+  }
+}

@@ -1,0 +1,65 @@
+generator/templates/test.template.ts
+  s_1b298b9aaba146::t_41532bac04f00c 46
+generator/features/__snapshots__/assetListing.spec.ts.snap
+  s_1b298b9aaba146::t_252b09cce599e6 486,489-491
+  s_22f80b5bcb6d41::t_35582623f72b39 470,477
+generator/features/__snapshots__/priceFeedsUpdate.spec.ts.snap
+  s_1b298b9aaba146::t_4cec0150ea8176 110,113-114
+  s_22f80b5bcb6d41::t_426335042fca91 94,101
+generator/features/assetListing.ts
+  s_22f80b5bcb6d41::t_fcbd0c4876012b 10
+  s_22f80b5bcb6d41::t_ae8803da71d2e3 148,165,270,278
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "cef64292f0596db533ef2b18f9b3c0eaddf4403a",
+  "prompts": {},
+  "humans": {
+    "h_8b974fbabf2fb7": {
+      "author": "Alberto <albe@AMWM-H65F40J09H.local>"
+    }
+  },
+  "sessions": {
+    "s_1b298b9aaba146": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f3bc6-efaa-7121-9785-be51af5089a8",
+        "model": "gpt-5.5"
+      },
+      "human_author": "Alberto <albe@AMWM-H65F40J09H.local>"
+    },
+    "s_22f80b5bcb6d41": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f3c89-d210-7122-b483-d92bfbdf7c86",
+        "model": "gpt-5.5"
+      },
+      "human_author": "Alberto <albe@AMWM-H65F40J09H.local>"
+    },
+    "s_3c613cca907125": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f3794-268d-75b1-9e56-8673cc8a4eb1",
+        "model": "gpt-5.5"
+      },
+      "human_author": "Alberto <albe@AMWM-H65F40J09H.local>"
+    },
+    "s_4d6edd1a6a4999": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f38fe-6375-77b2-910e-082db3b00d0e",
+        "model": "gpt-5.5"
+      },
+      "human_author": "Alberto <albe@AMWM-H65F40J09H.local>"
+    },
+    "s_50e0a2a61afb2a": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f2828-55d7-75d3-8493-8b822001388c",
+        "model": "gpt-5.5"
+      },
+      "human_author": "Alberto <albe@AMWM-H65F40J09H.local>"
+    }
+  }
+}

@@ -1,0 +1,22 @@
+src/20260817_AaveV3Ethereum_Onboard_PTsrUSDe22OCT2026_Oracle/Onboard_PTsrUSDe22OCT2026_Oracle.md
+  s_a88f0747102f0a::t_91d383028e370f 35,37,39-44
+  s_a88f0747102f0a::t_22c0e8c02d31dc 83-84,86
+.vscode/settings.json
+  s_a88f0747102f0a::t_68d11e80e90707 10-11
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "ec02e7b0a90be382838f54f1dd140d5ae98cab40",
+  "prompts": {},
+  "sessions": {
+    "s_a88f0747102f0a": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "c4458efa-0fcc-4d64-93f0-e419561e6e59",
+        "model": "claude-fable-5"
+      },
+      "human_author": "DhairyaSethi <55102840+DhairyaSethi@users.noreply.github.com>"
+    }
+  }
+}

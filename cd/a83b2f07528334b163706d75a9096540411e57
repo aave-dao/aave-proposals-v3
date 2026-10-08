@@ -1,0 +1,30 @@
+src/20260828_AaveV4Ethereum_IncreaseCaps/AaveV4Ethereum_IncreaseCaps_20260828.sol
+  s_9c612eeb46bb2c::t_1e4a9843ff3cb5 1-99
+src/20260828_AaveV4Ethereum_IncreaseCaps/IncreaseCaps_20260828.s.sol
+  s_9c612eeb46bb2c::t_f88f0e878780a3 1-19
+diffs/AaveV4Ethereum_IncreaseCaps_20260828_before_AaveV4Ethereum_IncreaseCaps_20260828_after.md
+  s_9c612eeb46bb2c::t_baeb29870f403d 1-238
+src/20260828_AaveV4Ethereum_IncreaseCaps/AaveV4Ethereum_IncreaseCaps_20260828.t.sol
+  s_9c612eeb46bb2c::t_b8a03385bd6e3a 1-212
+src/20260828_AaveV4Ethereum_IncreaseCaps/AaveV4Ethereum_IncreaseCaps_20260828.md
+  s_9c612eeb46bb2c::t_b71ba671af11c5 1-57,70-72,76-78,83-100
+  s_9c612eeb46bb2c::t_e41d3e9479dd50 58-69,73-75,79-82
+src/20260828_AaveV4Ethereum_IncreaseCaps/AaveV4Ethereum_IncreaseCaps_20260828_Fork.t.sol
+  s_9c612eeb46bb2c::t_f173b0d225e932 1-30
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "cda83b2f07528334b163706d75a9096540411e57",
+  "prompts": {},
+  "sessions": {
+    "s_9c612eeb46bb2c": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a04e07-bde7-7863-b92c-69834664bb4e",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "AlbertoCentonze <11707683+AlbertoCentonze@users.noreply.github.com>"
+    }
+  }
+}

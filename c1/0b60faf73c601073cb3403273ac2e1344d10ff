@@ -1,0 +1,19 @@
+.agents/skills/write-aave-proposals/SKILL.md
+  s_230ef88db3c189::t_22f15992ea6c97 22-24
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.23",
+  "base_commit_sha": "c10b60faf73c601073cb3403273ac2e1344d10ff",
+  "prompts": {},
+  "sessions": {
+    "s_230ef88db3c189": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f7e82-9f09-7752-9ac6-6984381a9ded",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "AlbertoCentonze <11707683+AlbertoCentonze@users.noreply.github.com>"
+    }
+  }
+}

@@ -1,0 +1,280 @@
+.github/workflows/test.yml
+  s_230ef88db3c189::t_eb249109076273 57-74,76-88
+generator/features/v4/assetSelect.ts
+  s_230ef88db3c189::t_eb249109076273 6,16,18-19,23-24,36-37,43
+src/20260701_Multi_RemoteGSMLaunchMonad/setup/RemoteGSMLaunchMonadFacilitatorProposalBaseTest.t.sol
+  s_230ef88db3c189::t_eb249109076273 1-110
+generator/features/v4/resolveKnownAddress.spec.ts
+  s_230ef88db3c189::t_eb249109076273 1-40
+src/20260701_Multi_RemoteGSMLaunchMonad/AaveV3Ink_RemoteGSMLaunchMonad_20260701.t.sol
+  s_230ef88db3c189::t_eb249109076273 1-39
+generator/features/v4/hub/hubSpokeConfigUpdate.ts
+  s_230ef88db3c189::t_eb249109076273 1,4-8,10-17,25-26,35-36,38-42,44-45,55,57-60,66-67,70-72,77,79,81
+generator/features/v4/hub/hubAssetCapsReset.ts
+  s_230ef88db3c189::t_eb249109076273 1,4-6,13,20-21,34
+generator/features/v4/feeReceiver.ts
+  s_230ef88db3c189::t_eb249109076273 5,7-11,18,21
+src/20260701_Multi_RemoteGSMLaunchMonad/AaveV3Mantle_RemoteGSMLaunchMonad_20260701.t.sol
+  s_230ef88db3c189::t_eb249109076273 1-44
+generator/features/v4/sentinelPrompts.ts
+  s_230ef88db3c189::t_eb249109076273 1-45
+src/20260701_Multi_RemoteGSMLaunchMonad/RemoteGSMLaunchMonad_20260701.s.sol
+  s_230ef88db3c189::t_eb249109076273 1-313
+generator/features/eModesUpdates.spec.ts
+  s_230ef88db3c189::t_eb249109076273 4-7,24-50
+  s_230ef88db3c189::t_1a2595caad75d3 51
+diffs/AaveV4Avalanche_AaveV4AvalancheActivation_20260708_before_AaveV4Avalanche_AaveV4AvalancheActivation_20260708_after.md
+  s_230ef88db3c189::t_eb249109076273 155,206
+generator/features/v4/hub/hubAssetDeactivation.ts
+  s_230ef88db3c189::t_eb249109076273 1,4-6,13,20-21,34
+generator/features/v4/bundleHelpers.spec.ts
+  s_230ef88db3c189::t_eb249109076273 54-103
+generator/generator.ts
+  s_230ef88db3c189::t_eb249109076273 12-13,34,38,48-49,51-52
+src/20260701_Multi_RemoteGSMLaunchMonad/AaveV3Ink_RemoteGSMLaunchMonad_20260701.sol
+  s_230ef88db3c189::t_eb249109076273 1-22
+src/20260701_Multi_RemoteGSMLaunchMonad/AaveV3Monad_RemoteGSMLaunchMonad_20260701_Part1.t.sol
+  s_230ef88db3c189::t_eb249109076273 1-145
+generator/templates/proposal.template.ts
+  s_230ef88db3c189::t_eb249109076273 34,39
+generator/features/v4/customAsset.spec.ts
+  s_230ef88db3c189::t_eb249109076273 75,79,109-111
+diffs/AaveV3Arbitrum_RemoteGSMLaunchMonad_20260701_before_AaveV3Arbitrum_RemoteGSMLaunchMonad_20260701_after.md
+  s_230ef88db3c189::t_eb249109076273 1-41
+generator/features/v4/useCases.spec.ts
+  s_230ef88db3c189::t_eb249109076273 3,7-8
+diffs/AaveV3Base_RemoteGSMLaunchMonad_20260701_before_AaveV3Base_RemoteGSMLaunchMonad_20260701_after.md
+  s_230ef88db3c189::t_eb249109076273 1-41
+src/20260701_Multi_RemoteGSMLaunchMonad/config.ts
+  s_230ef88db3c189::t_eb249109076273 1-37
+generator/features/v4/hubSpokeSelect.ts
+  s_230ef88db3c189::t_eb249109076273 1-128
+src/20260701_Multi_RemoteGSMLaunchMonad/AaveV3XLayer_RemoteGSMLaunchMonad_20260701.sol
+  s_230ef88db3c189::t_eb249109076273 1-22
+src/20260701_Multi_RemoteGSMLaunchMonad/AaveV3Plasma_RemoteGSMLaunchMonad_20260701.t.sol
+  s_230ef88db3c189::t_eb249109076273 1-33
+diffs/AaveV3Mantle_RemoteGSMLaunchMonad_20260701_before_AaveV3Mantle_RemoteGSMLaunchMonad_20260701_after.md
+  s_230ef88db3c189::t_eb249109076273 1-41
+generator/features/eModesCreation.spec.ts
+  s_230ef88db3c189::t_eb249109076273 8,63-65
+  s_230ef88db3c189::t_6fe2089f98c50a 66
+src/helpers/gsm-launch/GovNetworks.sol
+  s_230ef88db3c189::t_eb249109076273 6,32-38
+  s_230ef88db3c189::t_3a2ced870c54d6 39-40
+foundry.toml
+  s_230ef88db3c189::t_eb249109076273 88
+package.json
+  s_230ef88db3c189::t_eb249109076273 6,41-43
+src/20260701_Multi_RemoteGSMLaunchMonad/AaveV3Avalanche_RemoteGSMLaunchMonad_20260701.t.sol
+  s_230ef88db3c189::t_eb249109076273 1-37
+src/20260701_Multi_RemoteGSMLaunchMonad/AaveV3Ethereum_RemoteGSMLaunchMonad_20260701_Part1.t.sol
+  s_230ef88db3c189::t_eb249109076273 1-146
+generator/features/v4/entityInput.ts
+  s_230ef88db3c189::t_eb249109076273 1-50
+generator/features/v4/positionManager/positionManagerRoleRenouncement.ts
+  s_230ef88db3c189::t_eb249109076273 5-7,22,26,46
+generator/features/v4/hub/hubSpokeCapsReset.ts
+  s_230ef88db3c189::t_eb249109076273 3-4,11-12,14-16,28-29
+src/20260701_Multi_RemoteGSMLaunchMonad/AaveV3Ethereum_RemoteGSMLaunchMonad_20260701_Part2.sol
+  s_230ef88db3c189::t_eb249109076273 1-92
+src/20260701_Multi_RemoteGSMLaunchMonad/AaveV3Monad_RemoteGSMLaunchMonad_20260701_Part2.t.sol
+  s_230ef88db3c189::t_eb249109076273 1-718
+generator/features/capsUpdates.spec.ts
+  s_230ef88db3c189::t_eb249109076273 4-6,21-33
+  s_230ef88db3c189::t_7827d7c215a064 34
+generator/features/assetListing.ts
+  s_230ef88db3c189::t_eb249109076273 65-72,74,94-124,139-154,207,269-275,303-307,318-324
+generator/features/v4/spoke/spokeDynamicReserveConfigUpdate.ts
+  s_230ef88db3c189::t_eb249109076273 4-7,9-14,24-25,32-34,37-39,49-50,53-55,59,62-64,67-68
+generator/features/v4/bundleHelpers.ts
+  s_230ef88db3c189::t_eb249109076273 1-43,52-57,60-62,68-88,90-91,112-114
+generator/templates/test.template.spec.ts
+  s_230ef88db3c189::t_eb249109076273 1-40
+src/20260701_Multi_RemoteGSMLaunchMonad/setup/RemoteGSMLaunchMonadSetup.sol
+  s_230ef88db3c189::t_eb249109076273 1-64
+generator/features/v4/hub/hubAssetListingPrompt.ts
+  s_230ef88db3c189::t_eb249109076273 1-87
+generator/features/v4/spoke/spokeReserveConfigUpdate.ts
+  s_230ef88db3c189::t_eb249109076273 1,4-8,10-16,24-25,28,34-36,38-43,53-54,57,65-66,68,75-76
+diffs/AaveV3Avalanche_RemoteGSMLaunchMonad_20260701_before_AaveV3Avalanche_RemoteGSMLaunchMonad_20260701_after.md
+  s_230ef88db3c189::t_eb249109076273 1-41
+src/20260701_Multi_RemoteGSMLaunchMonad/AaveV3Monad_RemoteGSMLaunchMonad_20260701_Part2.sol
+  s_230ef88db3c189::t_eb249109076273 1-109
+diffs/AaveV3Ethereum_RemoteGSMLaunchMonad_20260701_Part2_before_AaveV3Ethereum_RemoteGSMLaunchMonad_20260701_Part2_after.md
+  s_230ef88db3c189::t_eb249109076273 1-121
+generator/features/priceFeedsUpdate.spec.ts
+  s_230ef88db3c189::t_eb249109076273 7,41-62
+generator/features/types.ts
+  s_230ef88db3c189::t_eb249109076273 145,154-156,158-164,309,313-315,317
+generator/types.ts
+  s_230ef88db3c189::t_eb249109076273 77,109-120,264-265,270-271,297-299
+generator/features/v4/bundles/onboardAssetToHub.ts
+  s_230ef88db3c189::t_eb249109076273 1,4-6,9-11,16-18,26,29-31,34-35,37-47,49-54,57,60-67,70-71,74-98,102,106-112,115,118-119
+generator/features/v4/allModules.spec.ts
+  s_230ef88db3c189::t_eb249109076273 3,7-8
+generator/features/v4/hub/hubSpokeDeactivation.ts
+  s_230ef88db3c189::t_eb249109076273 3-4,11-12,14-16,28-29
+generator/features/v4/resolveKnownAddress.ts
+  s_230ef88db3c189::t_eb249109076273 1-79
+generator/features/v4/fixtures.ts
+  s_230ef88db3c189::t_eb249109076273 1-583
+pnpm-workspace.yaml
+  s_230ef88db3c189::t_eb249109076273 6
+generator/features/v4/bundles/wirePositionManager.ts
+  s_230ef88db3c189::t_eb249109076273 1,3-4,54,60-61,75
+diffs/AaveV3Ink_RemoteGSMLaunchMonad_20260701_before_AaveV3Ink_RemoteGSMLaunchMonad_20260701_after.md
+  s_230ef88db3c189::t_eb249109076273 1-41
+src/20260701_Multi_RemoteGSMLaunchMonad/AaveV3XLayer_RemoteGSMLaunchMonad_20260701.t.sol
+  s_230ef88db3c189::t_eb249109076273 1-33
+src/20260701_Multi_RemoteGSMLaunchMonad/AaveV3Ethereum_RemoteGSMLaunchMonad_20260701_Part1.sol
+  s_230ef88db3c189::t_eb249109076273 1-47
+diffs/AaveV3Monad_RemoteGSMLaunchMonad_20260701_Part2_before_AaveV3Monad_RemoteGSMLaunchMonad_20260701_Part2_after.md
+  s_230ef88db3c189::t_eb249109076273 1-116
+generator/templates/test.template.ts
+  s_230ef88db3c189::t_eb249109076273 13-35,43,47-58,62
+src/20260701_Multi_RemoteGSMLaunchMonad/AaveV3Gnosis_RemoteGSMLaunchMonad_20260701.sol
+  s_230ef88db3c189::t_eb249109076273 1-22
+generator/features/v4/spoke/spokePositionManagerUpdate.ts
+  s_230ef88db3c189::t_eb249109076273 1,4-6,10,16-18,20,23-31,39-40,44-52,54,57,69
+generator/features/rateUpdates.spec.ts
+  s_230ef88db3c189::t_eb249109076273 7,43-64
+generator/utils/compileGeneratedFiles.ts
+  s_230ef88db3c189::t_eb249109076273 1-41
+generator/features/v4/units.ts
+  s_230ef88db3c189::t_eb249109076273 1-57
+src/20260701_Multi_RemoteGSMLaunchMonad/AaveV3Mantle_RemoteGSMLaunchMonad_20260701.sol
+  s_230ef88db3c189::t_eb249109076273 1-22
+generator/features/v4/bundles/tuneReserveRisk.ts
+  s_230ef88db3c189::t_eb249109076273 5-6,63-65,72,77,95-97,112-114,125-126
+generator/features/v4/hub/hubSpokeToAssetsAddition.spec.ts
+  s_230ef88db3c189::t_eb249109076273 1-46
+generator/prompts/decimalPrompt.ts
+  s_230ef88db3c189::t_eb249109076273 1-23
+generator/features/v4/irStrategy.ts
+  s_230ef88db3c189::t_eb249109076273 1-26
+generator/features/assetListing.spec.ts
+  s_230ef88db3c189::t_eb249109076273 3-4,7,21-31,52-83
+src/20260701_Multi_RemoteGSMLaunchMonad/AaveV3Arbitrum_RemoteGSMLaunchMonad_20260701.t.sol
+  s_230ef88db3c189::t_eb249109076273 1-37
+generator/features/v4/access/accessManagerTargetFunctionRoleUpdate.ts
+  s_230ef88db3c189::t_eb249109076273 2,6-57,86-87,99-111,119
+generator/cli.ts
+  s_230ef88db3c189::t_eb249109076273 66,214
+diffs/AaveV3Monad_RemoteGSMLaunchMonad_20260701_Part1_before_AaveV3Monad_RemoteGSMLaunchMonad_20260701_Part1_after.md
+  s_230ef88db3c189::t_eb249109076273 1-58
+generator/utils/importsResolver.ts
+  s_230ef88db3c189::t_eb249109076273 30,88-90,109-111,121-135
+generator/features/v4/bundles/manageRole.ts
+  s_230ef88db3c189::t_eb249109076273 53-63
+generator/features/v4/spoke/spokeLiquidationConfigUpdate.ts
+  s_230ef88db3c189::t_eb249109076273 1,4-5,7-8,10-14,25,27-31,38-45,47-61,63-64,66-68,70-77,79-80,90
+diffs/AaveV3XLayer_RemoteGSMLaunchMonad_20260701_before_AaveV3XLayer_RemoteGSMLaunchMonad_20260701_after.md
+  s_230ef88db3c189::t_eb249109076273 1-41
+generator/features/mocks/configs.ts
+  s_230ef88db3c189::t_eb249109076273 8,53-64
+  s_230ef88db3c189::t_d7a2d375853bd0 65-67
+generator/features/v4/hub/hubAssetListing.ts
+  s_230ef88db3c189::t_eb249109076273 1-2,4-5,7-14,16,19,23-86,95,97-104,111,113,115-127,129,131-160,162-170,172-175,178,185-187,189-192,195-223,231,235
+generator/features/v4/units.spec.ts
+  s_230ef88db3c189::t_eb249109076273 1-85
+generator/features/v4/hub/hubSpokeToAssetsAddition.ts
+  s_230ef88db3c189::t_eb249109076273 1,5-27,37-38,47-60,63-67,70,82-84,96-97,102-115,118-119,121,125-131,144
+src/20260701_Multi_RemoteGSMLaunchMonad/CCIPBridgeE2EVirtualTestMainnetMonad.s.sol
+  s_230ef88db3c189::t_eb249109076273 1-129
+src/20260701_Multi_RemoteGSMLaunchMonad/AaveV3Base_RemoteGSMLaunchMonad_20260701.sol
+  s_230ef88db3c189::t_eb249109076273 1-22
+generator/scripts/compileGenerated.ts
+  s_230ef88db3c189::t_eb249109076273 1-46
+generator/features/v4/bundles/tuneSpokeRisk.ts
+  s_230ef88db3c189::t_eb249109076273 4-5,42-43,63,72,75,77,81-82,84-86,88,90-91
+generator/features/v4/proxyAdminOwner.ts
+  s_230ef88db3c189::t_eb249109076273 1-29
+generator/features/freeze.spec.ts
+  s_230ef88db3c189::t_eb249109076273 4-7,24-46
+src/20260701_Multi_RemoteGSMLaunchMonad/AaveV3Ethereum_RemoteGSMLaunchMonad_20260701_Part2.t.sol
+  s_230ef88db3c189::t_eb249109076273 1-260
+diffs/AaveV3Ethereum_RemoteGSMLaunchMonad_20260701_Part1_before_AaveV3Ethereum_RemoteGSMLaunchMonad_20260701_Part1_after.md
+  s_230ef88db3c189::t_eb249109076273 1-48
+diffs/AaveV3Gnosis_RemoteGSMLaunchMonad_20260701_before_AaveV3Gnosis_RemoteGSMLaunchMonad_20260701_after.md
+  s_230ef88db3c189::t_eb249109076273 1-41
+src/20260701_Multi_RemoteGSMLaunchMonad/AaveV3Gnosis_RemoteGSMLaunchMonad_20260701.t.sol
+  s_230ef88db3c189::t_eb249109076273 1-33
+generator/features/v4/hub/hubAssetHalt.ts
+  s_230ef88db3c189::t_eb249109076273 1,4-6,13,20-21,34
+diffs/AaveV3Plasma_RemoteGSMLaunchMonad_20260701_before_AaveV3Plasma_RemoteGSMLaunchMonad_20260701_after.md
+  s_230ef88db3c189::t_eb249109076273 1-41
+generator/features/v4/positionManager/positionManagerSpokeRegistration.ts
+  s_230ef88db3c189::t_eb249109076273 1,4-6,18,23,39
+src/20260701_Multi_RemoteGSMLaunchMonad/AaveV3Arbitrum_RemoteGSMLaunchMonad_20260701.sol
+  s_230ef88db3c189::t_eb249109076273 1-24
+src/20260701_Multi_RemoteGSMLaunchMonad/AaveV3Plasma_RemoteGSMLaunchMonad_20260701.sol
+  s_230ef88db3c189::t_eb249109076273 1-22
+generator/features/borrowsUpdates.spec.ts
+  s_230ef88db3c189::t_eb249109076273 4-7,33-62
+src/20260701_Multi_RemoteGSMLaunchMonad/AaveV3Monad_RemoteGSMLaunchMonad_20260701_Part1.sol
+  s_230ef88db3c189::t_eb249109076273 1-53
+generator/features/v4/onchain.ts
+  s_230ef88db3c189::t_eb249109076273 1-2,48,82,110,147-153
+  s_230ef88db3c189::t_26c98bab817dcd 154-155
+generator/features/v4/spoke/spokeReserveListing.ts
+  s_230ef88db3c189::t_eb249109076273 1,4,6,8-15,19,30-31,34-53,55-57,60,62,64-65,79-80,84,91-93,97-112,114,116,119-121,125,128-129,135-137,140-167,175,179
+generator/features/v4/testHelpers.ts
+  s_230ef88db3c189::t_eb249109076273 3,13-22,27,69-94,102-122
+src/20260701_Multi_RemoteGSMLaunchMonad/AaveV3Base_RemoteGSMLaunchMonad_20260701.t.sol
+  s_230ef88db3c189::t_eb249109076273 2,4-8,11-12,14-19,21-24,27,29-32
+generator/features/v4/hub/hubAssetConfigUpdate.ts
+  s_230ef88db3c189::t_eb249109076273 4-9,11-18,20-24,27-29,32-34,45,51-52,54,58-61,73,75,79-82,88,91,97
+generator/features/v4/access/accessManagerRoleUpdate.ts
+  s_230ef88db3c189::t_eb249109076273 33-38,45,59-60
+generator/features/v4/accessWiring.ts
+  s_230ef88db3c189::t_eb249109076273 1-60
+generator/features/v4/bundles/onboardReserveToSpoke.ts
+  s_230ef88db3c189::t_eb249109076273 1,3-4,7-8,18,22-23,36-38,47-56,58-62,66-75,78-82,84-116,122,125-140,143-144,148-176,180,182-186,197-199,202-210,213-223,226-229,232,234,236-238,241-250,254-256,261,265-271,274,277-282
+src/20260701_Multi_RemoteGSMLaunchMonad/setup/RemoteGSMLaunchMonadFacilitatorProposalBase.sol
+  s_230ef88db3c189::t_eb249109076273 1-37
+generator/features/v4/labelRegistry.spec.ts
+  s_230ef88db3c189::t_eb249109076273 1-46
+generator/features/v4/labelRegistry.ts
+  s_230ef88db3c189::t_eb249109076273 1-93
+generator/features/collateralsUpdates.spec.ts
+  s_230ef88db3c189::t_eb249109076273 4-6,21-33
+  s_230ef88db3c189::t_dd78c29ac75894 34
+diffs/AaveV4Ethereum_OnboardMapleSpokeSyrupUSDGEthereum_20260723_before_AaveV4Ethereum_OnboardMapleSpokeSyrupUSDGEthereum_20260723_after.md
+  s_230ef88db3c189::t_eb249109076273 1-606
+generator/features/v4/spoke/spokeDynamicReserveConfigAddition.ts
+  s_230ef88db3c189::t_eb249109076273 4-8,20-21,27-29,32,34-35,46-47,50-52,57,61-62,67-69
+src/20260701_Multi_RemoteGSMLaunchMonad/RemoteGSMLaunchMonad.md
+  s_230ef88db3c189::t_eb249109076273 1-69
+src/20260701_Multi_RemoteGSMLaunchMonad/AaveV3Avalanche_RemoteGSMLaunchMonad_20260701.sol
+  s_230ef88db3c189::t_eb249109076273 1-24
+foundry.lock
+  s_230ef88db3c189::t_24f5eb8f3287b5 9
+generator/features/__snapshots__/assetListing.spec.ts.snap
+  s_230ef88db3c189::t_0ee604246b6b51 158,178-179,183,220-247,406-520
+generator/features/__snapshots__/eModesCreation.spec.ts.snap
+  s_230ef88db3c189::t_9247f73772f961 164,177,215-216,223,261-288,317,326,345,356,372,378
+generator/features/v4/__snapshots__/allModules.spec.ts.snap
+  s_230ef88db3c189::t_4010f0216e3f15 49,52,54-76,85,107,177-179,201,203,213-215,226,254,301-302,313-316,319,322,324-326,329,334,339-340,343,345-346,348-368,372,384,397,412,414,428,449,459,474,489,504,519,541-543,548,570,582,584,588,603-605,610,625,631,644,649,666,680-681,685,699,706,722,737,760-761,764,768-769,771,800-804,807-811,814,817,819,823,827,832,835-838,840-841,844-944,951,960,964,973,975,979,1002,1013,1024,1037,1051,1067,1072,1076-1080,1085,1097-1099,1101-1119,1142,1149,1155-1159,1161,1173-1175,1177,1189,1201-1202,1208,1214,1222,1231-1234,1236-1242,1244,1257,1270,1283-1389
+generator/features/v4/__snapshots__/useCases.spec.ts.snap
+  s_230ef88db3c189::t_3f59ed62fc741a 44-45,52,55,57-58,72,81-82,89,92,94-95,114-116,132,162,173,175,185,231,255-256,267,270,273,275-277,281-314,321-322,325,327-328,330,336-337,340,342-343,345,349,364,366,383,385,399,421-423,428,449,463,471,483,485,489,504,510,523,528,543,560,574-575,586-587,590,620-632,636-640,643-647,650,653,655,659,663,668,671-675,677,681,690,692,696-713,717-721,724-728,731,734,736,740,744,749,752-756,758,763,767-771,776,788-808,810,814,823,825,829,852,861,871,878,884-888,890,902,914-917,919-925,927-928,934,940,953,961,970-1068
+lib/aave-umbrella
+  s_230ef88db3c189::t_0d2a903165b0cc 1
+pnpm-lock.yaml
+  s_230ef88db3c189::t_c0c9a9e337d2b9 12-13,15-16,18-19,78-79,83-84,88-89,889-890,893-894,949-950,1238,1242,1244-1245,1257,1261-1262,1838,1840,1842,1881
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "10bd66f1ece2bd09627948f517cebf6b7f1b287e",
+  "prompts": {},
+  "sessions": {
+    "s_230ef88db3c189": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f7e82-9f09-7752-9ac6-6984381a9ded",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "AlbertoCentonze <11707683+AlbertoCentonze@users.noreply.github.com>"
+    }
+  }
+}

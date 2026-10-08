@@ -1,0 +1,24 @@
+.github/workflows/ipfs.yml
+  s_9c612eeb46bb2c::t_f6db4992dcbd7d 42
+.github/workflows/test.yml
+  s_9c612eeb46bb2c::t_f6db4992dcbd7d 19,32,43,45,49,55,65
+  s_9c612eeb46bb2c::t_80257b7645d3b4 44
+.github/workflows/comment.yml
+  s_9c612eeb46bb2c::t_f6db4992dcbd7d 11
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "45a018b7b5e59e5aded8d19683e29e5b354f3c19",
+  "prompts": {},
+  "sessions": {
+    "s_9c612eeb46bb2c": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a04e07-bde7-7863-b92c-69834664bb4e",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": null
+    }
+  }
+}

@@ -1,0 +1,23 @@
+diffs/AaveV4Arc_AaveV4ArcActivation_20260909_before_AaveV4Arc_AaveV4ArcActivation_20260909_after.md
+  s_ccf6fb05b90ee2::t_ed01785b66c548 112
+src/20260909_AaveV4Arc_AaveV4ArcActivation/AaveV4Arc_AaveV4ArcActivation_20260909.t.sol
+  s_ccf6fb05b90ee2::t_0ef8ce4c37d11b 51
+  s_ccf6fb05b90ee2::t_9ef8ae6f4d94b5 297,300
+  s_ccf6fb05b90ee2::t_6ba2ee01251c93 312-313,323-327
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "61af10163d1623c6930371fc1be1fb0804d720b3",
+  "prompts": {},
+  "sessions": {
+    "s_ccf6fb05b90ee2": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "fee73797-7543-4f62-9e5a-02b0927e4a85",
+        "model": "claude-opus-5"
+      },
+      "human_author": "DhairyaSethi <55102840+DhairyaSethi@users.noreply.github.com>"
+    }
+  }
+}

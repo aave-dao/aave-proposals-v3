@@ -1,0 +1,36 @@
+src/20260817_AaveV3Ethereum_Onboard_PTsrUSDe22OCT2026_Oracle/Onboard_PTsrUSDe22OCT2026_Oracle.md
+  s_a88f0747102f0a::t_389c37d5f177cd 27
+  s_a88f0747102f0a::t_7472a0ea43e1c8 75-76
+.vscode/settings.json
+  s_a88f0747102f0a::t_d45fcbbb3d18c6 9
+diffs/AaveV3Ethereum_Onboard_PTsrUSDe22OCT2026_Oracle_20260817_before_AaveV3Ethereum_Onboard_PTsrUSDe22OCT2026_Oracle_20260817_after.md
+  s_a88f0747102f0a::t_808c6aaf895465 16,26,75,81
+.github/workflows/test.yml
+  s_4862062adadb85::t_001e4c54d5fa55 39-40,71-72,90-91
+src/20260817_AaveV3Ethereum_Onboard_PTsrUSDe22OCT2026_Oracle/AaveV3Ethereum_Onboard_PTsrUSDe22OCT2026_Oracle_20260817.t.sol
+  s_4862062adadb85::t_001e4c54d5fa55 117
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "3800c7ea6930aec01420156754b89c932f61ab0f",
+  "prompts": {},
+  "sessions": {
+    "s_4862062adadb85": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a047e1-ba97-7103-98ea-1d066779a7a4",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "DhairyaSethi <55102840+DhairyaSethi@users.noreply.github.com>"
+    },
+    "s_a88f0747102f0a": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "c4458efa-0fcc-4d64-93f0-e419561e6e59",
+        "model": "claude-fable-5"
+      },
+      "human_author": "DhairyaSethi <55102840+DhairyaSethi@users.noreply.github.com>"
+    }
+  }
+}

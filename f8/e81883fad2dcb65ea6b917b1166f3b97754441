@@ -1,0 +1,17 @@
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.15",
+  "base_commit_sha": "f8e81883fad2dcb65ea6b917b1166f3b97754441",
+  "prompts": {},
+  "sessions": {
+    "s_0221e6de41ee68": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f8595-db9a-7cb3-9cc3-5ec61b4fbd39",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": null
+    }
+  }
+}

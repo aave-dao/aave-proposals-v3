@@ -1,0 +1,19 @@
+src/20260824_AaveV4Ethereum_OnboardPAXGGlobalDollarHub/OnboardPAXGGlobalDollarHub.md
+  s_cec81b7cbe2326::t_c26d9f35c989e7 30-33
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "f91914364e11ddf915b2911795f647018a1d108b",
+  "prompts": {},
+  "sessions": {
+    "s_cec81b7cbe2326": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a0346d-9c2e-72a0-b9d0-971362724afc",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "AlbertoCentonze <11707683+AlbertoCentonze@users.noreply.github.com>"
+    }
+  }
+}

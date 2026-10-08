@@ -1,0 +1,21 @@
+foundry.lock
+  s_3c139ce5290e35::t_94acde51b3c324 5
+lib/aave-helpers
+  s_3c139ce5290e35::t_da3a550ab6fcd4 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "52730dc915d747ce469ab25c2c98ab953f5c24fa",
+  "prompts": {},
+  "sessions": {
+    "s_3c139ce5290e35": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a01f25-ed71-71e2-9996-184e34a2b97f",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "AlbertoCentonze <11707683+AlbertoCentonze@users.noreply.github.com>"
+    }
+  }
+}

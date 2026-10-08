@@ -1,36 +1,22 @@
 foundry.lock
-  s_a29e3e9eb1cbe2::t_9cf40c589b925f 5
-generator/common.spec.ts
-  s_59edd78a894f70::t_6d0d62a2b9b4a6 21-24
+  s_3c139ce5290e35::t_41d07fb81dd086 5
 generator/common.ts
-  s_59edd78a894f70::t_7e35fc7c38569d 106-107
-generator/features/v4/__snapshots__/allModules.spec.ts.snap
-  s_59edd78a894f70::t_1a3b43f0056b9e 697,704
-generator/features/v4/__snapshots__/hubSpokeConfigUpdate.spec.ts.snap
-  s_59edd78a894f70::t_e380cca71e231a 111,118
-generator/features/v4/__snapshots__/useCases.spec.ts.snap
-  s_59edd78a894f70::t_a220b587fc6678 561,568
+  s_3c139ce5290e35::t_5d0e0814d3b030 106-107
 generator/templates/test.template.ts
-  s_a29e3e9eb1cbe2::t_c3efa41e54885a 34
+  s_3c139ce5290e35::t_cae8df8e02aa51 34
+lib/aave-helpers
+  s_3c139ce5290e35::t_4dcd6b9d3c80e3 1
 ---
 {
   "schema_version": "authorship/3.0.0",
-  "git_ai_version": "1.6.14",
+  "git_ai_version": "1.6.22",
   "base_commit_sha": "f878c685a5560b5c767e8050d7c5166d5b77c91d",
   "prompts": {},
   "sessions": {
-    "s_59edd78a894f70": {
-      "agent_id": {
-        "tool": "claude",
-        "id": "dc900c02-c2c3-4aa2-b5e6-eed7b8cd7e79",
-        "model": "claude-opus-4-8"
-      },
-      "human_author": "AlbertoCentonze <11707683+AlbertoCentonze@users.noreply.github.com>"
-    },
-    "s_a29e3e9eb1cbe2": {
+    "s_3c139ce5290e35": {
       "agent_id": {
         "tool": "codex",
-        "id": "019f5c09-bfa0-79a3-837c-8c1d7945ecbf",
+        "id": "01a01f25-ed71-71e2-9996-184e34a2b97f",
         "model": "gpt-5.6-sol"
       },
       "human_author": "AlbertoCentonze <11707683+AlbertoCentonze@users.noreply.github.com>"

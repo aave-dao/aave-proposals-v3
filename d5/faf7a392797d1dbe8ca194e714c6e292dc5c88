@@ -1,0 +1,27 @@
+src/20260824_AaveV4Ethereum_OnboardPAXGGlobalDollarHub/AaveV4Ethereum_OnboardPAXGGlobalDollarHub_20260824.t.sol
+  s_cec81b7cbe2326::t_c052c08f18b20b 5,315,327,345,460,472,484
+generator/features/types.ts
+  s_cec81b7cbe2326::t_cb562d897769fa 244
+src/20260824_AaveV4Ethereum_OnboardPAXGGlobalDollarHub/config.ts
+  s_cec81b7cbe2326::t_cb562d897769fa 46,65,84
+src/20260824_AaveV4Ethereum_OnboardPAXGGlobalDollarHub/AaveV4Ethereum_OnboardPAXGGlobalDollarHub_20260824.sol
+  s_cec81b7cbe2326::t_c052c08f18b20b 4,22-31,64,83,102
+generator/features/v4/spoke/spokeReserveListing.ts
+  s_cec81b7cbe2326::t_cb562d897769fa 73-77,82,97,102,113,143-144,146,148
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.24",
+  "base_commit_sha": "d5faf7a392797d1dbe8ca194e714c6e292dc5c88",
+  "prompts": {},
+  "sessions": {
+    "s_cec81b7cbe2326": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a0346d-9c2e-72a0-b9d0-971362724afc",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "AlbertoCentonze <11707683+AlbertoCentonze@users.noreply.github.com>"
+    }
+  }
+}

@@ -1,0 +1,53 @@
+package.json
+  s_5cb454b1abacbb::t_adc8d9f6dceb69 33-34
+src/20260909_AaveV4Arc_AaveV4ArcActivation/AaveV4Arc_AaveV4ArcActivation_20260909.t.sol
+  s_5cb454b1abacbb::t_7352b10a30ac9e 277-279,281-282,284-288,291-296,298-299,301-302,305-306,308-310,312-315,317-321,323-327,329-336,338,341-382,384,390,396,405,407,474
+  s_5cb454b1abacbb::t_5aa63600dc531c 383,385-389,391-395,397-404,406,409-450,453,459,465,476
+  s_5cb454b1abacbb::t_0da58699b4d2d1 451-452,454-458,460-464,466-473,475,478-522,525,531,537,546,548
+  s_5cb454b1abacbb::t_5c0cf6ef986807 248
+  s_5cb454b1abacbb::t_14ff3d6d90147b 250-254
+  s_5cb454b1abacbb::t_1f17dec1170b57 262-269,280,297,307,311,316,322,328,337,339
+  s_5cb454b1abacbb::t_903b3d4c247e71 275-276,289,303
+  s_5cb454b1abacbb::t_240741f410239e 1-247,249,255,261,270,272-274,290,304,340,408,477,549
+  s_5cb454b1abacbb::t_2561543ce11648 271
+  s_5cb454b1abacbb::t_9a5a77516114e1 256-260,283,300
+  s_5cb454b1abacbb::t_53b615258a92a0 523-524,526-530,532-536,538-545,547,550-595
+src/20260909_AaveV4Arc_AaveV4ArcActivation/AaveV4ArcActivation.md
+  s_5cb454b1abacbb::t_fb385c9e623fb1 1-110
+diffs/AaveV4Arc_AaveV4ArcActivation_20260909_before_AaveV4Arc_AaveV4ArcActivation_20260909_after.md
+  s_5cb454b1abacbb::t_8fe07d4012ee7e 1-227
+foundry.lock
+  s_5cb454b1abacbb::t_9ee111b46f9f26 5,9
+foundry.toml
+  s_5cb454b1abacbb::t_8801f503c4fb04 65
+src/interfaces/IPriceCapAdapterStable.sol
+  s_5cb454b1abacbb::t_bc00ce511ec470 7
+src/interfaces/IEURPriceCapAdapterStable.sol
+  s_5cb454b1abacbb::t_546890da142eed 1-13
+pnpm-workspace.yaml
+  s_5cb454b1abacbb::t_4703621c419d50 7
+src/20260909_AaveV4Arc_AaveV4ArcActivation/AaveV4Arc_AaveV4ArcActivation_20260909.sol
+  s_5cb454b1abacbb::t_a4a4711c3a96b1 1-42
+pnpm-lock.yaml
+  s_5cb454b1abacbb::t_839591ef05cace 51-56,83-84,88-89,1242,1244-1245,1257
+src/20260909_AaveV4Arc_AaveV4ArcActivation/AaveV4ArcActivation_20260909.s.sol
+  s_5cb454b1abacbb::t_613a8d8b840470 1-43
+lib/aave-helpers
+  s_5cb454b1abacbb::t_f041a539672591 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.2",
+  "base_commit_sha": "f9dc279ab574fd3fad01b7b40fb7380c8d053272",
+  "prompts": {},
+  "sessions": {
+    "s_5cb454b1abacbb": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "cf6c5f8c-2bd0-4298-a34d-805f54004688",
+        "model": "claude-fable-5-1"
+      },
+      "human_author": "DhairyaSethi <55102840+DhairyaSethi@users.noreply.github.com>"
+    }
+  }
+}

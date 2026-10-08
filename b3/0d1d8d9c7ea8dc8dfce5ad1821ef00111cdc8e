@@ -1,0 +1,38 @@
+src/20260915_Multi_OracleDeprecationForLongTailAssets/AaveV3Scroll_OracleDeprecationForLongTailAssets_20260915.t.sol
+  s_fcf886f510ff24::t_16e7143c9af832 6-7,93-95,101
+src/20260915_Multi_OracleDeprecationForLongTailAssets/AaveV3Ethereum_OracleDeprecationForLongTailAssets_20260915.t.sol
+  s_fcf886f510ff24::t_16e7143c9af832 8-10,24-25,391-450,456,461,466,471,476,481,486
+src/20260915_Multi_OracleDeprecationForLongTailAssets/AaveV3EthereumEtherFi_OracleDeprecationForLongTailAssets_20260915.t.sol
+  s_fcf886f510ff24::t_e1844260c8be30 7-9,121,123-127,133
+  s_fcf886f510ff24::t_c08703f3d9cc36 25-26
+src/20260915_Multi_OracleDeprecationForLongTailAssets/AaveV3Avalanche_OracleDeprecationForLongTailAssets_20260915.t.sol
+  s_fcf886f510ff24::t_16e7143c9af832 7-9,23-24,157-171,177,182
+src/20260915_Multi_OracleDeprecationForLongTailAssets/AaveV3Optimism_OracleDeprecationForLongTailAssets_20260915.t.sol
+  s_fcf886f510ff24::t_16e7143c9af832 7-9,23-24,196-217,223,228,233
+src/20260915_Multi_OracleDeprecationForLongTailAssets/AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915.t.sol
+  s_fcf886f510ff24::t_16e7143c9af832 72,115,156,197,238,279,312,353,388,423,458,493,526
+src/20260915_Multi_OracleDeprecationForLongTailAssets/AaveV3Celo_OracleDeprecationForLongTailAssets_20260915.t.sol
+  s_fcf886f510ff24::t_16e7143c9af832 8-10,24-25,139-149,155
+src/20260915_Multi_OracleDeprecationForLongTailAssets/AaveV2Polygon_OracleDeprecationForLongTailAssets_20260915.t.sol
+  s_fcf886f510ff24::t_16e7143c9af832 74,109
+src/20260915_Multi_OracleDeprecationForLongTailAssets/AaveV3Polygon_OracleDeprecationForLongTailAssets_20260915.t.sol
+  s_fcf886f510ff24::t_16e7143c9af832 7-9,23-24,195-217,223,228,233
+src/20260915_Multi_OracleDeprecationForLongTailAssets/AaveV3Arbitrum_OracleDeprecationForLongTailAssets_20260915.t.sol
+  s_fcf886f510ff24::t_16e7143c9af832 8-10,24-25,221-246,252,257,262
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "b30d1d8d9c7ea8dc8dfce5ad1821ef00111cdc8e",
+  "prompts": {},
+  "sessions": {
+    "s_fcf886f510ff24": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a0a4ab-17d1-7d12-b10d-c9adf50c142b",
+        "model": "gpt-6-astra"
+      },
+      "human_author": "AlbertoCentonze <11707683+AlbertoCentonze@users.noreply.github.com>"
+    }
+  }
+}

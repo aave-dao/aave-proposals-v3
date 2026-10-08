@@ -1,0 +1,26 @@
+src/20260909_AaveV4Arc_AaveV4ArcActivation/AaveV4Arc_AaveV4ArcActivation_20260909.t.sol
+  s_5cb454b1abacbb::t_240741f410239e 5
+  s_5cb454b1abacbb::t_f7926d7d3eb98e 47-50,64,85-92,185-193,294-311,329-332,340,354-357,360-363,368-399,407,478-499
+src/interfaces/IEURPriceCapAdapterStable.sol
+  s_5cb454b1abacbb::t_9cbcc0acef1253 6-7
+src/interfaces/IPriceCapAdapterStable.sol
+  s_5cb454b1abacbb::t_d7616b33c123be 5-6
+src/interfaces/ISafe.sol
+  s_5cb454b1abacbb::t_e776dc1abeecc2 19-26
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.2",
+  "base_commit_sha": "025e59b702a1e93e89baf3b5c7e486cf3bc4fb0c",
+  "prompts": {},
+  "sessions": {
+    "s_5cb454b1abacbb": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "cf6c5f8c-2bd0-4298-a34d-805f54004688",
+        "model": "claude-fable-5-1"
+      },
+      "human_author": "DhairyaSethi <55102840+DhairyaSethi@users.noreply.github.com>"
+    }
+  }
+}

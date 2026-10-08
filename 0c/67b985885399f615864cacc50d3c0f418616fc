@@ -1,0 +1,19 @@
+src/20260826_Multi_LowAdoptionAssetDeprecationOnAaveV3/LowAdoptionAssetDeprecationOnAaveV3_20260826.s.sol
+  s_8b1176abc90d3e::t_4a0c7e43edbc60 353-355,357-358,492
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "0c67b985885399f615864cacc50d3c0f418616fc",
+  "prompts": {},
+  "sessions": {
+    "s_8b1176abc90d3e": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a09f8f-65f6-7b63-827e-2b9eb7c8960f",
+        "model": "gpt-6-astra"
+      },
+      "human_author": "AlbertoCentonze <11707683+AlbertoCentonze@users.noreply.github.com>"
+    }
+  }
+}

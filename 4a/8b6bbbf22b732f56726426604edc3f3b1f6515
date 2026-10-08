@@ -1,0 +1,35 @@
+generator/features/__snapshots__/assetListing.spec.ts.snap
+  s_e151e0076adb13::t_37244d074c8c19 375-378
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.13",
+  "base_commit_sha": "4a8b6bbbf22b732f56726426604edc3f3b1f6515",
+  "prompts": {},
+  "sessions": {
+    "s_9f64eda37ab66b": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f5c12-c8cd-7501-a70d-3f73ef1f5357",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "AlbertoCentonze <11707683+AlbertoCentonze@users.noreply.github.com>"
+    },
+    "s_d2f5fa2e73328c": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f6059-0e02-7f23-a53a-7fe8c03fd7fc",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "AlbertoCentonze <11707683+AlbertoCentonze@users.noreply.github.com>"
+    },
+    "s_e151e0076adb13": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f7eb5-171d-7360-8a64-a74e7e4500f8",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "AlbertoCentonze <11707683+AlbertoCentonze@users.noreply.github.com>"
+    }
+  }
+}

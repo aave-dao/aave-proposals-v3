@@ -9,12 +9,46 @@ generator/features/assetListing.ts
 generator/features/mocks/configs.ts
   s_9f64eda37ab66b::t_9fc7902086e86d 8,53-64
   s_9f64eda37ab66b::t_4e469c74b38e57 65-67
+  s_59edd78a894f70::t_93af0c2c377e23 143
+  s_59edd78a894f70::t_c7ce7ffbbcda26 3-4,114-142
 generator/templates/test.template.ts
   s_9f64eda37ab66b::t_f21ea34d63ce31 29-33,36
+  s_59edd78a894f70::t_c7ce7ffbbcda26 41-62,91
+  s_727da59f99c345::t_6e290d136b2443 40
 generator/features/__snapshots__/assetListing.spec.ts.snap
   s_9f64eda37ab66b::t_97410b09a6f267 177-178,182,219-246,405-431
+  s_59edd78a894f70::t_615ca75a5f0866 205-213
 generator/features/__snapshots__/eModesCreation.spec.ts.snap
   s_9f64eda37ab66b::t_a3e56f71b807d1 213-214,221,259-285
+  s_59edd78a894f70::t_de654bdbb623e7 244-252
+generator/features/borrowsUpdates.ts
+  s_59edd78a894f70::t_c7ce7ffbbcda26 1,29-53,78,84-86
+  s_59edd78a894f70::t_486397bf3e4b6d 87
+generator/features/freeze.spec.ts
+  s_59edd78a894f70::t_c7ce7ffbbcda26 1-20
+generator/features/capsUpdates.ts
+  s_59edd78a894f70::t_b1ce63035aeccd 83
+  s_59edd78a894f70::t_c7ce7ffbbcda26 1,24-47,74,80-82
+generator/features/__snapshots__/collateralsUpdates.spec.ts.snap
+  s_59edd78a894f70::t_a73942745857a2 1-58
+generator/features/__snapshots__/priceFeedsUpdate.spec.ts.snap
+  s_59edd78a894f70::t_a99aced9964d6d 116-124
+generator/features/borrowsUpdates.spec.ts
+  s_59edd78a894f70::t_c7ce7ffbbcda26 1-29
+generator/features/collateralsUpdates.ts
+  s_59edd78a894f70::t_6d33dd0584470e 101
+  s_59edd78a894f70::t_c7ce7ffbbcda26 35-64,92,98-100
+generator/features/freeze.ts
+  s_59edd78a894f70::t_c7ce7ffbbcda26 2,9-24,54-56
+  s_59edd78a894f70::t_2eeaf5b380fad5 57
+generator/features/collateralsUpdates.spec.ts
+  s_59edd78a894f70::t_c7ce7ffbbcda26 1-60
+generator/types.ts
+  s_59edd78a894f70::t_c7ce7ffbbcda26 119
+generator/features/capsUpdates.spec.ts
+  s_59edd78a894f70::t_c7ce7ffbbcda26 1-61
+generator/features/__snapshots__/capsUpdates.spec.ts.snap
+  s_59edd78a894f70::t_963e3fd6da9b18 1-50
 ---
 {
   "schema_version": "authorship/3.0.0",
@@ -22,10 +56,50 @@ generator/features/__snapshots__/eModesCreation.spec.ts.snap
   "base_commit_sha": "bb5a9e4f1653bb45a25a2c436d97cbc7cd4ba0f6",
   "prompts": {},
   "sessions": {
+    "s_0107487baa2c4b": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f5acb-3bb9-7881-8d38-dec9e290a3b9",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "AlbertoCentonze <11707683+AlbertoCentonze@users.noreply.github.com>"
+    },
+    "s_59edd78a894f70": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "dc900c02-c2c3-4aa2-b5e6-eed7b8cd7e79",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": null
+    },
+    "s_727da59f99c345": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f5ab0-c16c-70c1-9f3d-16d6ac3ff3d3",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "AlbertoCentonze <11707683+AlbertoCentonze@users.noreply.github.com>"
+    },
     "s_9f64eda37ab66b": {
       "agent_id": {
         "tool": "codex",
         "id": "019f5c12-c8cd-7501-a70d-3f73ef1f5357",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "AlbertoCentonze <11707683+AlbertoCentonze@users.noreply.github.com>"
+    },
+    "s_a29e3e9eb1cbe2": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f5c09-bfa0-79a3-837c-8c1d7945ecbf",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "AlbertoCentonze <11707683+AlbertoCentonze@users.noreply.github.com>"
+    },
+    "s_d2f5fa2e73328c": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f6059-0e02-7f23-a53a-7fe8c03fd7fc",
         "model": "gpt-5.6-sol"
       },
       "human_author": "AlbertoCentonze <11707683+AlbertoCentonze@users.noreply.github.com>"

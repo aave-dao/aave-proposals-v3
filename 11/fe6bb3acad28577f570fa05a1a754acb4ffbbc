@@ -1,0 +1,59 @@
+generator/features/assetListing.ts
+  s_0221e6de41ee68::t_2871215cc99d67 303-307
+generator/features/borrowsUpdates.spec.ts
+  s_0221e6de41ee68::t_66bb844bc695da 4-7,33-61
+  s_0221e6de41ee68::t_0ba89de737023d 62
+generator/features/eModesCreation.spec.ts
+  s_0221e6de41ee68::t_0ba89de737023d 65
+  s_0221e6de41ee68::t_66bb844bc695da 8,63-64
+  s_0221e6de41ee68::t_886fa4fd2b145b 66
+generator/utils/compileGeneratedFiles.ts
+  s_0221e6de41ee68::t_66bb844bc695da 1-41
+.github/workflows/test.yml
+  s_0221e6de41ee68::t_66bb844bc695da 87-88
+  s_0221e6de41ee68::t_2871215cc99d67 76-86
+generator/features/eModesUpdates.spec.ts
+  s_0221e6de41ee68::t_c7919bccbb08d8 28
+  s_0221e6de41ee68::t_0ba89de737023d 50
+  s_0221e6de41ee68::t_66bb844bc695da 4-7,24-27,29-49
+  s_0221e6de41ee68::t_c1716a218611c5 51
+generator/features/mocks/configs.ts
+  s_0221e6de41ee68::t_66bb844bc695da 8,53-64
+  s_0221e6de41ee68::t_c6a96e87c63058 65-67
+generator/features/rateUpdates.spec.ts
+  s_0221e6de41ee68::t_66bb844bc695da 7,43-63
+  s_0221e6de41ee68::t_0ba89de737023d 64
+generator/features/freeze.spec.ts
+  s_0221e6de41ee68::t_66bb844bc695da 4-7,24-45
+  s_0221e6de41ee68::t_0ba89de737023d 46
+generator/features/collateralsUpdates.spec.ts
+  s_0221e6de41ee68::t_0ba89de737023d 33
+  s_0221e6de41ee68::t_66bb844bc695da 4-6,21-32
+  s_0221e6de41ee68::t_71624a2a8d5a1e 34
+generator/features/assetListing.spec.ts
+  s_0221e6de41ee68::t_66bb844bc695da 3-4,7,52-82
+  s_0221e6de41ee68::t_0ba89de737023d 83
+generator/features/priceFeedsUpdate.spec.ts
+  s_0221e6de41ee68::t_0ba89de737023d 62
+  s_0221e6de41ee68::t_66bb844bc695da 7,41-61
+generator/features/capsUpdates.spec.ts
+  s_0221e6de41ee68::t_0ba89de737023d 33
+  s_0221e6de41ee68::t_66bb844bc695da 4-6,21-32
+  s_0221e6de41ee68::t_702e6fe4c52873 34
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.15",
+  "base_commit_sha": "11fe6bb3acad28577f570fa05a1a754acb4ffbbc",
+  "prompts": {},
+  "sessions": {
+    "s_0221e6de41ee68": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f8595-db9a-7cb3-9cc3-5ec61b4fbd39",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": null
+    }
+  }
+}

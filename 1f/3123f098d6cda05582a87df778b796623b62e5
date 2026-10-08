@@ -7,6 +7,9 @@ generator/templates/test.template.spec.ts
   "base_commit_sha": "1f3123f098d6cda05582a87df778b796623b62e5",
   "prompts": {},
   "humans": {
+    "h_89d2da8ff33004": {
+      "author": "AlbertoCentonze <11707683+AlbertoCentonze@users.noreply.github.com>"
+    },
     "h_8b974fbabf2fb7": {
       "author": "Alberto <albe@AMWM-H65F40J09H.local>"
     }

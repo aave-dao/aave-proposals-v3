@@ -1,0 +1,46 @@
+src/20260909_AaveV4Arc_AaveV4ArcActivation/AaveV4ArcActivation_SafeTransactions.md
+  s_5cb454b1abacbb::t_be8732cb20507d 1-88
+  s_5cb454b1abacbb::t_366f27e539b567 89-103
+src/20260909_AaveV4Arc_AaveV4ArcActivation/AaveV4Arc_AaveV4ArcActivation_20260909.t.sol
+  s_5cb454b1abacbb::t_240741f410239e 1-523,525,531,537,546,548-549
+  s_5cb454b1abacbb::t_5c0cf6ef986807 524
+  s_5cb454b1abacbb::t_14ff3d6d90147b 526-530
+  s_5cb454b1abacbb::t_9a5a77516114e1 532-536
+  s_5cb454b1abacbb::t_1f17dec1170b57 538-540,543-545
+  s_5cb454b1abacbb::t_2561543ce11648 547
+  s_5cb454b1abacbb::t_903b3d4c247e71 550-552
+src/20260909_AaveV4Arc_AaveV4ArcActivation/AaveV4ArcActivation_20260909.s.sol
+  s_5cb454b1abacbb::t_613a8d8b840470 1-43
+src/20260909_AaveV4Arc_AaveV4ArcActivation/AaveV4ArcActivation.md
+  s_5cb454b1abacbb::t_fb385c9e623fb1 1-110
+src/20260909_AaveV4Arc_AaveV4ArcActivation/AaveV4Arc_AaveV4ArcActivation_20260909.sol
+  s_5cb454b1abacbb::t_a4a4711c3a96b1 1-42
+diffs/AaveV4Arc_AaveV4ArcActivation_20260909_before_AaveV4Arc_AaveV4ArcActivation_20260909_after.md
+  s_5cb454b1abacbb::t_8fe07d4012ee7e 1-227
+foundry.lock
+  s_5cb454b1abacbb::t_9ee111b46f9f26 5,9
+foundry.toml
+  s_5cb454b1abacbb::t_8801f503c4fb04 65
+lib/aave-helpers
+  s_5cb454b1abacbb::t_ec0163413647f0 1
+src/interfaces/IEURPriceCapAdapterStable.sol
+  s_5cb454b1abacbb::t_546890da142eed 1-13
+src/interfaces/IPriceCapAdapterStable.sol
+  s_5cb454b1abacbb::t_bc00ce511ec470 7
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.2",
+  "base_commit_sha": "c7e6cc953c8c928949404d4f9ae4897a90ff5e51",
+  "prompts": {},
+  "sessions": {
+    "s_5cb454b1abacbb": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "cf6c5f8c-2bd0-4298-a34d-805f54004688",
+        "model": "claude-fable-5-1"
+      },
+      "human_author": "DhairyaSethi <55102840+DhairyaSethi@users.noreply.github.com>"
+    }
+  }
+}

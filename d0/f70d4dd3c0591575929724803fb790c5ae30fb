@@ -30,6 +30,9 @@ generator/common.ts
   "base_commit_sha": "d0f70d4dd3c0591575929724803fb790c5ae30fb",
   "prompts": {},
   "humans": {
+    "h_89d2da8ff33004": {
+      "author": "AlbertoCentonze <11707683+AlbertoCentonze@users.noreply.github.com>"
+    },
     "h_8b974fbabf2fb7": {
       "author": "Alberto <albe@AMWM-H65F40J09H.local>"
     }
@@ -66,6 +69,14 @@ generator/common.ts
         "model": "gpt-5.5"
       },
       "human_author": "Alberto <albe@AMWM-H65F40J09H.local>"
+    },
+    "s_3c139ce5290e35": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a01f25-ed71-71e2-9996-184e34a2b97f",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "AlbertoCentonze <11707683+AlbertoCentonze@users.noreply.github.com>"
     },
     "s_3c613cca907125": {
       "agent_id": {

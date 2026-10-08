@@ -1,0 +1,19 @@
+.github/workflows/test.yml
+  s_9c612eeb46bb2c::t_80257b7645d3b4 42-44,46-48
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "332ac91a2d8a5757d6ee52aaddaa48464356d86d",
+  "prompts": {},
+  "sessions": {
+    "s_9c612eeb46bb2c": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a04e07-bde7-7863-b92c-69834664bb4e",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "AlbertoCentonze <11707683+AlbertoCentonze@users.noreply.github.com>"
+    }
+  }
+}
