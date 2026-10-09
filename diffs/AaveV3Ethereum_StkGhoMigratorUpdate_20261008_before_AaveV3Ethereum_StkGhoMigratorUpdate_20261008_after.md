@@ -11,7 +11,7 @@
 
 | index | event |
 | --- | --- |
-| 2 | topics: `0x62e78cea01bee320cd4e420270b5ea74000d11b0c9f74754ebdbfc544b05a258`, data: `0x0000000000000000000000005300a1a15135ea4dc7ad5a167152c01efc9b192a` |
+| 2 | Paused(account: 0x5300A1a15135EA4dc7aD5a167152C01EFc9b192A) |
 
 #### 0x5300A1a15135EA4dc7aD5a167152C01EFc9b192A (AaveV2Ethereum.POOL_ADMIN, AaveV2EthereumAMM.POOL_ADMIN, AaveV3Ethereum.ACL_ADMIN, AaveV3EthereumEtherFi.ACL_ADMIN, AaveV3EthereumHorizon.ACL_ADMIN, AaveV3EthereumLido.ACL_ADMIN, GovernanceV3Ethereum.EXECUTOR_LVL_1)
 
