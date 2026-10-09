@@ -248,7 +248,7 @@ contract AaveV3Ethereum_StkGhoMigratorUpdate_20261008_Test is ProtocolV3TestBase
 
     vm.prank(GovernanceV3Ethereum.EXECUTOR_LVL_1);
     IStkGhoMigrator(newMigrator).unpause();
-    _migrateAndValidate(user);
+    _migrateAndValidate(user, 100e18);
   }
 
   function test_e2e_migration() public {
@@ -257,15 +257,16 @@ contract AaveV3Ethereum_StkGhoMigratorUpdate_20261008_Test is ProtocolV3TestBase
     executePayload(vm, address(proposal), AaveV3Ethereum.POOL);
 
     assertEq(STK_GHO.getExchangeRate(), STK_GHO.EXCHANGE_RATE_UNIT());
-    assertEq(STK_GHO.previewRedeem(100e18), 100e18);
-    _migrateAndValidate(user);
+    assertEq(STK_GHO.balanceOf(user), 100e18);
+    _migrateAndValidate(user, 100e18);
   }
 
   function test_e2e_migrationStakedAfterExecution() public {
     executePayload(vm, address(proposal), AaveV3Ethereum.POOL);
     address user = _stake('USER', 100e18);
 
-    _migrateAndValidate(user);
+    assertEq(STK_GHO.balanceOf(user), 100e18);
+    _migrateAndValidate(user, 100e18);
   }
 
   function test_e2e_migrationMultipleUsers() public {
@@ -274,45 +275,112 @@ contract AaveV3Ethereum_StkGhoMigratorUpdate_20261008_Test is ProtocolV3TestBase
 
     executePayload(vm, address(proposal), AaveV3Ethereum.POOL);
 
-    _migrateAndValidate(user);
-    _migrateAndValidate(otherUser);
+    _migrateAndValidate(user, 100e18);
+    _migrateAndValidate(otherUser, 2_500e18);
   }
 
   function test_e2e_migrationStakeThenReturnFunds() public {
     address user = _stake('USER', 100e18);
     executePayload(vm, address(proposal), AaveV3Ethereum.POOL);
+
+    uint256 expectedRate = _expectedRateAfterReturnFunds(1e18);
     _returnFunds(1e18);
 
-    assertLt(STK_GHO.getExchangeRate(), STK_GHO.EXCHANGE_RATE_UNIT());
+    assertEq(STK_GHO.getExchangeRate(), expectedRate);
+    assertLt(expectedRate, STK_GHO.EXCHANGE_RATE_UNIT());
     assertEq(STK_GHO.balanceOf(user), 100e18);
-    assertGt(STK_GHO.previewRedeem(100e18), 100e18);
-    _migrateAndValidate(user);
+    uint256 expectedGho = (100e18 * STK_GHO.EXCHANGE_RATE_UNIT()) / expectedRate;
+    assertGt(expectedGho, 100e18);
+    _migrateAndValidate(user, expectedGho);
   }
 
   function test_e2e_migrationReturnFundsThenStake() public {
     executePayload(vm, address(proposal), AaveV3Ethereum.POOL);
+
+    uint256 expectedRate = _expectedRateAfterReturnFunds(1e18);
     _returnFunds(1e18);
     address user = _stake('USER', 100e18);
 
-    uint256 stkGhoShares = STK_GHO.balanceOf(user);
-    assertLt(STK_GHO.getExchangeRate(), STK_GHO.EXCHANGE_RATE_UNIT());
-    assertLt(stkGhoShares, 100e18);
-    assertGt(STK_GHO.previewRedeem(stkGhoShares), stkGhoShares);
-    _migrateAndValidate(user);
+    uint256 expectedShares = (100e18 * expectedRate) / STK_GHO.EXCHANGE_RATE_UNIT();
+    uint256 expectedGho = (expectedShares * STK_GHO.EXCHANGE_RATE_UNIT()) / expectedRate;
+    assertEq(STK_GHO.getExchangeRate(), expectedRate);
+    assertEq(STK_GHO.balanceOf(user), expectedShares);
+    assertLt(expectedShares, 100e18);
+    assertLe(expectedGho, 100e18);
+    _migrateAndValidate(user, expectedGho);
   }
 
   function test_e2e_migrationAfterSlash() public {
     address user = _stake('USER', 100e18);
     executePayload(vm, address(proposal), AaveV3Ethereum.POOL);
 
+    uint256 totalShares = STK_GHO.totalSupply();
+    uint256 totalAssets = STK_GHO.previewRedeem(totalShares);
+    uint256 expectedRate = _ceilDiv(
+      totalShares * STK_GHO.EXCHANGE_RATE_UNIT(),
+      totalAssets - 1_000e18
+    );
+
     vm.startPrank(GovernanceV3Ethereum.EXECUTOR_LVL_1);
     STK_GHO.setMaxSlashablePercentage(10_00);
     STK_GHO.slash(makeAddr('SLASH_RECEIVER'), 1_000e18);
     vm.stopPrank();
 
-    assertGt(STK_GHO.getExchangeRate(), STK_GHO.EXCHANGE_RATE_UNIT());
-    assertLt(STK_GHO.previewRedeem(100e18), 100e18);
-    _migrateAndValidate(user);
+    assertEq(STK_GHO.getExchangeRate(), expectedRate);
+    assertGt(expectedRate, STK_GHO.EXCHANGE_RATE_UNIT());
+    uint256 expectedGho = (100e18 * STK_GHO.EXCHANGE_RATE_UNIT()) / expectedRate;
+    assertLt(expectedGho, 100e18);
+    _migrateAndValidate(user, expectedGho);
+  }
+
+  function test_e2e_migrationWithExistingBalances() public {
+    address user = _stake('USER', 60e18);
+    vm.prank(user);
+    STK_GHO.cooldown();
+    _stakeFor(user, 40e18);
+    _depositSGho(user, 50e18);
+    deal(address(GHO), user, 37e18);
+    _seedMigrator({gho: 7e18, stkGho: 3e18, sGho: 2e18});
+    uint256 migratorSGho = SGHO.balanceOf(newMigrator);
+    assertGt(migratorSGho, 0);
+
+    executePayload(vm, address(proposal), AaveV3Ethereum.POOL);
+
+    (, uint216 cooldownAmount) = STK_GHO.stakersCooldowns(user);
+    assertEq(cooldownAmount, 60e18);
+    assertEq(STK_GHO.balanceOf(user), 100e18);
+    assertGt(SGHO.balanceOf(user), 0);
+    assertEq(GHO.balanceOf(user), 37e18);
+    _migrateAndValidate(user, 100e18);
+
+    assertEq(GHO.balanceOf(newMigrator), 7e18);
+    assertEq(STK_GHO.balanceOf(newMigrator), 3e18);
+    assertEq(SGHO.balanceOf(newMigrator), migratorSGho);
+  }
+
+  function test_e2e_migrationWithExpiredCooldown() public {
+    address user = _stake('USER', 100e18);
+    vm.prank(user);
+    STK_GHO.cooldown();
+    vm.warp(block.timestamp + STK_GHO.UNSTAKE_WINDOW() + 1);
+    executePayload(vm, address(proposal), AaveV3Ethereum.POOL);
+
+    vm.prank(user);
+    vm.expectRevert(bytes('UNSTAKE_WINDOW_FINISHED'));
+    STK_GHO.redeem(user, 100e18);
+
+    _migrateAndValidate(user, 100e18);
+  }
+
+  function test_e2e_migrationStkGhoReceivedByTransfer() public {
+    address staker = _stake('STAKER', 100e18);
+    address user = makeAddr('USER');
+    vm.prank(staker);
+    assertTrue(STK_GHO.transfer(user, 100e18));
+    executePayload(vm, address(proposal), AaveV3Ethereum.POOL);
+
+    assertEq(STK_GHO.balanceOf(user), 100e18);
+    _migrateAndValidate(user, 100e18);
   }
 
   /// forge-config: default.fuzz.runs = 64
@@ -320,20 +388,61 @@ contract AaveV3Ethereum_StkGhoMigratorUpdate_20261008_Test is ProtocolV3TestBase
     amount = bound(amount, 2, 1_000_000e18);
     donation = bound(donation, 0, 10_000_000e18);
     address user = _stake('USER', amount);
-
     executePayload(vm, address(proposal), AaveV3Ethereum.POOL);
-    if (donation >= STK_GHO.LOWER_BOUND()) _returnFunds(donation);
 
-    _migrateAndValidate(user);
+    uint256 expectedRate = STK_GHO.EXCHANGE_RATE_UNIT();
+    if (donation >= STK_GHO.LOWER_BOUND()) {
+      expectedRate = _expectedRateAfterReturnFunds(donation);
+      _returnFunds(donation);
+    }
+
+    assertEq(STK_GHO.getExchangeRate(), expectedRate);
+    assertEq(STK_GHO.balanceOf(user), amount);
+    _migrateAndValidate(user, (amount * STK_GHO.EXCHANGE_RATE_UNIT()) / expectedRate);
+  }
+
+  /// forge-config: default.fuzz.runs = 64
+  function testFuzz_e2e_migrationWithExistingBalances(
+    uint256 amount,
+    uint256 userGho,
+    uint256 userSGhoDeposit,
+    uint256 migratorGho,
+    uint256 migratorStkGho,
+    uint256 migratorSGho
+  ) public {
+    amount = bound(amount, 2, 1_000_000e18);
+    userGho = bound(userGho, 0, 1_000_000e18);
+    userSGhoDeposit = bound(userSGhoDeposit, 0, 1_000_000e18);
+    migratorGho = bound(migratorGho, 0, 1_000_000e18);
+    migratorStkGho = bound(migratorStkGho, 0, 1_000_000e18);
+    migratorSGho = bound(migratorSGho, 0, 1_000_000e18);
+
+    address user = _stake('USER', amount);
+    if (userSGhoDeposit > 1) {
+      _depositSGho(user, userSGhoDeposit);
+    }
+    deal(address(GHO), user, userGho);
+    _seedMigrator({gho: migratorGho, stkGho: migratorStkGho, sGho: migratorSGho});
+    uint256 migratorSGhoShares = SGHO.balanceOf(newMigrator);
+    executePayload(vm, address(proposal), AaveV3Ethereum.POOL);
+
+    _migrateAndValidate(user, amount);
+
+    assertEq(GHO.balanceOf(newMigrator), migratorGho);
+    assertEq(STK_GHO.balanceOf(newMigrator), migratorStkGho);
+    assertEq(SGHO.balanceOf(newMigrator), migratorSGhoShares);
   }
 
   /// @dev Migrates `account` and asserts every balance and supply affected by the migration.
-  function _migrateAndValidate(address account) internal {
+  function _migrateAndValidate(address account, uint256 expectedGho) internal {
     MigrationState memory stateBefore = _migrationState(account);
-    uint256 expectedGho = (stateBefore.accountStkGho * STK_GHO.EXCHANGE_RATE_UNIT()) /
-      STK_GHO.getExchangeRate();
+    assertEq(
+      (stateBefore.accountStkGho * STK_GHO.EXCHANGE_RATE_UNIT()) / STK_GHO.getExchangeRate(),
+      expectedGho,
+      'expected GHO vs stkGHO rate'
+    );
+    assertEq(STK_GHO.previewRedeem(stateBefore.accountStkGho), expectedGho, 'stkGHO previewRedeem');
     uint256 expectedSGhoShares = SGHO.previewDeposit(expectedGho);
-    assertEq(STK_GHO.previewRedeem(stateBefore.accountStkGho), expectedGho);
 
     vm.expectEmit(newMigrator);
     emit IStkGhoMigrator.StkGhoMigrated(account, expectedGho);
@@ -476,11 +585,52 @@ contract AaveV3Ethereum_StkGhoMigratorUpdate_20261008_Test is ProtocolV3TestBase
 
   function _stake(string memory name, uint256 amount) internal returns (address staker) {
     staker = makeAddr(name);
+    _stakeFor(staker, amount);
+  }
+
+  function _stakeFor(address staker, uint256 amount) internal {
     deal(address(GHO), staker, amount);
     vm.startPrank(staker);
     GHO.approve(address(STK_GHO), amount);
     STK_GHO.stake(staker, amount);
     vm.stopPrank();
+  }
+
+  function _depositSGho(address account, uint256 amount) internal {
+    deal(address(GHO), account, amount);
+    vm.startPrank(account);
+    GHO.approve(address(SGHO), amount);
+    SGHO.deposit(amount, account);
+    vm.stopPrank();
+  }
+
+  /// @dev Sends GHO, stkGHO and the sGHO shares minted for `sGho` GHO to the new migrator, as if
+  /// transferred to it by mistake.
+  function _seedMigrator(uint256 gho, uint256 stkGho, uint256 sGho) internal {
+    address sender = makeAddr('SEEDER');
+    deal(address(GHO), newMigrator, gho);
+    if (stkGho != 0) {
+      _stakeFor(sender, stkGho);
+      vm.prank(sender);
+      assertTrue(STK_GHO.transfer(newMigrator, stkGho));
+    }
+    if (sGho != 0) {
+      _depositSGho(sender, sGho);
+      uint256 shares = SGHO.balanceOf(sender);
+      vm.prank(sender);
+      assertTrue(SGHO.transfer(newMigrator, shares));
+    }
+  }
+
+  /// @dev stkGHO `returnFunds` sets the rate to `ceil(totalShares * UNIT / (totalAssets + amount))`.
+  function _expectedRateAfterReturnFunds(uint256 amount) internal view returns (uint256) {
+    uint256 totalShares = STK_GHO.totalSupply();
+    uint256 totalAssets = STK_GHO.previewRedeem(totalShares);
+    return _ceilDiv(totalShares * STK_GHO.EXCHANGE_RATE_UNIT(), totalAssets + amount);
+  }
+
+  function _ceilDiv(uint256 a, uint256 b) internal pure returns (uint256) {
+    return (a + b - 1) / b;
   }
 
   function _returnFunds(uint256 amount) internal {
