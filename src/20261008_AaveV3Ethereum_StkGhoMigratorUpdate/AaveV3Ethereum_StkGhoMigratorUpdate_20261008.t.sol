@@ -13,6 +13,7 @@ import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
 import {IERC4626} from 'openzeppelin-contracts/contracts/interfaces/IERC4626.sol';
 import {Pausable} from 'openzeppelin-contracts/contracts/utils/Pausable.sol';
 import {Ownable} from 'openzeppelin-contracts/contracts/access/Ownable.sol';
+import {Math} from 'openzeppelin-contracts/contracts/utils/math/Math.sol';
 
 import 'forge-std/Test.sol';
 import {ProtocolV3TestBase} from 'aave-helpers/src/ProtocolV3TestBase.sol';
@@ -316,7 +317,7 @@ contract AaveV3Ethereum_StkGhoMigratorUpdate_20261008_Test is ProtocolV3TestBase
 
     uint256 totalShares = STK_GHO.totalSupply();
     uint256 totalAssets = STK_GHO.previewRedeem(totalShares);
-    uint256 expectedRate = _ceilDiv(
+    uint256 expectedRate = Math.ceilDiv(
       totalShares * STK_GHO.EXCHANGE_RATE_UNIT(),
       totalAssets - 1_000e18
     );
@@ -626,11 +627,7 @@ contract AaveV3Ethereum_StkGhoMigratorUpdate_20261008_Test is ProtocolV3TestBase
   function _expectedRateAfterReturnFunds(uint256 amount) internal view returns (uint256) {
     uint256 totalShares = STK_GHO.totalSupply();
     uint256 totalAssets = STK_GHO.previewRedeem(totalShares);
-    return _ceilDiv(totalShares * STK_GHO.EXCHANGE_RATE_UNIT(), totalAssets + amount);
-  }
-
-  function _ceilDiv(uint256 a, uint256 b) internal pure returns (uint256) {
-    return (a + b - 1) / b;
+    return Math.ceilDiv(totalShares * STK_GHO.EXCHANGE_RATE_UNIT(), totalAssets + amount);
   }
 
   function _returnFunds(uint256 amount) internal {
