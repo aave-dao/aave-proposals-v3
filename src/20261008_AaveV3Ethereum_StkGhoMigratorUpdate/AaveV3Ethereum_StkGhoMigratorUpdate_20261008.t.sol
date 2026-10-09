@@ -109,21 +109,21 @@ contract AaveV3Ethereum_StkGhoMigratorUpdate_20261008_Test is ProtocolV3TestBase
     _assertLog({
       log: logs[0],
       emitter: address(STK_GHO),
-      topic0: PendingAdminChanged.selector,
-      topic1: newMigrator,
+      topics: _topics(PendingAdminChanged.selector, newMigrator),
       data: abi.encode(STK_GHO.CLAIM_HELPER_ROLE())
     });
     _assertLog({
       log: logs[1],
       emitter: address(STK_GHO),
-      topic0: RoleClaimed.selector,
-      topic1: newMigrator,
+      topics: _topics(RoleClaimed.selector, newMigrator),
       data: abi.encode(STK_GHO.CLAIM_HELPER_ROLE())
     });
-    assertEq(logs[2].emitter, oldMigrator);
-    assertEq(logs[2].topics.length, 1);
-    assertEq(logs[2].topics[0], Paused.selector);
-    assertEq(logs[2].data, abi.encode(GovernanceV3Ethereum.EXECUTOR_LVL_1));
+    _assertLog({
+      log: logs[2],
+      emitter: oldMigrator,
+      topics: _topics(Paused.selector),
+      data: abi.encode(GovernanceV3Ethereum.EXECUTOR_LVL_1)
+    });
 
     assertEq(STK_GHO.getAdmin(STK_GHO.CLAIM_HELPER_ROLE()), newMigrator);
     assertEq(STK_GHO.getPendingAdmin(STK_GHO.CLAIM_HELPER_ROLE()), address(0));
@@ -425,15 +425,23 @@ contract AaveV3Ethereum_StkGhoMigratorUpdate_20261008_Test is ProtocolV3TestBase
   function _assertLog(
     Vm.Log memory log,
     address emitter,
-    bytes32 topic0,
-    address topic1,
+    bytes32[] memory topics,
     bytes memory data
   ) internal pure {
     assertEq(log.emitter, emitter);
-    assertEq(log.topics.length, 2);
-    assertEq(log.topics[0], topic0);
-    assertEq(log.topics[1], bytes32(uint256(uint160(topic1))));
+    assertEq(log.topics, topics);
     assertEq(log.data, data);
+  }
+
+  function _topics(bytes32 topic0) internal pure returns (bytes32[] memory topics) {
+    topics = new bytes32[](1);
+    topics[0] = topic0;
+  }
+
+  function _topics(bytes32 topic0, address topic1) internal pure returns (bytes32[] memory topics) {
+    topics = new bytes32[](2);
+    topics[0] = topic0;
+    topics[1] = bytes32(uint256(uint160(topic1)));
   }
 
   /// @dev Keeps the logs emitted by stkGHO and either migrator, in emission order.
