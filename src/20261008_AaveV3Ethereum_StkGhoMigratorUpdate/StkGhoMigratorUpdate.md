@@ -1,7 +1,7 @@
 ---
 title: "Move stkGHO Claim Helper Role to Updated StkGhoMigrator"
 author: "Aave Labs"
-discussions: "TODO"
+discussions: "https://governance.aave.com/t/technical-maintenance-proposals/15274/138"
 ---
 
 ## Simple Summary
@@ -40,9 +40,9 @@ The migration flow in the Aave UI will be switched to the updated StkGhoMigrator
 
 ## References
 
-- Implementation: [AaveV3Ethereum](TODO)
-- Tests: [AaveV3Ethereum](TODO)
-- [Discussion](TODO)
+- Implementation: [AaveV3Ethereum](https://github.com/aave-dao/aave-proposals-v3/blob/11d2f73d5ceecaecf729b7c40c28e39c8250a5b2/src/20261008_AaveV3Ethereum_StkGhoMigratorUpdate/AaveV3Ethereum_StkGhoMigratorUpdate_20261008.sol)
+- Tests: [AaveV3Ethereum](https://github.com/aave-dao/aave-proposals-v3/blob/11d2f73d5ceecaecf729b7c40c28e39c8250a5b2/src/20261008_AaveV3Ethereum_StkGhoMigratorUpdate/AaveV3Ethereum_StkGhoMigratorUpdate_20261008.t.sol)
+- [Discussion](https://governance.aave.com/t/technical-maintenance-proposals/15274/138)
 
 ## Disclaimer
 

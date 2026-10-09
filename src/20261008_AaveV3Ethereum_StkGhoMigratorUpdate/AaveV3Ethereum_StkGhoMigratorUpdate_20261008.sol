@@ -8,7 +8,7 @@ import {IStkGhoMigrator} from '../interfaces/IStkGhoMigrator.sol';
  * @title Move stkGHO Claim Helper Role to Updated StkGhoMigrator
  * @author Aave Labs
  * - Snapshot: direct-to-AIP
- * - Discussion: TODO
+ * - Discussion: https://governance.aave.com/t/technical-maintenance-proposals/15274/138
  */
 contract AaveV3Ethereum_StkGhoMigratorUpdate_20261008 is IProposalGenericExecutor {
   // https://etherscan.io/address/0xC836143e39201698e7d543bCf21AfF3415aE4697

@@ -6,7 +6,7 @@ export const config: ConfigFile = {
     shortName: 'StkGhoMigratorUpdate',
     date: '20261008',
     author: 'Aave Labs',
-    discussion: 'TODO',
+    discussion: 'https://governance.aave.com/t/technical-maintenance-proposals/15274/138',
     snapshot: 'direct-to-aip',
     votingNetwork: 'AVALANCHE',
   },
