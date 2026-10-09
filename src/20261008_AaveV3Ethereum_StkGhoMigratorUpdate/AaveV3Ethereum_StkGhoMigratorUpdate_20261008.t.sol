@@ -199,15 +199,30 @@ contract AaveV3Ethereum_StkGhoMigratorUpdate_20261008_Test is ProtocolV3TestBase
     IStkGhoMigrator(oldMigrator).claimHelperRole();
   }
 
-  function test_newMigratorCanHandOverClaimHelperRole() public {
+  function test_newMigratorCanHandClaimHelperRoleBackToExecutor() public {
+    address user = _stake('USER', 100e18);
     executePayload(vm, address(proposal), AaveV3Ethereum.POOL);
-    address newPendingAdmin = makeAddr('NEW_PENDING_ADMIN');
 
     vm.prank(GovernanceV3Ethereum.EXECUTOR_LVL_1);
-    IStkGhoMigrator(newMigrator).setClaimHelperPendingAdmin(newPendingAdmin);
+    IStkGhoMigrator(newMigrator).setClaimHelperPendingAdmin(GovernanceV3Ethereum.EXECUTOR_LVL_1);
 
-    assertEq(STK_GHO.getPendingAdmin(STK_GHO.CLAIM_HELPER_ROLE()), newPendingAdmin);
+    assertEq(
+      STK_GHO.getPendingAdmin(STK_GHO.CLAIM_HELPER_ROLE()),
+      GovernanceV3Ethereum.EXECUTOR_LVL_1
+    );
     assertEq(STK_GHO.getAdmin(STK_GHO.CLAIM_HELPER_ROLE()), newMigrator);
+
+    uint256 claimHelperRole = STK_GHO.CLAIM_HELPER_ROLE();
+    vm.prank(GovernanceV3Ethereum.EXECUTOR_LVL_1);
+    STK_GHO.claimRoleAdmin(claimHelperRole);
+
+    assertEq(STK_GHO.getAdmin(STK_GHO.CLAIM_HELPER_ROLE()), GovernanceV3Ethereum.EXECUTOR_LVL_1);
+    assertEq(STK_GHO.getPendingAdmin(STK_GHO.CLAIM_HELPER_ROLE()), address(0));
+    _assertHoldsNoStkGhoRole(newMigrator);
+
+    vm.prank(user);
+    vm.expectRevert(bytes('CALLER_NOT_CLAIM_HELPER'));
+    IStkGhoMigrator(newMigrator).migrate();
   }
 
   function test_newMigratorPausableByGuardian() public {
