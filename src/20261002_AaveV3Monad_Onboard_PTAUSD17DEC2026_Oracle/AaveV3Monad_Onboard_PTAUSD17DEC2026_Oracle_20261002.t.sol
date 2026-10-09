@@ -3,7 +3,6 @@ pragma solidity ^0.8.0;
 
 import {AaveV3Monad, AaveV3MonadAssets, AaveV3MonadEModes} from 'aave-address-book/AaveV3Monad.sol';
 import {MiscMonad} from 'aave-address-book/MiscMonad.sol';
-import {GovernanceV3Monad} from 'aave-address-book/GovernanceV3Monad.sol';
 
 import 'forge-std/Test.sol';
 import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/src/ProtocolV3TestBase.sol';
@@ -19,6 +18,8 @@ import {IRiskOracle} from '../interfaces/IRiskOracle.sol';
 /**
  * @dev Test for AaveV3Monad_Onboard_PTAUSD17DEC2026_Oracle_20261002
  * command: FOUNDRY_PROFILE=test forge test --match-path=src/20261002_AaveV3Monad_Onboard_PTAUSD17DEC2026_Oracle/AaveV3Monad_Onboard_PTAUSD17DEC2026_Oracle_20261002.t.sol -vv
+ * forge-config: default.networks.network = "monad"
+ * forge-config: default.hardfork = "monad:MonadTen"
  */
 contract AaveV3Monad_Onboard_PTAUSD17DEC2026_Oracle_20261002_Test is ProtocolV3TestBase {
   AaveV3Monad_Onboard_PTAUSD17DEC2026_Oracle_20261002 internal proposal;
@@ -26,19 +27,12 @@ contract AaveV3Monad_Onboard_PTAUSD17DEC2026_Oracle_20261002_Test is ProtocolV3T
   uint256 internal discountAgentId;
   uint256 internal eModeAgentId;
 
-  uint256 internal constant FORK_BLOCK = 109947773;
-
-  /// @dev PT-AUSD-17DEC2026 price feed set by the onboarding AIP.
-  address internal constant PT_AUSD_17DEC2026_PRICE_FEED =
-    0x4dc9Ee8d739411242303f7F78C6610d5B0371a2C;
+  uint256 internal constant FORK_BLOCK = 111800000;
 
   function setUp() public {
     vm.createSelectFork(vm.rpcUrl('monad'), FORK_BLOCK);
-    _simulateAssetListing();
     proposal = new AaveV3Monad_Onboard_PTAUSD17DEC2026_Oracle_20261002();
 
-    // The ids the payload will be handed, derived from the live count rather than hardcoded, since
-    // anything registered between now and execution shifts them.
     uint256 startCount = IAgentHub(MiscMonad.AGENT_HUB).getAgentCount();
     discountAgentId = startCount;
     eModeAgentId = startCount + 1;
@@ -303,29 +297,6 @@ contract AaveV3Monad_Onboard_PTAUSD17DEC2026_Oracle_20261002_Test is ProtocolV3T
     // does not have, which would leave the first one unbounded.
     assertFalse(config.isIncreaseRelative, 'increase should be absolute');
     assertFalse(config.isDecreaseRelative, 'decrease should be absolute');
-  }
-
-  /// @dev The onboarding AIP has not executed at FORK_BLOCK. This applies the two parts of it the
-  ///      agents read: the PT price source on the Aave oracle (discount rate agent) and the eMode
-  ///      category (eMode agent), with the values from that AIP. Remove once the fork block is past
-  ///      its execution.
-  function _simulateAssetListing() internal {
-    address[] memory assets = new address[](1);
-    assets[0] = AaveV3MonadAssets.PT_AUSD_17DEC2026_UNDERLYING;
-    address[] memory sources = new address[](1);
-    sources[0] = PT_AUSD_17DEC2026_PRICE_FEED;
-
-    vm.startPrank(GovernanceV3Monad.EXECUTOR_LVL_1);
-    AaveV3Monad.ORACLE.setAssetSources(assets, sources);
-    AaveV3Monad.POOL_CONFIGURATOR.setEModeCategory(
-      AaveV3MonadEModes.PT_AUSD_17DEC2026__USDT0_USDC_USDe_mUSD_GHO,
-      93_00,
-      95_00,
-      102_62,
-      'PT_AUSD_17DEC2026__Stablecoins',
-      false
-    );
-    vm.stopPrank();
   }
 
   function _publishUpdate(

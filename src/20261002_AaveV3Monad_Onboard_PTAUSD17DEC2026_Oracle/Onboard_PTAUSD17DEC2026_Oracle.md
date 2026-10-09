@@ -1,7 +1,7 @@
 ---
 title: "Onboard PT-AUSD-17DEC2026 to the LlamaRisk PT Risk Oracle"
 author: "LlamaRisk"
-discussions: "https://governance.aave.com/t/arfc-upgrade-pt-risk-oracle-to-protocol-owned-infrastructure-on-cre/25119"
+discussions: "https://governance.aave.com/t/arfc-upgrade-pt-risk-oracle-to-protocol-owned-infrastructure-on-cre/25119/6?u=llamarisk"
 ---
 
 ## Simple Summary
@@ -45,10 +45,6 @@ Every bound is absolute rather than relative. A relative cap is measured against
 
 These configurations are not optional. A fresh agent id inherits no default range config, and the module reads a missing config as a zero bound, which rejects every injection. Omitting them would produce a registered but permanently inert agent.
 
-### Dependency on the onboarding AIP
-
-The payload only writes addresses and ids into the AgentHub, the ACL manager and the RangeValidationModule, so it executes regardless of whether the onboarding AIP has executed. The agents cannot act until it has: the discount rate agent needs the PT price source on the Aave oracle, and the eMode agent needs eMode category 6 to exist. The payload assumes the onboarding AIP creates category 6, which holds as long as no other eMode category is created on Monad before it.
-
 ### Affected eMode categories
 
 | Id  | Label                            |
@@ -72,7 +68,8 @@ Existing Aave contracts referenced, all from the address book:
 - AgentHub: `MiscMonad.AGENT_HUB`
 - RangeValidationModule: `MiscMonad.RANGE_VALIDATION_MODULE`
 - PT-AUSD-17DEC2026: `AaveV3MonadAssets.PT_AUSD_17DEC2026_UNDERLYING`
-- eMode category 6: `AaveV3MonadEModes.PT_AUSD_17DEC2026__USDT0_USDC_USDe_mUSD_GHO`
+- eMode category 6 (`PT_AUSD_17DEC2026__Stablecoins`):
+  `AaveV3MonadEModes.PT_AUSD_17DEC2026__USDT0_USDC_USDe_mUSD_GHO`
 - ACL manager: `AaveV3Monad.ACL_MANAGER`
 - Config engine: `AaveV3Monad.CONFIG_ENGINE`
 - Agent admin: `MiscMonad.PROTOCOL_GUARDIAN`
@@ -88,7 +85,7 @@ Both predeployed agents are verified deployments of the stock implementations fr
 - [Tests](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20261002_AaveV3Monad_Onboard_PTAUSD17DEC2026_Oracle/AaveV3Monad_Onboard_PTAUSD17DEC2026_Oracle_20261002.t.sol)
 - Agent implementations: [aave-dao/aave-risk-agents](https://github.com/aave-dao/aave-risk-agents)
 - Snapshot: Direct-to-AIP
-- [Discussion](https://governance.aave.com/t/arfc-upgrade-pt-risk-oracle-to-protocol-owned-infrastructure-on-cre/25119)
+- [Discussion](https://governance.aave.com/t/arfc-upgrade-pt-risk-oracle-to-protocol-owned-infrastructure-on-cre/25119/6)
 
 ## Copyright
 

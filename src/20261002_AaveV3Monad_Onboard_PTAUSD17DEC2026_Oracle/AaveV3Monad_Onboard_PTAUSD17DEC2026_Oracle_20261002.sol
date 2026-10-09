@@ -10,19 +10,15 @@ import {AgentHubConfigs} from '../helpers/agent-hub/Configs.sol';
  * @title Onboard_PTAUSD17DEC2026_Oracle
  * @author LlamaRisk
  * - Snapshot: direct-to-AIP
- * - Discussion: https://governance.aave.com/t/arfc-upgrade-pt-risk-oracle-to-protocol-owned-infrastructure-on-cre/25119
+ * - Discussion: https://governance.aave.com/t/arfc-upgrade-pt-risk-oracle-to-protocol-owned-infrastructure-on-cre/25119/6
  */
 contract AaveV3Monad_Onboard_PTAUSD17DEC2026_Oracle_20261002 is AgentHubAgentActivationPayload {
-  /// @dev Protocol guardian, so a misbehaving agent can be disabled without a governance cycle.
-  ///      Registration stays governance-only: `registerAgent` and `setAgentAdmin` are `onlyOwner`.
-  address public constant AGENT_ADMIN = MiscMonad.PROTOCOL_GUARDIAN;
-
   function execute() external {
     AgentHubConfig memory agentHubConfig = AgentHubConfig({
       aclManager: address(AaveV3Monad.ACL_MANAGER),
       agentHub: MiscMonad.AGENT_HUB,
       rangeValidationModule: MiscMonad.RANGE_VALIDATION_MODULE,
-      agentAdmin: AGENT_ADMIN,
+      agentAdmin: MiscMonad.PROTOCOL_GUARDIAN,
       riskOracle: MiscMonad.LLAMARISK_RISK_ORACLE
     });
 

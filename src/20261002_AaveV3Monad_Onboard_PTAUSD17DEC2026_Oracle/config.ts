@@ -7,7 +7,7 @@ export const config: ConfigFile = {
     date: '20261002',
     author: 'LlamaRisk',
     discussion:
-      'https://governance.aave.com/t/arfc-upgrade-pt-risk-oracle-to-protocol-owned-infrastructure-on-cre/25119',
+      'https://governance.aave.com/t/arfc-upgrade-pt-risk-oracle-to-protocol-owned-infrastructure-on-cre/25119/6?u=llamarisk',
     snapshot: 'direct-to-AIP',
     votingNetwork: 'AVALANCHE',
   },
