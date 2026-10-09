@@ -81,8 +81,8 @@ Both predeployed agents are verified deployments of the stock implementations fr
 
 ## References
 
-- [Implementation](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20261002_AaveV3Monad_Onboard_PTAUSD17DEC2026_Oracle/AaveV3Monad_Onboard_PTAUSD17DEC2026_Oracle_20261002.sol)
-- [Tests](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20261002_AaveV3Monad_Onboard_PTAUSD17DEC2026_Oracle/AaveV3Monad_Onboard_PTAUSD17DEC2026_Oracle_20261002.t.sol)
+- [Implementation](https://github.com/aave-dao/aave-proposals-v3/blob/0e54b037297569b91a27199659612cd20f262f8b/src/20261002_AaveV3Monad_Onboard_PTAUSD17DEC2026_Oracle/AaveV3Monad_Onboard_PTAUSD17DEC2026_Oracle_20261002.sol)
+- [Tests](https://github.com/aave-dao/aave-proposals-v3/blob/0e54b037297569b91a27199659612cd20f262f8b/src/20261002_AaveV3Monad_Onboard_PTAUSD17DEC2026_Oracle/AaveV3Monad_Onboard_PTAUSD17DEC2026_Oracle_20261002.t.sol)
 - Agent implementations: [aave-dao/aave-risk-agents](https://github.com/aave-dao/aave-risk-agents)
 - Snapshot: Direct-to-AIP
 - [Discussion](https://governance.aave.com/t/arfc-upgrade-pt-risk-oracle-to-protocol-owned-infrastructure-on-cre/25119/6)
