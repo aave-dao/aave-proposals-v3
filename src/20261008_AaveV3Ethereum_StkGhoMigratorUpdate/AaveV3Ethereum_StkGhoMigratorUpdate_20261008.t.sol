@@ -18,24 +18,6 @@ import 'forge-std/Test.sol';
 import {ProtocolV3TestBase} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {AaveV3Ethereum_StkGhoMigratorUpdate_20261008} from './AaveV3Ethereum_StkGhoMigratorUpdate_20261008.sol';
 
-interface IStkGhoMigratorView {
-  function owner() external view returns (address);
-  function pendingOwner() external view returns (address);
-  function guardian() external view returns (address);
-  function paused() external view returns (bool);
-  function unpause() external;
-  function STKGHO() external view returns (address);
-  function SGHO() external view returns (address);
-  function GHO() external view returns (address);
-  function CLAIM_HELPER_ROLE() external view returns (uint256);
-}
-
-interface IUpdatedStkGhoMigrator {
-  event StkGhoMigrated(address indexed user, uint256 amount);
-
-  function migrate() external returns (uint256, uint256);
-}
-
 /**
  * @dev Test for AaveV3Ethereum_StkGhoMigratorUpdate_20261008
  * command: FOUNDRY_PROFILE=test forge test --match-path=src/20261008_AaveV3Ethereum_StkGhoMigratorUpdate/AaveV3Ethereum_StkGhoMigratorUpdate_20261008.t.sol -vv
@@ -102,9 +84,9 @@ contract AaveV3Ethereum_StkGhoMigratorUpdate_20261008_Test is ProtocolV3TestBase
   function test_stateBeforeExecution() public view {
     assertEq(STK_GHO.getAdmin(STK_GHO.CLAIM_HELPER_ROLE()), oldMigrator);
     assertEq(STK_GHO.getPendingAdmin(STK_GHO.CLAIM_HELPER_ROLE()), address(0));
-    assertFalse(IStkGhoMigratorView(oldMigrator).paused());
-    assertEq(IStkGhoMigratorView(oldMigrator).owner(), GovernanceV3Ethereum.EXECUTOR_LVL_1);
-    assertEq(IStkGhoMigratorView(oldMigrator).guardian(), MiscEthereum.PROTOCOL_GUARDIAN);
+    assertFalse(IStkGhoMigrator(oldMigrator).paused());
+    assertEq(IStkGhoMigrator(oldMigrator).owner(), GovernanceV3Ethereum.EXECUTOR_LVL_1);
+    assertEq(IStkGhoMigrator(oldMigrator).guardian(), MiscEthereum.PROTOCOL_GUARDIAN);
 
     _assertNewMigratorConfig();
     _assertHoldsNoStkGhoRole(newMigrator);
@@ -115,7 +97,7 @@ contract AaveV3Ethereum_StkGhoMigratorUpdate_20261008_Test is ProtocolV3TestBase
 
     vm.prank(user);
     vm.expectRevert(bytes('CALLER_NOT_CLAIM_HELPER'));
-    IUpdatedStkGhoMigrator(newMigrator).migrate();
+    IStkGhoMigrator(newMigrator).migrate();
   }
 
   function test_executePayload() public {
@@ -156,10 +138,10 @@ contract AaveV3Ethereum_StkGhoMigratorUpdate_20261008_Test is ProtocolV3TestBase
   function test_oldMigratorPausedWithUnchangedOwnership() public {
     executePayload(vm, address(proposal), AaveV3Ethereum.POOL);
 
-    assertTrue(IStkGhoMigratorView(oldMigrator).paused());
-    assertEq(IStkGhoMigratorView(oldMigrator).owner(), GovernanceV3Ethereum.EXECUTOR_LVL_1);
-    assertEq(IStkGhoMigratorView(oldMigrator).pendingOwner(), address(0));
-    assertEq(IStkGhoMigratorView(oldMigrator).guardian(), MiscEthereum.PROTOCOL_GUARDIAN);
+    assertTrue(IStkGhoMigrator(oldMigrator).paused());
+    assertEq(IStkGhoMigrator(oldMigrator).owner(), GovernanceV3Ethereum.EXECUTOR_LVL_1);
+    assertEq(IStkGhoMigrator(oldMigrator).pendingOwner(), address(0));
+    assertEq(IStkGhoMigrator(oldMigrator).guardian(), MiscEthereum.PROTOCOL_GUARDIAN);
   }
 
   function test_newMigratorConfigUnchanged() public {
@@ -192,7 +174,7 @@ contract AaveV3Ethereum_StkGhoMigratorUpdate_20261008_Test is ProtocolV3TestBase
     executePayload(vm, address(proposal), AaveV3Ethereum.POOL);
 
     vm.prank(GovernanceV3Ethereum.EXECUTOR_LVL_1);
-    IStkGhoMigratorView(oldMigrator).unpause();
+    IStkGhoMigrator(oldMigrator).unpause();
 
     vm.prank(user);
     vm.expectRevert(bytes('CALLER_NOT_CLAIM_HELPER'));
@@ -211,7 +193,7 @@ contract AaveV3Ethereum_StkGhoMigratorUpdate_20261008_Test is ProtocolV3TestBase
     executePayload(vm, address(proposal), AaveV3Ethereum.POOL);
 
     vm.prank(GovernanceV3Ethereum.EXECUTOR_LVL_1);
-    IStkGhoMigratorView(oldMigrator).unpause();
+    IStkGhoMigrator(oldMigrator).unpause();
 
     vm.expectRevert(bytes('CALLER_NOT_PENDING_ROLE_ADMIN'));
     IStkGhoMigrator(oldMigrator).claimHelperRole();
@@ -235,10 +217,10 @@ contract AaveV3Ethereum_StkGhoMigratorUpdate_20261008_Test is ProtocolV3TestBase
     vm.prank(MiscEthereum.PROTOCOL_GUARDIAN);
     IStkGhoMigrator(newMigrator).pause();
 
-    assertTrue(IStkGhoMigratorView(newMigrator).paused());
+    assertTrue(IStkGhoMigrator(newMigrator).paused());
     vm.prank(user);
     vm.expectRevert(Pausable.EnforcedPause.selector);
-    IUpdatedStkGhoMigrator(newMigrator).migrate();
+    IStkGhoMigrator(newMigrator).migrate();
 
     vm.prank(MiscEthereum.PROTOCOL_GUARDIAN);
     vm.expectRevert(
@@ -247,10 +229,10 @@ contract AaveV3Ethereum_StkGhoMigratorUpdate_20261008_Test is ProtocolV3TestBase
         MiscEthereum.PROTOCOL_GUARDIAN
       )
     );
-    IStkGhoMigratorView(newMigrator).unpause();
+    IStkGhoMigrator(newMigrator).unpause();
 
     vm.prank(GovernanceV3Ethereum.EXECUTOR_LVL_1);
-    IStkGhoMigratorView(newMigrator).unpause();
+    IStkGhoMigrator(newMigrator).unpause();
     _migrateAndValidate(user);
   }
 
@@ -339,9 +321,13 @@ contract AaveV3Ethereum_StkGhoMigratorUpdate_20261008_Test is ProtocolV3TestBase
     assertEq(STK_GHO.previewRedeem(stateBefore.accountStkGho), expectedGho);
 
     vm.expectEmit(newMigrator);
-    emit IUpdatedStkGhoMigrator.StkGhoMigrated(account, expectedGho);
+    emit IStkGhoMigrator.StkGhoMigrated(account, expectedGho);
     vm.prank(account);
-    (uint256 ghoRedeemed, uint256 sGhoShares) = IUpdatedStkGhoMigrator(newMigrator).migrate();
+    (bool success, bytes memory returnData) = newMigrator.call(
+      abi.encodeCall(IStkGhoMigrator.migrate, ())
+    );
+    assertTrue(success, 'migrate reverted');
+    (uint256 ghoRedeemed, uint256 sGhoShares) = abi.decode(returnData, (uint256, uint256));
 
     assertEq(ghoRedeemed, expectedGho, 'returned GHO redeemed');
     assertEq(sGhoShares, expectedSGhoShares, 'returned sGHO shares');
@@ -409,7 +395,7 @@ contract AaveV3Ethereum_StkGhoMigratorUpdate_20261008_Test is ProtocolV3TestBase
   }
 
   function _assertNewMigratorConfig() internal view {
-    IStkGhoMigratorView migrator = IStkGhoMigratorView(newMigrator);
+    IStkGhoMigrator migrator = IStkGhoMigrator(newMigrator);
     assertFalse(migrator.paused());
     assertEq(migrator.owner(), GovernanceV3Ethereum.EXECUTOR_LVL_1);
     assertEq(migrator.pendingOwner(), address(0));
