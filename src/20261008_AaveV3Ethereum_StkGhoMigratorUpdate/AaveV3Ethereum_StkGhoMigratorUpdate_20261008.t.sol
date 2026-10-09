@@ -359,6 +359,32 @@ contract AaveV3Ethereum_StkGhoMigratorUpdate_20261008_Test is ProtocolV3TestBase
     assertEq(SGHO.balanceOf(newMigrator), migratorSGho);
   }
 
+  function test_e2e_migrationWithExistingBalancesAfterReturnFunds() public {
+    address user = _stake('USER', 60e18);
+    vm.prank(user);
+    STK_GHO.cooldown();
+    _stakeFor(user, 40e18);
+    _depositSGho(user, 50e18);
+    deal(address(GHO), user, 37e18);
+    _seedMigrator({gho: 7e18, stkGho: 3e18, sGho: 2e18});
+    uint256 migratorSGho = SGHO.balanceOf(newMigrator);
+
+    executePayload(vm, address(proposal), AaveV3Ethereum.POOL);
+    uint256 expectedRate = _expectedRateAfterReturnFunds(1e18);
+    _returnFunds(1e18);
+
+    assertEq(STK_GHO.getExchangeRate(), expectedRate);
+    assertLt(expectedRate, STK_GHO.EXCHANGE_RATE_UNIT());
+    assertEq(STK_GHO.balanceOf(user), 100e18);
+    uint256 expectedGho = (100e18 * STK_GHO.EXCHANGE_RATE_UNIT()) / expectedRate;
+    assertGt(expectedGho, 100e18);
+    _migrateAndValidate(user, expectedGho);
+
+    assertEq(GHO.balanceOf(newMigrator), 7e18);
+    assertEq(STK_GHO.balanceOf(newMigrator), 3e18);
+    assertEq(SGHO.balanceOf(newMigrator), migratorSGho);
+  }
+
   function test_e2e_migrationWithExpiredCooldown() public {
     address user = _stake('USER', 100e18);
     vm.prank(user);
@@ -409,9 +435,11 @@ contract AaveV3Ethereum_StkGhoMigratorUpdate_20261008_Test is ProtocolV3TestBase
     uint256 userSGhoDeposit,
     uint256 migratorGho,
     uint256 migratorStkGho,
-    uint256 migratorSGho
+    uint256 migratorSGho,
+    uint256 donation
   ) public {
     amount = bound(amount, 2, 1_000_000e18);
+    donation = bound(donation, 0, 10_000_000e18);
     userGho = bound(userGho, 0, 1_000_000e18);
     userSGhoDeposit = bound(userSGhoDeposit, 0, 1_000_000e18);
     migratorGho = bound(migratorGho, 0, 1_000_000e18);
@@ -427,7 +455,14 @@ contract AaveV3Ethereum_StkGhoMigratorUpdate_20261008_Test is ProtocolV3TestBase
     uint256 migratorSGhoShares = SGHO.balanceOf(newMigrator);
     executePayload(vm, address(proposal), AaveV3Ethereum.POOL);
 
-    _migrateAndValidate(user, amount);
+    uint256 expectedRate = STK_GHO.EXCHANGE_RATE_UNIT();
+    if (donation >= STK_GHO.LOWER_BOUND()) {
+      expectedRate = _expectedRateAfterReturnFunds(donation);
+      _returnFunds(donation);
+    }
+    assertEq(STK_GHO.getExchangeRate(), expectedRate);
+
+    _migrateAndValidate(user, (amount * STK_GHO.EXCHANGE_RATE_UNIT()) / expectedRate);
 
     assertEq(GHO.balanceOf(newMigrator), migratorGho);
     assertEq(STK_GHO.balanceOf(newMigrator), migratorStkGho);
