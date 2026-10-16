@@ -1,5 +1,5 @@
 ---
-title: "[AIP] Onboard SPCXc to the Aave V4 Equities Hub on Base"
+title: "Onboard SPCXc to the Aave V4 Equities Hub on Base"
 author: "@AaveLabs"
 date: "2026-10-16"
 discussions: "https://governance.aave.com/t/direct-to-aip-asset-listing-spcx-to-the-aave-v4-equities-hub-on-base/25850"
