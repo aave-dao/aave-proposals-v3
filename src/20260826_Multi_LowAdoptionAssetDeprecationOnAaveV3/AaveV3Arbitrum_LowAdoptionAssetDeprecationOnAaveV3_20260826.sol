@@ -17,7 +17,7 @@ contract AaveV3Arbitrum_LowAdoptionAssetDeprecationOnAaveV3_20260826 is AaveV3Pa
     AaveV3Arbitrum.POOL_CONFIGURATOR.setReserveFreeze(AaveV3ArbitrumAssets.DAI_UNDERLYING, true);
     AaveV3Arbitrum.POOL_CONFIGURATOR.setReserveFreeze(AaveV3ArbitrumAssets.rETH_UNDERLYING, true);
     AaveV3Arbitrum.POOL_CONFIGURATOR.setReserveFreeze(AaveV3ArbitrumAssets.tBTC_UNDERLYING, true);
-    AaveV3Arbitrum.POOL_CONFIGURATOR.setReserveFreeze(AaveV3ArbitrumAssets.USDC_UNDERLYING, true);
+    AaveV3Arbitrum.POOL_CONFIGURATOR.setReserveFreeze(AaveV3ArbitrumAssets.USDCe_UNDERLYING, true);
     AaveV3Arbitrum.POOL_CONFIGURATOR.setReserveFreeze(AaveV3ArbitrumAssets.ezETH_UNDERLYING, true);
   }
 
@@ -40,7 +40,7 @@ contract AaveV3Arbitrum_LowAdoptionAssetDeprecationOnAaveV3_20260826 is AaveV3Pa
       borrowCap: EngineFlags.KEEP_CURRENT
     });
     capsUpdate[3] = IAaveV3ConfigEngine.CapsUpdate({
-      asset: AaveV3ArbitrumAssets.USDC_UNDERLYING,
+      asset: AaveV3ArbitrumAssets.USDCe_UNDERLYING,
       supplyCap: 1,
       borrowCap: 1
     });
@@ -80,7 +80,7 @@ contract AaveV3Arbitrum_LowAdoptionAssetDeprecationOnAaveV3_20260826 is AaveV3Pa
       reserveFactor: 50_00
     });
     borrowUpdates[2] = IAaveV3ConfigEngine.BorrowUpdate({
-      asset: AaveV3ArbitrumAssets.USDC_UNDERLYING,
+      asset: AaveV3ArbitrumAssets.USDCe_UNDERLYING,
       enabledToBorrow: EngineFlags.KEEP_CURRENT,
       flashloanable: EngineFlags.KEEP_CURRENT,
       reserveFactor: 75_00

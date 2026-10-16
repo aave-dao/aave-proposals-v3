@@ -334,7 +334,7 @@ contract AaveV3Arbitrum_RemoteGSMLaunchArbitrum_20260512_Part2_Test is ProtocolV
     });
     _checkGsmConfig(
       gsm,
-      AaveV3ArbitrumAssets.USDC_STATA_TOKEN,
+      AaveV3ArbitrumAssets.USDCe_STATA_TOKEN,
       IOracleSwapFreezer(proposal.USDC_ORACLE_SWAP_FREEZER()),
       gsmConfig
     );
@@ -344,7 +344,7 @@ contract AaveV3Arbitrum_RemoteGSMLaunchArbitrum_20260512_Part2_Test is ProtocolV
     _testOracleSwapFreezer(
       IGsm(proposal.GSM_USDC()),
       IOracleSwapFreezer(proposal.USDC_ORACLE_SWAP_FREEZER()),
-      AaveV3ArbitrumAssets.USDC_UNDERLYING
+      AaveV3ArbitrumAssets.USDCe_UNDERLYING
     );
   }
 
@@ -362,7 +362,7 @@ contract AaveV3Arbitrum_RemoteGSMLaunchArbitrum_20260512_Part2_Test is ProtocolV
   }
 
   function test_gsmIsOperational_USDC() public {
-    _testGsmIsOperational(IGsm(proposal.GSM_USDC()), AaveV3ArbitrumAssets.USDC_STATA_TOKEN);
+    _testGsmIsOperational(IGsm(proposal.GSM_USDC()), AaveV3ArbitrumAssets.USDCe_STATA_TOKEN);
   }
 
   function test_ghoGsmSteward_updateExposureCap_USDC() public {

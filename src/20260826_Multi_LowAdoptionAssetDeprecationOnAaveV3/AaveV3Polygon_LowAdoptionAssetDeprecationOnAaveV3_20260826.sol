@@ -14,7 +14,7 @@ import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config
  */
 contract AaveV3Polygon_LowAdoptionAssetDeprecationOnAaveV3_20260826 is AaveV3PayloadPolygon {
   function _postExecute() internal override {
-    AaveV3Polygon.POOL_CONFIGURATOR.setReserveFreeze(AaveV3PolygonAssets.USDC_UNDERLYING, true);
+    AaveV3Polygon.POOL_CONFIGURATOR.setReserveFreeze(AaveV3PolygonAssets.USDCe_UNDERLYING, true);
     AaveV3Polygon.POOL_CONFIGURATOR.setReserveFreeze(AaveV3PolygonAssets.EURS_UNDERLYING, true);
     AaveV3Polygon.POOL_CONFIGURATOR.setReserveFreeze(AaveV3PolygonAssets.MaticX_UNDERLYING, true);
   }
@@ -23,7 +23,7 @@ contract AaveV3Polygon_LowAdoptionAssetDeprecationOnAaveV3_20260826 is AaveV3Pay
     IAaveV3ConfigEngine.CapsUpdate[] memory capsUpdate = new IAaveV3ConfigEngine.CapsUpdate[](8);
 
     capsUpdate[0] = IAaveV3ConfigEngine.CapsUpdate({
-      asset: AaveV3PolygonAssets.USDC_UNDERLYING,
+      asset: AaveV3PolygonAssets.USDCe_UNDERLYING,
       supplyCap: 1,
       borrowCap: 1
     });
@@ -76,7 +76,7 @@ contract AaveV3Polygon_LowAdoptionAssetDeprecationOnAaveV3_20260826 is AaveV3Pay
       memory borrowUpdates = new IAaveV3ConfigEngine.BorrowUpdate[](7);
 
     borrowUpdates[0] = IAaveV3ConfigEngine.BorrowUpdate({
-      asset: AaveV3PolygonAssets.USDC_UNDERLYING,
+      asset: AaveV3PolygonAssets.USDCe_UNDERLYING,
       enabledToBorrow: EngineFlags.KEEP_CURRENT,
       flashloanable: EngineFlags.KEEP_CURRENT,
       reserveFactor: 85_00

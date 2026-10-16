@@ -28,6 +28,11 @@ interface IGsm4626 {
  * command: FOUNDRY_PROFILE=test forge test --match-path=src/20260806_AaveV3Arbitrum_USDCGSMArbitrum/AaveV3Arbitrum_USDCGSMArbitrum_20260806.t.sol -vv
  */
 contract AaveV3Arbitrum_USDCGSMArbitrum_20260806_Test is ProtocolV3TestBase {
+  // The pre-migration USDC GSM and its swap freezer, dropped from the address book once replaced
+  address internal constant OLD_GSM_USDC = 0x53E0cE250d06043414070100458546AaF4e284eD;
+  address internal constant OLD_GSM_USDC_ORACLE_SWAP_FREEZER =
+    0xC5aF63c233eA19cB191b36D16C1e25cDA08409E7;
+
   AaveV3Arbitrum_USDCGSMArbitrum_20260806 internal proposal;
 
   function setUp() public {
@@ -54,12 +59,10 @@ contract AaveV3Arbitrum_USDCGSMArbitrum_20260806_Test is ProtocolV3TestBase {
 
   function test_rolesAreTheSame() public view {
     assertTrue(
-      IGsm(GhoArbitrum.GSM_USDC).LIQUIDATOR_ROLE() ==
-        IGsm(proposal.NEW_GSM_USDC()).LIQUIDATOR_ROLE()
+      IGsm(OLD_GSM_USDC).LIQUIDATOR_ROLE() == IGsm(proposal.NEW_GSM_USDC()).LIQUIDATOR_ROLE()
     );
     assertTrue(
-      IGsm(GhoArbitrum.GSM_USDC).SWAP_FREEZER_ROLE() ==
-        IGsm(proposal.NEW_GSM_USDC()).SWAP_FREEZER_ROLE()
+      IGsm(OLD_GSM_USDC).SWAP_FREEZER_ROLE() == IGsm(proposal.NEW_GSM_USDC()).SWAP_FREEZER_ROLE()
     );
   }
 
@@ -80,7 +83,7 @@ contract AaveV3Arbitrum_USDCGSMArbitrum_20260806_Test is ProtocolV3TestBase {
 
     // No usage from previous or new GSM yet
     assertEq(
-      IGhoReserve(GhoArbitrum.GHO_RESERVE).getUsed(GhoArbitrum.GSM_USDC),
+      IGhoReserve(GhoArbitrum.GHO_RESERVE).getUsed(OLD_GSM_USDC),
       0,
       'Used is not zero for old GSM'
     );
@@ -114,37 +117,28 @@ contract AaveV3Arbitrum_USDCGSMArbitrum_20260806_Test is ProtocolV3TestBase {
   function test_checkOldGSMDisabled() public {
     executePayload(vm, address(proposal));
 
-    assertTrue(IGsm(GhoArbitrum.GSM_USDC).getIsSeized());
+    assertTrue(IGsm(OLD_GSM_USDC).getIsSeized());
 
-    assertEq(IERC20(GhoArbitrum.GHO_TOKEN).balanceOf(GhoArbitrum.GSM_USDC), 0);
-    assertEq(IERC20(AaveV3ArbitrumAssets.USDC_STATA_TOKEN).balanceOf(GhoArbitrum.GSM_USDC), 0);
+    assertEq(IERC20(GhoArbitrum.GHO_TOKEN).balanceOf(OLD_GSM_USDC), 0);
+    assertEq(IERC20(AaveV3ArbitrumAssets.USDCe_STATA_TOKEN).balanceOf(OLD_GSM_USDC), 0);
 
-    assertEq(IGsm(GhoArbitrum.GSM_USDC).getAvailableUnderlyingExposure(), 0, 'wrong exposure cap');
+    assertEq(IGsm(OLD_GSM_USDC).getAvailableUnderlyingExposure(), 0, 'wrong exposure cap');
 
     assertFalse(
-      IGsm(GhoArbitrum.GSM_USDC).hasRole(
-        proposal.SWAP_FREEZER_ROLE(),
-        GhoArbitrum.GSM_USDC_ORACLE_SWAP_FREEZER
-      )
+      IGsm(OLD_GSM_USDC).hasRole(proposal.SWAP_FREEZER_ROLE(), OLD_GSM_USDC_ORACLE_SWAP_FREEZER)
     );
 
     assertFalse(
-      IGsm(GhoArbitrum.GSM_USDC).hasRole(
-        proposal.SWAP_FREEZER_ROLE(),
-        GovernanceV3Arbitrum.EXECUTOR_LVL_1
-      )
+      IGsm(OLD_GSM_USDC).hasRole(proposal.SWAP_FREEZER_ROLE(), GovernanceV3Arbitrum.EXECUTOR_LVL_1)
     );
 
     assertFalse(
-      IGsm(GhoArbitrum.GSM_USDC).hasRole(
-        proposal.LIQUIDATOR_ROLE(),
-        GovernanceV3Arbitrum.EXECUTOR_LVL_1
-      )
+      IGsm(OLD_GSM_USDC).hasRole(proposal.LIQUIDATOR_ROLE(), GovernanceV3Arbitrum.EXECUTOR_LVL_1)
     );
 
     assertFalse(
-      IGsm(GhoArbitrum.GSM_USDC).hasRole(
-        IGsm(GhoArbitrum.GSM_USDC).CONFIGURATOR_ROLE(),
+      IGsm(OLD_GSM_USDC).hasRole(
+        IGsm(OLD_GSM_USDC).CONFIGURATOR_ROLE(),
         GhoArbitrum.GHO_GSM_STEWARD
       )
     );
@@ -221,15 +215,15 @@ contract AaveV3Arbitrum_USDCGSMArbitrum_20260806_Test is ProtocolV3TestBase {
 
     // Old GSM is seized
     vm.expectRevert(bytes('GSM_SEIZED'));
-    IGsm(GhoArbitrum.GSM_USDC).buyAsset(1000e6, address(this));
+    IGsm(OLD_GSM_USDC).buyAsset(1000e6, address(this));
 
     vm.expectRevert(bytes('GSM_SEIZED'));
-    IGsm(GhoArbitrum.GSM_USDC).sellAsset(1000e6, address(this));
+    IGsm(OLD_GSM_USDC).sellAsset(1000e6, address(this));
   }
 
   function test_gsmRegistryEntities() public {
     assertEq(IGsmRegistry(proposal.GSM_REGISTRY()).getGsmListLength(), 1);
-    assertEq(IGsmRegistry(proposal.GSM_REGISTRY()).getGsmAtIndex(0), GhoArbitrum.GSM_USDC);
+    assertEq(IGsmRegistry(proposal.GSM_REGISTRY()).getGsmAtIndex(0), OLD_GSM_USDC);
 
     executePayload(vm, address(proposal));
 
@@ -239,7 +233,7 @@ contract AaveV3Arbitrum_USDCGSMArbitrum_20260806_Test is ProtocolV3TestBase {
 
   function test_ghoReserveEntities() public {
     assertTrue(
-      IGhoReserve(address(GhoArbitrum.GHO_RESERVE)).isEntity(GhoArbitrum.GSM_USDC),
+      IGhoReserve(address(GhoArbitrum.GHO_RESERVE)).isEntity(OLD_GSM_USDC),
       'USDC.e GSM not registered as entity'
     );
 
@@ -251,7 +245,7 @@ contract AaveV3Arbitrum_USDCGSMArbitrum_20260806_Test is ProtocolV3TestBase {
     executePayload(vm, address(proposal));
 
     assertFalse(
-      IGhoReserve(address(GhoArbitrum.GHO_RESERVE)).isEntity(GhoArbitrum.GSM_USDC),
+      IGhoReserve(address(GhoArbitrum.GHO_RESERVE)).isEntity(OLD_GSM_USDC),
       'USDC.e still registered as entity'
     );
 
@@ -316,10 +310,10 @@ contract AaveV3Arbitrum_USDCGSMArbitrum_20260806_Test is ProtocolV3TestBase {
   function test_oldGsmHasNoBalance() public {
     executePayload(vm, address(proposal));
 
-    assertEq(IERC20(AaveV3ArbitrumAssets.USDC_STATA_TOKEN).balanceOf(GhoArbitrum.GSM_USDC), 0);
-    assertEq(IERC20(AaveV3ArbitrumAssets.GHO_UNDERLYING).balanceOf(GhoArbitrum.GSM_USDC), 0);
+    assertEq(IERC20(AaveV3ArbitrumAssets.USDCe_STATA_TOKEN).balanceOf(OLD_GSM_USDC), 0);
+    assertEq(IERC20(AaveV3ArbitrumAssets.GHO_UNDERLYING).balanceOf(OLD_GSM_USDC), 0);
 
-    assertEq(IERC20(AaveV3ArbitrumAssets.USDC_STATA_TOKEN).balanceOf(address(proposal)), 0);
+    assertEq(IERC20(AaveV3ArbitrumAssets.USDCe_STATA_TOKEN).balanceOf(address(proposal)), 0);
     assertEq(IERC20(AaveV3ArbitrumAssets.GHO_UNDERLYING).balanceOf(address(proposal)), 0);
   }
 

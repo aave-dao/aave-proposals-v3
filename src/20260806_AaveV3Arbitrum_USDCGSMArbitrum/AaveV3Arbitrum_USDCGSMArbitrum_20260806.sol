@@ -16,6 +16,11 @@ import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGen
  * - Discussion: https://governance.aave.com/t/arfc-launch-remotegsm-on-arbitrum/24986/5
  */
 contract AaveV3Arbitrum_USDCGSMArbitrum_20260806 is IProposalGenericExecutor {
+  // The pre-migration USDC GSM and its swap freezer, dropped from the address book once replaced
+  address internal constant OLD_GSM_USDC = 0x53E0cE250d06043414070100458546AaF4e284eD;
+  address internal constant OLD_GSM_USDC_ORACLE_SWAP_FREEZER =
+    0xC5aF63c233eA19cB191b36D16C1e25cDA08409E7;
+
   // https://arbiscan.io/address/0x1aEe7A618B0CC687cCED9aB796e464062f1508CA
   address public constant NEW_GSM_USDC = 0x1aEe7A618B0CC687cCED9aB796e464062f1508CA;
 
@@ -27,8 +32,8 @@ contract AaveV3Arbitrum_USDCGSMArbitrum_20260806 is IProposalGenericExecutor {
 
   uint128 public constant RESERVE_LIMIT_GSM = 25_000_000 ether;
 
-  bytes32 public immutable LIQUIDATOR_ROLE = IGsm(GhoArbitrum.GSM_USDC).LIQUIDATOR_ROLE();
-  bytes32 public immutable SWAP_FREEZER_ROLE = IGsm(GhoArbitrum.GSM_USDC).SWAP_FREEZER_ROLE();
+  bytes32 public immutable LIQUIDATOR_ROLE = IGsm(OLD_GSM_USDC).LIQUIDATOR_ROLE();
+  bytes32 public immutable SWAP_FREEZER_ROLE = IGsm(OLD_GSM_USDC).SWAP_FREEZER_ROLE();
 
   function execute() external {
     _seize();
@@ -40,9 +45,9 @@ contract AaveV3Arbitrum_USDCGSMArbitrum_20260806 is IProposalGenericExecutor {
   function _seize() internal {
     // Technically not needed but for completeness will perform
     // Current GSM has not used any GHO and does not hold any USDC.e
-    IGsm(GhoArbitrum.GSM_USDC).distributeFeesToTreasury();
-    IGsm(GhoArbitrum.GSM_USDC).grantRole(LIQUIDATOR_ROLE, GovernanceV3Arbitrum.EXECUTOR_LVL_1);
-    IGsm(GhoArbitrum.GSM_USDC).seize();
+    IGsm(OLD_GSM_USDC).distributeFeesToTreasury();
+    IGsm(OLD_GSM_USDC).grantRole(LIQUIDATOR_ROLE, GovernanceV3Arbitrum.EXECUTOR_LVL_1);
+    IGsm(OLD_GSM_USDC).seize();
   }
 
   function _grantAccess() internal {
@@ -66,27 +71,24 @@ contract AaveV3Arbitrum_USDCGSMArbitrum_20260806 is IProposalGenericExecutor {
   }
 
   function _updateFeeStrategy() internal {
-    IGsm(NEW_GSM_USDC).updateFeeStrategy(IGsm(GhoArbitrum.GSM_USDC).getFeeStrategy());
+    IGsm(NEW_GSM_USDC).updateFeeStrategy(IGsm(OLD_GSM_USDC).getFeeStrategy());
   }
 
   function _revokeAccess() internal {
     // Remove existing GSMs from Registry and Reserve
-    IGhoReserve(GhoArbitrum.GHO_RESERVE).setLimit(GhoArbitrum.GSM_USDC, 0);
-    IGsmRegistry(GSM_REGISTRY).removeGsm(GhoArbitrum.GSM_USDC);
-    IGhoReserve(GhoArbitrum.GHO_RESERVE).removeEntity(GhoArbitrum.GSM_USDC);
+    IGhoReserve(GhoArbitrum.GHO_RESERVE).setLimit(OLD_GSM_USDC, 0);
+    IGsmRegistry(GSM_REGISTRY).removeGsm(OLD_GSM_USDC);
+    IGhoReserve(GhoArbitrum.GHO_RESERVE).removeEntity(OLD_GSM_USDC);
 
     // Revoke Roles
-    IGsm(GhoArbitrum.GSM_USDC).revokeRole(
-      SWAP_FREEZER_ROLE,
-      GhoArbitrum.GSM_USDC_ORACLE_SWAP_FREEZER
-    );
+    IGsm(OLD_GSM_USDC).revokeRole(SWAP_FREEZER_ROLE, OLD_GSM_USDC_ORACLE_SWAP_FREEZER);
 
-    IGsm(GhoArbitrum.GSM_USDC).revokeRole(SWAP_FREEZER_ROLE, GovernanceV3Arbitrum.EXECUTOR_LVL_1);
-    IGsm(GhoArbitrum.GSM_USDC).revokeRole(LIQUIDATOR_ROLE, GovernanceV3Arbitrum.EXECUTOR_LVL_1);
+    IGsm(OLD_GSM_USDC).revokeRole(SWAP_FREEZER_ROLE, GovernanceV3Arbitrum.EXECUTOR_LVL_1);
+    IGsm(OLD_GSM_USDC).revokeRole(LIQUIDATOR_ROLE, GovernanceV3Arbitrum.EXECUTOR_LVL_1);
 
     // GHO GSM Steward
-    IGsm(GhoArbitrum.GSM_USDC).revokeRole(
-      IGsm(GhoArbitrum.GSM_USDC).CONFIGURATOR_ROLE(),
+    IGsm(OLD_GSM_USDC).revokeRole(
+      IGsm(OLD_GSM_USDC).CONFIGURATOR_ROLE(),
       GhoArbitrum.GHO_GSM_STEWARD
     );
   }

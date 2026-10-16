@@ -49,7 +49,7 @@ contract AaveV3Arbitrum_LowAdoptionAssetDeprecationOnAaveV3_20260826_Test is Pro
     config = _findReserveConfig(allConfigs, AaveV3ArbitrumAssets.tBTC_UNDERLYING);
     assertFalse(config.isFrozen, 'tBTC_ALREADY_FROZEN');
     assertEq(config.borrowCap, 1, 'tBTC_BORROW_CAP');
-    config = _findReserveConfig(allConfigs, AaveV3ArbitrumAssets.USDC_UNDERLYING);
+    config = _findReserveConfig(allConfigs, AaveV3ArbitrumAssets.USDCe_UNDERLYING);
     assertFalse(config.isFrozen, 'USDC_ALREADY_FROZEN');
     config = _findReserveConfig(allConfigs, AaveV3ArbitrumAssets.ezETH_UNDERLYING);
     assertFalse(config.isFrozen, 'ezETH_ALREADY_FROZEN');
@@ -66,7 +66,7 @@ contract AaveV3Arbitrum_LowAdoptionAssetDeprecationOnAaveV3_20260826_Test is Pro
     updatedAssets[0] = AaveV3ArbitrumAssets.DAI_UNDERLYING;
     updatedAssets[1] = AaveV3ArbitrumAssets.rETH_UNDERLYING;
     updatedAssets[2] = AaveV3ArbitrumAssets.tBTC_UNDERLYING;
-    updatedAssets[3] = AaveV3ArbitrumAssets.USDC_UNDERLYING;
+    updatedAssets[3] = AaveV3ArbitrumAssets.USDCe_UNDERLYING;
     updatedAssets[4] = AaveV3ArbitrumAssets.ezETH_UNDERLYING;
     updatedAssets[5] = AaveV3ArbitrumAssets.EURS_UNDERLYING;
     reserveConfigChangesTest(AaveV3Arbitrum.POOL, address(proposal), updatedAssets);
@@ -87,7 +87,7 @@ contract AaveV3Arbitrum_LowAdoptionAssetDeprecationOnAaveV3_20260826_Test is Pro
     frozen[1] = true;
     assets[2] = AaveV3ArbitrumAssets.tBTC_UNDERLYING;
     frozen[2] = true;
-    assets[3] = AaveV3ArbitrumAssets.USDC_UNDERLYING;
+    assets[3] = AaveV3ArbitrumAssets.USDCe_UNDERLYING;
     frozen[3] = true;
     assets[4] = AaveV3ArbitrumAssets.ezETH_UNDERLYING;
     frozen[4] = true;
@@ -118,7 +118,7 @@ contract AaveV3Arbitrum_LowAdoptionAssetDeprecationOnAaveV3_20260826_Test is Pro
       borrowCap: EngineFlags.KEEP_CURRENT
     });
     capsUpdate[3] = IAaveV3ConfigEngine.CapsUpdate({
-      asset: AaveV3ArbitrumAssets.USDC_UNDERLYING,
+      asset: AaveV3ArbitrumAssets.USDCe_UNDERLYING,
       supplyCap: 1,
       borrowCap: 1
     });
@@ -157,7 +157,7 @@ contract AaveV3Arbitrum_LowAdoptionAssetDeprecationOnAaveV3_20260826_Test is Pro
       reserveFactor: 50_00
     });
     borrowUpdates[2] = IAaveV3ConfigEngine.BorrowUpdate({
-      asset: AaveV3ArbitrumAssets.USDC_UNDERLYING,
+      asset: AaveV3ArbitrumAssets.USDCe_UNDERLYING,
       enabledToBorrow: EngineFlags.KEEP_CURRENT,
       flashloanable: EngineFlags.KEEP_CURRENT,
       reserveFactor: 75_00

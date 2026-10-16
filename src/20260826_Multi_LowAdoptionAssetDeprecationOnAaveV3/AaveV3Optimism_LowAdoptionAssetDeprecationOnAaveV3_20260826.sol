@@ -14,7 +14,7 @@ import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config
  */
 contract AaveV3Optimism_LowAdoptionAssetDeprecationOnAaveV3_20260826 is AaveV3PayloadOptimism {
   function _postExecute() internal override {
-    AaveV3Optimism.POOL_CONFIGURATOR.setReserveFreeze(AaveV3OptimismAssets.USDC_UNDERLYING, true);
+    AaveV3Optimism.POOL_CONFIGURATOR.setReserveFreeze(AaveV3OptimismAssets.USDCe_UNDERLYING, true);
     AaveV3Optimism.POOL_CONFIGURATOR.setReserveFreeze(AaveV3OptimismAssets.DAI_UNDERLYING, true);
     AaveV3Optimism.POOL_CONFIGURATOR.setReserveFreeze(AaveV3OptimismAssets.rETH_UNDERLYING, true);
   }
@@ -23,7 +23,7 @@ contract AaveV3Optimism_LowAdoptionAssetDeprecationOnAaveV3_20260826 is AaveV3Pa
     IAaveV3ConfigEngine.CapsUpdate[] memory capsUpdate = new IAaveV3ConfigEngine.CapsUpdate[](3);
 
     capsUpdate[0] = IAaveV3ConfigEngine.CapsUpdate({
-      asset: AaveV3OptimismAssets.USDC_UNDERLYING,
+      asset: AaveV3OptimismAssets.USDCe_UNDERLYING,
       supplyCap: 1,
       borrowCap: EngineFlags.KEEP_CURRENT
     });
@@ -51,7 +51,7 @@ contract AaveV3Optimism_LowAdoptionAssetDeprecationOnAaveV3_20260826 is AaveV3Pa
       memory borrowUpdates = new IAaveV3ConfigEngine.BorrowUpdate[](3);
 
     borrowUpdates[0] = IAaveV3ConfigEngine.BorrowUpdate({
-      asset: AaveV3OptimismAssets.USDC_UNDERLYING,
+      asset: AaveV3OptimismAssets.USDCe_UNDERLYING,
       enabledToBorrow: EngineFlags.KEEP_CURRENT,
       flashloanable: EngineFlags.KEEP_CURRENT,
       reserveFactor: 75_00
