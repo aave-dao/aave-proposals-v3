@@ -20,7 +20,7 @@ Onboarding SPCX would:
 
 ## Specification
 
-The payload lists SPCXc on the Equities Hub and MAG7 Spoke with the parameters below, and sets the MAG7 Spoke's USDC risk premium threshold to 1000%.
+The payload lists SPCXc on the Equities Hub and MAG7 Spoke with the parameters below, and sets the MAG7 Spoke's USDC risk premium threshold to 1100%.
 
 ### Spoke Parameters
 
@@ -38,7 +38,7 @@ The payload lists SPCXc on the Equities Hub and MAG7 Spoke with the parameters b
 
 | Chain | Hub          | Spoke      | Asset | Risk Premium Threshold |
 | ----- | ------------ | ---------- | ----- | ---------------------: |
-| Base  | Equities Hub | MAG7 Spoke | USDC  |                  1000% |
+| Base  | Equities Hub | MAG7 Spoke | USDC  |                  1100% |
 
 ### Price Feed
 

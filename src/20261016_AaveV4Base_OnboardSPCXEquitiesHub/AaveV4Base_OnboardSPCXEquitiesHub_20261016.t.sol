@@ -170,7 +170,7 @@ contract AaveV4Base_OnboardSPCXEquitiesHub_20261016_Test is ProtocolV4TestBaseBa
     uint256 assetId = hub.getAssetId(AaveV4BaseAssets.USDC_UNDERLYING);
     IHub.SpokeConfig memory beforeConfig = hub.getSpokeConfig(assetId, address(spoke));
     GovV3Helpers.executePayload(vm, address(proposal));
-    beforeConfig.riskPremiumThreshold = 1_000_00;
+    beforeConfig.riskPremiumThreshold = 1_100_00;
     assertEq(
       abi.encode(hub.getSpokeConfig(assetId, address(spoke))),
       abi.encode(beforeConfig),
@@ -487,7 +487,7 @@ contract AaveV4Base_OnboardSPCXEquitiesHub_20261016_Test is ProtocolV4TestBaseBa
     assertEq(items[0].hub, address(hub), 'hub');
     assertEq(items[0].spoke, address(spoke), 'spoke');
     assertEq(items[0].underlying, AaveV4BaseAssets.USDC_UNDERLYING, 'underlying');
-    assertEq(items[0].riskPremiumThreshold, 1_000_00, 'riskPremiumThreshold');
+    assertEq(items[0].riskPremiumThreshold, 1_100_00, 'riskPremiumThreshold');
     assertEq(items[0].addCap, EngineFlags.KEEP_CURRENT, 'addCap');
     assertEq(items[0].drawCap, EngineFlags.KEEP_CURRENT, 'drawCap');
     assertEq(items[0].active, EngineFlags.KEEP_CURRENT, 'active');

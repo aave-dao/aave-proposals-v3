@@ -130,7 +130,7 @@ contract AaveV4Base_OnboardSPCXEquitiesHub_20261016 is AaveV4PayloadBase {
       spoke: address(AaveV4BaseSpokes.MAG7_SPOKE),
       addCap: EngineFlags.KEEP_CURRENT,
       drawCap: EngineFlags.KEEP_CURRENT,
-      riskPremiumThreshold: 1_000_00,
+      riskPremiumThreshold: 1_100_00,
       active: EngineFlags.KEEP_CURRENT,
       halted: EngineFlags.KEEP_CURRENT
     });
