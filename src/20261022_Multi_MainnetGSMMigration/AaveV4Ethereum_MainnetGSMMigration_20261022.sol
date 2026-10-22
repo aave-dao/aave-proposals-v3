@@ -16,7 +16,7 @@ import {AaveV4PayloadEthereum} from 'aave-helpers/src/v4-config-engine/AaveV4Pay
  * backing of the current USDT GSM can be migrated into the Core USDT TokenizationSpoke.
  */
 contract AaveV4Ethereum_MainnetGSMMigration_20261022 is AaveV4PayloadEthereum {
-  // TODO: re-check the add caps with the risk providers before going live
+  // TODO: re-check the add caps with the risk providers before going live (whole tokens; not in wei)
   uint256 public constant CORE_USDC_TOKENIZATION_SPOKE_ADD_CAP = 100_000_000;
   uint256 public constant CORE_USDT_TOKENIZATION_SPOKE_ADD_CAP = 100_000_000;
 

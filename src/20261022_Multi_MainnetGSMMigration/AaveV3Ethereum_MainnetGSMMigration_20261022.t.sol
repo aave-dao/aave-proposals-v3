@@ -318,6 +318,7 @@ contract AaveV3Ethereum_MainnetGSMMigration_20261022_Test is ProtocolV3TestBase 
     uint256 collectorStataBefore = IERC20(AaveV3EthereumAssets.USDT_STATA_TOKEN).balanceOf(
       COLLECTOR
     );
+    uint256 collectorSharesBefore = IERC20(WA_CORE_USDT).balanceOf(COLLECTOR);
     assertEq(IGsm(proposal.NEW_GSM_USDT()).getAvailableLiquidity(), 0, 'USDT GSM not empty');
 
     executePayload(vm, address(proposal));
@@ -344,6 +345,12 @@ contract AaveV3Ethereum_MainnetGSMMigration_20261022_Test is ProtocolV3TestBase 
       IERC20(WA_CORE_USDT).balanceOf(proposal.NEW_GSM_USDT()),
       expectedShares,
       'wrong new USDT GSM share balance'
+    );
+    // No share dust left over by the sale goes to the Collector
+    assertEq(
+      IERC20(WA_CORE_USDT).balanceOf(COLLECTOR),
+      collectorSharesBefore,
+      'share dust sent to the collector'
     );
   }
 

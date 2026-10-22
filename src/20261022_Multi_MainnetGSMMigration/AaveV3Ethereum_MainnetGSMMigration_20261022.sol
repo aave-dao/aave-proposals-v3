@@ -28,22 +28,22 @@ contract AaveV3Ethereum_MainnetGSMMigration_20261022 is IProposalGenericExecutor
   using SafeERC20 for IERC20;
 
   // TODO: replace with the deployed Gsm4626 over AaveV4EthereumTokenizationSpokes.CORE_USDC_TOKENIZATION_SPOKE
-  address public constant NEW_GSM_USDC = 0x40af54c6473EB9a539640edb4a8713E339dc0695;
+  address public constant NEW_GSM_USDC = 0x70D0000000000000000000000000000000000004;
 
   // TODO: replace with the deployed Gsm4626 over AaveV4EthereumTokenizationSpokes.CORE_USDT_TOKENIZATION_SPOKE
-  address public constant NEW_GSM_USDT = 0xEBb7a5F5A27CbE02bbf09Dbace6014a1979c25d3;
+  address public constant NEW_GSM_USDT = 0x70D0000000000000000000000000000000000005;
 
   // TODO: replace with the deployed ChainlinkOracleSwapFreezer of NEW_GSM_USDC
-  address public constant NEW_USDC_ORACLE_SWAP_FREEZER = 0x1c0F6AFC7F9249190732Fd07a44Ed28aF74E893A;
+  address public constant NEW_USDC_ORACLE_SWAP_FREEZER = 0x70D0000000000000000000000000000000000006;
 
   // TODO: replace with the deployed ChainlinkOracleSwapFreezer of NEW_GSM_USDT
-  address public constant NEW_USDT_ORACLE_SWAP_FREEZER = 0x1CB1588f0612E565BD3A65a83A9aBce106aCbB0b;
+  address public constant NEW_USDT_ORACLE_SWAP_FREEZER = 0x70D0000000000000000000000000000000000007;
 
   // TODO: re-check caps and limits with the risk providers before going live
-  uint128 public constant EXPOSURE_CAP_GSM_USDC = 90_000_000e6;
-  uint128 public constant EXPOSURE_CAP_GSM_USDT = 85_000_000e6;
-  uint128 public constant RESERVE_LIMIT_GSM_USDC = 100_000_000 ether;
-  uint128 public constant RESERVE_LIMIT_GSM_USDT = 100_000_000 ether;
+  uint128 public constant EXPOSURE_CAP_GSM_USDC = 90_000_000e6; // 6 decimals
+  uint128 public constant EXPOSURE_CAP_GSM_USDT = 85_000_000e6; // 6 decimals
+  uint128 public constant RESERVE_LIMIT_GSM_USDC = 100_000_000 ether; // GHO, 18 decimals
+  uint128 public constant RESERVE_LIMIT_GSM_USDT = 100_000_000 ether; // GHO, 18 decimals
 
   // Keepers of the existing OracleSwapFreezers, already cancelled by the Chainlink Automation registry owner
   uint256 public constant EXISTING_ORACLE_SWAP_FREEZER_USDC =
@@ -135,6 +135,7 @@ contract AaveV3Ethereum_MainnetGSMMigration_20261022 is IProposalGenericExecutor
     (uint256 soldShares, uint256 acquiredGho) = IGsm(NEW_GSM_USDT).sellAsset(shares, address(this));
 
     // Send to collector any share dust not taken by the GSM
+    // Not expected to run: with 1:1 ERC-4626 pricing the GSM takes all shares
     if (shares > soldShares) {
       IERC20(tokenizationSpoke).safeTransfer(
         address(AaveV3Ethereum.COLLECTOR),
@@ -169,6 +170,7 @@ contract AaveV3Ethereum_MainnetGSMMigration_20261022 is IProposalGenericExecutor
     }
 
     // Send to collector any positive difference
+    // Not expected to run: the USDC GSM used GHO outweighs any USDT migration rounding gain
     if (acquiredGho > neededGho) {
       IERC20(GhoEthereum.GHO_TOKEN).safeTransfer(
         address(AaveV3Ethereum.COLLECTOR),
