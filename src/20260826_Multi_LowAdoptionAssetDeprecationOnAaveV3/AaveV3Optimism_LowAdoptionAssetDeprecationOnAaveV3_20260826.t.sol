@@ -41,7 +41,7 @@ contract AaveV3Optimism_LowAdoptionAssetDeprecationOnAaveV3_20260826_Test is Pro
   function test_preExecutionReserveState() public {
     ReserveConfig[] memory allConfigs = _getReservesConfigs(AaveV3Optimism.POOL);
     ReserveConfig memory config;
-    config = _findReserveConfig(allConfigs, AaveV3OptimismAssets.USDC_UNDERLYING);
+    config = _findReserveConfig(allConfigs, AaveV3OptimismAssets.USDCe_UNDERLYING);
     assertFalse(config.isFrozen, 'USDC_ALREADY_FROZEN');
     assertEq(config.borrowCap, 1, 'USDC_BORROW_CAP');
     config = _findReserveConfig(allConfigs, AaveV3OptimismAssets.DAI_UNDERLYING);
@@ -56,7 +56,7 @@ contract AaveV3Optimism_LowAdoptionAssetDeprecationOnAaveV3_20260826_Test is Pro
    */
   function test_reserveConfigChanges() public {
     address[] memory updatedAssets = new address[](3);
-    updatedAssets[0] = AaveV3OptimismAssets.USDC_UNDERLYING;
+    updatedAssets[0] = AaveV3OptimismAssets.USDCe_UNDERLYING;
     updatedAssets[1] = AaveV3OptimismAssets.DAI_UNDERLYING;
     updatedAssets[2] = AaveV3OptimismAssets.rETH_UNDERLYING;
     reserveConfigChangesTest(AaveV3Optimism.POOL, address(proposal), updatedAssets);
@@ -71,7 +71,7 @@ contract AaveV3Optimism_LowAdoptionAssetDeprecationOnAaveV3_20260826_Test is Pro
     assets = new address[](3);
     frozen = new bool[](3);
 
-    assets[0] = AaveV3OptimismAssets.USDC_UNDERLYING;
+    assets[0] = AaveV3OptimismAssets.USDCe_UNDERLYING;
     frozen[0] = true;
     assets[1] = AaveV3OptimismAssets.DAI_UNDERLYING;
     frozen[1] = true;
@@ -89,7 +89,7 @@ contract AaveV3Optimism_LowAdoptionAssetDeprecationOnAaveV3_20260826_Test is Pro
     capsUpdate = new IAaveV3ConfigEngine.CapsUpdate[](3);
 
     capsUpdate[0] = IAaveV3ConfigEngine.CapsUpdate({
-      asset: AaveV3OptimismAssets.USDC_UNDERLYING,
+      asset: AaveV3OptimismAssets.USDCe_UNDERLYING,
       supplyCap: 1,
       borrowCap: EngineFlags.KEEP_CURRENT
     });
@@ -116,7 +116,7 @@ contract AaveV3Optimism_LowAdoptionAssetDeprecationOnAaveV3_20260826_Test is Pro
     borrowUpdates = new IAaveV3ConfigEngine.BorrowUpdate[](3);
 
     borrowUpdates[0] = IAaveV3ConfigEngine.BorrowUpdate({
-      asset: AaveV3OptimismAssets.USDC_UNDERLYING,
+      asset: AaveV3OptimismAssets.USDCe_UNDERLYING,
       enabledToBorrow: EngineFlags.KEEP_CURRENT,
       flashloanable: EngineFlags.KEEP_CURRENT,
       reserveFactor: 75_00

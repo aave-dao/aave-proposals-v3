@@ -41,7 +41,7 @@ contract AaveV3Polygon_LowAdoptionAssetDeprecationOnAaveV3_20260826_Test is Prot
   function test_preExecutionReserveState() public {
     ReserveConfig[] memory allConfigs = _getReservesConfigs(AaveV3Polygon.POOL);
     ReserveConfig memory config;
-    config = _findReserveConfig(allConfigs, AaveV3PolygonAssets.USDC_UNDERLYING);
+    config = _findReserveConfig(allConfigs, AaveV3PolygonAssets.USDCe_UNDERLYING);
     assertFalse(config.isFrozen, 'USDC_ALREADY_FROZEN');
     config = _findReserveConfig(allConfigs, AaveV3PolygonAssets.EURS_UNDERLYING);
     assertFalse(config.isFrozen, 'EURS_ALREADY_FROZEN');
@@ -70,7 +70,7 @@ contract AaveV3Polygon_LowAdoptionAssetDeprecationOnAaveV3_20260826_Test is Prot
    */
   function test_reserveConfigChanges() public {
     address[] memory updatedAssets = new address[](9);
-    updatedAssets[0] = AaveV3PolygonAssets.USDC_UNDERLYING;
+    updatedAssets[0] = AaveV3PolygonAssets.USDCe_UNDERLYING;
     updatedAssets[1] = AaveV3PolygonAssets.EURS_UNDERLYING;
     updatedAssets[2] = AaveV3PolygonAssets.MaticX_UNDERLYING;
     updatedAssets[3] = AaveV3PolygonAssets.jEUR_UNDERLYING;
@@ -91,7 +91,7 @@ contract AaveV3Polygon_LowAdoptionAssetDeprecationOnAaveV3_20260826_Test is Prot
     assets = new address[](3);
     frozen = new bool[](3);
 
-    assets[0] = AaveV3PolygonAssets.USDC_UNDERLYING;
+    assets[0] = AaveV3PolygonAssets.USDCe_UNDERLYING;
     frozen[0] = true;
     assets[1] = AaveV3PolygonAssets.EURS_UNDERLYING;
     frozen[1] = true;
@@ -109,7 +109,7 @@ contract AaveV3Polygon_LowAdoptionAssetDeprecationOnAaveV3_20260826_Test is Prot
     capsUpdate = new IAaveV3ConfigEngine.CapsUpdate[](8);
 
     capsUpdate[0] = IAaveV3ConfigEngine.CapsUpdate({
-      asset: AaveV3PolygonAssets.USDC_UNDERLYING,
+      asset: AaveV3PolygonAssets.USDCe_UNDERLYING,
       supplyCap: 1,
       borrowCap: 1
     });
@@ -161,7 +161,7 @@ contract AaveV3Polygon_LowAdoptionAssetDeprecationOnAaveV3_20260826_Test is Prot
     borrowUpdates = new IAaveV3ConfigEngine.BorrowUpdate[](7);
 
     borrowUpdates[0] = IAaveV3ConfigEngine.BorrowUpdate({
-      asset: AaveV3PolygonAssets.USDC_UNDERLYING,
+      asset: AaveV3PolygonAssets.USDCe_UNDERLYING,
       enabledToBorrow: EngineFlags.KEEP_CURRENT,
       flashloanable: EngineFlags.KEEP_CURRENT,
       reserveFactor: 85_00
