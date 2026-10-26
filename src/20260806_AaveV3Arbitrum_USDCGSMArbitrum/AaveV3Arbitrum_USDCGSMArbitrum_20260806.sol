@@ -16,6 +16,11 @@ import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGen
  * - Discussion: https://governance.aave.com/t/arfc-launch-remotegsm-on-arbitrum/24986/5
  */
 contract AaveV3Arbitrum_USDCGSMArbitrum_20260806 is IProposalGenericExecutor {
+  // The pre-migration USDC GSM and its swap freezer, dropped from the address book once replaced
+  address internal constant OLD_GSM_USDC = 0x53E0cE250d06043414070100458546AaF4e284eD;
+  address internal constant OLD_GSM_USDC_ORACLE_SWAP_FREEZER =
+    0xC5aF63c233eA19cB191b36D16C1e25cDA08409E7;
+
   // https://arbiscan.io/address/0x1aEe7A618B0CC687cCED9aB796e464062f1508CA
   address public constant NEW_GSM_USDC = 0x1aEe7A618B0CC687cCED9aB796e464062f1508CA;
 
@@ -24,13 +29,6 @@ contract AaveV3Arbitrum_USDCGSMArbitrum_20260806 is IProposalGenericExecutor {
 
   // https://arbiscan.io/address/0x4daF7FCe9EfcA48e9274b35b5A7B4639b0DdFCCa
   address public constant USDC_ORACLE_SWAP_FREEZER = 0x4daF7FCe9EfcA48e9274b35b5A7B4639b0DdFCCa;
-
-  // https://arbiscan.io/address/0x53E0cE250d06043414070100458546AaF4e284eD
-  address public constant OLD_GSM_USDC = 0x53E0cE250d06043414070100458546AaF4e284eD;
-
-  // https://arbiscan.io/address/0xC5aF63c233eA19cB191b36D16C1e25cDA08409E7
-  address public constant OLD_GSM_USDC_ORACLE_SWAP_FREEZER =
-    0xC5aF63c233eA19cB191b36D16C1e25cDA08409E7;
 
   uint128 public constant RESERVE_LIMIT_GSM = 25_000_000 ether;
 
@@ -83,10 +81,7 @@ contract AaveV3Arbitrum_USDCGSMArbitrum_20260806 is IProposalGenericExecutor {
     IGhoReserve(GhoArbitrum.GHO_RESERVE).removeEntity(OLD_GSM_USDC);
 
     // Revoke Roles
-    IGsm(OLD_GSM_USDC).revokeRole(
-      SWAP_FREEZER_ROLE,
-      OLD_GSM_USDC_ORACLE_SWAP_FREEZER
-    );
+    IGsm(OLD_GSM_USDC).revokeRole(SWAP_FREEZER_ROLE, OLD_GSM_USDC_ORACLE_SWAP_FREEZER);
 
     IGsm(OLD_GSM_USDC).revokeRole(SWAP_FREEZER_ROLE, GovernanceV3Arbitrum.EXECUTOR_LVL_1);
     IGsm(OLD_GSM_USDC).revokeRole(LIQUIDATOR_ROLE, GovernanceV3Arbitrum.EXECUTOR_LVL_1);

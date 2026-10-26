@@ -73,6 +73,7 @@ export const V3_MARKETS = [
 ] as const satisfies readonly (keyof typeof addressBook)[];
 
 export const V4_MARKETS = [
+  'AaveV4Base',
   'AaveV4Ethereum',
   'AaveV4Avalanche',
 ] as const satisfies readonly (keyof typeof addressBook)[];

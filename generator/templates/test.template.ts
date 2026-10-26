@@ -43,6 +43,7 @@ export const testTemplate = (
   const isZkSync = chain === 'ZkSync';
   const contractName = generateContractName(options, market);
   const {v4, testBase} = getTestBase(market);
+  const isV4Base = v4 && chain === 'Base';
 
   const functions = dedupeTestFns(
     marketConfig.artifacts
@@ -61,9 +62,38 @@ export const testTemplate = (
     ? `import {${testBase}} from 'aave-helpers/src/v4-protocol-test/${testBase}.sol';`
     : `import {${testBaseImports.join(', ')}} from 'aave-helpers/${testBasePath}${testBase}.sol';`;
 
-  const defaultTestCall = v4
-    ? `defaultTest('${contractName}', address(proposal));`
-    : `defaultTest('${contractName}', ${market}.POOL, address(proposal) ${isWhitelabelMarket(market) ? ', true, true' : ''});`;
+  // Base e2e callers need non-isolated transactions to avoid L1 data-fee funding failures.
+  // Keep the snapshot/execution test isolated so payload gas checks remain meaningful.
+  const defaultTestCall = isV4Base
+    ? `defaultTest({
+        reportName: '${contractName}',
+        payload: address(proposal),
+        runE2E: false,
+        testPositionManagers: false,
+        runSeatbelt: false
+      });`
+    : v4
+      ? `defaultTest('${contractName}', address(proposal));`
+      : `defaultTest('${contractName}', ${market}.POOL, address(proposal) ${isWhitelabelMarket(market) ? ', true, true' : ''});`;
+
+  const baseTestConfig = isV4Base
+    ? `
+ * Uses the native Base EVM on Cobalt. Payload execution stays isolated for gas checks.
+ * E2E isolation is disabled to avoid L1 data fees for unfunded pranked callers.
+ * forge-config: default.networks.network = "base"
+ * forge-config: default.hardfork = "base:cobalt"
+ * forge-config: default.isolate = false`
+    : '';
+  const baseE2ETest = isV4Base
+    ? `
+  function test_e2e() public {
+    GovV3Helpers.executePayload(vm, address(proposal));
+    e2eTestAllSpokes({spokes: _getSpokes(), testPositionManagers: false});
+    e2eTestAllTokenizationSpokes(_getTokenizationSpokes());
+  }
+
+  `
+    : '';
 
   const updatedAssets = Array.from(
     new Set(
@@ -93,7 +123,7 @@ ${testBaseImport}
 import {${contractName}} from './${contractName}.sol';
 
 /**
- * @dev Test for ${contractName}
+ * @dev Test for ${contractName}${baseTestConfig}
  * command: FOUNDRY_PROFILE=${chain === 'ZkSync' ? 'zksync' : 'test'} forge test ${chain === 'ZkSync' ? '--zksync --match-path=zksync/src/' : '--match-path=src/'}${folderName}/${contractName}.t.sol -vv
  */
 contract ${contractName}_Test is ${testBase} {
@@ -107,14 +137,14 @@ contract ${contractName}_Test is ${testBase} {
   }
 
   /**
-   * @dev executes the generic test suite including e2e and config snapshots
+   * @dev ${isV4Base ? 'executes the payload with config snapshots and diff; e2e runs separately' : 'executes the generic test suite including e2e and config snapshots'}
    * forge-config: default.isolate = true
    */
   function test_defaultProposalExecution() public {
     ${defaultTestCall}
   }
 
-  ${reserveConfigChangesTest}
+  ${baseE2ETest}${reserveConfigChangesTest}
   ${functions}
 }`;
   return prefixWithPragma(prefixWithImports(template));

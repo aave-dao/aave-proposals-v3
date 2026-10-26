@@ -581,3 +581,48 @@ export function useCasesFixture(): Fixture {
   };
   return {options, marketConfigs};
 }
+
+/// Base smoke fixture exercises the native-EVM test setup and split execution/e2e path.
+export function baseFixture(): Fixture {
+  const options: Options = {
+    markets: ['AaveV4Base'],
+    title: 'V4 Base spoke config update',
+    shortName: 'V4BaseTestSetup',
+    date: '20260521',
+    author: 'test',
+    discussion: 'test',
+    snapshot: 'test',
+  };
+  const cfg: V4HubSpokeConfigUpdate[] = [
+    {
+      hubLib: 'AaveV4BaseHubs.EQUITIES_HUB',
+      hub: 'AaveV4BaseHubs.EQUITIES_HUB',
+      spoke: 'AaveV4BaseSpokes.MAG7_SPOKE',
+      underlying: 'AaveV4BaseAssets.USDC_UNDERLYING',
+      addCap: keepCurrent(),
+      drawCap: keepCurrent(),
+      riskPremiumThreshold: literal('1100'),
+      active: keepCurrent(),
+      halted: keepCurrent(),
+    },
+  ];
+  const configs = {[FEATURE.V4_HUB_SPOKE_CONFIG_UPDATE]: cfg};
+  return {
+    options,
+    marketConfigs: {
+      AaveV4Base: {
+        configs,
+        artifacts: [
+          hubSpokeConfigUpdate.build({
+            options,
+            market: 'AaveV4Base',
+            cfg,
+            configs,
+            cache: {blockNumber: 52669984},
+          }),
+        ],
+        cache: {blockNumber: 52669984},
+      },
+    },
+  };
+}
