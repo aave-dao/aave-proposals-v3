@@ -39,7 +39,9 @@ contract AaveV3XLayer_Onboard_PTUSDG25FEB2027_Oracle_20261021 is AgentHubAgentAc
 
     address[] memory eModeMarkets = new address[](1);
     // The AgentHub represents eMode category ids as address values.
-    eModeMarkets[0] = address(uint160(AaveV3XLayerEModes.PT_USDG_29OCT2026_PT_USDG_25FEB2027__USDT_GHO_USDC));
+    eModeMarkets[0] = address(
+      uint160(AaveV3XLayerEModes.PT_USDG_29OCT2026_PT_USDG_25FEB2027__USDT_GHO_USDC)
+    );
 
     uint256 eModeAgentId = _registerAgentAndGrantRole(
       agentHubConfig,

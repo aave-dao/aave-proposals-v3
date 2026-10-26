@@ -97,10 +97,7 @@ contract AaveV3XLayer_Onboard_PTUSDG25FEB2027_Oracle_20261021_Test is ProtocolV3
 
     executePayload(vm, address(proposal));
 
-    assertEq(
-      hub.getAgentAddress(discountAgentId),
-      MiscXLayer.LLAMARISK_PT_DISCOUNT_RATE_AGENT
-    );
+    assertEq(hub.getAgentAddress(discountAgentId), MiscXLayer.LLAMARISK_PT_DISCOUNT_RATE_AGENT);
     assertEq(hub.getAgentAddress(eModeAgentId), MiscXLayer.LLAMARISK_PT_EMODE_AGENT);
     assertEq(discountAgent.getUpdateType(), hub.getUpdateType(discountAgentId));
     assertEq(eModeAgent.getUpdateType(), hub.getUpdateType(eModeAgentId));
@@ -119,10 +116,7 @@ contract AaveV3XLayer_Onboard_PTUSDG25FEB2027_Oracle_20261021_Test is ProtocolV3
     assertEq(hub.getRiskOracle(discountAgentId), MiscXLayer.LLAMARISK_RISK_ORACLE);
     assertEq(hub.getUpdateType(discountAgentId), AgentHubConfigs.DISCOUNT_UPDATE_TYPE);
     assertEq(hub.getAgentAdmin(discountAgentId), MiscXLayer.PROTOCOL_GUARDIAN);
-    assertEq(
-      hub.getAgentAddress(discountAgentId),
-      MiscXLayer.LLAMARISK_PT_DISCOUNT_RATE_AGENT
-    );
+    assertEq(hub.getAgentAddress(discountAgentId), MiscXLayer.LLAMARISK_PT_DISCOUNT_RATE_AGENT);
     assertEq(hub.getExpirationPeriod(discountAgentId), AgentHubConfigs.DISCOUNT_EXPIRATION_PERIOD);
     assertEq(hub.getMinimumDelay(discountAgentId), AgentHubConfigs.DISCOUNT_MINIMUM_DELAY);
     assertEq(hub.getAgentContext(discountAgentId), bytes(''));
@@ -158,7 +152,10 @@ contract AaveV3XLayer_Onboard_PTUSDG25FEB2027_Oracle_20261021_Test is ProtocolV3
 
     address[] memory eModeMarkets = hub.getAllowedMarkets(eModeAgentId);
     assertEq(eModeMarkets.length, 1, 'eMode agent should allow one category');
-    assertEq(eModeMarkets[0], address(uint160(AaveV3XLayerEModes.PT_USDG_29OCT2026_PT_USDG_25FEB2027__USDT_GHO_USDC)));
+    assertEq(
+      eModeMarkets[0],
+      address(uint160(AaveV3XLayerEModes.PT_USDG_29OCT2026_PT_USDG_25FEB2027__USDT_GHO_USDC))
+    );
 
     // Without the role neither agent can write: the discount one is rejected by the
     // PendlePriceCapAdapter, the eMode one by the PoolConfigurator.
