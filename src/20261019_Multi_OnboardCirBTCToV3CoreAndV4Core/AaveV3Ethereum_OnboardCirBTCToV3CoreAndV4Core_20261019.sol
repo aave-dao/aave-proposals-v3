@@ -8,7 +8,6 @@ import {EngineFlags} from 'aave-v3-origin/contracts/extensions/v3-config-engine/
 import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config-engine/IAaveV3ConfigEngine.sol';
 import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
 import {SafeERC20} from 'openzeppelin-contracts/contracts/token/ERC20/utils/SafeERC20.sol';
-import {IEmissionManager} from 'aave-v3-origin/contracts/rewards/interfaces/IEmissionManager.sol';
 
 /**
  * @title Onboard cirBTC on Aave V3 Core and Aave V4 Core
@@ -26,7 +25,8 @@ contract AaveV3Ethereum_OnboardCirBTCToV3CoreAndV4Core_20261019 is AaveV3Payload
   address public constant cirBTC_PRICE_FEED = ChainlinkEthereum.BTC__USD;
 
   function _postExecute() internal override {
-    _supplyAndConfigureLMAdmin(cirBTC, cirBTC_SEED_AMOUNT, address(0));
+    IERC20(cirBTC).forceApprove(address(AaveV3Ethereum.POOL), cirBTC_SEED_AMOUNT);
+    AaveV3Ethereum.POOL.supply(cirBTC, cirBTC_SEED_AMOUNT, address(AaveV3Ethereum.DUST_BIN), 0);
   }
 
   function newListings() public pure override returns (IAaveV3ConfigEngine.Listing[] memory) {
@@ -54,18 +54,5 @@ contract AaveV3Ethereum_OnboardCirBTCToV3CoreAndV4Core_20261019 is AaveV3Payload
     });
 
     return listings;
-  }
-
-  function _supplyAndConfigureLMAdmin(address asset, uint256 seedAmount, address lmAdmin) internal {
-    IERC20(asset).forceApprove(address(AaveV3Ethereum.POOL), seedAmount);
-    AaveV3Ethereum.POOL.supply(asset, seedAmount, address(AaveV3Ethereum.DUST_BIN), 0);
-
-    if (lmAdmin != address(0)) {
-      address aToken = AaveV3Ethereum.POOL.getReserveAToken(asset);
-      address vToken = AaveV3Ethereum.POOL.getReserveVariableDebtToken(asset);
-      IEmissionManager(AaveV3Ethereum.EMISSION_MANAGER).setEmissionAdmin(asset, lmAdmin);
-      IEmissionManager(AaveV3Ethereum.EMISSION_MANAGER).setEmissionAdmin(aToken, lmAdmin);
-      IEmissionManager(AaveV3Ethereum.EMISSION_MANAGER).setEmissionAdmin(vToken, lmAdmin);
-    }
   }
 }

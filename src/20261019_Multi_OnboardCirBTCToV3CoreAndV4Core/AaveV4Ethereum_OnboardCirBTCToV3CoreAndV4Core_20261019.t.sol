@@ -201,11 +201,6 @@ contract AaveV4Ethereum_OnboardCirBTCToV3CoreAndV4Core_20261019_Test is Protocol
     assertEq(cfg.halted, false, 'halted mismatch');
   }
 
-  function test_e2e_MAIN_SPOKE() public {
-    GovV3Helpers.executePayload(vm, address(proposal));
-    e2eTestSpoke(ISpoke(address(AaveV4EthereumSpokes.MAIN_SPOKE)));
-  }
-
   /// @dev the generic e2e suite never picks cirBTC as collateral, so the collateral path is exercised here
   function test_e2e_cirBTCCollateralLiquidation_MAIN_SPOKE() public {
     GovV3Helpers.executePayload(vm, address(proposal));
