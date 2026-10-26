@@ -26,7 +26,7 @@ The payload performs three groups of actions.
 
 Both are registered with `admin` set to `MiscXLayer.PROTOCOL_GUARDIAN`, so a misbehaving agent can be disabled without a governance cycle. Registration stays governance-only: `registerAgent` and `setAgentAdmin` are `onlyOwner`, and the AgentHub is owned by `GovernanceV3XLayer.EXECUTOR_LVL_1`. Both `isAgentPermissioned` and `isMarketsFromAgentEnabled` are left at their defaults.
 
-These are the first agents on the X Layer AgentHub, so they take agent ids 0 and 1. Neither agent is registered with a suffixed update type: the LlamaRisk RiskOracle serves this stack alone, so the base types are unambiguous.
+These are the first agents on the X Layer AgentHub, so they take agent ids 0 and 1. Both agent addresses and the RiskOracle are imported from `MiscXLayer`. Neither agent is registered with a suffixed update type: the LlamaRisk RiskOracle serves this stack alone, so the base types are unambiguous.
 
 **3. Grant RISK_ADMIN and bound the ranges.** `addRiskAdmin` on `AaveV3XLayer.ACL_MANAGER` for both predeployed agents, then `setDefaultRangeConfig` on `MiscXLayer.RANGE_VALIDATION_MODULE` for each parameter each agent can move.
 
@@ -63,14 +63,13 @@ No reserve configuration is changed by this payload. The snapshot diff is empty 
 
 The payload references the RiskOracle and both agents directly. The Router and CRE Forwarder are included above to make the complete write path easier to review.
 
-The AgentHub, RangeValidationModule, LlamaRisk contracts, PT-USDG-25FEB2027 and eMode category 9 are not yet in the address book release used by this repository. The payload pins them under the same names, and they move to `MiscXLayer`, `AaveV3XLayerAssets` and `AaveV3XLayerEModes` once that release ships.
-
-Existing Aave contracts referenced:
+Existing Aave contracts referenced, all from the address book:
 
 - AgentHub: `MiscXLayer.AGENT_HUB`
 - RangeValidationModule: `MiscXLayer.RANGE_VALIDATION_MODULE`
 - PT-USDG-25FEB2027: `AaveV3XLayerAssets.PT_USDG_25FEB2027_UNDERLYING`
-- eMode category 9 (`PT_USDG_25FEB2027__Stablecoins`)
+- eMode category 9 (`PT_USDG_25FEB2027__Stablecoins`):
+  `AaveV3XLayerEModes.PT_USDG_29OCT2026_PT_USDG_25FEB2027__USDT_GHO_USDC`
 - ACL manager: `AaveV3XLayer.ACL_MANAGER`
 - Config engine: `AaveV3XLayer.CONFIG_ENGINE`
 - Agent admin: `MiscXLayer.PROTOCOL_GUARDIAN`
