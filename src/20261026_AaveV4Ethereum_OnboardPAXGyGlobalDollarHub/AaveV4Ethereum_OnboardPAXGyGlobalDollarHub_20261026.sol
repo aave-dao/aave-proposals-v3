@@ -28,10 +28,6 @@ contract AaveV4Ethereum_OnboardPAXGyGlobalDollarHub_20261026 is AaveV4PayloadEth
   address public constant PAXG_GOLD_SPOKE_PAXGY_PRICE_FEED =
     0x8E39De6366AB0bc3e9FF6a116f366736bf0D8A9e;
 
-  // https://etherscan.io/address/0x8E39De6366AB0bc3e9FF6a116f366736bf0D8A9e
-  address public constant PAXG_PAXOS_ESPOKE_PAXGY_PRICE_FEED =
-    0x8E39De6366AB0bc3e9FF6a116f366736bf0D8A9e;
-
   function accessManagerTargetFunctionRoleUpdates()
     public
     pure
@@ -87,7 +83,7 @@ contract AaveV4Ethereum_OnboardPAXGyGlobalDollarHub_20261026 is AaveV4PayloadEth
       spoke: PAXG_PAXOS_ESPOKE,
       hub: address(AaveV4EthereumHubs.GLOBAL_DOLLAR_HUB),
       underlying: PAXGY,
-      priceSource: PAXG_PAXOS_ESPOKE_PAXGY_PRICE_FEED,
+      priceSource: PAXG_GOLD_SPOKE_PAXGY_PRICE_FEED,
       config: ISpoke.ReserveConfig({
         collateralRisk: uint24(0),
         paused: false,

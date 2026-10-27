@@ -339,7 +339,7 @@ contract AaveV4Ethereum_OnboardPAXGyGlobalDollarHub_20261026_Test is ProtocolV4T
           IHub(address(AaveV4EthereumHubs.GLOBAL_DOLLAR_HUB)).getAssetId(proposal.PAXGY())
         )
       ),
-      proposal.PAXG_PAXOS_ESPOKE_PAXGY_PRICE_FEED(),
+      proposal.PAXG_GOLD_SPOKE_PAXGY_PRICE_FEED(),
       'PAXGY price source mismatch'
     );
     assertEq(
@@ -671,7 +671,7 @@ contract AaveV4Ethereum_OnboardPAXGyGlobalDollarHub_20261026_Test is ProtocolV4T
     assertEq(items[1].spoke, proposal.PAXG_PAXOS_ESPOKE(), 'spoke');
     assertEq(items[1].hub, address(AaveV4EthereumHubs.GLOBAL_DOLLAR_HUB), 'hub');
     assertEq(items[1].underlying, proposal.PAXGY(), 'underlying');
-    assertEq(items[1].priceSource, proposal.PAXG_PAXOS_ESPOKE_PAXGY_PRICE_FEED(), 'priceSource');
+    assertEq(items[1].priceSource, proposal.PAXG_GOLD_SPOKE_PAXGY_PRICE_FEED(), 'priceSource');
     assertEq(uint256(items[1].config.collateralRisk), 0, 'collateralRisk');
     assertEq(items[1].config.paused, false, 'paused');
     assertEq(items[1].config.frozen, false, 'frozen');
