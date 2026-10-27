@@ -1,0 +1,14 @@
+src/20261021_AaveV3XLayer_Onboard_PTUSDG25FEB2027_Oracle/Onboard_PTUSDG25FEB2027_Oracle.md
+  h_739c25e72c37fb 85-86
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "cd2c6346b8060f2c640f68cca965180251f34da1",
+  "prompts": {},
+  "humans": {
+    "h_739c25e72c37fb": {
+      "author": "DhairyaSethi <55102840+DhairyaSethi@users.noreply.github.com>"
+    }
+  }
+}
