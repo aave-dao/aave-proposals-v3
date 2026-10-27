@@ -25,7 +25,7 @@ contract AaveV4Ethereum_OnboardCirBTCToV3CoreAndV4Core_20261019_Test is Protocol
   AaveV4Ethereum_OnboardCirBTCToV3CoreAndV4Core_20261019 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 26226813);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 26282649);
     proposal = new AaveV4Ethereum_OnboardCirBTCToV3CoreAndV4Core_20261019();
   }
 

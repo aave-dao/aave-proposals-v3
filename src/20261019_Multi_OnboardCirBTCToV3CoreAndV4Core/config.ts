@@ -42,7 +42,7 @@ export const config: ConfigFile = {
           },
         ],
       },
-      cache: {blockNumber: 26226813},
+      cache: {blockNumber: 26282649},
     },
     AaveV4Ethereum: {
       configs: {
@@ -108,7 +108,7 @@ export const config: ConfigFile = {
           pmUpdates: [],
         },
       },
-      cache: {blockNumber: 26226813},
+      cache: {blockNumber: 26282649},
       labels: {
         '0x72dfb2e44f59c5ad2bafe84314e5b99a7cd5075e': {
           label: 'cirBTC',

@@ -4,7 +4,6 @@ pragma solidity ^0.8.0;
 import {GovV3Helpers} from 'aave-helpers/src/GovV3Helpers.sol';
 import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
 import {ChainlinkEthereum} from 'aave-address-book/ChainlinkEthereum.sol';
-import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
 import {EngineFlags} from 'aave-v3-origin/contracts/extensions/v3-config-engine/EngineFlags.sol';
 import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config-engine/IAaveV3ConfigEngine.sol';
 import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
@@ -23,9 +22,8 @@ contract AaveV3Ethereum_OnboardCirBTCToV3CoreAndV4Core_20261019_Test is Protocol
   AaveV3Ethereum_OnboardCirBTCToV3CoreAndV4Core_20261019 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 26226813);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 26282649);
     proposal = new AaveV3Ethereum_OnboardCirBTCToV3CoreAndV4Core_20261019();
-    deal(proposal.cirBTC(), GovernanceV3Ethereum.EXECUTOR_LVL_1, proposal.cirBTC_SEED_AMOUNT());
   }
 
   /**

@@ -44,7 +44,7 @@ Onboarding cirBTC as a collateral asset is aligned with the DAO's long-term obje
 | Uoptimal                  | 80%            |
 | Flashloan Enabled         | Yes            |
 
-A seed amount of 0.0015 cirBTC is supplied to the Dust Bin on behalf of the protocol.
+A seed amount of 0.001 cirBTC is supplied to the Dust Bin on behalf of the protocol.
 
 ### Aave V4 Specific Parameters
 
