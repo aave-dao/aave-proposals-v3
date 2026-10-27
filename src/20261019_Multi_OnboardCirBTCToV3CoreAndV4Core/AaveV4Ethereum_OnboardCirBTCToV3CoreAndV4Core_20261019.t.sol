@@ -164,12 +164,12 @@ contract AaveV4Ethereum_OnboardCirBTCToV3CoreAndV4Core_20261019_Test is Protocol
     uint256 reserveId = spoke.getReserveId(address(hub), hub.getAssetId(proposal.cirBTC()));
     assertEq(
       oracle.getReserveSource(reserveId),
-      ChainlinkEthereum.BTC__USD,
+      ChainlinkEthereum.AAVE_SVR_BTC__USD,
       'cirBTC price source mismatch'
     );
     assertEq(
       oracle.getReservePrice(reserveId),
-      uint256(AggregatorInterface(ChainlinkEthereum.BTC__USD).latestAnswer()),
+      uint256(AggregatorInterface(ChainlinkEthereum.AAVE_SVR_BTC__USD).latestAnswer()),
       'cirBTC price differs from BTC/USD'
     );
     assertApproxEqRel(
@@ -238,7 +238,7 @@ contract AaveV4Ethereum_OnboardCirBTCToV3CoreAndV4Core_20261019_Test is Protocol
     // BTC drops 15%: 78% CF on $85k collateral no longer covers $70k debt
     uint256 btcPrice = oracle.getReservePrice(cirBTCInfo.reserveId);
     vm.mockCall(
-      ChainlinkEthereum.BTC__USD,
+      ChainlinkEthereum.AAVE_SVR_BTC__USD,
       abi.encodeWithSignature('latestAnswer()'),
       abi.encode(int256((btcPrice * 85) / 100))
     );

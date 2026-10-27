@@ -21,8 +21,8 @@
 | maxLiquidationBonus | 5.55 % [10555] |
 | liquidationFee | 10.00 % [1000] |
 | oracleAddress | [0x99B2B6CEa9C3D2fd8F4d90f86741C44B212a6127](https://etherscan.io/address/0x99B2B6CEa9C3D2fd8F4d90f86741C44B212a6127) |
-| priceSource | [0xF4030086522a5bEEa4988F8cA5B36dbC97BeE88c](https://etherscan.io/address/0xF4030086522a5bEEa4988F8cA5B36dbC97BeE88c) |
-| oraclePrice | 7,945,902,073,702 (7.945902073702e12) |
+| priceSource | [0xb41E773f507F7a7EA890b1afB7d2b660c30C8B0A](https://etherscan.io/address/0xb41E773f507F7a7EA890b1afB7d2b660c30C8B0A) |
+| oraclePrice | 7,952,035,293,172 (7.952035293172e12) |
 
 **dynamicConfigs**
 
@@ -112,13 +112,13 @@
 
 | index | event |
 | --- | --- |
-| 10 | UpdateReserveSource(reserveId: 14, source: 0xF4030086522a5bEEa4988F8cA5B36dbC97BeE88c) |
+| 10 | UpdateReserveSource(reserveId: 14, source: 0xb41E773f507F7a7EA890b1afB7d2b660c30C8B0A) |
 
 #### 0x94e7A5dCbE816e498b89aB752661904E2F56c485 (AaveV4Ethereum.ALL_SPOKES[6], AaveV4Ethereum.ALL_SPOKES_RAW[7], AaveV4Ethereum.SPOKES.MAIN_SPOKE)
 
 | index | event |
 | --- | --- |
-| 11 | UpdateReservePriceSource(reserveId: 14, priceSource: 0xF4030086522a5bEEa4988F8cA5B36dbC97BeE88c) |
+| 11 | UpdateReservePriceSource(reserveId: 14, priceSource: 0xb41E773f507F7a7EA890b1afB7d2b660c30C8B0A) |
 | 12 | AddReserve(reserveId: 14, assetId: 17, hub: 0xCca852Bc40e560adC3b1Cc58CA5b55638ce826c9) |
 | 13 | UpdateReserveConfig(reserveId: 14, config: {collateralRisk: 0, paused: false, frozen: false, borrowable: true, receiveSharesEnabled: true}) |
 | 14 | AddDynamicReserveConfig(reserveId: 14, dynamicConfigKey: 0, config: {collateralFactor: 7800, maxLiquidationBonus: 10555, liquidationFee: 1000}) |
@@ -151,7 +151,7 @@
 
 | slot | previous value | new value |
 | --- | --- | --- |
-| 0x57aaafa65c4e563d39fff90096a5fa76d42117f53d87ef870784e64d63a8a16b | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x000000000000000000000000f4030086522a5beea4988f8ca5b36dbc97bee88c |
+| 0x57aaafa65c4e563d39fff90096a5fa76d42117f53d87ef870784e64d63a8a16b | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x000000000000000000000000b41e773f507f7a7ea890b1afb7d2b660c30c8b0a |
 
 ### 0xad88791b0f81d1fa242f637eb05bee0cbc53fe2f (AaveV4Ethereum.IR_STRATEGIES.CORE_WETH_IR_STRATEGY, AaveV4Ethereum.IR_STRATEGIES.CORE_wstETH_IR_STRATEGY, AaveV4Ethereum.IR_STRATEGIES.CORE_weETH_IR_STRATEGY, AaveV4Ethereum.IR_STRATEGIES.CORE_rsETH_IR_STRATEGY, AaveV4Ethereum.IR_STRATEGIES.CORE_USDT_IR_STRATEGY, AaveV4Ethereum.IR_STRATEGIES.CORE_USDC_IR_STRATEGY, AaveV4Ethereum.IR_STRATEGIES.CORE_GHO_IR_STRATEGY, AaveV4Ethereum.IR_STRATEGIES.CORE_RLUSD_IR_STRATEGY, AaveV4Ethereum.IR_STRATEGIES.CORE_USDG_IR_STRATEGY, AaveV4Ethereum.IR_STRATEGIES.CORE_frxUSD_IR_STRATEGY, AaveV4Ethereum.IR_STRATEGIES.CORE_EURC_IR_STRATEGY, AaveV4Ethereum.IR_STRATEGIES.CORE_WBTC_IR_STRATEGY, AaveV4Ethereum.IR_STRATEGIES.CORE_cbBTC_IR_STRATEGY, AaveV4Ethereum.IR_STRATEGIES.CORE_LBTC_IR_STRATEGY, AaveV4Ethereum.IR_STRATEGIES.CORE_XAUt_IR_STRATEGY, AaveV4Ethereum.IR_STRATEGIES.CORE_AAVE_IR_STRATEGY, AaveV4Ethereum.IR_STRATEGIES.CORE_LINK_IR_STRATEGY)
 
@@ -267,9 +267,9 @@
           "liquidationFee": 1000,
           "maxLiquidationBonus": 10555,
           "oracleAddress": "0x99B2B6CEa9C3D2fd8F4d90f86741C44B212a6127",
-          "oraclePrice": "7945902073702",
+          "oraclePrice": "7952035293172",
           "paused": false,
-          "priceSource": "0xF4030086522a5bEEa4988F8cA5B36dbC97BeE88c",
+          "priceSource": "0xb41E773f507F7a7EA890b1afB7d2b660c30C8B0A",
           "receiveSharesEnabled": true,
           "symbol": "cirBTC",
           "underlying": "0x72DFB2E44f59C5AD2bAFE84314E5b99a7cd5075E"

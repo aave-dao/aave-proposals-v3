@@ -70,9 +70,9 @@ cirBTC is listed on the Core Hub with the Core Hub's interest rate strategy [`0x
 
 ### Price feed Recommendation
 
-We recommend using Chainlink’s [BTC/USD feed](https://data.chain.link/feeds/ethereum/mainnet/btc-usd) to price cirBTC on Aave V3 and V4.
+We recommend using Chainlink’s [SVR BTC/USD feed](https://etherscan.io/address/0xb41E773f507F7a7EA890b1afB7d2b660c30C8B0A) to price cirBTC on Aave V3 and V4. The same feed already prices BTC wrappers on the Aave V3 Core instance and on the Aave V4 Main Spoke.
 
-Price feed: [`0xF4030086522a5bEEa4988F8cA5B36dbC97BeE88c`](https://etherscan.io/address/0xF4030086522a5bEEa4988F8cA5B36dbC97BeE88c)
+Price feed: [`0xb41E773f507F7a7EA890b1afB7d2b660c30C8B0A`](https://etherscan.io/address/0xb41E773f507F7a7EA890b1afB7d2b660c30C8B0A)
 
 ## Disclaimer
 

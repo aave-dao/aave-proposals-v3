@@ -20,8 +20,8 @@ contract AaveV4Ethereum_OnboardCirBTCToV3CoreAndV4Core_20261019 is AaveV4Payload
   // https://etherscan.io/address/0x72DFB2E44f59C5AD2bAFE84314E5b99a7cd5075E
   address public constant cirBTC = 0x72DFB2E44f59C5AD2bAFE84314E5b99a7cd5075E;
 
-  // https://etherscan.io/address/0xF4030086522a5bEEa4988F8cA5B36dbC97BeE88c
-  address public constant MAIN_SPOKE_cirBTC_PRICE_FEED = ChainlinkEthereum.BTC__USD;
+  // https://etherscan.io/address/0xb41E773f507F7a7EA890b1afB7d2b660c30C8B0A
+  address public constant MAIN_SPOKE_cirBTC_PRICE_FEED = ChainlinkEthereum.AAVE_SVR_BTC__USD;
 
   function hubAssetListings() public pure override returns (IConfigEngine.AssetListing[] memory) {
     IConfigEngine.AssetListing[] memory items = new IConfigEngine.AssetListing[](1);

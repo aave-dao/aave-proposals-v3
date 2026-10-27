@@ -14,10 +14,10 @@
 | supplyCap | 250 cirBTC |
 | borrowCap | 20 cirBTC |
 | isFlashloanable | :white_check_mark: |
-| oracle | [0xF4030086522a5bEEa4988F8cA5B36dbC97BeE88c](https://etherscan.io/address/0xF4030086522a5bEEa4988F8cA5B36dbC97BeE88c) |
+| oracle | [0xb41E773f507F7a7EA890b1afB7d2b660c30C8B0A](https://etherscan.io/address/0xb41E773f507F7a7EA890b1afB7d2b660c30C8B0A) |
 | oracleDecimals | 8 |
 | oracleDescription | BTC / USD |
-| oracleLatestAnswer | 79459.02073702 $ |
+| oracleLatestAnswer | 79520.35293172 $ |
 | usageAsCollateralEnabled | :white_check_mark: |
 | ltv | 73 % [7300] |
 | liquidationThreshold | 78 % [7800] |
@@ -48,7 +48,7 @@
 
 | index | event |
 | --- | --- |
-| 0 | AssetSourceUpdated(asset: 0x72DFB2E44f59C5AD2bAFE84314E5b99a7cd5075E (symbol: cirBTC), source: 0xF4030086522a5bEEa4988F8cA5B36dbC97BeE88c) |
+| 0 | AssetSourceUpdated(asset: 0x72DFB2E44f59C5AD2bAFE84314E5b99a7cd5075E (symbol: cirBTC), source: 0xb41E773f507F7a7EA890b1afB7d2b660c30C8B0A) |
 
 #### 0x0914FC8025D04739AA9BF2FA6c454DB159E78e35
 
@@ -135,7 +135,7 @@
 
 | slot | previous value | new value |
 | --- | --- | --- |
-| 0x62aa1d63e79f0b664d8a81a21f573bc8504da71ae5e8ef38d6de332cc7810f0f | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x000000000000000000000000f4030086522a5beea4988f8ca5b36dbc97bee88c |
+| 0x62aa1d63e79f0b664d8a81a21f573bc8504da71ae5e8ef38d6de332cc7810f0f | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x000000000000000000000000b41e773f507f7a7ea890b1afb7d2b660c30c8b0a |
 
 ### 0x64b761d848206f447fe2dd461b0c635ec39ebb27 (AaveV3Ethereum.POOL_CONFIGURATOR)
 
@@ -224,10 +224,10 @@
         "liquidationProtocolFee": 2000,
         "liquidationThreshold": 7800,
         "ltv": 7300,
-        "oracle": "0xF4030086522a5bEEa4988F8cA5B36dbC97BeE88c",
+        "oracle": "0xb41E773f507F7a7EA890b1afB7d2b660c30C8B0A",
         "oracleDecimals": 8,
         "oracleDescription": "BTC / USD",
-        "oracleLatestAnswer": "7945902073702",
+        "oracleLatestAnswer": "7952035293172",
         "reserveFactor": 5000,
         "supplyCap": 250,
         "symbol": "cirBTC",

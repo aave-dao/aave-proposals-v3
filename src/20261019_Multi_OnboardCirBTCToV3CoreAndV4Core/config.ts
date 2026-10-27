@@ -21,7 +21,7 @@ export const config: ConfigFile = {
           {
             assetSymbol: 'cirBTC',
             decimals: 8,
-            priceFeed: '0xF4030086522a5bEEa4988F8cA5B36dbC97BeE88c',
+            priceFeed: '0xb41E773f507F7a7EA890b1afB7d2b660c30C8B0A',
             ltv: '73',
             liqThreshold: '78',
             liqBonus: '5',
@@ -71,7 +71,7 @@ export const config: ConfigFile = {
               spoke: 'AaveV4EthereumSpokes.MAIN_SPOKE',
               hub: 'AaveV4EthereumHubs.CORE_HUB',
               underlying: 'cirBTC',
-              priceSource: '0xF4030086522a5bEEa4988F8cA5B36dbC97BeE88c',
+              priceSource: '0xb41E773f507F7a7EA890b1afB7d2b660c30C8B0A',
               config: {
                 collateralRisk: '0',
                 paused: false,

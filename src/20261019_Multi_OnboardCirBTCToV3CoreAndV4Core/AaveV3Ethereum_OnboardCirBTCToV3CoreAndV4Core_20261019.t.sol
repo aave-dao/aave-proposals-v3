@@ -69,11 +69,11 @@ contract AaveV3Ethereum_OnboardCirBTCToV3CoreAndV4Core_20261019_Test is Protocol
     _validateAssetSourceOnOracle(
       AaveV3Ethereum.POOL_ADDRESSES_PROVIDER,
       proposal.cirBTC(),
-      ChainlinkEthereum.BTC__USD
+      ChainlinkEthereum.AAVE_SVR_BTC__USD
     );
     assertEq(
       AaveV3Ethereum.ORACLE.getAssetPrice(proposal.cirBTC()),
-      uint256(AggregatorInterface(ChainlinkEthereum.BTC__USD).latestAnswer()),
+      uint256(AggregatorInterface(ChainlinkEthereum.AAVE_SVR_BTC__USD).latestAnswer()),
       'cirBTC price differs from BTC/USD'
     );
     assertApproxEqRel(
@@ -118,7 +118,7 @@ contract AaveV3Ethereum_OnboardCirBTCToV3CoreAndV4Core_20261019_Test is Protocol
 
     uint256 droppedPrice = (cirBTCPrice * 85) / 100;
     vm.mockCall(
-      ChainlinkEthereum.BTC__USD,
+      ChainlinkEthereum.AAVE_SVR_BTC__USD,
       abi.encodeWithSignature('latestAnswer()'),
       abi.encode(int256(droppedPrice))
     );
@@ -177,7 +177,7 @@ contract AaveV3Ethereum_OnboardCirBTCToV3CoreAndV4Core_20261019_Test is Protocol
       listing: IAaveV3ConfigEngine.Listing({
         asset: 0x72DFB2E44f59C5AD2bAFE84314E5b99a7cd5075E,
         assetSymbol: 'cirBTC',
-        priceFeed: 0xF4030086522a5bEEa4988F8cA5B36dbC97BeE88c,
+        priceFeed: 0xb41E773f507F7a7EA890b1afB7d2b660c30C8B0A,
         enabledToBorrow: EngineFlags.ENABLED,
         flashloanable: EngineFlags.ENABLED,
         ltv: 73_00,
