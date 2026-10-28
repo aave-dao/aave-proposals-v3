@@ -31,15 +31,15 @@ The upgrade applies to the Aave V3 instances on Ethereum (Core and Lido), Plasma
 
 ## Licensing
 
-Aave V3.8 will be published as its own version of the Licensed Work under a Business Source License. The licence text is available [here](https://github.com/aave-dao/aave-v3-origin/blob/d1086a13a4f7c730a3e5c62a8c32397383c7704c/LICENSE) and will be included in the V3.8 repository. The Change Date for V3.8 is set by Aave Governance and recorded in the change-date text record at v38.aavelicense.eth. Until Governance sets a date, V3.8 stays under the Business Source License. As with the other codebase IP, the V3.8 IP will be transferred to the Aave Foundation through a separate governance proposal.
+Aave V3.8 will be published as its own version of the Licensed Work under a Business Source License. The licence text is available [here](https://github.com/aave-dao/aave-v3-origin/blob/c7d5775ae5f7046d4285d5355ef092d5b24f377a/LICENSE) and will be included in the V3.8 repository. The Change Date for V3.8 is set by Aave Governance and recorded in the change-date text record at v38.aavelicense.eth. Until Governance sets a date, V3.8 stays under the Business Source License. As with the other codebase IP, the V3.8 IP will be transferred to the Aave Foundation through a separate governance proposal.
 
 ## Security
 
 Aave V3.8 has been audited by:
 
-- [Certora](https://github.com/aave-dao/aave-v3-origin/blob/feat/V3.8/audits/2026-10-27_Certora_Aave-v3.8.pdf)
-- [ChainSecurity](https://github.com/aave-dao/aave-v3-origin/blob/feat/V3.8/audits/2026-10-27_ChainSecurity_Aave-v3.8.pdf)
-- [TomerSecurityFirst](https://github.com/aave-dao/aave-v3-origin/blob/feat/V3.8/audits/2026-10-27_TomerSecurityFirst_Aave-v3.8.pdf)
+- [Certora](https://github.com/aave-dao/aave-v3-origin/blob/c7d5775ae5f7046d4285d5355ef092d5b24f377a/audits/2026-10-27_Certora_Aave-v3.8.pdf)
+- [ChainSecurity](https://github.com/aave-dao/aave-v3-origin/blob/c7d5775ae5f7046d4285d5355ef092d5b24f377a/audits/2026-10-27_ChainSecurity_Aave-v3.8.pdf)
+- [TomerSecurityFirst](https://github.com/aave-dao/aave-v3-origin/blob/c7d5775ae5f7046d4285d5355ef092d5b24f377a/audits/2026-10-27_TomerSecurityFirst_Aave-v3.8.pdf)
 
 ## References
 
