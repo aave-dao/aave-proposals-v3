@@ -25,9 +25,8 @@ library AaveV3EthereumHorizonCustom {
     address(AaveV3EthereumHorizon.DEFAULT_A_TOKEN_IMPL);
   address internal constant DEFAULT_VARIABLE_DEBT_TOKEN_IMPL =
     address(AaveV3EthereumHorizon.DEFAULT_VARIABLE_DEBT_TOKEN_IMPL);
-  // TODO: switch to AaveV3EthereumHorizon.* once lib/aave-helpers vendors aave-address-book >= 7389dfa3
-  address internal constant RWA_A_TOKEN_IMPL = 0x5148d810B1DaE509d68f9d9219AD1d004EA32545;
-  address internal constant CONFIG_ENGINE = 0xFB36A571995C04E6FcbC7611450E805c79535174;
+  address internal constant RWA_A_TOKEN_IMPL = AaveV3EthereumHorizon.RWA_A_TOKEN_IMPL;
+  address internal constant CONFIG_ENGINE = AaveV3EthereumHorizon.CONFIG_ENGINE;
 
   // executor roles
   // https://etherscan.io/address/0xe6ec1f0ae6cd023bd0a9b4d0253bdc755103253c
