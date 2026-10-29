@@ -97,6 +97,14 @@ contract AaveV4Avalanche_OnboardUSATCoreHub_20261028_Test is ProtocolV4TestBaseA
     );
     IHub.SpokeConfig memory tokenizationCfg = hub.getSpokeConfig(assetId, tokenizationSpoke);
     assertEq(uint256(tokenizationCfg.addCap), uint256(1_500_000), 'tokenization addCap mismatch');
+    assertEq(uint256(tokenizationCfg.drawCap), uint256(0), 'tokenization drawCap mismatch');
+    assertEq(
+      uint256(tokenizationCfg.riskPremiumThreshold),
+      uint256(0),
+      'tokenization riskPremiumThreshold mismatch'
+    );
+    assertEq(tokenizationCfg.active, true, 'tokenization active mismatch');
+    assertEq(tokenizationCfg.halted, false, 'tokenization halted mismatch');
     assertEq(
       IERC20Metadata(tokenizationSpoke).name(),
       'Wrapped Aave Core USAT',
@@ -237,7 +245,7 @@ contract AaveV4Avalanche_OnboardUSATCoreHub_20261028_Test is ProtocolV4TestBaseA
       IHub(address(AaveV4AvalancheHubs.CORE_HUB)).getAssetId(proposal.USAT())
     );
     uint256[] memory prices = IAaveOracle(spoke.ORACLE()).getReservesPrices(reserveIds);
-    assertApproxEqAbs(prices[0], 1e8, 0.02e8, 'USAT price mismatch');
+    assertEq(prices[0], 1e8, 'USAT price mismatch');
   }
 
   function test_reservePrices_ETHENA_ECOSYSTEM_SPOKE() public {
@@ -249,7 +257,7 @@ contract AaveV4Avalanche_OnboardUSATCoreHub_20261028_Test is ProtocolV4TestBaseA
       IHub(address(AaveV4AvalancheHubs.CORE_HUB)).getAssetId(proposal.USAT())
     );
     uint256[] memory prices = IAaveOracle(spoke.ORACLE()).getReservesPrices(reserveIds);
-    assertApproxEqAbs(prices[0], 1e8, 0.02e8, 'USAT price mismatch');
+    assertEq(prices[0], 1e8, 'USAT price mismatch');
   }
 
   function test_hubSpokeToAssetsAddition_CORE_HUB_MAIN_SPOKE_USAT() public {
