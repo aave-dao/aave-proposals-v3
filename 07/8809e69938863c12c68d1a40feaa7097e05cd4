@@ -1,0 +1,21 @@
+tests/utils/horizon/AaveV3EthereumHorizonCustom.sol
+  s_27070cf0ae3899::t_9ef0a49b5ddae5 28-29
+lib/aave-helpers
+  s_27070cf0ae3899::t_2e1bd4e3a8a901 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "078809e69938863c12c68d1a40feaa7097e05cd4",
+  "prompts": {},
+  "sessions": {
+    "s_27070cf0ae3899": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "c0b34d16-8be4-488b-bc86-602f235678e9",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "DhairyaSethi <55102840+DhairyaSethi@users.noreply.github.com>"
+    }
+  }
+}
