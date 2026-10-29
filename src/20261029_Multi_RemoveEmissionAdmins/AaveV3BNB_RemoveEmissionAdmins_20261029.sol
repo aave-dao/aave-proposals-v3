@@ -6,7 +6,7 @@ import {IEmissionManager} from 'aave-v3-origin/contracts/rewards/interfaces/IEmi
 import {AaveV3BNB, AaveV3BNBAssets} from 'aave-address-book/AaveV3BNB.sol';
 
 /**
- * @title Remove Emission Admins
+ * @title Remove Emission Admins from Aave V3 Instances
  * @author Aave Labs
  * - Snapshot: direct-to-aip
  * - Discussion: TODO

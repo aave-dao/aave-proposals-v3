@@ -7,7 +7,7 @@ import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethe
 import {AaveV3EthereumLidoAssets} from 'aave-address-book/AaveV3EthereumLido.sol';
 
 /**
- * @title Remove Emission Admins
+ * @title Remove Emission Admins from Aave V3 Instances
  * @author Aave Labs
  * - Snapshot: direct-to-aip
  * - Discussion: TODO

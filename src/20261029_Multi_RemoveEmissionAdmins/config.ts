@@ -19,7 +19,7 @@ export const config: ConfigFile = {
       'AaveV3MegaEth',
       'AaveV3XLayer',
     ],
-    title: 'Remove Emission Admins',
+    title: 'Remove Emission Admins from Aave V3 Instances',
     shortName: 'RemoveEmissionAdmins',
     date: '20261029',
     author: 'Aave Labs',
