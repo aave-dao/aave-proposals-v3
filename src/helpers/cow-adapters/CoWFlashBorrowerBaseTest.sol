@@ -5,9 +5,10 @@ import {IERC20} from 'forge-std/interfaces/IERC20.sol';
 import 'forge-std/Test.sol';
 
 import {IPool} from 'aave-address-book/AaveV3.sol';
+import {ISpoke, ITakerPositionManager} from 'aave-address-book/AaveV4.sol';
 import {ProtocolV3TestBase} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 
-import {GPv2Interaction, GPv2Order, GPv2Trade, HookOrderData, IBaseAdapterFactory, ICollateralSwapAaveV3Adapter, IFlashLoanRouter, IGPv2Settlement, IGPv2Authenticator, IOwnable, Loan, MockBasicPool, Permit, SwapOrder, SwapOrderToGPv2OrderLib, _getEmptyPermitSig} from 'src/helpers/cow-adapters/CoWFlashBorrowerTestUtils.sol';
+import {GPv2Interaction, GPv2Order, GPv2Trade, HookOrderData, HookOrderDataV4, IBaseAdapterFactory, IBaseAdapterV4Factory, ICollateralSwapAaveV3Adapter, ICollateralSwapAaveV4Adapter, IFlashLoanRouter, IGPv2Settlement, IGPv2Authenticator, IOwnable, Loan, MockBasicPool, Permit, PositionManagersPermit, SetUsingAsCollateralPermit, SwapOrder, SwapOrderToGPv2OrderLib, WithdrawPermit, _getEmptyPermitSig} from 'src/helpers/cow-adapters/CoWFlashBorrowerTestUtils.sol';
 
 /// @notice Shared collateral-swap-with-flash-loan and factory-ownership tests, parameterized
 /// so they can run against any market in the proposal. Per-market test files inherit this
@@ -37,6 +38,7 @@ abstract contract CoWFlashBorrowerBaseTest is ProtocolV3TestBase {
   address internal constant COLLATERAL_SWAP_V3_ADAPTER = 0xa1138627412212e53C208e220696f14b0185a82c;
   address internal constant COLLATERAL_SWAP_V3_PRIME_ADAPTER =
     0xdf36e299a5326dd284E3E7b5AD891b4262e32f0a;
+  address internal constant COLLATERAL_SWAP_V4_ADAPTER = 0xe8a2b6De869Ef989aA0F0f670A2Dd4064ED0A9a1;
 
   struct FactoryOwnership {
     address factory;
@@ -118,6 +120,43 @@ abstract contract CoWFlashBorrowerBaseTest is ProtocolV3TestBase {
     uint256 expectedBuyAmount;
   }
 
+  struct CollateralSwapV4Config {
+    address factory;
+    ISpoke spoke;
+    address hub;
+    address collateralAsset;
+    address debtAsset;
+    uint256 collateralSeed;
+    uint256 debtSeed;
+    uint256 sellAmount;
+    uint256 expectedBuyAmount;
+  }
+
+  struct V4PositionSnapshot {
+    uint256 userBalance;
+    uint256 userSupplied;
+    uint256 userDebt;
+    uint256 adapterBalance;
+    uint256 adapterSupplied;
+  }
+
+  struct V4TestLocalVars {
+    Vm.Wallet traderWallet;
+    address trader;
+    address solver;
+    IGPv2Settlement settlement;
+    uint256 collateralReserveId;
+    uint256 debtReserveId;
+    uint256 sellAmount;
+    address instance;
+    IERC20[] tokens;
+    uint256[] prices;
+    V4PositionSnapshot sellInitial;
+    V4PositionSnapshot buyInitial;
+    V4PositionSnapshot sellFinal;
+    V4PositionSnapshot buyFinal;
+  }
+
   /// @dev The pool used for seeding collateral / borrowing debt and reading aToken /
   /// variableDebtToken addresses.
   function _pool() internal view virtual returns (IPool);
@@ -163,21 +202,7 @@ abstract contract CoWFlashBorrowerBaseTest is ProtocolV3TestBase {
     vars.factory = IBaseAdapterFactory(_cowV3Factory());
     vars.adapterImplementation = _collateralSwapAdapter();
     assertTrue(vars.factory.isAdapterImplementation(vars.adapterImplementation));
-    IGPv2Settlement settlement = vars.factory.ROUTER().settlementContract();
-    address authenticator = address(settlement.authenticator());
-    // Whitelist the test's solver and the FlashLoanRouter (which becomes msg.sender of
-    // `Settlement.settle` once `flashLoanAndSettle` enters the settlement). Routers are
-    // whitelisted on most chains' real CoW deployments but not all (e.g. Plasma).
-    vm.mockCall(
-      authenticator,
-      abi.encodeCall(IGPv2Authenticator.isSolver, (vars.solver)),
-      abi.encode(true)
-    );
-    vm.mockCall(
-      authenticator,
-      abi.encodeCall(IGPv2Authenticator.isSolver, (address(vars.factory.ROUTER()))),
-      abi.encode(true)
-    );
+    IGPv2Settlement settlement = _whitelistSolver(vars.factory, vars.solver);
 
     _seedDebt(
       config.collateralAsset,
@@ -361,6 +386,228 @@ abstract contract CoWFlashBorrowerBaseTest is ProtocolV3TestBase {
       0,
       'Adapter Instance aSellToken Balance should be null'
     );
+  }
+
+  /// @dev Collateral swap on an Aave V4 Spoke through the V4 factory, with the flash loan taken
+  /// from this market's V3 Pool and signed with a zero fee. Opt-in per market, as only the
+  /// networks with an Aave V4 deployment carry the V4 factory.
+  function _testCollateralSwapV4WithFlashLoanNoFee(CollateralSwapV4Config memory config) internal {
+    _executePayload();
+
+    V4TestLocalVars memory vars;
+    vars.traderWallet = vm.createWallet('Trader');
+    vars.trader = vars.traderWallet.addr;
+    vars.solver = makeAddr('solver');
+    IBaseAdapterFactory factory = IBaseAdapterFactory(config.factory);
+    assertTrue(factory.isAdapterImplementation(COLLATERAL_SWAP_V4_ADAPTER));
+    vars.settlement = _whitelistSolver(factory, vars.solver);
+    vars.collateralReserveId = _v4ReserveId(config.spoke, config.hub, config.collateralAsset);
+    vars.debtReserveId = _v4ReserveId(config.spoke, config.hub, config.debtAsset);
+
+    _seedV4Position(config, vars);
+    // The Hub rounds supply shares down, so the withdrawable amount can sit 1 wei below the seed.
+    vars.sellAmount = config.spoke.getUserSuppliedAssets(vars.collateralReserveId, vars.trader);
+    if (vars.sellAmount > config.sellAmount) vars.sellAmount = config.sellAmount;
+
+    HookOrderDataV4 memory hookData = HookOrderDataV4({
+      owner: vars.trader,
+      receiver: address(0),
+      sellToken: config.collateralAsset,
+      buyToken: config.debtAsset,
+      sellAmount: vars.sellAmount,
+      buyAmount: config.expectedBuyAmount,
+      kind: KIND_SELL,
+      validTo: 0xffffffff,
+      flashLoanAmount: vars.sellAmount,
+      flashLoanFeeAmount: 0,
+      spoke: address(config.spoke),
+      sellAssetHub: config.hub,
+      buyAssetHub: config.hub,
+      hookSellTokenAmount: vars.sellAmount,
+      hookBuyTokenAmount: config.expectedBuyAmount
+    });
+    vars.instance = IBaseAdapterV4Factory(config.factory).getInstanceDeterministicAddress(
+      COLLATERAL_SWAP_V4_ADAPTER,
+      hookData
+    );
+    vm.label(vars.instance, 'Adapter_Instance');
+    hookData.receiver = vars.instance;
+
+    _approveV4Instance(config, vars);
+
+    vars.sellInitial = _getV4Snapshot(config, vars.collateralReserveId, vars.trader, vars.instance);
+    vars.buyInitial = _getV4Snapshot(config, vars.debtReserveId, vars.trader, vars.instance);
+
+    SwapOrder memory order = SwapOrder({
+      trader: vars.trader,
+      kind: KIND_SELL,
+      sellToken: config.collateralAsset,
+      buyToken: config.debtAsset,
+      sellAmount: vars.sellAmount,
+      buyAmount: config.expectedBuyAmount,
+      feeAmount: 0,
+      validTo: 0xffffffff,
+      receiver: vars.instance
+    });
+
+    // Zero-deadline permits: the trader granted the same approvals on-chain in `_approveV4Instance`.
+    PositionManagersPermit memory positionManagersPermit;
+    WithdrawPermit memory withdrawPermit;
+    SetUsingAsCollateralPermit memory setUsingAsCollateralPermit;
+
+    vars.tokens = new IERC20[](2);
+    vars.tokens[0] = IERC20(config.collateralAsset);
+    vars.tokens[1] = IERC20(config.debtAsset);
+    vars.prices = new uint256[](2);
+    vars.prices[0] = order.buyAmount;
+    vars.prices[1] = order.sellAmount;
+
+    bytes memory encodedSettlement = encodeSettlement(
+      EncodeSettlementParams({
+        user: vars.traderWallet,
+        order: SwapOrderToGPv2OrderLib.convertToGPv2Order(order),
+        tokens: vars.tokens,
+        prices: vars.prices,
+        preHookTarget: config.factory,
+        preHookCallData: abi.encodeCall(
+          IBaseAdapterV4Factory.deployAndTransferFlashLoan,
+          (COLLATERAL_SWAP_V4_ADAPTER, hookData)
+        ),
+        postHookTarget: vars.instance,
+        postHookCallData: abi.encodeCall(
+          ICollateralSwapAaveV4Adapter.collateralSwapWithFlashLoan,
+          (positionManagersPermit, withdrawPermit, setUsingAsCollateralPermit)
+        ),
+        settlement: address(vars.settlement)
+      })
+    );
+
+    vm.startPrank(vars.solver);
+    factory.ROUTER().flashLoanAndSettle(
+      _buildLoanData(config.factory, address(_pool()), config.collateralAsset, vars.sellAmount),
+      encodedSettlement
+    );
+    vm.stopPrank();
+
+    vars.sellFinal = _getV4Snapshot(config, vars.collateralReserveId, vars.trader, vars.instance);
+    vars.buyFinal = _getV4Snapshot(config, vars.debtReserveId, vars.trader, vars.instance);
+
+    assertEq(
+      vars.buyFinal.userBalance,
+      vars.buyInitial.userBalance,
+      'Trader buyToken Balance should stay the same'
+    );
+    assertEq(
+      vars.sellFinal.userBalance,
+      vars.sellInitial.userBalance,
+      'Trader sellToken Balance should stay the same'
+    );
+    // Tolerance absorbs share/asset rounding on the Hub around supply/withdraw.
+    assertApproxEqAbs(
+      vars.buyFinal.userSupplied,
+      vars.buyInitial.userSupplied + config.expectedBuyAmount,
+      10,
+      'Trader supplied buyToken should increase'
+    );
+    assertApproxEqAbs(
+      vars.sellFinal.userSupplied,
+      vars.sellInitial.userSupplied - vars.sellAmount,
+      10,
+      'Trader supplied sellToken should decrease'
+    );
+    assertEq(vars.buyFinal.userDebt, vars.buyInitial.userDebt, 'Trader buyToken Debt unchanged');
+    assertEq(vars.sellFinal.userDebt, vars.sellInitial.userDebt, 'Trader sellToken Debt unchanged');
+
+    assertEq(vars.buyFinal.adapterBalance, 0, 'Adapter Instance buyToken Balance should be null');
+    assertEq(vars.sellFinal.adapterBalance, 0, 'Adapter Instance sellToken Balance should be null');
+    assertEq(vars.buyFinal.adapterSupplied, 0, 'Adapter Instance buyToken Supply should be null');
+    assertEq(vars.sellFinal.adapterSupplied, 0, 'Adapter Instance sellToken Supply should be null');
+  }
+
+  function _whitelistSolver(
+    IBaseAdapterFactory factory,
+    address solver
+  ) internal returns (IGPv2Settlement settlement) {
+    settlement = factory.ROUTER().settlementContract();
+    address authenticator = address(settlement.authenticator());
+    // Whitelist the test's solver and the FlashLoanRouter (which becomes msg.sender of
+    // `Settlement.settle` once `flashLoanAndSettle` enters the settlement). Routers are
+    // whitelisted on most chains' real CoW deployments but not all (e.g. Plasma).
+    vm.mockCall(
+      authenticator,
+      abi.encodeCall(IGPv2Authenticator.isSolver, (solver)),
+      abi.encode(true)
+    );
+    vm.mockCall(
+      authenticator,
+      abi.encodeCall(IGPv2Authenticator.isSolver, (address(factory.ROUTER()))),
+      abi.encode(true)
+    );
+  }
+
+  function _seedV4Position(
+    CollateralSwapV4Config memory config,
+    V4TestLocalVars memory vars
+  ) internal {
+    deal(config.collateralAsset, vars.trader, config.collateralSeed);
+
+    vm.startPrank(vars.trader);
+    IERC20(config.collateralAsset).approve(address(config.spoke), config.collateralSeed);
+    config.spoke.supply(vars.collateralReserveId, config.collateralSeed, vars.trader);
+    config.spoke.setUsingAsCollateral(vars.collateralReserveId, true, vars.trader);
+    if (config.debtSeed != 0) {
+      config.spoke.borrow(vars.debtReserveId, config.debtSeed, vars.trader);
+    }
+    vm.stopPrank();
+  }
+
+  /// @dev On-chain equivalents of the permits the postHook would otherwise carry.
+  function _approveV4Instance(
+    CollateralSwapV4Config memory config,
+    V4TestLocalVars memory vars
+  ) internal {
+    ICollateralSwapAaveV4Adapter adapter = ICollateralSwapAaveV4Adapter(COLLATERAL_SWAP_V4_ADAPTER);
+    vm.startPrank(vars.trader);
+    config.spoke.setUserPositionManager(adapter.GIVER_POSITION_MANAGER(), true);
+    config.spoke.setUserPositionManager(adapter.TAKER_POSITION_MANAGER(), true);
+    config.spoke.setUsingAsCollateral(vars.debtReserveId, true, vars.trader);
+    ITakerPositionManager(adapter.TAKER_POSITION_MANAGER()).approveWithdraw(
+      address(config.spoke),
+      vars.collateralReserveId,
+      vars.instance,
+      vars.sellAmount
+    );
+    vm.stopPrank();
+  }
+
+  function _v4ReserveId(
+    ISpoke spoke,
+    address hub,
+    address underlying
+  ) internal view returns (uint256) {
+    uint256 count = spoke.getReserveCount();
+    for (uint256 i = 0; i < count; i++) {
+      ISpoke.Reserve memory reserve = spoke.getReserve(i);
+      if (reserve.underlying == underlying && address(reserve.hub) == hub) return i;
+    }
+    revert('V4 reserve not listed');
+  }
+
+  function _getV4Snapshot(
+    CollateralSwapV4Config memory config,
+    uint256 reserveId,
+    address account,
+    address adapterInstance
+  ) internal view returns (V4PositionSnapshot memory) {
+    address underlying = config.spoke.getReserve(reserveId).underlying;
+    return
+      V4PositionSnapshot({
+        userBalance: IERC20(underlying).balanceOf(account),
+        userSupplied: config.spoke.getUserSuppliedAssets(reserveId, account),
+        userDebt: config.spoke.getUserTotalDebt(reserveId, account),
+        adapterBalance: IERC20(underlying).balanceOf(adapterInstance),
+        adapterSupplied: config.spoke.getUserSuppliedAssets(reserveId, adapterInstance)
+      });
   }
 
   function _seedDebt(

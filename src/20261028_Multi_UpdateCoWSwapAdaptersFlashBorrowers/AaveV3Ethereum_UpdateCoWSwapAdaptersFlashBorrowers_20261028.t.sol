@@ -4,6 +4,7 @@ pragma solidity ^0.8.0;
 import {GovV3Helpers} from 'aave-helpers/src/GovV3Helpers.sol';
 import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
 import {IPool} from 'aave-address-book/AaveV3.sol';
+import {AaveV4EthereumAssets, AaveV4EthereumHubs, AaveV4EthereumSpokes} from 'aave-address-book/AaveV4Ethereum.sol';
 
 import {AaveV3Ethereum_UpdateCoWSwapAdaptersFlashBorrowers_20261028} from './AaveV3Ethereum_UpdateCoWSwapAdaptersFlashBorrowers_20261028.sol';
 import {CoWFlashBorrowerBaseTest} from 'src/helpers/cow-adapters/CoWFlashBorrowerBaseTest.sol';
@@ -49,6 +50,22 @@ contract AaveV3Ethereum_UpdateCoWSwapAdaptersFlashBorrowers_20261028_Test is
     assertTrue(AaveV3Ethereum.ACL_MANAGER.isFlashBorrower(proposal.COW_V4_ADAPTER_FACTORY()));
     assertFalse(
       AaveV3Ethereum.ACL_MANAGER.isFlashBorrower(proposal.DEPRECATED_COW_ADAPTER_FACTORY())
+    );
+  }
+
+  function test_collateralSwapV4WithFlashLoan_noFlashLoanFee() public {
+    _testCollateralSwapV4WithFlashLoanNoFee(
+      CollateralSwapV4Config({
+        factory: proposal.COW_V4_ADAPTER_FACTORY(),
+        spoke: AaveV4EthereumSpokes.MAIN_SPOKE,
+        hub: address(AaveV4EthereumHubs.CORE_HUB),
+        collateralAsset: AaveV4EthereumAssets.WETH_UNDERLYING,
+        debtAsset: AaveV4EthereumAssets.USDT_UNDERLYING,
+        collateralSeed: 10 ether,
+        debtSeed: 10_000 * 1e6,
+        sellAmount: 10 ether,
+        expectedBuyAmount: 42_000 * 1e6
+      })
     );
   }
 

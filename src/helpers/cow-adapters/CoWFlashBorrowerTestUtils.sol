@@ -2,6 +2,7 @@
 pragma solidity ^0.8.0;
 
 import {IERC20} from 'forge-std/interfaces/IERC20.sol';
+import {ISignatureGateway, ISpoke, ITakerPositionManager} from 'aave-address-book/AaveV4.sol';
 
 /// @dev Data needed by the AdapterHook for the postHook execution.
 struct HookOrderData {
@@ -123,6 +124,65 @@ interface ICollateralSwapAaveV3Adapter {
 
 function _getEmptyPermitSig() pure returns (Permit memory permit) {
   permit = Permit({amount: 0, deadline: 0, v: 0, r: bytes32(0), s: bytes32(0)});
+}
+
+/// @dev Data needed by the Aave V4 AdapterHook for the postHook execution.
+struct HookOrderDataV4 {
+  address owner;
+  address receiver;
+  address sellToken;
+  address buyToken;
+  uint256 sellAmount;
+  uint256 buyAmount;
+  bytes32 kind;
+  uint256 validTo;
+  uint256 flashLoanAmount;
+  uint256 flashLoanFeeAmount;
+  address spoke;
+  address sellAssetHub;
+  address buyAssetHub;
+  uint256 hookSellTokenAmount;
+  uint256 hookBuyTokenAmount;
+}
+
+interface IBaseAdapterV4Factory {
+  function deployAndTransferFlashLoan(
+    address adapterImplementation,
+    HookOrderDataV4 memory hookData
+  ) external;
+
+  function getInstanceDeterministicAddress(
+    address adapterImplementation,
+    HookOrderDataV4 memory hookData
+  ) external view returns (address);
+}
+
+struct PositionManagersPermit {
+  ISpoke.SetUserPositionManagers params;
+  bytes signature;
+}
+
+struct WithdrawPermit {
+  ITakerPositionManager.WithdrawPermit params;
+  bytes signature;
+}
+
+struct SetUsingAsCollateralPermit {
+  ISignatureGateway.SetUsingAsCollateral params;
+  bytes signature;
+}
+
+interface ICollateralSwapAaveV4Adapter {
+  function GIVER_POSITION_MANAGER() external view returns (address);
+
+  function TAKER_POSITION_MANAGER() external view returns (address);
+
+  /// @dev Permits with a zero deadline are skipped, so on-chain approvals can stand in for them.
+  function collateralSwapWithFlashLoan(
+    PositionManagersPermit calldata positionManagersPermit,
+    WithdrawPermit calldata withdrawPermit,
+    SetUsingAsCollateralPermit calldata setUsingAsCollateralPermit
+  ) external;
 }
 
 /// @title Gnosis Protocol v2 Order Library
@@ -398,7 +458,16 @@ contract MockBasicPool {
     // so we don't want to pull more than the contract has.
     uint256 callerFullBalance = IERC20(sellToken).balanceOf(caller);
     uint256 takeAmount = sellAmount > callerFullBalance ? callerFullBalance : sellAmount;
-    IERC20(sellToken).transferFrom(caller, address(this), takeAmount);
-    IERC20(buyToken).transfer(receiver, buyAmount);
+    _safeCall(sellToken, abi.encodeCall(IERC20.transferFrom, (caller, address(this), takeAmount)));
+    _safeCall(buyToken, abi.encodeCall(IERC20.transfer, (receiver, buyAmount)));
+  }
+
+  /// @dev Accepts tokens that return no data on transfer, such as USDT on Ethereum.
+  function _safeCall(address token, bytes memory data) private {
+    (bool success, bytes memory returnData) = token.call(data);
+    require(
+      success && (returnData.length == 0 || abi.decode(returnData, (bool))),
+      'MockBasicPool: transfer failed'
+    );
   }
 }
