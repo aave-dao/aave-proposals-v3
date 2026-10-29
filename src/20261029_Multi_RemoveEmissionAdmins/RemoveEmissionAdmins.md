@@ -14,7 +14,7 @@ The EmissionManager lets governance appoint an emission admin per reward token. 
 
 All of these campaigns have ended. The most recent, aEthUSDS rewards on aEthUSDS on Ethereum Core, ended on July 7th, 2026 at 11:00 UTC. Every other distribution ended in January 2025 or earlier. No distribution is active on any reserve token.
 
-The admins still hold the permission to start or reconfigure distributions on Aave V3 reserves, although none of them has a campaign to run. 250 of the 275 admins are held by the ACI Safe (`0xac140648435d03f784879cd789130F22Ef588Fcd`), set as liquidity mining admin by past listing payloads. ACI has since [left the Aave DAO](https://governance.aave.com/t/aci-is-leaving-aave/24205). The rest are spread across 15 other addresses. Removing these permissions leaves the DAO as the only party able to configure rewards.
+The admins still hold the permission to start or reconfigure distributions on Aave V3 reserves, although none of them has a campaign to run. 250 of the 275 admins are held by the ACI Safe (`0xac140648435d03f784879cd789130F22Ef588Fcd`), set as liquidity mining admin by past listing payloads. ACI has since [left the Aave DAO](https://governance.aave.com/t/aci-is-leaving-aave/24205). The rest are spread across 15 other addresses. Removing these permissions leaves the DAO as the only party able to configure rewards on the networks in this proposal.
 
 The EmissionManager and RewardsController feature is planned to be deprecated and removed from the codebase. This proposal is the first step of that process.
 
