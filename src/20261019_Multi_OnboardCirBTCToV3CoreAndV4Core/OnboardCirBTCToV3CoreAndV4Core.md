@@ -48,7 +48,7 @@ A seed amount of 0.001 cirBTC is supplied to the Dust Bin on behalf of the proto
 
 ### Aave V4 Specific Parameters
 
-cirBTC is listed on the Core Hub with the Core Hub's interest rate strategy [`0xAD88791B0F81D1FA242f637eB05bee0cbc53fe2f`](https://etherscan.io/address/0xAD88791B0F81D1FA242f637eB05bee0cbc53fe2f) and no Tokenization Spoke, and is added as a reserve on the existing Main Spoke.
+cirBTC is listed on the Core Hub with the Core Hub's interest rate strategy [`0xAD88791B0F81D1FA242f637eB05bee0cbc53fe2f`](https://etherscan.io/address/0xAD88791B0F81D1FA242f637eB05bee0cbc53fe2f) and a Core cirBTC Tokenization Spoke (Wrapped Aave Core cirBTC, `waCorecirBTC`), and is added as a reserve on the existing Main Spoke.
 
 #### Spoke Parameters
 
@@ -58,9 +58,12 @@ cirBTC is listed on the Core Hub with the Core Hub's interest rate strategy [`0x
 
 #### Add and Draw Caps
 
-| Chain    | Hub      | Spoke      | Reserve | Add Cap | Draw Cap |
-| -------- | -------- | ---------- | ------- | ------- | -------- |
-| Ethereum | Core Hub | Main Spoke | cirBTC  | 250     | 25       |
+| Chain    | Hub      | Spoke                          | Reserve | Add Cap | Draw Cap |
+| -------- | -------- | ------------------------------ | ------- | ------- | -------- |
+| Ethereum | Core Hub | Main Spoke                     | cirBTC  | 250     | 25       |
+| Ethereum | Core Hub | Core cirBTC Tokenization Spoke | cirBTC  | 25      | 0        |
+
+In line with WBTC, cbBTC and LBTC on the Core Hub, cirBTC also gets a Tokenization Spoke. Tokenization Spokes serve as the standard entry point for integrators, vaults, aggregators, and other strategies routing liquidity into Aave V4 markets. They are supply-only, so the draw cap is set to 0.
 
 #### Interest Rate Curve
 

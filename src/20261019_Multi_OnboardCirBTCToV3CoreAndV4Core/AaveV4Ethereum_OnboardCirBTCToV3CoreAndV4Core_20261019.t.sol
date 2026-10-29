@@ -4,10 +4,12 @@ pragma solidity ^0.8.0;
 import {GovV3Helpers} from 'aave-helpers/src/GovV3Helpers.sol';
 import {AaveV4EthereumHubs, AaveV4Ethereum, AaveV4EthereumIRStrategies, AaveV4EthereumSpokes, AaveV4EthereumAssets} from 'aave-address-book/AaveV4Ethereum.sol';
 import {ChainlinkEthereum} from 'aave-address-book/ChainlinkEthereum.sol';
+import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
 import {IAaveV4ConfigEngine as IConfigEngine} from 'aave-address-book/AaveV4.sol';
 import {IHub} from 'aave-v4/hub/interfaces/IHub.sol';
 import {ISpoke} from 'aave-v4/spoke/interfaces/ISpoke.sol';
 import {IAaveOracle} from 'aave-v4/spoke/interfaces/IAaveOracle.sol';
+import {ITokenizationSpoke} from 'aave-v4/spoke/interfaces/ITokenizationSpoke.sol';
 import {IAssetInterestRateStrategy} from 'aave-v4/hub/interfaces/IAssetInterestRateStrategy.sol';
 import {IERC20Metadata} from 'openzeppelin-contracts/contracts/token/ERC20/extensions/IERC20Metadata.sol';
 import {AggregatorInterface} from 'aave-v3-origin/contracts/dependencies/chainlink/AggregatorInterface.sol';
@@ -119,10 +121,41 @@ contract AaveV4Ethereum_OnboardCirBTCToV3CoreAndV4Core_20261019_Test is Protocol
       uint256(60_00),
       'rateGrowthAfterOptimal mismatch'
     );
+    address tokenizationSpoke = _getTokenizationSpoke(hub, proposal.cirBTC());
+    IHub.SpokeConfig memory tokenizationCfg = hub.getSpokeConfig(assetId, tokenizationSpoke);
+    assertEq(uint256(tokenizationCfg.addCap), uint256(25), 'tokenization addCap mismatch');
+    assertEq(uint256(tokenizationCfg.drawCap), uint256(0), 'tokenization drawCap mismatch');
+    assertEq(tokenizationCfg.active, true, 'tokenization active mismatch');
+    assertEq(tokenizationCfg.halted, false, 'tokenization halted mismatch');
     assertEq(
-      _findTokenizationSpoke(hub, proposal.cirBTC()),
-      address(0),
-      'unexpected tokenization spoke'
+      IERC20Metadata(tokenizationSpoke).name(),
+      'Wrapped Aave Core cirBTC',
+      'tokenization name mismatch'
+    );
+    assertEq(
+      IERC20Metadata(tokenizationSpoke).symbol(),
+      'waCorecirBTC',
+      'tokenization symbol mismatch'
+    );
+  }
+
+  function test_tokenizationSpoke_CORE_HUB_cirBTC_proxyAdminOwner() public {
+    GovV3Helpers.executePayload(vm, address(proposal));
+    assertEq(
+      _proxyAdminOwner(
+        _getTokenizationSpoke(IHub(address(AaveV4EthereumHubs.CORE_HUB)), proposal.cirBTC())
+      ),
+      MiscEthereum.V4_SECURITY_COUNCIL,
+      'proxyAdmin owner mismatch'
+    );
+  }
+
+  function test_e2e_tokenizationSpoke_CORE_HUB_cirBTC() public {
+    GovV3Helpers.executePayload(vm, address(proposal));
+    e2eTestTokenizationSpoke(
+      ITokenizationSpoke(
+        _getTokenizationSpoke(IHub(address(AaveV4EthereumHubs.CORE_HUB)), proposal.cirBTC())
+      )
     );
   }
 
@@ -373,6 +406,14 @@ contract AaveV4Ethereum_OnboardCirBTCToV3CoreAndV4Core_20261019_Test is Protocol
     assertEq(uint256(items[0].irData.baseDrawnRate), 25, 'baseDrawnRate');
     assertEq(uint256(items[0].irData.rateGrowthBeforeOptimal), 4_00, 'rateGrowthBeforeOptimal');
     assertEq(uint256(items[0].irData.rateGrowthAfterOptimal), 60_00, 'rateGrowthAfterOptimal');
+    assertEq(items[0].tokenization.addCap, 25, 'tokenization addCap');
+    assertEq(
+      items[0].tokenization.proxyAdminOwner,
+      MiscEthereum.V4_SECURITY_COUNCIL,
+      'tokenization proxyAdminOwner'
+    );
+    assertEq(items[0].tokenization.name, 'Wrapped Aave Core cirBTC', 'tokenization name');
+    assertEq(items[0].tokenization.symbol, 'waCorecirBTC', 'tokenization symbol');
   }
 
   function test_spokeReserveListingsInput() public view {

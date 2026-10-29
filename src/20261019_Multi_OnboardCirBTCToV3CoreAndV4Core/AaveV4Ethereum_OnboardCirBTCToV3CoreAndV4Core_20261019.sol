@@ -8,7 +8,6 @@ import {IAaveV4ConfigEngine as IConfigEngine} from 'aave-address-book/AaveV4.sol
 import {IHub} from 'aave-v4/hub/interfaces/IHub.sol';
 import {ISpoke} from 'aave-v4/spoke/interfaces/ISpoke.sol';
 import {IAssetInterestRateStrategy} from 'aave-v4/hub/interfaces/IAssetInterestRateStrategy.sol';
-import {V4EngineDefaults} from 'aave-helpers/src/v4-config-engine/V4EngineDefaults.sol';
 
 /**
  * @title Onboard cirBTC on Aave V3 Core and Aave V4 Core
@@ -38,7 +37,12 @@ contract AaveV4Ethereum_OnboardCirBTCToV3CoreAndV4Core_20261019 is AaveV4Payload
         rateGrowthBeforeOptimal: uint32(4_00),
         rateGrowthAfterOptimal: uint32(60_00)
       }),
-      tokenization: V4EngineDefaults.noTokenization()
+      tokenization: IConfigEngine.TokenizationSpokeConfig({
+        addCap: 25,
+        proxyAdminOwner: 0x187AAE17d4931310B3fc75743e7F16Bdc9eD77e9,
+        name: 'Wrapped Aave Core cirBTC',
+        symbol: 'waCorecirBTC'
+      })
     });
     return items;
   }

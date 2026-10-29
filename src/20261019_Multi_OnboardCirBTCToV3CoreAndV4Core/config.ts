@@ -63,6 +63,12 @@ export const config: ConfigFile = {
                 rateGrowthBeforeOptimal: {kind: 'literal', value: '4'},
                 rateGrowthAfterOptimal: {kind: 'literal', value: '60'},
               },
+              tokenization: {
+                addCap: '25',
+                proxyAdminOwner: '0x187AAE17d4931310B3fc75743e7F16Bdc9eD77e9',
+                name: 'Wrapped Aave Core cirBTC',
+                symbol: 'waCorecirBTC',
+              },
             },
           ],
           listings: [
