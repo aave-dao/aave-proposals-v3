@@ -1,0 +1,23 @@
+tests/utils/horizon/ProtocolV3HorizonTestBase.sol
+  s_27070cf0ae3899::t_70be32016c8795 63-70
+tests/utils/horizon/HorizonConfigAssertionHelper.sol
+  s_27070cf0ae3899::t_0b4624c0969c46 35,37-38,57,124,536,564-566,570-573
+  s_27070cf0ae3899::t_efbf17843ba128 36
+  s_27070cf0ae3899::t_b8c1407e798663 574-575
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "fed5e255c30d9cb4caf8effed20319459ec8941b",
+  "prompts": {},
+  "sessions": {
+    "s_27070cf0ae3899": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "c0b34d16-8be4-488b-bc86-602f235678e9",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "DhairyaSethi <55102840+DhairyaSethi@users.noreply.github.com>"
+    }
+  }
+}
