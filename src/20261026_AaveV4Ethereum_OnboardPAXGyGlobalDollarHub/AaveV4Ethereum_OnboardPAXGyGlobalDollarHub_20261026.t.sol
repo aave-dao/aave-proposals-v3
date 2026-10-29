@@ -488,6 +488,13 @@ contract AaveV4Ethereum_OnboardPAXGyGlobalDollarHub_20261026_Test is ProtocolV4T
       before.reinvestmentController,
       'reinvestmentController unchanged'
     );
+    assertEq(cfg.feeReceiver, address(AaveV4Ethereum.TREASURY_SPOKE), 'feeReceiver mismatch');
+    assertEq(
+      cfg.irStrategy,
+      address(AaveV4EthereumIRStrategies.GLOBAL_DOLLAR_PAXG_IR_STRATEGY),
+      'irStrategy mismatch'
+    );
+    assertEq(cfg.reinvestmentController, address(0), 'reinvestmentController mismatch');
   }
 
   function test_hubSpokeConfigUpdate_GLOBAL_DOLLAR_HUB_GLOBAL_DOLLAR_PAXG_TOKENIZATION_SPOKE_PAXG()
@@ -513,6 +520,10 @@ contract AaveV4Ethereum_OnboardPAXGyGlobalDollarHub_20261026_Test is ProtocolV4T
     );
     assertEq(cfg.active, before.active, 'active unchanged');
     assertEq(cfg.halted, before.halted, 'halted unchanged');
+    assertEq(uint256(cfg.drawCap), uint256(0), 'drawCap mismatch');
+    assertEq(uint256(cfg.riskPremiumThreshold), uint256(0), 'riskPremiumThreshold mismatch');
+    assertEq(cfg.active, true, 'active mismatch');
+    assertEq(cfg.halted, false, 'halted mismatch');
   }
 
   function test_reservePrices_PAXG_GOLD_SPOKE() public {
