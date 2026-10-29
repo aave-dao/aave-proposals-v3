@@ -136,6 +136,12 @@
 
 ## Hub Spoke Config Changes
 
+### PAXG (assetId: 5) on Hub [0x62d63197660c080236193CA60b70E49A08E90368](https://etherscan.io/address/0x62d63197660c080236193CA60b70E49A08E90368) / Spoke [0x6493a23874b506D5Bb6038ea44aE9CC74cD00849](https://etherscan.io/address/0x6493a23874b506D5Bb6038ea44aE9CC74cD00849)
+
+| description | value before | value after |
+| --- | --- | --- |
+| addCap | 0 PAXG | 400 PAXG |
+
 ### PAXG (assetId: 5) on Hub [0x62d63197660c080236193CA60b70E49A08E90368](https://etherscan.io/address/0x62d63197660c080236193CA60b70E49A08E90368) / Spoke [0x115aF1C2db26cD8ECa3f29055E4E424AF4edF616](https://etherscan.io/address/0x115aF1C2db26cD8ECa3f29055E4E424AF4edF616)
 
 **NEW SPOKE**
@@ -269,58 +275,59 @@
 | 24 | UpdateSpokeConfig(assetId: 6, spoke: 0x115aF1C2db26cD8ECa3f29055E4E424AF4edF616, config: {addCap: 480, drawCap: 0, riskPremiumThreshold: 0, active: true, halted: false}) |
 | 25 | AddSpoke(assetId: 5, spoke: 0x115aF1C2db26cD8ECa3f29055E4E424AF4edF616) |
 | 26 | UpdateSpokeConfig(assetId: 5, spoke: 0x115aF1C2db26cD8ECa3f29055E4E424AF4edF616, config: {addCap: 0, drawCap: 400, riskPremiumThreshold: 0, active: true, halted: false}) |
+| 27 | UpdateSpokeConfig(assetId: 5, spoke: 0x6493a23874b506D5Bb6038ea44aE9CC74cD00849, config: {addCap: 400, drawCap: 0, riskPremiumThreshold: 0, active: true, halted: false}) |
 
 #### 0x8CEcC12b23ED45EC2A9b9EB57EA6974c0cae850B (AaveV4Ethereum.SPOKES.PAXG_GOLD_SPOKE_ORACLE)
 
 | index | event |
 | --- | --- |
-| 27 | UpdateReserveSource(reserveId: 2, source: 0x8E39De6366AB0bc3e9FF6a116f366736bf0D8A9e) |
+| 28 | UpdateReserveSource(reserveId: 2, source: 0x8E39De6366AB0bc3e9FF6a116f366736bf0D8A9e) |
 
 #### 0xAD75cE6354f87F3135cE10621d385d8D1e2562C2 (AaveV4Ethereum.ALL_SPOKES[7], AaveV4Ethereum.ALL_SPOKES_RAW[8], AaveV4Ethereum.SPOKES.PAXG_GOLD_SPOKE)
 
 | index | event |
 | --- | --- |
-| 28 | UpdateReservePriceSource(reserveId: 2, priceSource: 0x8E39De6366AB0bc3e9FF6a116f366736bf0D8A9e) |
-| 29 | AddReserve(reserveId: 2, assetId: 6, hub: 0x62d63197660c080236193CA60b70E49A08E90368) |
-| 30 | UpdateReserveConfig(reserveId: 2, config: {collateralRisk: 0, paused: false, frozen: false, borrowable: false, receiveSharesEnabled: true}) |
-| 31 | AddDynamicReserveConfig(reserveId: 2, dynamicConfigKey: 0, config: {collateralFactor: 7000, maxLiquidationBonus: 10750, liquidationFee: 1000}) |
+| 29 | UpdateReservePriceSource(reserveId: 2, priceSource: 0x8E39De6366AB0bc3e9FF6a116f366736bf0D8A9e) |
+| 30 | AddReserve(reserveId: 2, assetId: 6, hub: 0x62d63197660c080236193CA60b70E49A08E90368) |
+| 31 | UpdateReserveConfig(reserveId: 2, config: {collateralRisk: 0, paused: false, frozen: false, borrowable: false, receiveSharesEnabled: true}) |
+| 32 | AddDynamicReserveConfig(reserveId: 2, dynamicConfigKey: 0, config: {collateralFactor: 7000, maxLiquidationBonus: 10750, liquidationFee: 1000}) |
 
 #### 0x6b3800e96Bb4AA38a879b2c143B6E2f5f2687b77
 
 | index | event |
 | --- | --- |
-| 32 | UpdateReserveSource(reserveId: 0, source: 0x8E39De6366AB0bc3e9FF6a116f366736bf0D8A9e) |
-| 37 | UpdateReserveSource(reserveId: 1, source: 0x214eD9Da11D2fbe465a6fc601a91E62EbEc1a0D6) |
+| 33 | UpdateReserveSource(reserveId: 0, source: 0x8E39De6366AB0bc3e9FF6a116f366736bf0D8A9e) |
+| 38 | UpdateReserveSource(reserveId: 1, source: 0x214eD9Da11D2fbe465a6fc601a91E62EbEc1a0D6) |
 
 #### 0x115aF1C2db26cD8ECa3f29055E4E424AF4edF616
 
 | index | event |
 | --- | --- |
-| 33 | UpdateReservePriceSource(reserveId: 0, priceSource: 0x8E39De6366AB0bc3e9FF6a116f366736bf0D8A9e) |
-| 34 | AddReserve(reserveId: 0, assetId: 6, hub: 0x62d63197660c080236193CA60b70E49A08E90368) |
-| 35 | UpdateReserveConfig(reserveId: 0, config: {collateralRisk: 0, paused: false, frozen: false, borrowable: false, receiveSharesEnabled: true}) |
-| 36 | AddDynamicReserveConfig(reserveId: 0, dynamicConfigKey: 0, config: {collateralFactor: 8500, maxLiquidationBonus: 10400, liquidationFee: 1000}) |
-| 38 | UpdateReservePriceSource(reserveId: 1, priceSource: 0x214eD9Da11D2fbe465a6fc601a91E62EbEc1a0D6) |
-| 39 | AddReserve(reserveId: 1, assetId: 5, hub: 0x62d63197660c080236193CA60b70E49A08E90368) |
-| 40 | UpdateReserveConfig(reserveId: 1, config: {collateralRisk: 0, paused: false, frozen: false, borrowable: true, receiveSharesEnabled: true}) |
-| 41 | AddDynamicReserveConfig(reserveId: 1, dynamicConfigKey: 0, config: {collateralFactor: 0, maxLiquidationBonus: 10000, liquidationFee: 0}) |
-| 42 | UpdateLiquidationConfig(config: {targetHealthFactor: 1050000000000000000, healthFactorForMaxBonus: 990000000000000000, liquidationBonusFactor: 10000}) |
-| 43 | UpdatePositionManager(positionManager: 0x17A54b8d6D9C68e7fa1C7112AC998EA1BA51d11e, active: true) |
-| 44 | UpdatePositionManager(positionManager: 0x6c044c0D3801499bCAbfAd458B70880bc518e9F7, active: true) |
-| 45 | UpdatePositionManager(positionManager: 0x51305839CE822a7b4b12AA7D86eA7005052d575c, active: true) |
-| 46 | UpdatePositionManager(positionManager: 0xfbC184337Dc6595D8bf62968Bda46e7De7AF9c3d, active: true) |
+| 34 | UpdateReservePriceSource(reserveId: 0, priceSource: 0x8E39De6366AB0bc3e9FF6a116f366736bf0D8A9e) |
+| 35 | AddReserve(reserveId: 0, assetId: 6, hub: 0x62d63197660c080236193CA60b70E49A08E90368) |
+| 36 | UpdateReserveConfig(reserveId: 0, config: {collateralRisk: 0, paused: false, frozen: false, borrowable: false, receiveSharesEnabled: true}) |
+| 37 | AddDynamicReserveConfig(reserveId: 0, dynamicConfigKey: 0, config: {collateralFactor: 8500, maxLiquidationBonus: 10400, liquidationFee: 1000}) |
+| 39 | UpdateReservePriceSource(reserveId: 1, priceSource: 0x214eD9Da11D2fbe465a6fc601a91E62EbEc1a0D6) |
+| 40 | AddReserve(reserveId: 1, assetId: 5, hub: 0x62d63197660c080236193CA60b70E49A08E90368) |
+| 41 | UpdateReserveConfig(reserveId: 1, config: {collateralRisk: 0, paused: false, frozen: false, borrowable: true, receiveSharesEnabled: true}) |
+| 42 | AddDynamicReserveConfig(reserveId: 1, dynamicConfigKey: 0, config: {collateralFactor: 0, maxLiquidationBonus: 10000, liquidationFee: 0}) |
+| 43 | UpdateLiquidationConfig(config: {targetHealthFactor: 1050000000000000000, healthFactorForMaxBonus: 990000000000000000, liquidationBonusFactor: 10000}) |
+| 44 | UpdatePositionManager(positionManager: 0x17A54b8d6D9C68e7fa1C7112AC998EA1BA51d11e, active: true) |
+| 45 | UpdatePositionManager(positionManager: 0x6c044c0D3801499bCAbfAd458B70880bc518e9F7, active: true) |
+| 46 | UpdatePositionManager(positionManager: 0x51305839CE822a7b4b12AA7D86eA7005052d575c, active: true) |
+| 47 | UpdatePositionManager(positionManager: 0xfbC184337Dc6595D8bf62968Bda46e7De7AF9c3d, active: true) |
 
 #### 0x5300A1a15135EA4dc7aD5a167152C01EFc9b192A (AaveV2Ethereum.POOL_ADMIN, AaveV2EthereumAMM.POOL_ADMIN, AaveV3Ethereum.ACL_ADMIN, AaveV3EthereumEtherFi.ACL_ADMIN, AaveV3EthereumHorizon.ACL_ADMIN, AaveV3EthereumLido.ACL_ADMIN, GovernanceV3Ethereum.EXECUTOR_LVL_1)
 
 | index | event |
 | --- | --- |
-| 47 | ExecutedAction(target: 0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f, value: 0, signature: execute(), data: 0x, executionTime: 1793106599, withDelegatecall: true, resultData: 0x) |
+| 48 | ExecutedAction(target: 0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f, value: 0, signature: execute(), data: 0x, executionTime: 1793106599, withDelegatecall: true, resultData: 0x) |
 
 #### 0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5 (GovernanceV3Ethereum.PAYLOADS_CONTROLLER)
 
 | index | event |
 | --- | --- |
-| 48 | PayloadExecuted(payloadId: 478) |
+| 49 | PayloadExecuted(payloadId: 478) |
 
 ## Raw storage changes
 
@@ -409,6 +416,7 @@
 | 0x489dd6a3e96c5b81917cb72a4a3c76dc6e25d46511fd96a9ec07f76292e11eb8 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x000000000000000000000000ad75ce6354f87f3135ce10621d385d8d1e2562c2 |
 | 0x489dd6a3e96c5b81917cb72a4a3c76dc6e25d46511fd96a9ec07f76292e11eb9 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x000000000000000000000000115af1c2db26cd8eca3f29055e4e424af4edf616 |
 | 0x6a3fa9dc86c94883f3674fffc0c2f88efcb399f0abe83df60aa7fdc49fee03c9 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000000000000000000000000002 |
+| 0x7090d270c82c1a8e9821abe1515dc3ae5dff67f594c008f10199d3182e2dbe67 | 0x0000000100000000000000000000000000000000000000000000000000000000 | 0x0000000100000000000000000000000190000000000000000000000000000000 |
 | 0x8f331abe73332f95a25873e8b430885974c0409691f89d643119a11623a7924a | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0012000000000000000000000000000000000000000000000000000000000000 |
 | 0x8f331abe73332f95a25873e8b430885974c0409691f89d643119a11623a7924b | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000000000000000000000000000 |
 | 0x8f331abe73332f95a25873e8b430885974c0409691f89d643119a11623a7924c | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000000000000000000000000000 |
@@ -625,6 +633,12 @@
     }
   },
   "spokeConfigs": {
+    "0x62d63197660c080236193CA60b70E49A08E90368_5_0x6493a23874b506D5Bb6038ea44aE9CC74cD00849": {
+      "addCap": {
+        "from": 0,
+        "to": 400
+      }
+    },
     "0x62d63197660c080236193CA60b70E49A08E90368_5_0x115aF1C2db26cD8ECa3f29055E4E424AF4edF616": {
       "from": null,
       "to": {

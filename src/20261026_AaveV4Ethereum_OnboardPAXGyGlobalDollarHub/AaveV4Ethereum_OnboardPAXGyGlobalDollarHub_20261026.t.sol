@@ -7,8 +7,9 @@ import {ISpokeInstance} from 'aave-v4/deployments/utils/interfaces/ISpokeInstanc
 import {Initializable} from 'aave-v4/dependencies/openzeppelin-upgradeable/Initializable.sol';
 import {IPriceCapAdapter} from 'src/interfaces/IPriceCapAdapter.sol';
 import {GovV3Helpers} from 'aave-helpers/src/GovV3Helpers.sol';
-import {AaveV4EthereumSpokes, AaveV4EthereumHubs, AaveV4Ethereum, AaveV4EthereumIRStrategies, AaveV4EthereumSpokePriceFeeds, AaveV4EthereumAssets, AaveV4EthereumPositionManagers} from 'aave-address-book/AaveV4Ethereum.sol';
+import {AaveV4EthereumSpokes, AaveV4EthereumHubs, AaveV4Ethereum, AaveV4EthereumIRStrategies, AaveV4EthereumSpokePriceFeeds, AaveV4EthereumAssets, AaveV4EthereumPositionManagers, AaveV4EthereumTokenizationSpokes} from 'aave-address-book/AaveV4Ethereum.sol';
 import {IAaveV4ConfigEngine as IConfigEngine} from 'aave-address-book/AaveV4.sol';
+import {EngineFlags} from 'aave-v4/config-engine/libraries/EngineFlags.sol';
 import {IHub} from 'aave-v4/hub/interfaces/IHub.sol';
 import {ISpoke} from 'aave-v4/spoke/interfaces/ISpoke.sol';
 import {AggregatorInterface} from 'aave-v3-origin/contracts/dependencies/chainlink/AggregatorInterface.sol';
@@ -87,6 +88,12 @@ contract AaveV4Ethereum_OnboardPAXGyGlobalDollarHub_20261026_Test is ProtocolV4T
       hub.isSpokeListed(paxgAssetId, address(spoke)),
       'PAXG spoke registration pre-state mismatch'
     );
+    IHub.SpokeConfig memory tokenizationCfg = hub.getSpokeConfig(
+      paxgAssetId,
+      address(AaveV4EthereumTokenizationSpokes.GLOBAL_DOLLAR_PAXG_TOKENIZATION_SPOKE)
+    );
+    assertEq(tokenizationCfg.addCap, 0, 'PAXG tokenization addCap pre-state mismatch');
+    assertEq(tokenizationCfg.drawCap, 0, 'PAXG tokenization drawCap pre-state mismatch');
   }
 
   function test_paxgPaxosESpokeProxyAdminOwner() public view {
@@ -483,6 +490,31 @@ contract AaveV4Ethereum_OnboardPAXGyGlobalDollarHub_20261026_Test is ProtocolV4T
     );
   }
 
+  function test_hubSpokeConfigUpdate_GLOBAL_DOLLAR_HUB_GLOBAL_DOLLAR_PAXG_TOKENIZATION_SPOKE_PAXG()
+    public
+  {
+    IHub hub = IHub(address(AaveV4EthereumHubs.GLOBAL_DOLLAR_HUB));
+    uint256 assetId = hub.getAssetId(AaveV4EthereumAssets.PAXG_UNDERLYING);
+    IHub.SpokeConfig memory before = hub.getSpokeConfig(
+      assetId,
+      address(AaveV4EthereumTokenizationSpokes.GLOBAL_DOLLAR_PAXG_TOKENIZATION_SPOKE)
+    );
+    GovV3Helpers.executePayload(vm, address(proposal));
+    IHub.SpokeConfig memory cfg = hub.getSpokeConfig(
+      assetId,
+      address(AaveV4EthereumTokenizationSpokes.GLOBAL_DOLLAR_PAXG_TOKENIZATION_SPOKE)
+    );
+    assertEq(uint256(cfg.addCap), uint256(400), 'addCap mismatch');
+    assertEq(uint256(cfg.drawCap), uint256(before.drawCap), 'drawCap unchanged');
+    assertEq(
+      uint256(cfg.riskPremiumThreshold),
+      uint256(before.riskPremiumThreshold),
+      'riskPremiumThreshold unchanged'
+    );
+    assertEq(cfg.active, before.active, 'active unchanged');
+    assertEq(cfg.halted, before.halted, 'halted unchanged');
+  }
+
   function test_reservePrices_PAXG_GOLD_SPOKE() public {
     GovV3Helpers.executePayload(vm, address(proposal));
     _assertPaxgyReservePrice(ISpoke(address(AaveV4EthereumSpokes.PAXG_GOLD_SPOKE)));
@@ -769,6 +801,28 @@ contract AaveV4Ethereum_OnboardPAXGyGlobalDollarHub_20261026_Test is ProtocolV4T
       'positionManager'
     );
     assertEq(items[3].active, true, 'active');
+  }
+
+  function test_hubSpokeConfigUpdatesInput() public view {
+    IConfigEngine.SpokeConfigUpdate[] memory items = proposal.hubSpokeConfigUpdates();
+    assertEq(items.length, 1, 'length');
+    assertEq(
+      address(items[0].hubConfigurator),
+      address(AaveV4Ethereum.HUB_CONFIGURATOR),
+      'hubConfigurator'
+    );
+    assertEq(items[0].hub, address(AaveV4EthereumHubs.GLOBAL_DOLLAR_HUB), 'hub');
+    assertEq(
+      items[0].spoke,
+      address(AaveV4EthereumTokenizationSpokes.GLOBAL_DOLLAR_PAXG_TOKENIZATION_SPOKE),
+      'spoke'
+    );
+    assertEq(items[0].underlying, AaveV4EthereumAssets.PAXG_UNDERLYING, 'underlying');
+    assertEq(items[0].addCap, 400, 'addCap');
+    assertEq(items[0].drawCap, EngineFlags.KEEP_CURRENT, 'drawCap');
+    assertEq(items[0].riskPremiumThreshold, EngineFlags.KEEP_CURRENT, 'riskPremiumThreshold');
+    assertEq(items[0].active, EngineFlags.KEEP_CURRENT, 'active');
+    assertEq(items[0].halted, EngineFlags.KEEP_CURRENT, 'halted');
   }
 
   function _assertPaxgyReservePrice(ISpoke spoke) internal view {

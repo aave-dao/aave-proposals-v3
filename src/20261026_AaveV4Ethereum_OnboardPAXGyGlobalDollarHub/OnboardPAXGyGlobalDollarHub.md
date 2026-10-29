@@ -22,7 +22,7 @@ Onboarding PAXGy to the Global Dollar Hub would be aligned with the DAO's long-t
 
 ## Specification
 
-This proposal lists PAXGy on the Global Dollar Hub of the Aave V4 Ethereum instance, configures PAXGy as collateral on the PAXG Gold Spoke and on the new PAXG Paxos eSpoke, makes PAXG borrowable on the PAXG Paxos eSpoke, and updates the PAXG interest rate model on the Global Dollar Hub. The parameters follow [LlamaRisk's recommendation](https://governance.aave.com/t/arfc-onboard-paxgy-to-aave-v4-global-dollar-hub/25499/3), where the PAXG Gold Spoke is referred to as the "Gold Spoke" and the PAXG Paxos eSpoke as the "Gold Correlated Spoke".
+This proposal lists PAXGy on the Global Dollar Hub of the Aave V4 Ethereum instance, configures PAXGy as collateral on the PAXG Gold Spoke and on the new PAXG Paxos eSpoke, makes PAXG borrowable on the PAXG Paxos eSpoke, updates the PAXG interest rate model on the Global Dollar Hub, and sets an Add Cap on the existing PAXG Tokenization Spoke. The parameters follow [LlamaRisk's recommendation](https://governance.aave.com/t/arfc-onboard-paxgy-to-aave-v4-global-dollar-hub/25499/3), where the PAXG Gold Spoke is referred to as the "Gold Spoke" and the PAXG Paxos eSpoke as the "Gold Correlated Spoke".
 
 **PAXGy**: [`0x6c6494Fd9962eB98B94ffA48F6679058F820700e`](https://etherscan.io/address/0x6c6494Fd9962eB98B94ffA48F6679058F820700e)
 
@@ -30,7 +30,7 @@ This proposal lists PAXGy on the Global Dollar Hub of the Aave V4 Ethereum insta
 
 The PAXG Paxos eSpoke is deployed at [`0x115aF1C2db26cD8ECa3f29055E4E424AF4edF616`](https://etherscan.io/address/0x115aF1C2db26cD8ECa3f29055E4E424AF4edF616#code). The payload wires it to the Ethereum AccessManager, sets its liquidation configuration, and enables the Giver, Taker and Config Position Managers and the Signature Gateway on it. Registration of the spoke on these position managers is a separate Security Council action.
 
-PAXGy is listed on the Global Dollar Hub as a non-borrowable asset, with a 0.00% liquidity fee, the Global Dollar Hub's PAXG interest rate strategy [`0xD7eC225DC053151100A0ef47b94a77AAD9C413b7`](https://etherscan.io/address/0xD7eC225DC053151100A0ef47b94a77AAD9C413b7), and no Tokenization Spoke.
+PAXGy is listed on the Global Dollar Hub as a non-borrowable asset, with a 0.00% liquidity fee, the Global Dollar Hub's PAXG interest rate strategy [`0xD7eC225DC053151100A0ef47b94a77AAD9C413b7`](https://etherscan.io/address/0xD7eC225DC053151100A0ef47b94a77AAD9C413b7), and no PAXGy Tokenization Spoke.
 
 **Spoke configuration**
 
@@ -54,13 +54,16 @@ The PAXG Gold Spoke keeps its existing liquidation configuration and its PAXG an
 
 **Caps**
 
-| Hub               | Spoke             | Reserve | Add Cap | Draw Cap |
-| ----------------- | ----------------- | ------- | ------: | -------: |
-| Global Dollar Hub | PAXG Gold Spoke   | PAXGy   |     480 |        0 |
-| Global Dollar Hub | PAXG Paxos eSpoke | PAXGy   |     480 |        0 |
-| Global Dollar Hub | PAXG Paxos eSpoke | PAXG    |       0 |      400 |
+| Hub               | Spoke                   | Reserve | Add Cap | Draw Cap |
+| ----------------- | ----------------------- | ------- | ------: | -------: |
+| Global Dollar Hub | PAXG Gold Spoke         | PAXGy   |     480 |        0 |
+| Global Dollar Hub | PAXG Paxos eSpoke       | PAXGy   |     480 |        0 |
+| Global Dollar Hub | PAXG Paxos eSpoke       | PAXG    |       0 |      400 |
+| Global Dollar Hub | PAXG Tokenization Spoke | PAXG    |     400 |        0 |
 
-Caps are stated in units of the reserve asset. Each 480 PAXGy Add Cap is about $2.0 million and the 400 PAXG Draw Cap is about $1.7 million at the October 1, 2026 exchange rate and gold price.
+The [PAXG Tokenization Spoke](https://etherscan.io/address/0x6493a23874b506D5Bb6038ea44aE9CC74cD00849) already exists on the Global Dollar Hub with both caps at 0. Its Add Cap is raised to 400 PAXG and its Draw Cap stays at 0, as Tokenization Spokes are supply-only.
+
+Caps are stated in units of the reserve asset. Each 480 PAXGy Add Cap is about $2.0 million, and the 400 PAXG Draw Cap and the 400 PAXG Tokenization Spoke Add Cap are each about $1.7 million at the October 1, 2026 exchange rate and gold price.
 
 **PAXG interest rate model**
 

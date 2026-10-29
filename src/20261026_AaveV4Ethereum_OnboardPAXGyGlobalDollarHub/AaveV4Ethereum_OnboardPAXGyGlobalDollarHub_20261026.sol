@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import {AaveV4Ethereum, AaveV4EthereumHubs, AaveV4EthereumIRStrategies, AaveV4EthereumSpokePriceFeeds, AaveV4EthereumSpokes, AaveV4EthereumAssets, AaveV4EthereumPositionManagers} from 'aave-address-book/AaveV4Ethereum.sol';
+import {AaveV4Ethereum, AaveV4EthereumHubs, AaveV4EthereumIRStrategies, AaveV4EthereumSpokePriceFeeds, AaveV4EthereumSpokes, AaveV4EthereumAssets, AaveV4EthereumPositionManagers, AaveV4EthereumTokenizationSpokes} from 'aave-address-book/AaveV4Ethereum.sol';
 import {AaveV4PayloadEthereum} from 'aave-helpers/src/v4-config-engine/AaveV4PayloadEthereum.sol';
 import {IAaveV4ConfigEngine as IConfigEngine} from 'aave-address-book/AaveV4.sol';
 import {EngineFlags} from 'aave-v4/config-engine/libraries/EngineFlags.sol';
@@ -254,6 +254,27 @@ contract AaveV4Ethereum_OnboardPAXGyGlobalDollarHub_20261026 is AaveV4PayloadEth
         rateGrowthAfterOptimal: uint32(20_00)
       }),
       reinvestmentController: EngineFlags.KEEP_CURRENT_ADDRESS
+    });
+    return items;
+  }
+
+  function hubSpokeConfigUpdates()
+    public
+    pure
+    override
+    returns (IConfigEngine.SpokeConfigUpdate[] memory)
+  {
+    IConfigEngine.SpokeConfigUpdate[] memory items = new IConfigEngine.SpokeConfigUpdate[](1);
+    items[0] = IConfigEngine.SpokeConfigUpdate({
+      hubConfigurator: AaveV4Ethereum.HUB_CONFIGURATOR,
+      hub: address(AaveV4EthereumHubs.GLOBAL_DOLLAR_HUB),
+      underlying: AaveV4EthereumAssets.PAXG_UNDERLYING,
+      spoke: address(AaveV4EthereumTokenizationSpokes.GLOBAL_DOLLAR_PAXG_TOKENIZATION_SPOKE),
+      addCap: 400,
+      drawCap: EngineFlags.KEEP_CURRENT,
+      riskPremiumThreshold: EngineFlags.KEEP_CURRENT,
+      active: EngineFlags.KEEP_CURRENT,
+      halted: EngineFlags.KEEP_CURRENT
     });
     return items;
   }

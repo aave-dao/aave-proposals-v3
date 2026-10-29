@@ -184,6 +184,19 @@ export const config: ConfigFile = {
             reinvestmentController: {kind: 'keepCurrent', sentinel: 'KEEP_CURRENT_ADDRESS'},
           },
         ],
+        V4_HUB_SPOKE_CONFIG_UPDATE: [
+          {
+            hubLib: 'AaveV4EthereumHubs.GLOBAL_DOLLAR_HUB',
+            hub: 'GLOBAL_DOLLAR_HUB',
+            underlying: 'AaveV4EthereumAssets.PAXG_UNDERLYING',
+            spoke: 'AaveV4EthereumTokenizationSpokes.GLOBAL_DOLLAR_PAXG_TOKENIZATION_SPOKE',
+            addCap: {kind: 'literal', value: '400'},
+            drawCap: {kind: 'keepCurrent', sentinel: 'KEEP_CURRENT'},
+            riskPremiumThreshold: {kind: 'keepCurrent', sentinel: 'KEEP_CURRENT'},
+            active: {kind: 'keepCurrent', sentinel: 'KEEP_CURRENT'},
+            halted: {kind: 'keepCurrent', sentinel: 'KEEP_CURRENT'},
+          },
+        ],
       },
       cache: {blockNumber: 26284253},
       labels: {
