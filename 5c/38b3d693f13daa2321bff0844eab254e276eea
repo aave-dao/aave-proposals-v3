@@ -1,0 +1,60 @@
+src/20261029_Multi_RemoveEmissionAdmins/AaveV3BNB_RemoveEmissionAdmins_20261029.sol
+  s_27070cf0ae3899::t_a2e1da22f2a7d2 9
+src/20261029_Multi_RemoveEmissionAdmins/AaveV3MegaEth_RemoveEmissionAdmins_20261029.sol
+  s_27070cf0ae3899::t_a2e1da22f2a7d2 9
+src/20261029_Multi_RemoveEmissionAdmins/RemoveEmissionAdmins_20261029.s.sol
+  s_27070cf0ae3899::t_a2e1da22f2a7d2 9,35-37,41,43,348,352-353
+  s_27070cf0ae3899::t_ffd2814d724f7a 354
+src/20261029_Multi_RemoveEmissionAdmins/AaveV3EthereumHorizon_RemoveEmissionAdmins_20261029.sol
+  s_27070cf0ae3899::t_d9126f69d02689 1-41
+src/20261029_Multi_RemoveEmissionAdmins/AaveV3Celo_RemoveEmissionAdmins_20261029.sol
+  s_27070cf0ae3899::t_a2e1da22f2a7d2 9
+src/20261029_Multi_RemoveEmissionAdmins/AaveV3Linea_RemoveEmissionAdmins_20261029.sol
+  s_27070cf0ae3899::t_a2e1da22f2a7d2 9
+src/20261029_Multi_RemoveEmissionAdmins/AaveV3Base_RemoveEmissionAdmins_20261029.sol
+  s_27070cf0ae3899::t_a2e1da22f2a7d2 9
+src/20261029_Multi_RemoveEmissionAdmins/AaveV3Mantle_RemoveEmissionAdmins_20261029.sol
+  s_27070cf0ae3899::t_a2e1da22f2a7d2 9
+src/20261029_Multi_RemoveEmissionAdmins/AaveV3EthereumHorizon_RemoveEmissionAdmins_20261029.t.sol
+  s_27070cf0ae3899::t_02cebdb97b2cdc 1-7,10-17,19-28,30-32,34-35,37-52,58-59
+  s_27070cf0ae3899::t_59d91a03b7059d 8-9,18,29,33,36,53-57
+src/20261029_Multi_RemoveEmissionAdmins/AaveV3Polygon_RemoveEmissionAdmins_20261029.sol
+  s_27070cf0ae3899::t_a2e1da22f2a7d2 9
+src/20261029_Multi_RemoveEmissionAdmins/AaveV3Arbitrum_RemoveEmissionAdmins_20261029.sol
+  s_27070cf0ae3899::t_a2e1da22f2a7d2 9
+src/20261029_Multi_RemoveEmissionAdmins/AaveV3Plasma_RemoveEmissionAdmins_20261029.sol
+  s_27070cf0ae3899::t_a2e1da22f2a7d2 9
+src/20261029_Multi_RemoveEmissionAdmins/AaveV3Avalanche_RemoveEmissionAdmins_20261029.sol
+  s_27070cf0ae3899::t_a2e1da22f2a7d2 9
+src/20261029_Multi_RemoveEmissionAdmins/AaveV3Optimism_RemoveEmissionAdmins_20261029.sol
+  s_27070cf0ae3899::t_a2e1da22f2a7d2 9
+src/20261029_Multi_RemoveEmissionAdmins/RemoveEmissionAdmins.md
+  s_27070cf0ae3899::t_2ef8c61f079d4f 9,17,23,30,44,50-51
+  s_27070cf0ae3899::t_a2e1da22f2a7d2 2
+src/20261029_Multi_RemoveEmissionAdmins/AaveV3XLayer_RemoveEmissionAdmins_20261029.sol
+  s_27070cf0ae3899::t_a2e1da22f2a7d2 9
+src/20261029_Multi_RemoveEmissionAdmins/config.ts
+  s_27070cf0ae3899::t_a2e1da22f2a7d2 22
+diffs/AaveV3EthereumHorizon_RemoveEmissionAdmins_20261029_before_AaveV3EthereumHorizon_RemoveEmissionAdmins_20261029_after.md
+  s_27070cf0ae3899::t_20ca7b1ed15b72 1-61
+src/20261029_Multi_RemoveEmissionAdmins/AaveV3Gnosis_RemoveEmissionAdmins_20261029.sol
+  s_27070cf0ae3899::t_a2e1da22f2a7d2 9
+src/20261029_Multi_RemoveEmissionAdmins/AaveV3Ethereum_RemoveEmissionAdmins_20261029.sol
+  s_27070cf0ae3899::t_a2e1da22f2a7d2 10
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "5c38b3d693f13daa2321bff0844eab254e276eea",
+  "prompts": {},
+  "sessions": {
+    "s_27070cf0ae3899": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "c0b34d16-8be4-488b-bc86-602f235678e9",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "DhairyaSethi <55102840+DhairyaSethi@users.noreply.github.com>"
+    }
+  }
+}
