@@ -215,7 +215,7 @@ contract AaveV4Avalanche_OnboardUSATCoreHub_20261028_Test is ProtocolV4TestBaseA
           IHub(address(AaveV4AvalancheHubs.CORE_HUB)).getAssetId(proposal.USAT())
         )
       ),
-      proposal.MAIN_SPOKE_USAT_PRICE_FEED(),
+      proposal.USAT_PRICE_FEED(),
       'USAT price source mismatch'
     );
   }
@@ -231,7 +231,7 @@ contract AaveV4Avalanche_OnboardUSATCoreHub_20261028_Test is ProtocolV4TestBaseA
           IHub(address(AaveV4AvalancheHubs.CORE_HUB)).getAssetId(proposal.USAT())
         )
       ),
-      proposal.ETHENA_ECOSYSTEM_SPOKE_USAT_PRICE_FEED(),
+      proposal.USAT_PRICE_FEED(),
       'USAT price source mismatch'
     );
   }
@@ -330,7 +330,7 @@ contract AaveV4Avalanche_OnboardUSATCoreHub_20261028_Test is ProtocolV4TestBaseA
     assertEq(items[0].spoke, address(AaveV4AvalancheSpokes.MAIN_SPOKE), 'spoke');
     assertEq(items[0].hub, address(AaveV4AvalancheHubs.CORE_HUB), 'hub');
     assertEq(items[0].underlying, proposal.USAT(), 'underlying');
-    assertEq(items[0].priceSource, proposal.MAIN_SPOKE_USAT_PRICE_FEED(), 'priceSource');
+    assertEq(items[0].priceSource, proposal.USAT_PRICE_FEED(), 'priceSource');
     assertEq(uint256(items[0].config.collateralRisk), 0, 'collateralRisk');
     assertEq(items[0].config.paused, false, 'paused');
     assertEq(items[0].config.frozen, false, 'frozen');
@@ -342,11 +342,7 @@ contract AaveV4Avalanche_OnboardUSATCoreHub_20261028_Test is ProtocolV4TestBaseA
     assertEq(items[1].spoke, address(AaveV4AvalancheSpokes.ETHENA_ECOSYSTEM_SPOKE), 'spoke');
     assertEq(items[1].hub, address(AaveV4AvalancheHubs.CORE_HUB), 'hub');
     assertEq(items[1].underlying, proposal.USAT(), 'underlying');
-    assertEq(
-      items[1].priceSource,
-      proposal.ETHENA_ECOSYSTEM_SPOKE_USAT_PRICE_FEED(),
-      'priceSource'
-    );
+    assertEq(items[1].priceSource, proposal.USAT_PRICE_FEED(), 'priceSource');
     assertEq(uint256(items[1].config.collateralRisk), 0, 'collateralRisk');
     assertEq(items[1].config.paused, false, 'paused');
     assertEq(items[1].config.frozen, false, 'frozen');

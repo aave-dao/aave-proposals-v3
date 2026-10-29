@@ -20,11 +20,7 @@ contract AaveV4Avalanche_OnboardUSATCoreHub_20261028 is AaveV4PayloadAvalanche {
   address public constant USAT = 0x9A5926fd88F747c357738b1e82aFB46AB80f0A6b;
 
   // https://snowscan.xyz/address/0xCcE4d712CA51098e89F26f79F114132942DE9134
-  address public constant MAIN_SPOKE_USAT_PRICE_FEED = 0xCcE4d712CA51098e89F26f79F114132942DE9134;
-
-  // https://snowscan.xyz/address/0xCcE4d712CA51098e89F26f79F114132942DE9134
-  address public constant ETHENA_ECOSYSTEM_SPOKE_USAT_PRICE_FEED =
-    0xCcE4d712CA51098e89F26f79F114132942DE9134;
+  address public constant USAT_PRICE_FEED = 0xCcE4d712CA51098e89F26f79F114132942DE9134;
 
   function hubAssetListings() public pure override returns (IConfigEngine.AssetListing[] memory) {
     IConfigEngine.AssetListing[] memory items = new IConfigEngine.AssetListing[](1);
@@ -63,7 +59,7 @@ contract AaveV4Avalanche_OnboardUSATCoreHub_20261028 is AaveV4PayloadAvalanche {
       spoke: address(AaveV4AvalancheSpokes.MAIN_SPOKE),
       hub: address(AaveV4AvalancheHubs.CORE_HUB),
       underlying: USAT,
-      priceSource: MAIN_SPOKE_USAT_PRICE_FEED,
+      priceSource: USAT_PRICE_FEED,
       config: ISpoke.ReserveConfig({
         collateralRisk: uint24(0),
         paused: false,
@@ -82,7 +78,7 @@ contract AaveV4Avalanche_OnboardUSATCoreHub_20261028 is AaveV4PayloadAvalanche {
       spoke: address(AaveV4AvalancheSpokes.ETHENA_ECOSYSTEM_SPOKE),
       hub: address(AaveV4AvalancheHubs.CORE_HUB),
       underlying: USAT,
-      priceSource: ETHENA_ECOSYSTEM_SPOKE_USAT_PRICE_FEED,
+      priceSource: USAT_PRICE_FEED,
       config: ISpoke.ReserveConfig({
         collateralRisk: uint24(0),
         paused: false,
