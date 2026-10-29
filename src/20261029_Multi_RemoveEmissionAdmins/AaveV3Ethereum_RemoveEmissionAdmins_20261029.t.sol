@@ -3,6 +3,7 @@ pragma solidity ^0.8.0;
 
 import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
 import {AaveV3EthereumLido, AaveV3EthereumLidoAssets} from 'aave-address-book/AaveV3EthereumLido.sol';
+import {AaveV3EthereumEtherFi} from 'aave-address-book/AaveV3EthereumEtherFi.sol';
 import {IPool} from 'aave-address-book/AaveV3.sol';
 
 import 'forge-std/Test.sol';
@@ -47,9 +48,10 @@ contract AaveV3Ethereum_RemoveEmissionAdmins_20261029_Test is
   }
 
   function test_emissionAdminsRemoved() public {
-    IPool[] memory pools = new IPool[](2);
+    IPool[] memory pools = new IPool[](3);
     pools[0] = AaveV3Ethereum.POOL;
     pools[1] = AaveV3EthereumLido.POOL;
+    pools[2] = AaveV3EthereumEtherFi.POOL;
     _checkAdminsRemoved(address(proposal), AaveV3Ethereum.EMISSION_MANAGER, pools);
   }
 
