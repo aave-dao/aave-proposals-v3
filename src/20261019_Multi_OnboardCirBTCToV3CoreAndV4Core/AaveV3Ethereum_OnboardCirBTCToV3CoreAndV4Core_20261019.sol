@@ -20,7 +20,7 @@ contract AaveV3Ethereum_OnboardCirBTCToV3CoreAndV4Core_20261019 is AaveV3Payload
 
   // https://etherscan.io/address/0x72DFB2E44f59C5AD2bAFE84314E5b99a7cd5075E
   address public constant cirBTC = 0x72DFB2E44f59C5AD2bAFE84314E5b99a7cd5075E;
-  uint256 public constant cirBTC_SEED_AMOUNT = 1e5;
+  uint256 public constant cirBTC_SEED_AMOUNT = 0.001e8;
   // https://etherscan.io/address/0xb41E773f507F7a7EA890b1afB7d2b660c30C8B0A
   address public constant cirBTC_PRICE_FEED = ChainlinkEthereum.AAVE_SVR_BTC__USD;
 
