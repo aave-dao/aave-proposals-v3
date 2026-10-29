@@ -1,0 +1,49 @@
+## Event logs
+
+#### 0x013E2C7567b6231e865BB9273F8c7656103611c0 (AaveV3EthereumLido.ACL_MANAGER)
+
+| index | event |
+| --- | --- |
+| 0 | RoleGranted(role: 0x939b8dfb57ecef2aea54a93a15e86768b9d4089f1ba61c245e6ec980695f4ca4, account: 0xFdFA036213C375808135744E865767FD90897F0A, sender: 0x5300A1a15135EA4dc7aD5a167152C01EFc9b192A) |
+
+#### 0x5300A1a15135EA4dc7aD5a167152C01EFc9b192A (AaveV2Ethereum.POOL_ADMIN, AaveV2EthereumAMM.POOL_ADMIN, AaveV3Ethereum.ACL_ADMIN, AaveV3EthereumEtherFi.ACL_ADMIN, AaveV3EthereumHorizon.ACL_ADMIN, AaveV3EthereumLido.ACL_ADMIN, GovernanceV3Ethereum.EXECUTOR_LVL_1)
+
+| index | event |
+| --- | --- |
+| 1 | ExecutedAction(target: 0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f, value: 0, signature: execute(), data: 0x, executionTime: 1793209487, withDelegatecall: true, resultData: 0x) |
+
+#### 0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5 (GovernanceV3Ethereum.PAYLOADS_CONTROLLER)
+
+| index | event |
+| --- | --- |
+| 2 | PayloadExecuted(payloadId: 478) |
+
+## Raw storage changes
+
+### 0x013e2c7567b6231e865bb9273f8c7656103611c0 (AaveV3EthereumLido.ACL_MANAGER)
+
+| slot | previous value | new value |
+| --- | --- | --- |
+| 0x6316886387f1549ca8336df3f0f617863ab739dcee5791af47eb3b619260d397 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000000000000000000000000001 |
+
+### 0x4e59b44847b379578588920ca78fbf26c0b4956c
+
+**Nonce diff**: 1 → 0
+
+### 0x5acf1a5d0d33f8c8f1f9a9a2627105a92ae7eca6
+
+**Nonce diff**: 0 → 1
+
+### 0xdabad81af85554e9ae636395611c58f7ec1aaec5 (GovernanceV3Ethereum.PAYLOADS_CONTROLLER)
+
+| slot | previous value | new value |
+| --- | --- | --- |
+| 0xf2c3926e19d51dfb5fdba3d1ae96d00a3ca56713bc0ef89444af3468e8199963 | 0x006ae2348e000000000002000000000000000000000000000000000000000000 | 0x006ae2348e000000000003000000000000000000000000000000000000000000 |
+| 0xf2c3926e19d51dfb5fdba3d1ae96d00a3ca56713bc0ef89444af3468e8199964 | 0x000000000000000000093a800000000000006b10590f00000000000000000000 | 0x000000000000000000093a800000000000006b10590f0000000000006ae2348f |
+
+
+## Raw diff
+
+```json
+{}
+```
