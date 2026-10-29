@@ -6,7 +6,7 @@ import {AaveV3EthereumLido, AaveV3EthereumLidoAssets} from 'aave-address-book/Aa
 import {IPool} from 'aave-address-book/AaveV3.sol';
 
 import {AaveV3EthereumLido_UpdateCoWSwapAdaptersFlashBorrowers_20261028} from './AaveV3EthereumLido_UpdateCoWSwapAdaptersFlashBorrowers_20261028.sol';
-import {CoWFlashBorrowerBaseTest} from './setup/CoWFlashBorrowerBaseTest.t.sol';
+import {CoWFlashBorrowerBaseTest} from 'src/helpers/cow-adapters/CoWFlashBorrowerBaseTest.sol';
 
 /**
  * @dev Test for AaveV3EthereumLido_UpdateCoWSwapAdaptersFlashBorrowers_20261028

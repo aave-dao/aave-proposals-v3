@@ -6,7 +6,7 @@ import {AaveV3Polygon, AaveV3PolygonAssets} from 'aave-address-book/AaveV3Polygo
 import {IPool} from 'aave-address-book/AaveV3.sol';
 
 import {AaveV3Polygon_UpdateCoWSwapAdaptersFlashBorrowers_20261028} from './AaveV3Polygon_UpdateCoWSwapAdaptersFlashBorrowers_20261028.sol';
-import {CoWFlashBorrowerBaseTest} from './setup/CoWFlashBorrowerBaseTest.t.sol';
+import {CoWFlashBorrowerBaseTest} from 'src/helpers/cow-adapters/CoWFlashBorrowerBaseTest.sol';
 
 /**
  * @dev Test for AaveV3Polygon_UpdateCoWSwapAdaptersFlashBorrowers_20261028

@@ -6,7 +6,7 @@ import {AaveV3Gnosis, AaveV3GnosisAssets} from 'aave-address-book/AaveV3Gnosis.s
 import {IPool} from 'aave-address-book/AaveV3.sol';
 
 import {AaveV3Gnosis_UpdateCoWSwapAdaptersFlashBorrowers_20261028} from './AaveV3Gnosis_UpdateCoWSwapAdaptersFlashBorrowers_20261028.sol';
-import {CoWFlashBorrowerBaseTest} from './setup/CoWFlashBorrowerBaseTest.t.sol';
+import {CoWFlashBorrowerBaseTest} from 'src/helpers/cow-adapters/CoWFlashBorrowerBaseTest.sol';
 
 /**
  * @dev Test for AaveV3Gnosis_UpdateCoWSwapAdaptersFlashBorrowers_20261028

@@ -6,7 +6,7 @@ import {AaveV3BNB, AaveV3BNBAssets} from 'aave-address-book/AaveV3BNB.sol';
 import {IPool} from 'aave-address-book/AaveV3.sol';
 
 import {AaveV3BNB_UpdateCoWSwapAdaptersFlashBorrowers_20261028} from './AaveV3BNB_UpdateCoWSwapAdaptersFlashBorrowers_20261028.sol';
-import {CoWFlashBorrowerBaseTest} from './setup/CoWFlashBorrowerBaseTest.t.sol';
+import {CoWFlashBorrowerBaseTest} from 'src/helpers/cow-adapters/CoWFlashBorrowerBaseTest.sol';
 
 /**
  * @dev Test for AaveV3BNB_UpdateCoWSwapAdaptersFlashBorrowers_20261028

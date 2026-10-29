@@ -7,7 +7,7 @@ import 'forge-std/Test.sol';
 import {IPool} from 'aave-address-book/AaveV3.sol';
 import {ProtocolV3TestBase} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 
-import {GPv2Interaction, GPv2Order, GPv2Trade, HookOrderData, IBaseAdapterFactory, ICollateralSwapAaveV3Adapter, IFlashLoanRouter, IGPv2Settlement, IGPv2Authenticator, IOwnable, Loan, MockBasicPool, Permit, SwapOrder, SwapOrderToGPv2OrderLib, _getEmptyPermitSig} from './CoWFlashBorrowerTestUtils.sol';
+import {GPv2Interaction, GPv2Order, GPv2Trade, HookOrderData, IBaseAdapterFactory, ICollateralSwapAaveV3Adapter, IFlashLoanRouter, IGPv2Settlement, IGPv2Authenticator, IOwnable, Loan, MockBasicPool, Permit, SwapOrder, SwapOrderToGPv2OrderLib, _getEmptyPermitSig} from 'src/helpers/cow-adapters/CoWFlashBorrowerTestUtils.sol';
 
 /// @notice Shared collateral-swap-with-flash-loan and factory-ownership tests, parameterized
 /// so they can run against any market in the proposal. Per-market test files inherit this
