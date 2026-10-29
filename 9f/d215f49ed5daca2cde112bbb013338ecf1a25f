@@ -1,0 +1,183 @@
+src/20261029_Multi_RemoveEmissionAdmins/AaveV3BNB_RemoveEmissionAdmins_20261029.sol
+  s_27070cf0ae3899::t_2285b3edec617f 1-4,7-15,28-29
+  s_27070cf0ae3899::t_670da8eee95d85 5-6,16-27
+diffs/AaveV3Gnosis_RemoveEmissionAdmins_20261029_before_AaveV3Gnosis_RemoveEmissionAdmins_20261029_after.md
+  s_27070cf0ae3899::t_7b1c0572603da9 1-45
+src/20261029_Multi_RemoveEmissionAdmins/AaveV3Celo_RemoveEmissionAdmins_20261029.t.sol
+  s_27070cf0ae3899::t_8831dbacbc9f2f 16-19
+  s_27070cf0ae3899::t_0b1dd8df097732 6
+  s_27070cf0ae3899::t_670da8eee95d85 5,9,42-47
+  s_27070cf0ae3899::t_2285b3edec617f 1-4,7-8,10-15,20-41,48-49
+src/20261029_Multi_RemoveEmissionAdmins/AaveV3BNB_RemoveEmissionAdmins_20261029.t.sol
+  s_27070cf0ae3899::t_2285b3edec617f 1-4,7-8,10-15,20-41,48-49
+  s_27070cf0ae3899::t_8831dbacbc9f2f 16-19
+  s_27070cf0ae3899::t_670da8eee95d85 5,9,42-47
+  s_27070cf0ae3899::t_0b1dd8df097732 6
+src/20261029_Multi_RemoveEmissionAdmins/AaveV3Arbitrum_RemoveEmissionAdmins_20261029.t.sol
+  s_27070cf0ae3899::t_0b1dd8df097732 6
+  s_27070cf0ae3899::t_2285b3edec617f 1-3,7-8,10-15,20-45,63-64
+  s_27070cf0ae3899::t_670da8eee95d85 4-5,9,46-62
+  s_27070cf0ae3899::t_8831dbacbc9f2f 16-19
+src/20261029_Multi_RemoveEmissionAdmins/AaveV3XLayer_RemoveEmissionAdmins_20261029.sol
+  s_27070cf0ae3899::t_670da8eee95d85 5-6,16-42
+  s_27070cf0ae3899::t_2285b3edec617f 1-4,7-15,43-44
+src/20261029_Multi_RemoveEmissionAdmins/AaveV3Avalanche_RemoveEmissionAdmins_20261029.sol
+  s_27070cf0ae3899::t_670da8eee95d85 5-6,16-40
+  s_27070cf0ae3899::t_2285b3edec617f 1-4,7-15,41-42
+src/20261029_Multi_RemoveEmissionAdmins/AaveV3Gnosis_RemoveEmissionAdmins_20261029.sol
+  s_27070cf0ae3899::t_670da8eee95d85 5-6,16-27
+  s_27070cf0ae3899::t_2285b3edec617f 1-4,7-15,28-29
+src/20261029_Multi_RemoveEmissionAdmins/AaveV3Avalanche_RemoveEmissionAdmins_20261029.t.sol
+  s_27070cf0ae3899::t_8831dbacbc9f2f 16-19
+  s_27070cf0ae3899::t_2285b3edec617f 1-3,7-8,10-15,20-45,88-89
+  s_27070cf0ae3899::t_670da8eee95d85 4-5,9,46-87
+  s_27070cf0ae3899::t_0b1dd8df097732 6
+src/20261029_Multi_RemoveEmissionAdmins/AaveV3Celo_RemoveEmissionAdmins_20261029.sol
+  s_27070cf0ae3899::t_670da8eee95d85 5-6,16-36
+  s_27070cf0ae3899::t_2285b3edec617f 1-4,7-15,37-38
+src/20261029_Multi_RemoveEmissionAdmins/AaveV3Optimism_RemoveEmissionAdmins_20261029.t.sol
+  s_27070cf0ae3899::t_2285b3edec617f 1-3,7-8,10-15,20-45,74-75
+  s_27070cf0ae3899::t_670da8eee95d85 4-5,9,46-73
+  s_27070cf0ae3899::t_8831dbacbc9f2f 16-19
+  s_27070cf0ae3899::t_0b1dd8df097732 6
+src/20261029_Multi_RemoveEmissionAdmins/AaveV3Plasma_RemoveEmissionAdmins_20261029.sol
+  s_27070cf0ae3899::t_670da8eee95d85 5-6,16-61
+  s_27070cf0ae3899::t_2285b3edec617f 1-4,7-15,62-63
+src/20261029_Multi_RemoveEmissionAdmins/AaveV3Mantle_RemoveEmissionAdmins_20261029.t.sol
+  s_27070cf0ae3899::t_2285b3edec617f 1-4,7-8,10-15,20-41,48-49
+  s_27070cf0ae3899::t_8831dbacbc9f2f 16-19
+  s_27070cf0ae3899::t_0b1dd8df097732 6
+  s_27070cf0ae3899::t_670da8eee95d85 5,9,42-47
+src/20261029_Multi_RemoveEmissionAdmins/AaveV3MegaEth_RemoveEmissionAdmins_20261029.t.sol
+  s_27070cf0ae3899::t_2285b3edec617f 1-4,7-8,10-15,20-45,52-53
+  s_27070cf0ae3899::t_670da8eee95d85 5,9,46-51
+  s_27070cf0ae3899::t_0b1dd8df097732 6
+  s_27070cf0ae3899::t_8831dbacbc9f2f 16-19
+src/20261029_Multi_RemoveEmissionAdmins/RemoveEmissionAdmins.md
+  s_27070cf0ae3899::t_2285b3edec617f 1-8,11,18,21,46-48,51-55
+  s_27070cf0ae3899::t_d219c88568ecd5 27-43
+  s_27070cf0ae3899::t_8831dbacbc9f2f 9-10,12-17,19-20,22-26,44-45
+  s_27070cf0ae3899::t_f9ccaf4b18462f 49-50
+src/20261029_Multi_RemoveEmissionAdmins/AaveV3Plasma_RemoveEmissionAdmins_20261029.t.sol
+  s_27070cf0ae3899::t_2285b3edec617f 1-4,7-8,10-15,20-41,48-49
+  s_27070cf0ae3899::t_670da8eee95d85 5,9,42-47
+  s_27070cf0ae3899::t_0b1dd8df097732 6
+  s_27070cf0ae3899::t_8831dbacbc9f2f 16-19
+src/20261029_Multi_RemoveEmissionAdmins/EmissionAdminRemovalChecks.sol
+  s_27070cf0ae3899::t_31f8abff523153 1-27,29-61,63,65-66,72-96
+  s_27070cf0ae3899::t_bf260d3c3c81fd 28,62,64
+  s_27070cf0ae3899::t_cb4876e7e6a1dd 67-71
+src/20261029_Multi_RemoveEmissionAdmins/RemoveEmissionAdmins_20261029.s.sol
+  s_27070cf0ae3899::t_f9ccaf4b18462f 7-464
+  s_27070cf0ae3899::t_dab492404edffa 1-6,465-479
+src/20261029_Multi_RemoveEmissionAdmins/AaveV3Ethereum_RemoveEmissionAdmins_20261029.t.sol
+  s_27070cf0ae3899::t_670da8eee95d85 4-6,10,47-75
+  s_27070cf0ae3899::t_8831dbacbc9f2f 17-20
+  s_27070cf0ae3899::t_0b1dd8df097732 7
+  s_27070cf0ae3899::t_2285b3edec617f 1-3,8-9,11-16,21-46,76-77
+src/20261029_Multi_RemoveEmissionAdmins/AaveV3Optimism_RemoveEmissionAdmins_20261029.sol
+  s_27070cf0ae3899::t_670da8eee95d85 5-6,16-29
+  s_27070cf0ae3899::t_2285b3edec617f 1-4,7-15,30-31
+src/20261029_Multi_RemoveEmissionAdmins/AaveV3Linea_RemoveEmissionAdmins_20261029.sol
+  s_27070cf0ae3899::t_2285b3edec617f 1-4,7-15,41-42
+  s_27070cf0ae3899::t_670da8eee95d85 5-6,16-40
+src/20261029_Multi_RemoveEmissionAdmins/AaveV3Base_RemoveEmissionAdmins_20261029.t.sol
+  s_27070cf0ae3899::t_670da8eee95d85 5,9,42-47
+  s_27070cf0ae3899::t_8831dbacbc9f2f 16-19
+  s_27070cf0ae3899::t_2285b3edec617f 1-4,7-8,10-15,20-41,48-49
+  s_27070cf0ae3899::t_0b1dd8df097732 6
+src/20261029_Multi_RemoveEmissionAdmins/AaveV3Ethereum_RemoveEmissionAdmins_20261029.sol
+  s_27070cf0ae3899::t_2285b3edec617f 1-4,8-16,107-108
+  s_27070cf0ae3899::t_670da8eee95d85 5-7,17-106
+src/20261029_Multi_RemoveEmissionAdmins/AaveV3Polygon_RemoveEmissionAdmins_20261029.t.sol
+  s_27070cf0ae3899::t_670da8eee95d85 4-5,9,46-56,58-60,62-64
+  s_27070cf0ae3899::t_0b1dd8df097732 6
+  s_27070cf0ae3899::t_2285b3edec617f 1-3,7-8,10-15,20-45,65-66
+  s_27070cf0ae3899::t_8831dbacbc9f2f 16-19
+  s_27070cf0ae3899::t_1b891c8dacc1b8 57,61
+src/20261029_Multi_RemoveEmissionAdmins/AaveV3XLayer_RemoveEmissionAdmins_20261029.t.sol
+  s_27070cf0ae3899::t_0b1dd8df097732 6
+  s_27070cf0ae3899::t_670da8eee95d85 5,9,42-47
+  s_27070cf0ae3899::t_8831dbacbc9f2f 16-19
+  s_27070cf0ae3899::t_2285b3edec617f 1-4,7-8,10-15,20-41,48-49
+src/20261029_Multi_RemoveEmissionAdmins/config.ts
+  s_27070cf0ae3899::t_2285b3edec617f 31-44
+  s_27070cf0ae3899::t_86ec47da6d49ba 1-4,6-19,21-30,45-46
+  s_27070cf0ae3899::t_f9ccaf4b18462f 5
+  s_27070cf0ae3899::t_369156f82f872e 20
+src/20261029_Multi_RemoveEmissionAdmins/AaveV3Gnosis_RemoveEmissionAdmins_20261029.t.sol
+  s_27070cf0ae3899::t_8831dbacbc9f2f 16-19
+  s_27070cf0ae3899::t_2285b3edec617f 1-4,7-8,10-15,20-41,48-49
+  s_27070cf0ae3899::t_0b1dd8df097732 6
+  s_27070cf0ae3899::t_670da8eee95d85 5,9,42-47
+src/20261029_Multi_RemoveEmissionAdmins/AaveV3Polygon_RemoveEmissionAdmins_20261029.sol
+  s_27070cf0ae3899::t_2285b3edec617f 1-4,7-15,32-33
+  s_27070cf0ae3899::t_670da8eee95d85 5-6,16-31
+diffs/AaveV3Ethereum_RemoveEmissionAdmins_20261029_before_AaveV3Ethereum_RemoveEmissionAdmins_20261029_after.md
+  s_27070cf0ae3899::t_3ea2a902304b4c 1-201
+diffs/AaveV3Arbitrum_RemoveEmissionAdmins_20261029_before_AaveV3Arbitrum_RemoveEmissionAdmins_20261029_after.md
+  s_27070cf0ae3899::t_7b1c0572603da9 1-59
+src/20261029_Multi_RemoveEmissionAdmins/AaveV3Mantle_RemoveEmissionAdmins_20261029.sol
+  s_27070cf0ae3899::t_2285b3edec617f 1-4,7-15,45-46
+  s_27070cf0ae3899::t_670da8eee95d85 5-6,16-44
+diffs/AaveV3Avalanche_RemoveEmissionAdmins_20261029_before_AaveV3Avalanche_RemoveEmissionAdmins_20261029_after.md
+  s_27070cf0ae3899::t_7b1c0572603da9 1-71
+src/20261029_Multi_RemoveEmissionAdmins/AaveV3MegaEth_RemoveEmissionAdmins_20261029.sol
+  s_27070cf0ae3899::t_2285b3edec617f 1-4,7-15,42-43
+  s_27070cf0ae3899::t_670da8eee95d85 5-6,16-41
+diffs/AaveV3Polygon_RemoveEmissionAdmins_20261029_before_AaveV3Polygon_RemoveEmissionAdmins_20261029_after.md
+  s_27070cf0ae3899::t_7b1c0572603da9 1-53
+src/20261029_Multi_RemoveEmissionAdmins/AaveV3Linea_RemoveEmissionAdmins_20261029.t.sol
+  s_27070cf0ae3899::t_670da8eee95d85 5,9,42-47
+  s_27070cf0ae3899::t_2285b3edec617f 1-4,7-8,10-15,20-41,48-49
+  s_27070cf0ae3899::t_0b1dd8df097732 6
+  s_27070cf0ae3899::t_8831dbacbc9f2f 16-19
+src/20261029_Multi_RemoveEmissionAdmins/AaveV3Arbitrum_RemoveEmissionAdmins_20261029.sol
+  s_27070cf0ae3899::t_670da8eee95d85 5-6,16-34
+  s_27070cf0ae3899::t_2285b3edec617f 1-4,7-15,35-36
+src/20261029_Multi_RemoveEmissionAdmins/AaveV3Base_RemoveEmissionAdmins_20261029.sol
+  s_27070cf0ae3899::t_670da8eee95d85 5-6,16-43
+  s_27070cf0ae3899::t_2285b3edec617f 1-4,7-15,44-45
+diffs/AaveV3BNB_RemoveEmissionAdmins_20261029_before_AaveV3BNB_RemoveEmissionAdmins_20261029_after.md
+  s_6f4402743fb63c::t_0caaae317bf695 1-45
+diffs/AaveV3Base_RemoveEmissionAdmins_20261029_before_AaveV3Base_RemoveEmissionAdmins_20261029_after.md
+  s_6f4402743fb63c::t_aa22461e9e2d3e 1-77
+diffs/AaveV3Celo_RemoveEmissionAdmins_20261029_before_AaveV3Celo_RemoveEmissionAdmins_20261029_after.md
+  s_6f4402743fb63c::t_9207134138a2ef 1-63
+diffs/AaveV3Linea_RemoveEmissionAdmins_20261029_before_AaveV3Linea_RemoveEmissionAdmins_20261029_after.md
+  s_6f4402743fb63c::t_86e96a777e142d 1-71
+diffs/AaveV3Mantle_RemoveEmissionAdmins_20261029_before_AaveV3Mantle_RemoveEmissionAdmins_20261029_after.md
+  s_6f4402743fb63c::t_cfd0f3ee962720 1-79
+diffs/AaveV3MegaEth_RemoveEmissionAdmins_20261029_before_AaveV3MegaEth_RemoveEmissionAdmins_20261029_after.md
+  s_6f4402743fb63c::t_a6fbe99aced872 1-73
+diffs/AaveV3Optimism_RemoveEmissionAdmins_20261029_before_AaveV3Optimism_RemoveEmissionAdmins_20261029_after.md
+  s_6f4402743fb63c::t_4c9145caabc706 1-49
+diffs/AaveV3Plasma_RemoveEmissionAdmins_20261029_before_AaveV3Plasma_RemoveEmissionAdmins_20261029_after.md
+  s_6f4402743fb63c::t_82489032de6e94 1-113
+diffs/AaveV3XLayer_RemoveEmissionAdmins_20261029_before_AaveV3XLayer_RemoveEmissionAdmins_20261029_after.md
+  s_6f4402743fb63c::t_c57a58dcd41f59 1-75
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "9fd215f49ed5daca2cde112bbb013338ecf1a25f",
+  "prompts": {},
+  "sessions": {
+    "s_27070cf0ae3899": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "c0b34d16-8be4-488b-bc86-602f235678e9",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "DhairyaSethi <55102840+DhairyaSethi@users.noreply.github.com>"
+    },
+    "s_6f4402743fb63c": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "c0f33d10-7762-41d5-8973-cefb40deb680",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "DhairyaSethi <55102840+DhairyaSethi@users.noreply.github.com>"
+    }
+  }
+}
