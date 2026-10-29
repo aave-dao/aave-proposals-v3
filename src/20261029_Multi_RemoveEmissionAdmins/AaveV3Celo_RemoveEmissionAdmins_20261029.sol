@@ -19,9 +19,9 @@ contract AaveV3Celo_RemoveEmissionAdmins_20261029 is IProposalGenericExecutor {
     }
   }
 
-  /// @return rewards every reward token with a non-zero emission admin on the AaveV3Celo EmissionManager
-  function getRewards() public pure returns (address[] memory rewards) {
-    rewards = new address[](12);
+  /// @return every reward token with a non-zero emission admin on the AaveV3Celo EmissionManager
+  function getRewards() public pure returns (address[] memory) {
+    address[] memory rewards = new address[](12);
     rewards[0] = AaveV3CeloAssets.CELO_A_TOKEN;
     rewards[1] = AaveV3CeloAssets.EURm_A_TOKEN;
     rewards[2] = AaveV3CeloAssets.USDm_A_TOKEN;
@@ -34,5 +34,6 @@ contract AaveV3Celo_RemoveEmissionAdmins_20261029 is IProposalGenericExecutor {
     rewards[9] = AaveV3CeloAssets.USDm_UNDERLYING;
     rewards[10] = AaveV3CeloAssets.USDT_UNDERLYING;
     rewards[11] = AaveV3CeloAssets.WETH_UNDERLYING;
+    return rewards;
   }
 }

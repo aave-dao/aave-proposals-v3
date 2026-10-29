@@ -19,9 +19,9 @@ contract AaveV3Arbitrum_RemoveEmissionAdmins_20261029 is IProposalGenericExecuto
     }
   }
 
-  /// @return rewards every reward token with a non-zero emission admin on the AaveV3Arbitrum EmissionManager
-  function getRewards() public pure returns (address[] memory rewards) {
-    rewards = new address[](10);
+  /// @return every reward token with a non-zero emission admin on the AaveV3Arbitrum EmissionManager
+  function getRewards() public pure returns (address[] memory) {
+    address[] memory rewards = new address[](10);
     rewards[0] = AaveV3ArbitrumAssets.ezETH_A_TOKEN;
     rewards[1] = AaveV3ArbitrumAssets.rsETH_A_TOKEN;
     rewards[2] = AaveV3ArbitrumAssets.tBTC_A_TOKEN;
@@ -32,5 +32,6 @@ contract AaveV3Arbitrum_RemoveEmissionAdmins_20261029 is IProposalGenericExecuto
     rewards[7] = AaveV3ArbitrumAssets.rsETH_UNDERLYING;
     rewards[8] = AaveV3ArbitrumAssets.tBTC_UNDERLYING;
     rewards[9] = AaveV3ArbitrumAssets.wstETH_UNDERLYING;
+    return rewards;
   }
 }

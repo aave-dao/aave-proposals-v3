@@ -19,9 +19,9 @@ contract AaveV3Linea_RemoveEmissionAdmins_20261029 is IProposalGenericExecutor {
     }
   }
 
-  /// @return rewards every reward token with a non-zero emission admin on the AaveV3Linea EmissionManager
-  function getRewards() public pure returns (address[] memory rewards) {
-    rewards = new address[](16);
+  /// @return every reward token with a non-zero emission admin on the AaveV3Linea EmissionManager
+  function getRewards() public pure returns (address[] memory) {
+    address[] memory rewards = new address[](16);
     rewards[0] = AaveV3LineaAssets.ezETH_A_TOKEN;
     rewards[1] = AaveV3LineaAssets.USDC_A_TOKEN;
     rewards[2] = AaveV3LineaAssets.USDT_A_TOKEN;
@@ -38,5 +38,6 @@ contract AaveV3Linea_RemoveEmissionAdmins_20261029 is IProposalGenericExecutor {
     rewards[13] = AaveV3LineaAssets.WETH_UNDERLYING;
     rewards[14] = AaveV3LineaAssets.wrsETH_UNDERLYING;
     rewards[15] = AaveV3LineaAssets.wstETH_UNDERLYING;
+    return rewards;
   }
 }

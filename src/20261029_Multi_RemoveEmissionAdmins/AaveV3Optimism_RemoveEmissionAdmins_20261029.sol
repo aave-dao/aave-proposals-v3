@@ -19,13 +19,14 @@ contract AaveV3Optimism_RemoveEmissionAdmins_20261029 is IProposalGenericExecuto
     }
   }
 
-  /// @return rewards every reward token with a non-zero emission admin on the AaveV3Optimism EmissionManager
-  function getRewards() public pure returns (address[] memory rewards) {
-    rewards = new address[](5);
+  /// @return every reward token with a non-zero emission admin on the AaveV3Optimism EmissionManager
+  function getRewards() public pure returns (address[] memory) {
+    address[] memory rewards = new address[](5);
     rewards[0] = AaveV3OptimismAssets.AAVE_UNDERLYING;
     rewards[1] = 0xFdb794692724153d1488CcdBE0C56c252596735F; // LDO
     rewards[2] = AaveV3OptimismAssets.OP_UNDERLYING;
     rewards[3] = AaveV3OptimismAssets.sUSD_UNDERLYING;
     rewards[4] = AaveV3OptimismAssets.wstETH_UNDERLYING;
+    return rewards;
   }
 }

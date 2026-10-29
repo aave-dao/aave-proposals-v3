@@ -19,9 +19,9 @@ contract AaveV3MegaEth_RemoveEmissionAdmins_20261029 is IProposalGenericExecutor
     }
   }
 
-  /// @return rewards every reward token with a non-zero emission admin on the AaveV3MegaEth EmissionManager
-  function getRewards() public pure returns (address[] memory rewards) {
-    rewards = new address[](17);
+  /// @return every reward token with a non-zero emission admin on the AaveV3MegaEth EmissionManager
+  function getRewards() public pure returns (address[] memory) {
+    address[] memory rewards = new address[](17);
     rewards[0] = AaveV3MegaEthAssets.BTCb_A_TOKEN;
     rewards[1] = AaveV3MegaEthAssets.ezETH_A_TOKEN;
     rewards[2] = AaveV3MegaEthAssets.USDe_A_TOKEN;
@@ -39,5 +39,6 @@ contract AaveV3MegaEth_RemoveEmissionAdmins_20261029 is IProposalGenericExecutor
     rewards[14] = AaveV3MegaEthAssets.WETH_UNDERLYING;
     rewards[15] = AaveV3MegaEthAssets.wrsETH_UNDERLYING;
     rewards[16] = AaveV3MegaEthAssets.wstETH_UNDERLYING;
+    return rewards;
   }
 }

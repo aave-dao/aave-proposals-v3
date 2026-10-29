@@ -19,9 +19,9 @@ contract AaveV3XLayer_RemoveEmissionAdmins_20261029 is IProposalGenericExecutor 
     }
   }
 
-  /// @return rewards every reward token with a non-zero emission admin on the AaveV3XLayer EmissionManager
-  function getRewards() public pure returns (address[] memory rewards) {
-    rewards = new address[](18);
+  /// @return every reward token with a non-zero emission admin on the AaveV3XLayer EmissionManager
+  function getRewards() public pure returns (address[] memory) {
+    address[] memory rewards = new address[](18);
     rewards[0] = AaveV3XLayerAssets.GHO_A_TOKEN;
     rewards[1] = AaveV3XLayerAssets.USDG_A_TOKEN;
     rewards[2] = AaveV3XLayerAssets.USDT_A_TOKEN;
@@ -40,5 +40,6 @@ contract AaveV3XLayer_RemoveEmissionAdmins_20261029 is IProposalGenericExecutor 
     rewards[15] = AaveV3XLayerAssets.xETH_UNDERLYING;
     rewards[16] = AaveV3XLayerAssets.xOKSOL_UNDERLYING;
     rewards[17] = AaveV3XLayerAssets.xSOL_UNDERLYING;
+    return rewards;
   }
 }

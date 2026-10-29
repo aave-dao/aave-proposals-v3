@@ -19,9 +19,9 @@ contract AaveV3Polygon_RemoveEmissionAdmins_20261029 is IProposalGenericExecutor
     }
   }
 
-  /// @return rewards every reward token with a non-zero emission admin on the AaveV3Polygon EmissionManager
-  function getRewards() public pure returns (address[] memory rewards) {
-    rewards = new address[](7);
+  /// @return every reward token with a non-zero emission admin on the AaveV3Polygon EmissionManager
+  function getRewards() public pure returns (address[] memory) {
+    address[] memory rewards = new address[](7);
     rewards[0] = AaveV3PolygonAssets.AAVE_UNDERLYING;
     rewards[1] = 0xC3C7d422809852031b44ab29EEC9F1EfF2A58756; // LDO
     rewards[2] = AaveV3PolygonAssets.MaticX_UNDERLYING;
@@ -29,5 +29,6 @@ contract AaveV3Polygon_RemoveEmissionAdmins_20261029 is IProposalGenericExecutor
     rewards[4] = AaveV3PolygonAssets.stMATIC_UNDERLYING;
     rewards[5] = AaveV3PolygonAssets.WPOL_UNDERLYING;
     rewards[6] = AaveV3PolygonAssets.wstETH_UNDERLYING;
+    return rewards;
   }
 }

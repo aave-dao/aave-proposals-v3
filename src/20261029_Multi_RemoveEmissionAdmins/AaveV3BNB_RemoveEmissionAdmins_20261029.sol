@@ -19,11 +19,12 @@ contract AaveV3BNB_RemoveEmissionAdmins_20261029 is IProposalGenericExecutor {
     }
   }
 
-  /// @return rewards every reward token with a non-zero emission admin on the AaveV3BNB EmissionManager
-  function getRewards() public pure returns (address[] memory rewards) {
-    rewards = new address[](3);
+  /// @return every reward token with a non-zero emission admin on the AaveV3BNB EmissionManager
+  function getRewards() public pure returns (address[] memory) {
+    address[] memory rewards = new address[](3);
     rewards[0] = AaveV3BNBAssets.wstETH_A_TOKEN;
     rewards[1] = AaveV3BNBAssets.FDUSD_UNDERLYING;
     rewards[2] = AaveV3BNBAssets.wstETH_UNDERLYING;
+    return rewards;
   }
 }

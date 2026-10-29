@@ -19,9 +19,9 @@ contract AaveV3Mantle_RemoveEmissionAdmins_20261029 is IProposalGenericExecutor 
     }
   }
 
-  /// @return rewards every reward token with a non-zero emission admin on the AaveV3Mantle EmissionManager
-  function getRewards() public pure returns (address[] memory rewards) {
-    rewards = new address[](20);
+  /// @return every reward token with a non-zero emission admin on the AaveV3Mantle EmissionManager
+  function getRewards() public pure returns (address[] memory) {
+    address[] memory rewards = new address[](20);
     rewards[0] = AaveV3MantleAssets.FBTC_A_TOKEN;
     rewards[1] = AaveV3MantleAssets.GHO_A_TOKEN;
     rewards[2] = AaveV3MantleAssets.sUSDe_A_TOKEN;
@@ -42,5 +42,6 @@ contract AaveV3Mantle_RemoveEmissionAdmins_20261029 is IProposalGenericExecutor 
     rewards[17] = AaveV3MantleAssets.WETH_UNDERLYING;
     rewards[18] = AaveV3MantleAssets.WMNT_UNDERLYING;
     rewards[19] = AaveV3MantleAssets.wrsETH_UNDERLYING;
+    return rewards;
   }
 }

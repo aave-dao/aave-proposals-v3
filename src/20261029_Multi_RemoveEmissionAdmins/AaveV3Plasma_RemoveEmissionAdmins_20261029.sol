@@ -19,9 +19,9 @@ contract AaveV3Plasma_RemoveEmissionAdmins_20261029 is IProposalGenericExecutor 
     }
   }
 
-  /// @return rewards every reward token with a non-zero emission admin on the AaveV3Plasma EmissionManager
-  function getRewards() public pure returns (address[] memory rewards) {
-    rewards = new address[](37);
+  /// @return every reward token with a non-zero emission admin on the AaveV3Plasma EmissionManager
+  function getRewards() public pure returns (address[] memory) {
+    address[] memory rewards = new address[](37);
     rewards[0] = AaveV3PlasmaAssets.GHO_A_TOKEN;
     rewards[1] = AaveV3PlasmaAssets.PT_sUSDE_15JAN2026_A_TOKEN;
     rewards[2] = AaveV3PlasmaAssets.PT_sUSDE_18JUN2026_A_TOKEN;
@@ -59,5 +59,6 @@ contract AaveV3Plasma_RemoveEmissionAdmins_20261029 is IProposalGenericExecutor 
     rewards[34] = AaveV3PlasmaAssets.wstETH_UNDERLYING;
     rewards[35] = AaveV3PlasmaAssets.WXPL_UNDERLYING;
     rewards[36] = AaveV3PlasmaAssets.XAUt0_UNDERLYING;
+    return rewards;
   }
 }
