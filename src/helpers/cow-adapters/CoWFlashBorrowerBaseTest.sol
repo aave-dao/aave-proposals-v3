@@ -549,7 +549,7 @@ abstract contract CoWFlashBorrowerBaseTest is ProtocolV3TestBase {
     CollateralSwapV4Config memory config,
     V4TestLocalVars memory vars
   ) internal {
-    deal(config.collateralAsset, vars.trader, config.collateralSeed);
+    deal2(config.collateralAsset, vars.trader, config.collateralSeed);
 
     vm.startPrank(vars.trader);
     IERC20(config.collateralAsset).approve(address(config.spoke), config.collateralSeed);
@@ -626,7 +626,7 @@ abstract contract CoWFlashBorrowerBaseTest is ProtocolV3TestBase {
 
   function _seedDeposit(address collateralAsset, address account, uint256 amount) internal {
     IPool pool = _pool();
-    deal(collateralAsset, account, amount);
+    deal2(collateralAsset, account, amount);
     vm.startPrank(account);
     IERC20(collateralAsset).approve(address(pool), amount);
     pool.supply(collateralAsset, amount, account, 0);
@@ -677,7 +677,7 @@ abstract contract CoWFlashBorrowerBaseTest is ProtocolV3TestBase {
     // intra-interaction `MockBasicPool.swap` can deliver buyToken to settlement.
     MockBasicPool basicSwapPool = new MockBasicPool();
     vm.label(address(basicSwapPool), 'BasicSwapPool');
-    deal(address(params.order.buyToken), address(basicSwapPool), params.order.buyAmount);
+    deal2(address(params.order.buyToken), address(basicSwapPool), params.order.buyAmount);
 
     // Pre Interactions
     vars.preInteractions = new GPv2Interaction.Data[](1);
