@@ -32,6 +32,10 @@ import {Errors} from './Errors.sol';
  */
 abstract contract HorizonConfigAssertionHelper is Test {
   using ReserveConfiguration for DataTypes.ReserveConfigurationMap;
+
+  // the vendored aave-v3-origin dropped the debt ceiling accessors, so read its bits (212-251) directly
+  uint256 internal constant DEBT_CEILING_START_BIT_POSITION = 212;
+  uint256 internal constant DEBT_CEILING_MASK = (1 << 40) - 1;
   using EModeConfiguration for uint128;
 
   struct ExpectedAssetConfig {
@@ -50,6 +54,7 @@ abstract contract HorizonConfigAssertionHelper is Test {
     uint256 ltv;
     uint256 liquidationThreshold;
     uint256 liquidationBonus;
+    uint256 debtCeiling;
     uint256 liqProtocolFee;
     // interest rate strategy params (in bps)
     IDefaultInterestRateStrategyV2.InterestRateData rateData;
@@ -116,6 +121,7 @@ abstract contract HorizonConfigAssertionHelper is Test {
       'liquidationThreshold'
     );
     assertEq(config.getLiquidationBonus(), expected.liquidationBonus, 'liquidationBonus');
+    assertEq(_getDebtCeiling(config), expected.debtCeiling, 'debtCeiling');
     assertEq(config.getLiquidationProtocolFee(), expected.liqProtocolFee, 'liqProtocolFee');
     assertEq(config.getPaused(), false, 'paused');
     assertEq(
@@ -527,6 +533,7 @@ abstract contract HorizonConfigAssertionHelper is Test {
     c.ltv = config.getLtv();
     c.liquidationThreshold = config.getLiquidationThreshold();
     c.liquidationBonus = config.getLiquidationBonus();
+    c.debtCeiling = _getDebtCeiling(config);
     c.liqProtocolFee = config.getLiquidationProtocolFee();
 
     // rate data
@@ -554,7 +561,16 @@ abstract contract HorizonConfigAssertionHelper is Test {
     map.setReserveFactor(expected.reserveFactor);
     map.setBorrowCap(expected.borrowCap);
     map.setSupplyCap(expected.supplyCap);
+    map.data =
+      (map.data & ~(DEBT_CEILING_MASK << DEBT_CEILING_START_BIT_POSITION)) |
+      (expected.debtCeiling << DEBT_CEILING_START_BIT_POSITION);
     map.setLiquidationProtocolFee(expected.liqProtocolFee);
+  }
+
+  function _getDebtCeiling(
+    DataTypes.ReserveConfigurationMap memory config
+  ) internal pure returns (uint256) {
+    return (config.data >> DEBT_CEILING_START_BIT_POSITION) & DEBT_CEILING_MASK;
   }
 
   function _getProxyImplementation(address proxy) internal view returns (address) {

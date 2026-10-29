@@ -60,16 +60,20 @@ abstract contract ProtocolV3HorizonTestBase is
     string memory beforeString = string(abi.encodePacked(reportName, '_before'));
     ReserveConfig[] memory configBefore = createConfigurationSnapshot(beforeString, pool);
 
-    uint256 startGas = gasleft();
+    // meter on a dedicated, reverted run, as aave-helpers' defaultTest does: state-diff recording
+    // suppresses isolate's transaction-level gas accounting
+    {
+      uint256 snapshotId = vm.snapshotState();
+      executeTx();
+      _assertPayloadGasWithinLimit(vm.lastCallGas().gasTotalUsed);
+      vm.revertToState(snapshotId);
+    }
 
     vm.startStateDiffRecording();
     vm.recordLogs();
     executeTx(); // execute the transaction that is being tested
     string memory rawDiff = vm.getStateDiffJson();
     string memory logsJson = vm.getRecordedLogsJson();
-
-    uint256 gasUsed = startGas - gasleft();
-    assertLt(gasUsed, (block.gaslimit * 95) / 100, 'BLOCK_GAS_LIMIT_EXCEEDED'); // 5% is kept as a buffer
 
     string memory afterString = string(abi.encodePacked(reportName, '_after'));
     ReserveConfig[] memory configAfter = createConfigurationSnapshot(afterString, pool);
