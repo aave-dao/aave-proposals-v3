@@ -1,0 +1,29 @@
+src/helpers/cow-adapters/CoWFlashBorrowerTestUtils.sol
+  s_ab7402e30fb8c3::t_819d537069e0c4 129-187
+  s_ab7402e30fb8c3::t_253cd792715ee8 461-471
+  s_ab7402e30fb8c3::t_fcf513d7b932e6 5
+src/helpers/cow-adapters/CoWFlashBorrowerBaseTest.sol
+  s_ab7402e30fb8c3::t_450d6239f9c5bc 123-158
+  s_ab7402e30fb8c3::t_12472378e6886b 8,11
+  s_ab7402e30fb8c3::t_5e612c7fd0a11c 41
+  s_ab7402e30fb8c3::t_f23be43b3bface 391-597,599,604,607,612
+  s_ab7402e30fb8c3::t_74ca36a56ac08b 159,205,598,600-603,605-606,608-611
+src/20261028_Multi_UpdateCoWSwapAdaptersFlashBorrowers/AaveV3Ethereum_UpdateCoWSwapAdaptersFlashBorrowers_20261028.t.sol
+  s_ab7402e30fb8c3::t_3fbe18d77f5766 7,56-71
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "1028ba69b28f4e05fdb18b4b784c9ff40490bd4a",
+  "prompts": {},
+  "sessions": {
+    "s_ab7402e30fb8c3": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "18a76094-f424-46d5-b9ea-92fd41a4e5c6",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "DhairyaSethi <55102840+DhairyaSethi@users.noreply.github.com>"
+    }
+  }
+}
