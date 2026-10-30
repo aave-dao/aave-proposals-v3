@@ -3,6 +3,7 @@ pragma solidity ^0.8.0;
 
 import {AaveV4Ethereum, AaveV4EthereumHubs, AaveV4EthereumIRStrategies, AaveV4EthereumSpokes} from 'aave-address-book/AaveV4Ethereum.sol';
 import {ChainlinkEthereum} from 'aave-address-book/ChainlinkEthereum.sol';
+import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
 import {AaveV4PayloadEthereum} from 'aave-helpers/src/v4-config-engine/AaveV4PayloadEthereum.sol';
 import {IAaveV4ConfigEngine as IConfigEngine} from 'aave-address-book/AaveV4.sol';
 import {IHub} from 'aave-v4/hub/interfaces/IHub.sol';
@@ -39,7 +40,7 @@ contract AaveV4Ethereum_OnboardCirBTCToV3CoreAndV4Core_20261019 is AaveV4Payload
       }),
       tokenization: IConfigEngine.TokenizationSpokeConfig({
         addCap: 25,
-        proxyAdminOwner: 0x187AAE17d4931310B3fc75743e7F16Bdc9eD77e9,
+        proxyAdminOwner: MiscEthereum.V4_SECURITY_COUNCIL,
         name: 'Wrapped Aave Core cirBTC',
         symbol: 'waCorecirBTC'
       })
