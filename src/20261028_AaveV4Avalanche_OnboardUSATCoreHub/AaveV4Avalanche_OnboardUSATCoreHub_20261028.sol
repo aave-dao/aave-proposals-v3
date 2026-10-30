@@ -111,7 +111,7 @@ contract AaveV4Avalanche_OnboardUSATCoreHub_20261028 is AaveV4PayloadAvalanche {
         config: IHub.SpokeConfig({
           addCap: 60_000_000,
           drawCap: 5_000_000,
-          riskPremiumThreshold: 1_100_00,
+          riskPremiumThreshold: 0,
           active: true,
           halted: false
         })

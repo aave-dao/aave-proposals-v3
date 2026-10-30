@@ -37,7 +37,7 @@ Ethena Ecosystem Spoke: [`0xaf22446124e566e54845f65b722E4dCbf12b650A`](https://s
 
 | Hub  | Spoke                  | Reserve | Collateral Factor | Max Liquidation Bonus | Borrowable | Collateral Risk | Liquidation Fee | Risk Premium Threshold | Receive Shares |
 | ---- | ---------------------- | ------- | ----------------: | --------------------: | ---------- | --------------: | --------------: | ---------------------: | -------------- |
-| Core | Main Spoke             | USAT    |             0.00% |                     - | TRUE       |               - |               - |                  1100% | TRUE           |
+| Core | Main Spoke             | USAT    |             0.00% |                     - | TRUE       |               - |               - |                     0% | TRUE           |
 | Core | Ethena Ecosystem Spoke | USAT    |             0.00% |                     - | TRUE       |               - |               - |                  1100% | TRUE           |
 
 **Caps**

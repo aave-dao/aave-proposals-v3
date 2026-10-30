@@ -274,7 +274,7 @@ contract AaveV4Avalanche_OnboardUSATCoreHub_20261028_Test is ProtocolV4TestBaseA
     );
     assertEq(uint256(cfg.addCap), uint256(60_000_000), 'addCap mismatch');
     assertEq(uint256(cfg.drawCap), uint256(5_000_000), 'drawCap mismatch');
-    assertEq(uint256(cfg.riskPremiumThreshold), uint256(1_100_00), 'riskPremiumThreshold mismatch');
+    assertEq(uint256(cfg.riskPremiumThreshold), uint256(0), 'riskPremiumThreshold mismatch');
     assertEq(cfg.active, true, 'active mismatch');
     assertEq(cfg.halted, false, 'halted mismatch');
   }
@@ -361,11 +361,7 @@ contract AaveV4Avalanche_OnboardUSATCoreHub_20261028_Test is ProtocolV4TestBaseA
     assertEq(items[0].assets[0].underlying, proposal.USAT(), 'underlying');
     assertEq(uint256(items[0].assets[0].config.addCap), 60_000_000, 'addCap');
     assertEq(uint256(items[0].assets[0].config.drawCap), 5_000_000, 'drawCap');
-    assertEq(
-      uint256(items[0].assets[0].config.riskPremiumThreshold),
-      1_100_00,
-      'riskPremiumThreshold'
-    );
+    assertEq(uint256(items[0].assets[0].config.riskPremiumThreshold), 0, 'riskPremiumThreshold');
     assertEq(items[0].assets[0].config.active, true, 'active');
     assertEq(items[0].assets[0].config.halted, false, 'halted');
     assertEq(items[1].spoke, address(AaveV4AvalancheSpokes.ETHENA_ECOSYSTEM_SPOKE), 'spoke');

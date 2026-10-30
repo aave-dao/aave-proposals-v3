@@ -93,7 +93,7 @@ export const config: ConfigFile = {
                   underlying: 'USAT',
                   addCap: '60000000',
                   drawCap: '5000000',
-                  riskPremiumThreshold: '1100',
+                  riskPremiumThreshold: '0',
                   active: true,
                   halted: false,
                 },
