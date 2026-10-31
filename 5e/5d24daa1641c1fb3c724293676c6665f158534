@@ -1,0 +1,21 @@
+src/20261028_Multi_UpgradeAaveInstancesToV38/Deployments.sol
+  s_090817cd75c4c9::t_cb0b24ff6afe21 5,7,9,11,13,15,17,19,21,23,25,27,29,31,33,35,37
+src/20261028_Multi_UpgradeAaveInstancesToV38/UpgradeAaveInstancesToV38.md
+  s_090817cd75c4c9::t_39cf66bdf1bf68 34,40-42
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "5e5d24daa1641c1fb3c724293676c6665f158534",
+  "prompts": {},
+  "sessions": {
+    "s_090817cd75c4c9": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "5de360bc-600d-4ada-a4ab-0deadf6bca6b",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "DhairyaSethi <55102840+DhairyaSethi@users.noreply.github.com>"
+    }
+  }
+}
