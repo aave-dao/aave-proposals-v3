@@ -16,7 +16,7 @@ contract AaveV3BNB_UpdateCoWSwapAdaptersFlashBorrowers_20261028_Test is CoWFlash
   AaveV3BNB_UpdateCoWSwapAdaptersFlashBorrowers_20261028 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('bnb'), 130323475);
+    vm.createSelectFork(vm.rpcUrl('bnb'), 131473840);
     proposal = new AaveV3BNB_UpdateCoWSwapAdaptersFlashBorrowers_20261028();
   }
 
@@ -77,12 +77,12 @@ contract AaveV3BNB_UpdateCoWSwapAdaptersFlashBorrowers_20261028_Test is CoWFlash
     // Both BSC USDT and BSC USDC are 18-decimals on BNB Chain (not 6).
     return
       CollateralSwapConfig({
-        collateralAsset: AaveV3BNBAssets.USDT_UNDERLYING,
-        debtAsset: AaveV3BNBAssets.USDC_UNDERLYING,
-        collateralSeed: 40_000 ether,
-        debtSeed: 10_000 ether,
-        sellAmount: 40_000 ether,
-        expectedBuyAmount: 42_000 ether
+        collateralAsset: AaveV3BNBAssets.ETH_UNDERLYING,
+        debtAsset: AaveV3BNBAssets.WBNB_UNDERLYING,
+        collateralSeed: 10 ether,
+        debtSeed: 10 ether,
+        sellAmount: 10 ether,
+        expectedBuyAmount: 50 ether
       });
   }
 }

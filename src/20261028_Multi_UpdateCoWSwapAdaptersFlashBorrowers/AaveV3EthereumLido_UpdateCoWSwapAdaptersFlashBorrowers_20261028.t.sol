@@ -18,7 +18,7 @@ contract AaveV3EthereumLido_UpdateCoWSwapAdaptersFlashBorrowers_20261028_Test is
   AaveV3EthereumLido_UpdateCoWSwapAdaptersFlashBorrowers_20261028 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 26292808);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 26335805);
     proposal = new AaveV3EthereumLido_UpdateCoWSwapAdaptersFlashBorrowers_20261028();
   }
 

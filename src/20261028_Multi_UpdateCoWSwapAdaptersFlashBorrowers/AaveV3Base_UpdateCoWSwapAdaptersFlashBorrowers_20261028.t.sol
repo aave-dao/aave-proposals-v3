@@ -17,7 +17,7 @@ contract AaveV3Base_UpdateCoWSwapAdaptersFlashBorrowers_20261028_Test is CoWFlas
   AaveV3Base_UpdateCoWSwapAdaptersFlashBorrowers_20261028 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('base'), 53210075);
+    vm.createSelectFork(vm.rpcUrl('base'), 53468991);
     proposal = new AaveV3Base_UpdateCoWSwapAdaptersFlashBorrowers_20261028();
   }
 
@@ -102,11 +102,11 @@ contract AaveV3Base_UpdateCoWSwapAdaptersFlashBorrowers_20261028_Test is CoWFlas
     return
       CollateralSwapConfig({
         collateralAsset: AaveV3BaseAssets.wstETH_UNDERLYING,
-        debtAsset: AaveV3BaseAssets.USDC_UNDERLYING,
+        debtAsset: AaveV3BaseAssets.WETH_UNDERLYING,
         collateralSeed: 10 ether,
-        debtSeed: 10_000 * 1e6,
+        debtSeed: 2 ether,
         sellAmount: 10 ether,
-        expectedBuyAmount: 42_000 * 1e6
+        expectedBuyAmount: 12 ether
       });
   }
 }

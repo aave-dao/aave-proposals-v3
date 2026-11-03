@@ -19,7 +19,7 @@ contract AaveV3Avalanche_UpdateCoWSwapAdaptersFlashBorrowers_20261028_Test is
   AaveV3Avalanche_UpdateCoWSwapAdaptersFlashBorrowers_20261028 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('avalanche'), 98795526);
+    vm.createSelectFork(vm.rpcUrl('avalanche'), 99329879);
     proposal = new AaveV3Avalanche_UpdateCoWSwapAdaptersFlashBorrowers_20261028();
   }
 
@@ -60,11 +60,11 @@ contract AaveV3Avalanche_UpdateCoWSwapAdaptersFlashBorrowers_20261028_Test is
         spoke: AaveV4AvalancheSpokes.MAIN_SPOKE,
         hub: address(AaveV4AvalancheHubs.CORE_HUB),
         collateralAsset: AaveV4AvalancheAssets.WETHe_UNDERLYING,
-        debtAsset: AaveV4AvalancheAssets.USDC_UNDERLYING,
+        debtAsset: AaveV4AvalancheAssets.WAVAX_UNDERLYING,
         collateralSeed: 10 ether,
-        debtSeed: 10_000 * 1e6,
+        debtSeed: 100 ether,
         sellAmount: 10 ether,
-        expectedBuyAmount: 42_000 * 1e6
+        expectedBuyAmount: 1_500 ether
       })
     );
   }
@@ -100,11 +100,11 @@ contract AaveV3Avalanche_UpdateCoWSwapAdaptersFlashBorrowers_20261028_Test is
     return
       CollateralSwapConfig({
         collateralAsset: AaveV3AvalancheAssets.WETHe_UNDERLYING,
-        debtAsset: AaveV3AvalancheAssets.USDC_UNDERLYING,
+        debtAsset: AaveV3AvalancheAssets.BTCb_UNDERLYING,
         collateralSeed: 10 ether,
-        debtSeed: 10_000 * 1e6,
+        debtSeed: 0.05 * 1e8,
         sellAmount: 10 ether,
-        expectedBuyAmount: 42_000 * 1e6
+        expectedBuyAmount: 0.3 * 1e8
       });
   }
 }

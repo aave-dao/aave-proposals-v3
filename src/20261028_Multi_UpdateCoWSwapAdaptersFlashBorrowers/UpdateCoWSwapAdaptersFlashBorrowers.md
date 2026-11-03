@@ -35,7 +35,7 @@ On each market below, the payload calls `ACLManager.addFlashBorrower` for every 
 
 The `AaveV3AdapterV4Factory` serves Aave V4 positions and sources its flash liquidity from the Aave V3 Pool of the same network.
 
-The new factories are upgradeable proxies. Each factory and its ProxyAdmin are owned by `0xA043B0EaD753d15fe6830d7be57f24432Dd773d1`.
+The new factories are upgradeable proxies. Each factory and its ProxyAdmin are owned by `0x187AAE17d4931310B3fc75743e7F16Bdc9eD77e9`.
 
 | Factory                                                  | ProxyAdmin                                 |
 | -------------------------------------------------------- | ------------------------------------------ |

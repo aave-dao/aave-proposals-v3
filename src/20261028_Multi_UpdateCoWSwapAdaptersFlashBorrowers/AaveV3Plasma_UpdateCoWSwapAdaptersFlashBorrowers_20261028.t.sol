@@ -18,7 +18,7 @@ contract AaveV3Plasma_UpdateCoWSwapAdaptersFlashBorrowers_20261028_Test is
   AaveV3Plasma_UpdateCoWSwapAdaptersFlashBorrowers_20261028 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('plasma'), 36268094);
+    vm.createSelectFork(vm.rpcUrl('plasma'), 36784619);
     proposal = new AaveV3Plasma_UpdateCoWSwapAdaptersFlashBorrowers_20261028();
   }
 
@@ -83,11 +83,11 @@ contract AaveV3Plasma_UpdateCoWSwapAdaptersFlashBorrowers_20261028_Test is
     return
       CollateralSwapConfig({
         collateralAsset: AaveV3PlasmaAssets.USDe_UNDERLYING,
-        debtAsset: AaveV3PlasmaAssets.USDT0_UNDERLYING,
+        debtAsset: AaveV3PlasmaAssets.WXPL_UNDERLYING,
         collateralSeed: 10_000 ether,
         debtSeed: 0,
         sellAmount: 10_000 ether,
-        expectedBuyAmount: 10_000 * 1e6
+        expectedBuyAmount: 10_000 ether
       });
   }
 }

@@ -18,7 +18,7 @@ contract AaveV3Gnosis_UpdateCoWSwapAdaptersFlashBorrowers_20261028_Test is
   AaveV3Gnosis_UpdateCoWSwapAdaptersFlashBorrowers_20261028 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('gnosis'), 48990091);
+    vm.createSelectFork(vm.rpcUrl('gnosis'), 49091943);
     proposal = new AaveV3Gnosis_UpdateCoWSwapAdaptersFlashBorrowers_20261028();
   }
 
@@ -81,12 +81,12 @@ contract AaveV3Gnosis_UpdateCoWSwapAdaptersFlashBorrowers_20261028_Test is
     // wstETH has 0 LTV on Gnosis at this fork block; use WXDAI as the collateral being swapped.
     return
       CollateralSwapConfig({
-        collateralAsset: AaveV3GnosisAssets.WXDAI_UNDERLYING,
-        debtAsset: AaveV3GnosisAssets.USDCe_UNDERLYING,
-        collateralSeed: 20_000 ether,
-        debtSeed: 5_000 * 1e6,
-        sellAmount: 20_000 ether,
-        expectedBuyAmount: 20_000 * 1e6
+        collateralAsset: AaveV3GnosisAssets.USDCe_UNDERLYING,
+        debtAsset: AaveV3GnosisAssets.WXDAI_UNDERLYING,
+        collateralSeed: 20_000 * 1e6,
+        debtSeed: 0,
+        sellAmount: 20_000 * 1e6,
+        expectedBuyAmount: 20_000 ether
       });
   }
 }

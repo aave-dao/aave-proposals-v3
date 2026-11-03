@@ -26,7 +26,7 @@ abstract contract CoWFlashBorrowerBaseTest is ProtocolV3TestBase {
   bytes32 internal constant ERC1967_ADMIN_SLOT =
     0xb53127684a568b3173ae13b9f8a6016e243e63b6e8ee1178d6a717850b5d6103;
 
-  address internal constant COW_ADAPTERS_OWNER = 0xA043B0EaD753d15fe6830d7be57f24432Dd773d1;
+  address internal constant COW_ADAPTERS_OWNER = 0x187AAE17d4931310B3fc75743e7F16Bdc9eD77e9;
 
   address internal constant COW_V3_FACTORY_PROXY_ADMIN = 0x509Df56B5Aceb01674cC5506CA63bf41A4d68E8E;
   address internal constant COW_V4_FACTORY_PROXY_ADMIN = 0xD7ef5094E88cE0f7f89bB6e5b3E3123aE3DF77Fa;

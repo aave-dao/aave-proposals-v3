@@ -18,7 +18,7 @@ contract AaveV3Polygon_UpdateCoWSwapAdaptersFlashBorrowers_20261028_Test is
   AaveV3Polygon_UpdateCoWSwapAdaptersFlashBorrowers_20261028 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('polygon'), 96336080);
+    vm.createSelectFork(vm.rpcUrl('polygon'), 96681252);
     proposal = new AaveV3Polygon_UpdateCoWSwapAdaptersFlashBorrowers_20261028();
   }
 
@@ -81,11 +81,11 @@ contract AaveV3Polygon_UpdateCoWSwapAdaptersFlashBorrowers_20261028_Test is
     return
       CollateralSwapConfig({
         collateralAsset: AaveV3PolygonAssets.wstETH_UNDERLYING,
-        debtAsset: AaveV3PolygonAssets.USDCn_UNDERLYING,
+        debtAsset: AaveV3PolygonAssets.WETH_UNDERLYING,
         collateralSeed: 10 ether,
-        debtSeed: 10_000 * 1e6,
+        debtSeed: 2 ether,
         sellAmount: 10 ether,
-        expectedBuyAmount: 42_000 * 1e6
+        expectedBuyAmount: 12 ether
       });
   }
 }

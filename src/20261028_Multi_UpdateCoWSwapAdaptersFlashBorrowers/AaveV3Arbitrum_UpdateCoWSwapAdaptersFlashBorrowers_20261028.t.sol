@@ -18,7 +18,7 @@ contract AaveV3Arbitrum_UpdateCoWSwapAdaptersFlashBorrowers_20261028_Test is
   AaveV3Arbitrum_UpdateCoWSwapAdaptersFlashBorrowers_20261028 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('arbitrum'), 519114827);
+    vm.createSelectFork(vm.rpcUrl('arbitrum'), 520939842);
     proposal = new AaveV3Arbitrum_UpdateCoWSwapAdaptersFlashBorrowers_20261028();
   }
 
@@ -81,11 +81,11 @@ contract AaveV3Arbitrum_UpdateCoWSwapAdaptersFlashBorrowers_20261028_Test is
     return
       CollateralSwapConfig({
         collateralAsset: AaveV3ArbitrumAssets.wstETH_UNDERLYING,
-        debtAsset: AaveV3ArbitrumAssets.USDCn_UNDERLYING,
+        debtAsset: AaveV3ArbitrumAssets.WETH_UNDERLYING,
         collateralSeed: 10 ether,
-        debtSeed: 10_000 * 1e6,
+        debtSeed: 2 ether,
         sellAmount: 10 ether,
-        expectedBuyAmount: 42_000 * 1e6
+        expectedBuyAmount: 12 ether
       });
   }
 }
