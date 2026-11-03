@@ -21,7 +21,7 @@ contract AaveV3Arbitrum_AaveV3ArbitrumUSDGListing_20261008_Test is ProtocolV3Tes
   AaveV3Arbitrum_AaveV3ArbitrumUSDGListing_20261008 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('arbitrum'), 518408593);
+    vm.createSelectFork(vm.rpcUrl('arbitrum'), 520848000);
     proposal = new AaveV3Arbitrum_AaveV3ArbitrumUSDGListing_20261008();
   }
 
