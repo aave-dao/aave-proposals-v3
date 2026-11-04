@@ -4,6 +4,7 @@ pragma solidity ^0.8.0;
 import {GovV3Helpers} from 'aave-helpers/src/GovV3Helpers.sol';
 import {AaveV3BNB, AaveV3BNBAssets} from 'aave-address-book/AaveV3BNB.sol';
 import {IPool} from 'aave-address-book/AaveV3.sol';
+import {MiscBNB} from 'aave-address-book/MiscBNB.sol';
 
 import {AaveV3BNB_UpdateCoWSwapAdaptersFlashBorrowers_20261028} from './AaveV3BNB_UpdateCoWSwapAdaptersFlashBorrowers_20261028.sol';
 import {CoWFlashBorrowerBaseTest} from 'src/helpers/cow-adapters/CoWFlashBorrowerBaseTest.sol';
@@ -42,21 +43,29 @@ contract AaveV3BNB_UpdateCoWSwapAdaptersFlashBorrowers_20261028_Test is CoWFlash
   }
 
   function test_isFlashBorrower() external {
+    assertFalse(AaveV3BNB.ACL_MANAGER.isFlashBorrower(proposal.COW_V3_ADAPTER_FACTORY()));
+    assertTrue(AaveV3BNB.ACL_MANAGER.isFlashBorrower(proposal.DEPRECATED_COW_ADAPTER_FACTORY()));
+
     GovV3Helpers.executePayload(vm, address(proposal));
+
     assertTrue(AaveV3BNB.ACL_MANAGER.isFlashBorrower(proposal.COW_V3_ADAPTER_FACTORY()));
     assertFalse(AaveV3BNB.ACL_MANAGER.isFlashBorrower(proposal.DEPRECATED_COW_ADAPTER_FACTORY()));
   }
 
-  function _pool() internal pure override returns (IPool) {
+  function _poolV3() internal pure override returns (IPool) {
     return AaveV3BNB.POOL;
   }
 
-  function _cowV3Factory() internal view override returns (address) {
+  function _cowFactoryV3() internal view override returns (address) {
     return proposal.COW_V3_ADAPTER_FACTORY();
   }
 
-  function _collateralSwapAdapter() internal pure override returns (address) {
-    return COLLATERAL_SWAP_V3_ADAPTER;
+  function _collateralSwapAdapterV3() internal pure override returns (address) {
+    return COLLATERAL_SWAP_ADAPTER_V3;
+  }
+
+  function _cowAdaptersOwner() internal pure override returns (address) {
+    return MiscBNB.V4_SECURITY_COUNCIL;
   }
 
   function _factoryOwnerships()
@@ -66,17 +75,22 @@ contract AaveV3BNB_UpdateCoWSwapAdaptersFlashBorrowers_20261028_Test is CoWFlash
     returns (FactoryOwnership[] memory ownerships)
   {
     ownerships = new FactoryOwnership[](1);
-    ownerships[0] = FactoryOwnership(proposal.COW_V3_ADAPTER_FACTORY(), COW_V3_FACTORY_PROXY_ADMIN);
+    ownerships[0] = FactoryOwnership(proposal.COW_V3_ADAPTER_FACTORY(), COW_FACTORY_PROXY_ADMIN_V3);
   }
 
   function _executePayload() internal override {
     GovV3Helpers.executePayload(vm, address(proposal));
   }
 
-  function _collateralSwapConfig() internal pure override returns (CollateralSwapConfig memory) {
+  function _collateralSwapConfigV3()
+    internal
+    pure
+    override
+    returns (CollateralSwapConfigV3 memory)
+  {
     // Both BSC USDT and BSC USDC are 18-decimals on BNB Chain (not 6).
     return
-      CollateralSwapConfig({
+      CollateralSwapConfigV3({
         collateralAsset: AaveV3BNBAssets.ETH_UNDERLYING,
         debtAsset: AaveV3BNBAssets.WBNB_UNDERLYING,
         collateralSeed: 10 ether,

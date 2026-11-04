@@ -21,14 +21,6 @@
 
 ## Raw storage changes
 
-### 0x4e59b44847b379578588920ca78fbf26c0b4956c
-
-**Nonce diff**: 1 → 0
-
-### 0x5acf1a5d0d33f8c8f1f9a9a2627105a92ae7eca6
-
-**Nonce diff**: 0 → 1
-
 ### 0xa860355f0ccfdc823f7332ac108317b2a1509c06 (AaveV3Plasma.ACL_MANAGER)
 
 | slot | previous value | new value |

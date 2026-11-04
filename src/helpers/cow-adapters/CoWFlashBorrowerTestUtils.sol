@@ -5,7 +5,7 @@ import {IERC20} from 'forge-std/interfaces/IERC20.sol';
 import {ISignatureGateway, ISpoke, ITakerPositionManager} from 'aave-address-book/AaveV4.sol';
 
 /// @dev Data needed by the AdapterHook for the postHook execution.
-struct HookOrderData {
+struct HookOrderDataV3 {
   // Owner of the AdapterHook Instance (the user signing the Order)
   address owner;
   // Address of the Instance to be receiver of the Order (as specified in the GPv2Order.Data)
@@ -33,23 +33,6 @@ struct HookOrderData {
 }
 
 interface IBaseAdapterFactory {
-  /// @notice Deploys an Adapter Instance and transfers the FlashLoaned assets to it (must have been initiated before).
-  /// @param adapterImplementation The address of the Adapter Instance implementation to clone.
-  /// @param hookData The HookOrderData struct containing the order details & postHook parameters.
-  function deployAndTransferFlashLoan(
-    address adapterImplementation,
-    HookOrderData memory hookData
-  ) external;
-
-  /// @notice Returns the determined address of an Adapter Instance to clone based on a specific Order.
-  /// @param adapterImplementation The address of the Adapter Implementation to clone.
-  /// @param hookData The HookOrderData struct containing the order details & postHook parameters.
-  /// @return The determined address of the Adapter Instance.
-  function getInstanceDeterministicAddress(
-    address adapterImplementation,
-    HookOrderData memory hookData
-  ) external view returns (address);
-
   /// @notice FlashLoanRouter contract.
   function ROUTER() external view returns (IFlashLoanRouter);
 
@@ -59,6 +42,25 @@ interface IBaseAdapterFactory {
 
   /// @notice Returns whether an Adapter implementation can be cloned by the Factory.
   function isAdapterImplementation(address adapterImplementation) external view returns (bool);
+}
+
+interface IBaseAdapterV3Factory is IBaseAdapterFactory {
+  /// @notice Deploys an Adapter Instance and transfers the FlashLoaned assets to it (must have been initiated before).
+  /// @param adapterImplementation The address of the Adapter Instance implementation to clone.
+  /// @param hookData The HookOrderDataV3 struct containing the order details & postHook parameters.
+  function deployAndTransferFlashLoan(
+    address adapterImplementation,
+    HookOrderDataV3 memory hookData
+  ) external;
+
+  /// @notice Returns the determined address of an Adapter Instance to clone based on a specific Order.
+  /// @param adapterImplementation The address of the Adapter Implementation to clone.
+  /// @param hookData The HookOrderDataV3 struct containing the order details & postHook parameters.
+  /// @return The determined address of the Adapter Instance.
+  function getInstanceDeterministicAddress(
+    address adapterImplementation,
+    HookOrderDataV3 memory hookData
+  ) external view returns (address);
 }
 
 interface IOwnable {
@@ -103,7 +105,6 @@ interface IGPv2Settlement {
 }
 
 interface IGPv2Authenticator {
-  function addSolver(address solver) external;
   function isSolver(address solver) external view returns (bool);
 }
 
@@ -145,7 +146,7 @@ struct HookOrderDataV4 {
   uint256 hookBuyTokenAmount;
 }
 
-interface IBaseAdapterV4Factory {
+interface IBaseAdapterV4Factory is IBaseAdapterFactory {
   function deployAndTransferFlashLoan(
     address adapterImplementation,
     HookOrderDataV4 memory hookData
@@ -205,109 +206,14 @@ library GPv2Order {
     bytes32 buyTokenBalance;
   }
 
-  /// @dev The order EIP-712 type hash for the [`GPv2Order.Data`] struct.
-  bytes32 internal constant TYPE_HASH =
-    hex'd5a25ba2e97094ad7d83dc28a6572da797d6b3e7fc6663bd93efb789fc17e489';
-
-  /// @dev The marker value for a sell order for computing the order struct hash.
-  bytes32 internal constant KIND_SELL =
-    hex'f3b277728b3fee749481eb3e0b3b48980dbbab78658fc419025cb16eee346775';
-
-  /// @dev The OrderKind marker value for a buy order for computing the order struct hash.
-  bytes32 internal constant KIND_BUY =
-    hex'6ed88e868af0a1983e3886d5f3e95a2fafbd6c3450bc229e27342283dc429ccc';
-
   /// @dev The TokenBalance marker value for using direct ERC20 balances for computing the order struct hash.
   bytes32 internal constant BALANCE_ERC20 =
     hex'5a28e9363bb942b639270062aa6bb295f434bcdfc42c97267bf003f272060dc9';
-
-  /// @dev The TokenBalance marker value for using Balancer Vault external balances.
-  bytes32 internal constant BALANCE_EXTERNAL =
-    hex'abee3b73373acd583a130924aad6dc38cfdc44ba0555ba94ce2ff63980ea0632';
-
-  /// @dev The TokenBalance marker value for using Balancer Vault internal balances.
-  bytes32 internal constant BALANCE_INTERNAL =
-    hex'4ac99ace14ee0a5ef932dc609df0943ab7ac16b7583634612f8dc35a4289a6ce';
-
-  /// @dev Marker address used to indicate that the receiver of the trade
-  /// proceeds should the owner of the order.
-  address internal constant RECEIVER_SAME_AS_OWNER = address(0);
-
-  /// @dev The byte length of an order unique identifier.
-  uint256 internal constant UID_LENGTH = 56;
-
-  function actualReceiver(
-    Data memory order,
-    address owner
-  ) internal pure returns (address receiver) {
-    if (order.receiver == RECEIVER_SAME_AS_OWNER) {
-      receiver = owner;
-    } else {
-      receiver = order.receiver;
-    }
-  }
-
-  function hash(
-    Data memory order,
-    bytes32 domainSeparator
-  ) internal pure returns (bytes32 orderDigest) {
-    bytes32 structHash;
-
-    // solhint-disable-next-line no-inline-assembly
-    assembly {
-      let dataStart := sub(order, 32)
-      let temp := mload(dataStart)
-      mstore(dataStart, TYPE_HASH)
-      structHash := keccak256(dataStart, 416)
-      mstore(dataStart, temp)
-    }
-
-    // solhint-disable-next-line no-inline-assembly
-    assembly {
-      let freeMemoryPointer := mload(0x40)
-      mstore(freeMemoryPointer, '\x19\x01')
-      mstore(add(freeMemoryPointer, 2), domainSeparator)
-      mstore(add(freeMemoryPointer, 34), structHash)
-      orderDigest := keccak256(freeMemoryPointer, 66)
-    }
-  }
-
-  function packOrderUidParams(
-    bytes memory orderUid,
-    bytes32 orderDigest,
-    address owner,
-    uint32 validTo
-  ) internal pure {
-    require(orderUid.length == UID_LENGTH, 'GPv2: uid buffer overflow');
-
-    // solhint-disable-next-line no-inline-assembly
-    assembly {
-      mstore(add(orderUid, 56), validTo)
-      mstore(add(orderUid, 52), owner)
-      mstore(add(orderUid, 32), orderDigest)
-    }
-  }
-
-  function extractOrderUidParams(
-    bytes calldata orderUid
-  ) internal pure returns (bytes32 orderDigest, address owner, uint32 validTo) {
-    require(orderUid.length == UID_LENGTH, 'GPv2: invalid uid');
-
-    // solhint-disable-next-line no-inline-assembly
-    assembly {
-      orderDigest := calldataload(orderUid.offset)
-      owner := shr(96, calldataload(add(orderUid.offset, 32)))
-      validTo := shr(224, calldataload(add(orderUid.offset, 52)))
-    }
-  }
 }
 
 /// @title Gnosis Protocol v2 Trade Library.
 /// @author Gnosis Developers
 library GPv2Trade {
-  using GPv2Order for GPv2Order.Data;
-  using GPv2Order for bytes;
-
   /// @dev A struct representing a trade to be executed as part a batch settlement.
   struct Data {
     uint256 sellTokenIndex;
@@ -333,32 +239,6 @@ library GPv2Interaction {
     uint256 value;
     bytes callData;
   }
-
-  function execute(Data calldata interaction) internal {
-    address target = interaction.target;
-    uint256 value = interaction.value;
-    bytes calldata callData = interaction.callData;
-
-    // solhint-disable-next-line no-inline-assembly
-    assembly {
-      let freeMemoryPointer := mload(0x40)
-      calldatacopy(freeMemoryPointer, callData.offset, callData.length)
-      if iszero(call(gas(), target, value, freeMemoryPointer, callData.length, 0, 0)) {
-        returndatacopy(0, 0, returndatasize())
-        revert(0, returndatasize())
-      }
-    }
-  }
-
-  function selector(Data calldata interaction) internal pure returns (bytes4 result) {
-    bytes calldata callData = interaction.callData;
-    if (callData.length >= 4) {
-      // solhint-disable-next-line no-inline-assembly
-      assembly {
-        result := calldataload(callData.offset)
-      }
-    }
-  }
 }
 
 struct SwapOrder {
@@ -376,7 +256,7 @@ struct SwapOrder {
 library SwapOrderToGPv2OrderLib {
   function convertToGPv2Order(
     SwapOrder memory order
-  ) external pure returns (GPv2Order.Data memory) {
+  ) internal pure returns (GPv2Order.Data memory) {
     return
       GPv2Order.Data({
         kind: order.kind,
@@ -407,41 +287,6 @@ library Loan {
     address lender;
     /// @notice The token that is requested in the flash loan.
     IERC20 token;
-  }
-
-  /// @notice A type that wraps a pointer to raw data in memory.
-  type EncodedData is uint256;
-
-  uint256 private constant OFFSET_BORROWER = 32 - 12;
-  uint256 private constant OFFSET_LENDER = 32 + 1 * 20 - 12;
-  uint256 private constant OFFSET_TOKEN = 32 + 2 * 20 - 12;
-
-  /// @notice The number of sequential bytes required to encode a loan in memory.
-  uint256 internal constant ENCODED_LOAN_BYTE_SIZE = 32 + 3 * 20;
-
-  function store(EncodedData encodedLoan, Data calldata loan) internal pure {
-    uint256 amount = loan.amount;
-    address borrower = loan.borrower;
-    address lender = loan.lender;
-    IERC20 token = loan.token;
-
-    assembly ('memory-safe') {
-      mstore(add(encodedLoan, OFFSET_TOKEN), token)
-      mstore(add(encodedLoan, OFFSET_LENDER), lender)
-      mstore(add(encodedLoan, OFFSET_BORROWER), borrower)
-      mstore(encodedLoan, amount)
-    }
-  }
-
-  function decode(
-    EncodedData loan
-  ) internal pure returns (uint256 amount, address borrower, address lender, IERC20 token) {
-    assembly ('memory-safe') {
-      amount := mload(loan)
-      borrower := mload(add(loan, OFFSET_BORROWER))
-      lender := mload(add(loan, OFFSET_LENDER))
-      token := mload(add(loan, OFFSET_TOKEN))
-    }
   }
 }
 

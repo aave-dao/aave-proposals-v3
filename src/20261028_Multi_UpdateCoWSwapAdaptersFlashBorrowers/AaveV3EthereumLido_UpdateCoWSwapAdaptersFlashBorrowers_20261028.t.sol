@@ -4,6 +4,7 @@ pragma solidity ^0.8.0;
 import {GovV3Helpers} from 'aave-helpers/src/GovV3Helpers.sol';
 import {AaveV3EthereumLido, AaveV3EthereumLidoAssets} from 'aave-address-book/AaveV3EthereumLido.sol';
 import {IPool} from 'aave-address-book/AaveV3.sol';
+import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
 
 import {AaveV3EthereumLido_UpdateCoWSwapAdaptersFlashBorrowers_20261028} from './AaveV3EthereumLido_UpdateCoWSwapAdaptersFlashBorrowers_20261028.sol';
 import {CoWFlashBorrowerBaseTest} from 'src/helpers/cow-adapters/CoWFlashBorrowerBaseTest.sol';
@@ -44,20 +45,27 @@ contract AaveV3EthereumLido_UpdateCoWSwapAdaptersFlashBorrowers_20261028_Test is
   }
 
   function test_isFlashBorrower() external {
+    assertFalse(AaveV3EthereumLido.ACL_MANAGER.isFlashBorrower(proposal.COW_V3_ADAPTER_FACTORY()));
+
     GovV3Helpers.executePayload(vm, address(proposal));
+
     assertTrue(AaveV3EthereumLido.ACL_MANAGER.isFlashBorrower(proposal.COW_V3_ADAPTER_FACTORY()));
   }
 
-  function _pool() internal pure override returns (IPool) {
+  function _poolV3() internal pure override returns (IPool) {
     return AaveV3EthereumLido.POOL;
   }
 
-  function _cowV3Factory() internal view override returns (address) {
+  function _cowFactoryV3() internal view override returns (address) {
     return proposal.COW_V3_ADAPTER_FACTORY();
   }
 
-  function _collateralSwapAdapter() internal pure override returns (address) {
-    return COLLATERAL_SWAP_V3_PRIME_ADAPTER;
+  function _collateralSwapAdapterV3() internal pure override returns (address) {
+    return COLLATERAL_SWAP_ADAPTER_V3_PRIME;
+  }
+
+  function _cowAdaptersOwner() internal pure override returns (address) {
+    return MiscEthereum.V4_SECURITY_COUNCIL;
   }
 
   function _factoryOwnerships()
@@ -69,7 +77,7 @@ contract AaveV3EthereumLido_UpdateCoWSwapAdaptersFlashBorrowers_20261028_Test is
     ownerships = new FactoryOwnership[](1);
     ownerships[0] = FactoryOwnership(
       proposal.COW_V3_ADAPTER_FACTORY(),
-      COW_V3_PRIME_FACTORY_PROXY_ADMIN
+      COW_FACTORY_PROXY_ADMIN_V3_PRIME
     );
   }
 
@@ -77,10 +85,14 @@ contract AaveV3EthereumLido_UpdateCoWSwapAdaptersFlashBorrowers_20261028_Test is
     GovV3Helpers.executePayload(vm, address(proposal));
   }
 
-  function _collateralSwapConfig() internal pure override returns (CollateralSwapConfig memory) {
-    // USDC has 0 LTV / 0 LT on Prime and cannot become collateral; swap into WETH instead.
+  function _collateralSwapConfigV3()
+    internal
+    pure
+    override
+    returns (CollateralSwapConfigV3 memory)
+  {
     return
-      CollateralSwapConfig({
+      CollateralSwapConfigV3({
         collateralAsset: AaveV3EthereumLidoAssets.wstETH_UNDERLYING,
         debtAsset: AaveV3EthereumLidoAssets.WETH_UNDERLYING,
         collateralSeed: 10 ether,

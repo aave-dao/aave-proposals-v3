@@ -4,6 +4,7 @@ pragma solidity ^0.8.0;
 import {GovV3Helpers} from 'aave-helpers/src/GovV3Helpers.sol';
 import {AaveV3Plasma, AaveV3PlasmaAssets} from 'aave-address-book/AaveV3Plasma.sol';
 import {IPool} from 'aave-address-book/AaveV3.sol';
+import {MiscPlasma} from 'aave-address-book/MiscPlasma.sol';
 
 import {AaveV3Plasma_UpdateCoWSwapAdaptersFlashBorrowers_20261028} from './AaveV3Plasma_UpdateCoWSwapAdaptersFlashBorrowers_20261028.sol';
 import {CoWFlashBorrowerBaseTest} from 'src/helpers/cow-adapters/CoWFlashBorrowerBaseTest.sol';
@@ -44,23 +45,31 @@ contract AaveV3Plasma_UpdateCoWSwapAdaptersFlashBorrowers_20261028_Test is
   }
 
   function test_isFlashBorrower() external {
+    assertFalse(AaveV3Plasma.ACL_MANAGER.isFlashBorrower(proposal.COW_V3_ADAPTER_FACTORY()));
+    assertTrue(AaveV3Plasma.ACL_MANAGER.isFlashBorrower(proposal.DEPRECATED_COW_ADAPTER_FACTORY()));
+
     GovV3Helpers.executePayload(vm, address(proposal));
+
     assertTrue(AaveV3Plasma.ACL_MANAGER.isFlashBorrower(proposal.COW_V3_ADAPTER_FACTORY()));
     assertFalse(
       AaveV3Plasma.ACL_MANAGER.isFlashBorrower(proposal.DEPRECATED_COW_ADAPTER_FACTORY())
     );
   }
 
-  function _pool() internal pure override returns (IPool) {
+  function _poolV3() internal pure override returns (IPool) {
     return AaveV3Plasma.POOL;
   }
 
-  function _cowV3Factory() internal view override returns (address) {
+  function _cowFactoryV3() internal view override returns (address) {
     return proposal.COW_V3_ADAPTER_FACTORY();
   }
 
-  function _collateralSwapAdapter() internal pure override returns (address) {
-    return COLLATERAL_SWAP_V3_ADAPTER;
+  function _collateralSwapAdapterV3() internal pure override returns (address) {
+    return COLLATERAL_SWAP_ADAPTER_V3;
+  }
+
+  function _cowAdaptersOwner() internal pure override returns (address) {
+    return MiscPlasma.V4_SECURITY_COUNCIL;
   }
 
   function _factoryOwnerships()
@@ -70,18 +79,23 @@ contract AaveV3Plasma_UpdateCoWSwapAdaptersFlashBorrowers_20261028_Test is
     returns (FactoryOwnership[] memory ownerships)
   {
     ownerships = new FactoryOwnership[](1);
-    ownerships[0] = FactoryOwnership(proposal.COW_V3_ADAPTER_FACTORY(), COW_V3_FACTORY_PROXY_ADMIN);
+    ownerships[0] = FactoryOwnership(proposal.COW_V3_ADAPTER_FACTORY(), COW_FACTORY_PROXY_ADMIN_V3);
   }
 
   function _executePayload() internal override {
     GovV3Helpers.executePayload(vm, address(proposal));
   }
 
-  function _collateralSwapConfig() internal pure override returns (CollateralSwapConfig memory) {
-    // WETH is frozen on Plasma at this fork block and USDT0 is the only borrowable asset with
-    // LTV > 0, so the trader holds USDe without debt and swaps it into USDT0 collateral.
+  function _collateralSwapConfigV3()
+    internal
+    pure
+    override
+    returns (CollateralSwapConfigV3 memory)
+  {
+    // WETH is frozen on Plasma at this fork block, so the trader holds USDe without debt and
+    // swaps it into WXPL collateral.
     return
-      CollateralSwapConfig({
+      CollateralSwapConfigV3({
         collateralAsset: AaveV3PlasmaAssets.USDe_UNDERLYING,
         debtAsset: AaveV3PlasmaAssets.WXPL_UNDERLYING,
         collateralSeed: 10_000 ether,

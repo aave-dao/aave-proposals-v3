@@ -6,45 +6,68 @@ discussions: "https://governance.aave.com/t/direct-to-aip-whitelist-new-cow-prot
 
 ## Simple Summary
 
-This proposal registers the new Aave Swap Adapter factories as approved flash borrowers on the relevant Aave V3 instances, so they can access flash liquidity with zero flash loan fees, and removes the previous factory from the flash borrower list.
+This proposal seeks to register the new Aave Swap Adapter factories as approved flash borrowers across relevant Aave V3 instances, enabling them to access flash liquidity with zero flash loan fees. The new factories serve the collateral swap, debt swap, repay with collateral, and leverage adapters. The previous CoW Swap Adapter contract would be removed from the approved flash borrowers on the same instances.
 
-The new factories serve the collateral swap, debt swap, repay-with-collateral and leverage adapters, for both Aave V3 and Aave V4 positions.
+This change improves execution quality for users interacting through Aave's swap and leverage flows by removing an internal protocol fee that currently adds avoidable cost to adapter-based routing.
 
 ## Motivation
 
-Aave swap adapters power collateral swaps, debt swaps, repay-with-collateral and leverage flows inside the Aave experience. When a route needs flash liquidity, the flash loan premium is paid inside the execution. It lowers output on collateral and debt swaps, lengthens the payback period of debt swaps, and raises the cost of opening leveraged positions, which weakens the Aave route against external alternatives.
+Aave swap adapters support collateral swaps, debt swaps, repayments with collateral, and leverage inside the Aave experience. When a route requires flash liquidity, the flash loan premium is embedded directly in execution. That reduces output on collateral and debt swaps, increases the cost of opening leveraged positions, and prolongs the payback period of debt swaps, which weakens the Aave route against external alternatives.
 
-A new generation of the CoW Swap Adapter factories adds the leverage adapter and support for Aave V4 positions. Whitelisting these factories keeps adapter routes free of the flash loan fee on the covered Aave V3 instances. The previous factory, `0xdeCC46a4b09162F5369c5C80383AAa9159bCf192`, whitelisted through [Add CoW Factories to flashBorrowers](https://github.com/aave-dao/aave-proposals-v3/tree/fbb90bac5436f5e69a03b605fd3465eb7182b133/src/20260506_Multi_AddCoWFactoriesToFlashBorrowers), is superseded and is removed from the list.
+Whitelisting the new CoW Swap Adapter factories removes that cost across the covered Aave V3 instances, and extends it to the new leverage adapter. CoW Swap Adapter routes that rely on flash liquidity will execute without a flash loan fee. Users will experience improved collateral swap, debt swap, and leverage pricing on Aave V3. With better pricing, the Aave interface should retain more of this flow within the Aave experience. Under the [Aave Will Win Framework](https://governance.aave.com/t/routing-swap-and-horizon-fees-to-dao-collector-addresses/24462), the DAO is positioned to capture all revenue from that activity.
 
 ## Specification
 
-On each market below, the payload calls `ACLManager.addFlashBorrower` for every new factory and, where listed, `ACLManager.removeFlashBorrower` for the previous factory.
+The Aave DAO would authorize the registration of the new Aave swap adapter factory contracts as approved flash borrowers through the `ACLManager.addFlashBorrower` function on the applicable Aave V3 deployments, and the removal of the previous CoW Swap Adapter contract through the `ACLManager.removeFlashBorrower` function on the same deployments.
 
-| Market         | AaveV3AdapterV3Factory (added)             | AaveV3AdapterV4Factory (added)             | Previous factory (removed)                 |
-| -------------- | ------------------------------------------ | ------------------------------------------ | ------------------------------------------ |
-| Ethereum Core  | 0xD2CC30cB0e77B80a34b879ccB6da67799e4ecD83 | 0x0C6F0D008B5Ee6CdFbb8BF1CFB0148052e96ac14 | 0xdeCC46a4b09162F5369c5C80383AAa9159bCf192 |
-| Ethereum Prime | 0xFdFA036213C375808135744E865767FD90897F0A | -                                          | -                                          |
-| Base           | 0xD2CC30cB0e77B80a34b879ccB6da67799e4ecD83 | 0x0C6F0D008B5Ee6CdFbb8BF1CFB0148052e96ac14 | 0xdeCC46a4b09162F5369c5C80383AAa9159bCf192 |
-| Avalanche      | 0xD2CC30cB0e77B80a34b879ccB6da67799e4ecD83 | 0x0C6F0D008B5Ee6CdFbb8BF1CFB0148052e96ac14 | 0xdeCC46a4b09162F5369c5C80383AAa9159bCf192 |
-| Arbitrum       | 0xD2CC30cB0e77B80a34b879ccB6da67799e4ecD83 | -                                          | 0xdeCC46a4b09162F5369c5C80383AAa9159bCf192 |
-| Gnosis         | 0xD2CC30cB0e77B80a34b879ccB6da67799e4ecD83 | -                                          | 0xdeCC46a4b09162F5369c5C80383AAa9159bCf192 |
-| BNB Chain      | 0xD2CC30cB0e77B80a34b879ccB6da67799e4ecD83 | -                                          | 0xdeCC46a4b09162F5369c5C80383AAa9159bCf192 |
-| Polygon        | 0xD2CC30cB0e77B80a34b879ccB6da67799e4ecD83 | -                                          | 0xdeCC46a4b09162F5369c5C80383AAa9159bCf192 |
-| Linea          | 0x3171FC716942a40DEDe8dD0B7885dd9f44eca176 | -                                          | 0xdeCC46a4b09162F5369c5C80383AAa9159bCf192 |
-| Plasma         | 0xD2CC30cB0e77B80a34b879ccB6da67799e4ecD83 | -                                          | 0xdeCC46a4b09162F5369c5C80383AAa9159bCf192 |
+Once registered, these factories would be exempt from flash loan fees when using flash liquidity through the approved path.
 
-The `AaveV3AdapterV4Factory` serves Aave V4 positions and sources its flash liquidity from the Aave V3 Pool of the same network.
+The proposal payload would:
 
-The new factories are upgradeable proxies. Each factory and its ProxyAdmin are owned by `0x187AAE17d4931310B3fc75743e7F16Bdc9eD77e9`.
+- identify the swap adapter factory contract addresses to be registered
+- call `addFlashBorrower` for each factory on the relevant markets
+- call `removeFlashBorrower` for the previous adapter contract on the relevant markets
 
-| Factory                                                  | ProxyAdmin                                 |
-| -------------------------------------------------------- | ------------------------------------------ |
-| AaveV3AdapterV3Factory (all markets except Prime, Linea) | 0x509Df56B5Aceb01674cC5506CA63bf41A4d68E8E |
-| AaveV3AdapterV3Factory (Ethereum Prime)                  | 0xd4eDBfecd76c636a1313E057fF3f5cdFD6728649 |
-| AaveV3AdapterV3Factory (Linea)                           | 0xF6F22052Df7AE7c899178770075B6b2C3d700667 |
-| AaveV3AdapterV4Factory                                   | 0xD7ef5094E88cE0f7f89bB6e5b3E3123aE3DF77Fa |
+**CoW Swap Adapter Factories**
 
-Orders signed for the previous factory assume a zero flash loan fee. Once it is removed, those orders can no longer be settled and need to be signed again through the new factories.
+Two factory versions are in scope, `AaveV3AdapterV3Factory` and `AaveV3AdapterV4Factory`. Each serves its own set of `CollateralSwap`, `DebtSwap`, `RepayWithCollateral`, and `Leverage` adapters.
+
+**Aave V3 instances included in scope**
+
+The payload will register the following factories as approved flash borrowers on the following Aave V3 instances:
+
+| Market         | `AaveV3AdapterV3Factory`                                                                                                 | `AaveV3AdapterV4Factory`                                                                                              |
+| -------------- | ------------------------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------- |
+| Ethereum Core  | [0xD2CC30cB0e77B80a34b879ccB6da67799e4ecD83](https://etherscan.io/address/0xD2CC30cB0e77B80a34b879ccB6da67799e4ecD83)    | [0x0C6F0D008B5Ee6CdFbb8BF1CFB0148052e96ac14](https://etherscan.io/address/0x0C6F0D008B5Ee6CdFbb8BF1CFB0148052e96ac14) |
+| Ethereum Prime | [0xFdFA036213C375808135744E865767FD90897F0A](https://etherscan.io/address/0xFdFA036213C375808135744E865767FD90897F0A)    | -                                                                                                                     |
+| Base           | [0xD2CC30cB0e77B80a34b879ccB6da67799e4ecD83](https://basescan.org/address/0xD2CC30cB0e77B80a34b879ccB6da67799e4ecD83)    | [0x0C6F0D008B5Ee6CdFbb8BF1CFB0148052e96ac14](https://basescan.org/address/0x0C6F0D008B5Ee6CdFbb8BF1CFB0148052e96ac14) |
+| Arbitrum       | [0xD2CC30cB0e77B80a34b879ccB6da67799e4ecD83](https://arbiscan.io/address/0xD2CC30cB0e77B80a34b879ccB6da67799e4ecD83)     | -                                                                                                                     |
+| Gnosis         | [0xD2CC30cB0e77B80a34b879ccB6da67799e4ecD83](https://gnosisscan.io/address/0xD2CC30cB0e77B80a34b879ccB6da67799e4ecD83)   | -                                                                                                                     |
+| Avalanche      | [0xD2CC30cB0e77B80a34b879ccB6da67799e4ecD83](https://snowtrace.io/address/0xD2CC30cB0e77B80a34b879ccB6da67799e4ecD83)    | [0x0C6F0D008B5Ee6CdFbb8BF1CFB0148052e96ac14](https://snowtrace.io/address/0x0C6F0D008B5Ee6CdFbb8BF1CFB0148052e96ac14) |
+| BNB Chain      | [0xD2CC30cB0e77B80a34b879ccB6da67799e4ecD83](https://bscscan.com/address/0xD2CC30cB0e77B80a34b879ccB6da67799e4ecD83)     | -                                                                                                                     |
+| Polygon        | [0xD2CC30cB0e77B80a34b879ccB6da67799e4ecD83](https://polygonscan.com/address/0xD2CC30cB0e77B80a34b879ccB6da67799e4ecD83) | -                                                                                                                     |
+| Linea          | [0x3171FC716942a40DEDe8dD0B7885dd9f44eca176](https://lineascan.build/address/0x3171FC716942a40DEDe8dD0B7885dd9f44eca176) | -                                                                                                                     |
+| Plasma         | [0xD2CC30cB0e77B80a34b879ccB6da67799e4ecD83](https://plasmascan.to/address/0xD2CC30cB0e77B80a34b879ccB6da67799e4ecD83)   | -                                                                                                                     |
+
+**Previous CoW Swap Adapter to be removed**
+
+The payload will remove the following contract from the approved flash borrowers on the following Aave V3 instances:
+
+| Market        | Previous adapter                                                                                                         |
+| ------------- | ------------------------------------------------------------------------------------------------------------------------ |
+| Ethereum Core | [0xdeCC46a4b09162F5369c5C80383AAa9159bCf192](https://etherscan.io/address/0xdeCC46a4b09162F5369c5C80383AAa9159bCf192)    |
+| Base          | [0xdeCC46a4b09162F5369c5C80383AAa9159bCf192](https://basescan.org/address/0xdeCC46a4b09162F5369c5C80383AAa9159bCf192)    |
+| Arbitrum      | [0xdeCC46a4b09162F5369c5C80383AAa9159bCf192](https://arbiscan.io/address/0xdeCC46a4b09162F5369c5C80383AAa9159bCf192)     |
+| Gnosis        | [0xdeCC46a4b09162F5369c5C80383AAa9159bCf192](https://gnosisscan.io/address/0xdeCC46a4b09162F5369c5C80383AAa9159bCf192)   |
+| Avalanche     | [0xdeCC46a4b09162F5369c5C80383AAa9159bCf192](https://snowtrace.io/address/0xdeCC46a4b09162F5369c5C80383AAa9159bCf192)    |
+| BNB Chain     | [0xdeCC46a4b09162F5369c5C80383AAa9159bCf192](https://bscscan.com/address/0xdeCC46a4b09162F5369c5C80383AAa9159bCf192)     |
+| Polygon       | [0xdeCC46a4b09162F5369c5C80383AAa9159bCf192](https://polygonscan.com/address/0xdeCC46a4b09162F5369c5C80383AAa9159bCf192) |
+| Linea         | [0xdeCC46a4b09162F5369c5C80383AAa9159bCf192](https://lineascan.build/address/0xdeCC46a4b09162F5369c5C80383AAa9159bCf192) |
+| Plasma        | [0xdeCC46a4b09162F5369c5C80383AAa9159bCf192](https://plasmascan.to/address/0xdeCC46a4b09162F5369c5C80383AAa9159bCf192)   |
+
+**Payload actions**
+
+For each Aave V3 instance listed in the factory table, the governance payload will execute `ACLManager.addFlashBorrower` once for every factory address listed in its row. For each Aave V3 instance listed in the previous adapter table, it will execute `ACLManager.removeFlashBorrower` for the previous adapter address.
 
 ## References
 

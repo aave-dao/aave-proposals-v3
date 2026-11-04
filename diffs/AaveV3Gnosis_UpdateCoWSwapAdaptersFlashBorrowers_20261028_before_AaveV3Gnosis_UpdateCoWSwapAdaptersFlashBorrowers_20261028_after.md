@@ -21,14 +21,6 @@
 
 ## Raw storage changes
 
-### 0x4e59b44847b379578588920ca78fbf26c0b4956c
-
-**Nonce diff**: 1 → 0
-
-### 0x5acf1a5d0d33f8c8f1f9a9a2627105a92ae7eca6
-
-**Nonce diff**: 0 → 1
-
 ### 0x9a1f491b86d09fc1484b5fab10041b189b60756b (GovernanceV3Gnosis.PAYLOADS_CONTROLLER)
 
 | slot | previous value | new value |
