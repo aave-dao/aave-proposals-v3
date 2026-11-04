@@ -83,8 +83,8 @@ This proposal was prepared by Aave Labs in its capacity as a contributor to the 
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20261019_Multi_OnboardCirBTCToV3CoreAndV4Core/AaveV3Ethereum_OnboardCirBTCToV3CoreAndV4Core_20261019.sol), [AaveV4Ethereum](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20261019_Multi_OnboardCirBTCToV3CoreAndV4Core/AaveV4Ethereum_OnboardCirBTCToV3CoreAndV4Core_20261019.sol)
-- Tests: [AaveV3Ethereum](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20261019_Multi_OnboardCirBTCToV3CoreAndV4Core/AaveV3Ethereum_OnboardCirBTCToV3CoreAndV4Core_20261019.t.sol), [AaveV4Ethereum](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20261019_Multi_OnboardCirBTCToV3CoreAndV4Core/AaveV4Ethereum_OnboardCirBTCToV3CoreAndV4Core_20261019.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/aave-dao/aave-proposals-v3/blob/107b1ab6f5825cad4d88c181f0ecb4e2a1303353/src/20261019_Multi_OnboardCirBTCToV3CoreAndV4Core/AaveV3Ethereum_OnboardCirBTCToV3CoreAndV4Core_20261019.sol), [AaveV4Ethereum](https://github.com/aave-dao/aave-proposals-v3/blob/107b1ab6f5825cad4d88c181f0ecb4e2a1303353/src/20261019_Multi_OnboardCirBTCToV3CoreAndV4Core/AaveV4Ethereum_OnboardCirBTCToV3CoreAndV4Core_20261019.sol)
+- Tests: [AaveV3Ethereum](https://github.com/aave-dao/aave-proposals-v3/blob/107b1ab6f5825cad4d88c181f0ecb4e2a1303353/src/20261019_Multi_OnboardCirBTCToV3CoreAndV4Core/AaveV3Ethereum_OnboardCirBTCToV3CoreAndV4Core_20261019.t.sol), [AaveV4Ethereum](https://github.com/aave-dao/aave-proposals-v3/blob/107b1ab6f5825cad4d88c181f0ecb4e2a1303353/src/20261019_Multi_OnboardCirBTCToV3CoreAndV4Core/AaveV4Ethereum_OnboardCirBTCToV3CoreAndV4Core_20261019.t.sol)
 - [Snapshot](https://snapshot.org/#/s:aavedao.eth/proposal/0xe7ce2a6c2c3f8ea303351a12ea0e991815b3944bd44af4fd2890cadc2ff19881)
 - [Discussion](https://governance.aave.com/t/arfc-onboard-cirbtc-on-aave-v3-core-and-aave-v4-core/25128)
 
