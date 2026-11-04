@@ -14,7 +14,7 @@ The new factories serve the collateral swap, debt swap, repay-with-collateral an
 
 Aave swap adapters power collateral swaps, debt swaps, repay-with-collateral and leverage flows inside the Aave experience. When a route needs flash liquidity, the flash loan premium is paid inside the execution. It lowers output on collateral and debt swaps, lengthens the payback period of debt swaps, and raises the cost of opening leveraged positions, which weakens the Aave route against external alternatives.
 
-A new generation of the CoW Swap Adapter factories adds the leverage adapter and support for Aave V4 positions. Whitelisting these factories keeps adapter routes free of the flash loan fee on the covered Aave V3 instances. The previous factory, `0xdeCC46a4b09162F5369c5C80383AAa9159bCf192`, whitelisted through [Add CoW Swap Adapters to flashBorrowers](https://github.com/aave-dao/aave-proposals-v3/tree/fbb90bac5436f5e69a03b605fd3465eb7182b133/src/20260506_Multi_AddCoWFactoriesToFlashBorrowers), is superseded and is removed from the list.
+A new generation of the CoW Swap Adapter factories adds the leverage adapter and support for Aave V4 positions. Whitelisting these factories keeps adapter routes free of the flash loan fee on the covered Aave V3 instances. The previous factory, `0xdeCC46a4b09162F5369c5C80383AAa9159bCf192`, whitelisted through [Add CoW Factories to flashBorrowers](https://github.com/aave-dao/aave-proposals-v3/tree/fbb90bac5436f5e69a03b605fd3465eb7182b133/src/20260506_Multi_AddCoWFactoriesToFlashBorrowers), is superseded and is removed from the list.
 
 ## Specification
 
