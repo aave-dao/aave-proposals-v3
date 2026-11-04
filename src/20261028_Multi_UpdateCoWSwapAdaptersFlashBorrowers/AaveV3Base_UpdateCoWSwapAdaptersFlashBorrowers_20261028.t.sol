@@ -56,19 +56,15 @@ contract AaveV3Base_UpdateCoWSwapAdaptersFlashBorrowers_20261028_Test is CoWFlas
    * forge-config: default.hardfork = "base:cobalt"
    */
   function test_collateralSwapV4WithFlashLoan_noFlashLoanFee() public {
-    _testCollateralSwapV4WithFlashLoanNoFee(
-      CollateralSwapV4Config({
-        factory: proposal.COW_V4_ADAPTER_FACTORY(),
-        spoke: AaveV4BaseSpokes.MAG7_SPOKE,
-        hub: address(AaveV4BaseHubs.EQUITIES_HUB),
-        collateralAsset: AaveV4BaseAssets.USDC_UNDERLYING,
-        debtAsset: AaveV4BaseAssets.AAPLc_UNDERLYING,
-        collateralSeed: 10_000 * 1e6,
-        debtSeed: 0,
-        sellAmount: 10_000 * 1e6,
-        expectedBuyAmount: 40 * 1e8
-      })
-    );
+    _testCollateralSwapV4WithFlashLoanNoFee(_collateralSwapV4Config(), true);
+  }
+
+  /**
+   * forge-config: default.networks.network = "base"
+   * forge-config: default.hardfork = "base:cobalt"
+   */
+  function test_collateralSwapV4WithFlashLoan_noFlashLoanFee_revertsWithoutPayload() public {
+    _testCollateralSwapV4WithFlashLoanNoFee(_collateralSwapV4Config(), false);
   }
 
   function _pool() internal pure override returns (IPool) {
@@ -107,6 +103,21 @@ contract AaveV3Base_UpdateCoWSwapAdaptersFlashBorrowers_20261028_Test is CoWFlas
         debtSeed: 2 ether,
         sellAmount: 10 ether,
         expectedBuyAmount: 12 ether
+      });
+  }
+
+  function _collateralSwapV4Config() internal view returns (CollateralSwapV4Config memory) {
+    return
+      CollateralSwapV4Config({
+        factory: proposal.COW_V4_ADAPTER_FACTORY(),
+        spoke: AaveV4BaseSpokes.MAG7_SPOKE,
+        hub: address(AaveV4BaseHubs.EQUITIES_HUB),
+        collateralAsset: AaveV4BaseAssets.USDC_UNDERLYING,
+        debtAsset: AaveV4BaseAssets.AAPLc_UNDERLYING,
+        collateralSeed: 10_000 * 1e6,
+        debtSeed: 0,
+        sellAmount: 10_000 * 1e6,
+        expectedBuyAmount: 40 * 1e8
       });
   }
 }

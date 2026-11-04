@@ -26,6 +26,7 @@ abstract contract CoWFlashBorrowerBaseTest is ProtocolV3TestBase {
   bytes32 internal constant ERC1967_ADMIN_SLOT =
     0xb53127684a568b3173ae13b9f8a6016e243e63b6e8ee1178d6a717850b5d6103;
 
+  /// @dev V4 Security Council Safe (`MiscEthereum.V4_SECURITY_COUNCIL`).
   address internal constant COW_ADAPTERS_OWNER = 0x187AAE17d4931310B3fc75743e7F16Bdc9eD77e9;
 
   address internal constant COW_V3_FACTORY_PROXY_ADMIN = 0x509Df56B5Aceb01674cC5506CA63bf41A4d68E8E;
@@ -190,7 +191,18 @@ abstract contract CoWFlashBorrowerBaseTest is ProtocolV3TestBase {
   }
 
   function test_collateralSwapWithFlashLoan_noFlashLoanFee() public {
-    _executePayload();
+    _testCollateralSwapWithFlashLoanNoFee(true);
+  }
+
+  function test_collateralSwapWithFlashLoan_noFlashLoanFee_revertsWithoutPayload() public {
+    _testCollateralSwapWithFlashLoanNoFee(false);
+  }
+
+  /// @dev Without the payload the factory is not a flash borrower, so the Pool charges a premium
+  /// the zero-fee order does not cover: the factory reverts with `InvalidFlashLoanAmount`, which
+  /// the FlashLoanRouter rethrows as `Settlement reverted`.
+  function _testCollateralSwapWithFlashLoanNoFee(bool executePayload) internal {
+    if (executePayload) _executePayload();
 
     CollateralSwapConfig memory config = _collateralSwapConfig();
     IPool pool = _pool();
@@ -307,8 +319,10 @@ abstract contract CoWFlashBorrowerBaseTest is ProtocolV3TestBase {
       })
     );
 
+    IFlashLoanRouter router = vars.factory.ROUTER();
     vm.startPrank(vars.solver);
-    vars.factory.ROUTER().flashLoanAndSettle(
+    if (!executePayload) vm.expectRevert(bytes('Settlement reverted'));
+    router.flashLoanAndSettle(
       _buildLoanData(
         flashLoanParams.borrower,
         flashLoanParams.lender,
@@ -318,6 +332,7 @@ abstract contract CoWFlashBorrowerBaseTest is ProtocolV3TestBase {
       encodedSettlement
     );
     vm.stopPrank();
+    if (!executePayload) return;
 
     vars.buyTokenFinalBalances = _getBalances(
       config.debtAsset,
@@ -390,9 +405,13 @@ abstract contract CoWFlashBorrowerBaseTest is ProtocolV3TestBase {
 
   /// @dev Collateral swap on an Aave V4 Spoke through the V4 factory, with the flash loan taken
   /// from this market's V3 Pool and signed with a zero fee. Opt-in per market, as only the
-  /// networks with an Aave V4 deployment carry the V4 factory.
-  function _testCollateralSwapV4WithFlashLoanNoFee(CollateralSwapV4Config memory config) internal {
-    _executePayload();
+  /// networks with an Aave V4 deployment carry the V4 factory. Without the payload it must revert,
+  /// as for `_testCollateralSwapWithFlashLoanNoFee`.
+  function _testCollateralSwapV4WithFlashLoanNoFee(
+    CollateralSwapV4Config memory config,
+    bool executePayload
+  ) internal {
+    if (executePayload) _executePayload();
 
     V4TestLocalVars memory vars;
     vars.traderWallet = vm.createWallet('Trader');
@@ -482,12 +501,15 @@ abstract contract CoWFlashBorrowerBaseTest is ProtocolV3TestBase {
       })
     );
 
+    IFlashLoanRouter router = factory.ROUTER();
     vm.startPrank(vars.solver);
-    factory.ROUTER().flashLoanAndSettle(
+    if (!executePayload) vm.expectRevert(bytes('Settlement reverted'));
+    router.flashLoanAndSettle(
       _buildLoanData(config.factory, address(_pool()), config.collateralAsset, vars.sellAmount),
       encodedSettlement
     );
     vm.stopPrank();
+    if (!executePayload) return;
 
     vars.sellFinal = _getV4Snapshot(config, vars.collateralReserveId, vars.trader, vars.instance);
     vars.buyFinal = _getV4Snapshot(config, vars.debtReserveId, vars.trader, vars.instance);
@@ -529,18 +551,9 @@ abstract contract CoWFlashBorrowerBaseTest is ProtocolV3TestBase {
     address solver
   ) internal returns (IGPv2Settlement settlement) {
     settlement = factory.ROUTER().settlementContract();
-    address authenticator = address(settlement.authenticator());
-    // Whitelist the test's solver and the FlashLoanRouter (which becomes msg.sender of
-    // `Settlement.settle` once `flashLoanAndSettle` enters the settlement). Routers are
-    // whitelisted on most chains' real CoW deployments but not all (e.g. Plasma).
     vm.mockCall(
-      authenticator,
+      address(settlement.authenticator()),
       abi.encodeCall(IGPv2Authenticator.isSolver, (solver)),
-      abi.encode(true)
-    );
-    vm.mockCall(
-      authenticator,
-      abi.encodeCall(IGPv2Authenticator.isSolver, (address(factory.ROUTER()))),
       abi.encode(true)
     );
   }

@@ -54,19 +54,11 @@ contract AaveV3Ethereum_UpdateCoWSwapAdaptersFlashBorrowers_20261028_Test is
   }
 
   function test_collateralSwapV4WithFlashLoan_noFlashLoanFee() public {
-    _testCollateralSwapV4WithFlashLoanNoFee(
-      CollateralSwapV4Config({
-        factory: proposal.COW_V4_ADAPTER_FACTORY(),
-        spoke: AaveV4EthereumSpokes.MAIN_SPOKE,
-        hub: address(AaveV4EthereumHubs.CORE_HUB),
-        collateralAsset: AaveV4EthereumAssets.wstETH_UNDERLYING,
-        debtAsset: AaveV4EthereumAssets.WETH_UNDERLYING,
-        collateralSeed: 10 ether,
-        debtSeed: 2 ether,
-        sellAmount: 10 ether,
-        expectedBuyAmount: 12 ether
-      })
-    );
+    _testCollateralSwapV4WithFlashLoanNoFee(_collateralSwapV4Config(), true);
+  }
+
+  function test_collateralSwapV4WithFlashLoan_noFlashLoanFee_revertsWithoutPayload() public {
+    _testCollateralSwapV4WithFlashLoanNoFee(_collateralSwapV4Config(), false);
   }
 
   function _pool() internal pure override returns (IPool) {
@@ -101,6 +93,21 @@ contract AaveV3Ethereum_UpdateCoWSwapAdaptersFlashBorrowers_20261028_Test is
       CollateralSwapConfig({
         collateralAsset: AaveV3EthereumAssets.wstETH_UNDERLYING,
         debtAsset: AaveV3EthereumAssets.WETH_UNDERLYING,
+        collateralSeed: 10 ether,
+        debtSeed: 2 ether,
+        sellAmount: 10 ether,
+        expectedBuyAmount: 12 ether
+      });
+  }
+
+  function _collateralSwapV4Config() internal view returns (CollateralSwapV4Config memory) {
+    return
+      CollateralSwapV4Config({
+        factory: proposal.COW_V4_ADAPTER_FACTORY(),
+        spoke: AaveV4EthereumSpokes.MAIN_SPOKE,
+        hub: address(AaveV4EthereumHubs.CORE_HUB),
+        collateralAsset: AaveV4EthereumAssets.wstETH_UNDERLYING,
+        debtAsset: AaveV4EthereumAssets.WETH_UNDERLYING,
         collateralSeed: 10 ether,
         debtSeed: 2 ether,
         sellAmount: 10 ether,
