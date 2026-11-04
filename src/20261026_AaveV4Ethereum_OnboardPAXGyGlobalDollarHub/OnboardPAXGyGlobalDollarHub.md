@@ -99,8 +99,8 @@ This proposal was prepared by Aave Labs in its capacity as a contributor to the 
 
 ## References
 
-- Implementation: [AaveV4Ethereum](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20261026_AaveV4Ethereum_OnboardPAXGyGlobalDollarHub/AaveV4Ethereum_OnboardPAXGyGlobalDollarHub_20261026.sol)
-- Tests: [AaveV4Ethereum](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20261026_AaveV4Ethereum_OnboardPAXGyGlobalDollarHub/AaveV4Ethereum_OnboardPAXGyGlobalDollarHub_20261026.t.sol)
+- Implementation: [AaveV4Ethereum](https://github.com/aave-dao/aave-proposals-v3/blob/39d5069ff33a8b93418c8781af05e99d9a72139e/src/20261026_AaveV4Ethereum_OnboardPAXGyGlobalDollarHub/AaveV4Ethereum_OnboardPAXGyGlobalDollarHub_20261026.sol)
+- Tests: [AaveV4Ethereum](https://github.com/aave-dao/aave-proposals-v3/blob/39d5069ff33a8b93418c8781af05e99d9a72139e/src/20261026_AaveV4Ethereum_OnboardPAXGyGlobalDollarHub/AaveV4Ethereum_OnboardPAXGyGlobalDollarHub_20261026.t.sol)
 - [Snapshot](https://snapshot.org/#/s:aavedao.eth/proposal/0xf987dd5aed6586169b232af7691e2cbb268cf61e2845bf6a04a83b60a5404bd8)
 - [Discussion](https://governance.aave.com/t/arfc-onboard-paxgy-to-aave-v4-global-dollar-hub/25499)
 - [LlamaRisk recommendation](https://governance.aave.com/t/arfc-onboard-paxgy-to-aave-v4-global-dollar-hub/25499/3)
