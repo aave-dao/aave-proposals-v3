@@ -97,7 +97,7 @@ contract AaveV3Plasma_UpdateCoWSwapAdaptersFlashBorrowers_20261028_Test is
     return
       CollateralSwapConfigV3({
         collateralAsset: AaveV3PlasmaAssets.USDe_UNDERLYING,
-        debtAsset: AaveV3PlasmaAssets.WXPL_UNDERLYING,
+        buyAsset: AaveV3PlasmaAssets.WXPL_UNDERLYING,
         collateralSeed: 10_000 ether,
         debtSeed: 0,
         sellAmount: 10_000 ether,

@@ -96,7 +96,7 @@ contract AaveV3Gnosis_UpdateCoWSwapAdaptersFlashBorrowers_20261028_Test is
     return
       CollateralSwapConfigV3({
         collateralAsset: AaveV3GnosisAssets.USDCe_UNDERLYING,
-        debtAsset: AaveV3GnosisAssets.WXDAI_UNDERLYING,
+        buyAsset: AaveV3GnosisAssets.WXDAI_UNDERLYING,
         collateralSeed: 20_000 * 1e6,
         debtSeed: 0,
         sellAmount: 20_000 * 1e6,

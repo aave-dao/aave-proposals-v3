@@ -109,7 +109,7 @@ contract AaveV3Avalanche_UpdateCoWSwapAdaptersFlashBorrowers_20261028_Test is
     return
       CollateralSwapConfigV3({
         collateralAsset: AaveV3AvalancheAssets.WETHe_UNDERLYING,
-        debtAsset: AaveV3AvalancheAssets.BTCb_UNDERLYING,
+        buyAsset: AaveV3AvalancheAssets.BTCb_UNDERLYING,
         collateralSeed: 10 ether,
         debtSeed: 0.05 * 1e8,
         sellAmount: 10 ether,
@@ -124,7 +124,7 @@ contract AaveV3Avalanche_UpdateCoWSwapAdaptersFlashBorrowers_20261028_Test is
         spoke: AaveV4AvalancheSpokes.MAIN_SPOKE,
         hub: address(AaveV4AvalancheHubs.CORE_HUB),
         collateralAsset: AaveV4AvalancheAssets.WETHe_UNDERLYING,
-        debtAsset: AaveV4AvalancheAssets.WAVAX_UNDERLYING,
+        buyAsset: AaveV4AvalancheAssets.WAVAX_UNDERLYING,
         collateralSeed: 10 ether,
         debtSeed: 100 ether,
         sellAmount: 10 ether,

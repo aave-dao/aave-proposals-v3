@@ -94,7 +94,7 @@ contract AaveV3Linea_UpdateCoWSwapAdaptersFlashBorrowers_20261028_Test is CoWFla
     return
       CollateralSwapConfigV3({
         collateralAsset: AaveV3LineaAssets.wstETH_UNDERLYING,
-        debtAsset: AaveV3LineaAssets.WETH_UNDERLYING,
+        buyAsset: AaveV3LineaAssets.WETH_UNDERLYING,
         collateralSeed: 10 ether,
         debtSeed: 2 ether,
         sellAmount: 10 ether,

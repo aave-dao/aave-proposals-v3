@@ -113,7 +113,7 @@ contract AaveV3Base_UpdateCoWSwapAdaptersFlashBorrowers_20261028_Test is CoWFlas
     return
       CollateralSwapConfigV3({
         collateralAsset: AaveV3BaseAssets.wstETH_UNDERLYING,
-        debtAsset: AaveV3BaseAssets.WETH_UNDERLYING,
+        buyAsset: AaveV3BaseAssets.WETH_UNDERLYING,
         collateralSeed: 10 ether,
         debtSeed: 2 ether,
         sellAmount: 10 ether,
@@ -128,7 +128,7 @@ contract AaveV3Base_UpdateCoWSwapAdaptersFlashBorrowers_20261028_Test is CoWFlas
         spoke: AaveV4BaseSpokes.MAG7_SPOKE,
         hub: address(AaveV4BaseHubs.EQUITIES_HUB),
         collateralAsset: AaveV4BaseAssets.USDC_UNDERLYING,
-        debtAsset: AaveV4BaseAssets.AAPLc_UNDERLYING,
+        buyAsset: AaveV4BaseAssets.AAPLc_UNDERLYING,
         collateralSeed: 10_000 * 1e6,
         debtSeed: 0,
         sellAmount: 10_000 * 1e6,

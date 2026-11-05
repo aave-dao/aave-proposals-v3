@@ -97,7 +97,7 @@ contract AaveV3Arbitrum_UpdateCoWSwapAdaptersFlashBorrowers_20261028_Test is
     return
       CollateralSwapConfigV3({
         collateralAsset: AaveV3ArbitrumAssets.wstETH_UNDERLYING,
-        debtAsset: AaveV3ArbitrumAssets.WETH_UNDERLYING,
+        buyAsset: AaveV3ArbitrumAssets.WETH_UNDERLYING,
         collateralSeed: 10 ether,
         debtSeed: 2 ether,
         sellAmount: 10 ether,

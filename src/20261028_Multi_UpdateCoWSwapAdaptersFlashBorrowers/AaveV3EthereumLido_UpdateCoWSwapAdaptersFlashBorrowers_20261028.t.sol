@@ -16,6 +16,9 @@ import {CoWFlashBorrowerBaseTest} from 'src/helpers/cow-adapters/CoWFlashBorrowe
 contract AaveV3EthereumLido_UpdateCoWSwapAdaptersFlashBorrowers_20261028_Test is
   CoWFlashBorrowerBaseTest
 {
+  address internal constant DEPRECATED_COW_ADAPTER_FACTORY =
+    0xdeCC46a4b09162F5369c5C80383AAa9159bCf192;
+
   AaveV3EthereumLido_UpdateCoWSwapAdaptersFlashBorrowers_20261028 internal proposal;
 
   function setUp() public {
@@ -46,10 +49,12 @@ contract AaveV3EthereumLido_UpdateCoWSwapAdaptersFlashBorrowers_20261028_Test is
 
   function test_isFlashBorrower() external {
     assertFalse(AaveV3EthereumLido.ACL_MANAGER.isFlashBorrower(proposal.COW_V3_ADAPTER_FACTORY()));
+    assertFalse(AaveV3EthereumLido.ACL_MANAGER.isFlashBorrower(DEPRECATED_COW_ADAPTER_FACTORY));
 
     GovV3Helpers.executePayload(vm, address(proposal));
 
     assertTrue(AaveV3EthereumLido.ACL_MANAGER.isFlashBorrower(proposal.COW_V3_ADAPTER_FACTORY()));
+    assertFalse(AaveV3EthereumLido.ACL_MANAGER.isFlashBorrower(DEPRECATED_COW_ADAPTER_FACTORY));
   }
 
   function _poolV3() internal pure override returns (IPool) {
@@ -94,7 +99,7 @@ contract AaveV3EthereumLido_UpdateCoWSwapAdaptersFlashBorrowers_20261028_Test is
     return
       CollateralSwapConfigV3({
         collateralAsset: AaveV3EthereumLidoAssets.wstETH_UNDERLYING,
-        debtAsset: AaveV3EthereumLidoAssets.WETH_UNDERLYING,
+        buyAsset: AaveV3EthereumLidoAssets.WETH_UNDERLYING,
         collateralSeed: 10 ether,
         debtSeed: 2 ether,
         sellAmount: 10 ether,

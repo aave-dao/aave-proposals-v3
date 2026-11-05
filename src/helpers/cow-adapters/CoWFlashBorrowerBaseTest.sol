@@ -96,13 +96,10 @@ abstract contract CoWFlashBorrowerBaseTest is ProtocolV3TestBase {
 
   struct CollateralSwapConfigV3 {
     address collateralAsset;
-    address debtAsset;
-    // Initial collateral amount supplied by the trader before the swap. On chains
-    // where `debtAsset` has 0 LTV (so the swapped-in new collateral doesn't keep HF
-    // healthy), set this larger than `sellAmount` so leftover original collateral
-    // backstops the trader's remaining debt.
+    address buyAsset;
+    // Initial collateral amount supplied by the trader before the swap.
     uint256 collateralSeed;
-    // Zero skips the borrow, for markets without a borrowable asset that has LTV > 0.
+    // Amount of `buyAsset` borrowed before the swap. Zero skips the borrow.
     uint256 debtSeed;
     // Amount of collateral being flash-loaned and sold. Must be ≤ `collateralSeed`.
     uint256 sellAmount;
@@ -114,7 +111,7 @@ abstract contract CoWFlashBorrowerBaseTest is ProtocolV3TestBase {
     ISpoke spoke;
     address hub;
     address collateralAsset;
-    address debtAsset;
+    address buyAsset;
     uint256 collateralSeed;
     uint256 debtSeed;
     uint256 sellAmount;
@@ -127,7 +124,7 @@ abstract contract CoWFlashBorrowerBaseTest is ProtocolV3TestBase {
     address solver;
     IGPv2Settlement settlement;
     uint256 collateralReserveId;
-    uint256 debtReserveId;
+    uint256 buyReserveId;
     uint256 sellAmount;
     address instance;
     IERC20[] tokens;
@@ -156,7 +153,7 @@ abstract contract CoWFlashBorrowerBaseTest is ProtocolV3TestBase {
   /// per-market file. Untyped here so the base doesn't import any concrete proposal class.
   function _executePayload() internal virtual;
 
-  /// @dev Per-market (collateral, debt) pair and amounts for the V3 swap test.
+  /// @dev Per-market (collateral, buy) pair and amounts for the V3 swap test.
   function _collateralSwapConfigV3() internal view virtual returns (CollateralSwapConfigV3 memory);
 
   function test_factoryOwnership() public view {
@@ -204,7 +201,7 @@ abstract contract CoWFlashBorrowerBaseTest is ProtocolV3TestBase {
     SwapOrder memory order = SwapOrder({
       kind: KIND_SELL,
       sellToken: config.collateralAsset,
-      buyToken: config.debtAsset,
+      buyToken: config.buyAsset,
       sellAmount: vars.sellAmount,
       buyAmount: config.expectedBuyAmount,
       feeAmount: 0,
@@ -239,13 +236,13 @@ abstract contract CoWFlashBorrowerBaseTest is ProtocolV3TestBase {
     IERC20(aToken).approve(vars.instance, type(uint256).max);
 
     vars.snapshots.sellInitial = _getSnapshotV3(config.collateralAsset, vars.trader, vars.instance);
-    vars.snapshots.buyInitial = _getSnapshotV3(config.debtAsset, vars.trader, vars.instance);
+    vars.snapshots.buyInitial = _getSnapshotV3(config.buyAsset, vars.trader, vars.instance);
 
     Permit memory permit;
 
     vars.tokens = new IERC20[](2);
     vars.tokens[0] = IERC20(config.collateralAsset);
-    vars.tokens[1] = IERC20(config.debtAsset);
+    vars.tokens[1] = IERC20(config.buyAsset);
     vars.prices = new uint256[](2);
     vars.prices[0] = order.buyAmount;
     vars.prices[1] = order.sellAmount;
@@ -281,7 +278,7 @@ abstract contract CoWFlashBorrowerBaseTest is ProtocolV3TestBase {
     if (!executePayload) return;
 
     vars.snapshots.sellFinal = _getSnapshotV3(config.collateralAsset, vars.trader, vars.instance);
-    vars.snapshots.buyFinal = _getSnapshotV3(config.debtAsset, vars.trader, vars.instance);
+    vars.snapshots.buyFinal = _getSnapshotV3(config.buyAsset, vars.trader, vars.instance);
 
     _assertSwapResult(vars.snapshots, vars.sellAmount, config.expectedBuyAmount);
   }
@@ -303,7 +300,7 @@ abstract contract CoWFlashBorrowerBaseTest is ProtocolV3TestBase {
     assertTrue(factory.isAdapterImplementation(COLLATERAL_SWAP_ADAPTER_V4));
     vars.settlement = _whitelistSolver(factory, vars.solver);
     vars.collateralReserveId = _getReserveIdV4(config.spoke, config.hub, config.collateralAsset);
-    vars.debtReserveId = _getReserveIdV4(config.spoke, config.hub, config.debtAsset);
+    vars.buyReserveId = _getReserveIdV4(config.spoke, config.hub, config.buyAsset);
 
     _seedPositionV4(config, vars);
     // The Hub rounds supply shares down, so the withdrawable amount can sit 1 wei below the seed.
@@ -314,7 +311,7 @@ abstract contract CoWFlashBorrowerBaseTest is ProtocolV3TestBase {
       owner: vars.trader,
       receiver: address(0),
       sellToken: config.collateralAsset,
-      buyToken: config.debtAsset,
+      buyToken: config.buyAsset,
       sellAmount: vars.sellAmount,
       buyAmount: config.expectedBuyAmount,
       kind: KIND_SELL,
@@ -341,7 +338,7 @@ abstract contract CoWFlashBorrowerBaseTest is ProtocolV3TestBase {
     );
     vars.snapshots.buyInitial = _getSnapshotV4(
       config,
-      vars.debtReserveId,
+      vars.buyReserveId,
       vars.trader,
       vars.instance
     );
@@ -349,7 +346,7 @@ abstract contract CoWFlashBorrowerBaseTest is ProtocolV3TestBase {
     SwapOrder memory order = SwapOrder({
       kind: KIND_SELL,
       sellToken: config.collateralAsset,
-      buyToken: config.debtAsset,
+      buyToken: config.buyAsset,
       sellAmount: vars.sellAmount,
       buyAmount: config.expectedBuyAmount,
       feeAmount: 0,
@@ -364,7 +361,7 @@ abstract contract CoWFlashBorrowerBaseTest is ProtocolV3TestBase {
 
     vars.tokens = new IERC20[](2);
     vars.tokens[0] = IERC20(config.collateralAsset);
-    vars.tokens[1] = IERC20(config.debtAsset);
+    vars.tokens[1] = IERC20(config.buyAsset);
     vars.prices = new uint256[](2);
     vars.prices[0] = order.buyAmount;
     vars.prices[1] = order.sellAmount;
@@ -405,12 +402,7 @@ abstract contract CoWFlashBorrowerBaseTest is ProtocolV3TestBase {
       vars.trader,
       vars.instance
     );
-    vars.snapshots.buyFinal = _getSnapshotV4(
-      config,
-      vars.debtReserveId,
-      vars.trader,
-      vars.instance
-    );
+    vars.snapshots.buyFinal = _getSnapshotV4(config, vars.buyReserveId, vars.trader, vars.instance);
 
     _assertSwapResult(vars.snapshots, vars.sellAmount, config.expectedBuyAmount);
   }
@@ -500,7 +492,7 @@ abstract contract CoWFlashBorrowerBaseTest is ProtocolV3TestBase {
     config.spoke.supply(vars.collateralReserveId, config.collateralSeed, vars.trader);
     config.spoke.setUsingAsCollateral(vars.collateralReserveId, true, vars.trader);
     if (config.debtSeed != 0) {
-      config.spoke.borrow(vars.debtReserveId, config.debtSeed, vars.trader);
+      config.spoke.borrow(vars.buyReserveId, config.debtSeed, vars.trader);
     }
     vm.stopPrank();
   }
@@ -514,7 +506,7 @@ abstract contract CoWFlashBorrowerBaseTest is ProtocolV3TestBase {
     vm.startPrank(vars.trader);
     config.spoke.setUserPositionManager(adapter.GIVER_POSITION_MANAGER(), true);
     config.spoke.setUserPositionManager(adapter.TAKER_POSITION_MANAGER(), true);
-    config.spoke.setUsingAsCollateral(vars.debtReserveId, true, vars.trader);
+    config.spoke.setUsingAsCollateral(vars.buyReserveId, true, vars.trader);
     ITakerPositionManager(adapter.TAKER_POSITION_MANAGER()).approveWithdraw(
       address(config.spoke),
       vars.collateralReserveId,
@@ -560,7 +552,7 @@ abstract contract CoWFlashBorrowerBaseTest is ProtocolV3TestBase {
     vm.startPrank(trader);
     IERC20(config.collateralAsset).approve(address(pool), config.collateralSeed);
     pool.supply(config.collateralAsset, config.collateralSeed, trader, 0);
-    if (config.debtSeed != 0) pool.borrow(config.debtAsset, config.debtSeed, 2, 0, trader);
+    if (config.debtSeed != 0) pool.borrow(config.buyAsset, config.debtSeed, 2, 0, trader);
     vm.stopPrank();
   }
 
