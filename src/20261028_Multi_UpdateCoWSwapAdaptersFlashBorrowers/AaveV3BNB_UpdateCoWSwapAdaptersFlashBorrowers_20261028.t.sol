@@ -88,7 +88,6 @@ contract AaveV3BNB_UpdateCoWSwapAdaptersFlashBorrowers_20261028_Test is CoWFlash
     override
     returns (CollateralSwapConfigV3 memory)
   {
-    // Both BSC USDT and BSC USDC are 18-decimals on BNB Chain (not 6).
     return
       CollateralSwapConfigV3({
         collateralAsset: AaveV3BNBAssets.ETH_UNDERLYING,

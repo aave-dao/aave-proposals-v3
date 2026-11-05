@@ -7,7 +7,7 @@ import {IPool} from 'aave-address-book/AaveV3.sol';
 import {ISpoke, ITakerPositionManager} from 'aave-address-book/AaveV4.sol';
 import {ProtocolV3TestBase} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 
-import {GPv2Interaction, GPv2Order, GPv2Trade, HookOrderDataV3, HookOrderDataV4, IBaseAdapterFactory, IBaseAdapterV3Factory, IBaseAdapterV4Factory, ICollateralSwapAaveV3Adapter, ICollateralSwapAaveV4Adapter, IFlashLoanRouter, IGPv2Settlement, IGPv2Authenticator, IOwnable, Loan, MockBasicPool, PositionManagersPermit, SetUsingAsCollateralPermit, SwapOrder, SwapOrderToGPv2OrderLib, WithdrawPermit, _getEmptyPermitSig} from 'src/helpers/cow-adapters/CoWFlashBorrowerTestUtils.sol';
+import {GPv2Interaction, GPv2Order, GPv2Trade, HookOrderDataV3, HookOrderDataV4, IBaseAdapterFactory, IBaseAdapterV3Factory, IBaseAdapterV4Factory, ICollateralSwapAaveV3Adapter, ICollateralSwapAaveV4Adapter, IFlashLoanRouter, IGPv2Settlement, IGPv2Authenticator, IOwnable, Loan, MockBasicPool, Permit, PositionManagersPermit, SetUsingAsCollateralPermit, SwapOrder, SwapOrderToGPv2OrderLib, WithdrawPermit} from 'src/helpers/cow-adapters/CoWFlashBorrowerTestUtils.sol';
 
 /// @notice Shared collateral-swap-with-flash-loan and factory-ownership tests, parameterized
 /// so they can run against any market in the proposal. Per-market test files inherit this
@@ -17,6 +17,10 @@ import {GPv2Interaction, GPv2Order, GPv2Trade, HookOrderDataV3, HookOrderDataV4,
 abstract contract CoWFlashBorrowerBaseTest is ProtocolV3TestBase {
   bytes32 internal constant KIND_SELL =
     hex'f3b277728b3fee749481eb3e0b3b48980dbbab78658fc419025cb16eee346775';
+
+  /// @dev keccak256('AdapterOrderSig(address instance,address sellToken,address buyToken,uint256 sellAmount,uint256 buyAmount,bytes32 kind,uint32 validTo,bytes32 appData)')
+  bytes32 internal constant ADAPTER_ORDER_TYPEHASH =
+    0x1ca15395c04ac473d5b42656e3782ae1fce1a113fdb5432b57f8fb0870fa3178;
 
   /// @dev bytes32(uint256(keccak256('eip1967.proxy.admin')) - 1)
   bytes32 internal constant ERC1967_ADMIN_SLOT =
@@ -39,14 +43,6 @@ abstract contract CoWFlashBorrowerBaseTest is ProtocolV3TestBase {
     address proxyAdmin;
   }
 
-  struct FlashLoanParams {
-    address borrower;
-    address lender;
-    address flashLoanAsset;
-    uint256 flashLoanAmount;
-    uint256 flashLoanFee;
-  }
-
   /// @dev On V3, `userSupplied` / `adapterSupplied` are aToken balances and `userDebt` the
   /// variable debt token balance. On V4, they are read from the Spoke.
   struct PositionSnapshot {
@@ -55,6 +51,13 @@ abstract contract CoWFlashBorrowerBaseTest is ProtocolV3TestBase {
     uint256 userDebt;
     uint256 adapterBalance;
     uint256 adapterSupplied;
+  }
+
+  struct SwapSnapshots {
+    PositionSnapshot sellInitial;
+    PositionSnapshot buyInitial;
+    PositionSnapshot sellFinal;
+    PositionSnapshot buyFinal;
   }
 
   struct TestLocalVarsV3 {
@@ -68,17 +71,7 @@ abstract contract CoWFlashBorrowerBaseTest is ProtocolV3TestBase {
     address instance;
     IERC20[] tokens;
     uint256[] prices;
-    PositionSnapshot sellInitial;
-    PositionSnapshot buyInitial;
-    PositionSnapshot sellFinal;
-    PositionSnapshot buyFinal;
-  }
-
-  struct HookAmounts {
-    uint256 flashLoanAmount;
-    uint256 flashLoanFeeAmount;
-    uint256 sellTokenAmount;
-    uint256 buyTokenAmount;
+    SwapSnapshots snapshots;
   }
 
   struct EncodeSettlementParams {
@@ -139,10 +132,7 @@ abstract contract CoWFlashBorrowerBaseTest is ProtocolV3TestBase {
     address instance;
     IERC20[] tokens;
     uint256[] prices;
-    PositionSnapshot sellInitial;
-    PositionSnapshot buyInitial;
-    PositionSnapshot sellFinal;
-    PositionSnapshot buyFinal;
+    SwapSnapshots snapshots;
   }
 
   /// @dev The V3 Pool used for seeding collateral / borrowing debt, reading aToken /
@@ -211,27 +201,11 @@ abstract contract CoWFlashBorrowerBaseTest is ProtocolV3TestBase {
     vars.sellAmount = IERC20(aToken).balanceOf(vars.trader);
     if (vars.sellAmount > config.sellAmount) vars.sellAmount = config.sellAmount;
 
-    FlashLoanParams memory flashLoanParams = FlashLoanParams({
-      borrower: address(vars.factory),
-      lender: address(pool),
-      flashLoanAsset: config.collateralAsset,
-      flashLoanAmount: vars.sellAmount,
-      flashLoanFee: 0
-    });
-
-    HookAmounts memory hookAmounts = HookAmounts({
-      flashLoanAmount: flashLoanParams.flashLoanAmount,
-      flashLoanFeeAmount: flashLoanParams.flashLoanFee,
-      sellTokenAmount: vars.sellAmount,
-      buyTokenAmount: config.expectedBuyAmount
-    });
-
     SwapOrder memory order = SwapOrder({
-      trader: vars.trader,
       kind: KIND_SELL,
       sellToken: config.collateralAsset,
       buyToken: config.debtAsset,
-      sellAmount: vars.sellAmount - flashLoanParams.flashLoanFee,
+      sellAmount: vars.sellAmount,
       buyAmount: config.expectedBuyAmount,
       feeAmount: 0,
       validTo: 0xffffffff,
@@ -247,10 +221,10 @@ abstract contract CoWFlashBorrowerBaseTest is ProtocolV3TestBase {
       buyAmount: order.buyAmount,
       kind: order.kind,
       validTo: order.validTo,
-      hookSellTokenAmount: hookAmounts.sellTokenAmount,
-      hookBuyTokenAmount: hookAmounts.buyTokenAmount,
-      flashLoanAmount: hookAmounts.flashLoanAmount,
-      flashLoanFeeAmount: hookAmounts.flashLoanFeeAmount
+      hookSellTokenAmount: vars.sellAmount,
+      hookBuyTokenAmount: config.expectedBuyAmount,
+      flashLoanAmount: vars.sellAmount,
+      flashLoanFeeAmount: 0
     });
 
     vars.instance = vars.factory.getInstanceDeterministicAddress(
@@ -264,8 +238,10 @@ abstract contract CoWFlashBorrowerBaseTest is ProtocolV3TestBase {
     vm.prank(vars.trader);
     IERC20(aToken).approve(vars.instance, type(uint256).max);
 
-    vars.sellInitial = _getSnapshotV3(config.collateralAsset, vars.trader, vars.instance);
-    vars.buyInitial = _getSnapshotV3(config.debtAsset, vars.trader, vars.instance);
+    vars.snapshots.sellInitial = _getSnapshotV3(config.collateralAsset, vars.trader, vars.instance);
+    vars.snapshots.buyInitial = _getSnapshotV3(config.debtAsset, vars.trader, vars.instance);
+
+    Permit memory permit;
 
     vars.tokens = new IERC20[](2);
     vars.tokens[0] = IERC20(config.collateralAsset);
@@ -274,7 +250,7 @@ abstract contract CoWFlashBorrowerBaseTest is ProtocolV3TestBase {
     vars.prices[0] = order.buyAmount;
     vars.prices[1] = order.sellAmount;
 
-    bytes memory encodedSettlement = encodeSettlement(
+    bytes memory encodedSettlement = _encodeSettlement(
       EncodeSettlementParams({
         traderKey: vars.traderKey,
         order: SwapOrderToGPv2OrderLib.convertToGPv2Order(order),
@@ -288,7 +264,7 @@ abstract contract CoWFlashBorrowerBaseTest is ProtocolV3TestBase {
         postHookTarget: vars.instance,
         postHookCallData: abi.encodeCall(
           ICollateralSwapAaveV3Adapter.collateralSwapWithFlashLoan,
-          (_getEmptyPermitSig())
+          (permit)
         ),
         settlement: address(vars.settlement)
       })
@@ -298,64 +274,16 @@ abstract contract CoWFlashBorrowerBaseTest is ProtocolV3TestBase {
     vm.startPrank(vars.solver);
     if (!executePayload) vm.expectRevert(bytes('Settlement reverted'));
     router.flashLoanAndSettle(
-      _buildLoanData(
-        flashLoanParams.borrower,
-        flashLoanParams.lender,
-        flashLoanParams.flashLoanAsset,
-        flashLoanParams.flashLoanAmount
-      ),
+      _buildLoanData(address(vars.factory), address(pool), config.collateralAsset, vars.sellAmount),
       encodedSettlement
     );
     vm.stopPrank();
     if (!executePayload) return;
 
-    vars.sellFinal = _getSnapshotV3(config.collateralAsset, vars.trader, vars.instance);
-    vars.buyFinal = _getSnapshotV3(config.debtAsset, vars.trader, vars.instance);
+    vars.snapshots.sellFinal = _getSnapshotV3(config.collateralAsset, vars.trader, vars.instance);
+    vars.snapshots.buyFinal = _getSnapshotV3(config.debtAsset, vars.trader, vars.instance);
 
-    // Trader's balances
-    assertEq(
-      vars.buyFinal.userBalance,
-      vars.buyInitial.userBalance,
-      'Trader buyToken Balance should stay the same'
-    );
-    assertEq(
-      vars.sellFinal.userBalance,
-      vars.sellInitial.userBalance,
-      'Trader sellToken Balance should stay the same'
-    );
-    // Tolerance absorbs 1–2 wei of rounding on aToken mint/burn around supply/withdraw.
-    assertApproxEqAbs(
-      vars.buyFinal.userSupplied,
-      vars.buyInitial.userSupplied + hookAmounts.buyTokenAmount,
-      10,
-      'aBuyToken Balance should increase'
-    );
-    assertApproxEqAbs(
-      vars.sellFinal.userSupplied,
-      vars.sellInitial.userSupplied - hookAmounts.sellTokenAmount,
-      10,
-      'aSellToken Balance should decrease'
-    );
-    assertEq(
-      vars.buyFinal.userDebt,
-      vars.buyInitial.userDebt,
-      'Trader buyToken Variable Debt Balance should stay the same'
-    );
-    assertEq(
-      vars.sellFinal.userDebt,
-      vars.sellInitial.userDebt,
-      'Trader sellToken Variable Debt Balance should stay the same'
-    );
-
-    // Instance final balances
-    assertEq(vars.buyFinal.adapterBalance, 0, 'Adapter Instance buyToken Balance should be null');
-    assertEq(vars.sellFinal.adapterBalance, 0, 'Adapter Instance sellToken Balance should be null');
-    assertEq(vars.buyFinal.adapterSupplied, 0, 'Adapter Instance aBuyToken Balance should be null');
-    assertEq(
-      vars.sellFinal.adapterSupplied,
-      0,
-      'Adapter Instance aSellToken Balance should be null'
-    );
+    _assertSwapResult(vars.snapshots, vars.sellAmount, config.expectedBuyAmount);
   }
 
   /// @dev Collateral swap on an Aave V4 Spoke through the V4 factory, with the flash loan taken
@@ -405,11 +333,20 @@ abstract contract CoWFlashBorrowerBaseTest is ProtocolV3TestBase {
 
     _approveInstanceV4(config, vars);
 
-    vars.sellInitial = _getSnapshotV4(config, vars.collateralReserveId, vars.trader, vars.instance);
-    vars.buyInitial = _getSnapshotV4(config, vars.debtReserveId, vars.trader, vars.instance);
+    vars.snapshots.sellInitial = _getSnapshotV4(
+      config,
+      vars.collateralReserveId,
+      vars.trader,
+      vars.instance
+    );
+    vars.snapshots.buyInitial = _getSnapshotV4(
+      config,
+      vars.debtReserveId,
+      vars.trader,
+      vars.instance
+    );
 
     SwapOrder memory order = SwapOrder({
-      trader: vars.trader,
       kind: KIND_SELL,
       sellToken: config.collateralAsset,
       buyToken: config.debtAsset,
@@ -432,7 +369,7 @@ abstract contract CoWFlashBorrowerBaseTest is ProtocolV3TestBase {
     vars.prices[0] = order.buyAmount;
     vars.prices[1] = order.sellAmount;
 
-    bytes memory encodedSettlement = encodeSettlement(
+    bytes memory encodedSettlement = _encodeSettlement(
       EncodeSettlementParams({
         traderKey: vars.traderKey,
         order: SwapOrderToGPv2OrderLib.convertToGPv2Order(order),
@@ -462,39 +399,82 @@ abstract contract CoWFlashBorrowerBaseTest is ProtocolV3TestBase {
     vm.stopPrank();
     if (!executePayload) return;
 
-    vars.sellFinal = _getSnapshotV4(config, vars.collateralReserveId, vars.trader, vars.instance);
-    vars.buyFinal = _getSnapshotV4(config, vars.debtReserveId, vars.trader, vars.instance);
+    vars.snapshots.sellFinal = _getSnapshotV4(
+      config,
+      vars.collateralReserveId,
+      vars.trader,
+      vars.instance
+    );
+    vars.snapshots.buyFinal = _getSnapshotV4(
+      config,
+      vars.debtReserveId,
+      vars.trader,
+      vars.instance
+    );
 
+    _assertSwapResult(vars.snapshots, vars.sellAmount, config.expectedBuyAmount);
+  }
+
+  function _assertSwapResult(
+    SwapSnapshots memory snapshots,
+    uint256 sellAmount,
+    uint256 buyAmount
+  ) internal pure {
     assertEq(
-      vars.buyFinal.userBalance,
-      vars.buyInitial.userBalance,
+      snapshots.buyFinal.userBalance,
+      snapshots.buyInitial.userBalance,
       'Trader buyToken Balance should stay the same'
     );
     assertEq(
-      vars.sellFinal.userBalance,
-      vars.sellInitial.userBalance,
+      snapshots.sellFinal.userBalance,
+      snapshots.sellInitial.userBalance,
       'Trader sellToken Balance should stay the same'
     );
-    // Tolerance absorbs share/asset rounding on the Hub around supply/withdraw.
+    // Tolerance absorbs a few wei of rounding around supply/withdraw: aToken mint/burn on V3,
+    // share/asset conversion on the V4 Hub.
     assertApproxEqAbs(
-      vars.buyFinal.userSupplied,
-      vars.buyInitial.userSupplied + config.expectedBuyAmount,
+      snapshots.buyFinal.userSupplied,
+      snapshots.buyInitial.userSupplied + buyAmount,
       10,
       'Trader supplied buyToken should increase'
     );
     assertApproxEqAbs(
-      vars.sellFinal.userSupplied,
-      vars.sellInitial.userSupplied - vars.sellAmount,
+      snapshots.sellFinal.userSupplied,
+      snapshots.sellInitial.userSupplied - sellAmount,
       10,
       'Trader supplied sellToken should decrease'
     );
-    assertEq(vars.buyFinal.userDebt, vars.buyInitial.userDebt, 'Trader buyToken Debt unchanged');
-    assertEq(vars.sellFinal.userDebt, vars.sellInitial.userDebt, 'Trader sellToken Debt unchanged');
+    assertEq(
+      snapshots.buyFinal.userDebt,
+      snapshots.buyInitial.userDebt,
+      'Trader buyToken Debt should stay the same'
+    );
+    assertEq(
+      snapshots.sellFinal.userDebt,
+      snapshots.sellInitial.userDebt,
+      'Trader sellToken Debt should stay the same'
+    );
 
-    assertEq(vars.buyFinal.adapterBalance, 0, 'Adapter Instance buyToken Balance should be null');
-    assertEq(vars.sellFinal.adapterBalance, 0, 'Adapter Instance sellToken Balance should be null');
-    assertEq(vars.buyFinal.adapterSupplied, 0, 'Adapter Instance buyToken Supply should be null');
-    assertEq(vars.sellFinal.adapterSupplied, 0, 'Adapter Instance sellToken Supply should be null');
+    assertEq(
+      snapshots.buyFinal.adapterBalance,
+      0,
+      'Adapter Instance buyToken Balance should be null'
+    );
+    assertEq(
+      snapshots.sellFinal.adapterBalance,
+      0,
+      'Adapter Instance sellToken Balance should be null'
+    );
+    assertEq(
+      snapshots.buyFinal.adapterSupplied,
+      0,
+      'Adapter Instance buyToken Supply should be null'
+    );
+    assertEq(
+      snapshots.sellFinal.adapterSupplied,
+      0,
+      'Adapter Instance sellToken Supply should be null'
+    );
   }
 
   function _whitelistSolver(
@@ -602,7 +582,7 @@ abstract contract CoWFlashBorrowerBaseTest is ProtocolV3TestBase {
       });
   }
 
-  function encodeSettlement(EncodeSettlementParams memory params) internal returns (bytes memory) {
+  function _encodeSettlement(EncodeSettlementParams memory params) internal returns (bytes memory) {
     EncodeSettlementLocalVars memory vars;
 
     // Deploy Mock Pool for swaps and pre-fund it with the buyAmount so the
@@ -658,7 +638,7 @@ abstract contract CoWFlashBorrowerBaseTest is ProtocolV3TestBase {
       params.order,
       params.traderKey
     );
-    vars.trades[0] = deriveEip1271Trade(params.order, 0, 1, params.postHookTarget, signature);
+    vars.trades[0] = _deriveEip1271Trade(params.order, 0, 1, params.postHookTarget, signature);
 
     vars.interactions = [vars.preInteractions, vars.intraInteractions, vars.postInteractions];
 
@@ -676,9 +656,6 @@ abstract contract CoWFlashBorrowerBaseTest is ProtocolV3TestBase {
     uint256 privateKey
   ) internal view returns (bytes memory signature) {
     bytes32 domainSeparator = IBaseAdapterFactory(adapterFactory).DOMAIN_SEPARATOR();
-    // keccak256('AdapterOrderSig(address instance,address sellToken,address buyToken,uint256 sellAmount,uint256 buyAmount,bytes32 kind,uint32 validTo,bytes32 appData)')
-    bytes32 ADAPTER_ORDER_TYPEHASH = 0x1ca15395c04ac473d5b42656e3782ae1fce1a113fdb5432b57f8fb0870fa3178;
-
     bytes32 structHash = keccak256(
       abi.encode(
         ADAPTER_ORDER_TYPEHASH,
@@ -712,7 +689,7 @@ abstract contract CoWFlashBorrowerBaseTest is ProtocolV3TestBase {
     signature = abi.encode(order, userSignature);
   }
 
-  function deriveEip1271Trade(
+  function _deriveEip1271Trade(
     GPv2Order.Data memory order,
     uint256 sellTokenIndex,
     uint256 buyTokenIndex,
@@ -729,7 +706,7 @@ abstract contract CoWFlashBorrowerBaseTest is ProtocolV3TestBase {
         order.validTo,
         order.appData,
         order.feeAmount,
-        packFlags(order.kind),
+        _packFlags(order.kind),
         order.sellAmount,
         abi.encodePacked(owner, signature)
       );
@@ -751,7 +728,7 @@ abstract contract CoWFlashBorrowerBaseTest is ProtocolV3TestBase {
     return loans;
   }
 
-  function packFlags(bytes32 kind) internal pure returns (uint256) {
+  function _packFlags(bytes32 kind) internal pure returns (uint256) {
     // For information on flag encoding, see:
     // https://github.com/cowprotocol/contracts/blob/v1.0.0/src/contracts/libraries/GPv2Trade.sol#L70-L93
     uint256 sellOrderFlag = kind == KIND_SELL ? 0 : 1;

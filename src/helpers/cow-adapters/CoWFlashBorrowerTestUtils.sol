@@ -123,10 +123,6 @@ interface ICollateralSwapAaveV3Adapter {
   function collateralSwapWithFlashLoan(Permit calldata erc20Permit) external;
 }
 
-function _getEmptyPermitSig() pure returns (Permit memory permit) {
-  permit = Permit({amount: 0, deadline: 0, v: 0, r: bytes32(0), s: bytes32(0)});
-}
-
 /// @dev Data needed by the Aave V4 AdapterHook for the postHook execution.
 struct HookOrderDataV4 {
   address owner;
@@ -242,7 +238,6 @@ library GPv2Interaction {
 }
 
 struct SwapOrder {
-  address trader;
   bytes32 kind;
   address sellToken;
   address buyToken;
