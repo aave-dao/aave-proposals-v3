@@ -12,8 +12,8 @@ importers:
         specifier: ^4.71.0
         version: 4.71.0(viem@2.50.4(zod@4.5.4))
       '@aave-dao/aave-helpers-js':
-        specifier: ^1.6.6
-        version: 1.6.6(prettier-plugin-solidity@1.3.1(prettier@3.8.3))(prettier@3.8.3)
+        specifier: ^1.6.8
+        version: 1.6.8(prettier-plugin-solidity@1.3.1(prettier@3.8.3))(prettier@3.8.3)
       '@aave-dao/toolbox':
         specifier: ^0.6.1
         version: 0.6.1(prettier-plugin-solidity@1.3.1(prettier@3.8.3))(prettier@3.8.3)(viem@2.50.4(zod@4.5.4))
@@ -80,13 +80,13 @@ packages:
     peerDependencies:
       viem: ^2.23.5
 
-  '@aave-dao/aave-address-book@4.73.0':
-    resolution: {integrity: sha512-gam7rxa6HcV6/LsHausIHCkfV8YK3/HQA04kbmNF01wIS3dN/o/6XJlB0K+FCDobiRNOyc8bKh/09Gm2QLLqvA==}
+  '@aave-dao/aave-address-book@4.76.0':
+    resolution: {integrity: sha512-shRM9sHaNPhFuHCmhKomvYFTLxr96tLTaeoCFxF5rDS6Oo1kLeTyGffaUTGOFmKMjfviJIEkQOVV8TZntPVsFA==}
     peerDependencies:
       viem: ^2.23.5
 
-  '@aave-dao/aave-helpers-js@1.6.6':
-    resolution: {integrity: sha512-66ebRLzqz5fForhi/se9VuK7R3PTGCCgXxhp/FcMuDbTlFCYg5NIfHEIsPwPBggrj8mgJf1wQKouButeu5LreQ==}
+  '@aave-dao/aave-helpers-js@1.6.8':
+    resolution: {integrity: sha512-O2ShYKmMXU3jL0RS1Eb134AtvaTI7P62u8acijTGm7/Q9GAuBF0Lfq/7mcURvzn5PSAiAWl32phwwU2SsPJN4w==}
     engines: {node: '>=22'}
     hasBin: true
 
@@ -1252,13 +1252,13 @@ snapshots:
     dependencies:
       viem: 2.50.4(zod@4.5.4)
 
-  '@aave-dao/aave-address-book@4.73.0(viem@2.50.4(zod@4.5.4))':
+  '@aave-dao/aave-address-book@4.76.0(viem@2.50.4(zod@4.5.4))':
     dependencies:
       viem: 2.50.4(zod@4.5.4)
 
-  '@aave-dao/aave-helpers-js@1.6.6(prettier-plugin-solidity@1.3.1(prettier@3.8.3))(prettier@3.8.3)':
+  '@aave-dao/aave-helpers-js@1.6.8(prettier-plugin-solidity@1.3.1(prettier@3.8.3))(prettier@3.8.3)':
     dependencies:
-      '@aave-dao/aave-address-book': 4.73.0(viem@2.50.4(zod@4.5.4))
+      '@aave-dao/aave-address-book': 4.76.0(viem@2.50.4(zod@4.5.4))
       '@aave-dao/toolbox': 0.7.0(prettier-plugin-solidity@1.3.1(prettier@3.8.3))(prettier@3.8.3)(viem@2.50.4(zod@4.5.4))
       commander: 14.0.3
       find-object-paths: 1.1.0
