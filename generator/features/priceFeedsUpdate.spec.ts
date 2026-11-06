@@ -18,6 +18,21 @@ describe('feature: priceFeedsUpdates', () => {
     expect(output).toMatchSnapshot();
   });
 
+  it('generates an execution assertion for the configured price feed', () => {
+    const output = priceFeedsUpdates.build({
+      options: MOCK_OPTIONS,
+      market: 'AaveV3Ethereum',
+      cfg: priceFeedsUpdateConfig,
+      cache: {blockNumber: 42},
+      configs: {},
+    });
+    const test = output.test?.fn?.join('\n') ?? '';
+
+    expect(test).toContain('GovV3Helpers.executePayload(vm, address(proposal));');
+    expect(test).toContain('getSourceOfAsset');
+    expect(test).toContain('unexpected price feed');
+  });
+
   it('should properly generate files', async () => {
     const marketConfigs: MarketConfigs = {
       [MOCK_OPTIONS.markets[0]]: {
