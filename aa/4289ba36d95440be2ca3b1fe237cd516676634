@@ -1,0 +1,25 @@
+generator/features/assetListing.ts
+  s_8ac9a83c1b38bd::t_b6e0b328e53007 158-162
+  s_8ac9a83c1b38bd::t_d08ece585928f0 263
+  s_8ac9a83c1b38bd::t_bf3429e98bf517 138-139,143-144
+generator/features/__snapshots__/assetListing.spec.ts.snap
+  s_8ac9a83c1b38bd::t_2b3bb6ae62242c 128-134,346-347,431
+generator/features/__snapshots__/eModesCreation.spec.ts.snap
+  s_8ac9a83c1b38bd::t_5c9adb525b2b0a 134-140
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "aa4289ba36d95440be2ca3b1fe237cd516676634",
+  "prompts": {},
+  "sessions": {
+    "s_8ac9a83c1b38bd": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "41a52dfe-b037-47aa-ac51-d8cab0670a3f",
+        "model": "claude-fable-5-2"
+      },
+      "human_author": "AlbertoCentonze <11707683+AlbertoCentonze@users.noreply.github.com>"
+    }
+  }
+}
