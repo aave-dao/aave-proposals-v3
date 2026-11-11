@@ -1,0 +1,58 @@
+src/20261111_Multi_MaintenanceReplaceLayerZeroOnADI/MaintenanceReplaceLayerZeroOnADI_20261111.s.sol
+  s_f854dc51e6804c::t_adf372d355d28f 1-124
+src/20261111_Multi_MaintenanceReplaceLayerZeroOnADI/MaintenanceReplaceLayerZeroOnADI.md
+  s_f854dc51e6804c::t_0aeb1fda49f2de 1-102
+  s_f854dc51e6804c::t_46bfdfed1524b9 103
+src/20261111_Multi_MaintenanceReplaceLayerZeroOnADI/MaintenanceReplaceLayerZeroOnADITestBase.sol
+  s_f854dc51e6804c::t_5d4fce18341ec5 1-243
+src/20261111_Multi_MaintenanceReplaceLayerZeroOnADI/MaintenanceReplaceLayerZeroOnADIAddresses.sol
+  s_f854dc51e6804c::t_b1df7f0e1be467 1-41
+src/20261111_Multi_MaintenanceReplaceLayerZeroOnADI/config.ts
+  s_f854dc51e6804c::t_4a19bb2c22a74c 1-28
+diffs/AaveV3Avalanche_MaintenanceReplaceLayerZeroOnADI_20261111_before_AaveV3Avalanche_MaintenanceReplaceLayerZeroOnADI_20261111_after.md
+  s_f854dc51e6804c::t_77e35692b18009 1-54
+diffs/AaveV3BNB_MaintenanceReplaceLayerZeroOnADI_20261111_before_AaveV3BNB_MaintenanceReplaceLayerZeroOnADI_20261111_after.md
+  s_f854dc51e6804c::t_a2c31c2e0ae425 1-47
+diffs/AaveV3Ethereum_MaintenanceReplaceLayerZeroOnADI_20261111_before_AaveV3Ethereum_MaintenanceReplaceLayerZeroOnADI_20261111_after.md
+  s_f42b07b2098025::t_14476ff3733a86 1-100
+diffs/AaveV3Gnosis_MaintenanceReplaceLayerZeroOnADI_20261111_before_AaveV3Gnosis_MaintenanceReplaceLayerZeroOnADI_20261111_after.md
+  s_f854dc51e6804c::t_853b94e24fbd3b 1-47
+diffs/AaveV3Polygon_MaintenanceReplaceLayerZeroOnADI_20261111_before_AaveV3Polygon_MaintenanceReplaceLayerZeroOnADI_20261111_after.md
+  s_f854dc51e6804c::t_a61cba15e9249e 1-54
+src/20261111_Multi_MaintenanceReplaceLayerZeroOnADI/AaveV3Avalanche_MaintenanceReplaceLayerZeroOnADI_20261111.t.sol
+  s_f854dc51e6804c::t_e12872d0d1387f 1-58
+src/20261111_Multi_MaintenanceReplaceLayerZeroOnADI/AaveV3BNB_MaintenanceReplaceLayerZeroOnADI_20261111.t.sol
+  s_f854dc51e6804c::t_4cfd44dff1a824 1-48
+src/20261111_Multi_MaintenanceReplaceLayerZeroOnADI/AaveV3Ethereum_MaintenanceReplaceLayerZeroOnADI_20261111.t.sol
+  s_f854dc51e6804c::t_b6ad5206182e84 1-102
+src/20261111_Multi_MaintenanceReplaceLayerZeroOnADI/AaveV3Gnosis_MaintenanceReplaceLayerZeroOnADI_20261111.t.sol
+  s_f854dc51e6804c::t_60edf044eeb9a9 1-48
+src/20261111_Multi_MaintenanceReplaceLayerZeroOnADI/AaveV3Monad_MaintenanceReplaceLayerZeroOnADI_20261111.t.sol
+  s_f854dc51e6804c::t_2dd022168dc605 1-48
+src/20261111_Multi_MaintenanceReplaceLayerZeroOnADI/AaveV3Polygon_MaintenanceReplaceLayerZeroOnADI_20261111.t.sol
+  s_f854dc51e6804c::t_4f217042b2220a 1-58
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "db3243e3d29dcc5f491d275a36ed47705da7feab",
+  "prompts": {},
+  "sessions": {
+    "s_f42b07b2098025": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "44a310e9-ccba-42ac-a3bf-ad3ed9268f1b",
+        "model": "claude-opus-5"
+      },
+      "human_author": "DhairyaSethi <55102840+DhairyaSethi@users.noreply.github.com>"
+    },
+    "s_f854dc51e6804c": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "487a67bc-5574-40f6-a15c-846cbb490158",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "DhairyaSethi <55102840+DhairyaSethi@users.noreply.github.com>"
+    }
+  }
+}
