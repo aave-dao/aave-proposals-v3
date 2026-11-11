@@ -12,6 +12,8 @@ import {MaintenanceReplaceLayerZeroOnADIAddresses as Addresses} from './Maintena
 /**
  * @dev Test for the a.DI LayerZero replacement payload on Monad
  * command: FOUNDRY_PROFILE=test forge test --match-path=src/20261111_Multi_MaintenanceReplaceLayerZeroOnADI/AaveV3Monad_MaintenanceReplaceLayerZeroOnADI_20261111.t.sol -vv
+ * forge-config: default.networks.network = "monad"
+ * forge-config: default.hardfork = "monad:MonadTen"
  */
 contract AaveV3Monad_MaintenanceReplaceLayerZeroOnADI_20261111_Test is
   MaintenanceReplaceLayerZeroOnADITestBase
