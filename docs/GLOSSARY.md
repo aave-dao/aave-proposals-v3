@@ -23,7 +23,7 @@ Terms specific to this repository and proposal development workflow.
 
 ### Payload
 
-[Smart contract](../src/20251201_AaveV3Ethereum_XAUtCapAdjustment/AaveV3Ethereum_XAUtCapAdjustment_20251201.sol) that executes protocol changes on a specific chain. Inherits from base classes like `AaveV3PayloadEthereum`. Deployed on the target chain.
+[Smart contract](https://github.com/aave-dao/aave-proposals-v3/blob/e0c05364a551fa8fe02f3de708664d2dc16d6ea9/src/20251201_AaveV3Ethereum_XAUtCapAdjustment/AaveV3Ethereum_XAUtCapAdjustment_20251201.sol) that executes protocol changes on a specific chain. Inherits from base classes like `AaveV3PayloadEthereum`. Deployed on the target chain.
 
 ### Config Engine
 
