@@ -90,7 +90,7 @@ jobs:
             if [[ "$file_name" == "README" ]]; then
               echo "Skipping $i (README.md file)"
             else
-              pnpm dlx @bgd-labs/aave-cli ipfs ${{ github.event_name != 'pull_request' && '-u' || ''}} $i
+              pnpm dlx @aave-dao/aave-helpers-js ipfs ${{ github.event_name != 'pull_request' && '-u' || ''}} $i
             fi
           done
 
