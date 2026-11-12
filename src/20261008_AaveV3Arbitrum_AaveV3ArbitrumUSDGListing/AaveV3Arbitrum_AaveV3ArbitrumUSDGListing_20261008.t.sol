@@ -3,6 +3,7 @@ pragma solidity ^0.8.0;
 
 import {GovV3Helpers} from 'aave-helpers/src/GovV3Helpers.sol';
 import {AaveV3Arbitrum} from 'aave-address-book/AaveV3Arbitrum.sol';
+import {ChainlinkArbitrum} from 'aave-address-book/ChainlinkArbitrum.sol';
 import {EngineFlags} from 'aave-v3-origin/contracts/extensions/v3-config-engine/EngineFlags.sol';
 import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config-engine/IAaveV3ConfigEngine.sol';
 import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
@@ -68,7 +69,7 @@ contract AaveV3Arbitrum_AaveV3ArbitrumUSDGListing_20261008_Test is ProtocolV3Tes
     assertEq(IPriceCapAdapterStable(adapter).getPriceCap(), 1.04e8, 'price cap should be 1.04 USD');
     assertEq(
       IPriceCapAdapterStable(adapter).ASSET_TO_USD_AGGREGATOR(),
-      0xE9Bd4Ca2CDacb56cd06c9C4C5231e69c33340B3c,
+      ChainlinkArbitrum.USDG__USD,
       'underlying aggregator should be the USDG / USD feed'
     );
   }

@@ -25,7 +25,12 @@ contract AaveV3Arbitrum_AaveV3ArbitrumUSDGListing_20261008 is AaveV3PayloadArbit
 
   function _postExecute() internal override {
     IERC20(USDG).forceApprove(address(AaveV3Arbitrum.POOL), USDG_SEED_AMOUNT);
-    AaveV3Arbitrum.POOL.supply(USDG, USDG_SEED_AMOUNT, address(AaveV3Arbitrum.DUST_BIN), 0);
+    AaveV3Arbitrum.POOL.supply({
+      asset: USDG,
+      amount: USDG_SEED_AMOUNT,
+      onBehalfOf: AaveV3Arbitrum.DUST_BIN,
+      referralCode: 0
+    });
   }
 
   function newListings() public pure override returns (IAaveV3ConfigEngine.Listing[] memory) {
