@@ -45,10 +45,6 @@ The GHO Stewards can raise the bucket capacity through the GHO Bucket Steward, b
 
 GHO is minted on demand when a loan is funded, with nothing minted upfront: the GHO Stewards mint to a recipient Safe held 2-of-3 by Aave Labs, LlamaRisk and TokenLogic, whose address will be published before the first mint. At repayment, the recipient Safe returns the GHO to the facilitator and the GHO Stewards burn it, reducing the bucket level. The facilitator has no fee, pause or rescue functions.
 
-### DAO balance-sheet funding
-
-The DAO authorises the pledging of DAO-held WETH and WBTC, and AAVE up to 50% of the collateral pledged to this route measured at the time of each pledge, on Aave V3 markets to borrow up to $25M of USDC or USDT for loan funding. This amount is additional to the 25M GHO bucket capacity. The Aave Finance Committee, led by TokenLogic, manages the position and subsequent drift in the non-AAVE share. This authorisation requires no onchain action in this payload.
-
 ## References
 
 - Implementation: [AaveV3Ethereum](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20261027_AaveV3Ethereum_AaveInstitutionalOTCFacilitator/AaveV3Ethereum_AaveInstitutionalOTCFacilitator_20261027.sol)
