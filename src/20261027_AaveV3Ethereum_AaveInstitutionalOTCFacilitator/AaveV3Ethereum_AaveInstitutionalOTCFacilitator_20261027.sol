@@ -22,7 +22,7 @@ contract AaveV3Ethereum_AaveInstitutionalOTCFacilitator_20261027 is IProposalGen
   string public constant AAVE_INSTITUTIONAL_FACILITATOR_NAME =
     'Aave Institutional - OTC Facilitator';
 
-  uint128 public constant AAVE_INSTITUTIONAL_FACILITATOR_CAPACITY = 25_000_000 ether;
+  uint128 public constant AAVE_INSTITUTIONAL_FACILITATOR_CAPACITY = 25_000_000e18;
 
   function execute() external {
     IGhoToken(GhoEthereum.GHO_TOKEN).addFacilitator(

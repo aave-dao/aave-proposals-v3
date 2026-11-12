@@ -105,9 +105,41 @@ contract AaveV3Ethereum_AaveInstitutionalOTCFacilitator_20261027_Test is Protoco
     assertTrue(facilitator.hasRole(facilitator.BURNER_ROLE(), GovernanceV3Ethereum.EXECUTOR_LVL_1));
   }
 
+  function test_executorCanRevokeRoles() public {
+    executePayload(vm, address(proposal));
+
+    vm.startPrank(GovernanceV3Ethereum.EXECUTOR_LVL_1);
+    facilitator.revokeRole(facilitator.MINTER_ROLE(), GhoEthereum.RISK_COUNCIL);
+    facilitator.revokeRole(facilitator.BURNER_ROLE(), GhoEthereum.RISK_COUNCIL);
+    vm.stopPrank();
+
+    assertFalse(facilitator.hasRole(facilitator.MINTER_ROLE(), GhoEthereum.RISK_COUNCIL));
+    assertFalse(facilitator.hasRole(facilitator.BURNER_ROLE(), GhoEthereum.RISK_COUNCIL));
+
+    vm.expectRevert(
+      abi.encodeWithSelector(
+        IAccessControl.AccessControlUnauthorizedAccount.selector,
+        GhoEthereum.RISK_COUNCIL,
+        facilitator.MINTER_ROLE()
+      )
+    );
+    vm.prank(GhoEthereum.RISK_COUNCIL);
+    facilitator.mint(recipient, 1);
+
+    vm.expectRevert(
+      abi.encodeWithSelector(
+        IAccessControl.AccessControlUnauthorizedAccount.selector,
+        GhoEthereum.RISK_COUNCIL,
+        facilitator.BURNER_ROLE()
+      )
+    );
+    vm.prank(GhoEthereum.RISK_COUNCIL);
+    facilitator.burn(1);
+  }
+
   function test_mint() public {
     uint256 amount = proposal.AAVE_INSTITUTIONAL_FACILITATOR_CAPACITY();
-    assertEq(amount, 25_000_000 ether);
+    assertEq(amount, 25_000_000e18);
 
     vm.expectRevert(
       abi.encodeWithSelector(
@@ -238,6 +270,12 @@ contract AaveV3Ethereum_AaveInstitutionalOTCFacilitator_20261027_Test is Protoco
     skip(1 days);
     vm.expectRevert(bytes('DEBOUNCE_NOT_RESPECTED'));
     bucketSteward.updateFacilitatorBucketCapacity(address(facilitator), 3 * currentCapacity);
+
+    skip(1);
+    bucketSteward.updateFacilitatorBucketCapacity(address(facilitator), 3 * currentCapacity);
     vm.stopPrank();
+
+    (uint256 bucketCapacity, ) = gho.getFacilitatorBucket(address(facilitator));
+    assertEq(bucketCapacity, 3 * currentCapacity);
   }
 }
