@@ -1,0 +1,43 @@
+{
+  "schemaVersion": "1.0",
+  "aip": "RiskParamsRecordCISample",
+  "version": 1,
+  "updatedAt": "2026-11-13",
+  "provider": "LlamaRisk (CI sample)",
+  "forumPost": "https://governance.aave.com/t/arfc-revision-of-eth-btc-collateral-efficiency-on-aave/25649",
+  "notes": [
+    "Sample modelled on the ETH & BTC collateral efficiency AIP to exercise the risk params CI check. Not a recommendation, removed before review."
+  ],
+  "markets": {
+    "AaveV3Ethereum": {
+      "reserveUpdates": [
+        { "asset": { "symbol": "WETH" }, "ltv": 8200, "liqThreshold": 8500 },
+        { "asset": { "symbol": "cbBTC" }, "ltv": 8200, "liqThreshold": 8600 },
+        { "asset": { "symbol": "weETH" }, "ltv": 7900, "liqThreshold": 8200 }
+      ]
+    },
+    "AaveV3Arbitrum": {
+      "reserveUpdates": [
+        { "asset": { "symbol": "WBTC" }, "ltv": 7900, "liqThreshold": 8300 }
+      ]
+    },
+    "AaveV3Base": {
+      "reserveUpdates": [
+        { "asset": { "symbol": "WETH" }, "ltv": 8200, "liqThreshold": 8500 },
+        {
+          "asset": { "symbol": "cbBTC" },
+          "ltv": 8200,
+          "liqThreshold": 8500,
+          "liqBonus": 650
+        }
+      ],
+      "eModeUpdates": [
+        {
+          "eMode": { "label": "cbBTC__USDC_GHO" },
+          "ltv": 8300,
+          "liqThreshold": 8600
+        }
+      ]
+    }
+  }
+}
