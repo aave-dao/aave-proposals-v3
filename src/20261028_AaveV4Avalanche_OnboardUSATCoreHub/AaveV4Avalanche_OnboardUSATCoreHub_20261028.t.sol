@@ -96,7 +96,7 @@ contract AaveV4Avalanche_OnboardUSATCoreHub_20261028_Test is ProtocolV4TestBaseA
       proposal.USAT()
     );
     IHub.SpokeConfig memory tokenizationCfg = hub.getSpokeConfig(assetId, tokenizationSpoke);
-    assertEq(uint256(tokenizationCfg.addCap), uint256(1_500_000), 'tokenization addCap mismatch');
+    assertEq(uint256(tokenizationCfg.addCap), uint256(21_500_000), 'tokenization addCap mismatch');
     assertEq(uint256(tokenizationCfg.drawCap), uint256(0), 'tokenization drawCap mismatch');
     assertEq(
       uint256(tokenizationCfg.riskPremiumThreshold),
@@ -314,7 +314,7 @@ contract AaveV4Avalanche_OnboardUSATCoreHub_20261028_Test is ProtocolV4TestBaseA
     assertEq(uint256(items[0].irData.baseDrawnRate), 0, 'baseDrawnRate');
     assertEq(uint256(items[0].irData.rateGrowthBeforeOptimal), 4_90, 'rateGrowthBeforeOptimal');
     assertEq(uint256(items[0].irData.rateGrowthAfterOptimal), 20_00, 'rateGrowthAfterOptimal');
-    assertEq(items[0].tokenization.addCap, 1_500_000, 'tokenization addCap');
+    assertEq(items[0].tokenization.addCap, 21_500_000, 'tokenization addCap');
     assertEq(
       items[0].tokenization.proxyAdminOwner,
       address(MiscAvalanche.V4_SECURITY_COUNCIL),

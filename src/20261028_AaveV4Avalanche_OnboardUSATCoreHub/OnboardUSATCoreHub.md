@@ -1,13 +1,13 @@
 ---
 title: "Onboard USAT to Aave V4 Core Instance on Avalanche"
 author: "@AaveLabs"
-date: "2026-10-28"
+date: "2026-11-13"
 discussions: "https://governance.aave.com/t/direct-to-aip-onboard-usat-to-aave-v4-core-instance-on-avalanche/25880"
 ---
 
 ## Simple Summary
 
-This proposal onboards USAT to the Aave V4 Core Instance on Avalanche. USAT is listed on the Core Hub and becomes borrowable, but not collateral, on the Main Spoke and the Ethena Ecosystem Spoke. A Tokenization Spoke for USAT is deployed with a 1,500,000 USAT add cap.
+This proposal onboards USAT to the Aave V4 Core Instance on Avalanche. USAT is listed on the Core Hub and becomes borrowable, but not collateral, on the Main Spoke and the Ethena Ecosystem Spoke. A Tokenization Spoke for USAT is deployed with a 21,500,000 USAT add cap.
 
 ## Motivation
 
@@ -46,7 +46,7 @@ Ethena Ecosystem Spoke: [`0xaf22446124e566e54845f65b722E4dCbf12b650A`](https://s
 | ---- | ---------------------- | ------- | ---------: | ---------: |
 | Core | Main Spoke             | USAT    | 60,000,000 |  5,000,000 |
 | Core | Ethena Ecosystem Spoke | USAT    |          0 | 50,000,000 |
-| Core | Tokenization Spoke     | USAT    |  1,500,000 |          0 |
+| Core | Tokenization Spoke     | USAT    | 21,500,000 |          0 |
 
 **Interest rate configuration**
 

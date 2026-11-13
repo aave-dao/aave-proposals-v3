@@ -34,7 +34,7 @@ export const config: ConfigFile = {
                 rateGrowthAfterOptimal: {kind: 'literal', value: '20'},
               },
               tokenization: {
-                addCap: '1500000',
+                addCap: '21500000',
                 proxyAdminOwner: 'MiscAvalanche.V4_SECURITY_COUNCIL',
                 name: 'Wrapped Aave Core USAT',
                 symbol: 'waCoreUSAT',

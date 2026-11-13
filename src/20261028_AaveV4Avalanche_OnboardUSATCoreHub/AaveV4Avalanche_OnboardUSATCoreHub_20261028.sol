@@ -38,7 +38,7 @@ contract AaveV4Avalanche_OnboardUSATCoreHub_20261028 is AaveV4PayloadAvalanche {
         rateGrowthAfterOptimal: uint32(20_00)
       }),
       tokenization: IConfigEngine.TokenizationSpokeConfig({
-        addCap: 1_500_000,
+        addCap: 21_500_000,
         proxyAdminOwner: address(MiscAvalanche.V4_SECURITY_COUNCIL),
         name: 'Wrapped Aave Core USAT',
         symbol: 'waCoreUSAT'
