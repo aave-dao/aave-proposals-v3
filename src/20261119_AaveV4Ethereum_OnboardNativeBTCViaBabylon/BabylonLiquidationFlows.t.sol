@@ -53,6 +53,10 @@ struct MarketPosition {
 interface IAaveAdapterFlows {
   error InvalidPositionSizes();
 
+  error InvalidPostLiquidationState();
+
+  error TBV_Frozen();
+
   function activateVault(
     bytes32 vaultId,
     BTCVaultBasicInfo memory info,
@@ -108,6 +112,10 @@ interface IAaveAdapterFlows {
 }
 
 interface IBTCVaultSwapFlows {
+  error EnforcedPause();
+
+  error EnforcedFreeze();
+
   function vaultsInfo(bytes32 vaultId) external view returns (uint128, uint128, uint128, uint8);
 
   function swapExitBtcForVault(bytes32 vaultId, uint256 maxExitBtc) external returns (uint256);
@@ -129,15 +137,19 @@ interface IBTCVaultRegistry {
   ) external view returns (BTCVaultProtocolInfo memory);
 }
 
-interface IApplicationRegistry {
-  function getVaultKeeperBTCKeyInVersion(address, address, uint16) external view returns (bytes32);
+struct AddressBTCKeyPair {
+  address ethAddress;
+  bytes32 btcPubKey;
+}
 
-  function getOperationBtcKeyAtEpochOrGenesis(
-    address,
-    address,
-    uint64,
-    bytes32
-  ) external view returns (bytes32);
+interface IApplicationRegistry {
+  error UnauthorizedVaultKeeper();
+
+  function getCurrentVaultKeepers(
+    address appEntryPoint
+  ) external view returns (AddressBTCKeyPair[] memory);
+
+  function getCurrentVaultKeepersVersion(address appEntryPoint) external view returns (uint16);
 }
 
 /**
@@ -203,7 +215,7 @@ contract BabylonLiquidationFlowsTest is BabylonTestBase {
     assertTrue(isCollateral, 'collateral enabled');
     assertFalse(isBorrowing, 'borrowing');
 
-    vm.expectRevert();
+    vm.expectRevert(IAaveAdapterFlows.TBV_Frozen.selector);
     vm.prank(user);
     adapter.borrowFromCorePosition(CORE_USDC_RESERVE_ID, 1e6, user);
 
@@ -328,6 +340,47 @@ contract BabylonLiquidationFlowsTest is BabylonTestBase {
     assertEq(adapter.getVaultUsageStatus(VAULT_1), VAULT_REDEEMED, 'redeemed');
   }
 
+  function test_arbitrage_revertsWith_notVaultKeeper() public {
+    _openAndBorrow(75_00);
+    _scaleBtcPrices(94_00);
+    _liquidateWithBtcVaultSwap();
+    skip(4 days);
+    _mockVaultProtocolInfo(VAULT_1);
+    deal(WBTC, arbitrageur, 2e8);
+    vm.startPrank(arbitrageur);
+    IERC20(WBTC).approve(BTC_VAULT_SWAP, type(uint256).max);
+    vm.expectRevert(IApplicationRegistry.UnauthorizedVaultKeeper.selector);
+    swap.swapExitBtcForVault(VAULT_1, type(uint256).max);
+    vm.stopPrank();
+  }
+
+  /// @dev While BTCVaultSwap is paused nobody can buy an escrowed vault, so its Core Hub debt
+  /// stays open until a guardian unpauses.
+  function test_arbitrage_blockedWhileBtcVaultSwapPaused() public {
+    _openAndBorrow(75_00);
+    _scaleBtcPrices(94_00);
+    _liquidateWithBtcVaultSwap();
+    skip(4 days);
+    _mockVaultProtocolInfo(VAULT_1);
+    address keeper = _vaultKeeper();
+    deal(WBTC, keeper, 2e8);
+    vm.prank(keeper);
+    IERC20(WBTC).approve(BTC_VAULT_SWAP, type(uint256).max);
+
+    vm.prank(BTC_VAULT_SWAP_MULTISIG);
+    IBTCVaultSwap(BTC_VAULT_SWAP).pause();
+    vm.expectRevert(IBTCVaultSwapFlows.EnforcedPause.selector);
+    vm.prank(keeper);
+    swap.swapExitBtcForVault(VAULT_1, type(uint256).max);
+    assertGt(IHub(CORE_HUB).getSpokeDrawnShares(CORE_WBTC_ASSET_ID, BTC_VAULT_SWAP), 0, 'debt');
+
+    vm.prank(V4_SECURITY_COUNCIL);
+    IBTCVaultSwap(BTC_VAULT_SWAP).unpause();
+    vm.prank(keeper);
+    swap.swapExitBtcForVault(VAULT_1, type(uint256).max);
+    assertEq(IHub(CORE_HUB).getSpokeDrawnShares(CORE_WBTC_ASSET_ID, BTC_VAULT_SWAP), 0, 'repaid');
+  }
+
   /// @dev A position worth less than its debt is liquidated in full and the shortfall is reported
   /// as a deficit on the Core Hub credit line.
   function test_liquidateUnderwater() public {
@@ -375,7 +428,7 @@ contract BabylonLiquidationFlowsTest is BabylonTestBase {
     _fundLiquidator({usdc: _debt * 2, wbtc: 1e8});
 
     // too little debt to consume the first vault
-    vm.expectRevert();
+    vm.expectRevert(IAaveAdapterFlows.InvalidPostLiquidationState.selector);
     vm.prank(liquidator);
     adapter.liquidate({
       borrower: user,
@@ -415,7 +468,7 @@ contract BabylonLiquidationFlowsTest is BabylonTestBase {
     vm.prank(V4_SECURITY_COUNCIL);
     IBTCVaultSwap(BTC_VAULT_SWAP).freeze();
 
-    vm.expectRevert();
+    vm.expectRevert(IBTCVaultSwapFlows.EnforcedFreeze.selector);
     vm.prank(liquidator);
     adapter.liquidateWithLLP({
       borrower: user,
@@ -452,7 +505,7 @@ contract BabylonLiquidationFlowsTest is BabylonTestBase {
       drawCap: 0
     });
 
-    vm.expectRevert();
+    vm.expectRevert(abi.encodeWithSelector(IHub.DrawCapExceeded.selector, 0));
     vm.prank(liquidator);
     adapter.liquidateWithLLP({
       borrower: user,
@@ -511,31 +564,38 @@ contract BabylonLiquidationFlowsTest is BabylonTestBase {
     _payout = payouts[0].amount;
   }
 
-  /// @dev Mocks the vault protocol info and the two Bitcoin keys the redemption reads.
+  /// @dev Only a vault keeper registered for the AaveAdapter in Babylon's ApplicationRegistry can
+  /// buy an escrowed vault. The registry is read as deployed and only the vault's protocol record,
+  /// which a peg-in would write, is mocked.
   function _arbitrage() internal {
     skip(4 days);
-    BTCVaultProtocolInfo memory protocolInfo;
-    vm.mockCall(
-      registry,
-      abi.encodeCall(IBTCVaultRegistry.getBtcVaultProtocolInfo, (VAULT_1)),
-      abi.encode(protocolInfo)
-    );
-    vm.mockCall(
-      applicationRegistry,
-      abi.encodeWithSelector(IApplicationRegistry.getVaultKeeperBTCKeyInVersion.selector),
-      abi.encode(bytes32(uint256(9)))
-    );
-    vm.mockCall(
-      applicationRegistry,
-      abi.encodeWithSelector(IApplicationRegistry.getOperationBtcKeyAtEpochOrGenesis.selector),
-      abi.encode(bytes32(uint256(9)))
-    );
-    deal(WBTC, arbitrageur, 2e8);
-    vm.startPrank(arbitrageur);
+    _mockVaultProtocolInfo(VAULT_1);
+    address keeper = _vaultKeeper();
+    deal(WBTC, keeper, 2e8);
+    vm.startPrank(keeper);
     IERC20(WBTC).approve(BTC_VAULT_SWAP, type(uint256).max);
     uint256 paid = swap.swapExitBtcForVault(VAULT_1, type(uint256).max);
     vm.stopPrank();
-    assertGe(paid, _payout, 'arbitrageur repays at least the draw');
+    assertGe(paid, _payout, 'keeper repays at least the draw');
+  }
+
+  /// @dev The vault is recorded under the current vault keeper roster.
+  function _mockVaultProtocolInfo(bytes32 vaultId) internal {
+    BTCVaultProtocolInfo memory protocolInfo;
+    protocolInfo.appVaultKeepersVersion = IApplicationRegistry(applicationRegistry)
+      .getCurrentVaultKeepersVersion(AAVE_ADAPTER);
+    vm.mockCall(
+      registry,
+      abi.encodeCall(IBTCVaultRegistry.getBtcVaultProtocolInfo, (vaultId)),
+      abi.encode(protocolInfo)
+    );
+  }
+
+  function _vaultKeeper() internal view returns (address) {
+    AddressBTCKeyPair[] memory keepers = IApplicationRegistry(applicationRegistry)
+      .getCurrentVaultKeepers(AAVE_ADAPTER);
+    assertGt(keepers.length, 0, 'no vault keeper registered');
+    return keepers[0].ethAddress;
   }
 
   /// @dev Computed without the adapter: the fee is 10% of the bonus on the whole vault, and the

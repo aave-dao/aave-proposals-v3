@@ -13,13 +13,13 @@ This proposal activates the Babylon market on Aave V4 Ethereum, which lets users
 
 Native BTC is the largest crypto asset, and today it can only be used on Aave through custodial or bridged wrappers. Babylon Trustless Bitcoin Vaults lock BTC on the Bitcoin network and represent it on Ethereum as vaultBTC, a transfer-restricted token whose supply equals the BTC locked. The Babylon Spoke accepts vaultBTC as its only collateral, so users can borrow stablecoins and WBTC against native BTC with no custodian, wrapper or bridge.
 
-Vaults cannot be partially seized and BTC redemption settles on Bitcoin over several days. Liquidations therefore go through Babylon's AaveAdapter, and BTCVaultSwap can pay the liquidator immediately in WBTC drawn from the Core Hub, which arbitrageurs later repay when they buy the escrowed vault.
+Vaults cannot be partially seized and BTC redemption settles on Bitcoin over several days. Liquidations therefore go through Babylon's AaveAdapter, and BTCVaultSwap can pay the liquidator immediately in WBTC drawn from the Core Hub, which the vault keepers registered with Babylon later repay when they buy the escrowed vault.
 
-The market launches with a permissioned set of depositors and a 20 BTC cap on Babylon's side. The caps below follow that launch size and are expected to grow with it.
+Babylon plans to launch as a private beta, with a permissioned set of depositors and a 20 BTC total cap. The caps below follow that launch size and are expected to grow with it.
 
 ## Specification
 
-The Babylon Hub, the Babylon Spoke and the Tokenization Spokes were deployed and configured ahead of this proposal, then handed over to the Aave V4 AccessManager on Ethereum. Their reserves, price feeds and interest rate curves are already set. No spoke is connected to a Hub before this proposal executes, except the Treasury Spoke as fee receiver of the Babylon Hub assets.
+The Babylon Hub, the Babylon Spoke and the Tokenization Spokes were deployed and configured ahead of this proposal, then handed over to the Aave V4 AccessManager on Ethereum, with their ProxyAdmins owned by the V4 Security Council. The payload reverts unless that handover is complete. Their reserves, price feeds and interest rate curves are already set. No spoke is connected to a Hub before this proposal executes, except the Treasury Spoke as fee receiver of the Babylon Hub assets.
 
 | Contract                         | Address                                                                                                                 |
 | -------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
@@ -38,20 +38,20 @@ The Babylon Hub, the Babylon Spoke and the Tokenization Spokes were deployed and
 
 These are already configured on the Babylon Spoke and are not changed by this proposal.
 
-| Chain    | Hub         | Spoke         | Reserve               | Collateral Factor | Max Liquidation Bonus | Borrowable | Collateral Risk | Liquidation Fee | Risk Premium Threshold |
-| -------- | ----------- | ------------- | --------------------- | ----------------- | --------------------- | ---------- | --------------- | --------------- | ---------------------- |
-| Ethereum | Babylon Hub | Babylon Spoke | Native BTC Collateral | 78%               | 5.55%                 | FALSE      | 0               | 0%              | 0                      |
-| Ethereum | Babylon Hub | Babylon Spoke | USDT                  | 0%                | -                     | TRUE       | 0               | -               | 0                      |
-| Ethereum | Babylon Hub | Babylon Spoke | USDC                  | 0%                | -                     | TRUE       | 0               | -               | 0                      |
-| Ethereum | Babylon Hub | Babylon Spoke | GHO                   | 0%                | -                     | TRUE       | 0               | -               | 0                      |
-| Ethereum | Babylon Hub | Babylon Spoke | WBTC                  | 0%                | -                     | TRUE       | 0               | -               | 0                      |
-| Ethereum | Core Hub    | Babylon Spoke | USDT                  | 0%                | -                     | TRUE       | 0               | -               | 0                      |
-| Ethereum | Core Hub    | Babylon Spoke | USDC                  | 0%                | -                     | TRUE       | 0               | -               | 0                      |
-| Ethereum | Core Hub    | Babylon Spoke | GHO                   | 0%                | -                     | TRUE       | 0               | -               | 0                      |
-| Ethereum | Core Hub    | Babylon Spoke | USDG                  | 0%                | -                     | TRUE       | 0               | -               | 0                      |
-| Ethereum | Core Hub    | Babylon Spoke | RLUSD                 | 0%                | -                     | TRUE       | 0               | -               | 0                      |
+| Chain    | Hub         | Spoke         | Reserve               | Collateral Factor | Max Liquidation Bonus | Borrowable | Collateral Risk | Liquidation Fee |
+| -------- | ----------- | ------------- | --------------------- | ----------------- | --------------------- | ---------- | --------------- | --------------- |
+| Ethereum | Babylon Hub | Babylon Spoke | Native BTC Collateral | 78%               | 5.55%                 | FALSE      | 0               | 0%              |
+| Ethereum | Babylon Hub | Babylon Spoke | USDT                  | 0%                | -                     | TRUE       | 0               | -               |
+| Ethereum | Babylon Hub | Babylon Spoke | USDC                  | 0%                | -                     | TRUE       | 0               | -               |
+| Ethereum | Babylon Hub | Babylon Spoke | GHO                   | 0%                | -                     | TRUE       | 0               | -               |
+| Ethereum | Babylon Hub | Babylon Spoke | WBTC                  | 0%                | -                     | TRUE       | 0               | -               |
+| Ethereum | Core Hub    | Babylon Spoke | USDT                  | 0%                | -                     | TRUE       | 0               | -               |
+| Ethereum | Core Hub    | Babylon Spoke | USDC                  | 0%                | -                     | TRUE       | 0               | -               |
+| Ethereum | Core Hub    | Babylon Spoke | GHO                   | 0%                | -                     | TRUE       | 0               | -               |
+| Ethereum | Core Hub    | Babylon Spoke | USDG                  | 0%                | -                     | TRUE       | 0               | -               |
+| Ethereum | Core Hub    | Babylon Spoke | RLUSD                 | 0%                | -                     | TRUE       | 0               | -               |
 
-The Spoke's liquidation fee on Native BTC Collateral is zero because a vault cannot be partially seized. Babylon's AaveAdapter charges 10% of the liquidator's bonus instead, shared between the Aave DAO and Babylon under the revenue-sharing agreement.
+The Spoke's liquidation fee on Native BTC Collateral is zero because a vault cannot be partially seized. Babylon's AaveAdapter charges 10% of the liquidator's bonus instead. It is paid to Babylon's fee recipient, and its split with the Aave DAO follows the revenue-sharing agreement.
 
 The dynamic liquidation bonus uses a liquidation bonus factor of 90% and a health factor for max bonus of 0.90.
 
@@ -106,7 +106,7 @@ It also creates two roles for BTCVaultSwap on the Aave V4 AccessManager:
 | 2001 | `BTC_VAULT_SWAP_FEE_ROLE`      | `setSwapFeeBps`                             | The Aave Labs, Babylon and LlamaRisk 2-of-3 Safe                                                | 5 days          |
 | 2002 | `BTC_VAULT_SWAP_GUARDIAN_ROLE` | `pause`, `unpause`, `freeze` and `unfreeze` | The 2-of-3 Safe, the V4 Security Council, the V4 Security Council executor and Executor Level 1 | None            |
 
-Role 2002 is the guardian of role 2001, so any of its members can cancel a scheduled fee change during the 5 days.
+Role 2002 is the guardian of role 2001, so any of its members can cancel a scheduled fee change during the 5 days. Both roles are administered through the AccessManager by its admins, Executor Level 1 and the V4 Security Council, which can change their members.
 
 ### Price feed Recommendation
 

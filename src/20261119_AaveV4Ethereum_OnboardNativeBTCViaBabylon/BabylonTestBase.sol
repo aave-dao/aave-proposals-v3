@@ -69,6 +69,17 @@ interface IBabylonSpoke {
   ) external;
 }
 
+interface ISafe {
+  function getOwners() external view returns (address[] memory);
+
+  function getThreshold() external view returns (uint256);
+
+  function getModulesPaginated(
+    address start,
+    uint256 pageSize
+  ) external view returns (address[] memory, address);
+}
+
 interface IOwnable {
   function owner() external view returns (address);
 
@@ -126,6 +137,10 @@ abstract contract BabylonTestBase is ProtocolV4TestBaseEthereum {
 
   // Babylon's deployment
   address internal constant AAVE_ADAPTER = 0xadca531564f3B26d0aAF48a044d741fD6cD571Ea;
+  address internal constant AAVE_ADAPTER_IMPLEMENTATION =
+    0xf86510AffA83a492200d7150901F5915bb48A067;
+  address internal constant BTC_VAULT_SWAP_IMPLEMENTATION =
+    0xbA1A3AF731e2561465c642623427883CaC9B8677;
   address internal constant VAULT_BTC = 0x69712D713FD30aBEF48b5D14eC2a9FB834D2c341;
   address internal constant BTC_VAULT_SWAP = 0xFe354b6A67E9a308B600d35B0b3e2e6F33f3c6d9;
   address internal constant BTC_VAULT_SWAP_PROXY_ADMIN = 0xdFf5C4b8baC0c3969a08F50926C4a3A72ec4a019;
@@ -204,16 +219,27 @@ abstract contract BabylonTestBase is ProtocolV4TestBaseEthereum {
   /// @dev The nine transactions of aave-v4 `AaveV4BabylonHandover`, which the deployer has not sent
   /// yet. Once it has, move `FORK_BLOCK` past it and delete this replay.
   function _replayHandover() internal {
+    _replayHandover({transactions: 9});
+  }
+
+  /// @dev Sends the first `transactions` of the nine handover transactions, in the script's order.
+  function _replayHandover(uint256 transactions) internal {
     require(
       IAccessManaged(BABYLON_HUB).authority() == DEPLOYMENT_ACCESS_MANAGER,
       'handover is on-chain: move FORK_BLOCK past it and delete the replay'
     );
     IAccessManagerEnumerable deployment = IAccessManagerEnumerable(DEPLOYMENT_ACCESS_MANAGER);
     vm.startPrank(DEPLOYER);
-    IOwnable(BABYLON_HUB_PROXY_ADMIN).transferOwnership(V4_SECURITY_COUNCIL);
-    IOwnable(BABYLON_SPOKE_PROXY_ADMIN).transferOwnership(V4_SECURITY_COUNCIL);
-    deployment.updateAuthority(BABYLON_HUB, ACCESS_MANAGER);
-    deployment.updateAuthority(BABYLON_SPOKE, ACCESS_MANAGER);
+    if (transactions > 0) IOwnable(BABYLON_HUB_PROXY_ADMIN).transferOwnership(V4_SECURITY_COUNCIL);
+    if (transactions > 1) {
+      IOwnable(BABYLON_SPOKE_PROXY_ADMIN).transferOwnership(V4_SECURITY_COUNCIL);
+    }
+    if (transactions > 2) deployment.updateAuthority(BABYLON_HUB, ACCESS_MANAGER);
+    if (transactions > 3) deployment.updateAuthority(BABYLON_SPOKE, ACCESS_MANAGER);
+    if (transactions < 9) {
+      vm.stopPrank();
+      return;
+    }
     deployment.revokeRole(200, DEPLOYER);
     deployment.revokeRole(400, DEPLOYER);
     deployment.revokeRole(101, DEPLOYMENT_HUB_CONFIGURATOR);

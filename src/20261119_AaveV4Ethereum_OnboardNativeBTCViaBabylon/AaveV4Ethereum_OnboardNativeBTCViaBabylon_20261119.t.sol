@@ -17,7 +17,9 @@ import {IAaveV4ConfigEngine} from 'aave-address-book/AaveV4.sol';
 import {EngineFlags} from 'aave-v4/config-engine/libraries/EngineFlags.sol';
 import {GovV3Helpers} from 'aave-helpers/src/GovV3Helpers.sol';
 import {IBTCVaultSwap} from './IBTCVaultSwap.sol';
-import {BabylonTestBase, IVaultBTC, IAaveAdapter, IBTCVaultSwapView, IBabylonSpoke, IOwnable} from './BabylonTestBase.sol';
+import {AaveV4EthereumGetters} from 'aave-address-book/AaveV4Ethereum.sol';
+import {AaveV4Ethereum_OnboardNativeBTCViaBabylon_20261119} from './AaveV4Ethereum_OnboardNativeBTCViaBabylon_20261119.sol';
+import {BabylonTestBase, IVaultBTC, IAaveAdapter, IBTCVaultSwapView, IBabylonSpoke, IOwnable, ISafe} from './BabylonTestBase.sol';
 
 interface IV4RiskSteward {
   function updateHubSpokeCaps(IAaveV4ConfigEngine.SpokeConfigUpdate[] calldata updates) external;
@@ -62,8 +64,6 @@ contract AaveV4Ethereum_OnboardNativeBTCViaBabylon_20261119_Test is BabylonTestB
    * forge-config: default.isolate = true
    */
   function test_defaultProposalExecution() public {
-    // the generic e2e supplies and liquidates directly, which the BabylonSpoke only allows through
-    // the AaveAdapter, so it runs on every other spoke and the Babylon flows are tested below
     defaultTest({
       reportName: 'AaveV4Ethereum_OnboardNativeBTCViaBabylon_20261119',
       spokes: _getSpokes(),
@@ -72,7 +72,12 @@ contract AaveV4Ethereum_OnboardNativeBTCViaBabylon_20261119_Test is BabylonTestB
       runE2E: false,
       testPositionManagers: false
     });
+    // the generic e2e supplies and liquidates directly, which the BabylonSpoke only allows through
+    // the AaveAdapter, so it runs on every other spoke and BabylonLiquidationFlows covers this one
+    vm.pauseGasMetering();
+    e2eTestAllSpokes({spokes: AaveV4EthereumGetters.getAllSpokes(), testPositionManagers: false});
     e2eTestAllTokenizationSpokes(_getTokenizationSpokes());
+    vm.resumeGasMetering();
   }
 
   // ─── state the payload relies on ───
@@ -223,6 +228,73 @@ contract AaveV4Ethereum_OnboardNativeBTCViaBabylon_20261119_Test is BabylonTestB
       V4_SECURITY_COUNCIL,
       'swap proxy admin owner'
     );
+    // an upgrade of either Babylon contract before the fork block must be reviewed again
+    assertEq(_implementation(AAVE_ADAPTER), AAVE_ADAPTER_IMPLEMENTATION, 'adapter implementation');
+    assertEq(_implementation(BTC_VAULT_SWAP), BTC_VAULT_SWAP_IMPLEMENTATION, 'swap implementation');
+  }
+
+  /// @dev The Aave Labs, Babylon and LlamaRisk Safe that holds the fee role.
+  function test_preState_btcVaultSwapMultisig() public view {
+    ISafe safe = ISafe(BTC_VAULT_SWAP_MULTISIG);
+    assertEq(safe.getThreshold(), 2, 'threshold');
+    address[] memory owners = safe.getOwners();
+    assertEq(owners.length, 3, 'owner count');
+    assertEq(owners[0], 0x2B99790c35a401be873FA7Eb514D9220736BB1cA, 'owner');
+    assertEq(owners[1], 0xb291232F480F41c75802C4a60F1D2AC03404Afef, 'owner');
+    assertEq(owners[2], 0x4095d75b9eE5BF443d5680135C4106f9179b5B28, 'owner');
+    (address[] memory modules, ) = safe.getModulesPaginated(address(1), 10);
+    assertEq(modules.length, 0, 'modules');
+    // keccak256("guard_manager.guard.address")
+    assertEq(
+      vm.load(
+        BTC_VAULT_SWAP_MULTISIG,
+        0x4a204f620c8c5ccdca3fd54d003badd85ba500436a431f0cbda4f558c93c34c8
+      ),
+      bytes32(0),
+      'guard'
+    );
+  }
+
+  // ─── the payload refuses a half-finished handover ───
+
+  function test_revertsWith_hubNotHandedOver() public {
+    _partialHandover({hubAuthority: false, spokeAuthority: true, hubAdmin: true, spokeAdmin: true});
+    vm.expectRevert('BABYLON_HUB_NOT_HANDED_OVER');
+    proposal.execute();
+    _expectGovernanceExecutionReverts();
+  }
+
+  function test_revertsWith_spokeNotHandedOver() public {
+    _partialHandover({hubAuthority: true, spokeAuthority: false, hubAdmin: true, spokeAdmin: true});
+    vm.expectRevert('BABYLON_SPOKE_NOT_HANDED_OVER');
+    proposal.execute();
+    _expectGovernanceExecutionReverts();
+  }
+
+  function test_revertsWith_hubProxyAdminNotHandedOver() public {
+    _partialHandover({hubAuthority: true, spokeAuthority: true, hubAdmin: false, spokeAdmin: true});
+    vm.expectRevert('BABYLON_HUB_PROXY_ADMIN_NOT_HANDED_OVER');
+    proposal.execute();
+    _expectGovernanceExecutionReverts();
+  }
+
+  function test_revertsWith_spokeProxyAdminNotHandedOver() public {
+    _partialHandover({hubAuthority: true, spokeAuthority: true, hubAdmin: true, spokeAdmin: false});
+    vm.expectRevert('BABYLON_SPOKE_PROXY_ADMIN_NOT_HANDED_OVER');
+    proposal.execute();
+    _expectGovernanceExecutionReverts();
+  }
+
+  function test_revertsWith_noHandover() public {
+    _partialHandover({
+      hubAuthority: false,
+      spokeAuthority: false,
+      hubAdmin: false,
+      spokeAdmin: false
+    });
+    vm.expectRevert('BABYLON_HUB_NOT_HANDED_OVER');
+    proposal.execute();
+    _expectGovernanceExecutionReverts();
   }
 
   // ─── the payload changes exactly what is intended ───
@@ -953,7 +1025,7 @@ contract AaveV4Ethereum_OnboardNativeBTCViaBabylon_20261119_Test is BabylonTestB
       uint256 shares = tokenizationSpoke.deposit(amount, supplier);
       assertEq(tokenizationSpoke.balanceOf(supplier), shares, 'shares');
       assertEq(tokenizationSpoke.totalAssets(), amount, 'total assets');
-      vm.expectRevert();
+      vm.expectRevert(abi.encodeWithSelector(IHub.AddCapExceeded.selector, addCaps[i]));
       tokenizationSpoke.deposit(1, supplier);
       vm.stopPrank();
     }
@@ -1360,6 +1432,43 @@ contract AaveV4Ethereum_OnboardNativeBTCViaBabylon_20261119_Test is BabylonTestB
     for (uint256 i; i < count; ++i) {
       roles[i] = role;
     }
+  }
+
+  /// @dev A fresh fork where only some of the handover transactions were sent.
+  function _partialHandover(
+    bool hubAuthority,
+    bool spokeAuthority,
+    bool hubAdmin,
+    bool spokeAdmin
+  ) internal {
+    vm.createSelectFork(vm.rpcUrl('mainnet'), FORK_BLOCK);
+    IAccessManagerEnumerable deployment = IAccessManagerEnumerable(DEPLOYMENT_ACCESS_MANAGER);
+    vm.startPrank(DEPLOYER);
+    if (hubAdmin) IOwnable(BABYLON_HUB_PROXY_ADMIN).transferOwnership(V4_SECURITY_COUNCIL);
+    if (spokeAdmin) IOwnable(BABYLON_SPOKE_PROXY_ADMIN).transferOwnership(V4_SECURITY_COUNCIL);
+    if (hubAuthority) deployment.updateAuthority(BABYLON_HUB, ACCESS_MANAGER);
+    if (spokeAuthority) deployment.updateAuthority(BABYLON_SPOKE, ACCESS_MANAGER);
+    vm.stopPrank();
+    proposal = new AaveV4Ethereum_OnboardNativeBTCViaBabylon_20261119();
+  }
+
+  /// @dev The PayloadsController reverts when the payload does, and nothing is connected.
+  function _expectGovernanceExecutionReverts() internal {
+    try this.executePayloadThroughGovernance() {
+      fail('payload executed');
+    } catch {}
+    assertFalse(
+      IHub(BABYLON_HUB).isSpokeListed(BABYLON_VAULT_BTC_ASSET_ID, BABYLON_SPOKE),
+      'spoke listed'
+    );
+    assertFalse(
+      IAccessManagerEnumerable(ACCESS_MANAGER).isRole(BTC_VAULT_SWAP_FEE_ROLE),
+      'fee role created'
+    );
+  }
+
+  function executePayloadThroughGovernance() external {
+    _executePayload();
   }
 
   function _payloadsController() internal view returns (address) {

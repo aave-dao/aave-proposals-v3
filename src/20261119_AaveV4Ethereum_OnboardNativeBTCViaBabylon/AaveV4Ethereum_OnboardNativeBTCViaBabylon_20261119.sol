@@ -8,6 +8,8 @@ import {AaveV4PayloadEthereum} from 'aave-helpers/src/v4-config-engine/AaveV4Pay
 import {IAaveV4ConfigEngine as IConfigEngine} from 'aave-address-book/AaveV4.sol';
 import {EngineFlags} from 'aave-v4/config-engine/libraries/EngineFlags.sol';
 import {IHub} from 'aave-v4/hub/interfaces/IHub.sol';
+import {IAccessManaged} from 'aave-v4/dependencies/openzeppelin/IAccessManaged.sol';
+import {Ownable} from 'aave-v4/dependencies/openzeppelin/Ownable.sol';
 import {V4RoleWiring} from 'aave-helpers/src/v4-config-engine/V4RoleWiring.sol';
 import {IBTCVaultSwap} from './IBTCVaultSwap.sol';
 
@@ -21,8 +23,14 @@ contract AaveV4Ethereum_OnboardNativeBTCViaBabylon_20261119 is AaveV4PayloadEthe
   // https://etherscan.io/address/0xAd0fd800cbaF41a4Ced1BEa3a4f90aA18CfBC49d
   address public constant BABYLON_HUB = 0xAd0fd800cbaF41a4Ced1BEa3a4f90aA18CfBC49d;
 
+  // https://etherscan.io/address/0x3DbE3F48A5BCc529e1863a6710A3bCDf58220Fc0
+  address public constant BABYLON_HUB_PROXY_ADMIN = 0x3DbE3F48A5BCc529e1863a6710A3bCDf58220Fc0;
+
   // https://etherscan.io/address/0x093d0d3bD44054155bae8C445C6832c762063278
   address public constant BABYLON_SPOKE = 0x093d0d3bD44054155bae8C445C6832c762063278;
+
+  // https://etherscan.io/address/0xdC8F506531907643679Af52f7e2E920290ab563E
+  address public constant BABYLON_SPOKE_PROXY_ADMIN = 0xdC8F506531907643679Af52f7e2E920290ab563E;
 
   // https://etherscan.io/address/0x6fE08B5AC181bbd67FE39039320B3eFCE786ec01
   address public constant BABYLON_USDT_TOKENIZATION_SPOKE =
@@ -54,6 +62,27 @@ contract AaveV4Ethereum_OnboardNativeBTCViaBabylon_20261119 is AaveV4PayloadEthe
   uint64 public constant BTC_VAULT_SWAP_GUARDIAN_ROLE = 2002;
 
   uint32 public constant BTC_VAULT_SWAP_FEE_EXECUTION_DELAY = 5 days;
+
+  /// @dev The Babylon Hub and Babylon Spoke must be fully handed over to Aave governance: both under
+  /// the Aave V4 AccessManager, with their ProxyAdmins owned by the V4 Security Council.
+  function _preExecute() internal view override {
+    require(
+      IAccessManaged(BABYLON_HUB).authority() == address(AaveV4Ethereum.ACCESS_MANAGER),
+      'BABYLON_HUB_NOT_HANDED_OVER'
+    );
+    require(
+      IAccessManaged(BABYLON_SPOKE).authority() == address(AaveV4Ethereum.ACCESS_MANAGER),
+      'BABYLON_SPOKE_NOT_HANDED_OVER'
+    );
+    require(
+      Ownable(BABYLON_HUB_PROXY_ADMIN).owner() == MiscEthereum.V4_SECURITY_COUNCIL,
+      'BABYLON_HUB_PROXY_ADMIN_NOT_HANDED_OVER'
+    );
+    require(
+      Ownable(BABYLON_SPOKE_PROXY_ADMIN).owner() == MiscEthereum.V4_SECURITY_COUNCIL,
+      'BABYLON_SPOKE_PROXY_ADMIN_NOT_HANDED_OVER'
+    );
+  }
 
   function accessManagerRoleMemberships()
     public
