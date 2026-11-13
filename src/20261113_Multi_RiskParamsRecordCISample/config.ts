@@ -3,6 +3,8 @@ export const config: ConfigFile = {
   rootOptions: {
     title: 'Risk Params Record CI Sample',
     author: 'Aave Labs',
+    snapshot: 'Direct-to-AIP',
+    force: true,
     markets: ['AaveV3Ethereum', 'AaveV3Arbitrum', 'AaveV3Base'],
     discussion:
       'https://governance.aave.com/t/arfc-revision-of-eth-btc-collateral-efficiency-on-aave/25649',

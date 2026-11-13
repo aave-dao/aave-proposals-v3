@@ -9,7 +9,7 @@ import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config
 /**
  * @title Risk Params Record CI Sample
  * @author Aave Labs
- * - Snapshot: TODO
+ * - Snapshot: Direct-to-AIP
  * - Discussion: https://governance.aave.com/t/arfc-revision-of-eth-btc-collateral-efficiency-on-aave/25649
  */
 contract AaveV3Base_RiskParamsRecordCISample_20261113 is AaveV3PayloadBase {
