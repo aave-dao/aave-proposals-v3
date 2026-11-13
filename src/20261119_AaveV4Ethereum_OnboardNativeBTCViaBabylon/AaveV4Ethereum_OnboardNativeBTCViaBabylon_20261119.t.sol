@@ -1526,14 +1526,15 @@ contract AaveV4Ethereum_OnboardNativeBTCViaBabylon_20261119_Test is BabylonTestB
     }
   }
 
-  /// @dev A fresh fork where only some of the handover transactions were sent.
+  /// @dev A fork from before the handover where only some of its transactions are sent.
   function _partialHandover(
     bool hubAuthority,
     bool spokeAuthority,
     bool hubAdmin,
     bool spokeAdmin
   ) internal {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), FORK_BLOCK);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), PRE_HANDOVER_BLOCK);
+    assertEq(IAccessManaged(BABYLON_HUB).authority(), DEPLOYMENT_ACCESS_MANAGER, 'not handed over');
     IAccessManagerEnumerable deployment = IAccessManagerEnumerable(DEPLOYMENT_ACCESS_MANAGER);
     vm.startPrank(DEPLOYER);
     if (hubAdmin) IOwnable(BABYLON_HUB_PROXY_ADMIN).transferOwnership(V4_SECURITY_COUNCIL);
@@ -1545,10 +1546,9 @@ contract AaveV4Ethereum_OnboardNativeBTCViaBabylon_20261119_Test is BabylonTestB
     proposal = new AaveV4Ethereum_OnboardNativeBTCViaBabylon_20261119();
   }
 
-  /// @dev A fresh fork with the handover done and neither guardian role granted.
+  /// @dev Mainnet as it is, handed over and with neither guardian role granted.
   function _handoverWithoutGuardianGrants() internal {
     vm.createSelectFork(vm.rpcUrl('mainnet'), FORK_BLOCK);
-    _replayHandover();
     proposal = new AaveV4Ethereum_OnboardNativeBTCViaBabylon_20261119();
   }
 

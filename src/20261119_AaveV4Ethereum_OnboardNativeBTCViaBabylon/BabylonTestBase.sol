@@ -95,7 +95,10 @@ interface IOwnable {
  * a test.
  */
 abstract contract BabylonTestBase is ProtocolV4TestBaseEthereum {
-  uint256 internal constant FORK_BLOCK = 26_407_400;
+  // after the handover of the Babylon Hub and Babylon Spoke, sent in blocks 26,409,220 to 26,409,237
+  uint256 internal constant FORK_BLOCK = 26_409_250;
+  // the deployer still controlled the market, used to test the payload's handover checks
+  uint256 internal constant PRE_HANDOVER_BLOCK = 26_407_400;
   uint256 internal constant BABYLON_SPOKE_DEPLOY_BLOCK = 26_394_302;
 
   // aave-address-book AaveV4Ethereum
@@ -224,7 +227,6 @@ abstract contract BabylonTestBase is ProtocolV4TestBaseEthereum {
 
   function setUp() public virtual {
     vm.createSelectFork(vm.rpcUrl('mainnet'), FORK_BLOCK);
-    _replayHandover();
     _replayGuardianGrants({pause: true, freeze: true});
     proposal = new AaveV4Ethereum_OnboardNativeBTCViaBabylon_20261119();
   }
@@ -242,38 +244,6 @@ abstract contract BabylonTestBase is ProtocolV4TestBaseEthereum {
     vm.startPrank(BABYLON_APPLICATION_TIMELOCK);
     if (pause) adapter.grantRole(APPLICATION_PAUSE_GUARDIAN, V4_SECURITY_COUNCIL);
     if (freeze) adapter.grantRole(APPLICATION_FREEZE_GUARDIAN, V4_SECURITY_COUNCIL);
-    vm.stopPrank();
-  }
-
-  /// @dev The nine transactions of aave-v4 `AaveV4BabylonHandover`, which the deployer has not sent
-  /// yet. Once it has, move `FORK_BLOCK` past it and delete this replay.
-  function _replayHandover() internal {
-    _replayHandover({transactions: 9});
-  }
-
-  /// @dev Sends the first `transactions` of the nine handover transactions, in the script's order.
-  function _replayHandover(uint256 transactions) internal {
-    require(
-      IAccessManaged(BABYLON_HUB).authority() == DEPLOYMENT_ACCESS_MANAGER,
-      'handover is on-chain: move FORK_BLOCK past it and delete the replay'
-    );
-    IAccessManagerEnumerable deployment = IAccessManagerEnumerable(DEPLOYMENT_ACCESS_MANAGER);
-    vm.startPrank(DEPLOYER);
-    if (transactions > 0) IOwnable(BABYLON_HUB_PROXY_ADMIN).transferOwnership(V4_SECURITY_COUNCIL);
-    if (transactions > 1) {
-      IOwnable(BABYLON_SPOKE_PROXY_ADMIN).transferOwnership(V4_SECURITY_COUNCIL);
-    }
-    if (transactions > 2) deployment.updateAuthority(BABYLON_HUB, ACCESS_MANAGER);
-    if (transactions > 3) deployment.updateAuthority(BABYLON_SPOKE, ACCESS_MANAGER);
-    if (transactions < 9) {
-      vm.stopPrank();
-      return;
-    }
-    deployment.revokeRole(200, DEPLOYER);
-    deployment.revokeRole(400, DEPLOYER);
-    deployment.revokeRole(101, DEPLOYMENT_HUB_CONFIGURATOR);
-    deployment.revokeRole(301, DEPLOYMENT_SPOKE_CONFIGURATOR);
-    deployment.renounceRole(ADMIN_ROLE, DEPLOYER);
     vm.stopPrank();
   }
 
