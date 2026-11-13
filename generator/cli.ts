@@ -1,4 +1,5 @@
 import 'dotenv/config';
+import fs from 'fs';
 import path from 'path';
 import {Command, Option} from 'commander';
 import {
@@ -65,6 +66,7 @@ import {wirePositionManager} from './features/v4/bundles/wirePositionManager';
 import {manageRole} from './features/v4/bundles/manageRole';
 import {hydrate as hydrateLabels} from './features/v4/labelRegistry';
 import {generateFiles, writeFiles} from './generator';
+import {configFileFromRecord} from './riskParams/load';
 import {getClient} from '@aave-dao/toolbox';
 import {getBlockNumber} from 'viem/actions';
 
@@ -87,6 +89,12 @@ program
     ).choices(Object.values(VOTING_NETWORK)),
   )
   .addOption(new Option('-c, --configFile <string>', 'path to config file'))
+  .addOption(
+    new Option('-r, --riskParams <string>', 'path to a risk params record (generator/riskParams)'),
+  )
+  .addOption(
+    new Option('--ops <string>', 'with -r: path to an ops file (decimals, price feeds, seed)'),
+  )
   .addOption(new Option('-u, --update', 'when used with -c update block height'))
   .allowExcessArguments(false)
   .parse(process.argv);
@@ -202,10 +210,18 @@ async function fetchMarketOptions(market: MarketIdentifier) {
   }
 }
 
-if (options.configFile) {
-  const {config: cfgFile}: {config: ConfigFile} = await import(
-    path.join(process.cwd(), options.configFile)
-  );
+let cfgFile: ConfigFile | undefined;
+const recordPath = options.riskParams;
+if (recordPath) {
+  const {riskParams: _r, ops, ...cli} = options;
+  cfgFile = await configFileFromRecord(recordPath, ops, cli);
+  delete options.riskParams;
+  delete options.ops;
+} else if (options.configFile) {
+  ({config: cfgFile} = await import(path.join(process.cwd(), options.configFile)));
+}
+
+if (cfgFile) {
   options = {...options, ...cfgFile.rootOptions};
   marketConfigs = cfgFile.marketOptions as any;
   for (const market of options.markets) {
@@ -315,6 +331,8 @@ if (options.configFile) {
 
 try {
   const files = await generateFiles(options, marketConfigs);
+  // keep the record next to config.ts, so the PR shows which version of the params was used
+  if (recordPath) files.riskParams = fs.readFileSync(recordPath, 'utf8');
   await writeFiles(options, files);
 } catch (e) {
   console.log(JSON.stringify({options, marketConfigs}, null, 2));

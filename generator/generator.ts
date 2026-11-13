@@ -95,18 +95,20 @@ export async function generateFiles(
   };
 }
 
+/** Returns false when the user declined to overwrite the file. */
 async function askBeforeWrite(options: Options, path: string, content: string) {
   if (!options.force && fs.existsSync(path)) {
     const currentContent = fs.readFileSync(path, {encoding: 'utf8'});
     // skip if content did not change
-    if (currentContent === content) return;
+    if (currentContent === content) return true;
     const force = await confirm({
       message: `A file already exists at ${path} do you want to overwrite`,
       default: false,
     });
-    if (!force) return;
+    if (!force) return false;
   }
   fs.writeFileSync(path, content);
+  return true;
 }
 
 /**
@@ -114,7 +116,10 @@ async function askBeforeWrite(options: Options, path: string, content: string) {
  * @param options
  * @param param1
  */
-export async function writeFiles(options: Options, {jsonConfig, scripts, aip, payloads}: Files) {
+export async function writeFiles(
+  options: Options,
+  {jsonConfig, scripts, aip, payloads, riskParams}: Files,
+) {
   const baseName = generateFolderName(options);
   const baseFolder = path.join(process.cwd(), 'src', baseName);
   const zkSyncBaseFolder = path.join(process.cwd(), 'zksync/src', baseName);
@@ -133,7 +138,14 @@ export async function writeFiles(options: Options, {jsonConfig, scripts, aip, pa
   }
 
   // write config
-  await askBeforeWrite(options, path.join(baseFolder, 'config.ts'), jsonConfig);
+  const configWritten = await askBeforeWrite(
+    options,
+    path.join(baseFolder, 'config.ts'),
+    jsonConfig,
+  );
+  // the risk params record follows config.ts, so the two never disagree
+  if (riskParams !== undefined && configWritten)
+    fs.writeFileSync(path.join(baseFolder, 'riskParams.json'), riskParams);
   // write aip
   if (options.markets.some((market) => !isWhitelabelMarket(market))) {
     await askBeforeWrite(options, path.join(baseFolder, `${options.shortName}.md`), aip);

@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "risk-params-ops/1.0",
+  "title": "Ops file for a risk params record",
+  "description": "Values that are not risk params, set by Aave Labs. Everything is optional: block numbers and token decimals are read onchain when missing, title and author can come from the CLI.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "rootOptions": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "title": { "type": "string", "minLength": 1 },
+        "author": { "type": "string", "minLength": 1 },
+        "discussion": { "type": "string" },
+        "snapshot": { "type": "string" },
+        "votingNetwork": { "enum": ["POLYGON", "ETHEREUM", "AVALANCHE"] }
+      }
+    },
+    "markets": {
+      "type": "object",
+      "propertyNames": { "pattern": "^AaveV3[A-Za-z0-9]+$" },
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "cache": {
+            "type": "object",
+            "required": ["blockNumber"],
+            "additionalProperties": false,
+            "properties": { "blockNumber": { "type": "integer", "minimum": 1 } }
+          },
+          "listings": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "decimals": { "type": "integer", "minimum": 0, "maximum": 36 },
+                "priceFeed": { "$ref": "#/$defs/address" },
+                "admin": {
+                  "anyOf": [{ "$ref": "#/$defs/address" }, { "const": "" }]
+                },
+                "seedAmount": {
+                  "type": "string",
+                  "pattern": "^[0-9]+(_[0-9]+)*(\\.[0-9]+(_[0-9]+)*)?(e[0-9]+)?$",
+                  "description": "Solidity number literal that is a positive whole amount, e.g. 100e18, 1.5e18 or 0.001e8"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "address": { "type": "string", "pattern": "^0x[0-9a-fA-F]{40}$" }
+  }
+}

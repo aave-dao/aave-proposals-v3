@@ -140,7 +140,7 @@ export const assetListing: FeatureModule<Listing[]> = {
       let listingTest = `function test_dustBinHas${cfg.assetSymbol}Funds() public {
             ${testExecuteProposal(market)}
             address aTokenAddress = ${market}.POOL.getReserveAToken(proposal.${cfg.assetSymbol}());
-            assertGe(IERC20(aTokenAddress).balanceOf(address(${market}.DUST_BIN)), 10 ** ${cfg.decimals});
+            assertGe(IERC20(aTokenAddress).balanceOf(address(${market}.DUST_BIN)), ${cfg.seedAmount ? `proposal.${cfg.assetSymbol}_SEED_AMOUNT()` : `10 ** ${cfg.decimals}`});
           }\n`;
       if (isAddress(cfg.admin)) {
         listingTest += `\nfunction test_${cfg.assetSymbol}Admin() public {
@@ -158,7 +158,7 @@ export const assetListing: FeatureModule<Listing[]> = {
           const chainId = CHAIN_TO_CHAIN_ID[getMarketChain(market)];
           let listingConstant = `// ${getExplorerLink(chainId, cfg.asset)}\n`;
           listingConstant += `address public constant ${cfg.assetSymbol} = ${translateJsAddressToSol(cfg.asset)};\n`;
-          listingConstant += `uint256 public constant ${cfg.assetSymbol}_SEED_AMOUNT = 1e${cfg.decimals};\n`;
+          listingConstant += `uint256 public constant ${cfg.assetSymbol}_SEED_AMOUNT = ${cfg.seedAmount || `1e${cfg.decimals}`};\n`;
           if (isAddress(cfg.priceFeed)) {
             listingConstant += `// ${getExplorerLink(chainId, cfg.priceFeed)}\n`;
           }
