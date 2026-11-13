@@ -92,9 +92,11 @@ export interface Listing
   asset: Hex;
   assetSymbol: string;
   rateStrategyParams: RateStrategyParams;
-  eModeCategory: string;
+  eModeCategory?: string;
   decimals: number;
   admin?: Hex | '';
+  /// Seed supplied to the dust bin, as a Solidity literal (e.g. `100e6`). Defaults to 1 token.
+  seedAmount?: string;
 }
 
 export interface ListingWithCustomImpl {
