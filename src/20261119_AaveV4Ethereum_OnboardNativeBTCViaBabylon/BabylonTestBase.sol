@@ -210,9 +210,9 @@ abstract contract BabylonTestBase is ProtocolV4TestBaseEthereum {
   uint64 internal constant SPOKE_CONFIGURATOR_ROLE = 301;
   uint64 internal constant SPOKE_USER_POSITION_UPDATER_ROLE = 302;
   // reserved, the proposal does not create it
-  uint64 internal constant BTC_VAULT_SWAP_DOMAIN_ADMIN_ROLE = 2000;
-  uint64 internal constant BTC_VAULT_SWAP_FEE_ROLE = 2001;
-  uint64 internal constant BTC_VAULT_SWAP_GUARDIAN_ROLE = 2002;
+  uint64 internal constant BABYLON_BTC_VAULT_SWAP_DOMAIN_ADMIN_ROLE = 2000;
+  uint64 internal constant BABYLON_BTC_VAULT_SWAP_FEE_ROLE = 2001;
+  uint64 internal constant BABYLON_BTC_VAULT_SWAP_GUARDIAN_ROLE = 2002;
   uint32 internal constant BTC_VAULT_SWAP_FEE_DELAY = 432_000;
 
   bytes32 internal constant IMPLEMENTATION_SLOT =

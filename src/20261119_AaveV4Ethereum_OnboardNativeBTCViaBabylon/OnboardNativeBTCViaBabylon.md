@@ -101,10 +101,10 @@ The proposal maps the restricted functions of the Babylon Hub and the Babylon Sp
 
 It also creates two roles for BTCVaultSwap on the Aave V4 AccessManager:
 
-| Role | Label                          | Functions                                   | Members                                                                                         | Execution delay |
-| ---- | ------------------------------ | ------------------------------------------- | ----------------------------------------------------------------------------------------------- | --------------- |
-| 2001 | `BTC_VAULT_SWAP_FEE_ROLE`      | `setSwapFeeBps`                             | The Aave Labs, Babylon and LlamaRisk 2-of-3 Safe                                                | 5 days          |
-| 2002 | `BTC_VAULT_SWAP_GUARDIAN_ROLE` | `pause`, `unpause`, `freeze` and `unfreeze` | The 2-of-3 Safe, the V4 Security Council, the V4 Security Council executor and Executor Level 1 | None            |
+| Role | Label                                  | Functions                                   | Members                                                                                         | Execution delay |
+| ---- | -------------------------------------- | ------------------------------------------- | ----------------------------------------------------------------------------------------------- | --------------- |
+| 2001 | `BABYLON_BTC_VAULT_SWAP_FEE_ROLE`      | `setSwapFeeBps`                             | The Aave Labs, Babylon and LlamaRisk 2-of-3 Safe                                                | 5 days          |
+| 2002 | `BABYLON_BTC_VAULT_SWAP_GUARDIAN_ROLE` | `pause`, `unpause`, `freeze` and `unfreeze` | The 2-of-3 Safe, the V4 Security Council, the V4 Security Council executor and Executor Level 1 | None            |
 
 Role 2002 is the guardian of role 2001, so any of its members can cancel a scheduled fee change during the 5 days. Both roles are administered through the AccessManager by its admins, Executor Level 1 and the V4 Security Council, which can change their members.
 

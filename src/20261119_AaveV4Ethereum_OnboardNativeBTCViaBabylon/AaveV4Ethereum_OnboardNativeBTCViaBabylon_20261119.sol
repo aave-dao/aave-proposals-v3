@@ -63,8 +63,8 @@ contract AaveV4Ethereum_OnboardNativeBTCViaBabylon_20261119 is AaveV4PayloadEthe
   // https://etherscan.io/address/0x828AA986e31D60Eb07EFC1543FF9297835f4A9f7
   address public constant BTC_VAULT_SWAP_MULTISIG = 0x828AA986e31D60Eb07EFC1543FF9297835f4A9f7;
 
-  uint64 public constant BTC_VAULT_SWAP_FEE_ROLE = 2001;
-  uint64 public constant BTC_VAULT_SWAP_GUARDIAN_ROLE = 2002;
+  uint64 public constant BABYLON_BTC_VAULT_SWAP_FEE_ROLE = 2001;
+  uint64 public constant BABYLON_BTC_VAULT_SWAP_GUARDIAN_ROLE = 2002;
 
   uint32 public constant BTC_VAULT_SWAP_FEE_EXECUTION_DELAY = 5 days;
 
@@ -117,7 +117,7 @@ contract AaveV4Ethereum_OnboardNativeBTCViaBabylon_20261119 is AaveV4PayloadEthe
     IConfigEngine.RoleMembership[] memory items = new IConfigEngine.RoleMembership[](5);
     items[0] = IConfigEngine.RoleMembership({
       authority: address(AaveV4Ethereum.ACCESS_MANAGER),
-      roleId: BTC_VAULT_SWAP_FEE_ROLE,
+      roleId: BABYLON_BTC_VAULT_SWAP_FEE_ROLE,
       account: BTC_VAULT_SWAP_MULTISIG,
       granted: true,
       executionDelay: BTC_VAULT_SWAP_FEE_EXECUTION_DELAY
@@ -138,20 +138,20 @@ contract AaveV4Ethereum_OnboardNativeBTCViaBabylon_20261119 is AaveV4PayloadEthe
     IConfigEngine.RoleUpdate[] memory items = new IConfigEngine.RoleUpdate[](2);
     items[0] = IConfigEngine.RoleUpdate({
       authority: address(AaveV4Ethereum.ACCESS_MANAGER),
-      roleId: BTC_VAULT_SWAP_FEE_ROLE,
+      roleId: BABYLON_BTC_VAULT_SWAP_FEE_ROLE,
       admin: EngineFlags.KEEP_CURRENT_UINT64,
-      guardian: BTC_VAULT_SWAP_GUARDIAN_ROLE,
+      guardian: BABYLON_BTC_VAULT_SWAP_GUARDIAN_ROLE,
       grantDelay: EngineFlags.KEEP_CURRENT_UINT32,
-      label: 'BTC_VAULT_SWAP_FEE_ROLE',
+      label: 'BABYLON_BTC_VAULT_SWAP_FEE_ROLE',
       labelUpdate: false
     });
     items[1] = IConfigEngine.RoleUpdate({
       authority: address(AaveV4Ethereum.ACCESS_MANAGER),
-      roleId: BTC_VAULT_SWAP_GUARDIAN_ROLE,
+      roleId: BABYLON_BTC_VAULT_SWAP_GUARDIAN_ROLE,
       admin: EngineFlags.KEEP_CURRENT_UINT64,
       guardian: EngineFlags.KEEP_CURRENT_UINT64,
       grantDelay: EngineFlags.KEEP_CURRENT_UINT32,
-      label: 'BTC_VAULT_SWAP_GUARDIAN_ROLE',
+      label: 'BABYLON_BTC_VAULT_SWAP_GUARDIAN_ROLE',
       labelUpdate: false
     });
     return items;
@@ -178,13 +178,13 @@ contract AaveV4Ethereum_OnboardNativeBTCViaBabylon_20261119 is AaveV4PayloadEthe
       authority: address(AaveV4Ethereum.ACCESS_MANAGER),
       target: BTC_VAULT_SWAP,
       selectors: feeSelectors,
-      roleId: BTC_VAULT_SWAP_FEE_ROLE
+      roleId: BABYLON_BTC_VAULT_SWAP_FEE_ROLE
     });
     btcVaultSwapWiring[1] = IConfigEngine.TargetFunctionRoleUpdate({
       authority: address(AaveV4Ethereum.ACCESS_MANAGER),
       target: BTC_VAULT_SWAP,
       selectors: guardianSelectors,
-      roleId: BTC_VAULT_SWAP_GUARDIAN_ROLE
+      roleId: BABYLON_BTC_VAULT_SWAP_GUARDIAN_ROLE
     });
 
     return
@@ -306,7 +306,7 @@ contract AaveV4Ethereum_OnboardNativeBTCViaBabylon_20261119 is AaveV4PayloadEthe
     return
       IConfigEngine.RoleMembership({
         authority: address(AaveV4Ethereum.ACCESS_MANAGER),
-        roleId: BTC_VAULT_SWAP_GUARDIAN_ROLE,
+        roleId: BABYLON_BTC_VAULT_SWAP_GUARDIAN_ROLE,
         account: account,
         granted: true,
         executionDelay: 0

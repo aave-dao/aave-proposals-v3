@@ -143,10 +143,13 @@ contract AaveV4Ethereum_OnboardNativeBTCViaBabylon_20261119_Test is BabylonTestB
 
   function test_preState_nothingConnected() public {
     IAccessManagerEnumerable accessManager = IAccessManagerEnumerable(ACCESS_MANAGER);
-    assertFalse(accessManager.isRole(BTC_VAULT_SWAP_FEE_ROLE), 'fee role exists');
-    assertFalse(accessManager.isRole(BTC_VAULT_SWAP_GUARDIAN_ROLE), 'guardian role exists');
-    assertFalse(accessManager.isRoleLabeled(BTC_VAULT_SWAP_FEE_ROLE), 'fee role labeled');
-    assertFalse(accessManager.isRoleLabeled(BTC_VAULT_SWAP_GUARDIAN_ROLE), 'guardian role labeled');
+    assertFalse(accessManager.isRole(BABYLON_BTC_VAULT_SWAP_FEE_ROLE), 'fee role exists');
+    assertFalse(accessManager.isRole(BABYLON_BTC_VAULT_SWAP_GUARDIAN_ROLE), 'guardian role exists');
+    assertFalse(accessManager.isRoleLabeled(BABYLON_BTC_VAULT_SWAP_FEE_ROLE), 'fee role labeled');
+    assertFalse(
+      accessManager.isRoleLabeled(BABYLON_BTC_VAULT_SWAP_GUARDIAN_ROLE),
+      'guardian role labeled'
+    );
 
     _assertSelectorRoles(BABYLON_HUB, _hubSelectors(), _repeat(ADMIN_ROLE, 7));
     _assertSelectorRoles(BABYLON_SPOKE, _spokeSelectors(), _repeat(ADMIN_ROLE, 9));
@@ -427,10 +430,10 @@ contract AaveV4Ethereum_OnboardNativeBTCViaBabylon_20261119_Test is BabylonTestB
 
     uint256 roleCountBefore = _rolesBefore.length;
     assertEq(accessManager.getRoleCount(), roleCountBefore + 2, 'role count');
-    assertEq(accessManager.getRole(roleCountBefore), BTC_VAULT_SWAP_FEE_ROLE, 'fee role');
+    assertEq(accessManager.getRole(roleCountBefore), BABYLON_BTC_VAULT_SWAP_FEE_ROLE, 'fee role');
     assertEq(
       accessManager.getRole(roleCountBefore + 1),
-      BTC_VAULT_SWAP_GUARDIAN_ROLE,
+      BABYLON_BTC_VAULT_SWAP_GUARDIAN_ROLE,
       'guardian role'
     );
     assertEq(_roleHash(ADMIN_ROLE), _roleBefore[ADMIN_ROLE], 'admin role changed');
@@ -618,69 +621,117 @@ contract AaveV4Ethereum_OnboardNativeBTCViaBabylon_20261119_Test is BabylonTestB
     IAccessManagerEnumerable accessManager = IAccessManagerEnumerable(ACCESS_MANAGER);
 
     uint64[] memory roles = new uint64[](5);
-    roles[0] = BTC_VAULT_SWAP_FEE_ROLE;
+    roles[0] = BABYLON_BTC_VAULT_SWAP_FEE_ROLE;
     for (uint256 i = 1; i < 5; ++i) {
-      roles[i] = BTC_VAULT_SWAP_GUARDIAN_ROLE;
+      roles[i] = BABYLON_BTC_VAULT_SWAP_GUARDIAN_ROLE;
     }
     _assertSelectorRoles(BTC_VAULT_SWAP, _btcVaultSwapSelectors(), roles);
-    assertEq(accessManager.getRoleTargetCount(BTC_VAULT_SWAP_FEE_ROLE), 1, 'fee role targets');
-    assertEq(accessManager.getRoleTarget(BTC_VAULT_SWAP_FEE_ROLE, 0), BTC_VAULT_SWAP);
-    assertEq(accessManager.getRoleTargetSelectorCount(BTC_VAULT_SWAP_FEE_ROLE, BTC_VAULT_SWAP), 1);
-    assertEq(accessManager.getRoleTargetCount(BTC_VAULT_SWAP_GUARDIAN_ROLE), 1, 'guardian targets');
-    assertEq(accessManager.getRoleTarget(BTC_VAULT_SWAP_GUARDIAN_ROLE, 0), BTC_VAULT_SWAP);
     assertEq(
-      accessManager.getRoleTargetSelectorCount(BTC_VAULT_SWAP_GUARDIAN_ROLE, BTC_VAULT_SWAP),
+      accessManager.getRoleTargetCount(BABYLON_BTC_VAULT_SWAP_FEE_ROLE),
+      1,
+      'fee role targets'
+    );
+    assertEq(accessManager.getRoleTarget(BABYLON_BTC_VAULT_SWAP_FEE_ROLE, 0), BTC_VAULT_SWAP);
+    assertEq(
+      accessManager.getRoleTargetSelectorCount(BABYLON_BTC_VAULT_SWAP_FEE_ROLE, BTC_VAULT_SWAP),
+      1
+    );
+    assertEq(
+      accessManager.getRoleTargetCount(BABYLON_BTC_VAULT_SWAP_GUARDIAN_ROLE),
+      1,
+      'guardian targets'
+    );
+    assertEq(accessManager.getRoleTarget(BABYLON_BTC_VAULT_SWAP_GUARDIAN_ROLE, 0), BTC_VAULT_SWAP);
+    assertEq(
+      accessManager.getRoleTargetSelectorCount(
+        BABYLON_BTC_VAULT_SWAP_GUARDIAN_ROLE,
+        BTC_VAULT_SWAP
+      ),
       4
     );
 
-    assertEq(accessManager.getLabelOfRole(BTC_VAULT_SWAP_FEE_ROLE), 'BTC_VAULT_SWAP_FEE_ROLE');
     assertEq(
-      accessManager.getLabelOfRole(BTC_VAULT_SWAP_GUARDIAN_ROLE),
-      'BTC_VAULT_SWAP_GUARDIAN_ROLE'
-    );
-    assertEq(accessManager.getRoleOfLabel('BTC_VAULT_SWAP_FEE_ROLE'), BTC_VAULT_SWAP_FEE_ROLE);
-    assertEq(
-      accessManager.getRoleOfLabel('BTC_VAULT_SWAP_GUARDIAN_ROLE'),
-      BTC_VAULT_SWAP_GUARDIAN_ROLE
+      accessManager.getLabelOfRole(BABYLON_BTC_VAULT_SWAP_FEE_ROLE),
+      'BABYLON_BTC_VAULT_SWAP_FEE_ROLE'
     );
     assertEq(
-      accessManager.getRoleGuardian(BTC_VAULT_SWAP_FEE_ROLE),
-      BTC_VAULT_SWAP_GUARDIAN_ROLE,
+      accessManager.getLabelOfRole(BABYLON_BTC_VAULT_SWAP_GUARDIAN_ROLE),
+      'BABYLON_BTC_VAULT_SWAP_GUARDIAN_ROLE'
+    );
+    assertEq(
+      accessManager.getRoleOfLabel('BABYLON_BTC_VAULT_SWAP_FEE_ROLE'),
+      BABYLON_BTC_VAULT_SWAP_FEE_ROLE
+    );
+    assertEq(
+      accessManager.getRoleOfLabel('BABYLON_BTC_VAULT_SWAP_GUARDIAN_ROLE'),
+      BABYLON_BTC_VAULT_SWAP_GUARDIAN_ROLE
+    );
+    assertEq(
+      accessManager.getRoleGuardian(BABYLON_BTC_VAULT_SWAP_FEE_ROLE),
+      BABYLON_BTC_VAULT_SWAP_GUARDIAN_ROLE,
       'fee role guardian'
     );
-    assertEq(accessManager.getRoleGuardian(BTC_VAULT_SWAP_GUARDIAN_ROLE), 0, 'guardian guardian');
+    assertEq(
+      accessManager.getRoleGuardian(BABYLON_BTC_VAULT_SWAP_GUARDIAN_ROLE),
+      0,
+      'guardian guardian'
+    );
     // 2000 stays reserved for a domain admin role
-    assertEq(BTC_VAULT_SWAP_FEE_ROLE, 2001, 'fee role id');
-    assertEq(BTC_VAULT_SWAP_GUARDIAN_ROLE, 2002, 'guardian role id');
-    assertFalse(accessManager.isRole(BTC_VAULT_SWAP_DOMAIN_ADMIN_ROLE), 'domain admin role');
-    assertEq(accessManager.getRoleMemberCount(BTC_VAULT_SWAP_DOMAIN_ADMIN_ROLE), 0);
-    uint64[2] memory newRoles = [BTC_VAULT_SWAP_FEE_ROLE, BTC_VAULT_SWAP_GUARDIAN_ROLE];
+    assertEq(BABYLON_BTC_VAULT_SWAP_FEE_ROLE, 2001, 'fee role id');
+    assertEq(BABYLON_BTC_VAULT_SWAP_GUARDIAN_ROLE, 2002, 'guardian role id');
+    assertFalse(
+      accessManager.isRole(BABYLON_BTC_VAULT_SWAP_DOMAIN_ADMIN_ROLE),
+      'domain admin role'
+    );
+    assertEq(accessManager.getRoleMemberCount(BABYLON_BTC_VAULT_SWAP_DOMAIN_ADMIN_ROLE), 0);
+    uint64[2] memory newRoles = [
+      BABYLON_BTC_VAULT_SWAP_FEE_ROLE,
+      BABYLON_BTC_VAULT_SWAP_GUARDIAN_ROLE
+    ];
     for (uint256 i; i < newRoles.length; ++i) {
       assertEq(accessManager.getRoleAdmin(newRoles[i]), ADMIN_ROLE, 'role admin');
       assertEq(accessManager.getRoleGrantDelay(newRoles[i]), 0, 'grant delay');
     }
 
-    assertEq(accessManager.getRoleMemberCount(BTC_VAULT_SWAP_FEE_ROLE), 1, 'fee role members');
-    assertEq(accessManager.getRoleMember(BTC_VAULT_SWAP_FEE_ROLE, 0), BTC_VAULT_SWAP_MULTISIG);
+    assertEq(
+      accessManager.getRoleMemberCount(BABYLON_BTC_VAULT_SWAP_FEE_ROLE),
+      1,
+      'fee role members'
+    );
+    assertEq(
+      accessManager.getRoleMember(BABYLON_BTC_VAULT_SWAP_FEE_ROLE, 0),
+      BTC_VAULT_SWAP_MULTISIG
+    );
     _assertAccess({
-      role: BTC_VAULT_SWAP_FEE_ROLE,
+      role: BABYLON_BTC_VAULT_SWAP_FEE_ROLE,
       account: BTC_VAULT_SWAP_MULTISIG,
       executionDelay: 432_000
     });
 
     address[4] memory guardians = _btcVaultSwapGuardians();
-    assertEq(accessManager.getRoleMemberCount(BTC_VAULT_SWAP_GUARDIAN_ROLE), 4, 'guardians');
+    assertEq(
+      accessManager.getRoleMemberCount(BABYLON_BTC_VAULT_SWAP_GUARDIAN_ROLE),
+      4,
+      'guardians'
+    );
     for (uint256 i; i < guardians.length; ++i) {
-      assertEq(accessManager.getRoleMember(BTC_VAULT_SWAP_GUARDIAN_ROLE, i), guardians[i]);
-      _assertAccess({role: BTC_VAULT_SWAP_GUARDIAN_ROLE, account: guardians[i], executionDelay: 0});
+      assertEq(accessManager.getRoleMember(BABYLON_BTC_VAULT_SWAP_GUARDIAN_ROLE, i), guardians[i]);
+      _assertAccess({
+        role: BABYLON_BTC_VAULT_SWAP_GUARDIAN_ROLE,
+        account: guardians[i],
+        executionDelay: 0
+      });
     }
     // the fee role stays with the 2-of-3
     address[3] memory others = [V4_SECURITY_COUNCIL, V4_SECURITY_COUNCIL_EXECUTOR, EXECUTOR_LVL_1];
     for (uint256 i; i < others.length; ++i) {
-      (bool isMember, ) = accessManager.hasRole(BTC_VAULT_SWAP_FEE_ROLE, others[i]);
+      (bool isMember, ) = accessManager.hasRole(BABYLON_BTC_VAULT_SWAP_FEE_ROLE, others[i]);
       assertFalse(isMember, 'fee role member');
     }
-    (bool stewardIsGuardian, ) = accessManager.hasRole(BTC_VAULT_SWAP_GUARDIAN_ROLE, RISK_STEWARD);
+    (bool stewardIsGuardian, ) = accessManager.hasRole(
+      BABYLON_BTC_VAULT_SWAP_GUARDIAN_ROLE,
+      RISK_STEWARD
+    );
     assertFalse(stewardIsGuardian, 'risk steward guardian');
 
     // a grant delay set by the proposal would only show after its setback
@@ -1562,7 +1613,7 @@ contract AaveV4Ethereum_OnboardNativeBTCViaBabylon_20261119_Test is BabylonTestB
       'spoke listed'
     );
     assertFalse(
-      IAccessManagerEnumerable(ACCESS_MANAGER).isRole(BTC_VAULT_SWAP_FEE_ROLE),
+      IAccessManagerEnumerable(ACCESS_MANAGER).isRole(BABYLON_BTC_VAULT_SWAP_FEE_ROLE),
       'fee role created'
     );
   }
