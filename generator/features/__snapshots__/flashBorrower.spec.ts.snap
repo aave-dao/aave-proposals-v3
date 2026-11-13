@@ -1,0 +1,54 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`feature: flashBorrower > multiple addresses > should return reasonable code 1`] = `
+{
+  "code": {
+    "constants": [
+      "// https://etherscan.io/address/0xD2CC30cB0e77B80a34b879ccB6da67799e4ecD83
+address public constant NEW_FLASH_BORROWER_1 = 0xD2CC30cB0e77B80a34b879ccB6da67799e4ecD83;",
+      "// https://etherscan.io/address/0xFdFA036213C375808135744E865767FD90897F0A
+address public constant NEW_FLASH_BORROWER_2 = 0xFdFA036213C375808135744E865767FD90897F0A;",
+      "// https://etherscan.io/address/0x3171FC716942a40DEDe8dD0B7885dd9f44eca176
+address public constant NEW_FLASH_BORROWER_3 = 0x3171FC716942a40DEDe8dD0B7885dd9f44eca176;",
+    ],
+    "execute": [
+      "AaveV3Ethereum.ACL_MANAGER.addFlashBorrower(NEW_FLASH_BORROWER_1);",
+      "AaveV3Ethereum.ACL_MANAGER.addFlashBorrower(NEW_FLASH_BORROWER_2);",
+      "AaveV3Ethereum.ACL_MANAGER.addFlashBorrower(NEW_FLASH_BORROWER_3);",
+    ],
+  },
+  "test": {
+    "fn": [
+      "function test_isFlashBorrower() external {
+          GovV3Helpers.executePayload(vm,address(proposal));
+          assertEq(AaveV3Ethereum.ACL_MANAGER.isFlashBorrower(proposal.NEW_FLASH_BORROWER_1()), true);
+          assertEq(AaveV3Ethereum.ACL_MANAGER.isFlashBorrower(proposal.NEW_FLASH_BORROWER_2()), true);
+          assertEq(AaveV3Ethereum.ACL_MANAGER.isFlashBorrower(proposal.NEW_FLASH_BORROWER_3()), true);
+        }",
+    ],
+  },
+}
+`;
+
+exports[`feature: flashBorrower > single address (legacy config) > should return reasonable code 1`] = `
+{
+  "code": {
+    "constants": [
+      "// https://etherscan.io/address/0xD2CC30cB0e77B80a34b879ccB6da67799e4ecD83
+address public constant NEW_FLASH_BORROWER = 0xD2CC30cB0e77B80a34b879ccB6da67799e4ecD83;",
+    ],
+    "execute": [
+      "AaveV3Ethereum.ACL_MANAGER.addFlashBorrower(NEW_FLASH_BORROWER);",
+    ],
+  },
+  "test": {
+    "fn": [
+      "function test_isFlashBorrower() external {
+          GovV3Helpers.executePayload(vm,address(proposal));
+          bool isFlashBorrower = AaveV3Ethereum.ACL_MANAGER.isFlashBorrower(proposal.NEW_FLASH_BORROWER());
+          assertEq(isFlashBorrower, true);
+        }",
+    ],
+  },
+}
+`;
