@@ -21,6 +21,25 @@ import {AaveV4EthereumGetters} from 'aave-address-book/AaveV4Ethereum.sol';
 import {AaveV4Ethereum_OnboardNativeBTCViaBabylon_20261119} from './AaveV4Ethereum_OnboardNativeBTCViaBabylon_20261119.sol';
 import {BabylonTestBase, IVaultBTC, IAaveAdapter, IBTCVaultSwapView, IBabylonSpoke, IOwnable, ISafe} from './BabylonTestBase.sol';
 
+interface ITimelock {
+  function schedule(
+    address target,
+    uint256 value,
+    bytes calldata data,
+    bytes32 predecessor,
+    bytes32 salt,
+    bool useShortDelay
+  ) external;
+
+  function execute(
+    address target,
+    uint256 value,
+    bytes calldata payload,
+    bytes32 predecessor,
+    bytes32 salt
+  ) external payable;
+}
+
 interface IV4RiskSteward {
   function updateHubSpokeCaps(IAaveV4ConfigEngine.SpokeConfigUpdate[] calldata updates) external;
 }
@@ -283,6 +302,79 @@ contract AaveV4Ethereum_OnboardNativeBTCViaBabylon_20261119_Test is BabylonTestB
     vm.expectRevert('BABYLON_SPOKE_PROXY_ADMIN_NOT_HANDED_OVER');
     proposal.execute();
     _expectGovernanceExecutionReverts();
+  }
+
+  function test_revertsWith_pauseGuardianNotGranted() public {
+    _handoverWithoutGuardianGrants();
+    _replayGuardianGrants({pause: false, freeze: true});
+    vm.expectRevert('AAVE_ADAPTER_PAUSE_GUARDIAN_NOT_GRANTED');
+    proposal.execute();
+    _expectGovernanceExecutionReverts();
+  }
+
+  function test_revertsWith_freezeGuardianNotGranted() public {
+    _handoverWithoutGuardianGrants();
+    _replayGuardianGrants({pause: true, freeze: false});
+    vm.expectRevert('AAVE_ADAPTER_FREEZE_GUARDIAN_NOT_GRANTED');
+    proposal.execute();
+    _expectGovernanceExecutionReverts();
+  }
+
+  /// @dev The state of mainnet today: handed over or not, the proposal cannot execute before
+  /// Babylon's grants.
+  function test_revertsWith_guardiansNotGranted() public {
+    _handoverWithoutGuardianGrants();
+    vm.expectRevert('AAVE_ADAPTER_PAUSE_GUARDIAN_NOT_GRANTED');
+    proposal.execute();
+    _expectGovernanceExecutionReverts();
+  }
+
+  /// @dev A grant queued on Babylon's timelock is not enough, it must be executed.
+  function test_revertsWith_guardianGrantsOnlyQueued() public {
+    _handoverWithoutGuardianGrants();
+    bytes memory grant = abi.encodeCall(
+      IAaveAdapter.grantRole,
+      (APPLICATION_PAUSE_GUARDIAN, V4_SECURITY_COUNCIL)
+    );
+    vm.prank(BABYLON_INTERIM_GOVERNANCE);
+    ITimelock(BABYLON_APPLICATION_TIMELOCK).schedule({
+      target: AAVE_ADAPTER,
+      value: 0,
+      data: grant,
+      predecessor: bytes32(0),
+      salt: bytes32(0),
+      useShortDelay: false
+    });
+    vm.expectRevert('AAVE_ADAPTER_PAUSE_GUARDIAN_NOT_GRANTED');
+    proposal.execute();
+
+    // executed through the timelock after its 5 days, by anyone
+    skip(5 days);
+    ITimelock(BABYLON_APPLICATION_TIMELOCK).execute({
+      target: AAVE_ADAPTER,
+      value: 0,
+      payload: grant,
+      predecessor: bytes32(0),
+      salt: bytes32(0)
+    });
+    assertTrue(
+      IAaveAdapter(AAVE_ADAPTER).hasRole(APPLICATION_PAUSE_GUARDIAN, V4_SECURITY_COUNCIL),
+      'granted through the timelock'
+    );
+  }
+
+  /// @dev The roles the guard requires let the V4 Security Council act on Babylon's adapter.
+  function test_guardianRoles() public view {
+    IAaveAdapter adapter = IAaveAdapter(AAVE_ADAPTER);
+    assertEq(APPLICATION_PAUSE_GUARDIAN, keccak256('APPLICATION_PAUSE_GUARDIAN'), 'pause role id');
+    assertEq(APPLICATION_FREEZE_GUARDIAN, keccak256('APPLICATION_FREEZE_GUARDIAN'), 'freeze id');
+    assertEq(proposal.APPLICATION_PAUSE_GUARDIAN(), APPLICATION_PAUSE_GUARDIAN, 'payload pause id');
+    assertEq(proposal.APPLICATION_FREEZE_GUARDIAN(), APPLICATION_FREEZE_GUARDIAN, 'payload id');
+    assertEq(proposal.AAVE_ADAPTER(), AAVE_ADAPTER, 'payload adapter');
+    assertTrue(adapter.hasRole(APPLICATION_PAUSE_GUARDIAN, V4_SECURITY_COUNCIL), 'pause guardian');
+    assertTrue(adapter.hasRole(APPLICATION_FREEZE_GUARDIAN, V4_SECURITY_COUNCIL), 'freeze');
+    // Babylon's timelock administers the adapter's roles
+    assertTrue(adapter.hasRole(bytes32(0), BABYLON_APPLICATION_TIMELOCK), 'role admin');
   }
 
   function test_revertsWith_noHandover() public {
@@ -1449,6 +1541,14 @@ contract AaveV4Ethereum_OnboardNativeBTCViaBabylon_20261119_Test is BabylonTestB
     if (hubAuthority) deployment.updateAuthority(BABYLON_HUB, ACCESS_MANAGER);
     if (spokeAuthority) deployment.updateAuthority(BABYLON_SPOKE, ACCESS_MANAGER);
     vm.stopPrank();
+    _replayGuardianGrants({pause: true, freeze: true});
+    proposal = new AaveV4Ethereum_OnboardNativeBTCViaBabylon_20261119();
+  }
+
+  /// @dev A fresh fork with the handover done and neither guardian role granted.
+  function _handoverWithoutGuardianGrants() internal {
+    vm.createSelectFork(vm.rpcUrl('mainnet'), FORK_BLOCK);
+    _replayHandover();
     proposal = new AaveV4Ethereum_OnboardNativeBTCViaBabylon_20261119();
   }
 

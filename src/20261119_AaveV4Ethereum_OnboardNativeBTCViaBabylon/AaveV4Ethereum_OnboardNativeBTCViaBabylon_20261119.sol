@@ -10,6 +10,7 @@ import {EngineFlags} from 'aave-v4/config-engine/libraries/EngineFlags.sol';
 import {IHub} from 'aave-v4/hub/interfaces/IHub.sol';
 import {IAccessManaged} from 'aave-v4/dependencies/openzeppelin/IAccessManaged.sol';
 import {Ownable} from 'aave-v4/dependencies/openzeppelin/Ownable.sol';
+import {IAccessControl} from 'openzeppelin-contracts/contracts/access/IAccessControl.sol';
 import {V4RoleWiring} from 'aave-helpers/src/v4-config-engine/V4RoleWiring.sol';
 import {IBTCVaultSwap} from './IBTCVaultSwap.sol';
 
@@ -51,6 +52,10 @@ contract AaveV4Ethereum_OnboardNativeBTCViaBabylon_20261119 is AaveV4PayloadEthe
   // https://etherscan.io/address/0x69712D713FD30aBEF48b5D14eC2a9FB834D2c341
   address public constant VAULT_BTC = 0x69712D713FD30aBEF48b5D14eC2a9FB834D2c341;
 
+  // Babylon's AaveAdapter, the liquidation manager of the Babylon Spoke
+  // https://etherscan.io/address/0xadca531564f3B26d0aAF48a044d741fD6cD571Ea
+  address public constant AAVE_ADAPTER = 0xadca531564f3B26d0aAF48a044d741fD6cD571Ea;
+
   // https://etherscan.io/address/0xFe354b6A67E9a308B600d35B0b3e2e6F33f3c6d9
   address public constant BTC_VAULT_SWAP = 0xFe354b6A67E9a308B600d35B0b3e2e6F33f3c6d9;
 
@@ -63,9 +68,28 @@ contract AaveV4Ethereum_OnboardNativeBTCViaBabylon_20261119 is AaveV4PayloadEthe
 
   uint32 public constant BTC_VAULT_SWAP_FEE_EXECUTION_DELAY = 5 days;
 
+  // AaveAdapter roles that pause and unpause, and freeze, Babylon's side of the market
+  bytes32 public constant APPLICATION_PAUSE_GUARDIAN = keccak256('APPLICATION_PAUSE_GUARDIAN');
+  bytes32 public constant APPLICATION_FREEZE_GUARDIAN = keccak256('APPLICATION_FREEZE_GUARDIAN');
+
   /// @dev The Babylon Hub and Babylon Spoke must be fully handed over to Aave governance: both under
-  /// the Aave V4 AccessManager, with their ProxyAdmins owned by the V4 Security Council.
+  /// the Aave V4 AccessManager, with their ProxyAdmins owned by the V4 Security Council. Babylon must
+  /// also have granted the V4 Security Council both guardian roles on its AaveAdapter.
   function _preExecute() internal view override {
+    require(
+      IAccessControl(AAVE_ADAPTER).hasRole(
+        APPLICATION_PAUSE_GUARDIAN,
+        MiscEthereum.V4_SECURITY_COUNCIL
+      ),
+      'AAVE_ADAPTER_PAUSE_GUARDIAN_NOT_GRANTED'
+    );
+    require(
+      IAccessControl(AAVE_ADAPTER).hasRole(
+        APPLICATION_FREEZE_GUARDIAN,
+        MiscEthereum.V4_SECURITY_COUNCIL
+      ),
+      'AAVE_ADAPTER_FREEZE_GUARDIAN_NOT_GRANTED'
+    );
     require(
       IAccessManaged(BABYLON_HUB).authority() == address(AaveV4Ethereum.ACCESS_MANAGER),
       'BABYLON_HUB_NOT_HANDED_OVER'

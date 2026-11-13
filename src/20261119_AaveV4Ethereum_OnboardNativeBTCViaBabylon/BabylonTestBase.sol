@@ -34,6 +34,8 @@ interface IAaveAdapter {
   function liquidationFeeBps() external view returns (uint256);
 
   function hasRole(bytes32 role, address account) external view returns (bool);
+
+  function grantRole(bytes32 role, address account) external;
 }
 
 interface IBTCVaultSwapView {
@@ -144,6 +146,16 @@ abstract contract BabylonTestBase is ProtocolV4TestBaseEthereum {
   address internal constant VAULT_BTC = 0x69712D713FD30aBEF48b5D14eC2a9FB834D2c341;
   address internal constant BTC_VAULT_SWAP = 0xFe354b6A67E9a308B600d35B0b3e2e6F33f3c6d9;
   address internal constant BTC_VAULT_SWAP_PROXY_ADMIN = 0xdFf5C4b8baC0c3969a08F50926C4a3A72ec4a019;
+  // the only proposer on Babylon's timelocks
+  address internal constant BABYLON_INTERIM_GOVERNANCE = 0xcd9e54acA1B7fb9BcE10208201b01559A6B01949;
+  // admin of the AaveAdapter roles, 5 day delay
+  address internal constant BABYLON_APPLICATION_TIMELOCK =
+    0x0a575185163a2446F7A0433f48B0395ca4A9fBb0;
+  // keccak256 of the role names, as Babylon's AaveAdapter defines them
+  bytes32 internal constant APPLICATION_PAUSE_GUARDIAN =
+    0xca16ee6b20db9286cfb1a9beee8e8a87e6c3bf160859d756b3335bdcde7871d2;
+  bytes32 internal constant APPLICATION_FREEZE_GUARDIAN =
+    0x0c21afe69d1e0290272fa2a9f3df85589b7946c6845042b725f40fa7a09e18a0;
   // Aave Labs, Babylon and LlamaRisk 2-of-3 Safe
   address internal constant BTC_VAULT_SWAP_MULTISIG = 0x828AA986e31D60Eb07EFC1543FF9297835f4A9f7;
 
@@ -213,7 +225,24 @@ abstract contract BabylonTestBase is ProtocolV4TestBaseEthereum {
   function setUp() public virtual {
     vm.createSelectFork(vm.rpcUrl('mainnet'), FORK_BLOCK);
     _replayHandover();
+    _replayGuardianGrants({pause: true, freeze: true});
     proposal = new AaveV4Ethereum_OnboardNativeBTCViaBabylon_20261119();
+  }
+
+  /// @dev Babylon grants the V4 Security Council both guardian roles on the AaveAdapter through its
+  /// application timelock, which it has not queued yet. Once the grants are executed on-chain, move
+  /// `FORK_BLOCK` past them and delete this replay.
+  function _replayGuardianGrants(bool pause, bool freeze) internal {
+    IAaveAdapter adapter = IAaveAdapter(AAVE_ADAPTER);
+    require(
+      !adapter.hasRole(APPLICATION_PAUSE_GUARDIAN, V4_SECURITY_COUNCIL) &&
+        !adapter.hasRole(APPLICATION_FREEZE_GUARDIAN, V4_SECURITY_COUNCIL),
+      'guardian roles are on-chain: move FORK_BLOCK past the grants and delete the replay'
+    );
+    vm.startPrank(BABYLON_APPLICATION_TIMELOCK);
+    if (pause) adapter.grantRole(APPLICATION_PAUSE_GUARDIAN, V4_SECURITY_COUNCIL);
+    if (freeze) adapter.grantRole(APPLICATION_FREEZE_GUARDIAN, V4_SECURITY_COUNCIL);
+    vm.stopPrank();
   }
 
   /// @dev The nine transactions of aave-v4 `AaveV4BabylonHandover`, which the deployer has not sent

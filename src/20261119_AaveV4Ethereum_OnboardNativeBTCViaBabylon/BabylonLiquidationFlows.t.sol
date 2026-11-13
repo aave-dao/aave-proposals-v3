@@ -161,9 +161,6 @@ interface IApplicationRegistry {
  * command: FOUNDRY_PROFILE=test forge test --match-path=src/20261119_AaveV4Ethereum_OnboardNativeBTCViaBabylon/BabylonLiquidationFlows.t.sol -vv
  */
 contract BabylonLiquidationFlowsTest is BabylonTestBase {
-  // Babylon's Interim Governance Safe, admin of the AaveAdapter pause state
-  address internal constant INTERIM_GOVERNANCE = 0xcd9e54acA1B7fb9BcE10208201b01559A6B01949;
-
   bytes32 internal constant VAULT_1 = keccak256('vault-1');
   bytes32 internal constant VAULT_2 = keccak256('vault-2');
   bytes32 internal constant CLAIMER_BTC_KEY = bytes32(uint256(7));
@@ -669,7 +666,7 @@ contract BabylonLiquidationFlowsTest is BabylonTestBase {
 
   /// @dev Babylon unfreezes the AaveAdapter once the proposal has executed.
   function _unfreezeAdapter() internal {
-    vm.prank(INTERIM_GOVERNANCE);
+    vm.prank(BABYLON_INTERIM_GOVERNANCE);
     adapter.unfreeze();
   }
 

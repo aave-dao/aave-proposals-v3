@@ -19,7 +19,7 @@ Babylon plans to launch as a private beta, with a permissioned set of depositors
 
 ## Specification
 
-The Babylon Hub, the Babylon Spoke and the Tokenization Spokes were deployed and configured ahead of this proposal, then handed over to the Aave V4 AccessManager on Ethereum, with their ProxyAdmins owned by the V4 Security Council. The payload reverts unless that handover is complete. Their reserves, price feeds and interest rate curves are already set. No spoke is connected to a Hub before this proposal executes, except the Treasury Spoke as fee receiver of the Babylon Hub assets.
+The Babylon Hub, the Babylon Spoke and the Tokenization Spokes were deployed and configured ahead of this proposal, then handed over to the Aave V4 AccessManager on Ethereum, with their ProxyAdmins owned by the V4 Security Council. The payload reverts unless that handover is complete, and unless Babylon has granted the V4 Security Council the `APPLICATION_PAUSE_GUARDIAN` and `APPLICATION_FREEZE_GUARDIAN` roles on its AaveAdapter, so the Security Council can pause and freeze Babylon's side of the market from the first block. Their reserves, price feeds and interest rate curves are already set. No spoke is connected to a Hub before this proposal executes, except the Treasury Spoke as fee receiver of the Babylon Hub assets.
 
 | Contract                         | Address                                                                                                                 |
 | -------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
