@@ -11,7 +11,7 @@
   "markets": {
     "AaveV3Ethereum": {
       "reserveUpdates": [
-        { "asset": { "symbol": "WETH" }, "ltv": 8200, "liqThreshold": 8500 },
+        { "asset": { "symbol": "WETH" }, "ltv": 8250, "liqThreshold": 8500 },
         { "asset": { "symbol": "cbBTC" }, "ltv": 8200, "liqThreshold": 8600 },
         { "asset": { "symbol": "weETH" }, "ltv": 7900, "liqThreshold": 8200 }
       ]
