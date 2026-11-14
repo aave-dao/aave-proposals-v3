@@ -616,6 +616,28 @@ contract AaveV4Ethereum_OnboardNativeBTCViaBabylon_20261119_Test is BabylonTestB
     }
   }
 
+  function test_rolesWired() public {
+    IAaveV4ConfigEngine.TargetFunctionRoleUpdate[] memory items = proposal
+      .accessManagerTargetFunctionRoleUpdates();
+    _executePayload();
+    assertEq(items.length, 7, 'target function role updates');
+    for (uint256 i; i < items.length; ++i) {
+      address referenceTarget;
+      if (items[i].target == BABYLON_HUB) {
+        referenceTarget = CORE_HUB;
+      } else if (items[i].target == BABYLON_SPOKE) {
+        referenceTarget = MAIN_SPOKE;
+      } else {
+        assertEq(items[i].target, BTC_VAULT_SWAP, 'target');
+      }
+      _assertRolesWired(items[i], referenceTarget);
+    }
+  }
+
+  function test_spokeDeployment() public view {
+    _assertSpokeDeployment(ISpoke(BABYLON_SPOKE));
+  }
+
   function test_btcVaultSwapRoles() public {
     _executePayload();
     IAccessManagerEnumerable accessManager = IAccessManagerEnumerable(ACCESS_MANAGER);

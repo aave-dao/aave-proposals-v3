@@ -11,11 +11,13 @@ This proposal activates the Babylon market on Aave V4 Ethereum, which lets users
 
 ## Motivation
 
-Native BTC is the largest crypto asset, and today it can only be used on Aave through custodial or bridged wrappers. Babylon Trustless Bitcoin Vaults lock BTC on the Bitcoin network and represent it on Ethereum as vaultBTC, a transfer-restricted token whose supply equals the BTC locked. The Babylon Spoke accepts vaultBTC as its only collateral, so users can borrow stablecoins and WBTC against native BTC with no custodian, wrapper or bridge.
+The Aave V4 integration with Babylon Trustless Bitcoin Vaults protocol enables onboarding of non-custodial native BTC collateral on Aave. Depositors can borrow allowed loan assets against this collateral, with no third-party custodian, signer consortium, or threshold-signature group holding the underlying BTC.
 
-Vaults cannot be partially seized and BTC redemption settles on Bitcoin over several days. Liquidations therefore go through Babylon's AaveAdapter, and BTCVaultSwap can pay the liquidator immediately in WBTC drawn from the Core Hub, which the vault keepers registered with Babylon later repay when they buy the escrowed vault.
+The BTC Vault Swap Spoke enables permissionless liquidation on Aave despite the underlying collateral settling natively on Bitcoin. Any liquidator can settle the position by receiving wrapped BTC for a small premium, while arbitrageurs purchase the escrowed vaults and handle the BTC-side redemption. Mechanism described in Specification.
 
-Babylon plans to launch as a private beta, with a permissioned set of depositors and a 20 BTC total cap. The caps below follow that launch size and are expected to grow with it.
+Every escrowed BTCVault is backed by wrapped BTC borrowed from the Hub, creating new borrow demand for that asset. At launch this is WBTC, Aave's largest BTC reserve and presently underutilized on the borrow side; the integration can use any other wrapped BTC.
+
+Native BTC as collateral on Aave V4 also serves as a composable primitive for the broader BTC DeFi ecosystem. Other projects can build new BTC-collateralized products on top, extending Aave’s reach into BTC-native DeFi.
 
 ## Specification
 
@@ -118,6 +120,8 @@ Native BTC Collateral is priced with the [Chainlink BTC/USD SVR feed](https://et
 - Tests: [AaveV4Ethereum](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20261119_AaveV4Ethereum_OnboardNativeBTCViaBabylon/AaveV4Ethereum_OnboardNativeBTCViaBabylon_20261119.t.sol)
 - [Snapshot](https://snapshot.org/#/s:aavedao.eth/proposal/0x83f578d707966014cd4ef7c7972f4af89c14964970f3f7088c688c07a6d915c0)
 - [Discussion](https://governance.aave.com/t/arfc-onboard-native-btc-as-collateral-to-aave-v4-via-babylon-trustless-bitcoin-vaults/25845)
+- [LlamaRisk recommendation](https://governance.aave.com/t/arfc-onboard-native-btc-as-collateral-to-aave-v4-via-babylon-trustless-bitcoin-vaults/25845/10)
+- [Risk assessment](https://governance.aave.com/t/babylon-native-btc-on-aave-ethereum-assessments/25907/2)
 
 ## Copyright
 
