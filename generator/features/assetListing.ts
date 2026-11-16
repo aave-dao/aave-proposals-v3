@@ -33,7 +33,7 @@ async function fetchListing(market: MarketIdentifier): Promise<Listing> {
     client: getClient(CHAIN_TO_CHAIN_ID[chain], {}),
     address: asset,
   });
-  let symbol = '';
+  let symbol: string | undefined;
   try {
     symbol = await erc20.read.symbol();
   } catch (e) {
@@ -51,7 +51,7 @@ async function fetchListing(market: MarketIdentifier): Promise<Listing> {
 
   return {
     assetSymbol,
-    ...(symbol && symbol !== assetSymbol ? {onchainSymbol: symbol} : {}),
+    ...(symbol !== undefined ? {onchainSymbol: symbol} : {}),
     decimals,
     priceFeed: await addressPrompt({message: 'PriceFeed address', required: true}),
     ...(await fetchCollateralUpdate(market, true)),
