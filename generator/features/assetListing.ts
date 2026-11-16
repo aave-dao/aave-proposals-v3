@@ -35,15 +35,17 @@ async function fetchListing(market: MarketIdentifier): Promise<Listing> {
     console.log(e);
   }
   const decimals = await erc20.read.decimals();
+  const assetSymbol = toSolidityIdentifier(
+    await stringPrompt({
+      message: 'Enter the asset symbol',
+      required: true,
+      defaultValue: symbol,
+    }),
+  );
 
   return {
-    assetSymbol: toSolidityIdentifier(
-      await stringPrompt({
-        message: 'Enter the asset symbol',
-        required: true,
-        defaultValue: symbol,
-      }),
-    ),
+    assetSymbol,
+    ...(symbol && symbol !== assetSymbol ? {onchainSymbol: symbol} : {}),
     decimals,
     priceFeed: await addressPrompt({message: 'PriceFeed address', required: true}),
     ...(await fetchCollateralUpdate(market, true)),
@@ -109,6 +111,7 @@ function listingOverrides(cfgs: Listing[], fnName: string): string[] {
                  listing: IAaveV3ConfigEngine.Listing({
                    ${renderListingSol({
                      ...cfg,
+                     assetSymbol: cfg.onchainSymbol ?? cfg.assetSymbol,
                      asset: translateJsAddressToSol(cfg.asset),
                      priceFeed: translateJsAddressToSol(cfg.priceFeed),
                    })}

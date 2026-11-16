@@ -1,7 +1,12 @@
 // sum.test.js
 import {expect, describe, it} from 'vitest';
 import {assetListing, assetListingCustom} from './assetListing';
-import {MOCK_OPTIONS, assetListingConfig, assetListingCustomConfig} from './mocks/configs';
+import {
+  MOCK_OPTIONS,
+  assetListingConfig,
+  assetListingCustomConfig,
+  ptListingConfig,
+} from './mocks/configs';
 import {generateFiles} from '../generator';
 import {FEATURE, MarketConfigs} from '../types';
 import {compileGeneratedFiles} from '../utils/compileGeneratedFiles';
@@ -27,6 +32,19 @@ describe('feature: assetListing', () => {
       configs: {},
     });
     expect(output).toMatchSnapshot();
+  });
+
+  it('asserts listings against the onchain symbol', () => {
+    const output = assetListing.build({
+      options: MOCK_OPTIONS,
+      market: 'AaveV3Ethereum',
+      cfg: ptListingConfig,
+      cache: {blockNumber: 42},
+      configs: {},
+    });
+    expect(output.code?.fn?.join('\n')).toContain('assetSymbol: "PT_sUSDe_TEST"');
+    expect(output.test?.fn?.join('\n')).toContain('assetSymbol: "PT-sUSDe-TEST"');
+    expect(output.test?.fn?.join('\n')).not.toContain('assetSymbol: "PT_sUSDe_TEST"');
   });
 
   it('should properly generate files', async () => {

@@ -70,6 +70,7 @@ export const assetListingCustomConfig: ListingWithCustomImpl[] = [
 export const ptListingConfig: Listing[] = [
   {
     assetSymbol: 'PT_sUSDe_TEST',
+    onchainSymbol: 'PT-sUSDe-TEST',
     decimals: 18,
     priceFeed: '0x9c823f4e19Ef68347810a9C139619273b8282b7e',
     ltv: '0',
