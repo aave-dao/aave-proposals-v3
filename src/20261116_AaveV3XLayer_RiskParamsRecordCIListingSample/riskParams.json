@@ -1,0 +1,58 @@
+{
+  "schemaVersion": "1.0",
+  "aip": "RiskParamsRecordCIListingSample",
+  "version": 1,
+  "updatedAt": "2026-11-13",
+  "provider": "LlamaRisk (CI sample)",
+  "forumPost": "https://governance.aave.com/t/direct-to-aip-onboard-pt-usdg-25feb2027-on-x-layer/25733",
+  "notes": [
+    "Sample modelled on the PT-USDG-25FEB2027 X Layer listing, replayed at that proposal's fork block to exercise the risk params CI check. Not a recommendation, removed before review."
+  ],
+  "markets": {
+    "AaveV3XLayer": {
+      "listings": [
+        {
+          "asset": {
+            "symbol": "PT_USDG_25FEB2027",
+            "address": "0x5ea1f184af5ced57725213d8267b5c4c834557d4"
+          },
+          "priceFeed": "0xB81f0B2cCAC262288fED924DA750CFc7CC450530",
+          "ltv": 0,
+          "liqThreshold": 0,
+          "liqBonus": 0,
+          "liqProtocolFee": 1000,
+          "reserveFactor": 2000,
+          "supplyCap": 30000000,
+          "borrowCap": 1,
+          "borrowable": false,
+          "flashloanable": true,
+          "rates": {
+            "optimal": 4500,
+            "base": 0,
+            "slope1": 1000,
+            "slope2": 30000
+          }
+        }
+      ],
+      "eModeCreates": [
+        {
+          "ref": "new1",
+          "label": "PT_USDG_25FEB2027__Stablecoins",
+          "ltv": 9100,
+          "liqThreshold": 9300,
+          "liqBonus": 250,
+          "isolated": false,
+          "collateral": [
+            { "symbol": "PT_USDG_25FEB2027" },
+            { "symbol": "PT_USDG_29OCT2026" }
+          ],
+          "borrowable": [
+            { "symbol": "USDT" },
+            { "symbol": "GHO" },
+            { "symbol": "USDC" }
+          ]
+        }
+      ]
+    }
+  }
+}
