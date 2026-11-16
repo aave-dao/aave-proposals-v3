@@ -200,7 +200,7 @@ contract AaveV3Avalanche_PermissionedGSMUSATAvalanche_20261109_Part2_Test is
     );
     assertEq(
       priceStrategy.getGhoPriceInAsset(1 ether, false),
-      waCoreUsat.previewWithdraw(1 ether) / USAT_TO_GHO_SCALE
+      waCoreUsat.convertToShares(1 ether / USAT_TO_GHO_SCALE)
     );
   }
 
@@ -279,13 +279,23 @@ contract AaveV3Avalanche_PermissionedGSMUSATAvalanche_20261109_Part2_Test is
     assertEq(gho.balanceOf(safe), expectedGho);
     assertEq(proposal.GHO_RESERVE().getUsed(address(gsm)), expectedGho);
 
-    gho.approve(address(gsm), expectedGho);
-    (uint256 assetBought, ) = gsm.buyAsset(shares, safe);
+    // The buy rounds against the buyer (Gsm._calculateGhoAmountForBuyAsset, FixedPriceStrategy4626
+    // previewMint, ceil) and the reserve restores at most what it used, so the GHO from the sell buys
+    // back the shares that `expectedGho` covers: convertToShares floors, as getGhoPriceInAsset(_, false)
+    uint256 buyShares = waCoreUsat.convertToShares(expectedGho / USAT_TO_GHO_SCALE);
+    uint256 buyCost = waCoreUsat.previewMint(buyShares) * USAT_TO_GHO_SCALE;
+    assertLe(buyCost, expectedGho, 'the sell proceeds cover the buy');
+    assertApproxEqAbs(buyShares, shares, 1, 'round trip loses at most one share unit');
+
+    gho.approve(address(gsm), buyCost);
+    (uint256 assetBought, uint256 ghoSold) = gsm.buyAsset(buyShares, safe);
     vm.stopPrank();
 
-    assertEq(assetBought, shares, 'fees are 0/0, round trip is lossless');
-    assertEq(IERC20(WA_CORE_USAT).balanceOf(safe), shares);
-    assertEq(proposal.GHO_RESERVE().getUsed(address(gsm)), 0);
+    assertEq(assetBought, buyShares);
+    assertEq(ghoSold, buyCost);
+    assertEq(gho.balanceOf(safe), expectedGho - buyCost);
+    assertEq(IERC20(WA_CORE_USAT).balanceOf(safe), buyShares);
+    assertEq(proposal.GHO_RESERVE().getUsed(address(gsm)), expectedGho - buyCost);
   }
 
   /// @dev The role check runs before any token transfer, so the stranger needs no funds
