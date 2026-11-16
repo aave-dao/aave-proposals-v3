@@ -4,7 +4,13 @@ import {fetchRateStrategyParamsV3} from './rateUpdates';
 import {fetchCollateralUpdate} from './collateralsUpdates';
 import {fetchCapsUpdate} from './capsUpdates';
 import {Listing, ListingWithCustomImpl, TokenImplementations} from './types';
-import {CHAIN_TO_CHAIN_ID, getMarketChain, getExplorerLink, toSolidityIdentifier} from '../common';
+import {
+  CHAIN_TO_CHAIN_ID,
+  getMarketChain,
+  getExplorerLink,
+  toSolidityIdentifier,
+  toSolidityString,
+} from '../common';
 import {getContract, isAddress} from 'viem';
 import {confirm} from '@inquirer/prompts';
 import {testExecuteProposal} from '../utils/constants';
@@ -71,7 +77,7 @@ type RenderableListing = Omit<Listing, 'asset' | 'priceFeed'> & {
 
 function renderListingSol(cfg: RenderableListing) {
   return `asset: ${cfg.asset},
-  assetSymbol: "${cfg.assetSymbol}",
+  assetSymbol: ${toSolidityString(cfg.assetSymbol)},
   priceFeed: ${cfg.priceFeed},
   enabledToBorrow: ${translateJsBoolToSol(cfg.enabledToBorrow)},
   flashloanable: ${translateJsBoolToSol(cfg.flashloanable)},

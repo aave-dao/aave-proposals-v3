@@ -1,5 +1,5 @@
 import {expect, describe, it} from 'vitest';
-import {getVersion, getTestBase} from './common';
+import {getVersion, getTestBase, toSolidityString} from './common';
 import {MarketIdentifier} from './types';
 
 describe('getVersion', () => {
@@ -28,5 +28,15 @@ describe('getTestBase', () => {
 
   it('throws for an unknown market', () => {
     expect(() => getTestBase('AaveV9Unknown' as MarketIdentifier)).toThrow();
+  });
+});
+
+describe('toSolidityString', () => {
+  it('escapes text into a Solidity string literal', () => {
+    expect(toSolidityString('USDC')).toBe('"USDC"');
+    expect(toSolidityString('PT-USDG-25FEB2027')).toBe('"PT-USDG-25FEB2027"');
+    expect(toSolidityString('a"b\\c')).toBe('"a\\"b\\\\c"');
+    expect(toSolidityString('a\nb\tc\x00')).toBe('"a\\nb\\tc\\x00"');
+    expect(toSolidityString('USD₮0')).toBe('unicode"USD₮0"');
   });
 });

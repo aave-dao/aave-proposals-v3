@@ -47,6 +47,28 @@ describe('feature: assetListing', () => {
     expect(output.test?.fn?.join('\n')).not.toContain('assetSymbol: "PT_sUSDe_TEST"');
   });
 
+  it('compiles onchain symbols with quotes, backslashes, control and non-ASCII characters', async () => {
+    const cfg = [{...ptListingConfig[0], onchainSymbol: 'P"T\\USD₮0\n'}];
+    const configs = {[FEATURE.ASSET_LISTING]: cfg};
+    const files = await generateFiles(MOCK_OPTIONS, {
+      [MOCK_OPTIONS.markets[0]]: {
+        artifacts: [
+          assetListing.build({
+            options: MOCK_OPTIONS,
+            market: 'AaveV3Ethereum',
+            cfg,
+            cache: {blockNumber: 42},
+            configs,
+          }),
+        ],
+        configs,
+        cache: {blockNumber: 42},
+      },
+    });
+    expect(files.payloads[0].test).toMatch(/assetSymbol: unicode'P"T\\\\USD₮0\\n'/);
+    compileGeneratedFiles(files);
+  }, 60_000);
+
   it('should properly generate files', async () => {
     const marketConfigs: MarketConfigs = {
       [MOCK_OPTIONS.markets[0]]: {
