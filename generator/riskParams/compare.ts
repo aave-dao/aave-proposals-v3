@@ -18,7 +18,7 @@ import {eModeCreations} from '../features/eModesCreation';
 import {eModeUpdates} from '../features/eModesUpdates';
 import {eModeAssets} from '../features/eModesAssets';
 import {freezeUpdates} from '../features/freeze';
-import {recordFromConfig} from './toRecord';
+import {isUnset, recordFromConfig} from './toRecord';
 import {configFromRecord} from './fromRecord';
 
 /// Helpers to check the record against existing configs: config -> record -> config must
@@ -51,7 +51,6 @@ const MODULES: FeatureModule<any>[] = [
 ];
 const ORDER = MODULES.map((m) => m.value as string);
 
-const isUnset = (v: unknown) => v === '' || v === undefined || v === null || v === 'KEEP_CURRENT';
 const KEYS = new Set(['asset', 'assetSymbol', 'eModeCategory']);
 /// An item where every value is "keep current" does nothing onchain.
 const isNoop = (x: Item) =>
@@ -64,10 +63,9 @@ const isNoop = (x: Item) =>
 const sortKey = (x: Item) =>
   `${x.asset ?? x.assetSymbol ?? x.label ?? ''}|${x.eModeCategory ?? ''}`;
 
-/// Same feature order and item order on both sides, so only values can differ.
-/// Older configs call markets `pools` and predate some fields (eMode `isolated`, `ltvzero`);
-/// they get the value the generator assumed at the time. Pre-3.7 fields are dropped because
-/// the current generator no longer renders them.
+/// Same feature order and item order on both sides, so only values can differ. Fields older
+/// configs predate (eMode `isolated`, `ltvzero`) get the value the generator assumed at the
+/// time. Pre-3.7 fields are dropped because the current generator no longer renders them.
 export function normalizeConfig(cfg: PastConfigFile): ConfigFile {
   const {pools, ...rootOptions} = cfg.rootOptions;
   const out: ConfigFile = structuredClone({

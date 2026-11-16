@@ -53,7 +53,7 @@ describe('risk params record: committed files', () => {
     const {errors} = await checkCommitted(folder, record);
     expect(errors).toEqual([
       expect.stringMatching(
-        /is not what config.ts generates, first difference at line \d+: config.ts generates has `liqProtocolFee: 20_00`, the committed file has `liqProtocolFee: 24_00`$/,
+        /is not what config.ts generates, first difference at line \d+: the generated payload has `liqProtocolFee: 20_00`, the committed file has `liqProtocolFee: 24_00`$/,
       ),
     ]);
   });

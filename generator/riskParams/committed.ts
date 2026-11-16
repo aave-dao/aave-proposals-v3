@@ -62,7 +62,7 @@ export async function checkCommitted(
     const committed = fs.readFileSync(file, 'utf8');
     if (committed !== p.payload)
       errors.push(
-        `${path.basename(file)} is not what config.ts generates, first difference at ${diffMessage(p.payload, committed, ['config.ts generates', 'the committed file'])}`,
+        `${path.basename(file)} is not what config.ts generates, first difference at ${diffMessage(p.payload, committed, ['the generated payload', 'the committed file'])}`,
       );
   }
   return {config, errors};

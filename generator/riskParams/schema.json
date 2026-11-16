@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "risk-params/1.0",
   "title": "Aave risk params record",
-  "description": "One record per AIP, filled by the risk provider. Risk values only; addresses, seed, roles and payload code stay with Aave Labs. Units: percentages in bps (10% = 1000), caps in whole tokens. In an update, a field left out means keep current. Every value is explicit: when a preset was used, the value is still written and the field is listed in fromPreset.",
+  "description": "One record per AIP, filled by the risk provider. Risk values only: token decimals, seed amounts and block numbers come from the ops file or are read onchain. Units: percentages in bps (10% = 1000), caps in whole tokens. In an update, a field left out means keep current. Every value is explicit: when a preset was used, the value is still written and the field is listed in fromPreset.",
   "type": "object",
   "required": [
     "schemaVersion",
@@ -26,7 +26,7 @@
     "version": {
       "type": "integer",
       "minimum": 1,
-      "description": "Bumped on any change, so a changed record can be detected after review."
+      "description": "Bumped whenever the parameters (markets) change, so a changed record can be detected after review."
     },
     "updatedAt": {
       "type": "string",
@@ -45,7 +45,7 @@
       "items": {
         "type": "string"
       },
-      "description": "Conditions, staging or follow-ups from the post. Shown in the reviewer table, never applied by the script."
+      "description": "Conditions, staging or follow-ups from the post. Shown above the PR table, never applied by the script."
     },
     "markets": {
       "type": "object",
@@ -102,7 +102,7 @@
       "properties": {
         "symbol": {
           "type": "string",
-          "minLength": 1
+          "pattern": "^[A-Za-z0-9_]+$"
         },
         "address": {
           "$ref": "#/$defs/address"
@@ -119,6 +119,11 @@
           "required": ["address"]
         }
       ]
+    },
+    "eModeLabel": {
+      "type": "string",
+      "pattern": "^[^'\"\\\\\\u0000-\\u001f]*$",
+      "description": "onchain label, written into the payload as a Solidity string"
     },
     "eModeRef": {
       "oneOf": [
@@ -141,7 +146,7 @@
           "properties": {
             "label": {
               "type": "string",
-              "minLength": 1
+              "pattern": "^[A-Za-z0-9_]+$"
             }
           },
           "description": "address book eMode name, e.g. xBTC__USDT_USDG_GHO_USDC for AaveV3XLayerEModes.xBTC__USDT_USDG_GHO_USDC"
@@ -231,7 +236,7 @@
               "priceFeed": {
                 "type": "string",
                 "minLength": 1,
-                "description": "feed address, or the feed name chosen by the risk provider when Aave Labs still has to find or deploy it. A name needs the address in the ops file."
+                "description": "feed address, or the feed name when the feed still has to be found or deployed. A name needs the address in the ops file."
               },
               "ltv": {
                 "$ref": "#/$defs/pct"
@@ -356,8 +361,7 @@
                 "$ref": "#/$defs/v3Rates"
               },
               "priceFeed": {
-                "type": "string",
-                "minLength": 1
+                "$ref": "#/$defs/address"
               },
               "frozen": {
                 "type": "boolean"
@@ -387,7 +391,7 @@
                 "minLength": 1
               },
               "label": {
-                "type": "string",
+                "$ref": "#/$defs/eModeLabel",
                 "minLength": 1
               },
               "ltv": {
@@ -449,7 +453,7 @@
                 "$ref": "#/$defs/eModeRef"
               },
               "label": {
-                "type": "string"
+                "$ref": "#/$defs/eModeLabel"
               },
               "ltv": {
                 "$ref": "#/$defs/pct"

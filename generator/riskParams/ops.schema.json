@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "risk-params-ops/1.0",
   "title": "Ops file for a risk params record",
-  "description": "Values that are not risk params, set by Aave Labs. Everything is optional: block numbers and token decimals are read onchain when missing, title and author can come from the CLI.",
+  "description": "Values that are not risk params. Everything is optional: block numbers and token decimals are read onchain when missing, title and author can come from the CLI.",
   "type": "object",
   "additionalProperties": false,
   "properties": {
@@ -32,7 +32,7 @@
     "markets": {
       "type": "object",
       "propertyNames": {
-        "pattern": "^AaveV3[A-Za-z0-9]+$"
+        "pattern": "^AaveV3[A-Z][A-Za-z0-9]*$"
       },
       "additionalProperties": {
         "type": "object",

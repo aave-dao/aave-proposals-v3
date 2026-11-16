@@ -193,6 +193,28 @@ describe('risk params record: PR table', () => {
     expect(ops.markets.AaveV3XLayer).toBeDefined();
   });
 
+  it('finds a new eMode whose label has spaces and slashes', () => {
+    const empty: Snapshot = {reserves: {}, strategies: {}, eModes: {}};
+    const created = {...empty, eModes: {2: eMode(2, 'USDe / Stablecoins')}};
+    const m: V3Market = {
+      eModeCreates: [
+        {
+          ref: 'new1',
+          label: 'USDe / Stablecoins',
+          ltv: 9000,
+          liqThreshold: 9300,
+          liqBonus: 200,
+          isolated: false,
+          collateral: [],
+          borrowable: [],
+        },
+      ],
+    };
+    const {rows, errors} = buildRows('AaveV3XLayer', m, undefined, {before: empty, after: created});
+    expect(errors).toEqual([]);
+    expect(rows.filter((r) => r.ok !== true)).toEqual([]);
+  });
+
   it('reports a listing that is missing after execution', () => {
     const {record} = recordFromConfig(normalizeConfig(USDE_XLAYER_LISTING));
     const empty: Snapshot = {reserves: {}, strategies: {}, eModes: {}};
@@ -211,6 +233,7 @@ describe('risk params record: PR table', () => {
       provider: 'Chaos Labs',
       updatedAt: '2026-11-13',
       forumPost: 'https://x',
+      notes: ['caps depend on $5M DEX liquidity'],
     } as RiskParamsRecord;
     const md = renderReport(
       record,
@@ -222,6 +245,7 @@ describe('risk params record: PR table', () => {
     expect(md).toContain(
       'Risk params record v2 (previous push: v1, parameters changed) by **Chaos Labs**',
     );
+    expect(md).toContain('- caps depend on $5M DEX liquidity');
     expect(md).toContain('✅ AaveV3Ethereum: `test_defaultProposalExecution` passed (test log)');
     expect(renderReport(record, {version: 2}, [], [], [{market: 'AaveV3Ethereum'}])).toContain(
       '❌ AaveV3Ethereum: no passing fork test',

@@ -52,7 +52,7 @@ export interface V3ReserveUpdate {
   borrowable?: boolean;
   flashloanable?: boolean;
   rates?: V3Rates;
-  priceFeed?: string;
+  priceFeed?: `0x${string}`;
   frozen?: boolean;
 }
 
@@ -103,7 +103,7 @@ export interface RiskParamsRecord {
   markets: Record<string, V3Market>;
 }
 
-/// Values that are not risk params and stay with Aave Labs: addresses, decimals, seed.
+/// Listing values that are not risk params: decimals, feed address, seed.
 /// Keyed by market, then by asset symbol.
 export interface ListingOps {
   decimals: number;

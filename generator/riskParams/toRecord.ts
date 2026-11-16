@@ -10,17 +10,19 @@ import type {
   V3ReserveUpdate,
 } from './types';
 
-/// Builds a record + ops from an existing config.ts. Used to fill pilot records and to test the
-/// converter on past AIPs: config -> record -> config must generate the same payload.
+/// Builds a record + ops from an existing config.ts. Used by the CI check to take the ops values
+/// of a committed config.ts, and to test the converter on past AIPs: config -> record -> config
+/// must generate the same payload.
 
 // past AIPs without a forum link: the record needs a URL, the generator keeps "TODO" via ops
 const NO_FORUM_POST = 'https://governance.aave.com/t/none';
 
-const unset = (v: unknown) => v === '' || v === undefined || v === null || v === 'KEEP_CURRENT';
+export const isUnset = (v: unknown) =>
+  v === '' || v === undefined || v === null || v === 'KEEP_CURRENT';
 const num = (v: unknown) => parseFloat(String(v).replace(/_/g, ''));
-const bps = (v: unknown) => (unset(v) ? undefined : Math.round(num(v) * 100));
+const bps = (v: unknown) => (isUnset(v) ? undefined : Math.round(num(v) * 100));
 const cap = (v: unknown) =>
-  unset(v) ? undefined : num(v) === 0 ? ('unlimited' as const) : Math.round(num(v));
+  isUnset(v) ? undefined : num(v) === 0 ? ('unlimited' as const) : Math.round(num(v));
 const bool = (v: unknown) =>
   v === 'ENABLED' || v === true ? true : v === 'DISABLED' || v === false ? false : undefined;
 const clean = <T extends object>(o: T): T =>
@@ -97,10 +99,10 @@ export function recordFromConfig(cfg: ConfigFile): {record: RiskParamsRecord; op
     }
 
     const upd = new Map<string, V3ReserveUpdate>();
-    const U = (a: string) => upd.get(a) ?? upd.set(a, {asset: {symbol: a}}).get(a)!;
+    const update = (a: string) => upd.get(a) ?? upd.set(a, {asset: {symbol: a}}).get(a)!;
     for (const u of c[FEATURE.COLLATERALS_UPDATE] || [])
       Object.assign(
-        U(u.asset),
+        update(u.asset),
         clean({
           ltv: bps(u.ltv),
           liqThreshold: bps(u.liqThreshold),
@@ -110,7 +112,7 @@ export function recordFromConfig(cfg: ConfigFile): {record: RiskParamsRecord; op
       );
     for (const u of c[FEATURE.BORROWS_UPDATE] || [])
       Object.assign(
-        U(u.asset),
+        update(u.asset),
         clean({
           borrowable: bool(u.enabledToBorrow),
           flashloanable: bool(u.flashloanable),
@@ -118,13 +120,16 @@ export function recordFromConfig(cfg: ConfigFile): {record: RiskParamsRecord; op
         }),
       );
     for (const u of c[FEATURE.CAPS_UPDATE] || [])
-      Object.assign(U(u.asset), clean({supplyCap: cap(u.supplyCap), borrowCap: cap(u.borrowCap)}));
+      Object.assign(
+        update(u.asset),
+        clean({supplyCap: cap(u.supplyCap), borrowCap: cap(u.borrowCap)}),
+      );
     for (const u of c[FEATURE.RATE_UPDATE_V3] || []) {
       const r = rates(u.params);
-      if (Object.keys(r).length) U(u.asset).rates = r;
+      if (Object.keys(r).length) update(u.asset).rates = r;
     }
-    for (const u of c[FEATURE.PRICE_FEEDS_UPDATE] || []) U(u.asset).priceFeed = u.priceFeed;
-    for (const u of c[FEATURE.FREEZE] || []) U(u.asset).frozen = !!u.shouldBeFrozen;
+    for (const u of c[FEATURE.PRICE_FEEDS_UPDATE] || []) update(u.asset).priceFeed = u.priceFeed;
+    for (const u of c[FEATURE.FREEZE] || []) update(u.asset).frozen = !!u.shouldBeFrozen;
     const ups = [...upd.values()].filter((u) => Object.keys(u).length > 1);
     if (ups.length) out.reserveUpdates = ups;
 
@@ -144,7 +149,7 @@ export function recordFromConfig(cfg: ConfigFile): {record: RiskParamsRecord; op
     for (const e of c[FEATURE.EMODES_UPDATES] || []) {
       const x = clean({
         eMode: eref(e.eModeCategory),
-        label: unset(e.label) ? undefined : e.label,
+        label: isUnset(e.label) ? undefined : e.label,
         ltv: bps(e.ltv),
         liqThreshold: bps(e.liqThreshold),
         liqBonus: bps(e.liqBonus),

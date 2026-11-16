@@ -1,6 +1,7 @@
 import fs from 'fs';
-import * as addressBook from '@aave-dao/aave-address-book';
+import {toEModeName} from '../common';
 import type {ConfigFile, MarketIdentifier} from '../types';
+import {marketAssets} from './fromRecord';
 import type {Revision} from './revision';
 import type {Bps, EModeRef, RiskParamsRecord, V3Cap, V3Market, V3Rates} from './types';
 
@@ -86,8 +87,6 @@ export interface Row {
 const RAY_PER_BPS = 10n ** 23n;
 const EMPTY = '—';
 
-// ---------- formatting
-
 function pct(bps: number | bigint) {
   // rates come in ray; keep their full precision
   const s =
@@ -124,8 +123,6 @@ const same = (kind: Kind, a?: Value, b?: Value) =>
     : kind === 'address' && typeof a === 'string' && typeof b === 'string'
       ? a.toLowerCase() === b.toLowerCase()
       : a === b;
-
-// ---------- snapshot reading
 
 const bonus = (v: number) => (v === 0 ? 0 : v - 10_000);
 const ray = (v: string) => BigInt(v);
@@ -167,24 +164,13 @@ type ReserveIntent = Partial<Record<(typeof RESERVE_PARAMS)[number][0], Value>> 
 const find = <T>(map: Record<string, T> | undefined, address: string) =>
   Object.entries(map ?? {}).find(([k]) => k.toLowerCase() === address.toLowerCase())?.[1];
 
-/// Same naming as the address book's eMode constants (generator/common.ts getEModes).
-const eModeName = (label: string) =>
-  label
-    .replace(/\s*\/\s*/g, '__')
-    .replace(/[^\w ]/gi, ' ')
-    .replace(/ +/gi, '_');
-
 const bit = (bitmap: string | undefined, id: number) =>
   bitmap === undefined ? undefined : ((BigInt(bitmap) >> BigInt(id)) & 1n) === 1n;
-
-// ---------- the table
 
 /// Resolves record symbols to addresses: the record, then the listing in config.ts, then the
 /// address book. Lowercase, so they compare with snapshot keys.
 function assetResolver(market: string, m: V3Market, config: ConfigFile | undefined) {
-  const book =
-    (addressBook as Record<string, {ASSETS?: Record<string, {UNDERLYING: string}>}>)[market]
-      ?.ASSETS ?? {};
+  const book = marketAssets(market) ?? {};
   const listings = config?.marketOptions[market as MarketIdentifier]?.configs.ASSET_LISTING ?? [];
   const toAddress = (symbol: string, address?: string) =>
     (
@@ -381,13 +367,13 @@ function eModeRows(
     return Object.values(eModes).find((e) =>
       id !== undefined
         ? e.eModeCategory === id
-        : 'label' in ref && eModeName(e.label) === ref.label,
+        : 'label' in ref && toEModeName(e.label) === ref.label,
     );
   };
   const refName = (ref: EModeRef) =>
     'id' in ref ? `id ${ref.id}` : 'label' in ref ? ref.label : ref.ref;
   const name = (b: SnapshotEMode | undefined, ref: EModeRef) =>
-    b ? `${eModeName(b.label)} (id ${b.eModeCategory})` : refName(ref);
+    b ? `${toEModeName(b.label)} (id ${b.eModeCategory})` : refName(ref);
   const idOf = (address: string, snap?: Snapshot) => find(snap?.reserves, address)?.id;
   const members = (e: SnapshotEMode | undefined, bitmap: 'collateralBitmap' | 'borrowableBitmap') =>
     e &&
@@ -403,7 +389,7 @@ function eModeRows(
 
   for (const e of m.eModeCreates ?? []) {
     const created = Object.values(after).find(
-      (x) => eModeName(x.label) === e.label && !before[x.eModeCategory],
+      (x) => toEModeName(x.label) === toEModeName(e.label) && !before[x.eModeCategory],
     );
     if (fork && !created) errors.push(`${market}: eMode ${e.label} was not created`);
     const subject = `eMode ${e.label}${created ? ` (id ${created.eModeCategory}, new)` : ' (new)'}`;
@@ -482,7 +468,7 @@ function eModeRows(
   for (const [key, b] of Object.entries(before)) {
     const a = after[key];
     if (!a) continue;
-    const subject = `eMode ${eModeName(b.label)} (id ${b.eModeCategory})`;
+    const subject = `eMode ${toEModeName(b.label)} (id ${b.eModeCategory})`;
     for (const [label, kind, cur, act] of [
       ['Label', 'text', b.label, a.label],
       ['LTV', 'pct', b.ltv, a.ltv],
@@ -528,9 +514,7 @@ function eModeRows(
   }
 }
 
-// ---------- markdown
-
-const STATUS = (ok?: boolean) => (ok === undefined ? '⚠️' : ok ? '✅' : '❌');
+const statusIcon = (ok?: boolean) => (ok === undefined ? '⚠️' : ok ? '✅' : '❌');
 
 export function renderReport(
   record: RiskParamsRecord,
@@ -550,6 +534,8 @@ export function renderReport(
     `Risk params record ${rev} by **${record.provider}**, updated ${record.updatedAt} · [forum post](${record.forumPost})`,
     '',
   ];
+  if (record.notes?.length)
+    lines.push('Notes from the post:', '', ...record.notes.map((n) => `- ${n}`), '');
   for (const f of forks)
     lines.push(
       f.passedIn
@@ -564,7 +550,7 @@ export function renderReport(
       (r) =>
         `| ${r.market} | ${r.subject} | ${r.parameter} | ${formatValue(r.kind, r.current)} | ${
           r.unplanned ? 'no change (not in record)' : formatValue(r.kind, r.proposed)
-        } | ${formatValue(r.kind, r.actual)} | ${STATUS(r.ok)} |`,
+        } | ${formatValue(r.kind, r.actual)} | ${statusIcon(r.ok)} |`,
     ),
   );
   const all = [...(revision.error ? [`Revision: ${revision.error}`] : []), ...errors];

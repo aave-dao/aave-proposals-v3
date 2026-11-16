@@ -66,13 +66,17 @@ export function getAssets(market: MarketIdentifier): string[] {
   return Object.keys(assets);
 }
 
+// map the complex type to a string as used in the sol libs
+export function toEModeName(label: string) {
+  return label
+    .replace(/\s*\/\s*/g, '__') // a / b
+    .replace(/[^\w\ ]/gi, ' ') //  replaces all non-alphanumeric with empty string
+    .replace(/ +/gi, '_'); //  Convert spaces to dashes
+}
+
 export function getEModes(market: MarketIdentifierV3): {value: string; id: number}[] {
   return Object.keys(addressBook[market].E_MODES).map((key) => ({
-    // map the complex type to a string as used in the sol libs
-    value: addressBook[market].E_MODES[key].label
-      .replace(/\s*\/\s*/g, '__') // a / b
-      .replace(/[^\w\ ]/gi, ' ') //  replaces all non-alphanumeric with empty string
-      .replace(/ +/gi, '_'), //  Convert spaces to dashes
+    value: toEModeName(addressBook[market].E_MODES[key].label),
     id: key as unknown as number,
   }));
 }

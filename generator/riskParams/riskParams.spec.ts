@@ -75,6 +75,18 @@ describe('risk params record', () => {
     expect(() => configFromRecord(v4, ops)).toThrow(/property name must be valid/);
   });
 
+  it('rejects symbols and eMode names that are not Solidity identifiers', () => {
+    const {record: r, ops} = record();
+    xLayer(r).listings![0].asset.symbol = 'USDe; selfdestruct()';
+    expect(() => configFromRecord(r, ops)).toThrow(/asset\/symbol must match pattern/);
+    const {record: e} = record();
+    xLayer(e).eModeAssets = [{asset: {symbol: 'USDe'}, eMode: {label: 'a.b()'}, collateral: true}];
+    expect(() => configFromRecord(e, ops)).toThrow(/eMode\/label must match pattern/);
+    const {record: c} = record();
+    xLayer(c).eModeCreates![0].label = "a', ltv: 0";
+    expect(() => configFromRecord(c, ops)).toThrow(/eModeCreates\/0\/label must match pattern/);
+  });
+
   it('keeps the order of listings and new eModes, which decides their ids', () => {
     const cfg = structuredClone(USDE_XLAYER_LISTING);
     const {ASSET_LISTING: listings, EMODES_CREATION: eModes} =

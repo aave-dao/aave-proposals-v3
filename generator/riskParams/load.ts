@@ -4,12 +4,11 @@ import {getBlockNumber} from 'viem/actions';
 import {getClient, IERC20Metadata_ABI} from '@aave-dao/toolbox';
 import {CHAIN_TO_CHAIN_ID, getDate, getMarketChain, pascalCase} from '../common';
 import type {ConfigFile, MarketIdentifier, Options} from '../types';
-import Ajv from 'ajv/dist/2020';
 import opsSchema from './ops.schema.json';
-import {assertKnownAssets, assertValidRecord, configFromRecord} from './fromRecord';
+import {assertKnownAssets, assertValidRecord, configFromRecord, schemaCheck} from './fromRecord';
 import type {ListingOps, OpsFile, RecordOps, RiskParamsRecord, V3Market} from './types';
 
-const validateOps = new Ajv({allErrors: true, strict: false}).compile(opsSchema);
+const checkOps = schemaCheck(opsSchema, 'ops file');
 
 /// Value of a Solidity number literal like `100e18` or `0.001e8`, or undefined when it isn't a
 /// whole number (Solidity rejects those for an integer constant).
@@ -27,12 +26,7 @@ export function literalValue(literal: string): bigint | undefined {
 /// Throws on schema errors and on markets or listings the record doesn't have, so a typo in
 /// the ops file can't silently fall back to onchain values.
 export function assertValidOps(ops: unknown, record: RiskParamsRecord): asserts ops is OpsFile {
-  if (!validateOps(ops)) {
-    const errors = (validateOps.errors || [])
-      .map((e) => `  ${e.instancePath || '/'} ${e.message}`)
-      .join('\n');
-    throw new Error(`ops file is invalid:\n${errors}`);
-  }
+  checkOps(ops);
   const errors: string[] = [];
   for (const [market, m] of Object.entries((ops as OpsFile).markets ?? {})) {
     for (const [symbol, l] of Object.entries(m.listings ?? {}))

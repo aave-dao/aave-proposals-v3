@@ -211,12 +211,11 @@ async function fetchMarketOptions(market: MarketIdentifier) {
 }
 
 let cfgFile: ConfigFile | undefined;
-const recordPath = options.riskParams;
+const {riskParams: recordPath, ops: opsPath, ...cliOptions} = options;
 if (recordPath) {
-  const {riskParams: _r, ops, ...cli} = options;
-  cfgFile = await configFileFromRecord(recordPath, ops, cli);
-  delete options.riskParams;
-  delete options.ops;
+  // the two paths are not part of the proposal's options
+  options = cliOptions;
+  cfgFile = await configFileFromRecord(recordPath, opsPath, cliOptions);
 } else if (options.configFile) {
   ({config: cfgFile} = await import(path.join(process.cwd(), options.configFile)));
 }

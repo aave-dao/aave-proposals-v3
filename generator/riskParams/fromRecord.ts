@@ -1,7 +1,7 @@
 import Ajv from 'ajv/dist/2020';
 import schema from './schema.json';
 import * as addressBook from '@aave-dao/aave-address-book';
-import type {Hex} from 'viem';
+import {isAddress} from 'viem';
 import {FEATURE} from '../types';
 import type {ConfigFile, MarketConfig, MarketIdentifier} from '../types';
 import type {BooleanSelectValues} from '../prompts/boolPrompt';
@@ -17,16 +17,24 @@ import type {
 } from './types';
 
 const ajv = new Ajv({allErrors: true, strict: false});
-const validateRecord = ajv.compile(schema);
 
-/// Throws with every schema error, so a bad record never reaches the generator.
-export function assertValidRecord(record: unknown): asserts record is RiskParamsRecord {
-  if (!validateRecord(record)) {
-    const errors = (validateRecord.errors || [])
+/// Compiles a schema into a check that throws with every schema error.
+export function schemaCheck(schema: object, name: string) {
+  const validate = ajv.compile(schema);
+  return (value: unknown) => {
+    if (validate(value)) return;
+    const errors = (validate.errors || [])
       .map((e) => `  ${e.instancePath || '/'} ${e.message}`)
       .join('\n');
-    throw new Error(`risk params record is invalid:\n${errors}`);
-  }
+    throw new Error(`${name} is invalid:\n${errors}`);
+  };
+}
+
+const checkRecord = schemaCheck(schema, 'risk params record');
+
+/// Throws on a bad record, so it never reaches the generator.
+export function assertValidRecord(record: unknown): asserts record is RiskParamsRecord {
+  checkRecord(record);
 }
 
 // generator inputs are strings: percentages as "72.5", caps as whole tokens, '' = keep current
@@ -49,8 +57,6 @@ function eModeCategory(market: string, ref: EModeRef) {
   );
 }
 
-const isAddress = (v?: string): v is Hex => !!v && /^0x[0-9a-fA-F]{40}$/.test(v);
-
 function hasAny(u: V3ReserveUpdate, keys: (keyof V3ReserveUpdate)[]) {
   return keys.some((k) => u[k] !== undefined);
 }
@@ -66,8 +72,8 @@ function v3Configs(
     configs[FEATURE.ASSET_LISTING] = m.listings.map((l) => {
       const o = ops.listings?.[l.asset.symbol];
       if (!o) throw new Error(`${market}: missing ops (decimals) for ${l.asset.symbol}`);
-      const priceFeed = isAddress(l.priceFeed) ? l.priceFeed : o.priceFeed;
-      if (!isAddress(priceFeed))
+      const priceFeed = isAddress(l.priceFeed, {strict: false}) ? l.priceFeed : o.priceFeed;
+      if (!priceFeed)
         throw new Error(
           `${market}: price feed "${l.priceFeed}" for ${l.asset.symbol} needs its address in ops`,
         );
@@ -125,11 +131,10 @@ function v3Configs(
     }));
   const feeds = pick(['priceFeed']);
   if (feeds.length)
-    configs[FEATURE.PRICE_FEEDS_UPDATE] = feeds.map((u) => {
-      if (!isAddress(u.priceFeed))
-        throw new Error(`${market}: price feed for ${u.asset.symbol} needs an address`);
-      return {asset: u.asset.symbol, priceFeed: u.priceFeed};
-    });
+    configs[FEATURE.PRICE_FEEDS_UPDATE] = feeds.map((u) => ({
+      asset: u.asset.symbol,
+      priceFeed: u.priceFeed!,
+    }));
   const freezes = pick(['frozen']);
   if (freezes.length)
     configs[FEATURE.FREEZE] = freezes.map((u) => ({
@@ -167,7 +172,7 @@ function v3Configs(
   return configs;
 }
 
-/// Record (risk values, from the provider) + ops (Aave Labs values) -> generator config.
+/// Record (risk values) + ops (the other values) -> generator config.
 export function configFromRecord(record: unknown, ops: RecordOps): ConfigFile {
   assertValidRecord(record);
   const marketOptions: ConfigFile['marketOptions'] = {};
@@ -189,21 +194,25 @@ export function configFromRecord(record: unknown, ops: RecordOps): ConfigFile {
   };
 }
 
+/// Assets of a market in the address book, by symbol.
+export function marketAssets(market: string): Record<string, {UNDERLYING: string}> | undefined {
+  return (addressBook as Record<string, {ASSETS?: Record<string, {UNDERLYING: string}>}>)[market]
+    ?.ASSETS;
+}
+
 /// Checks every asset against the market's address book: a symbol the book knows must come
 /// with its address, and an address the book knows must come with its symbol. Assets listed in
 /// the same record are the only ones allowed to be missing from the book.
 export function assertKnownAssets(record: RiskParamsRecord) {
   const errors: string[] = [];
   for (const [market, raw] of Object.entries(record.markets)) {
-    const book = (addressBook as Record<string, {ASSETS?: Record<string, {UNDERLYING: string}>}>)[
-      market
-    ];
-    if (!book?.ASSETS) {
+    const assets = marketAssets(market);
+    if (!assets) {
       errors.push(`${market}: not in the address book`);
       continue;
     }
     const m = raw as V3Market;
-    const bySymbol = new Map(Object.entries(book.ASSETS).map(([s, a]) => [s, a.UNDERLYING]));
+    const bySymbol = new Map(Object.entries(assets).map(([s, a]) => [s, a.UNDERLYING]));
     const byAddress = new Map([...bySymbol].map(([s, a]) => [a.toLowerCase(), s]));
     const listed = new Set((m.listings ?? []).map((l) => l.asset.symbol));
     const check = (where: string, a: {symbol: string; address?: string}, isListing = false) => {
