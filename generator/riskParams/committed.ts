@@ -3,7 +3,7 @@ import path from 'path';
 import {generateContractName} from '../common';
 import type {ConfigFile} from '../types';
 import {configFromRecord} from './fromRecord';
-import {recordFromConfig} from './toRecord';
+import {opsFromConfig} from './toRecord';
 import {diffAt, generateFromConfig, generatePayloads, normalizeConfig} from './compare';
 import type {RiskParamsRecord} from './types';
 
@@ -28,18 +28,13 @@ export async function checkCommitted(
   // record -> config, taking ops (block numbers, decimals, seeds, feed addresses) from config.ts
   let ops;
   try {
-    ({ops} = recordFromConfig(normalizeConfig(config)));
+    ops = opsFromConfig(normalizeConfig(config));
   } catch (e) {
     return {
       config,
       errors: [`config.ts can't be checked against the record: ${(e as Error).message}`],
     };
   }
-  for (const [market, mo] of Object.entries(config.marketOptions))
-    for (const l of mo?.configs.ASSET_LISTING ?? []) {
-      const lo = ops.markets[market]?.listings?.[l.assetSymbol];
-      if (lo) lo.priceFeed = l.priceFeed;
-    }
   try {
     const fromRecord = await generatePayloads(normalizeConfig(configFromRecord(record, ops)));
     const fromConfig = await generatePayloads(normalizeConfig(config));

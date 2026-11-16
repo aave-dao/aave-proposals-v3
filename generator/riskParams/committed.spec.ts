@@ -29,8 +29,10 @@ describe('risk params record: committed files', () => {
     expect((await checkCommitted(folder, record)).errors).toEqual([]);
   });
 
-  it('resolves a feed the record names through the address in config.ts', async () => {
-    const {folder, record} = await proposal(USDE_XLAYER_LISTING);
+  it('resolves a named feed and preserves the listing ops in config.ts', async () => {
+    const config = structuredClone(USDE_XLAYER_LISTING);
+    config.marketOptions.AaveV3XLayer!.configs.ASSET_LISTING![0].seedAmount = '100e18';
+    const {folder, record} = await proposal(config);
     (record.markets.AaveV3XLayer as V3Market).listings![0].priceFeed = 'Capped USDT / USD';
     expect((await checkCommitted(folder, record)).errors).toEqual([]);
   });

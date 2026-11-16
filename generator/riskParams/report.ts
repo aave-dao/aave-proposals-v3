@@ -3,7 +3,15 @@ import {toEModeName} from '../common';
 import type {ConfigFile, MarketIdentifier} from '../types';
 import {marketAssets} from './fromRecord';
 import type {Revision} from './revision';
-import type {Bps, EModeRef, RiskParamsRecord, V3Cap, V3Market, V3Rates} from './types';
+import type {
+  Bps,
+  EModeRef,
+  RiskParamsRecord,
+  V3Cap,
+  V3Market,
+  V3Rates,
+  V3ReserveUpdate,
+} from './types';
 
 /// Builds the PR table from a record and the fork snapshots written by `defaultTest`
 /// (reports/<contract>_before.json and _after.json). "Proposed" comes from the record and
@@ -161,6 +169,17 @@ type ReserveIntent = Partial<Record<(typeof RESERVE_PARAMS)[number][0], Value>> 
   rates?: V3Rates;
 };
 
+/// Record fields already use the snapshot comparison units, except unlimited caps.
+function reserveIntent(
+  values: Omit<V3ReserveUpdate, 'asset' | 'priceFeed'> & {priceFeed?: string},
+): ReserveIntent {
+  return {
+    ...values,
+    supplyCap: values.supplyCap === undefined ? undefined : capValue(values.supplyCap),
+    borrowCap: values.borrowCap === undefined ? undefined : capValue(values.borrowCap),
+  };
+}
+
 /// Adds the fields `from` sets to `into`. Returns the fields `into` already had with another
 /// value: several entries for one asset add up, but must not contradict each other.
 function mergeIntent(into: ReserveIntent, from: ReserveIntent): string[] {
@@ -235,56 +254,36 @@ export function buildRows(
   const intents = new Map<string, {symbol: string; isNew: boolean; intent: ReserveIntent}>();
   const configListings = config?.marketOptions[market as MarketIdentifier]?.configs.ASSET_LISTING;
   for (const l of m.listings ?? []) {
+    const {asset, fromPreset: _preset, ...values} = l;
     const feed =
-      configListings?.find((c) => c.assetSymbol === l.asset.symbol)?.priceFeed ?? l.priceFeed;
-    intents.set(l.asset.address.toLowerCase(), {
-      symbol: l.asset.symbol,
+      configListings?.find((c) => c.assetSymbol === asset.symbol)?.priceFeed ?? l.priceFeed;
+    intents.set(asset.address.toLowerCase(), {
+      symbol: asset.symbol,
       isNew: true,
       intent: {
-        ltv: l.ltv,
-        liqThreshold: l.liqThreshold,
-        liqBonus: l.liqBonus,
-        liqProtocolFee: l.liqProtocolFee,
-        reserveFactor: l.reserveFactor,
-        supplyCap: capValue(l.supplyCap),
-        borrowCap: capValue(l.borrowCap),
-        borrowable: l.borrowable,
-        flashloanable: l.flashloanable,
+        ...reserveIntent(values),
         frozen: false,
         paused: false,
         active: true,
         priceFeed: feed,
-        rates: l.rates,
       },
     });
   }
   for (const u of m.reserveUpdates ?? []) {
-    const address = toAddress(u.asset.symbol, u.asset.address);
+    const {asset, ...values} = u;
+    const address = toAddress(asset.symbol, asset.address);
     if (!address) {
-      errors.push(`${market}: can't resolve the address of ${u.asset.symbol}`);
+      errors.push(`${market}: can't resolve the address of ${asset.symbol}`);
       continue;
     }
-    const intent: ReserveIntent = {
-      ltv: u.ltv,
-      liqThreshold: u.liqThreshold,
-      liqBonus: u.liqBonus,
-      liqProtocolFee: u.liqProtocolFee,
-      reserveFactor: u.reserveFactor,
-      supplyCap: u.supplyCap === undefined ? undefined : capValue(u.supplyCap),
-      borrowCap: u.borrowCap === undefined ? undefined : capValue(u.borrowCap),
-      borrowable: u.borrowable,
-      flashloanable: u.flashloanable,
-      frozen: u.frozen,
-      priceFeed: u.priceFeed,
-      rates: u.rates,
-    };
+    const intent = reserveIntent(values);
     const existing = intents.get(address);
     if (!existing) {
-      intents.set(address, {symbol: u.asset.symbol, isNew: false, intent});
+      intents.set(address, {symbol: asset.symbol, isNew: false, intent});
       continue;
     }
     for (const field of mergeIntent(existing.intent, intent))
-      errors.push(`${market}: ${u.asset.symbol} has two values for ${field} in the record`);
+      errors.push(`${market}: ${asset.symbol} has two values for ${field} in the record`);
   }
 
   for (const [address, {symbol, isNew, intent}] of intents) {

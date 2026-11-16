@@ -10,9 +10,8 @@ import type {
   V3ReserveUpdate,
 } from './types';
 
-/// Builds a record + ops from an existing config.ts. Used by the CI check to take the ops values
-/// of a committed config.ts, and to test the converter on past AIPs: config -> record -> config
-/// must generate the same payload.
+/// Builds a record + ops from an existing config.ts to test the converter on past AIPs:
+/// config -> record -> config must generate the same payload.
 
 // past AIPs without a forum link: the record needs a URL, the generator keeps "TODO" via ops
 const NO_FORUM_POST = 'https://governance.aave.com/t/none';
@@ -53,6 +52,30 @@ export const SUPPORTED_V3 = [
 /// zkSync payloads live under zksync/ and need foundry-zksync, so the record leaves them out.
 export const isSupportedMarket = (market: string) => /^AaveV3(?!ZkSync)/.test(market);
 
+/// Reads the ops values of a config.ts: block numbers, decimals, feed addresses and seeds.
+export function opsFromConfig(cfg: ConfigFile): RecordOps {
+  const {markets: _markets, discussion, ...rest} = cfg.rootOptions;
+  const ops: RecordOps = {rootOptions: rest, markets: {}};
+  if (!discussion) ops.rootOptions.discussion = undefined;
+  for (const [market, mo] of Object.entries(cfg.marketOptions)) {
+    if (!isSupportedMarket(market))
+      throw new Error(`${market}: only V3 is supported, without zkSync`);
+    for (const feature of Object.keys(mo.configs ?? {}))
+      if (!SUPPORTED_V3.includes(feature))
+        throw new Error(`${market}: feature ${feature} is not in the record`);
+    ops.markets[market] = {
+      cache: mo.cache,
+      listings: Object.fromEntries(
+        (mo.configs?.ASSET_LISTING ?? []).map((l) => [
+          l.assetSymbol,
+          clean({decimals: l.decimals, priceFeed: l.priceFeed, seedAmount: l.seedAmount}),
+        ]),
+      ),
+    };
+  }
+  return ops;
+}
+
 export function recordFromConfig(cfg: ConfigFile): {record: RiskParamsRecord; ops: RecordOps} {
   const ro = cfg.rootOptions;
   const date = String(ro.date);
@@ -65,23 +88,14 @@ export function recordFromConfig(cfg: ConfigFile): {record: RiskParamsRecord; op
     forumPost: ro.discussion || NO_FORUM_POST,
     markets: {},
   };
-  const {markets: _m, discussion: _d, ...rest} = ro;
-  const rootOptions: RecordOps['rootOptions'] = rest;
-  if (!ro.discussion) rootOptions.discussion = undefined;
-  const ops: RecordOps = {rootOptions, markets: {}};
+  const ops = opsFromConfig(cfg);
 
   for (const [market, mo] of Object.entries(cfg.marketOptions)) {
-    if (!isSupportedMarket(market))
-      throw new Error(`${market}: only V3 is supported, without zkSync`);
-    const c = mo.configs || {};
-    for (const f of Object.keys(c))
-      if (!SUPPORTED_V3.includes(f))
-        throw new Error(`${market}: feature ${f} is not in the record`);
+    const c = mo.configs ?? {};
     const out: V3Market = {};
-    const mops: RecordOps['markets'][string] = {cache: mo.cache, listings: {}};
 
-    for (const l of c[FEATURE.ASSET_LISTING] || []) {
-      out.listings = out.listings || [];
+    for (const l of c[FEATURE.ASSET_LISTING] ?? []) {
+      out.listings = out.listings ?? [];
       out.listings.push({
         asset: {symbol: l.assetSymbol, address: l.asset},
         priceFeed: l.priceFeed,
@@ -96,15 +110,11 @@ export function recordFromConfig(cfg: ConfigFile): {record: RiskParamsRecord; op
         flashloanable: bool(l.flashloanable)!,
         rates: rates(l.rateStrategyParams) as Required<V3Rates>,
       });
-      mops.listings![l.assetSymbol] = clean({
-        decimals: l.decimals,
-        seedAmount: l.seedAmount,
-      });
     }
 
     const upd = new Map<string, V3ReserveUpdate>();
     const update = (a: string) => upd.get(a) ?? upd.set(a, {asset: {symbol: a}}).get(a)!;
-    for (const u of c[FEATURE.COLLATERALS_UPDATE] || [])
+    for (const u of c[FEATURE.COLLATERALS_UPDATE] ?? [])
       Object.assign(
         update(u.asset),
         clean({
@@ -114,7 +124,7 @@ export function recordFromConfig(cfg: ConfigFile): {record: RiskParamsRecord; op
           liqProtocolFee: bps(u.liqProtocolFee),
         }),
       );
-    for (const u of c[FEATURE.BORROWS_UPDATE] || [])
+    for (const u of c[FEATURE.BORROWS_UPDATE] ?? [])
       Object.assign(
         update(u.asset),
         clean({
@@ -123,22 +133,22 @@ export function recordFromConfig(cfg: ConfigFile): {record: RiskParamsRecord; op
           reserveFactor: bps(u.reserveFactor),
         }),
       );
-    for (const u of c[FEATURE.CAPS_UPDATE] || [])
+    for (const u of c[FEATURE.CAPS_UPDATE] ?? [])
       Object.assign(
         update(u.asset),
         clean({supplyCap: cap(u.supplyCap), borrowCap: cap(u.borrowCap)}),
       );
-    for (const u of c[FEATURE.RATE_UPDATE_V3] || []) {
+    for (const u of c[FEATURE.RATE_UPDATE_V3] ?? []) {
       const r = rates(u.params);
       if (Object.keys(r).length) update(u.asset).rates = r;
     }
-    for (const u of c[FEATURE.PRICE_FEEDS_UPDATE] || []) update(u.asset).priceFeed = u.priceFeed;
-    for (const u of c[FEATURE.FREEZE] || []) update(u.asset).frozen = !!u.shouldBeFrozen;
+    for (const u of c[FEATURE.PRICE_FEEDS_UPDATE] ?? []) update(u.asset).priceFeed = u.priceFeed;
+    for (const u of c[FEATURE.FREEZE] ?? []) update(u.asset).frozen = !!u.shouldBeFrozen;
     const ups = [...upd.values()].filter((u) => Object.keys(u).length > 1);
     if (ups.length) out.reserveUpdates = ups;
 
-    for (const [i, e] of (c[FEATURE.EMODES_CREATION] || []).entries()) {
-      out.eModeCreates = out.eModeCreates || [];
+    for (const [i, e] of (c[FEATURE.EMODES_CREATION] ?? []).entries()) {
+      out.eModeCreates = out.eModeCreates ?? [];
       out.eModeCreates.push({
         ref: `new${i + 1}`,
         label: e.label,
@@ -146,11 +156,11 @@ export function recordFromConfig(cfg: ConfigFile): {record: RiskParamsRecord; op
         liqThreshold: bps(e.liqThreshold)!,
         liqBonus: bps(e.liqBonus)!,
         isolated: bool(e.isolated) ?? false,
-        collateral: (e.collateralAssets || []).map((s: string) => ({symbol: s})),
-        borrowable: (e.borrowableAssets || []).map((s: string) => ({symbol: s})),
+        collateral: (e.collateralAssets ?? []).map((s: string) => ({symbol: s})),
+        borrowable: (e.borrowableAssets ?? []).map((s: string) => ({symbol: s})),
       });
     }
-    for (const e of c[FEATURE.EMODES_UPDATES] || []) {
+    for (const e of c[FEATURE.EMODES_UPDATES] ?? []) {
       const x = clean({
         eMode: eref(e.eModeCategory),
         label: isUnset(e.label) ? undefined : e.label,
@@ -159,9 +169,9 @@ export function recordFromConfig(cfg: ConfigFile): {record: RiskParamsRecord; op
         liqBonus: bps(e.liqBonus),
         isolated: bool(e.isolated),
       });
-      if (Object.keys(x).length > 1) (out.eModeUpdates = out.eModeUpdates || []).push(x);
+      if (Object.keys(x).length > 1) (out.eModeUpdates = out.eModeUpdates ?? []).push(x);
     }
-    for (const e of c[FEATURE.EMODES_ASSETS] || []) {
+    for (const e of c[FEATURE.EMODES_ASSETS] ?? []) {
       const x = clean({
         asset: {symbol: e.asset},
         eMode: eref(e.eModeCategory),
@@ -169,10 +179,9 @@ export function recordFromConfig(cfg: ConfigFile): {record: RiskParamsRecord; op
         borrowable: bool(e.borrowable),
         ltvZero: bool(e.ltvzero),
       });
-      if (Object.keys(x).length > 2) (out.eModeAssets = out.eModeAssets || []).push(x);
+      if (Object.keys(x).length > 2) (out.eModeAssets = out.eModeAssets ?? []).push(x);
     }
     record.markets[market] = out;
-    ops.markets[market] = mops;
   }
   return {record, ops};
 }

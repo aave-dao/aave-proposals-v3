@@ -34,6 +34,7 @@ describe('risk params record', () => {
     const listing = xLayer(r).listings![0];
     const address = listing.priceFeed as Hex;
     listing.priceFeed = 'Capped USDT / USD';
+    delete ops.markets.AaveV3XLayer.listings!.USDe.priceFeed;
     expect(() => configFromRecord(r, ops)).toThrow(/needs its address in ops/);
     ops.markets.AaveV3XLayer.listings!.USDe.priceFeed = address;
     const cfg = configFromRecord(r, ops);

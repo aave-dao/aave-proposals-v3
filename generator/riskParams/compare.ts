@@ -74,16 +74,16 @@ export function normalizeConfig(cfg: PastConfigFile): ConfigFile {
   });
   for (const mo of Object.values(out.marketOptions)) {
     const configs = mo.configs as Record<string, Item[]>;
-    for (const e of configs[FEATURE.EMODES_UPDATES] || []) e.isolated ??= 'KEEP_CURRENT';
-    for (const e of configs[FEATURE.EMODES_CREATION] || []) e.isolated ??= 'DISABLED';
-    for (const e of configs[FEATURE.EMODES_ASSETS] || []) e.ltvzero ??= 'KEEP_CURRENT';
+    for (const e of configs[FEATURE.EMODES_UPDATES] ?? []) e.isolated ??= 'KEEP_CURRENT';
+    for (const e of configs[FEATURE.EMODES_CREATION] ?? []) e.isolated ??= 'DISABLED';
+    for (const e of configs[FEATURE.EMODES_ASSETS] ?? []) e.ltvzero ??= 'KEEP_CURRENT';
     for (const items of Object.values(configs))
       for (const x of Array.isArray(items) ? items : [])
         for (const k of ['debtCeiling', 'borrowableInIsolation', 'withSiloedBorrowing'])
           delete x[k];
     const sorted: Record<string, Item[]> = {};
     for (const f of ORDER) {
-      const items = (configs[f] || []).filter((x) => f === FEATURE.ASSET_LISTING || !isNoop(x));
+      const items = (configs[f] ?? []).filter((x) => f === FEATURE.ASSET_LISTING || !isNoop(x));
       // listings and new eModes keep their order: it decides reserve and eMode ids onchain
       const keepOrder = f === FEATURE.ASSET_LISTING || f === FEATURE.EMODES_CREATION;
       if (items.length)

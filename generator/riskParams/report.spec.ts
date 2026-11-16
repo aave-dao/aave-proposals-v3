@@ -152,6 +152,28 @@ describe('risk params record: PR table', () => {
     ]);
   });
 
+  it('merges nested rate updates and reports conflicting rate fields', () => {
+    const before = ethereum({});
+    const after = structuredClone(before);
+    after.strategies[WBTC] = strategy(4500, 0, 500, 25_000);
+    const m: V3Market = {
+      reserveUpdates: [
+        {asset: {symbol: 'WBTC'}, rates: {slope1: 500}},
+        {asset: {symbol: 'WBTC'}, rates: {slope2: 25_000}},
+      ],
+    };
+    const {rows, errors} = buildRows('AaveV3Ethereum', m, undefined, {before, after});
+    expect(errors).toEqual([]);
+    expect(rows.map((r) => [r.parameter, r.ok])).toEqual([
+      ['Slope 1', true],
+      ['Slope 2', true],
+    ]);
+    m.reserveUpdates!.push({asset: {symbol: 'WBTC'}, rates: {slope1: 600}});
+    expect(buildRows('AaveV3Ethereum', m, undefined, {before, after}).errors).toEqual([
+      'AaveV3Ethereum: WBTC has two values for rates.slope1 in the record',
+    ]);
+  });
+
   it('shows the record without a fork result, marked as not checked', () => {
     const {rows} = buildRows('AaveV3Ethereum', lpfRecord(), undefined, undefined);
     expect(rows.every((r) => r.ok === undefined && r.actual === undefined)).toBe(true);

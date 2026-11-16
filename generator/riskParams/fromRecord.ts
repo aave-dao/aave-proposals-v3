@@ -23,7 +23,7 @@ export function schemaCheck(schema: object, name: string) {
   const validate = ajv.compile(schema);
   return (value: unknown) => {
     if (validate(value)) return;
-    const errors = (validate.errors || [])
+    const errors = (validate.errors ?? [])
       .map((e) => `  ${e.instancePath || '/'} ${e.message}`)
       .join('\n');
     throw new Error(`${name} is invalid:\n${errors}`);
@@ -97,7 +97,7 @@ function v3Configs(
     });
   }
 
-  const updates = m.reserveUpdates || [];
+  const updates = m.reserveUpdates ?? [];
   const pick = (keys: (keyof V3ReserveUpdate)[]) => updates.filter((u) => hasAny(u, keys));
   const collaterals = pick(['ltv', 'liqThreshold', 'liqBonus', 'liqProtocolFee']);
   if (collaterals.length)

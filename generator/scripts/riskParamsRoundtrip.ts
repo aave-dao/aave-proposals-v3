@@ -21,7 +21,7 @@ for (const name of fs.readdirSync(dir).sort()) {
   const mo = cfg.marketOptions ?? cfg.poolOptions ?? {};
   const unsupported = Object.keys(mo).flatMap((m) =>
     isSupportedMarket(m)
-      ? Object.keys(mo[m as keyof typeof mo]?.configs || {}).filter(
+      ? Object.keys(mo[m as keyof typeof mo]?.configs ?? {}).filter(
           (f) => !SUPPORTED_V3.includes(f),
         )
       : [m],
