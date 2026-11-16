@@ -200,9 +200,9 @@ export function marketAssets(market: string): Record<string, {UNDERLYING: string
     ?.ASSETS;
 }
 
-/// Checks every asset against the market's address book: a symbol the book knows must come
-/// with its address, and an address the book knows must come with its symbol. Assets listed in
-/// the same record are the only ones allowed to be missing from the book.
+/// Checks every asset against the market's address book and the listings of the record: a
+/// symbol they know must come with its address, and an address they know must come with its
+/// symbol. Assets listed in the same record are the only ones allowed to be missing from the book.
 export function assertKnownAssets(record: RiskParamsRecord) {
   const errors: string[] = [];
   for (const [market, raw] of Object.entries(record.markets)) {
@@ -214,22 +214,27 @@ export function assertKnownAssets(record: RiskParamsRecord) {
     const m = raw as V3Market;
     const bySymbol = new Map(Object.entries(assets).map(([s, a]) => [s, a.UNDERLYING]));
     const byAddress = new Map([...bySymbol].map(([s, a]) => [a.toLowerCase(), s]));
-    const listed = new Set((m.listings ?? []).map((l) => l.asset.symbol));
-    const check = (where: string, a: {symbol: string; address?: string}, isListing = false) => {
-      const known = bySymbol.get(a.symbol);
-      if (known && a.address && known.toLowerCase() !== a.address.toLowerCase())
-        errors.push(
-          `${market} ${where}: ${a.symbol} is ${known} in the address book, not ${a.address}`,
-        );
-      const owner = a.address && byAddress.get(a.address.toLowerCase());
-      if (owner && owner !== a.symbol)
-        errors.push(
-          `${market} ${where}: ${a.address} is ${owner} in the address book, not ${a.symbol}`,
-        );
-      if (!known && !isListing && !listed.has(a.symbol))
+    const listed = new Map<string, string>();
+    for (const {asset} of m.listings ?? [])
+      if (!listed.has(asset.symbol)) listed.set(asset.symbol, asset.address);
+    const listedAt = new Map([...listed].map(([s, a]) => [a.toLowerCase(), s]));
+    const check = (where: string, a: {symbol: string; address?: string}) => {
+      const address = a.address?.toLowerCase();
+      for (const [source, symbols, addresses] of [
+        ['the address book', bySymbol, byAddress],
+        ['listings', listed, listedAt],
+      ] as const) {
+        const known = symbols.get(a.symbol);
+        if (known && address && known.toLowerCase() !== address)
+          errors.push(`${market} ${where}: ${a.symbol} is ${known} in ${source}, not ${a.address}`);
+        const owner = address && addresses.get(address);
+        if (owner && owner !== a.symbol)
+          errors.push(`${market} ${where}: ${a.address} is ${owner} in ${source}, not ${a.symbol}`);
+      }
+      if (!bySymbol.has(a.symbol) && !listed.has(a.symbol))
         errors.push(`${market} ${where}: ${a.symbol} is not listed on this market`);
     };
-    for (const l of m.listings ?? []) check('listings', l.asset, true);
+    for (const l of m.listings ?? []) check('listings', l.asset);
     for (const u of m.reserveUpdates ?? []) check('reserveUpdates', u.asset);
     for (const e of m.eModeCreates ?? [])
       for (const a of [...e.collateral, ...e.borrowable]) check(`eModeCreates ${e.label}`, a);

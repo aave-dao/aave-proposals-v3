@@ -128,6 +128,20 @@ describe('risk params record', () => {
     );
   });
 
+  it('rejects an asset whose address differs from its listing in the same record', () => {
+    const {record: r} = record();
+    xLayer(r).eModeAssets = [
+      {
+        asset: {symbol: 'USDe', address: '0x0000000000000000000000000000000000000001'},
+        eMode: {id: 1},
+        collateral: true,
+      },
+    ];
+    expect(() => assertKnownAssets(r)).toThrow(
+      /eModeAssets: USDe is 0x[0-9a-fA-F]{40} in listings, not 0x0{39}1/,
+    );
+  });
+
   it('rejects updates to an asset the market does not list', () => {
     const {record: r} = record();
     xLayer(r).reserveUpdates = [{asset: {symbol: 'WBTC'}, ltv: 0}];

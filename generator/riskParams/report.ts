@@ -161,6 +161,29 @@ type ReserveIntent = Partial<Record<(typeof RESERVE_PARAMS)[number][0], Value>> 
   rates?: V3Rates;
 };
 
+/// Adds the fields `from` sets to `into`. Returns the fields `into` already had with another
+/// value: several entries for one asset add up, but must not contradict each other.
+function mergeIntent(into: ReserveIntent, from: ReserveIntent): string[] {
+  const conflicts: string[] = [];
+  const merge = <T extends object>(a: T, b: Partial<T>, prefix = '') => {
+    for (const key of Object.keys(b) as (keyof T)[]) {
+      const value = b[key];
+      if (value === undefined) continue;
+      // case-insensitive, for addresses
+      if (a[key] !== undefined && String(a[key]).toLowerCase() !== String(value).toLowerCase())
+        conflicts.push(prefix + String(key));
+      a[key] = value as T[keyof T];
+    }
+  };
+  const {rates, ...fields} = from;
+  merge(into, fields);
+  if (rates) {
+    into.rates = {...into.rates};
+    merge(into.rates, rates, 'rates.');
+  }
+  return conflicts;
+}
+
 const find = <T>(map: Record<string, T> | undefined, address: string) =>
   Object.entries(map ?? {}).find(([k]) => k.toLowerCase() === address.toLowerCase())?.[1];
 
@@ -255,7 +278,13 @@ export function buildRows(
       priceFeed: u.priceFeed,
       rates: u.rates,
     };
-    intents.set(address, {symbol: u.asset.symbol, isNew: false, intent});
+    const existing = intents.get(address);
+    if (!existing) {
+      intents.set(address, {symbol: u.asset.symbol, isNew: false, intent});
+      continue;
+    }
+    for (const field of mergeIntent(existing.intent, intent))
+      errors.push(`${market}: ${u.asset.symbol} has two values for ${field} in the record`);
   }
 
   for (const [address, {symbol, isNew, intent}] of intents) {
@@ -387,10 +416,15 @@ function eModeRows(
     planned.set(id, (planned.get(id) ?? new Set()).add(field));
   const expectedBits = new Map<string, boolean>(); // `${id}:${bitmap}:${address}`
 
+  const createdIds = new Set<number>();
   for (const e of m.eModeCreates ?? []) {
     const created = Object.values(after).find(
-      (x) => toEModeName(x.label) === toEModeName(e.label) && !before[x.eModeCategory],
+      (x) =>
+        toEModeName(x.label) === toEModeName(e.label) &&
+        !before[x.eModeCategory] &&
+        !createdIds.has(x.eModeCategory),
     );
+    if (created) createdIds.add(created.eModeCategory);
     if (fork && !created) errors.push(`${market}: eMode ${e.label} was not created`);
     const subject = `eMode ${e.label}${created ? ` (id ${created.eModeCategory}, new)` : ' (new)'}`;
     const symbols = (assets: {symbol: string}[]) => assets.map((a) => a.symbol).sort();
@@ -464,6 +498,11 @@ function eModeRows(
   }
 
   if (!fork) return;
+  for (const a of Object.values(after))
+    if (!before[a.eModeCategory] && !createdIds.has(a.eModeCategory))
+      errors.push(
+        `${market}: eMode ${a.label} (id ${a.eModeCategory}) is created by the payload but not in the record`,
+      );
   // eMode changes the record doesn't ask for
   for (const [key, b] of Object.entries(before)) {
     const a = after[key];

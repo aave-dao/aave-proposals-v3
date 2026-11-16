@@ -118,6 +118,40 @@ describe('risk params record: PR table', () => {
     ]);
   });
 
+  it('adds up several updates of one asset and rejects contradicting ones', () => {
+    const m: V3Market = {
+      reserveUpdates: [
+        {asset: {symbol: 'WBTC'}, liqProtocolFee: 2500},
+        {asset: {symbol: 'WBTC'}, supplyCap: 45_000},
+      ],
+    };
+    const fork: ForkResult = {
+      before: ethereum({}),
+      after: ethereum({liquidationProtocolFee: 2500, supplyCap: 45_000}),
+    };
+    const {rows, errors} = buildRows('AaveV3Ethereum', m, undefined, fork);
+    expect(errors).toEqual([]);
+    expect(rows.map((r) => [r.parameter, r.unplanned, r.ok])).toEqual([
+      ['Liquidation protocol fee', undefined, true],
+      ['Supply cap', undefined, true],
+    ]);
+    m.reserveUpdates!.push({asset: {symbol: 'WBTC'}, supplyCap: 50_000});
+    expect(buildRows('AaveV3Ethereum', m, undefined, fork).errors).toEqual([
+      'AaveV3Ethereum: WBTC has two values for supplyCap in the record',
+    ]);
+  });
+
+  it('reports an eMode the payload creates without the record asking for it', () => {
+    const empty: Snapshot = {reserves: {}, strategies: {}, eModes: {}};
+    const {errors} = buildRows('AaveV3Ethereum', {}, undefined, {
+      before: empty,
+      after: {...empty, eModes: {3: eMode(3, 'Extra')}},
+    });
+    expect(errors).toEqual([
+      'AaveV3Ethereum: eMode Extra (id 3) is created by the payload but not in the record',
+    ]);
+  });
+
   it('shows the record without a fork result, marked as not checked', () => {
     const {rows} = buildRows('AaveV3Ethereum', lpfRecord(), undefined, undefined);
     expect(rows.every((r) => r.ok === undefined && r.actual === undefined)).toBe(true);
