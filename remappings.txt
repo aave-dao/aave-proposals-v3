@@ -6,6 +6,7 @@ aave-address-book/=lib/aave-helpers/lib/aave-address-book/src/
 aave-v4/=lib/aave-helpers/lib/aave-address-book/lib/aave-v4/src/
 lib/aave-helpers/lib/aave-address-book/lib/aave-v4/:src=lib/aave-helpers/lib/aave-address-book/lib/aave-v4/src
 openzeppelin-contracts/=lib/aave-helpers/lib/aave-address-book/lib/aave-v3-origin/lib/solidity-utils/lib/openzeppelin-contracts-upgradeable/lib/openzeppelin-contracts/
+@openzeppelin/contracts/=lib/aave-helpers/lib/aave-address-book/lib/aave-v3-origin/lib/solidity-utils/lib/openzeppelin-contracts-upgradeable/lib/openzeppelin-contracts/contracts/
 aave-helpers/=lib/aave-helpers/
 lib/aave-helpers/:src=lib/aave-helpers/src
 aave-umbrella/=lib/aave-umbrella/src/contracts/
