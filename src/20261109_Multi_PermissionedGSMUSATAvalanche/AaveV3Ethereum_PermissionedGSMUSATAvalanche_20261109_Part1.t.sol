@@ -9,6 +9,7 @@ import {CCIPChainSelectors} from 'src/helpers/gho-launch/constants/CCIPChainSele
 
 import {AaveV3Ethereum_PermissionedGSMUSATAvalanche_20261109_Part1} from './AaveV3Ethereum_PermissionedGSMUSATAvalanche_20261109_Part1.sol';
 import {PermissionedGSMUSATAvalancheSetup as Setup} from './setup/PermissionedGSMUSATAvalancheSetup.sol';
+import {EXPECTED_BUCKET_CAPACITY} from './setup/PermissionedGSMUSATAvalancheFacilitatorProposalBaseTest.t.sol';
 
 /**
  * @dev Test for AaveV3Ethereum_PermissionedGSMUSATAvalanche_20261109_Part1
@@ -42,7 +43,7 @@ contract AaveV3Ethereum_PermissionedGSMUSATAvalanche_20261109_Part1_Test is Prot
     executePayload(vm, address(proposal));
 
     assertEq(pool.getBridgeLimit(), bridgeLimitBefore + Setup.GHO_BRIDGE_AMOUNT);
-    assertEq(pool.getBridgeLimit(), Setup.EXPECTED_BUCKET_CAPACITY);
+    assertEq(pool.getBridgeLimit(), EXPECTED_BUCKET_CAPACITY);
   }
 
   function test_outboundRateLimiter() public {

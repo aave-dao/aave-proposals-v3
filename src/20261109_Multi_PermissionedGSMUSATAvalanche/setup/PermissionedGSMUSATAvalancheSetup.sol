@@ -23,14 +23,8 @@ library PermissionedGSMUSATAvalancheSetup {
 
   uint128 public constant DIRECT_FACILITATOR_CAPACITY = uint128(GHO_BRIDGE_AMOUNT);
 
-  // ARFC bridge bucket capacity: the Ethereum bridge limit and every remote token pool bucket after execution
-  uint256 public constant EXPECTED_BUCKET_CAPACITY = 265_000_000 ether;
-
   // Remote GSM Draw Limit
   uint256 public constant GSM_RESERVE_LIMIT = 25_000_000 ether;
-
-  // waCoreUSAT shares, 6 decimals (TokenizationSpoke decimals = underlying decimals)
-  uint128 public constant GSM_EXPOSURE_CAP = 20_000_000e6;
 
   /**
    * @notice Sets both directions of one GHO lane of `tokenPool` back to the ongoing config,

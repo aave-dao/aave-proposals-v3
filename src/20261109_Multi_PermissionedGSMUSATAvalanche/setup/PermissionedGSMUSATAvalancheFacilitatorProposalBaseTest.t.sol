@@ -8,6 +8,9 @@ import {PermissionedGSMUSATAvalancheFacilitatorProposalBase} from './Permissione
 import {PermissionedGSMUSATAvalancheSetup as Setup} from './PermissionedGSMUSATAvalancheSetup.sol';
 import {SupportedChainsCheck} from './SupportedChainsCheck.sol';
 
+// ARFC bridge bucket capacity: the Ethereum bridge limit and every remote token pool bucket after execution
+uint256 constant EXPECTED_BUCKET_CAPACITY = 265_000_000 ether;
+
 /**
  * @dev Shared tests for the remote GHO networks other than Avalanche.
  */
@@ -26,7 +29,7 @@ abstract contract PermissionedGSMUSATAvalancheFacilitatorProposalBaseTest is
 
     IGhoToken.Facilitator memory post = gho.getFacilitator(proposal.GHO_CCIP_TOKEN_POOL());
     assertEq(post.bucketCapacity, before.bucketCapacity + Setup.GHO_BRIDGE_AMOUNT);
-    assertEq(post.bucketCapacity, Setup.EXPECTED_BUCKET_CAPACITY);
+    assertEq(post.bucketCapacity, EXPECTED_BUCKET_CAPACITY);
     assertEq(post.bucketLevel, before.bucketLevel);
   }
 

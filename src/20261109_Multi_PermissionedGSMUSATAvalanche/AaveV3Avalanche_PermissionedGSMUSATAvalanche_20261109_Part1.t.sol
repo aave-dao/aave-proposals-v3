@@ -11,6 +11,7 @@ import {IGhoToken} from 'src/interfaces/IGhoToken.sol';
 
 import {AaveV3Avalanche_PermissionedGSMUSATAvalanche_20261109_Part1} from './AaveV3Avalanche_PermissionedGSMUSATAvalanche_20261109_Part1.sol';
 import {PermissionedGSMUSATAvalancheSetup as Setup} from './setup/PermissionedGSMUSATAvalancheSetup.sol';
+import {EXPECTED_BUCKET_CAPACITY} from './setup/PermissionedGSMUSATAvalancheFacilitatorProposalBaseTest.t.sol';
 import {AvalancheCcipDelivery} from './setup/AvalancheCcipDelivery.sol';
 
 /**
@@ -53,7 +54,7 @@ contract AaveV3Avalanche_PermissionedGSMUSATAvalanche_20261109_Part1_Test is
     (uint256 capacityAfter, uint256 levelAfter) = IGhoToken(GhoAvalanche.GHO_TOKEN)
       .getFacilitatorBucket(GhoAvalanche.GHO_CCIP_TOKEN_POOL);
     assertEq(capacityAfter, capacityBefore + Setup.GHO_BRIDGE_AMOUNT);
-    assertEq(capacityAfter, Setup.EXPECTED_BUCKET_CAPACITY);
+    assertEq(capacityAfter, EXPECTED_BUCKET_CAPACITY);
     assertEq(levelAfter, levelBefore);
   }
 

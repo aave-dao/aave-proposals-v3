@@ -39,6 +39,8 @@ contract AaveV3Avalanche_PermissionedGSMUSATAvalanche_20261109_Part2_Test is
   SupportedChainsCheck
 {
   uint256 internal constant FORK_BLOCK = 99954000;
+  // waCoreUSAT shares, 6 decimals (TokenizationSpoke decimals = underlying decimals); set at GSM deployment
+  uint128 internal constant GSM_EXPOSURE_CAP = 20_000_000e6;
   // Governance v3 Executor revert reason for a failed delegatecall
   string internal constant EXECUTOR_FAILED_ACTION = '29';
   // Aave V4 TokenizationSpoke for USAT, not deployed at the fork block
@@ -147,7 +149,7 @@ contract AaveV3Avalanche_PermissionedGSMUSATAvalanche_20261109_Part2_Test is
     assertEq(gsm.getGhoReserve(), address(proposal.GHO_RESERVE()));
     assertTrue(proposal.GHO_RESERVE().isEntity(address(gsm)));
     assertEq(proposal.GHO_RESERVE().getLimit(address(gsm)), 25_000_000e18);
-    assertEq(gsm.getExposureCap(), Setup.GSM_EXPOSURE_CAP);
+    assertEq(gsm.getExposureCap(), GSM_EXPOSURE_CAP);
     assertEq(gsm.getFeeStrategy(), address(0), 'fees are 0/0, no strategy');
     assertEq(gsm.GHO_TOKEN(), GhoAvalanche.GHO_TOKEN);
     assertFalse(gsm.getIsFrozen());
@@ -209,7 +211,7 @@ contract AaveV3Avalanche_PermissionedGSMUSATAvalanche_20261109_Part2_Test is
     assertEq(gsm.UNDERLYING_ASSET(), WA_CORE_USAT);
     assertEq(gsm.PRICE_STRATEGY(), PRICE_STRATEGY);
     assertEq(gsm.getGhoReserve(), address(proposal.GHO_RESERVE()));
-    assertEq(gsm.getExposureCap(), Setup.GSM_EXPOSURE_CAP);
+    assertEq(gsm.getExposureCap(), GSM_EXPOSURE_CAP);
     assertEq(gsm.getFeeStrategy(), address(0));
     assertEq(gsm.getGhoTreasury(), address(AaveV3Avalanche.COLLECTOR));
     assertEq(
@@ -346,7 +348,7 @@ contract AaveV3Avalanche_PermissionedGSMUSATAvalanche_20261109_Part2_Test is
   function test_stewardUpdatesExposureCap() public {
     executePayload(vm, address(proposal));
 
-    uint128 newCap = Setup.GSM_EXPOSURE_CAP * 2;
+    uint128 newCap = GSM_EXPOSURE_CAP * 2;
     IGsmSteward steward = IGsmSteward(proposal.GHO_GSM_STEWARD());
     vm.prank(GhoAvalanche.RISK_COUNCIL);
     steward.updateGsmExposureCap(address(gsm), newCap);
