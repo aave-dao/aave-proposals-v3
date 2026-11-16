@@ -1,0 +1,509 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "risk-params/1.0",
+  "title": "Aave risk params record",
+  "description": "One record per AIP, filled by the risk provider. Risk values only; addresses, seed, roles and payload code stay with Aave Labs. Units: percentages in bps (10% = 1000), caps in whole tokens. In an update, a field left out means keep current. Every value is explicit: when a preset was used, the value is still written and the field is listed in fromPreset.",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "aip",
+    "version",
+    "updatedAt",
+    "provider",
+    "forumPost",
+    "markets"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "schemaVersion": {
+      "const": "1.0"
+    },
+    "aip": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9]+$",
+      "description": "AIP short name as in the generator (e.g. AaveV3XLayerUSDeListing)"
+    },
+    "version": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "Bumped on any change, so a changed record can be detected after review."
+    },
+    "updatedAt": {
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+    },
+    "provider": {
+      "type": "string",
+      "minLength": 1
+    },
+    "forumPost": {
+      "type": "string",
+      "pattern": "^https://governance\\.aave\\.com/t/"
+    },
+    "notes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Conditions, staging or follow-ups from the post. Shown in the reviewer table, never applied by the script."
+    },
+    "markets": {
+      "type": "object",
+      "minProperties": 1,
+      "propertyNames": {
+        "pattern": "^AaveV3[A-Z][A-Za-z0-9]*$",
+        "description": "Address book market name, e.g. AaveV3Ethereum"
+      },
+      "patternProperties": {
+        "^AaveV3": {
+          "$ref": "#/$defs/v3Market"
+        }
+      }
+    }
+  },
+  "$defs": {
+    "pct": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 10000
+    },
+    "rate": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 100000,
+      "description": "bps, up to 1000%"
+    },
+    "v3Bonus": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 5000,
+      "description": "bonus only, 7.5% = 750 (not 10750)"
+    },
+    "v3Cap": {
+      "oneOf": [
+        {
+          "type": "integer",
+          "minimum": 1
+        },
+        {
+          "const": "unlimited"
+        }
+      ],
+      "description": "whole tokens. 0 is not allowed because on V3 it means no cap; write \"unlimited\" for that. 1 = closed"
+    },
+    "address": {
+      "type": "string",
+      "pattern": "^0x[0-9a-fA-F]{40}$"
+    },
+    "asset": {
+      "type": "object",
+      "required": ["symbol"],
+      "additionalProperties": false,
+      "properties": {
+        "symbol": {
+          "type": "string",
+          "minLength": 1
+        },
+        "address": {
+          "$ref": "#/$defs/address"
+        }
+      },
+      "description": "Symbol as in the address book. The address is required for new listings."
+    },
+    "assetWithAddress": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/asset"
+        },
+        {
+          "required": ["address"]
+        }
+      ]
+    },
+    "eModeRef": {
+      "oneOf": [
+        {
+          "type": "object",
+          "required": ["id"],
+          "additionalProperties": false,
+          "properties": {
+            "id": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 255
+            }
+          }
+        },
+        {
+          "type": "object",
+          "required": ["label"],
+          "additionalProperties": false,
+          "properties": {
+            "label": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "description": "address book eMode name, e.g. xBTC__USDT_USDG_GHO_USDC for AaveV3XLayerEModes.xBTC__USDT_USDG_GHO_USDC"
+        },
+        {
+          "type": "object",
+          "required": ["ref"],
+          "additionalProperties": false,
+          "properties": {
+            "ref": {
+              "type": "string"
+            }
+          },
+          "description": "an eMode created in this record (eModeCreates[].ref)"
+        }
+      ]
+    },
+    "fromPreset": {
+      "type": "object",
+      "required": ["preset", "fields"],
+      "additionalProperties": false,
+      "properties": {
+        "preset": {
+          "enum": ["v3NonBorrowable", "v3Default"]
+        },
+        "fields": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        }
+      },
+      "description": "Which fields came from the agreed preset. The values are still written out."
+    },
+    "v3Rates": {
+      "type": "object",
+      "additionalProperties": false,
+      "minProperties": 1,
+      "properties": {
+        "optimal": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 10000
+        },
+        "base": {
+          "$ref": "#/$defs/rate"
+        },
+        "slope1": {
+          "$ref": "#/$defs/rate"
+        },
+        "slope2": {
+          "$ref": "#/$defs/rate"
+        }
+      }
+    },
+    "v3Market": {
+      "type": "object",
+      "additionalProperties": false,
+      "minProperties": 1,
+      "properties": {
+        "listings": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "asset",
+              "priceFeed",
+              "ltv",
+              "liqThreshold",
+              "liqBonus",
+              "liqProtocolFee",
+              "reserveFactor",
+              "supplyCap",
+              "borrowCap",
+              "borrowable",
+              "flashloanable",
+              "rates"
+            ],
+            "properties": {
+              "asset": {
+                "$ref": "#/$defs/assetWithAddress"
+              },
+              "priceFeed": {
+                "type": "string",
+                "minLength": 1,
+                "description": "feed address, or the feed name chosen by the risk provider when Aave Labs still has to find or deploy it. A name needs the address in the ops file."
+              },
+              "ltv": {
+                "$ref": "#/$defs/pct"
+              },
+              "liqThreshold": {
+                "$ref": "#/$defs/pct"
+              },
+              "liqBonus": {
+                "$ref": "#/$defs/v3Bonus"
+              },
+              "liqProtocolFee": {
+                "$ref": "#/$defs/pct"
+              },
+              "reserveFactor": {
+                "$ref": "#/$defs/pct"
+              },
+              "supplyCap": {
+                "$ref": "#/$defs/v3Cap"
+              },
+              "borrowCap": {
+                "$ref": "#/$defs/v3Cap"
+              },
+              "borrowable": {
+                "type": "boolean"
+              },
+              "flashloanable": {
+                "type": "boolean"
+              },
+              "rates": {
+                "allOf": [
+                  {
+                    "$ref": "#/$defs/v3Rates"
+                  },
+                  {
+                    "required": ["optimal", "base", "slope1", "slope2"]
+                  }
+                ]
+              },
+              "fromPreset": {
+                "$ref": "#/$defs/fromPreset"
+              }
+            }
+          }
+        },
+        "reserveUpdates": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["asset"],
+            "anyOf": [
+              {
+                "required": ["ltv"]
+              },
+              {
+                "required": ["liqThreshold"]
+              },
+              {
+                "required": ["liqBonus"]
+              },
+              {
+                "required": ["liqProtocolFee"]
+              },
+              {
+                "required": ["reserveFactor"]
+              },
+              {
+                "required": ["supplyCap"]
+              },
+              {
+                "required": ["borrowCap"]
+              },
+              {
+                "required": ["borrowable"]
+              },
+              {
+                "required": ["flashloanable"]
+              },
+              {
+                "required": ["rates"]
+              },
+              {
+                "required": ["priceFeed"]
+              },
+              {
+                "required": ["frozen"]
+              }
+            ],
+            "properties": {
+              "asset": {
+                "$ref": "#/$defs/asset"
+              },
+              "ltv": {
+                "$ref": "#/$defs/pct"
+              },
+              "liqThreshold": {
+                "$ref": "#/$defs/pct"
+              },
+              "liqBonus": {
+                "$ref": "#/$defs/v3Bonus"
+              },
+              "liqProtocolFee": {
+                "$ref": "#/$defs/pct"
+              },
+              "reserveFactor": {
+                "$ref": "#/$defs/pct"
+              },
+              "supplyCap": {
+                "$ref": "#/$defs/v3Cap"
+              },
+              "borrowCap": {
+                "$ref": "#/$defs/v3Cap"
+              },
+              "borrowable": {
+                "type": "boolean"
+              },
+              "flashloanable": {
+                "type": "boolean"
+              },
+              "rates": {
+                "$ref": "#/$defs/v3Rates"
+              },
+              "priceFeed": {
+                "type": "string",
+                "minLength": 1
+              },
+              "frozen": {
+                "type": "boolean"
+              }
+            }
+          }
+        },
+        "eModeCreates": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "ref",
+              "label",
+              "ltv",
+              "liqThreshold",
+              "liqBonus",
+              "isolated",
+              "collateral",
+              "borrowable"
+            ],
+            "properties": {
+              "ref": {
+                "type": "string",
+                "minLength": 1
+              },
+              "label": {
+                "type": "string",
+                "minLength": 1
+              },
+              "ltv": {
+                "$ref": "#/$defs/pct"
+              },
+              "liqThreshold": {
+                "$ref": "#/$defs/pct"
+              },
+              "liqBonus": {
+                "$ref": "#/$defs/v3Bonus"
+              },
+              "isolated": {
+                "type": "boolean"
+              },
+              "collateral": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/asset"
+                },
+                "description": "can be empty when assets are added in eModeAssets with the ref",
+                "uniqueItems": true
+              },
+              "borrowable": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/asset"
+                },
+                "uniqueItems": true
+              }
+            }
+          }
+        },
+        "eModeUpdates": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["eMode"],
+            "anyOf": [
+              {
+                "required": ["ltv"]
+              },
+              {
+                "required": ["liqThreshold"]
+              },
+              {
+                "required": ["liqBonus"]
+              },
+              {
+                "required": ["label"]
+              },
+              {
+                "required": ["isolated"]
+              }
+            ],
+            "properties": {
+              "eMode": {
+                "$ref": "#/$defs/eModeRef"
+              },
+              "label": {
+                "type": "string"
+              },
+              "ltv": {
+                "$ref": "#/$defs/pct"
+              },
+              "liqThreshold": {
+                "$ref": "#/$defs/pct"
+              },
+              "liqBonus": {
+                "$ref": "#/$defs/v3Bonus"
+              },
+              "isolated": {
+                "type": "boolean"
+              }
+            }
+          }
+        },
+        "eModeAssets": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["asset", "eMode"],
+            "anyOf": [
+              {
+                "required": ["collateral"]
+              },
+              {
+                "required": ["borrowable"]
+              },
+              {
+                "required": ["ltvZero"]
+              }
+            ],
+            "properties": {
+              "asset": {
+                "$ref": "#/$defs/asset"
+              },
+              "eMode": {
+                "$ref": "#/$defs/eModeRef"
+              },
+              "collateral": {
+                "type": "boolean"
+              },
+              "borrowable": {
+                "type": "boolean"
+              },
+              "ltvZero": {
+                "type": "boolean"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
