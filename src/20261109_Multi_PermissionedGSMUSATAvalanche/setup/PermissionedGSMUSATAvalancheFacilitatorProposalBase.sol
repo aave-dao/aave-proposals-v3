@@ -29,7 +29,5 @@ abstract contract PermissionedGSMUSATAvalancheFacilitatorProposalBase is IPropos
       GHO_CCIP_TOKEN_POOL(),
       (currentCapacity + Setup.GHO_BRIDGE_AMOUNT).toUint128()
     );
-
-    Setup.normalizeIORateLimitsForAllNetworks(GHO_CCIP_TOKEN_POOL());
   }
 }

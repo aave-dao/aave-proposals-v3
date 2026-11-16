@@ -3,8 +3,6 @@ pragma solidity ^0.8.0;
 
 import {ProtocolV3TestBase} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {IGhoToken} from 'src/interfaces/IGhoToken.sol';
-import {GhoCCIPChains} from 'src/helpers/gho-launch/constants/GhoCCIPChains.sol';
-import {IUpgradeableBurnMintTokenPool, IRateLimiter} from 'src/interfaces/ccip/IUpgradeableBurnMintTokenPool.sol';
 
 import {PermissionedGSMUSATAvalancheFacilitatorProposalBase} from './PermissionedGSMUSATAvalancheFacilitatorProposalBase.sol';
 import {PermissionedGSMUSATAvalancheSetup as Setup} from './PermissionedGSMUSATAvalancheSetup.sol';
@@ -32,36 +30,16 @@ abstract contract PermissionedGSMUSATAvalancheFacilitatorProposalBaseTest is
     assertEq(post.bucketLevel, before.bucketLevel);
   }
 
-  /// @dev Every lane already runs the ongoing config, so the reset changes no value
-  function test_allLanesAtOngoingConfig() public {
-    GhoCCIPChains.ChainInfo[] memory chains = GhoCCIPChains.getAllChainsExcept(
-      chainSelector,
-      false
-    );
-    _assertAllLanesDefault(chains);
+  /// @dev The payload only raises the bucket; no lane config changes
+  function test_lanesUntouched() public {
+    bytes32 before = _laneConfigHash(proposal.GHO_CCIP_TOKEN_POOL(), chainSelector, 0);
 
     executePayload(vm, address(proposal));
 
-    _assertAllLanesDefault(chains);
+    assertEq(_laneConfigHash(proposal.GHO_CCIP_TOKEN_POOL(), chainSelector, 0), before);
   }
 
   function test_supportedChainsMatchLibrary() public view {
     _assertSupportedChainsMatchLibrary(proposal.GHO_CCIP_TOKEN_POOL(), chainSelector);
-  }
-
-  function _assertAllLanesDefault(GhoCCIPChains.ChainInfo[] memory chains) internal view {
-    IUpgradeableBurnMintTokenPool pool = IUpgradeableBurnMintTokenPool(
-      proposal.GHO_CCIP_TOKEN_POOL()
-    );
-    for (uint256 i = 0; i < chains.length; i++) {
-      _assertDefault(pool.getCurrentInboundRateLimiterState(chains[i].chainSelector));
-      _assertDefault(pool.getCurrentOutboundRateLimiterState(chains[i].chainSelector));
-    }
-  }
-
-  function _assertDefault(IRateLimiter.TokenBucket memory bucket) internal pure {
-    assertTrue(bucket.isEnabled);
-    assertEq(bucket.capacity, Setup.DEFAULT_RATE_LIMITER_CAPACITY);
-    assertEq(bucket.rate, Setup.DEFAULT_LIMITER_RATE);
   }
 }

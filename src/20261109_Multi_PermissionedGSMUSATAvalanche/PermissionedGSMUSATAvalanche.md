@@ -7,99 +7,135 @@ snapshot: "TBA"
 
 ## Simple Summary
 
-Launch a permissioned GHO Stability Module (GSM) on Avalanche backed by USAT supplied to Aave V4 (waCoreUSAT). The proposal mints 65M GHO through a new `GhoDirectFacilitator` on Ethereum, bridges it over CCIP to fund a new `GhoReserve` on Avalanche, and wires up a `PermissionedGsm4626` where only approved addresses can swap.
+TokenLogic proposes a Permissioned GHO Stability Module (GSM) that allows approved counterparties to exchange eligible assets for GHO and vice versa. The module would retain the existing GSM functionality while introducing participant-level access controls.
+
+The first application would support USAT on Avalanche. Under this arrangement, USAT remains supplied to Aave V4 while the GSM holds waCoreUSAT, the receipt token representing the supplied USAT. The proposal includes the funding and configuration needed to launch this instance.
 
 ## Motivation
 
-Some institutional arrangements require GHO liquidity restricted to approved counterparties. The permissioned GSM keeps the existing GSM exchange functionality and adds per-direction access control, while the USAT stays supplied to Aave V4. The GSM draws GHO from a `GhoReserve` on Avalanche, funded once from Ethereum, following the RemoteGSM architecture used for Plasma, Monad and Arbitrum.
+Existing GSMs allow users to exchange supported assets for GHO within governance-defined limits. However, some institutional arrangements require restricting access to approved counterparties, particularly when specific commercial terms or asset requirements apply.
+
+A Permissioned GSM would support these arrangements without changing existing GSM exchange functionality.
+
+### Initial Application: USAT
+
+[USAT](https://usat.io/faq/) is a USD-backed stablecoin issued by Anchorage Digital Bank, N.A.
+
+An approved counterparty would deposit USAT into the Aave V4 Tokenization Spoke and receive waCoreUSAT. The counterparty would then separately exchange waCoreUSAT for GHO through the Permissioned GSM, which would hold the waCoreUSAT. Returning GHO would allow the counterparty to recover waCoreUSAT. Redemption for underlying USAT would depend on the selected integration and available liquidity.
+
+The same framework could support additional assets and counterparties. Multiple approved participants could share a GSM instance under the same configuration, while existing permissionless GSMs would remain unaffected.
+
+#### Permissioned Access
+
+Permissioning would apply to the swap originator in both directions. Approved participants could specify another recipient or use a relayer to submit a valid signed swap. Neither the recipient nor the relayer would require separate participant approval.
+
+GHO received through the module would remain freely transferable. Revoking a participant's approval would prevent further swaps, including exchanges intended to recover previously deposited assets.
+
+#### Liquidity and Exposure Management
+
+Each instance would operate with shared liquidity, allowing approved counterparties to exchange against the same pool under governance-defined limits. Liquidity would not be reserved for individual participants. The module would not track individual principal balances or require a participant's swaps to match their previous deposits.
+
+**The reserve supplies the GHO needed for swaps. The Remote GSM Draw Limit caps the GSM's use of that reserve. The Exposure Cap limits additional asset inflows through swaps. Exchange fees and any applicable accrued yield go to the configured treasury.**
+
+The exposure cap would be denominated in the configured asset, including share units where applicable. Exchanges would remain subject to sufficient available liquidity, independently of the configured limits.
+
+### Administration and Emergency Controls
+
+Governance would assign configuration and emergency permissions.
+
+The selected GSM implementation would retain its emergency controls, including the ability to freeze exchanges. Seizure transfers assets held by the module to the designated treasury and prevents further exchanges through the instance.
+
+Revocation, freezing or insufficient liquidity could prevent counterparties from reversing an exchange. These restrictions would need to be reflected in the relevant counterparty agreements.
 
 ## Specification
 
-### Fund the Avalanche GHO Reserve
+TokenLogic proposes deploying a permissioned remoteGSM on Avalanche to exchange waCoreUSAT for GHO and vice versa.
 
-On Ethereum:
+### Funding the GSM
 
-- Part 1: raise the GHO CCIP bridge limit by 65M to 265M (the bridged amount stays locked in the token pool) and temporarily set the Ethereum to Avalanche outbound rate limiter to 71,500,000 GHO capacity (initial funding \* 110%) with a refill rate of 64,999,999 GHO/s. The inbound side stays at 5M capacity and 1,000 GHO/s.
-- Part 2: register a new `GhoDirectFacilitator` with a 65M bucket, mint 65M GHO, configure the Avalanche destination on the `AaveGhoCcipBridge` (gas limit 450,000), bridge the 65M GHO to the Avalanche `AaveGhoCcipBridge` (fee paid in LINK held by the bridge), then set every GHO lane of the Ethereum token pool to the ongoing configuration.
+A new GHO Reserve on Avalanche would provide GHO for the USAT GSM. The initial allocation of 65,000,000 GHO would be newly minted on Ethereum through a new GhoDirectFacilitator for this GSM, with a 65,000,000 GHO bucket. This follows the existing practice of one GhoDirectFacilitator per remote GSM network, as for Arbitrum, Plasma and Monad, so that each facilitator's minted amount shows the GHO backing that network's GSMs. We would bridge the initial allocation to the Avalanche Collector, which would then transfer the funds to the reserve. To support this transfer, we would increase the bridge limits and refill rates, then apply the ongoing settings once the transfer is complete, as we have done previously when deploying new GSMs on Plasma, Monad, and Arbitrum.
 
-On Avalanche:
+### Access and Administration
 
-- Part 1: raise the CCIP token pool facilitator bucket by 65M to 265M and temporarily set the Ethereum to Avalanche inbound rate limiter to the same 71,500,000 GHO capacity and 64,999,999 GHO/s refill rate. The Avalanche `AaveGhoCcipBridge` forwards the received GHO to the Collector.
-- Part 2: move the 65M GHO from the Collector to the `GhoReserve`, then set every GHO lane of the Avalanche token pool to the ongoing configuration.
+The GSM is permissioned. Each swap direction has its own access control:
 
-On Arbitrum, Base, Gnosis, Ink, Mantle, Plasma, X Layer and Monad: raise the CCIP token pool facilitator bucket by 65M to 265M and set every GHO lane of the token pool to the ongoing configuration.
+- **Sell:** swap waCoreUSAT for GHO.
+- **Buy:** swap GHO for waCoreUSAT.
 
-The ongoing configuration of every lane, in both directions, is 5,000,000 GHO capacity and 1,000 GHO/s refill rate (the current values).
+An address can have access to one direction or to both directions. The initial whitelist would include only an Aave DAO Safe, controlled by the Aave Finance Committee, with access in both directions. The commercial counterparty would get approved in a follow-up GHO Risk Council transaction.
 
-| Parameter                                       | Value            |
-| ----------------------------------------------- | ---------------- |
-| Initial outbound capacity, Ethereum → Avalanche | 71,500,000 GHO   |
-| Initial refill rate                             | 64,999,999 GHO/s |
-| Ongoing inbound / outbound capacity             | 5,000,000 GHO    |
-| Ongoing refill rate                             | 1,000 GHO/s      |
-| Bridge bucket capacity, every chain             | 265,000,000 GHO  |
-| `GhoDirectFacilitator` bucket                   | 65,000,000 GHO   |
+The AIP gives the GHO Risk Council ([`0x8513e6F37dBc52De87b166980Fa3F50639694B60`](https://snowscan.xyz/address/0x8513e6F37dBc52De87b166980Fa3F50639694B60)) the swap access manager role. With this role, the GHO Stewards can:
 
-### Wire up the USAT Permissioned GSM
+- give or remove buy access, sell access, or both, for any address, including the commercial counterparty, after the AIP executes;
+- open buys, sells, or both to all addresses, and close them again.
 
-The GSM, its `GhoReserve`, the `GhoGsmSteward` and a `GsmRegistry` are deployed beforehand with the Avalanche executor as admin. The GSM is deployed with waCoreUSAT as underlying, already pointing at the `GhoReserve`, with a 20M waCoreUSAT exposure cap and the `FixedPriceStrategy4626` pricing strategy. The price of USAT is hardcoded to 1 and a waCoreUSAT share converts at its `convertToAssets()` rate.
+Aave Governance keeps the same role and can revoke the GHO Stewards' role at any time.
 
-On Avalanche, Part 2:
+The GSM will be deployed without a fee strategy, with buy and sell fees set to 0%. Introducing a non-zero fee will require an AIP to deploy and configure a fee strategy. Once a fee strategy is in place, the GHO Stewards will be able to adjust fees within the limits specified below. The GHO Stewards will also be able to adjust the exposure cap within the limits specified below.
 
-- Add the GSM as an entity of the `GhoReserve` with a 25M GHO limit, and grant `LIMIT_MANAGER_ROLE` on the reserve to the GHO Risk Council.
-- Grant `SWAP_FREEZER_ROLE` to the Avalanche executor.
-- Register the GSM in the Avalanche `GsmRegistry`.
-- Grant `CONFIGURATOR_ROLE` to the `GhoGsmSteward`, so the GHO Risk Council can adjust the exposure cap.
-- Grant `SWAP_ACCESS_MANAGER_ROLE` to the Avalanche executor and to the GHO Risk Council. This role administers `BUY_ASSET_ROLE` and `SELL_ASSET_ROLE`.
-- Grant `BUY_ASSET_ROLE` and `SELL_ASSET_ROLE` to the Aave DAO Safe controlled by the Aave Finance Committee.
+Only the GHO Risk Council ([`0x8513e6F37dBc52De87b166980Fa3F50639694B60`](https://snowscan.xyz/address/0x8513e6F37dBc52De87b166980Fa3F50639694B60)) would be authorized to call the GHO GSM Steward's parameter-update functions.
 
-| Parameter                 | Value                                                                                                                                                  |
-| ------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Underlying asset          | USAT [`0x9A5926fd88F747c357738b1e82aFB46AB80f0A6b`](https://snowscan.xyz/address/0x9A5926fd88F747c357738b1e82aFB46AB80f0A6b)                           |
-| GSM asset                 | waCoreUSAT [`0x653F2541E7d51a846e92fA6F7866bA92e465a379`](https://snowscan.xyz/address/0x653F2541E7d51a846e92fA6F7866bA92e465a379)                     |
-| GSM                       | [`0xF6b70344b92cAb2D23c96eA834bbb45ADbdd6c40`](https://snowscan.xyz/address/0xF6b70344b92cAb2D23c96eA834bbb45ADbdd6c40)                                |
-| GhoReserve                | [`0x15f22f39FD7b3612840cF0De49b6f9C4879Aa642`](https://snowscan.xyz/address/0x15f22f39FD7b3612840cF0De49b6f9C4879Aa642)                                |
-| Pricing strategy          | [`0x863F2106C5543266b43991Fe842551B0E30FBF0d`](https://snowscan.xyz/address/0x863F2106C5543266b43991Fe842551B0E30FBF0d)                                |
-| GhoReserve limit          | 25,000,000 GHO                                                                                                                                         |
-| Exposure cap              | 20,000,000 waCoreUSAT                                                                                                                                  |
-| Sell fee / Buy fee        | 0% / 0%, no fee strategy                                                                                                                               |
-| Automatic freeze strategy | none                                                                                                                                                   |
-| Approved swappers         | Aave DAO Safe [`0x22740deBa78d5a0c24C58C740e3715ec29de1bFa`](https://snowscan.xyz/address/0x22740deBa78d5a0c24C58C740e3715ec29de1bFa), both directions |
-| Fee and yield recipient   | Avalanche Collector                                                                                                                                    |
+#### Initial USAT Configuration
 
-### Access management after execution
+| Parameter                | Proposed Configuration                                                                                                                                                    |
+| ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Network                  | Avalanche                                                                                                                                                                 |
+| Underlying Asset         | USAT                                                                                                                                                                      |
+| Underlying Asset Address | [`0x9A5926fd88F747c357738b1e82aFB46AB80f0A6b`](https://snowscan.xyz/address/0x9A5926fd88F747c357738b1e82aFB46AB80f0A6b)                                                   |
+| Aave Market              | Aave V4                                                                                                                                                                   |
+| Configured GSM Asset     | waCoreUSAT                                                                                                                                                                |
+| Receipt Token Address \* | [`0x653F2541E7d51a846e92fA6F7866bA92e465a379`](https://snowscan.xyz/address/0x653F2541E7d51a846e92fA6F7866bA92e465a379)                                                   |
+| GSM Implementation       | Permissioned remoteGSM                                                                                                                                                    |
+| Approved Aave DAO Safe   | [`0x22740deBa78d5a0c24C58C740e3715ec29de1bFa`](https://snowscan.xyz/address/0x22740deBa78d5a0c24C58C740e3715ec29de1bFa)                                                   |
+| GSM Registry             | The AIP adds the GSM to the Avalanche GsmRegistry [`0x0a0dFf46122dFdc2aF0D5D66f23BA8f78bf17edF`](https://snowscan.xyz/address/0x0a0dFf46122dFdc2aF0D5D66f23BA8f78bf17edF) |
 
-The GHO Risk Council holds `SWAP_ACCESS_MANAGER_ROLE`. Without a governance vote, it can give or remove buy access, sell access, or both, for any address, including the commercial counterparty, and open buys or sells to all addresses and close them again. Aave Governance keeps the same role and can revoke it from the GHO Risk Council at any time. The commercial counterparty is approved in a follow-up GHO Risk Council transaction.
+\* Pending USAT onboarding to Aave V4 ([forum](https://governance.aave.com/t/direct-to-aip-onboard-usat-to-aave-v4-core-instance-on-avalanche/25880), [AIP](https://github.com/aave-dao/aave-proposals-v3/pull/1236)).
 
-The GHO Risk Council also holds `LIMIT_MANAGER_ROLE` on the `GhoReserve` and calls the `GhoGsmSteward`, which can change the exposure cap by up to 100% per update.
+#### Liquidity and Economic Parameters
 
-### Fees, freezing and seizure
+| Parameter                          | Proposed Configuration                                                                                                                       |
+| ---------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| GHO Reserve                        | [`0x15f22f39FD7b3612840cF0De49b6f9C4879Aa642`](https://snowscan.xyz/address/0x15f22f39FD7b3612840cF0De49b6f9C4879Aa642)                      |
+| Remote GSM Draw Limit              | 25,000,000 GHO                                                                                                                               |
+| Initial GHO Funding                | 65,000,000 GHO                                                                                                                               |
+| GHO Funding Source                 | [`0x5ba7fd868c40c16f7aDfAe6CF87121E13FC2F7a0`](https://snowscan.xyz/address/0x5ba7fd868c40c16f7aDfAe6CF87121E13FC2F7a0)                      |
+| waCoreUSAT Exposure Cap            | 20,000,000 waCoreUSAT                                                                                                                        |
+| Buy Fee (GHO → waCoreUSAT)         | 0                                                                                                                                            |
+| Sell Fee (waCoreUSAT → GHO)        | 0                                                                                                                                            |
+| Pricing Strategy                   | [`0x863F2106C5543266b43991Fe842551B0E30FBF0d`](https://snowscan.xyz/address/0x863F2106C5543266b43991Fe842551B0E30FBF0d)                      |
+| Receipt Token Conversion           | at `convertToAssets()` rate                                                                                                                  |
+| Fee and Yield Recipient            | Configured treasury: [`0x5ba7fd868c40c16f7aDfAe6CF87121E13FC2F7a0`](https://snowscan.xyz/address/0x5ba7fd868c40c16f7aDfAe6CF87121E13FC2F7a0) |
+| Fee Strategy                       | no fee strategy (both fees are 0)                                                                                                            |
+| Automatic Freeze Strategy / Oracle | no automatic freeze strategy - price is hardcoded to 1                                                                                       |
 
-- The GSM has no fee strategy and charges no fees. Introducing a non-zero fee requires an AIP to deploy and configure a fee strategy. After that, the `GhoGsmSteward` can adjust fees by up to 0.5 percentage points per direction.
-- There is no automatic freeze strategy. The Avalanche executor holds `SWAP_FREEZER_ROLE`, so swaps are frozen through governance.
-- Seizure requires an AIP that grants `LIQUIDATOR_ROLE` and seizes. This proposal does not grant that role.
+#### Bridge Configuration
 
-### Risks and dependencies
+| **Parameter**                                           | **Proposed Configuration**                                                                                                                            |
+| ------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Funding Route and Bridge Endpoint Source                | [`0x7F2f96fcdC3A29Be75938d2aC3D92E7006919fe6`](https://etherscan.io/address/0x7F2f96fcdC3A29Be75938d2aC3D92E7006919fe6) (Mainnet AaveGhoCcipBridge)   |
+| Funding Route and Bridge Endpoint Destination           | [`0xaf9f841de7477f35d6339943c1e6f0c101bca621`](https://snowscan.xyz/address/0xaf9f841de7477f35d6339943c1e6f0c101bca621) (Avalanche AaveGhoCcipBridge) |
+| Initial Inbound Capacity, Ethereum from Avalanche (GHO) | 5,000,000 (unchanged)                                                                                                                                 |
+| Initial Outbound Capacity, Ethereum → Avalanche (GHO)   | 71,500,000 (Initial GHO funding \* 110%)                                                                                                              |
+| Initial Refill Rate (GHO/s)                             | 64,999,999 (initial GHO funding - 1)                                                                                                                  |
+| Ongoing Inbound Capacity (GHO)                          | 5,000,000 (current)                                                                                                                                   |
+| Ongoing Outbound Capacity (GHO)                         | 5,000,000 (current)                                                                                                                                   |
+| Ongoing Refill Rate (GHO/s)                             | 1,000 (current)                                                                                                                                       |
+| Bridge Bucket Capacity (GHO)                            | 265,000,000 ([Current](https://etherscan.io/address/0x06179f7C1be40863405f374E7f5F8806c728660A#readProxyContract#F4) + Initial GHO Funding)           |
+| Transition to Ongoing Settings                          | After the initial funding transfer                                                                                                                    |
 
-- The USAT onboarding to Aave V4 Avalanche (aave-proposals-v3 PR 1236) creates waCoreUSAT and must execute before this proposal.
-- PR 1236 sets the waCoreUSAT tokenization cap to 1.5M USAT. Until that cap is raised, it limits the effective size of the GSM, not the 20M exposure cap.
-- The exposure cap is counted in waCoreUSAT shares. As the share price grows, the GHO value of a full 20M cap drifts above 20M GHO.
-- The GHO Risk Council can raise the GSM limit on the `GhoReserve` from 25M up to the 65M funded without a vote.
-- To wind the GSM down, first set the exposure cap to 0 with `updateExposureCap(0)`, then lower the reserve limit.
-- Avalanche Part 2 can be retried only until the payload expires. If the bridged GHO has not reached the Collector by then, a new payload is needed.
+#### Administration and Permissions
 
-### Execution Order
+| Parameter                         | Proposed Configuration                                                                                                                                                                                                                                                                                                    |
+| --------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Configuration Administrator       | Governance [`0x3C06dce358add17aAf230f2234bCCC4afd50d090`](https://snowscan.xyz/address/0x3C06dce358add17aAf230f2234bCCC4afd50d090), with delegated GHO Risk Council [`0x8513e6F37dBc52De87b166980Fa3F50639694B60`](https://snowscan.xyz/address/0x8513e6F37dBc52De87b166980Fa3F50639694B60) permissions as proposed below |
+| Reserve Limit Manager             | GHO Risk Council [`0x8513e6F37dBc52De87b166980Fa3F50639694B60`](https://snowscan.xyz/address/0x8513e6F37dBc52De87b166980Fa3F50639694B60); LIMIT_MANAGER_ROLE                                                                                                                                                              |
+| Steward Exposure Cap Change Limit | ±100%                                                                                                                                                                                                                                                                                                                     |
+| Steward Buy/Sell Fee Change Limit | ±0.5 percentage points for each direction (after AIP approved fee strategy)                                                                                                                                                                                                                                               |
+| Freeze Authority                  | Governance                                                                                                                                                                                                                                                                                                                |
+| Seizure Authority                 | Governance [`0x3C06dce358add17aAf230f2234bCCC4afd50d090`](https://snowscan.xyz/address/0x3C06dce358add17aAf230f2234bCCC4afd50d090), through an AIP that grants the liquidator role and seizes                                                                                                                             |
+| Treasury Address                  | [`0x5ba7fd868c40c16f7aDfAe6CF87121E13FC2F7a0`](https://snowscan.xyz/address/0x5ba7fd868c40c16f7aDfAe6CF87121E13FC2F7a0); same configured recipient for fees and applicable yield                                                                                                                                          |
 
-1. Ethereum Part 1 raises the bridge limit and the outbound rate limiter.
-2. Ethereum Part 2 mints and bridges 65M GHO. The outbound bucket refills at 64,999,999 GHO/s, so if it is empty when Part 1 executes, Part 2 needs up to 2 seconds after Part 1.
-3. Avalanche Part 1 must execute before the CCIP message arrives. Otherwise the inbound rate limiter rejects the mint and the delivery has to be retried manually on https://ccip.chain.link/.
-4. Avalanche Part 2 reverts until the bridged GHO has reached the Collector.
-5. The payloads on the other chains are independent of the Ethereum and Avalanche payloads.
-
-### Security reviews
-
-- Pashov: TBA
-- Certora: TBA
+The proposed exposure-cap and fee adjustment limits allow increases and decreases, as defined in [this post](https://governance.aave.com/t/arfc-gho-stewards/16466/11).
 
 ## References
 

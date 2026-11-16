@@ -17,7 +17,7 @@ library PermissionedGSMUSATAvalancheSetup {
   // ARFC initial refill rate, GHO per second
   uint128 public constant TEMP_BRIDGE_RATE = 64_999_999 ether;
 
-  // Ongoing config of every GHO lane, both directions (current on-chain values)
+  // Ongoing config of the Ethereum <> Avalanche lane, both directions (current on-chain values)
   uint128 public constant DEFAULT_RATE_LIMITER_CAPACITY = 5_000_000 ether;
   uint128 public constant DEFAULT_LIMITER_RATE = 1_000 ether;
 
@@ -33,25 +33,21 @@ library PermissionedGSMUSATAvalancheSetup {
   uint128 public constant GSM_EXPOSURE_CAP = 20_000_000e6;
 
   /**
-   * @notice Sets both directions of every GHO lane of `tokenPool` to the ongoing config.
-   * @dev Reads the lanes from the pool, so the payloads link no external library.
-   * `getSupportedChains` and `setChainRateLimiterConfig` have the same selectors on the
-   * lock-release and burn-mint pools.
+   * @notice Sets both directions of one GHO lane of `tokenPool` back to the ongoing config,
+   * undoing the Part 1 widening. Every other lane is left untouched.
+   * @dev `setChainRateLimiterConfig` has the same selector on the lock-release and burn-mint pools.
    */
-  function normalizeIORateLimitsForAllNetworks(address tokenPool) internal {
-    uint64[] memory chains = IUpgradeableLockReleaseTokenPool(tokenPool).getSupportedChains();
+  function restoreLaneRateLimitConfig(address tokenPool, uint64 remoteChainSelector) internal {
     IRateLimiter.Config memory defaultConfig = IRateLimiter.Config({
       isEnabled: true,
       capacity: DEFAULT_RATE_LIMITER_CAPACITY,
       rate: DEFAULT_LIMITER_RATE
     });
 
-    for (uint256 i = 0; i < chains.length; i++) {
-      IUpgradeableLockReleaseTokenPool(tokenPool).setChainRateLimiterConfig({
-        remoteChainSelector: chains[i],
-        outboundConfig: defaultConfig,
-        inboundConfig: defaultConfig
-      });
-    }
+    IUpgradeableLockReleaseTokenPool(tokenPool).setChainRateLimiterConfig({
+      remoteChainSelector: remoteChainSelector,
+      outboundConfig: defaultConfig,
+      inboundConfig: defaultConfig
+    });
   }
 }

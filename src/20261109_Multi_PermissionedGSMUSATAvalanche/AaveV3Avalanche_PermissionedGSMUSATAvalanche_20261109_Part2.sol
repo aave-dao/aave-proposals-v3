@@ -8,6 +8,7 @@ import {GovernanceV3Avalanche} from 'aave-address-book/GovernanceV3Avalanche.sol
 import {MiscAvalanche} from 'aave-address-book/MiscAvalanche.sol';
 import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGenericExecutor.sol';
 
+import {CCIPChainSelectors} from 'src/helpers/gho-launch/constants/CCIPChainSelectors.sol';
 import {IGhoReserve} from 'src/interfaces/IGhoReserve.sol';
 import {IGsmRegistry} from 'src/interfaces/IGsmRegistry.sol';
 import {IPermissionedGsm} from 'src/interfaces/IPermissionedGsm.sol';
@@ -66,6 +67,6 @@ contract AaveV3Avalanche_PermissionedGSMUSATAvalanche_20261109_Part2 is IProposa
       amount: Setup.GHO_BRIDGE_AMOUNT
     });
 
-    Setup.normalizeIORateLimitsForAllNetworks(GhoAvalanche.GHO_CCIP_TOKEN_POOL);
+    Setup.restoreLaneRateLimitConfig(GhoAvalanche.GHO_CCIP_TOKEN_POOL, CCIPChainSelectors.ETHEREUM);
   }
 }

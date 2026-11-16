@@ -27,8 +27,7 @@ contract AaveV3Ethereum_PermissionedGSMUSATAvalanche_20261109_Part2 is IProposal
   address public constant DIRECT_FACILITATOR = 0x207b377b904D5e227337F7E708e27Dfa34F6381A;
   string public constant DIRECT_FACILITATOR_NAME = 'GhoDirectFacilitator GSM USAT Avalanche';
 
-  // Same gas limit the Avalanche bridge uses for its Ethereum destination
-  uint32 public constant AVALANCHE_BRIDGE_GAS_LIMIT = 450_000;
+  uint32 public constant AVALANCHE_BRIDGE_GAS_LIMIT = 750_000;
 
   function execute() external {
     IGhoToken(AaveV3EthereumAssets.GHO_UNDERLYING).addFacilitator({
@@ -59,6 +58,6 @@ contract AaveV3Ethereum_PermissionedGSMUSATAvalanche_20261109_Part2 is IProposal
       feeToken: AaveV3EthereumAssets.LINK_UNDERLYING
     });
 
-    Setup.normalizeIORateLimitsForAllNetworks(GhoEthereum.GHO_CCIP_TOKEN_POOL);
+    Setup.restoreLaneRateLimitConfig(GhoEthereum.GHO_CCIP_TOKEN_POOL, CCIPChainSelectors.AVALANCHE);
   }
 }

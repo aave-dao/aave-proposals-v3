@@ -4,12 +4,12 @@ pragma solidity ^0.8.0;
 import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
 import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
 import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
+import {IExecutor} from 'aave-address-book/governance-v3/IExecutor.sol';
 import {GhoEthereum} from 'aave-address-book/GhoEthereum.sol';
 import {GhoAvalanche} from 'aave-address-book/GhoAvalanche.sol';
 import {ProtocolV3TestBase} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {IAaveGhoCcipBridge} from 'aave-helpers/src/bridges/ccip/interfaces/IAaveGhoCcipBridge.sol';
 import {CCIPChainSelectors} from 'src/helpers/gho-launch/constants/CCIPChainSelectors.sol';
-import {GhoCCIPChains} from 'src/helpers/gho-launch/constants/GhoCCIPChains.sol';
 import {IUpgradeableLockReleaseTokenPool, IRateLimiter} from 'src/interfaces/ccip/IUpgradeableLockReleaseTokenPool.sol';
 import {IGhoToken} from 'src/interfaces/IGhoToken.sol';
 import {IGhoDirectFacilitator} from 'src/interfaces/IGhoDirectFacilitator.sol';
@@ -32,17 +32,53 @@ contract AaveV3Ethereum_PermissionedGSMUSATAvalanche_20261109_Part2_Test is
   // GhoDirectFacilitator registered for the Monad remote GSM (aave-proposals-v3 PR 1158)
   // https://etherscan.io/address/0x0cB7C2A2Ab38Aed3e6096631D7Dba3DaBf237134
   address internal constant MONAD_DIRECT_FACILITATOR = 0x0cB7C2A2Ab38Aed3e6096631D7Dba3DaBf237134;
+  // Governance v3 Executor revert reason for a failed delegatecall
+  string internal constant EXECUTOR_FAILED_ACTION = '29';
 
   IUpgradeableLockReleaseTokenPool internal pool =
     IUpgradeableLockReleaseTokenPool(GhoEthereum.GHO_CCIP_TOKEN_POOL);
+  uint256 internal prePart1State;
 
   function setUp() public {
     vm.createSelectFork(vm.rpcUrl('mainnet'), 26405330);
     part1 = new AaveV3Ethereum_PermissionedGSMUSATAvalanche_20261109_Part1();
     proposal = new AaveV3Ethereum_PermissionedGSMUSATAvalanche_20261109_Part2();
 
+    prePart1State = vm.snapshotState();
     executePayload(vm, address(part1));
     vm.warp(block.timestamp + 1); // outbound bucket refill
+  }
+
+  /// @dev Part 2 reverts while Part 1 has not widened the outbound lane
+  function test_executionFailsWithoutPart1() public {
+    vm.revertToState(prePart1State);
+    assertLt(
+      pool.getCurrentOutboundRateLimiterState(CCIPChainSelectors.AVALANCHE).capacity,
+      Setup.GHO_BRIDGE_AMOUNT
+    );
+
+    // The executor reverts every failed action with '29' and hides the cause.
+    // expectCall only checks that execution reaches the bridge send.
+    vm.expectCall(
+      GhoEthereum.GHO_CCIP_BRIDGE,
+      abi.encodeCall(
+        IAaveGhoCcipBridge.send,
+        (
+          CCIPChainSelectors.AVALANCHE,
+          Setup.GHO_BRIDGE_AMOUNT,
+          AaveV3EthereumAssets.LINK_UNDERLYING
+        )
+      )
+    );
+    vm.prank(address(GovernanceV3Ethereum.PAYLOADS_CONTROLLER));
+    vm.expectRevert(bytes(EXECUTOR_FAILED_ACTION));
+    IExecutor(GovernanceV3Ethereum.EXECUTOR_LVL_1).executeTransaction(
+      address(proposal),
+      0,
+      'execute()',
+      '',
+      true
+    );
   }
 
   function test_deploymentAddressesSet() public view {
@@ -168,24 +204,24 @@ contract AaveV3Ethereum_PermissionedGSMUSATAvalanche_20261109_Part2_Test is
     _assertDefault(pool.getCurrentInboundRateLimiterState(CCIPChainSelectors.AVALANCHE));
   }
 
-  /// @dev Every lane other than the widened one already runs the ongoing config; afterwards all of them do
-  function test_allLanesAtOngoingConfig() public {
-    GhoCCIPChains.ChainInfo[] memory chains = GhoCCIPChains.getAllChainsExcept(
+  /// @dev Only the widened lane is restored; every other lane keeps its config
+  function test_otherLanesUntouched() public {
+    bytes32 before = _laneConfigHash(
+      GhoEthereum.GHO_CCIP_TOKEN_POOL,
       CCIPChainSelectors.ETHEREUM,
-      false
+      CCIPChainSelectors.AVALANCHE
     );
-    for (uint256 i = 0; i < chains.length; i++) {
-      if (chains[i].chainSelector == CCIPChainSelectors.AVALANCHE) continue;
-      _assertDefault(pool.getCurrentInboundRateLimiterState(chains[i].chainSelector));
-      _assertDefault(pool.getCurrentOutboundRateLimiterState(chains[i].chainSelector));
-    }
 
     executePayload(vm, address(proposal));
 
-    for (uint256 i = 0; i < chains.length; i++) {
-      _assertDefault(pool.getCurrentInboundRateLimiterState(chains[i].chainSelector));
-      _assertDefault(pool.getCurrentOutboundRateLimiterState(chains[i].chainSelector));
-    }
+    assertEq(
+      _laneConfigHash(
+        GhoEthereum.GHO_CCIP_TOKEN_POOL,
+        CCIPChainSelectors.ETHEREUM,
+        CCIPChainSelectors.AVALANCHE
+      ),
+      before
+    );
   }
 
   function test_supportedChainsMatchLibrary() public view {

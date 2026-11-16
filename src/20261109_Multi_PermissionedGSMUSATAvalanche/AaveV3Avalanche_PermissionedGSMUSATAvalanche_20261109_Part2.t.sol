@@ -15,7 +15,6 @@ import {ProtocolV3TestBase} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {ProxyHelpers} from 'aave-v3-origin-tests/utils/ProxyHelpers.sol';
 import {IUpgradeableBurnMintTokenPool, IRateLimiter} from 'src/interfaces/ccip/IUpgradeableBurnMintTokenPool.sol';
 import {CCIPChainSelectors} from 'src/helpers/gho-launch/constants/CCIPChainSelectors.sol';
-import {GhoCCIPChains} from 'src/helpers/gho-launch/constants/GhoCCIPChains.sol';
 import {IGsmSteward} from 'src/interfaces/IGsmSteward.sol';
 import {IGsmRegistry} from 'src/interfaces/IGsmRegistry.sol';
 import {IPermissionedGsm} from 'src/interfaces/IPermissionedGsm.sol';
@@ -103,7 +102,8 @@ contract AaveV3Avalanche_PermissionedGSMUSATAvalanche_20261109_Part2_Test is
     vm.expectRevert(stdError.arithmeticError);
     AaveV3Avalanche.COLLECTOR.transfer(gho, reserve, Setup.GHO_BRIDGE_AMOUNT);
 
-    // The executor wraps every failed action as '29'; expectCall pins the failure to that exact transfer
+    // The executor reverts every failed action with '29' and hides the cause.
+    // expectCall only checks that execution reaches the Collector transfer.
     vm.expectCall(
       address(AaveV3Avalanche.COLLECTOR),
       abi.encodeCall(AaveV3Avalanche.COLLECTOR.transfer, (gho, reserve, Setup.GHO_BRIDGE_AMOUNT))
@@ -356,24 +356,24 @@ contract AaveV3Avalanche_PermissionedGSMUSATAvalanche_20261109_Part2_Test is
     _assertDefault(pool.getCurrentOutboundRateLimiterState(CCIPChainSelectors.ETHEREUM));
   }
 
-  /// @dev Every lane other than the widened one already runs the ongoing config; afterwards all of them do
-  function test_allLanesAtOngoingConfig() public {
-    GhoCCIPChains.ChainInfo[] memory chains = GhoCCIPChains.getAllChainsExcept(
+  /// @dev Only the widened lane is restored; every other lane keeps its config
+  function test_otherLanesUntouched() public {
+    bytes32 before = _laneConfigHash(
+      GhoAvalanche.GHO_CCIP_TOKEN_POOL,
       CCIPChainSelectors.AVALANCHE,
-      false
+      CCIPChainSelectors.ETHEREUM
     );
-    for (uint256 i = 0; i < chains.length; i++) {
-      if (chains[i].chainSelector == CCIPChainSelectors.ETHEREUM) continue;
-      _assertDefault(pool.getCurrentInboundRateLimiterState(chains[i].chainSelector));
-      _assertDefault(pool.getCurrentOutboundRateLimiterState(chains[i].chainSelector));
-    }
 
     executePayload(vm, address(proposal));
 
-    for (uint256 i = 0; i < chains.length; i++) {
-      _assertDefault(pool.getCurrentInboundRateLimiterState(chains[i].chainSelector));
-      _assertDefault(pool.getCurrentOutboundRateLimiterState(chains[i].chainSelector));
-    }
+    assertEq(
+      _laneConfigHash(
+        GhoAvalanche.GHO_CCIP_TOKEN_POOL,
+        CCIPChainSelectors.AVALANCHE,
+        CCIPChainSelectors.ETHEREUM
+      ),
+      before
+    );
   }
 
   function test_supportedChainsMatchLibrary() public view {
