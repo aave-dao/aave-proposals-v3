@@ -26,11 +26,6 @@ contract AaveV3Plasma_AssetListingPendlePTsUSDe28JAN2027Plasma_20261022 is AaveV
   string public constant EMODE_LABEL = 'sUSDe_PT_sUSDe_28JAN2027__Stablecoins';
 
   function _postExecute() internal override {
-    AaveV3Plasma.POOL_CONFIGURATOR.setAssetLtvzeroInEMode(
-      AaveV3PlasmaAssets.PT_sUSDE_22OCT2026_UNDERLYING,
-      _findEModeCategoryId(EMODE_LABEL),
-      true
-    );
     IERC20(PT_sUSDE_28JAN2027).forceApprove(
       address(AaveV3Plasma.POOL),
       PT_sUSDE_28JAN2027_SEED_AMOUNT
@@ -41,15 +36,6 @@ contract AaveV3Plasma_AssetListingPendlePTsUSDe28JAN2027Plasma_20261022 is AaveV
       onBehalfOf: AaveV3Plasma.DUST_BIN,
       referralCode: 0
     });
-  }
-
-  function _findEModeCategoryId(string memory label) internal view returns (uint8) {
-    for (uint8 i = 1; i < 255; i++) {
-      if (keccak256(bytes(AaveV3Plasma.POOL.getEModeCategoryLabel(i))) == keccak256(bytes(label))) {
-        return i;
-      }
-    }
-    revert('eMode category not found');
   }
 
   function newListings() public pure override returns (IAaveV3ConfigEngine.Listing[] memory) {

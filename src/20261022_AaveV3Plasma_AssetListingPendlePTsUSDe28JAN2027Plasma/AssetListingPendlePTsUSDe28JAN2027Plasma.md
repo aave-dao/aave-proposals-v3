@@ -34,11 +34,11 @@ List PT-sUSDe-28JAN2027 on Aave V3 Plasma with the following asset details:
 
 ### eMode
 
-A dedicated eMode allows users to supply PT-sUSDe-28JAN2027 or sUSDe as collateral and borrow USDT0, USDe or GHO. PT-sUSDe-22OCT2026 is added with an LTV of 0, so existing positions can move into the new category but cannot open new debt against the matured PT.
+A dedicated eMode allows users to supply PT-sUSDe-28JAN2027 or sUSDe as collateral and borrow USDT0, USDe or GHO. PT-sUSDe-22OCT2026 is added with the same parameters as PT-sUSDe-28JAN2027, so existing positions can roll over without unwinding.
 
-| eMode ID | eMode                                   | Collateral                                            | Borrowable       | LTV | LT  | Liq. Bonus | Isolated |
-| -------- | --------------------------------------- | ----------------------------------------------------- | ---------------- | --- | --- | ---------- | -------- |
-| 27       | sUSDe_PT_sUSDe_28JAN2027\_\_Stablecoins | PT-sUSDe-28JAN2027, sUSDe, PT-sUSDe-22OCT2026 (LTV 0) | USDT0, USDe, GHO | 90% | 92% | 4.95%      | No       |
+| eMode ID | eMode                                   | Collateral                                    | Borrowable       | LTV | LT  | Liq. Bonus | Isolated |
+| -------- | --------------------------------------- | --------------------------------------------- | ---------------- | --- | --- | ---------- | -------- |
+| 27       | sUSDe_PT_sUSDe_28JAN2027\_\_Stablecoins | PT-sUSDe-28JAN2027, sUSDe, PT-sUSDe-22OCT2026 | USDT0, USDe, GHO | 90% | 92% | 4.95%      | No       |
 
 ### Reserve Parameters
 
@@ -91,6 +91,7 @@ A new linear discount oracle is deployed for the 28 January 2027 maturity. It pr
 - Implementation: [AaveV3Plasma](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20261022_AaveV3Plasma_AssetListingPendlePTsUSDe28JAN2027Plasma/AaveV3Plasma_AssetListingPendlePTsUSDe28JAN2027Plasma_20261022.sol)
 - Tests: [AaveV3Plasma](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20261022_AaveV3Plasma_AssetListingPendlePTsUSDe28JAN2027Plasma/AaveV3Plasma_AssetListingPendlePTsUSDe28JAN2027Plasma_20261022.t.sol)
 - [Discussion](https://governance.aave.com/t/direct-to-aip-onboard-pt-susde-28jan2027-to-aave-v3-plasma-instance/25902)
+- [LlamaRisk recommendation](https://governance.aave.com/t/direct-to-aip-onboard-pt-susde-28jan2027-to-aave-v3-plasma-instance/25902/2)
 
 ## Copyright
 

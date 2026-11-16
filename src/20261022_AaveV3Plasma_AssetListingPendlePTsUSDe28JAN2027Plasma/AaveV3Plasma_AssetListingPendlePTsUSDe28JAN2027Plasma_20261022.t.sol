@@ -3,7 +3,7 @@ pragma solidity ^0.8.0;
 
 import {GovernanceV3Plasma} from 'aave-address-book/GovernanceV3Plasma.sol';
 import {GovV3Helpers} from 'aave-helpers/src/GovV3Helpers.sol';
-import {AaveV3Plasma, AaveV3PlasmaAssets} from 'aave-address-book/AaveV3Plasma.sol';
+import {AaveV3Plasma, AaveV3PlasmaAssets, AaveV3PlasmaEModes} from 'aave-address-book/AaveV3Plasma.sol';
 import {EngineFlags} from 'aave-v3-origin/contracts/extensions/v3-config-engine/EngineFlags.sol';
 import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config-engine/IAaveV3ConfigEngine.sol';
 import {IDefaultInterestRateStrategyV2} from 'aave-v3-origin/contracts/interfaces/IDefaultInterestRateStrategyV2.sol';
@@ -16,12 +16,6 @@ import 'forge-std/Test.sol';
 import {ProtocolV3TestBase, ReserveConfig, ExpectedListing} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {AaveV3Plasma_AssetListingPendlePTsUSDe28JAN2027Plasma_20261022} from './AaveV3Plasma_AssetListingPendlePTsUSDe28JAN2027Plasma_20261022.sol';
 import {IPendlePriceCapAdapter} from '../interfaces/IPendlePriceCapAdapter.sol';
-
-contract EModeLookupHarness is AaveV3Plasma_AssetListingPendlePTsUSDe28JAN2027Plasma_20261022 {
-  function findEModeCategoryId(string memory label) external view returns (uint8) {
-    return _findEModeCategoryId(label);
-  }
-}
 
 /**
  * @dev Test for AaveV3Plasma_AssetListingPendlePTsUSDe28JAN2027Plasma_20261022
@@ -36,6 +30,11 @@ contract AaveV3Plasma_AssetListingPendlePTsUSDe28JAN2027Plasma_20261022_Test is 
     uint128 borrowableBitmap;
     uint128 ltvzeroBitmap;
   }
+
+  // eMode 25 (sUSDe_PT_sUSDE_22OCT2026__USDT0_USDe_GHO) borrower at the fork block: only PT-sUSDe-22OCT2026 collateral, USDT0 debt
+  // https://plasmascan.to/address/0x3b098f5b2208f6d4e6599fc36669621b7a347512
+  string internal constant NEW_EMODE_LABEL = 'sUSDe_PT_sUSDe_28JAN2027__Stablecoins';
+  address internal constant EMODE_25_BORROWER = 0x3B098f5b2208f6d4E6599Fc36669621B7A347512;
 
   AaveV3Plasma_AssetListingPendlePTsUSDe28JAN2027Plasma_20261022 internal proposal;
 
@@ -170,7 +169,7 @@ contract AaveV3Plasma_AssetListingPendlePTsUSDe28JAN2027Plasma_20261022_Test is 
     EModeSnapshot[] memory before_ = _snapshotEModes();
 
     GovV3Helpers.executePayload(vm, address(proposal));
-    uint8 id = _findEModeCategoryId('sUSDe_PT_sUSDe_28JAN2027__Stablecoins');
+    uint8 id = _findEModeCategoryId(NEW_EMODE_LABEL);
     assertEq(id, before_.length + 1, 'new eMode id is the next free id');
     _assertEModeCollateralConfig({
       id: id,
@@ -192,12 +191,10 @@ contract AaveV3Plasma_AssetListingPendlePTsUSDe28JAN2027Plasma_20261022_Test is 
     borrowables[2] = AaveV3PlasmaAssets.GHO_UNDERLYING;
     assertEq(AaveV3Plasma.POOL.getEModeCategoryBorrowableBitmap(id), _toBitmap(borrowables));
 
-    address[] memory ltvzero = new address[](1);
-    ltvzero[0] = AaveV3PlasmaAssets.PT_sUSDE_22OCT2026_UNDERLYING;
     assertEq(
       AaveV3Plasma.POOL.getEModeCategoryLtvzeroBitmap(id),
-      _toBitmap(ltvzero),
-      'only the matured PT-sUSDe-22OCT2026 has ltvzero in the new eMode'
+      0,
+      'no asset has ltvzero in the new eMode'
     );
 
     for (uint8 i = 0; i < before_.length; i++) {
@@ -208,7 +205,7 @@ contract AaveV3Plasma_AssetListingPendlePTsUSDe28JAN2027Plasma_20261022_Test is 
   function test_eMode_sUSDe_supplyAndBorrow() public {
     GovV3Helpers.executePayload(vm, address(proposal));
     _supplyAndBorrowInEMode(
-      'sUSDe_PT_sUSDe_28JAN2027__Stablecoins',
+      NEW_EMODE_LABEL,
       AaveV3PlasmaAssets.sUSDe_UNDERLYING,
       AaveV3PlasmaAssets.USDT0_UNDERLYING
     );
@@ -217,7 +214,7 @@ contract AaveV3Plasma_AssetListingPendlePTsUSDe28JAN2027Plasma_20261022_Test is 
   function test_eMode_PT_sUSDe_28JAN2027_supplyAndBorrow() public {
     GovV3Helpers.executePayload(vm, address(proposal));
     _supplyAndBorrowInEMode(
-      'sUSDe_PT_sUSDe_28JAN2027__Stablecoins',
+      NEW_EMODE_LABEL,
       proposal.PT_sUSDE_28JAN2027(),
       AaveV3PlasmaAssets.USDT0_UNDERLYING
     );
@@ -242,27 +239,56 @@ contract AaveV3Plasma_AssetListingPendlePTsUSDe28JAN2027Plasma_20261022_Test is 
     vm.stopPrank();
   }
 
-  function test_eMode_PT_sUSDe_22OCT2026_cannotBorrow() public {
+  function test_eMode_PT_sUSDe_22OCT2026_canBorrow() public {
     GovV3Helpers.executePayload(vm, address(proposal));
 
     address asset = AaveV3PlasmaAssets.PT_sUSDE_22OCT2026_UNDERLYING;
+    address usdt0 = AaveV3PlasmaAssets.USDT0_UNDERLYING;
     vm.prank(AaveV3Plasma.ACL_ADMIN);
     AaveV3Plasma.POOL_CONFIGURATOR.setSupplyCap(asset, 0);
 
     address user = makeAddr('maturedPtEModeUser');
     uint256 supplyAmount = 1_000 * 10 ** IERC20Metadata(asset).decimals();
+    uint256 borrowAmount = 10 * 10 ** IERC20Metadata(usdt0).decimals();
     deal(asset, user, supplyAmount);
 
     vm.startPrank(user);
 
-    AaveV3Plasma.POOL.setUserEMode(_findEModeCategoryId('sUSDe_PT_sUSDe_28JAN2027__Stablecoins'));
+    AaveV3Plasma.POOL.setUserEMode(_findEModeCategoryId(NEW_EMODE_LABEL));
     IERC20(asset).approve(address(AaveV3Plasma.POOL), supplyAmount);
     AaveV3Plasma.POOL.supply(asset, supplyAmount, user, 0);
-
-    vm.expectRevert(abi.encodeWithSelector(Errors.LtvValidationFailed.selector));
-    AaveV3Plasma.POOL.borrow(AaveV3PlasmaAssets.USDT0_UNDERLYING, 1, 2, 0, user);
+    AaveV3Plasma.POOL.borrow(usdt0, borrowAmount, 2, 0, user);
 
     vm.stopPrank();
+
+    assertApproxEqAbs(
+      IERC20(AaveV3Plasma.POOL.getReserveVariableDebtToken(usdt0)).balanceOf(user),
+      borrowAmount,
+      1
+    );
+  }
+
+  function test_rollover_eMode25BorrowerToNewEMode() public {
+    address usdt0 = AaveV3PlasmaAssets.USDT0_UNDERLYING;
+    address borrower = EMODE_25_BORROWER;
+
+    assertEq(
+      AaveV3Plasma.POOL.getUserEMode(borrower),
+      AaveV3PlasmaEModes.sUSDe_PT_sUSDE_22OCT2026__USDT0_USDe_GHO
+    );
+    assertGt(IERC20(AaveV3PlasmaAssets.PT_sUSDE_22OCT2026_A_TOKEN).balanceOf(borrower), 0);
+    assertGt(IERC20(AaveV3Plasma.POOL.getReserveVariableDebtToken(usdt0)).balanceOf(borrower), 0);
+    (, , , , , uint256 hfBefore) = AaveV3Plasma.POOL.getUserAccountData(borrower);
+
+    GovV3Helpers.executePayload(vm, address(proposal));
+
+    uint8 newEModeId = _findEModeCategoryId(NEW_EMODE_LABEL);
+    vm.prank(borrower);
+    AaveV3Plasma.POOL.setUserEMode(newEModeId);
+
+    assertEq(AaveV3Plasma.POOL.getUserEMode(borrower), newEModeId);
+    (, , , , , uint256 hfAfter) = AaveV3Plasma.POOL.getUserAccountData(borrower);
+    assertEq(hfAfter, hfBefore, 'HF changed on eMode switch');
   }
 
   function _snapshotEModes() internal view returns (EModeSnapshot[] memory snaps) {
@@ -372,11 +398,5 @@ contract AaveV3Plasma_AssetListingPendlePTsUSDe28JAN2027Plasma_20261022_Test is 
     AaveV3Plasma.POOL.withdraw(collateral, supplyAmount / 2, user);
 
     vm.stopPrank();
-  }
-
-  function test_findEModeCategoryId_revertsWhenLabelMissing() public {
-    EModeLookupHarness harness = new EModeLookupHarness();
-    vm.expectRevert(bytes('eMode category not found'));
-    harness.findEModeCategoryId('no_such_emode_label');
   }
 }
