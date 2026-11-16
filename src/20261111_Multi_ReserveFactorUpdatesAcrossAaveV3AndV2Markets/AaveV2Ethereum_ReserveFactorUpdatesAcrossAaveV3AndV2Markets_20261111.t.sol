@@ -4,6 +4,7 @@ pragma solidity ^0.8.0;
 import {AaveV2Ethereum, AaveV2EthereumAssets} from 'aave-address-book/AaveV2Ethereum.sol';
 
 import 'forge-std/Test.sol';
+import {GovV3Helpers} from 'aave-helpers/src/GovV3Helpers.sol';
 import {ProtocolV2TestBase, ReserveConfig} from 'aave-helpers/src/ProtocolV2TestBase.sol';
 import {AaveV2Ethereum_ReserveFactorUpdatesAcrossAaveV3AndV2Markets_20261111} from './AaveV2Ethereum_ReserveFactorUpdatesAcrossAaveV3AndV2Markets_20261111.sol';
 
@@ -53,5 +54,21 @@ contract AaveV2Ethereum_ReserveFactorUpdatesAcrossAaveV3AndV2Markets_20261111_Te
       expected.reserveFactor = reserveFactors[i];
       _requireNoChangeInConfigs(expected, _findReserveConfig(allConfigsAfter, assetsChanged[i]));
     }
+  }
+
+  function test_reserveFactorUpdates() public {
+    GovV3Helpers.executePayload(vm, address(proposal));
+
+    assertEq(_reserveFactor(AaveV2EthereumAssets.USDC_UNDERLYING), proposal.USDC_RF());
+    assertEq(_reserveFactor(AaveV2EthereumAssets.DAI_UNDERLYING), proposal.DAI_RF());
+    assertEq(_reserveFactor(AaveV2EthereumAssets.WETH_UNDERLYING), proposal.WETH_RF());
+    assertEq(_reserveFactor(AaveV2EthereumAssets.USDT_UNDERLYING), proposal.USDT_RF());
+    assertEq(_reserveFactor(AaveV2EthereumAssets.WBTC_UNDERLYING), proposal.WBTC_RF());
+  }
+
+  function _reserveFactor(address asset) internal view returns (uint256 reserveFactor) {
+    (, , , , reserveFactor, , , , , ) = AaveV2Ethereum
+      .AAVE_PROTOCOL_DATA_PROVIDER
+      .getReserveConfigurationData(asset);
   }
 }
