@@ -50,6 +50,9 @@ export const SUPPORTED_V3 = [
   FEATURE.EMODES_ASSETS,
 ] as string[];
 
+/// zkSync payloads live under zksync/ and need foundry-zksync, so the record leaves them out.
+export const isSupportedMarket = (market: string) => /^AaveV3(?!ZkSync)/.test(market);
+
 export function recordFromConfig(cfg: ConfigFile): {record: RiskParamsRecord; ops: RecordOps} {
   const ro = cfg.rootOptions;
   const date = String(ro.date);
@@ -68,7 +71,8 @@ export function recordFromConfig(cfg: ConfigFile): {record: RiskParamsRecord; op
   const ops: RecordOps = {rootOptions, markets: {}};
 
   for (const [market, mo] of Object.entries(cfg.marketOptions)) {
-    if (!market.startsWith('AaveV3')) throw new Error(`${market}: only V3 is supported`);
+    if (!isSupportedMarket(market))
+      throw new Error(`${market}: only V3 is supported, without zkSync`);
     const c = mo.configs || {};
     for (const f of Object.keys(c))
       if (!SUPPORTED_V3.includes(f))

@@ -73,6 +73,9 @@ describe('risk params record', () => {
     const {record: v4} = record();
     Object.assign(v4.markets, {AaveV4Ethereum: {}});
     expect(() => configFromRecord(v4, ops)).toThrow(/property name must be valid/);
+    const {record: zk} = record();
+    Object.assign(zk.markets, {AaveV3ZkSync: {}});
+    expect(() => configFromRecord(zk, ops)).toThrow(/property name must be valid/);
   });
 
   it('rejects symbols and eMode names that are not Solidity identifiers', () => {

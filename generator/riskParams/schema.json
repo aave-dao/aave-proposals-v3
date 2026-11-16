@@ -51,8 +51,8 @@
       "type": "object",
       "minProperties": 1,
       "propertyNames": {
-        "pattern": "^AaveV3[A-Z][A-Za-z0-9]*$",
-        "description": "Address book market name, e.g. AaveV3Ethereum"
+        "pattern": "^AaveV3(?!ZkSync)[A-Z][A-Za-z0-9]*$",
+        "description": "Address book market name, e.g. AaveV3Ethereum. zkSync is not supported"
       },
       "patternProperties": {
         "^AaveV3": {

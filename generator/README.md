@@ -109,7 +109,7 @@ pnpm generate -- -c src/YYYYMMDD_Chain_Title/config.ts --update
 
 ## Risk Params Record Mode
 
-A V3 listing or parameter update can also be generated from a risk params record instead of the prompts. The record is one JSON file with only the risk values from the risk provider's post, in bps and whole tokens (schema: `generator/riskParams/schema.json`).
+A V3 listing or parameter update (zkSync excluded) can also be generated from a risk params record instead of the prompts. The record is one JSON file with only the risk values from the risk provider's post, in bps and whole tokens (schema: `generator/riskParams/schema.json`).
 
 ```bash
 pnpm generate -- -r record.json -t "Onboard USDe to Aave V3 X Layer" -a "Aave Labs"

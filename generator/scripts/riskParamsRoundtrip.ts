@@ -5,7 +5,7 @@
 ///   pnpm test:risk-params <dir containing <aip>/config.ts>
 import fs from 'fs';
 import path from 'path';
-import {SUPPORTED_V3} from '../riskParams/toRecord';
+import {SUPPORTED_V3, isSupportedMarket} from '../riskParams/toRecord';
 import {firstDiff, generatePayloads, roundTrip} from '../riskParams/compare';
 import type {PastConfigFile} from '../riskParams/compare';
 
@@ -20,7 +20,7 @@ for (const name of fs.readdirSync(dir).sort()) {
   const {config: cfg}: {config: PastConfigFile} = await import(file);
   const mo = cfg.marketOptions ?? cfg.poolOptions ?? {};
   const unsupported = Object.keys(mo).flatMap((m) =>
-    m.startsWith('AaveV3')
+    isSupportedMarket(m)
       ? Object.keys(mo[m as keyof typeof mo]?.configs || {}).filter(
           (f) => !SUPPORTED_V3.includes(f),
         )

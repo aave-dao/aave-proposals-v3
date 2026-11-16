@@ -32,7 +32,7 @@
     "markets": {
       "type": "object",
       "propertyNames": {
-        "pattern": "^AaveV3[A-Z][A-Za-z0-9]*$"
+        "pattern": "^AaveV3(?!ZkSync)[A-Z][A-Za-z0-9]*$"
       },
       "additionalProperties": {
         "type": "object",
