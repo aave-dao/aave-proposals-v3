@@ -1,7 +1,7 @@
 ---
 title: "Onboard USAT to Aave V4 Core Instance on Avalanche"
 author: "@AaveLabs"
-date: "2026-11-13"
+date: "2026-11-16"
 discussions: "https://governance.aave.com/t/direct-to-aip-onboard-usat-to-aave-v4-core-instance-on-avalanche/25880"
 ---
 
@@ -42,11 +42,11 @@ Ethena Ecosystem Spoke: [`0xaf22446124e566e54845f65b722E4dCbf12b650A`](https://s
 
 **Caps**
 
-| Hub  | Spoke                  | Reserve |    Add Cap |   Draw Cap |
-| ---- | ---------------------- | ------- | ---------: | ---------: |
-| Core | Main Spoke             | USAT    | 60,000,000 |  5,000,000 |
-| Core | Ethena Ecosystem Spoke | USAT    |          0 | 50,000,000 |
-| Core | Tokenization Spoke     | USAT    | 21,500,000 |          0 |
+| Hub  | Spoke                     | Reserve |    Add Cap |   Draw Cap |
+| ---- | ------------------------- | ------- | ---------: | ---------: |
+| Core | Main Spoke                | USAT    | 60,000,000 |  5,000,000 |
+| Core | Ethena Ecosystem Spoke    | USAT    |          0 | 50,000,000 |
+| Core | Core Tokenized USAT Spoke | USAT    | 21,500,000 |          0 |
 
 **Interest rate configuration**
 

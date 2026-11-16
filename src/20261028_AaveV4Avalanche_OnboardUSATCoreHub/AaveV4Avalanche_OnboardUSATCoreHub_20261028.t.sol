@@ -76,6 +76,7 @@ contract AaveV4Avalanche_OnboardUSATCoreHub_20261028_Test is ProtocolV4TestBaseA
       'irStrategy mismatch'
     );
     assertEq(uint256(cfg.liquidityFee), uint256(10_00), 'liquidityFee mismatch');
+    assertEq(cfg.reinvestmentController, address(0), 'reinvestmentController mismatch');
     IAssetInterestRateStrategy.InterestRateData memory irData = IAssetInterestRateStrategy(
       cfg.irStrategy
     ).getInterestRateData(assetId);
@@ -115,6 +116,17 @@ contract AaveV4Avalanche_OnboardUSATCoreHub_20261028_Test is ProtocolV4TestBaseA
       'waCoreUSAT',
       'tokenization symbol mismatch'
     );
+    assertEq(hub.getSpokeCount(assetId), uint256(4), 'spoke count mismatch');
+    for (uint256 i; i < hub.getSpokeCount(assetId); ++i) {
+      address spoke = hub.getSpokeAddress(assetId, i);
+      assertTrue(
+        spoke == address(AaveV4Avalanche.TREASURY_SPOKE) ||
+          spoke == address(AaveV4AvalancheSpokes.MAIN_SPOKE) ||
+          spoke == address(AaveV4AvalancheSpokes.ETHENA_ECOSYSTEM_SPOKE) ||
+          spoke == tokenizationSpoke,
+        'unexpected spoke'
+      );
+    }
   }
 
   function test_tokenizationSpoke_CORE_HUB_USAT_proxyAdminOwner() public {
