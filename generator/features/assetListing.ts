@@ -51,7 +51,6 @@ async function fetchListing(market: MarketIdentifier): Promise<Listing> {
     ...(await fetchCapsUpdate(true)),
     rateStrategyParams: await fetchRateStrategyParamsV3(true),
     asset,
-    admin: await addressPrompt({message: 'Emission admin address (optional)', required: false}),
   };
 }
 
@@ -136,22 +135,13 @@ export const assetListing: FeatureModule<Listing[]> = {
     return response;
   },
   build({market, cfg}) {
-    const listingTests = cfg.map((cfg) => {
-      let listingTest = `function test_dustBinHas${cfg.assetSymbol}Funds() public {
+    const listingTests = cfg.map(
+      (cfg) => `function test_dustBinHas${cfg.assetSymbol}Funds() public {
             ${testExecuteProposal(market)}
             address aTokenAddress = ${market}.POOL.getReserveAToken(proposal.${cfg.assetSymbol}());
             assertGe(IERC20(aTokenAddress).balanceOf(address(${market}.DUST_BIN)), 10 ** ${cfg.decimals});
-          }\n`;
-      if (isAddress(cfg.admin)) {
-        listingTest += `\nfunction test_${cfg.assetSymbol}Admin() public {
-	      ${testExecuteProposal(market)}
-              address a${cfg.assetSymbol} = ${market}.POOL.getReserveAToken(proposal.${cfg.assetSymbol}());
-	      assertEq(IEmissionManager(${market}.EMISSION_MANAGER).getEmissionAdmin(proposal.${cfg.assetSymbol}()), proposal.${cfg.assetSymbol}_LM_ADMIN());
-	      assertEq(IEmissionManager(${market}.EMISSION_MANAGER).getEmissionAdmin(a${cfg.assetSymbol}), proposal.${cfg.assetSymbol}_LM_ADMIN());
-	    }\n`;
-      }
-      return listingTest;
-    });
+          }\n`,
+    );
     const response: CodeArtifact = {
       code: {
         constants: cfg.map((cfg) => {
@@ -163,16 +153,13 @@ export const assetListing: FeatureModule<Listing[]> = {
             listingConstant += `// ${getExplorerLink(chainId, cfg.priceFeed)}\n`;
           }
           listingConstant += `address public constant ${cfg.assetSymbol}_PRICE_FEED = ${translateJsAddressToSol(cfg.priceFeed)};\n`;
-          if (isAddress(cfg.admin)) {
-            listingConstant += `// ${getExplorerLink(chainId, cfg.admin)}\n`;
-            listingConstant += `address public constant ${cfg.assetSymbol}_LM_ADMIN = ${translateJsAddressToSol(cfg.admin)};\n`;
-          }
           return listingConstant;
         }),
-        execute: cfg.map((cfg) => {
-          let listingExe = `_supplyAndConfigureLMAdmin(${cfg.assetSymbol},${cfg.assetSymbol}_SEED_AMOUNT,${isAddress(cfg.admin) ? `${cfg.assetSymbol}_LM_ADMIN` : 'address(0)'});\n`;
-          return listingExe;
-        }),
+        execute: cfg.map(
+          (cfg) =>
+            `IERC20(${cfg.assetSymbol}).forceApprove(address(${market}.POOL), ${cfg.assetSymbol}_SEED_AMOUNT);
+            ${market}.POOL.supply({asset: ${cfg.assetSymbol}, amount: ${cfg.assetSymbol}_SEED_AMOUNT, onBehalfOf: ${market}.DUST_BIN, referralCode: 0});\n`,
+        ),
         fn: [
           `function newListings() public pure override returns (IAaveV3ConfigEngine.Listing[] memory) {
           IAaveV3ConfigEngine.Listing[] memory listings = new IAaveV3ConfigEngine.Listing[](${
@@ -188,18 +175,6 @@ export const assetListing: FeatureModule<Listing[]> = {
             .join('\n')}
 
           return listings;
-        }`,
-          `function _supplyAndConfigureLMAdmin(address asset, uint256 seedAmount, address lmAdmin) internal {
-          IERC20(asset).forceApprove(address(${market}.POOL), seedAmount);
-          ${market}.POOL.supply(asset, seedAmount, address(${market}.DUST_BIN), 0);
-
-          if (lmAdmin != address(0)) {
-            address aToken = ${market}.POOL.getReserveAToken(asset);
-            address vToken = ${market}.POOL.getReserveVariableDebtToken(asset);
-            IEmissionManager(${market}.EMISSION_MANAGER).setEmissionAdmin(asset, lmAdmin);
-            IEmissionManager(${market}.EMISSION_MANAGER).setEmissionAdmin(aToken, lmAdmin);
-            IEmissionManager(${market}.EMISSION_MANAGER).setEmissionAdmin(vToken, lmAdmin);
-	  }
         }`,
         ],
       },
@@ -242,9 +217,6 @@ export const assetListing: FeatureModule<Listing[]> = {
           )} |\n`;
           listingTemplate += `| Flashloanable	| ${cfg.flashloanable} |\n`;
           listingTemplate += `| Oracle | ${cfg.priceFeed} |\n`;
-          if (isAddress(cfg.admin)) {
-            listingTemplate += `\nAdditionally [${cfg.admin}](${getExplorerLink(CHAIN_TO_CHAIN_ID[getMarketChain(market)], cfg.admin)}) has been set as the emission admin for ${cfg.assetSymbol} and the corresponding aToken.\n`;
-          }
           return listingTemplate;
         }),
       },
@@ -288,7 +260,7 @@ export const assetListingCustom: FeatureModule<ListingWithCustomImpl[]> = {
         execute: cfg.map(
           (cfg) =>
             `IERC20(${cfg.base.assetSymbol}).forceApprove(address(${market}.POOL), 10 ** ${cfg.base.decimals});
-            ${market}.POOL.supply(${cfg.base.assetSymbol}, 10 ** ${cfg.base.decimals}, ${market}.DUST_BIN, 0);`,
+            ${market}.POOL.supply({asset: ${cfg.base.assetSymbol}, amount: 10 ** ${cfg.base.decimals}, onBehalfOf: ${market}.DUST_BIN, referralCode: 0});`,
         ),
         fn: [
           `function newListingsCustom() public pure override returns (IAaveV3ConfigEngine.ListingWithCustomImpl[] memory) {

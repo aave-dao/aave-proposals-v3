@@ -114,7 +114,6 @@ import {EngineFlags} from 'aave-v3-origin/contracts/extensions/v3-config-engine/
 import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config-engine/IAaveV3ConfigEngine.sol';
 import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
 import {SafeERC20} from 'openzeppelin-contracts/contracts/token/ERC20/utils/SafeERC20.sol';
-import {IEmissionManager} from 'aave-v3-origin/contracts/rewards/interfaces/IEmissionManager.sol';
 
 /**
  * @title test
@@ -132,7 +131,13 @@ contract AaveV3Ethereum_Test_20231023 is AaveV3PayloadEthereum {
   address public constant PT_sUSDe_TEST_PRICE_FEED = 0x9c823f4e19Ef68347810a9C139619273b8282b7e;
 
   function _postExecute() internal override {
-    _supplyAndConfigureLMAdmin(PT_sUSDe_TEST, PT_sUSDe_TEST_SEED_AMOUNT, address(0));
+    IERC20(PT_sUSDe_TEST).forceApprove(address(AaveV3Ethereum.POOL), PT_sUSDe_TEST_SEED_AMOUNT);
+    AaveV3Ethereum.POOL.supply({
+      asset: PT_sUSDe_TEST,
+      amount: PT_sUSDe_TEST_SEED_AMOUNT,
+      onBehalfOf: AaveV3Ethereum.DUST_BIN,
+      referralCode: 0
+    });
   }
 
   function newListings() public pure override returns (IAaveV3ConfigEngine.Listing[] memory) {
@@ -160,19 +165,6 @@ contract AaveV3Ethereum_Test_20231023 is AaveV3PayloadEthereum {
     });
 
     return listings;
-  }
-
-  function _supplyAndConfigureLMAdmin(address asset, uint256 seedAmount, address lmAdmin) internal {
-    IERC20(asset).forceApprove(address(AaveV3Ethereum.POOL), seedAmount);
-    AaveV3Ethereum.POOL.supply(asset, seedAmount, address(AaveV3Ethereum.DUST_BIN), 0);
-
-    if (lmAdmin != address(0)) {
-      address aToken = AaveV3Ethereum.POOL.getReserveAToken(asset);
-      address vToken = AaveV3Ethereum.POOL.getReserveVariableDebtToken(asset);
-      IEmissionManager(AaveV3Ethereum.EMISSION_MANAGER).setEmissionAdmin(asset, lmAdmin);
-      IEmissionManager(AaveV3Ethereum.EMISSION_MANAGER).setEmissionAdmin(aToken, lmAdmin);
-      IEmissionManager(AaveV3Ethereum.EMISSION_MANAGER).setEmissionAdmin(vToken, lmAdmin);
-    }
   }
 
   function eModeCategoryCreations()
