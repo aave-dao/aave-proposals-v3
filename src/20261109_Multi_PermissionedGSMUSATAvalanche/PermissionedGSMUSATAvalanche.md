@@ -122,6 +122,8 @@ Only the GHO Risk Council ([`0x8513e6F37dBc52De87b166980Fa3F50639694B60`](https:
 | Ongoing Refill Rate (GHO/s)                             | 1,000 (current)                                                                                                                                       |
 | Bridge Bucket Capacity (GHO)                            | 265,000,000 ([Current](https://etherscan.io/address/0x06179f7C1be40863405f374E7f5F8806c728660A#readProxyContract#F4) + Initial GHO Funding)           |
 | Transition to Ongoing Settings                          | After the initial funding transfer                                                                                                                    |
+| Avalanche Bridge Destination Gas Limit                  | 750,000                                                                                                                                               |
+| Bridge Bucket Capacity on other GHO networks (GHO)      | +65,000,000 (to 265,000,000) on Avalanche, Arbitrum, Base, Gnosis, Ink, Mantle, Plasma, X Layer and Monad                                             |
 
 #### Administration and Permissions
 
@@ -136,6 +138,14 @@ Only the GHO Risk Council ([`0x8513e6F37dBc52De87b166980Fa3F50639694B60`](https:
 | Treasury Address                  | [`0x5ba7fd868c40c16f7aDfAe6CF87121E13FC2F7a0`](https://snowscan.xyz/address/0x5ba7fd868c40c16f7aDfAe6CF87121E13FC2F7a0); same configured recipient for fees and applicable yield                                                                                                                                          |
 
 The proposed exposure-cap and fee adjustment limits allow increases and decreases, as defined in [this post](https://governance.aave.com/t/arfc-gho-stewards/16466/11).
+
+### Execution Order
+
+- Ethereum Part 1 raises the bridge limit and widens the Ethereum → Avalanche outbound limit.
+- Ethereum Part 2 mints 65,000,000 GHO through the new GhoDirectFacilitator, bridges it to the Avalanche Collector, and restores the Ethereum → Avalanche lane. It reverts if Ethereum Part 1 has not executed.
+- Avalanche Part 1 must execute before the CCIP message arrives. Otherwise the inbound limit rejects the transfer, and the delivery must be retried manually on https://ccip.chain.link/.
+- Avalanche Part 2 reverts until the bridged GHO reaches the Avalanche Collector. It then funds the reserve, configures the GSM and restores the Avalanche → Ethereum lane.
+- The payloads for Arbitrum, Base, Gnosis, Ink, Mantle, Plasma, X Layer and Monad are independent and can execute at any time.
 
 ## References
 
