@@ -1,6 +1,7 @@
 // sum.test.js
 import {expect, describe, it} from 'vitest';
 import {assetListing, assetListingCustom} from './assetListing';
+import {Listing} from './types';
 import {
   MOCK_OPTIONS,
   assetListingConfig,
@@ -45,6 +46,19 @@ describe('feature: assetListing', () => {
     expect(output.code?.fn?.join('\n')).toContain('assetSymbol: "PT_sUSDe_TEST"');
     expect(output.test?.fn?.join('\n')).toContain('assetSymbol: "PT-sUSDe-TEST"');
     expect(output.test?.fn?.join('\n')).not.toContain('assetSymbol: "PT_sUSDe_TEST"');
+  });
+
+  it('rejects a listing without an onchain symbol', () => {
+    const {onchainSymbol: _, ...listing} = ptListingConfig[0];
+    expect(() =>
+      assetListing.build({
+        options: MOCK_OPTIONS,
+        market: 'AaveV3Ethereum',
+        cfg: [listing as Listing],
+        cache: {blockNumber: 42},
+        configs: {},
+      }),
+    ).toThrow('PT_sUSDe_TEST: the listing config has no onchainSymbol');
   });
 
   it('compiles onchain symbols with quotes, backslashes, control and non-ASCII characters', async () => {

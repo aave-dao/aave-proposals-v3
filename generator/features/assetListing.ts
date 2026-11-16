@@ -49,9 +49,12 @@ async function fetchListing(market: MarketIdentifier): Promise<Listing> {
     }),
   );
 
+  const onchainSymbol =
+    symbol ?? (await stringPrompt({message: 'Enter the onchain symbol', required: true}));
+
   return {
     assetSymbol,
-    ...(symbol !== undefined ? {onchainSymbol: symbol} : {}),
+    onchainSymbol,
     decimals,
     priceFeed: await addressPrompt({message: 'PriceFeed address', required: true}),
     ...(await fetchCollateralUpdate(market, true)),
@@ -107,6 +110,9 @@ function generateAssetListingSol(cfg: Listing) {
 }
 
 function listingOverrides(cfgs: Listing[], fnName: string): string[] {
+  for (const cfg of cfgs)
+    if (cfg.onchainSymbol === undefined)
+      throw new Error(`${cfg.assetSymbol}: the listing config has no onchainSymbol`);
   return [
     `function ${fnName}() internal pure override returns (ExpectedListing[] memory listings) {
       listings = new ExpectedListing[](${cfgs.length});
@@ -117,7 +123,7 @@ function listingOverrides(cfgs: Listing[], fnName: string): string[] {
                  listing: IAaveV3ConfigEngine.Listing({
                    ${renderListingSol({
                      ...cfg,
-                     assetSymbol: cfg.onchainSymbol ?? cfg.assetSymbol,
+                     assetSymbol: cfg.onchainSymbol,
                      asset: translateJsAddressToSol(cfg.asset),
                      priceFeed: translateJsAddressToSol(cfg.priceFeed),
                    })}

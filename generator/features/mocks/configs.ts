@@ -23,6 +23,7 @@ export const MOCK_OPTIONS: Options = {
 export const assetListingConfig: Listing[] = [
   {
     assetSymbol: 'PSP',
+    onchainSymbol: 'PSP',
     decimals: 18,
     priceFeed: '0x72AFAECF99C9d9C8215fF44C77B94B99C28741e8',
     ltv: '40',
@@ -55,6 +56,7 @@ export const assetListingCustomConfig: ListingWithCustomImpl[] = [
     base: {
       ...assetListingConfig[0],
       assetSymbol: 'CUSTOM_PSP',
+      onchainSymbol: 'CUSTOM_PSP',
       asset: '0x1111111111111111111111111111111111111111',
       priceFeed: '0x2222222222222222222222222222222222222222',
     },
