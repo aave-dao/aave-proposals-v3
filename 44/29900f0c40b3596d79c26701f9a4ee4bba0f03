@@ -1,0 +1,28 @@
+src/20261028_AaveV4Avalanche_OnboardUSATCoreHub/config.ts
+  s_c0f7ea89c97d02::t_56fd919da42cb7 121
+src/20261028_AaveV4Avalanche_OnboardUSATCoreHub/AaveV4Avalanche_OnboardUSATCoreHub_20261028.t.sol
+  s_c0f7ea89c97d02::t_6485e650612131 27
+lib/aave-helpers
+  s_c0f7ea89c97d02::t_0b03854c2938b3 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "4429900f0c40b3596d79c26701f9a4ee4bba0f03",
+  "prompts": {},
+  "humans": {
+    "h_71908bb6884da4": {
+      "author": "YBM <31329384+yan-man@users.noreply.github.com>"
+    }
+  },
+  "sessions": {
+    "s_c0f7ea89c97d02": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "fe9f8b51-373d-4be5-8a96-d98efe165f1e",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "YBM <31329384+yan-man@users.noreply.github.com>"
+    }
+  }
+}

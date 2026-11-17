@@ -1,0 +1,21 @@
+package.json
+  s_9c10cec0914560::t_b64d39c4422518 43
+pnpm-lock.yaml
+  s_9c10cec0914560::t_190207c8d23ae1 18-19,93-94,101-102,107,1274,1284
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "4b430a5f838ff405a5321beddf155bf34590ef54",
+  "prompts": {},
+  "sessions": {
+    "s_9c10cec0914560": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "8f0a89ca-8beb-4989-936e-09661200dfd0",
+        "model": "unknown"
+      },
+      "human_author": "AlbertoCentonze <11707683+AlbertoCentonze@users.noreply.github.com>"
+    }
+  }
+}
