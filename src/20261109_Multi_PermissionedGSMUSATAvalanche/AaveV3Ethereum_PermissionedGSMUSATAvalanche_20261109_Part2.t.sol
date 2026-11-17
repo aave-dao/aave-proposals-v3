@@ -5,12 +5,13 @@ import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
 import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
 import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
 import {IExecutor} from 'aave-address-book/governance-v3/IExecutor.sol';
+import {Errors} from 'aave-address-book/governance-v3/Errors.sol';
 import {GhoEthereum} from 'aave-address-book/GhoEthereum.sol';
 import {GhoAvalanche} from 'aave-address-book/GhoAvalanche.sol';
 import {ProtocolV3TestBase} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {IAaveGhoCcipBridge} from 'aave-helpers/src/bridges/ccip/interfaces/IAaveGhoCcipBridge.sol';
 import {CCIPChainSelectors} from 'src/helpers/gho-launch/constants/CCIPChainSelectors.sol';
-import {IUpgradeableLockReleaseTokenPool, IRateLimiter} from 'src/interfaces/ccip/IUpgradeableLockReleaseTokenPool.sol';
+import {IUpgradeableLockReleaseTokenPool} from 'src/interfaces/ccip/IUpgradeableLockReleaseTokenPool.sol';
 import {IGhoToken} from 'src/interfaces/IGhoToken.sol';
 import {IGhoDirectFacilitator} from 'src/interfaces/IGhoDirectFacilitator.sol';
 
@@ -32,8 +33,6 @@ contract AaveV3Ethereum_PermissionedGSMUSATAvalanche_20261109_Part2_Test is
   // GhoDirectFacilitator registered for the Monad remote GSM (aave-proposals-v3 PR 1158)
   // https://etherscan.io/address/0x0cB7C2A2Ab38Aed3e6096631D7Dba3DaBf237134
   address internal constant MONAD_DIRECT_FACILITATOR = 0x0cB7C2A2Ab38Aed3e6096631D7Dba3DaBf237134;
-  // Governance v3 Executor revert reason for a failed delegatecall
-  string internal constant EXECUTOR_FAILED_ACTION = '29';
 
   IUpgradeableLockReleaseTokenPool internal pool =
     IUpgradeableLockReleaseTokenPool(GhoEthereum.GHO_CCIP_TOKEN_POOL);
@@ -71,7 +70,7 @@ contract AaveV3Ethereum_PermissionedGSMUSATAvalanche_20261109_Part2_Test is
       )
     );
     vm.prank(address(GovernanceV3Ethereum.PAYLOADS_CONTROLLER));
-    vm.expectRevert(bytes(EXECUTOR_FAILED_ACTION));
+    vm.expectRevert(bytes(Errors.FAILED_ACTION_EXECUTION));
     IExecutor(GovernanceV3Ethereum.EXECUTOR_LVL_1).executeTransaction(
       address(proposal),
       0,
@@ -229,11 +228,5 @@ contract AaveV3Ethereum_PermissionedGSMUSATAvalanche_20261109_Part2_Test is
       GhoEthereum.GHO_CCIP_TOKEN_POOL,
       CCIPChainSelectors.ETHEREUM
     );
-  }
-
-  function _assertDefault(IRateLimiter.TokenBucket memory bucket) internal pure {
-    assertTrue(bucket.isEnabled);
-    assertEq(bucket.capacity, Setup.DEFAULT_RATE_LIMITER_CAPACITY);
-    assertEq(bucket.rate, Setup.DEFAULT_LIMITER_RATE);
   }
 }

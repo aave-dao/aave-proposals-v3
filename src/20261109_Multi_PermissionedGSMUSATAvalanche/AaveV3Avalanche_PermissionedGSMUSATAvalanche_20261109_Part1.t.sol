@@ -13,6 +13,7 @@ import {AaveV3Avalanche_PermissionedGSMUSATAvalanche_20261109_Part1} from './Aav
 import {PermissionedGSMUSATAvalancheSetup as Setup} from './setup/PermissionedGSMUSATAvalancheSetup.sol';
 import {EXPECTED_BUCKET_CAPACITY} from './setup/PermissionedGSMUSATAvalancheFacilitatorProposalBaseTest.t.sol';
 import {AvalancheCcipDelivery} from './setup/AvalancheCcipDelivery.sol';
+import {SupportedChainsCheck} from './setup/SupportedChainsCheck.sol';
 
 /**
  * @dev Test for AaveV3Avalanche_PermissionedGSMUSATAvalanche_20261109_Part1
@@ -20,7 +21,8 @@ import {AvalancheCcipDelivery} from './setup/AvalancheCcipDelivery.sol';
  */
 contract AaveV3Avalanche_PermissionedGSMUSATAvalanche_20261109_Part1_Test is
   ProtocolV3TestBase,
-  AvalancheCcipDelivery
+  AvalancheCcipDelivery,
+  SupportedChainsCheck
 {
   uint256 internal constant FORK_BLOCK = 99954000;
 
@@ -117,11 +119,5 @@ contract AaveV3Avalanche_PermissionedGSMUSATAvalanche_20261109_Part1_Test is
       )
     );
     _deliverToAvalancheCollector(Setup.GHO_BRIDGE_AMOUNT);
-  }
-
-  function _assertDefault(IRateLimiter.TokenBucket memory bucket) internal pure {
-    assertTrue(bucket.isEnabled);
-    assertEq(bucket.capacity, Setup.DEFAULT_RATE_LIMITER_CAPACITY);
-    assertEq(bucket.rate, Setup.DEFAULT_LIMITER_RATE);
   }
 }

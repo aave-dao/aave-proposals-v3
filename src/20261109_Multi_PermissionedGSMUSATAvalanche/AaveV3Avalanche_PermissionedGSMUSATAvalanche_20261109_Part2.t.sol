@@ -7,13 +7,14 @@ import {IERC4626} from 'openzeppelin-contracts/contracts/interfaces/IERC4626.sol
 import {IAccessControl} from 'openzeppelin-contracts/contracts/access/IAccessControl.sol';
 import {Ownable} from 'openzeppelin-contracts/contracts/access/Ownable.sol';
 import {IExecutor} from 'aave-address-book/governance-v3/IExecutor.sol';
+import {Errors} from 'aave-address-book/governance-v3/Errors.sol';
 import {AaveV3Avalanche} from 'aave-address-book/AaveV3Avalanche.sol';
 import {GhoAvalanche} from 'aave-address-book/GhoAvalanche.sol';
 import {GovernanceV3Avalanche} from 'aave-address-book/GovernanceV3Avalanche.sol';
 import {MiscAvalanche} from 'aave-address-book/MiscAvalanche.sol';
 import {ProtocolV3TestBase} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {ProxyHelpers} from 'aave-v3-origin-tests/utils/ProxyHelpers.sol';
-import {IUpgradeableBurnMintTokenPool, IRateLimiter} from 'src/interfaces/ccip/IUpgradeableBurnMintTokenPool.sol';
+import {IUpgradeableBurnMintTokenPool} from 'src/interfaces/ccip/IUpgradeableBurnMintTokenPool.sol';
 import {CCIPChainSelectors} from 'src/helpers/gho-launch/constants/CCIPChainSelectors.sol';
 import {IGsmSteward} from 'src/interfaces/IGsmSteward.sol';
 import {IGsmRegistry} from 'src/interfaces/IGsmRegistry.sol';
@@ -41,8 +42,6 @@ contract AaveV3Avalanche_PermissionedGSMUSATAvalanche_20261109_Part2_Test is
   uint256 internal constant FORK_BLOCK = 99954000;
   // waCoreUSAT shares, 6 decimals (TokenizationSpoke decimals = underlying decimals); set at GSM deployment
   uint128 internal constant GSM_EXPOSURE_CAP = 20_000_000e6;
-  // Governance v3 Executor revert reason for a failed delegatecall
-  string internal constant EXECUTOR_FAILED_ACTION = '29';
   // Aave V4 TokenizationSpoke for USAT, not deployed at the fork block
   // https://snowscan.xyz/address/0x653F2541E7d51a846e92fA6F7866bA92e465a379
   address internal constant WA_CORE_USAT = 0x653F2541E7d51a846e92fA6F7866bA92e465a379;
@@ -111,7 +110,7 @@ contract AaveV3Avalanche_PermissionedGSMUSATAvalanche_20261109_Part2_Test is
       abi.encodeCall(AaveV3Avalanche.COLLECTOR.transfer, (gho, reserve, Setup.GHO_BRIDGE_AMOUNT))
     );
     vm.prank(address(GovernanceV3Avalanche.PAYLOADS_CONTROLLER));
-    vm.expectRevert(bytes(EXECUTOR_FAILED_ACTION));
+    vm.expectRevert(bytes(Errors.FAILED_ACTION_EXECUTION));
     IExecutor(GovernanceV3Avalanche.EXECUTOR_LVL_1).executeTransaction(
       address(proposal),
       0,
@@ -393,11 +392,5 @@ contract AaveV3Avalanche_PermissionedGSMUSATAvalanche_20261109_Part2_Test is
       GhoAvalanche.GHO_CCIP_TOKEN_POOL,
       CCIPChainSelectors.AVALANCHE
     );
-  }
-
-  function _assertDefault(IRateLimiter.TokenBucket memory bucket) internal pure {
-    assertTrue(bucket.isEnabled);
-    assertEq(bucket.capacity, Setup.DEFAULT_RATE_LIMITER_CAPACITY);
-    assertEq(bucket.rate, Setup.DEFAULT_LIMITER_RATE);
   }
 }
