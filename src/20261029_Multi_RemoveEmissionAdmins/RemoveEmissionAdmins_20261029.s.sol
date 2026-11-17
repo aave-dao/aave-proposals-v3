@@ -4,7 +4,11 @@ pragma solidity ^0.8.0;
 import {GovV3Helpers, IPayloadsControllerCore, PayloadsControllerUtils} from 'aave-helpers/src/GovV3Helpers.sol';
 import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
 
-import {EthereumScript, PolygonScript, AvalancheScript, OptimismScript, ArbitrumScript, BaseScript, GnosisScript, BNBScript, LineaScript, CeloScript, PlasmaScript, MantleScript, MegaEthScript, XLayerScript} from 'solidity-utils/contracts/utils/ScriptUtils.sol';
+import {EthereumScript, MetisScript, ScrollScript, SonicScript, SoneiumScript, PolygonScript, AvalancheScript, OptimismScript, ArbitrumScript, BaseScript, GnosisScript, BNBScript, LineaScript, CeloScript, PlasmaScript, MantleScript, MegaEthScript, XLayerScript} from 'solidity-utils/contracts/utils/ScriptUtils.sol';
+import {AaveV3Metis_RemoveEmissionAdmins_20261029} from './AaveV3Metis_RemoveEmissionAdmins_20261029.sol';
+import {AaveV3Scroll_RemoveEmissionAdmins_20261029} from './AaveV3Scroll_RemoveEmissionAdmins_20261029.sol';
+import {AaveV3Sonic_RemoveEmissionAdmins_20261029} from './AaveV3Sonic_RemoveEmissionAdmins_20261029.sol';
+import {AaveV3Soneium_RemoveEmissionAdmins_20261029} from './AaveV3Soneium_RemoveEmissionAdmins_20261029.sol';
 import {AaveV3Ethereum_RemoveEmissionAdmins_20261029} from './AaveV3Ethereum_RemoveEmissionAdmins_20261029.sol';
 import {AaveV3EthereumHorizon_RemoveEmissionAdmins_20261029} from './AaveV3EthereumHorizon_RemoveEmissionAdmins_20261029.sol';
 import {AaveV3Polygon_RemoveEmissionAdmins_20261029} from './AaveV3Polygon_RemoveEmissionAdmins_20261029.sol';
@@ -20,6 +24,94 @@ import {AaveV3Plasma_RemoveEmissionAdmins_20261029} from './AaveV3Plasma_RemoveE
 import {AaveV3Mantle_RemoveEmissionAdmins_20261029} from './AaveV3Mantle_RemoveEmissionAdmins_20261029.sol';
 import {AaveV3MegaEth_RemoveEmissionAdmins_20261029} from './AaveV3MegaEth_RemoveEmissionAdmins_20261029.sol';
 import {AaveV3XLayer_RemoveEmissionAdmins_20261029} from './AaveV3XLayer_RemoveEmissionAdmins_20261029.sol';
+
+/**
+ * @dev Deploy Metis
+ * deploy-command: make deploy-ledger contract=src/20261029_Multi_RemoveEmissionAdmins/RemoveEmissionAdmins_20261029.s.sol:DeployMetis chain=metis
+ * verify-command: FOUNDRY_PROFILE=deploy npx catapulta-verify -b broadcast/RemoveEmissionAdmins_20261029.s.sol/1088/run-latest.json
+ */
+contract DeployMetis is MetisScript {
+  function run() external broadcast {
+    // deploy payloads
+    address payload0 = GovV3Helpers.deployDeterministic(
+      type(AaveV3Metis_RemoveEmissionAdmins_20261029).creationCode
+    );
+
+    // compose action
+    IPayloadsControllerCore.ExecutionAction[]
+      memory actions = new IPayloadsControllerCore.ExecutionAction[](1);
+    actions[0] = GovV3Helpers.buildAction(payload0);
+
+    // register action at payloadsController
+    GovV3Helpers.createPayload(actions);
+  }
+}
+
+/**
+ * @dev Deploy Scroll
+ * deploy-command: make deploy-ledger contract=src/20261029_Multi_RemoveEmissionAdmins/RemoveEmissionAdmins_20261029.s.sol:DeployScroll chain=scroll
+ * verify-command: FOUNDRY_PROFILE=deploy npx catapulta-verify -b broadcast/RemoveEmissionAdmins_20261029.s.sol/534352/run-latest.json
+ */
+contract DeployScroll is ScrollScript {
+  function run() external broadcast {
+    // deploy payloads
+    address payload0 = GovV3Helpers.deployDeterministic(
+      type(AaveV3Scroll_RemoveEmissionAdmins_20261029).creationCode
+    );
+
+    // compose action
+    IPayloadsControllerCore.ExecutionAction[]
+      memory actions = new IPayloadsControllerCore.ExecutionAction[](1);
+    actions[0] = GovV3Helpers.buildAction(payload0);
+
+    // register action at payloadsController
+    GovV3Helpers.createPayload(actions);
+  }
+}
+
+/**
+ * @dev Deploy Sonic
+ * deploy-command: make deploy-ledger contract=src/20261029_Multi_RemoveEmissionAdmins/RemoveEmissionAdmins_20261029.s.sol:DeploySonic chain=sonic
+ * verify-command: FOUNDRY_PROFILE=deploy npx catapulta-verify -b broadcast/RemoveEmissionAdmins_20261029.s.sol/146/run-latest.json
+ */
+contract DeploySonic is SonicScript {
+  function run() external broadcast {
+    // deploy payloads
+    address payload0 = GovV3Helpers.deployDeterministic(
+      type(AaveV3Sonic_RemoveEmissionAdmins_20261029).creationCode
+    );
+
+    // compose action
+    IPayloadsControllerCore.ExecutionAction[]
+      memory actions = new IPayloadsControllerCore.ExecutionAction[](1);
+    actions[0] = GovV3Helpers.buildAction(payload0);
+
+    // register action at payloadsController
+    GovV3Helpers.createPayload(actions);
+  }
+}
+
+/**
+ * @dev Deploy Soneium
+ * deploy-command: make deploy-ledger contract=src/20261029_Multi_RemoveEmissionAdmins/RemoveEmissionAdmins_20261029.s.sol:DeploySoneium chain=soneium
+ * verify-command: FOUNDRY_PROFILE=deploy npx catapulta-verify -b broadcast/RemoveEmissionAdmins_20261029.s.sol/1868/run-latest.json
+ */
+contract DeploySoneium is SoneiumScript {
+  function run() external broadcast {
+    // deploy payloads
+    address payload0 = GovV3Helpers.deployDeterministic(
+      type(AaveV3Soneium_RemoveEmissionAdmins_20261029).creationCode
+    );
+
+    // compose action
+    IPayloadsControllerCore.ExecutionAction[]
+      memory actions = new IPayloadsControllerCore.ExecutionAction[](1);
+    actions[0] = GovV3Helpers.buildAction(payload0);
+
+    // register action at payloadsController
+    GovV3Helpers.createPayload(actions);
+  }
+}
 
 /**
  * @dev Deploy Ethereum
@@ -340,9 +432,55 @@ contract DeployXLayer is XLayerScript {
 contract CreateProposal is EthereumScript {
   function run() external {
     // create payloads
-    PayloadsControllerUtils.Payload[] memory payloads = new PayloadsControllerUtils.Payload[](14);
+    PayloadsControllerUtils.Payload[] memory payloads = new PayloadsControllerUtils.Payload[](19);
 
     // compose actions for validation
+    {
+      IPayloadsControllerCore.ExecutionAction[]
+        memory actionsMetis = new IPayloadsControllerCore.ExecutionAction[](1);
+      actionsMetis[0] = GovV3Helpers.buildAction(
+        type(AaveV3Metis_RemoveEmissionAdmins_20261029).creationCode
+      );
+      payloads[0] = GovV3Helpers.buildMetisPayload(vm, actionsMetis);
+    }
+
+    {
+      IPayloadsControllerCore.ExecutionAction[]
+        memory actionsScroll = new IPayloadsControllerCore.ExecutionAction[](1);
+      actionsScroll[0] = GovV3Helpers.buildAction(
+        type(AaveV3Scroll_RemoveEmissionAdmins_20261029).creationCode
+      );
+      payloads[1] = GovV3Helpers.buildScrollPayload(vm, actionsScroll);
+    }
+
+    {
+      IPayloadsControllerCore.ExecutionAction[]
+        memory actionsZkSync = new IPayloadsControllerCore.ExecutionAction[](1);
+      actionsZkSync[0] = GovV3Helpers.buildActionZkSync(
+        vm,
+        'AaveV3ZkSync_RemoveEmissionAdmins_20261029'
+      );
+      payloads[2] = GovV3Helpers.buildZkSyncPayload(vm, actionsZkSync);
+    }
+
+    {
+      IPayloadsControllerCore.ExecutionAction[]
+        memory actionsSonic = new IPayloadsControllerCore.ExecutionAction[](1);
+      actionsSonic[0] = GovV3Helpers.buildAction(
+        type(AaveV3Sonic_RemoveEmissionAdmins_20261029).creationCode
+      );
+      payloads[3] = GovV3Helpers.buildSonicPayload(vm, actionsSonic);
+    }
+
+    {
+      IPayloadsControllerCore.ExecutionAction[]
+        memory actionsSoneium = new IPayloadsControllerCore.ExecutionAction[](1);
+      actionsSoneium[0] = GovV3Helpers.buildAction(
+        type(AaveV3Soneium_RemoveEmissionAdmins_20261029).creationCode
+      );
+      payloads[4] = GovV3Helpers.buildSoneiumPayload(vm, actionsSoneium);
+    }
+
     {
       IPayloadsControllerCore.ExecutionAction[]
         memory actionsEthereum = new IPayloadsControllerCore.ExecutionAction[](2);
@@ -352,7 +490,7 @@ contract CreateProposal is EthereumScript {
       actionsEthereum[1] = GovV3Helpers.buildAction(
         type(AaveV3EthereumHorizon_RemoveEmissionAdmins_20261029).creationCode
       );
-      payloads[0] = GovV3Helpers.buildMainnetPayload(vm, actionsEthereum);
+      payloads[5] = GovV3Helpers.buildMainnetPayload(vm, actionsEthereum);
     }
 
     {
@@ -361,7 +499,7 @@ contract CreateProposal is EthereumScript {
       actionsPolygon[0] = GovV3Helpers.buildAction(
         type(AaveV3Polygon_RemoveEmissionAdmins_20261029).creationCode
       );
-      payloads[1] = GovV3Helpers.buildPolygonPayload(vm, actionsPolygon);
+      payloads[6] = GovV3Helpers.buildPolygonPayload(vm, actionsPolygon);
     }
 
     {
@@ -370,7 +508,7 @@ contract CreateProposal is EthereumScript {
       actionsAvalanche[0] = GovV3Helpers.buildAction(
         type(AaveV3Avalanche_RemoveEmissionAdmins_20261029).creationCode
       );
-      payloads[2] = GovV3Helpers.buildAvalanchePayload(vm, actionsAvalanche);
+      payloads[7] = GovV3Helpers.buildAvalanchePayload(vm, actionsAvalanche);
     }
 
     {
@@ -379,7 +517,7 @@ contract CreateProposal is EthereumScript {
       actionsOptimism[0] = GovV3Helpers.buildAction(
         type(AaveV3Optimism_RemoveEmissionAdmins_20261029).creationCode
       );
-      payloads[3] = GovV3Helpers.buildOptimismPayload(vm, actionsOptimism);
+      payloads[8] = GovV3Helpers.buildOptimismPayload(vm, actionsOptimism);
     }
 
     {
@@ -388,7 +526,7 @@ contract CreateProposal is EthereumScript {
       actionsArbitrum[0] = GovV3Helpers.buildAction(
         type(AaveV3Arbitrum_RemoveEmissionAdmins_20261029).creationCode
       );
-      payloads[4] = GovV3Helpers.buildArbitrumPayload(vm, actionsArbitrum);
+      payloads[9] = GovV3Helpers.buildArbitrumPayload(vm, actionsArbitrum);
     }
 
     {
@@ -397,7 +535,7 @@ contract CreateProposal is EthereumScript {
       actionsBase[0] = GovV3Helpers.buildAction(
         type(AaveV3Base_RemoveEmissionAdmins_20261029).creationCode
       );
-      payloads[5] = GovV3Helpers.buildBasePayload(vm, actionsBase);
+      payloads[10] = GovV3Helpers.buildBasePayload(vm, actionsBase);
     }
 
     {
@@ -406,7 +544,7 @@ contract CreateProposal is EthereumScript {
       actionsGnosis[0] = GovV3Helpers.buildAction(
         type(AaveV3Gnosis_RemoveEmissionAdmins_20261029).creationCode
       );
-      payloads[6] = GovV3Helpers.buildGnosisPayload(vm, actionsGnosis);
+      payloads[11] = GovV3Helpers.buildGnosisPayload(vm, actionsGnosis);
     }
 
     {
@@ -415,7 +553,7 @@ contract CreateProposal is EthereumScript {
       actionsBNB[0] = GovV3Helpers.buildAction(
         type(AaveV3BNB_RemoveEmissionAdmins_20261029).creationCode
       );
-      payloads[7] = GovV3Helpers.buildBNBPayload(vm, actionsBNB);
+      payloads[12] = GovV3Helpers.buildBNBPayload(vm, actionsBNB);
     }
 
     {
@@ -424,7 +562,7 @@ contract CreateProposal is EthereumScript {
       actionsLinea[0] = GovV3Helpers.buildAction(
         type(AaveV3Linea_RemoveEmissionAdmins_20261029).creationCode
       );
-      payloads[8] = GovV3Helpers.buildLineaPayload(vm, actionsLinea);
+      payloads[13] = GovV3Helpers.buildLineaPayload(vm, actionsLinea);
     }
 
     {
@@ -433,7 +571,7 @@ contract CreateProposal is EthereumScript {
       actionsCelo[0] = GovV3Helpers.buildAction(
         type(AaveV3Celo_RemoveEmissionAdmins_20261029).creationCode
       );
-      payloads[9] = GovV3Helpers.buildCeloPayload(vm, actionsCelo);
+      payloads[14] = GovV3Helpers.buildCeloPayload(vm, actionsCelo);
     }
 
     {
@@ -442,7 +580,7 @@ contract CreateProposal is EthereumScript {
       actionsPlasma[0] = GovV3Helpers.buildAction(
         type(AaveV3Plasma_RemoveEmissionAdmins_20261029).creationCode
       );
-      payloads[10] = GovV3Helpers.buildPlasmaPayload(vm, actionsPlasma);
+      payloads[15] = GovV3Helpers.buildPlasmaPayload(vm, actionsPlasma);
     }
 
     {
@@ -451,7 +589,7 @@ contract CreateProposal is EthereumScript {
       actionsMantle[0] = GovV3Helpers.buildAction(
         type(AaveV3Mantle_RemoveEmissionAdmins_20261029).creationCode
       );
-      payloads[11] = GovV3Helpers.buildMantlePayload(vm, actionsMantle);
+      payloads[16] = GovV3Helpers.buildMantlePayload(vm, actionsMantle);
     }
 
     {
@@ -460,7 +598,7 @@ contract CreateProposal is EthereumScript {
       actionsMegaEth[0] = GovV3Helpers.buildAction(
         type(AaveV3MegaEth_RemoveEmissionAdmins_20261029).creationCode
       );
-      payloads[12] = GovV3Helpers.buildMegaEthPayload(vm, actionsMegaEth);
+      payloads[17] = GovV3Helpers.buildMegaEthPayload(vm, actionsMegaEth);
     }
 
     {
@@ -469,7 +607,7 @@ contract CreateProposal is EthereumScript {
       actionsXLayer[0] = GovV3Helpers.buildAction(
         type(AaveV3XLayer_RemoveEmissionAdmins_20261029).creationCode
       );
-      payloads[13] = GovV3Helpers.buildXLayerPayload(vm, actionsXLayer);
+      payloads[18] = GovV3Helpers.buildXLayerPayload(vm, actionsXLayer);
     }
 
     // create proposal
