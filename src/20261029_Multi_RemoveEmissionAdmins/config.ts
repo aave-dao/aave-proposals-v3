@@ -23,7 +23,7 @@ export const config: ConfigFile = {
     shortName: 'RemoveEmissionAdmins',
     date: '20261029',
     author: 'Aave Labs',
-    discussion: 'TODO',
+    discussion: 'https://governance.aave.com/t/technical-maintenance-proposals/26300/2',
     snapshot: 'direct-to-aip',
     votingNetwork: 'AVALANCHE',
   },

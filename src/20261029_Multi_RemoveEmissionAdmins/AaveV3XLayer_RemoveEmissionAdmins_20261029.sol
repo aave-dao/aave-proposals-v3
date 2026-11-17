@@ -9,7 +9,7 @@ import {AaveV3XLayer, AaveV3XLayerAssets} from 'aave-address-book/AaveV3XLayer.s
  * @title Remove Emission Admins from Aave V3 Instances
  * @author Aave Labs
  * - Snapshot: direct-to-aip
- * - Discussion: TODO
+ * - Discussion: https://governance.aave.com/t/technical-maintenance-proposals/26300/2
  */
 contract AaveV3XLayer_RemoveEmissionAdmins_20261029 is IProposalGenericExecutor {
   function execute() external {

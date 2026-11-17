@@ -9,7 +9,7 @@ import {AaveV3Gnosis, AaveV3GnosisAssets} from 'aave-address-book/AaveV3Gnosis.s
  * @title Remove Emission Admins from Aave V3 Instances
  * @author Aave Labs
  * - Snapshot: direct-to-aip
- * - Discussion: TODO
+ * - Discussion: https://governance.aave.com/t/technical-maintenance-proposals/26300/2
  */
 contract AaveV3Gnosis_RemoveEmissionAdmins_20261029 is IProposalGenericExecutor {
   function execute() external {
