@@ -1,0 +1,25 @@
+src/20261119_AaveV4Ethereum_OnboardNativeBTCViaBabylon/BabylonLiquidationFlows.t.sol
+  s_477c0d90c4846f::t_8ff63487cc8436 16,159-229,160-164,167,178,180-182,188-190,192,194,198-200,202-212,214-229
+src/20261119_AaveV4Ethereum_OnboardNativeBTCViaBabylon/AaveV4Ethereum_OnboardNativeBTCViaBabylon_20261119.t.sol
+  s_477c0d90c4846f::t_c39184987be6b3 1357-1399
+src/20261119_AaveV4Ethereum_OnboardNativeBTCViaBabylon/BabylonMainnet.sol
+  s_477c0d90c4846f::t_7d49eb34ad805f 31-36,31
+src/interfaces/babylon/IAaveAdapter.sol
+  s_477c0d90c4846f::t_66cbdb86c77722 18-19,83-88
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "cc05b384c8aa8ed9ad2e3d452ea7952f3c8472f6",
+  "prompts": {},
+  "sessions": {
+    "s_477c0d90c4846f": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "9de15bb6-ef2d-4870-b4ab-7a2a27701508",
+        "model": "claude-fable-5-2"
+      },
+      "human_author": "Alexandru Niculae <43644109+avniculae@users.noreply.github.com>"
+    }
+  }
+}

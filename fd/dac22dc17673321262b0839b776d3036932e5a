@@ -1,0 +1,23 @@
+src/20261119_AaveV4Ethereum_OnboardNativeBTCViaBabylon/AaveV4Ethereum_OnboardNativeBTCViaBabylon_20261119.sol
+  s_477c0d90c4846f::t_a2f2a868b24f94 16,55-70,91-93,96-101,142-175
+src/20261119_AaveV4Ethereum_OnboardNativeBTCViaBabylon/AaveV4Ethereum_OnboardNativeBTCViaBabylon_20261119.t.sol
+  s_477c0d90c4846f::t_c8225a3c3960ee 359-449
+src/20261119_AaveV4Ethereum_OnboardNativeBTCViaBabylon/OnboardNativeBTCViaBabylon.md
+  s_477c0d90c4846f::t_aa4e252b3f4545 24
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "fddac22dc17673321262b0839b776d3036932e5a",
+  "prompts": {},
+  "sessions": {
+    "s_477c0d90c4846f": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "9de15bb6-ef2d-4870-b4ab-7a2a27701508",
+        "model": "claude-fable-5-2"
+      },
+      "human_author": "Alexandru Niculae <43644109+avniculae@users.noreply.github.com>"
+    }
+  }
+}

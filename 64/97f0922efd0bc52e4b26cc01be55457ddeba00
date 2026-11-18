@@ -1,0 +1,37 @@
+src/20261119_AaveV4Ethereum_OnboardNativeBTCViaBabylon/BabylonLiquidationFlows.t.sol
+  s_477c0d90c4846f::t_fd83c52b659fe0 14-16,22-24,27,35-41,49-53,65-68,72-74,76-78,86,101-104,106,108-110,140,142-143,151,154,172,174-235,280,292,343,351-352,354-366,384-539,551,562,571,581,589-613,632,646,698,722,730-761,765-766,785,794,798,800-801,809-962,991,1024-1025,1028-1043,1045-1054,1061,1087-1088,1094,1099-1111,1114-1115,1119-1121,1150-1157,1160-1162,1187-1282
+src/20261119_AaveV4Ethereum_OnboardNativeBTCViaBabylon/BabylonMainnet.sol
+  s_477c0d90c4846f::t_950572488623f9 15-20,32
+src/20261119_AaveV4Ethereum_OnboardNativeBTCViaBabylon/BabylonPegInHelper.sol
+  s_477c0d90c4846f::t_bb0d08ef11e6be 1-432
+src/interfaces/babylon/BabylonTypes.sol
+  s_477c0d90c4846f::t_135f8910b02d28 51-85
+src/interfaces/babylon/IAaveAdapter.sol
+  s_477c0d90c4846f::t_20aae840250c6e 14-17,59-60,75-80
+src/interfaces/babylon/IApplicationRegistry.sol
+  s_477c0d90c4846f::t_552b871c4b5fb0 4,12-16,22-23
+src/interfaces/babylon/IBTCVaultRegistry.sol
+  s_477c0d90c4846f::t_0eb75de7a77bf3 10-58,63-64,74-94
+src/interfaces/babylon/IBTCVaultSwap.sol
+  s_477c0d90c4846f::t_757796f08f67aa 4-5,14-19,32-45
+src/interfaces/babylon/IBabylonPolicies.sol
+  s_477c0d90c4846f::t_c681099ba9019a 1-42
+src/interfaces/babylon/IProtocolParams.sol
+  s_477c0d90c4846f::t_ba76b21e4b18e1 1-21
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "6497f0922efd0bc52e4b26cc01be55457ddeba00",
+  "prompts": {},
+  "sessions": {
+    "s_477c0d90c4846f": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "9de15bb6-ef2d-4870-b4ab-7a2a27701508",
+        "model": "claude-fable-5-2"
+      },
+      "human_author": "Alexandru Niculae <43644109+avniculae@users.noreply.github.com>"
+    }
+  }
+}
