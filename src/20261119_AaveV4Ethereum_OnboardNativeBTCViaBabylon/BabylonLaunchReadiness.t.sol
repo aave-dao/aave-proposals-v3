@@ -6,6 +6,7 @@ import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
 import {IAccessControl} from 'openzeppelin-contracts/contracts/access/IAccessControl.sol';
 import {ISafe} from 'src/interfaces/ISafe.sol';
 import {IBabylonTimelockController} from 'src/interfaces/babylon/IBabylonTimelockController.sol';
+import {AaveAdapterRoles} from 'src/interfaces/babylon/AaveAdapterRoles.sol';
 import {BabylonMainnet} from './BabylonMainnet.sol';
 
 /**
@@ -39,9 +40,9 @@ contract BabylonLaunchReadinessTest is Test {
   uint256 internal constant TIMELOCKS_DEPLOY_BLOCK = 26_399_880;
 
   bytes32 internal constant BABYLON_APPLICATION_PAUSE_GUARDIAN_ROLE =
-    BabylonMainnet.APPLICATION_PAUSE_GUARDIAN_ROLE;
+    AaveAdapterRoles.APPLICATION_PAUSE_GUARDIAN_ROLE;
   bytes32 internal constant BABYLON_APPLICATION_FREEZE_GUARDIAN_ROLE =
-    BabylonMainnet.APPLICATION_FREEZE_GUARDIAN_ROLE;
+    AaveAdapterRoles.APPLICATION_FREEZE_GUARDIAN_ROLE;
 
   function setUp() public {
     if (!vm.envOr('BABYLON_READINESS', false)) {

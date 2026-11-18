@@ -421,32 +421,23 @@ contract AaveV4Ethereum_OnboardNativeBTCViaBabylon_20261119_Test is BabylonTestB
   /// @dev The roles the guard requires let the V4 Security Council act on Babylon's adapter.
   function test_guardianRoles() public view {
     IAaveAdapter adapter = IAaveAdapter(BABYLON_AAVE_ADAPTER);
-    assertEq(
-      BABYLON_APPLICATION_PAUSE_GUARDIAN_ROLE,
-      keccak256('APPLICATION_PAUSE_GUARDIAN'),
-      'pause role id'
-    );
-    assertEq(
-      BABYLON_APPLICATION_FREEZE_GUARDIAN_ROLE,
-      keccak256('APPLICATION_FREEZE_GUARDIAN'),
-      'freeze id'
-    );
-    assertEq(
-      proposal.BABYLON_APPLICATION_PAUSE_GUARDIAN_ROLE(),
-      BABYLON_APPLICATION_PAUSE_GUARDIAN_ROLE,
-      'payload pause id'
-    );
-    assertEq(
-      proposal.BABYLON_APPLICATION_FREEZE_GUARDIAN_ROLE(),
-      BABYLON_APPLICATION_FREEZE_GUARDIAN_ROLE,
-      'payload id'
-    );
-    assertEq(proposal.BABYLON_AAVE_ADAPTER(), BABYLON_AAVE_ADAPTER, 'payload adapter');
+    // the ids as they appear on-chain, in the role events of Babylon's AaveAdapter
     assertEq(
       BABYLON_APPLICATION_ADMIN_ROLE,
-      keccak256('APPLICATION_ADMIN'),
-      'application admin role id'
+      0x4a5d77d29c55ea7cb6361740de568b58568c9b25abdfdb58dc883366746cb704,
+      'admin role id'
     );
+    assertEq(
+      BABYLON_APPLICATION_PAUSE_GUARDIAN_ROLE,
+      0xca16ee6b20db9286cfb1a9beee8e8a87e6c3bf160859d756b3335bdcde7871d2,
+      'pause guardian role id'
+    );
+    assertEq(
+      BABYLON_APPLICATION_FREEZE_GUARDIAN_ROLE,
+      0x0c21afe69d1e0290272fa2a9f3df85589b7946c6845042b725f40fa7a09e18a0,
+      'freeze guardian role id'
+    );
+    assertEq(proposal.BABYLON_AAVE_ADAPTER(), BABYLON_AAVE_ADAPTER, 'payload adapter');
     assertTrue(
       adapter.hasRole(BABYLON_APPLICATION_PAUSE_GUARDIAN_ROLE, V4_SECURITY_COUNCIL),
       'pause guardian'

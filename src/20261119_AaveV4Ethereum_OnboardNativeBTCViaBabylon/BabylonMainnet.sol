@@ -28,12 +28,4 @@ library BabylonMainnet {
   address internal constant INTERIM_GOVERNANCE = 0xcd9e54acA1B7fb9BcE10208201b01559A6B01949;
   address internal constant EMERGENCY_GUARDIAN = 0xbd8AEfA24Bd875c6a36C4Dc3be818059372dF2B0;
   address internal constant FEE_RECIPIENT = 0x5b1AdCC0330c8c1D5A70302E657174416a25Ba8C;
-
-  // keccak256 of the role names, as Babylon's AaveAdapter defines them
-  bytes32 internal constant APPLICATION_ADMIN_ROLE =
-    0x4a5d77d29c55ea7cb6361740de568b58568c9b25abdfdb58dc883366746cb704;
-  bytes32 internal constant APPLICATION_PAUSE_GUARDIAN_ROLE =
-    0xca16ee6b20db9286cfb1a9beee8e8a87e6c3bf160859d756b3335bdcde7871d2;
-  bytes32 internal constant APPLICATION_FREEZE_GUARDIAN_ROLE =
-    0x0c21afe69d1e0290272fa2a9f3df85589b7946c6845042b725f40fa7a09e18a0;
 }

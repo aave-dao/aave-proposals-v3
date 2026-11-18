@@ -14,6 +14,7 @@ import {IAccessControl} from 'openzeppelin-contracts/contracts/access/IAccessCon
 import {Roles} from 'aave-v4/deployments/utils/libraries/Roles.sol';
 import {V4RoleWiring} from 'aave-helpers/src/v4-config-engine/V4RoleWiring.sol';
 import {IBTCVaultSwap} from 'src/interfaces/babylon/IBTCVaultSwap.sol';
+import {AaveAdapterRoles} from 'src/interfaces/babylon/AaveAdapterRoles.sol';
 
 /**
  * @title Onboard Native BTC as Collateral to Aave V4 via Babylon Trustless Bitcoin Vaults
@@ -70,27 +71,22 @@ contract AaveV4Ethereum_OnboardNativeBTCViaBabylon_20261119 is AaveV4PayloadEthe
 
   uint32 public constant BTC_VAULT_SWAP_FEE_EXECUTION_DELAY = 5 days;
 
-  // AaveAdapter roles that pause and unpause, and freeze, Babylon's side of the market
-  bytes32 public constant BABYLON_APPLICATION_PAUSE_GUARDIAN_ROLE =
-    keccak256('APPLICATION_PAUSE_GUARDIAN');
-  bytes32 public constant BABYLON_APPLICATION_FREEZE_GUARDIAN_ROLE =
-    keccak256('APPLICATION_FREEZE_GUARDIAN');
-
   /// @dev The Babylon Hub and Babylon Spoke must be fully handed over to Aave governance: both under
   /// the Aave V4 AccessManager, with their ProxyAdmins owned by the Aave V4 Security Council. The
   /// same must hold for Babylon's BTCVaultSwap spoke. Babylon must also have granted the Aave V4
-  /// Security Council both guardian roles on its AaveAdapter.
+  /// Security Council both guardian roles on its AaveAdapter, which pause and unpause, and freeze,
+  /// Babylon's side of the market.
   function _preExecute() internal view override {
     require(
       IAccessControl(BABYLON_AAVE_ADAPTER).hasRole(
-        BABYLON_APPLICATION_PAUSE_GUARDIAN_ROLE,
+        AaveAdapterRoles.APPLICATION_PAUSE_GUARDIAN_ROLE,
         MiscEthereum.V4_SECURITY_COUNCIL
       ),
       'AAVE_ADAPTER_PAUSE_GUARDIAN_NOT_GRANTED'
     );
     require(
       IAccessControl(BABYLON_AAVE_ADAPTER).hasRole(
-        BABYLON_APPLICATION_FREEZE_GUARDIAN_ROLE,
+        AaveAdapterRoles.APPLICATION_FREEZE_GUARDIAN_ROLE,
         MiscEthereum.V4_SECURITY_COUNCIL
       ),
       'AAVE_ADAPTER_FREEZE_GUARDIAN_NOT_GRANTED'

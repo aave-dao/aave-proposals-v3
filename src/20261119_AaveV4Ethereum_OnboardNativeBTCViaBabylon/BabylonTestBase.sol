@@ -14,6 +14,7 @@ import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
 import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
 import {IAaveAdapter} from 'src/interfaces/babylon/IAaveAdapter.sol';
 import {IVaultBTC} from 'src/interfaces/babylon/IVaultBTC.sol';
+import {AaveAdapterRoles} from 'src/interfaces/babylon/AaveAdapterRoles.sol';
 import {BabylonMainnet} from './BabylonMainnet.sol';
 import {AaveV4Ethereum_OnboardNativeBTCViaBabylon_20261119} from './AaveV4Ethereum_OnboardNativeBTCViaBabylon_20261119.sol';
 
@@ -78,11 +79,12 @@ abstract contract BabylonTestBase is ProtocolV4TestBaseEthereum {
   address internal constant BABYLON_DEPLOYER = BabylonMainnet.DEPLOYER;
   address internal constant BABYLON_INTERIM_GOVERNANCE = BabylonMainnet.INTERIM_GOVERNANCE;
   address internal constant BABYLON_APPLICATION_TIMELOCK = BabylonMainnet.APPLICATION_TIMELOCK;
-  bytes32 internal constant BABYLON_APPLICATION_ADMIN_ROLE = BabylonMainnet.APPLICATION_ADMIN_ROLE;
+  bytes32 internal constant BABYLON_APPLICATION_ADMIN_ROLE =
+    AaveAdapterRoles.APPLICATION_ADMIN_ROLE;
   bytes32 internal constant BABYLON_APPLICATION_PAUSE_GUARDIAN_ROLE =
-    BabylonMainnet.APPLICATION_PAUSE_GUARDIAN_ROLE;
+    AaveAdapterRoles.APPLICATION_PAUSE_GUARDIAN_ROLE;
   bytes32 internal constant BABYLON_APPLICATION_FREEZE_GUARDIAN_ROLE =
-    BabylonMainnet.APPLICATION_FREEZE_GUARDIAN_ROLE;
+    AaveAdapterRoles.APPLICATION_FREEZE_GUARDIAN_ROLE;
   // Aave Labs, Babylon and LlamaRisk 2-of-3 Safe
   address internal constant BTC_VAULT_SWAP_MULTISIG = 0x828AA986e31D60Eb07EFC1543FF9297835f4A9f7;
 
