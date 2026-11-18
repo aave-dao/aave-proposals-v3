@@ -1,54 +1,50 @@
 ---
-title: "Remove Emission Admins from Aave V3 Instances"
+title: "Aave V3. Deprecation of Liquidity Mining: Removal of Emission Admins"
 author: "Aave Labs"
 discussions: "https://governance.aave.com/t/technical-maintenance-proposals/26300/2"
 ---
 
 ## Simple Summary
 
-This proposal removes every emission admin set on the Aave V3 EmissionManagers across 19 networks, including the Horizon instance on Ethereum. After execution, no address can start, extend or reconfigure a liquidity mining distribution on the RewardsController without a new governance vote. Rewards already accrued stay claimable.
+As the first step toward deprecating the liquidity mining feature, this proposal removes every emission admin set on the Aave V3 EmissionManager contracts across 19 networks, including the Horizon instance on Ethereum. After execution, starting, extending, or reconfiguring a liquidity mining distribution on the RewardsController will require a governance vote. Claims of rewards already accrued are not affected by this proposal.
 
 ## Motivation
 
-The EmissionManager lets governance appoint an emission admin per reward token. That admin can configure distributions of its reward on the RewardsController: add assets to a distribution, set the emission rate, move the distribution end, and replace the transfer strategy or the reward oracle. Admins were appointed over time, mostly through asset listing payloads, to run liquidity mining campaigns.
+The EmissionManager allows governance to appoint an emission admin per reward token. That admin can configure distributions of its reward on the RewardsController: add assets to a distribution, set the emission rate, move the distribution end, and replace the transfer strategy or the reward oracle. Admins were appointed over time, mostly through asset listing payloads, to run liquidity mining campaigns.
 
-All of these campaigns have ended. The most recent, aEthUSDS rewards on aEthUSDS on Ethereum Core, ended on July 7th, 2026 at 11:00 UTC. METIS rewards on Metis ended on November 23rd, 2025, and every other distribution ended in January 2025 or earlier. No distribution is active on any reserve token.
-
-The admins still hold the permission to start or reconfigure distributions on Aave V3 reserves, although none of them has a campaign to run. 266 of the 300 admins are held by the ACI Safe (`0xac140648435d03f784879cd789130F22Ef588Fcd`), set as liquidity mining admin by past listing payloads. ACI has since [left the Aave DAO](https://governance.aave.com/t/aci-is-leaving-aave/24205). The rest are spread across 17 other addresses. Removing these permissions leaves the DAO as the only party able to configure rewards on the networks in this proposal.
-
-The EmissionManager and RewardsController feature is planned to be deprecated and removed from the codebase. This proposal is the first step of that process.
+All of these campaigns have ended, and no distribution is active on any reserve token. The most recent one ended in July 2026, a distribution on Metis ended in November 2025, and every other distribution ended in January 2025 or earlier. The admins nonetheless retain the permission to start or reconfigure distributions. Of the 300 admins, 266 are held by the ACI Safe ([0xac140648435d03f784879cd789130F22Ef588Fcd](https://etherscan.io/address/0xac140648435d03f784879cd789130F22Ef588Fcd)), which is [no longer part of the DAO](https://governance.aave.com/t/aci-is-leaving-aave/24205). The remaining 34 are spread across 17 other addresses. None of these holders currently needs the role, and none is expected to need it in the future, as new incentive campaigns are run through Merkl.
 
 ## Specification
 
-On each network in scope, the payload (two on Ethereum: one for the Core EmissionManager, shared with Prime, and one for the Horizon EmissionManager) is executed by the Executor Lvl1, owner of the Aave V3 EmissionManager, and calls `EmissionManager.setEmissionAdmin(reward, address(0))` for every reward token that currently has a non-zero emission admin.
+On each network in scope, the payload calls `EmissionManager.setEmissionAdmin(reward, address(0))` for every reward token that currently has a non-zero emission admin. It is executed by the Executor Lvl1, owner of the EmissionManager. Ethereum has two payloads: one for the Core EmissionManager, shared with Prime and EtherFi, and one for the Horizon EmissionManager. No other configuration changes.
 
-Nothing else changes. Transfer strategies, rewards vaults, token allowances, reward oracles and distribution configurations on the RewardsController are left as they are, so users can keep claiming rewards accrued up to each distribution end. Governance keeps the ability to appoint a new emission admin through `setEmissionAdmin` if a future proposal requires it.
+Transfer strategies, rewards vaults, token allowances, reward oracles and distribution configurations on the RewardsController are left as they are, so claims of rewards accrued up to each distribution end are not affected by this proposal. On Metis, the METIS rewards vault (`0x97177cD80475f8b38945c1E77e12F0c9d50Ac84D`) approves only about 0.00005 METIS to its transfer strategy, so most METIS claims already revert; this is independent of this proposal.
 
-| Network                   | Emission admins removed |
-| ------------------------- | ----------------------: |
-| Ethereum (Core and Prime) |                      81 |
-| Ethereum (Horizon)        |                      11 |
-| Polygon                   |                       7 |
-| Avalanche                 |                      16 |
-| Optimism                  |                       5 |
-| Arbitrum                  |                      10 |
-| Metis                     |                       1 |
-| Base                      |                      19 |
-| Gnosis                    |                       3 |
-| Scroll                    |                       3 |
-| BNB                       |                       3 |
-| zkSync                    |                       7 |
-| Linea                     |                      16 |
-| Celo                      |                      12 |
-| Sonic                     |                       8 |
-| Soneium                   |                       6 |
-| Plasma                    |                      37 |
-| Mantle                    |                      20 |
-| MegaEth                   |                      17 |
-| X Layer                   |                      18 |
-| **Total**                 |                 **300** |
+All Aave V3 instances are within the scope of this proposal. However, markets without an emission admin configured are skipped. Aave V2 instances are out of scope, as updating the EmissionManager would require an upgrade, and the last reward campaign ended in 2023.
 
-Monad has no emission admin set and is not part of this proposal.
+| Network                            | Emission admins removed |
+| ---------------------------------- | ----------------------: |
+| Ethereum (Core, Prime and EtherFi) |                      81 |
+| Ethereum (Horizon)                 |                      11 |
+| Polygon                            |                       7 |
+| Avalanche                          |                      16 |
+| Optimism                           |                       5 |
+| Arbitrum                           |                      10 |
+| Metis                              |                       1 |
+| Base                               |                      19 |
+| Gnosis                             |                       3 |
+| Scroll                             |                       3 |
+| BNB                                |                       3 |
+| zkSync                             |                       7 |
+| Linea                              |                      16 |
+| Celo                               |                      12 |
+| Sonic                              |                       8 |
+| Soneium                            |                       6 |
+| Plasma                             |                      37 |
+| Mantle                             |                      20 |
+| MegaEth                            |                      17 |
+| X Layer                            |                      18 |
+| **Total**                          |                 **300** |
 
 ## References
 

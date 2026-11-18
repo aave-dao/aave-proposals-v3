@@ -7,7 +7,7 @@ import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethe
 import {AaveV3EthereumLidoAssets} from 'aave-address-book/AaveV3EthereumLido.sol';
 
 /**
- * @title Remove Emission Admins from Aave V3 Instances
+ * @title Aave V3. Deprecation of Liquidity Mining: Removal of Emission Admins
  * @author Aave Labs
  * - Snapshot: direct-to-aip
  * - Discussion: https://governance.aave.com/t/technical-maintenance-proposals/26300/2

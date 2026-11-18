@@ -6,7 +6,7 @@ import {IEmissionManager} from 'aave-v3-origin/contracts/rewards/interfaces/IEmi
 import {AaveV3Scroll, AaveV3ScrollAssets} from 'aave-address-book/AaveV3Scroll.sol';
 
 /**
- * @title Remove Emission Admins from Aave V3 Instances
+ * @title Aave V3. Deprecation of Liquidity Mining: Removal of Emission Admins
  * @author Aave Labs
  * - Snapshot: direct-to-aip
  * - Discussion: https://governance.aave.com/t/technical-maintenance-proposals/26300/2
