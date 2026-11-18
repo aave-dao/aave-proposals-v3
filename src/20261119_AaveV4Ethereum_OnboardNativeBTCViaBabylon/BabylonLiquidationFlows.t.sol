@@ -176,6 +176,39 @@ contract BabylonLiquidationFlowsTest is BabylonPegInHelper {
     assertEq(_capUsage(user), 0, 'cap usage released');
   }
 
+  /// @dev A healthy position cannot be liquidated on either path, so it never leaves a deficit.
+  function test_liquidate_revertsWith_healthyPosition() public {
+    _openAndBorrow(75_00);
+    address proxy = _proxy();
+    assertGe(ISpoke(BABYLON_SPOKE).getUserAccountData(proxy).healthFactor, 1e18, 'healthy');
+    _debt = _usdcDebt(proxy);
+    _fundLiquidator({usdc: _debt * 2, wbtc: 1e8});
+
+    vm.startPrank(liquidator);
+    vm.expectRevert(ISpoke.HealthFactorNotBelowThreshold.selector);
+    adapter.liquidate({
+      borrower: user,
+      debtReserveId: CORE_USDC_RESERVE_ID,
+      maxDebtToRepay: _debt * 2,
+      maxExitBtc: UINT256_MAX,
+      claimerBtcPubKey: claimerBtcKey
+    });
+    vm.expectRevert(ISpoke.HealthFactorNotBelowThreshold.selector);
+    adapter.liquidateWithLLP({
+      borrower: user,
+      llp: BABYLON_BTC_VAULT_SWAP_SPOKE,
+      debtReserveId: CORE_USDC_RESERVE_ID,
+      maxDebtToRepay: _debt * 2,
+      maxExitBtc: UINT256_MAX,
+      minPayouts: new TokenAmount[](0)
+    });
+    vm.stopPrank();
+
+    assertEq(_usdcDebt(proxy), _debt, 'debt');
+    assertEq(_suppliedVaultBtc(proxy), VAULT_AMOUNT, 'collateral');
+    assertEq(IHub(CORE_HUB).getSpokeDeficitRay(CORE_USDC_ASSET_ID, BABYLON_SPOKE), 0, 'deficit');
+  }
+
   /// @dev The registry redeems a liquidated vault only to the BTC key of a vault keeper in the
   /// roster the vault is bound to, so a liquidator cannot name a key of its own.
   function test_liquidateDirect_revertsWith_unregisteredClaimerKey() public {
