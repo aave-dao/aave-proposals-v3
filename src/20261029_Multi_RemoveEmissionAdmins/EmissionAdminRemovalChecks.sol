@@ -22,6 +22,10 @@ abstract contract EmissionAdminRemovalChecks is Test {
   bytes32 internal constant EMISSION_ADMIN_UPDATED =
     keccak256('EmissionAdminUpdated(address,address,address)');
 
+  function _executeRemovalPayload(address payload) internal virtual {
+    GovV3Helpers.executePayload(vm, payload);
+  }
+
   function _checkAdminsRemoved(
     address payload,
     address emissionManager,
@@ -37,7 +41,7 @@ abstract contract EmissionAdminRemovalChecks is Test {
     }
 
     vm.recordLogs();
-    GovV3Helpers.executePayload(vm, payload);
+    _executeRemovalPayload(payload);
 
     Vm.Log[] memory logs = vm.getRecordedLogs();
     uint256 updates;
@@ -81,7 +85,7 @@ abstract contract EmissionAdminRemovalChecks is Test {
       assertGt(accrued[i], 0, 'fixture has nothing to claim');
     }
 
-    GovV3Helpers.executePayload(vm, payload);
+    _executeRemovalPayload(payload);
 
     for (uint256 i = 0; i < claims.length; i++) {
       Claim memory c = claims[i];
