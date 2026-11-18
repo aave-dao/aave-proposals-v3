@@ -100,7 +100,7 @@ contract BabylonLaunchReadinessTest is Test {
       console.log('timelock', timelocks[i]);
       console.log('  scheduled calls', logs.length);
       for (uint256 j; j < logs.length; ++j) {
-        (address target, , bytes memory data, , ) = abi.decode(
+        (address target, uint256 value, bytes memory data, , ) = abi.decode(
           logs[j].data,
           (address, uint256, bytes, bytes32, uint256)
         );
@@ -113,8 +113,10 @@ contract BabylonLaunchReadinessTest is Test {
         }
         if (!_isAaveIntegrationContract(target)) continue;
         assertTrue(
-          keccak256(data) == keccak256(_grant(BABYLON_APPLICATION_PAUSE_GUARDIAN_ROLE)) ||
-            keccak256(data) == keccak256(_grant(BABYLON_APPLICATION_FREEZE_GUARDIAN_ROLE)),
+          target == BABYLON_AAVE_ADAPTER &&
+            value == 0 &&
+            (keccak256(data) == keccak256(_grant(BABYLON_APPLICATION_PAUSE_GUARDIAN_ROLE)) ||
+              keccak256(data) == keccak256(_grant(BABYLON_APPLICATION_FREEZE_GUARDIAN_ROLE))),
           'unexpected operation queued on an Aave integration contract'
         );
       }

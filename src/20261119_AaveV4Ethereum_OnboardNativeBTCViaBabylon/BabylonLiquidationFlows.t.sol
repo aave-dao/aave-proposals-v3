@@ -120,6 +120,10 @@ contract BabylonLiquidationFlowsTest is BabylonTestBase {
 
     _fundLiquidator({usdc: _debt * 2, wbtc: 1e8});
     uint256 recipientBefore = IERC20(WBTC).balanceOf(adapter.applicationRecipient());
+    vm.expectCall(
+      registry,
+      abi.encodeCall(IBTCVaultRegistry.redeemVaultForAVK, (VAULT_1, CLAIMER_BTC_KEY))
+    );
     vm.prank(liquidator);
     (bytes32 vaultId, uint256 seized) = adapter.liquidate({
       borrower: user,
@@ -238,7 +242,13 @@ contract BabylonLiquidationFlowsTest is BabylonTestBase {
     _liquidateWithBtcVaultSwap();
     skip(4 days);
     _mockVaultProtocolInfo(VAULT_1);
-    address keeper = _vaultKeeper();
+    AddressBTCKeyPair memory keeperPair = _vaultKeeper();
+    address keeper = keeperPair.ethAddress;
+    vm.mockCall(
+      registry,
+      abi.encodeCall(IBTCVaultRegistry.redeemVaultForAVK, (VAULT_1, keeperPair.btcPubKey)),
+      ''
+    );
     deal(WBTC, keeper, 2e8);
     vm.prank(keeper);
     IERC20(WBTC).approve(BABYLON_BTC_VAULT_SWAP_SPOKE, UINT256_MAX);
@@ -548,10 +558,17 @@ contract BabylonLiquidationFlowsTest is BabylonTestBase {
   function _arbitrage() internal {
     skip(4 days);
     _mockVaultProtocolInfo(VAULT_1);
-    address keeper = _vaultKeeper();
-    deal(WBTC, keeper, 2e8);
-    vm.startPrank(keeper);
+    AddressBTCKeyPair memory keeper = _vaultKeeper();
+    // the vault is redeemed to the BTC key the keeper registered in the ApplicationRegistry
+    bytes memory redeemCall = abi.encodeCall(
+      IBTCVaultRegistry.redeemVaultForAVK,
+      (VAULT_1, keeper.btcPubKey)
+    );
+    vm.mockCall(registry, redeemCall, '');
+    deal(WBTC, keeper.ethAddress, 2e8);
+    vm.startPrank(keeper.ethAddress);
     IERC20(WBTC).approve(BABYLON_BTC_VAULT_SWAP_SPOKE, UINT256_MAX);
+    vm.expectCall(registry, redeemCall);
     uint256 paid = swap.swapExitBtcForVault(VAULT_1, UINT256_MAX);
     vm.stopPrank();
     assertGe(paid, _payout, 'keeper repays at least the draw');
@@ -569,11 +586,11 @@ contract BabylonLiquidationFlowsTest is BabylonTestBase {
     );
   }
 
-  function _vaultKeeper() internal view returns (address) {
+  function _vaultKeeper() internal view returns (AddressBTCKeyPair memory) {
     AddressBTCKeyPair[] memory keepers = IApplicationRegistry(applicationRegistry)
       .getCurrentVaultKeepers(BABYLON_AAVE_ADAPTER);
     assertGt(keepers.length, 0, 'no vault keeper registered');
-    return keepers[0].ethAddress;
+    return keepers[0];
   }
 
   /// @dev Computed without the adapter: the fee is 10% of the bonus on the whole vault, and the
@@ -625,7 +642,7 @@ contract BabylonLiquidationFlowsTest is BabylonTestBase {
     );
     vm.mockCall(
       registry,
-      abi.encodeWithSelector(IBTCVaultRegistry.redeemVaultForAVK.selector, vaultId),
+      abi.encodeCall(IBTCVaultRegistry.redeemVaultForAVK, (vaultId, CLAIMER_BTC_KEY)),
       ''
     );
     vm.mockCall(registry, abi.encodeCall(IBTCVaultRegistry.redeemVaultForDepositor, (vaultId)), '');
