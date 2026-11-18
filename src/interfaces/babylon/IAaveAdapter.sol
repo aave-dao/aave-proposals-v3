@@ -1,14 +1,12 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import {BTCVaultBasicInfo, TokenAmount, MarketPosition} from './BabylonTypes.sol';
+import {TokenAmount, MarketPosition} from './BabylonTypes.sol';
 
 /**
  * @dev Subset of Babylon's AaveAdapter, the liquidation manager of the Babylon Spoke.
  */
 interface IAaveAdapter {
-  error InvalidPositionSizes();
-
   error InvalidPostLiquidationState();
 
   error PositionNotHealthy();
@@ -20,12 +18,6 @@ interface IAaveAdapter {
   error TBV_Paused();
 
   error TBV_Unauthorized();
-
-  function activateVault(
-    bytes32 vaultId,
-    BTCVaultBasicInfo memory info,
-    bytes memory data
-  ) external;
 
   function borrowFromCorePosition(
     uint256 debtReserveId,

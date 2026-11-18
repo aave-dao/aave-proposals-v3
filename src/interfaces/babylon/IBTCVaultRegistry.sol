@@ -68,10 +68,6 @@ interface IBTCVaultRegistry {
     bytes32 vaultId
   ) external view returns (BTCVaultProtocolInfo memory);
 
-  function getBTCVaultAmountsBatch(
-    bytes32[] calldata vaultIds
-  ) external view returns (uint256[] memory);
-
   function getPegInFee(address vaultProvider) external view returns (uint256);
 
   function vpKeyEpochCurrent() external view returns (uint64);

@@ -7,8 +7,8 @@ import {ProtocolV4TestBaseEthereum} from 'aave-helpers/src/v4-protocol-test/Prot
 import {IHub} from 'aave-v4/hub/interfaces/IHub.sol';
 import {ISpoke} from 'aave-v4/spoke/interfaces/ISpoke.sol';
 import {ITokenizationSpoke} from 'aave-v4/spoke/interfaces/ITokenizationSpoke.sol';
-import {IAccessManaged} from 'aave-v4/dependencies/openzeppelin/IAccessManaged.sol';
-import {IAccessManagerEnumerable} from 'aave-v4/access/interfaces/IAccessManagerEnumerable.sol';
+import {Roles} from 'aave-v4/deployments/utils/libraries/Roles.sol';
+import {ERC1967Utils} from 'openzeppelin-contracts/contracts/proxy/ERC1967/ERC1967Utils.sol';
 import {AaveV4Ethereum, AaveV4EthereumHubs, AaveV4EthereumSpokes, AaveV4EthereumAssets, AaveV4EthereumGetters} from 'aave-address-book/AaveV4Ethereum.sol';
 import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
 import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
@@ -20,9 +20,8 @@ import {AaveV4Ethereum_OnboardNativeBTCViaBabylon_20261119} from './AaveV4Ethere
 
 /**
  * @dev Fork setup shared by the Babylon launch tests. Aave's addresses come from aave-address-book
- * and Babylon's from `BabylonMainnet`. The addresses of the Aave deployment and the LlamaRisk
- * parameters are written out from their source. None is read from the payload, so a wrong constant
- * in the payload fails a test.
+ * and Babylon's from `BabylonMainnet`. The addresses and parameters of the Babylon market are
+ * written out here. None is read from the payload, so a wrong constant in the payload fails a test.
  */
 abstract contract BabylonTestBase is ProtocolV4TestBaseEthereum {
   // after the handover of the Babylon Hub and Babylon Spoke, sent in blocks 26,409,220 to 26,409,237
@@ -44,7 +43,7 @@ abstract contract BabylonTestBase is ProtocolV4TestBaseEthereum {
   address internal constant V4_SECURITY_COUNCIL_EXECUTOR =
     MiscEthereum.V4_SECURITY_COUNCIL_EXECUTOR;
 
-  // Aave deployment report, aave-v4 scripts/markets/babylon/reports/mainnet.json
+  // Babylon Hub, Babylon Spoke and their Tokenization Spokes
   address internal constant BABYLON_HUB = 0xAd0fd800cbaF41a4Ced1BEa3a4f90aA18CfBC49d;
   address internal constant BABYLON_HUB_IMPLEMENTATION = 0x294871258134336FB340761F86c9970474A6A4d7;
   address internal constant BABYLON_HUB_PROXY_ADMIN = 0x3DbE3F48A5BCc529e1863a6710A3bCDf58220Fc0;
@@ -64,8 +63,6 @@ abstract contract BabylonTestBase is ProtocolV4TestBaseEthereum {
   address internal constant DEPLOYMENT_ACCESS_MANAGER = 0x39abDA92f1C220aA5f57F8971Ac8711E91496aeA;
   address internal constant DEPLOYMENT_HUB_CONFIGURATOR =
     0x2207F01E4eAe1AdE3339B96B11F01aa3C196d3A2;
-  address internal constant DEPLOYMENT_SPOKE_CONFIGURATOR =
-    0x18cBeC03D6cB32cfbC3F1e7791b4fDE3fD205000;
 
   address internal constant BABYLON_AAVE_ADAPTER = BabylonMainnet.AAVE_ADAPTER;
   address internal constant BABYLON_AAVE_ADAPTER_IMPLEMENTATION =
@@ -95,7 +92,7 @@ abstract contract BabylonTestBase is ProtocolV4TestBaseEthereum {
   address internal constant USDG = AaveV4EthereumAssets.USDG_UNDERLYING;
   address internal constant RLUSD = AaveV4EthereumAssets.RLUSD_UNDERLYING;
 
-  // LlamaRisk price feed recommendation
+  // Chainlink price feeds of the Babylon Spoke reserves
   address internal constant BTC_USD_SVR_FEED = 0xb41E773f507F7a7EA890b1afB7d2b660c30C8B0A;
   address internal constant USDT_FEED = 0x260326c220E469358846b187eE53328303Efe19C;
   address internal constant USDC_FEED = 0x3f73F03aa83B2A48ed27E964eD0fDb590332095B;
@@ -129,22 +126,19 @@ abstract contract BabylonTestBase is ProtocolV4TestBaseEthereum {
   uint256 internal constant CORE_RLUSD_RESERVE_ID = 9;
   uint256 internal constant RESERVE_COUNT = 10;
 
-  uint64 internal constant ADMIN_ROLE = 0;
-  uint64 internal constant HUB_CONFIGURATOR_ROLE = 101;
-  uint64 internal constant HUB_FEE_MINTER_ROLE = 102;
-  uint64 internal constant HUB_DEFICIT_ELIMINATOR_ROLE = 103;
-  uint64 internal constant SPOKE_CONFIGURATOR_ROLE = 301;
-  uint64 internal constant SPOKE_USER_POSITION_UPDATER_ROLE = 302;
+  uint64 internal constant ADMIN_ROLE = Roles.ACCESS_MANAGER_ADMIN_ROLE;
+  uint64 internal constant HUB_CONFIGURATOR_ROLE = Roles.HUB_CONFIGURATOR_ROLE;
+  uint64 internal constant HUB_FEE_MINTER_ROLE = Roles.HUB_FEE_MINTER_ROLE;
+  uint64 internal constant HUB_DEFICIT_ELIMINATOR_ROLE = Roles.HUB_DEFICIT_ELIMINATOR_ROLE;
+  uint64 internal constant SPOKE_CONFIGURATOR_ROLE = Roles.SPOKE_CONFIGURATOR_ROLE;
+  uint64 internal constant SPOKE_USER_POSITION_UPDATER_ROLE =
+    Roles.SPOKE_USER_POSITION_UPDATER_ROLE;
   // reserved, the proposal does not create it
-  uint64 internal constant BABYLON_BTC_VAULT_SWAP_DOMAIN_ADMIN_ROLE = 2000;
-  uint64 internal constant BABYLON_BTC_VAULT_SWAP_FEE_ROLE = 2001;
-  uint64 internal constant BABYLON_BTC_VAULT_SWAP_GUARDIAN_ROLE = 2002;
-  uint32 internal constant BTC_VAULT_SWAP_FEE_DELAY = 432_000;
-
-  bytes32 internal constant IMPLEMENTATION_SLOT =
-    0x360894a13ba1a3210667c828492db98dca3e2076cc3735a920a3ca505d382bbc;
-  bytes32 internal constant PROXY_ADMIN_SLOT =
-    0xb53127684a568b3173ae13b9f8a6016e243e63b6e8ee1178d6a717850b5d6103;
+  uint64 internal constant BABYLON_BTC_VAULT_SWAP_DOMAIN_ADMIN_ROLE =
+    Roles.BABYLON_BTC_VAULT_SWAP_DOMAIN_ADMIN_ROLE;
+  uint64 internal constant BABYLON_BTC_VAULT_SWAP_FEE_ROLE = Roles.BABYLON_BTC_VAULT_SWAP_FEE_ROLE;
+  uint64 internal constant BABYLON_BTC_VAULT_SWAP_GUARDIAN_ROLE =
+    Roles.BABYLON_BTC_VAULT_SWAP_GUARDIAN_ROLE;
 
   AaveV4Ethereum_OnboardNativeBTCViaBabylon_20261119 internal proposal;
 
@@ -254,10 +248,15 @@ abstract contract BabylonTestBase is ProtocolV4TestBaseEthereum {
   function _supplyToBabylonHub(address token, uint256 reserveId, uint256 amount) internal {
     deal(token, supplier, amount);
     vm.startPrank(supplier);
-    (bool ok, ) = token.call(abi.encodeCall(IERC20.approve, (BABYLON_SPOKE, amount)));
-    require(ok, 'approve');
+    _approve({token: token, spender: BABYLON_SPOKE, amount: amount});
     ISpoke(BABYLON_SPOKE).supply(reserveId, amount, supplier);
     vm.stopPrank();
+  }
+
+  /// @dev USDT's `approve` returns no value, so the return data is not decoded.
+  function _approve(address token, address spender, uint256 amount) internal {
+    (bool ok, ) = token.call(abi.encodeCall(IERC20.approve, (spender, amount)));
+    require(ok, 'approve');
   }
 
   function _spokeConfig(
@@ -275,10 +274,12 @@ abstract contract BabylonTestBase is ProtocolV4TestBaseEthereum {
   }
 
   function _implementation(address proxy) internal view returns (address) {
-    return address(uint160(uint256(vm.load(proxy, IMPLEMENTATION_SLOT))));
+    // intentional truncation, the address is the low 160 bits of the slot
+    return address(uint160(uint256(vm.load(proxy, ERC1967Utils.IMPLEMENTATION_SLOT))));
   }
 
   function _proxyAdmin(address proxy) internal view returns (address) {
-    return address(uint160(uint256(vm.load(proxy, PROXY_ADMIN_SLOT))));
+    // intentional truncation, the address is the low 160 bits of the slot
+    return address(uint160(uint256(vm.load(proxy, ERC1967Utils.ADMIN_SLOT))));
   }
 }

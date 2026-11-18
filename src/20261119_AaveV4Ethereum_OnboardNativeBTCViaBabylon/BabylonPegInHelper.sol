@@ -12,13 +12,12 @@ import {BabylonTestBase} from './BabylonTestBase.sol';
 import {BabylonMainnet} from './BabylonMainnet.sol';
 
 /**
- * @dev Pegs BTC vaults into Babylon's deployed BTCVaultRegistry on the fork: vault provider
- * registration, peg-in request, peg-in input signatures, acknowledgements and activation with the
- * HTLC secret, after which the registry itself activates the vault on the AaveAdapter. The vault
+ * @dev Pegs BTC vaults into Babylon's deployed BTCVaultRegistry on the fork, up to the activation
+ * with the HTLC secret, where the registry activates the vault on the AaveAdapter. The vault
  * provider, the vault keeper and the universal challenger are test accounts, installed as a new
- * roster version by Babylon's protocol timelock. The registry checks no Bitcoin inclusion proof, so
- * the Bitcoin transactions are well-formed stand-ins that are never broadcast, and the peg-in input
- * signatures, which the registry stores without verifying, are placeholders.
+ * roster version by Babylon's protocol timelock. The registry checks no Bitcoin inclusion proof and
+ * stores the peg-in input signatures without verifying them, so the Bitcoin transactions are never
+ * broadcast and the signatures are placeholders.
  */
 abstract contract BabylonPegInHelper is BabylonTestBase {
   using SafeCast for uint256;
@@ -65,8 +64,6 @@ abstract contract BabylonPegInHelper is BabylonTestBase {
   mapping(bytes32 vaultId => bytes32) internal _pegInSecrets;
   uint256 internal _pegInNonce;
 
-  /// @dev Unfreezes the registry, installs the test roster, allowlists the depositor and registers
-  /// the test vault provider.
   function _setUpPegIns(address depositor) internal {
     vaultProvider = vm.createWallet('testVaultProvider');
     vaultKeeper = vm.createWallet('testVaultKeeper');
@@ -208,13 +205,20 @@ abstract contract BabylonPegInHelper is BabylonTestBase {
     vm.prank(vaultProvider.addr);
     registry.submitPeginInputSignatureAsVP(vaultId, signature);
     vm.prank(vaultKeeper.addr);
-    registry.submitPeginInputSignatureAsVK(vaultId, _btcKey(vaultKeeper), signature);
+    registry.submitPeginInputSignatureAsVK({
+      vaultId: vaultId,
+      btcPubKey: _btcKey(vaultKeeper),
+      signature: signature
+    });
     vm.prank(universalChallenger.addr);
-    registry.submitPeginInputSignatureAsUC(vaultId, _btcKey(universalChallenger), signature);
+    registry.submitPeginInputSignatureAsUC({
+      vaultId: vaultId,
+      btcPubKey: _btcKey(universalChallenger),
+      signature: signature
+    });
   }
 
-  /// @dev The vault provider, the vault keeper and the universal challenger each sign the
-  /// acknowledgement. Anyone can relay them.
+  /// @dev Anyone can relay the signed acknowledgements.
   function _acknowledge(bytes32 vaultId) internal {
     registry.submitPeginACK(vaultId, _ackSignature(vaultProvider, vaultId));
     registry.submitPeginACK(vaultId, _ackSignature(vaultKeeper, vaultId));
@@ -233,7 +237,11 @@ abstract contract BabylonPegInHelper is BabylonTestBase {
   function _activateVaultWithSecret(bytes32 vaultId) internal {
     address depositor = registry.getBtcVaultBasicInfo(vaultId).depositor;
     vm.prank(depositor);
-    registry.activateVaultWithSecret(vaultId, _pegInSecrets[vaultId], '');
+    registry.activateVaultWithSecret({
+      vaultId: vaultId,
+      s: _pegInSecrets[vaultId],
+      activationMetadata: ''
+    });
   }
 
   function _registryVaultStatus(bytes32 vaultId) internal view returns (uint8) {
@@ -342,7 +350,7 @@ abstract contract BabylonPegInHelper is BabylonTestBase {
   function _le64(uint256 value) internal pure returns (bytes8 encoded) {
     uint64 remaining = value.toUint64();
     for (uint256 i; i < 8; ++i) {
-      encoded |= bytes8(bytes1(uint8(remaining))) >> (i * 8); // truncation takes the low byte
+      encoded |= bytes8(bytes1(uint8(remaining))) >> (i * 8); // intentional truncation to the low byte
       remaining >>= 8;
     }
   }
@@ -363,7 +371,7 @@ abstract contract BabylonPegInHelper is BabylonTestBase {
     bytes memory compressedPubKey = _compressedPubKey(wallet);
     (, bytes32 r, bytes32 s) = vm.sign(
       wallet.privateKey,
-      _bip322SigHashP2WPKH(message, compressedPubKey)
+      _bip322SigHashP2WPKH({message: message, compressedPubKey: compressedPubKey})
     );
     bytes memory der = abi.encodePacked(_derInteger(r), _derInteger(s));
     der = abi.encodePacked(hex'30', der.length.toUint8(), der, hex'01'); // SIGHASH_ALL

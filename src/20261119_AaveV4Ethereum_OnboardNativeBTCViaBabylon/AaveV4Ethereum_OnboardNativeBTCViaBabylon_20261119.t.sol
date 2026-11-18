@@ -8,6 +8,7 @@ import {ISpoke} from 'aave-v4/spoke/interfaces/ISpoke.sol';
 import {ITokenizationSpoke} from 'aave-v4/spoke/interfaces/ITokenizationSpoke.sol';
 import {IAaveOracle} from 'aave-v4/spoke/interfaces/IAaveOracle.sol';
 import {IAssetInterestRateStrategy} from 'aave-v4/hub/interfaces/IAssetInterestRateStrategy.sol';
+import {SafeCast} from 'aave-v4/dependencies/openzeppelin/SafeCast.sol';
 import {IAccessManaged} from 'aave-v4/dependencies/openzeppelin/IAccessManaged.sol';
 import {IAccessManager} from 'aave-v4/dependencies/openzeppelin/IAccessManager.sol';
 import {IAccessManagerEnumerable} from 'aave-v4/access/interfaces/IAccessManagerEnumerable.sol';
@@ -33,6 +34,8 @@ import {BabylonTestBase} from './BabylonTestBase.sol';
  * command: FOUNDRY_PROFILE=test forge test --match-path=src/20261119_AaveV4Ethereum_OnboardNativeBTCViaBabylon/AaveV4Ethereum_OnboardNativeBTCViaBabylon_20261119.t.sol -vv
  */
 contract AaveV4Ethereum_OnboardNativeBTCViaBabylon_20261119_Test is BabylonTestBase {
+  using SafeCast for uint256;
+
   struct SpokeAddition {
     address hub;
     uint256 assetId;
@@ -232,7 +235,7 @@ contract AaveV4Ethereum_OnboardNativeBTCViaBabylon_20261119_Test is BabylonTestB
     assertEq(adapter.BTC_VAULT_HUB(), BABYLON_HUB, 'adapter hub');
     assertEq(adapter.VAULT_BTC_RESERVE_ID(), VAULT_BTC_RESERVE_ID, 'adapter collateral reserve');
     assertEq(adapter.EXIT_BTC_RESERVE_ID(), BABYLON_WBTC_RESERVE_ID, 'adapter exit reserve');
-    // 10% of the liquidator's bonus profit, accepted by LlamaRisk
+    // 10% of the liquidator's bonus profit
     assertEq(adapter.liquidationFeeBps(), 10_00, 'adapter liquidation fee');
     // Babylon's own fee on borrower interest
     assertEq(adapter.interestFeeBps(), 10_00, 'adapter interest fee');
@@ -463,8 +466,8 @@ contract AaveV4Ethereum_OnboardNativeBTCViaBabylon_20261119_Test is BabylonTestB
     _expectGovernanceExecutionReverts();
   }
 
-  /// @dev The state of mainnet today: handed over or not, the proposal cannot execute before
-  /// Babylon's grants.
+  /// @dev The state of mainnet at the fork block: handed over or not, the proposal cannot execute
+  /// before Babylon's grants.
   function test_revertsWith_guardiansNotGranted() public {
     _handoverWithoutGuardianGrants();
     vm.expectRevert('AAVE_ADAPTER_PAUSE_GUARDIAN_NOT_GRANTED');
@@ -738,7 +741,7 @@ contract AaveV4Ethereum_OnboardNativeBTCViaBabylon_20261119_Test is BabylonTestB
     assertGt(writes, 0, 'no storage writes recorded');
   }
 
-  // ─── end state, written out from the launch plan and the LlamaRisk parameters ───
+  // ─── end state ───
 
   function test_hubAndSpokeRoleMapping() public {
     _executePayload();
@@ -762,13 +765,30 @@ contract AaveV4Ethereum_OnboardNativeBTCViaBabylon_20261119_Test is BabylonTestB
     _assertSelectorRoles(MAIN_SPOKE, _spokeSelectors(), spokeRoles);
 
     IAccessManagerEnumerable accessManager = IAccessManagerEnumerable(ACCESS_MANAGER);
-    assertEq(accessManager.getRoleTargetSelectorCount(HUB_CONFIGURATOR_ROLE, BABYLON_HUB), 5);
-    assertEq(accessManager.getRoleTargetSelectorCount(HUB_FEE_MINTER_ROLE, BABYLON_HUB), 1);
-    assertEq(accessManager.getRoleTargetSelectorCount(HUB_DEFICIT_ELIMINATOR_ROLE, BABYLON_HUB), 1);
-    assertEq(accessManager.getRoleTargetSelectorCount(SPOKE_CONFIGURATOR_ROLE, BABYLON_SPOKE), 7);
+    assertEq(
+      accessManager.getRoleTargetSelectorCount(HUB_CONFIGURATOR_ROLE, BABYLON_HUB),
+      5,
+      'hub configurator selectors'
+    );
+    assertEq(
+      accessManager.getRoleTargetSelectorCount(HUB_FEE_MINTER_ROLE, BABYLON_HUB),
+      1,
+      'hub fee minter selectors'
+    );
+    assertEq(
+      accessManager.getRoleTargetSelectorCount(HUB_DEFICIT_ELIMINATOR_ROLE, BABYLON_HUB),
+      1,
+      'hub deficit eliminator selectors'
+    );
+    assertEq(
+      accessManager.getRoleTargetSelectorCount(SPOKE_CONFIGURATOR_ROLE, BABYLON_SPOKE),
+      7,
+      'spoke configurator selectors'
+    );
     assertEq(
       accessManager.getRoleTargetSelectorCount(SPOKE_USER_POSITION_UPDATER_ROLE, BABYLON_SPOKE),
-      2
+      2,
+      'spoke user position updater selectors'
     );
     address[3] memory targets = [BABYLON_HUB, BABYLON_SPOKE, BABYLON_BTC_VAULT_SWAP_SPOKE];
     for (uint256 i; i < targets.length; ++i) {
@@ -816,14 +836,16 @@ contract AaveV4Ethereum_OnboardNativeBTCViaBabylon_20261119_Test is BabylonTestB
     );
     assertEq(
       accessManager.getRoleTarget(BABYLON_BTC_VAULT_SWAP_FEE_ROLE, 0),
-      BABYLON_BTC_VAULT_SWAP_SPOKE
+      BABYLON_BTC_VAULT_SWAP_SPOKE,
+      'fee role target'
     );
     assertEq(
       accessManager.getRoleTargetSelectorCount(
         BABYLON_BTC_VAULT_SWAP_FEE_ROLE,
         BABYLON_BTC_VAULT_SWAP_SPOKE
       ),
-      1
+      1,
+      'fee role selectors'
     );
     assertEq(
       accessManager.getRoleTargetCount(BABYLON_BTC_VAULT_SWAP_GUARDIAN_ROLE),
@@ -832,31 +854,37 @@ contract AaveV4Ethereum_OnboardNativeBTCViaBabylon_20261119_Test is BabylonTestB
     );
     assertEq(
       accessManager.getRoleTarget(BABYLON_BTC_VAULT_SWAP_GUARDIAN_ROLE, 0),
-      BABYLON_BTC_VAULT_SWAP_SPOKE
+      BABYLON_BTC_VAULT_SWAP_SPOKE,
+      'guardian target'
     );
     assertEq(
       accessManager.getRoleTargetSelectorCount(
         BABYLON_BTC_VAULT_SWAP_GUARDIAN_ROLE,
         BABYLON_BTC_VAULT_SWAP_SPOKE
       ),
-      4
+      4,
+      'guardian selectors'
     );
 
     assertEq(
       accessManager.getLabelOfRole(BABYLON_BTC_VAULT_SWAP_FEE_ROLE),
-      'BABYLON_BTC_VAULT_SWAP_FEE_ROLE'
+      'BABYLON_BTC_VAULT_SWAP_FEE_ROLE',
+      'fee role label'
     );
     assertEq(
       accessManager.getLabelOfRole(BABYLON_BTC_VAULT_SWAP_GUARDIAN_ROLE),
-      'BABYLON_BTC_VAULT_SWAP_GUARDIAN_ROLE'
+      'BABYLON_BTC_VAULT_SWAP_GUARDIAN_ROLE',
+      'guardian role label'
     );
     assertEq(
       accessManager.getRoleOfLabel('BABYLON_BTC_VAULT_SWAP_FEE_ROLE'),
-      BABYLON_BTC_VAULT_SWAP_FEE_ROLE
+      BABYLON_BTC_VAULT_SWAP_FEE_ROLE,
+      'role of the fee label'
     );
     assertEq(
       accessManager.getRoleOfLabel('BABYLON_BTC_VAULT_SWAP_GUARDIAN_ROLE'),
-      BABYLON_BTC_VAULT_SWAP_GUARDIAN_ROLE
+      BABYLON_BTC_VAULT_SWAP_GUARDIAN_ROLE,
+      'role of the guardian label'
     );
     assertEq(
       accessManager.getRoleGuardian(BABYLON_BTC_VAULT_SWAP_FEE_ROLE),
@@ -868,14 +896,18 @@ contract AaveV4Ethereum_OnboardNativeBTCViaBabylon_20261119_Test is BabylonTestB
       0,
       'guardian guardian'
     );
-    // 2000 stays reserved for a domain admin role
+    // pins the ids of the Roles library, 2000 stays reserved for a domain admin role
     assertEq(BABYLON_BTC_VAULT_SWAP_FEE_ROLE, 2001, 'fee role id');
     assertEq(BABYLON_BTC_VAULT_SWAP_GUARDIAN_ROLE, 2002, 'guardian role id');
     assertFalse(
       accessManager.isRole(BABYLON_BTC_VAULT_SWAP_DOMAIN_ADMIN_ROLE),
       'domain admin role'
     );
-    assertEq(accessManager.getRoleMemberCount(BABYLON_BTC_VAULT_SWAP_DOMAIN_ADMIN_ROLE), 0);
+    assertEq(
+      accessManager.getRoleMemberCount(BABYLON_BTC_VAULT_SWAP_DOMAIN_ADMIN_ROLE),
+      0,
+      'domain admin role members'
+    );
     uint64[2] memory newRoles = [
       BABYLON_BTC_VAULT_SWAP_FEE_ROLE,
       BABYLON_BTC_VAULT_SWAP_GUARDIAN_ROLE
@@ -892,7 +924,8 @@ contract AaveV4Ethereum_OnboardNativeBTCViaBabylon_20261119_Test is BabylonTestB
     );
     assertEq(
       accessManager.getRoleMember(BABYLON_BTC_VAULT_SWAP_FEE_ROLE, 0),
-      BTC_VAULT_SWAP_MULTISIG
+      BTC_VAULT_SWAP_MULTISIG,
+      'fee role member'
     );
     _assertAccess({
       role: BABYLON_BTC_VAULT_SWAP_FEE_ROLE,
@@ -907,7 +940,11 @@ contract AaveV4Ethereum_OnboardNativeBTCViaBabylon_20261119_Test is BabylonTestB
       'guardians'
     );
     for (uint256 i; i < guardians.length; ++i) {
-      assertEq(accessManager.getRoleMember(BABYLON_BTC_VAULT_SWAP_GUARDIAN_ROLE, i), guardians[i]);
+      assertEq(
+        accessManager.getRoleMember(BABYLON_BTC_VAULT_SWAP_GUARDIAN_ROLE, i),
+        guardians[i],
+        'guardian'
+      );
       _assertAccess({
         role: BABYLON_BTC_VAULT_SWAP_GUARDIAN_ROLE,
         account: guardians[i],
@@ -1020,7 +1057,7 @@ contract AaveV4Ethereum_OnboardNativeBTCViaBabylon_20261119_Test is BabylonTestB
     IAccessManager(ACCESS_MANAGER).schedule(
       BABYLON_BTC_VAULT_SWAP_SPOKE,
       data,
-      uint48(block.timestamp + 5 days - 1)
+      (block.timestamp + 5 days - 1).toUint48()
     );
   }
 
@@ -1127,18 +1164,17 @@ contract AaveV4Ethereum_OnboardNativeBTCViaBabylon_20261119_Test is BabylonTestB
   function test_guardiansPauseAndFreeze() public {
     _executePayload();
     IBTCVaultSwap btcVaultSwap = IBTCVaultSwap(BABYLON_BTC_VAULT_SWAP_SPOKE);
-    IBTCVaultSwap state = IBTCVaultSwap(BABYLON_BTC_VAULT_SWAP_SPOKE);
     address[4] memory guardians = _btcVaultSwapGuardians();
     for (uint256 i; i < guardians.length; ++i) {
       vm.startPrank(guardians[i]);
       btcVaultSwap.pause();
-      assertTrue(state.isPaused(), 'paused');
+      assertTrue(btcVaultSwap.isPaused(), 'paused');
       btcVaultSwap.unpause();
-      assertFalse(state.isPaused(), 'unpaused');
+      assertFalse(btcVaultSwap.isPaused(), 'unpaused');
       btcVaultSwap.freeze();
-      assertTrue(state.isFrozen(), 'frozen');
+      assertTrue(btcVaultSwap.isFrozen(), 'frozen');
       btcVaultSwap.unfreeze();
-      assertFalse(state.isFrozen(), 'unfrozen');
+      assertFalse(btcVaultSwap.isFrozen(), 'unfrozen');
       vm.stopPrank();
     }
   }
@@ -1358,20 +1394,14 @@ contract AaveV4Ethereum_OnboardNativeBTCViaBabylon_20261119_Test is BabylonTestB
   function test_tokenizationSpokeWithdrawals() public {
     _executePayload();
     address[4] memory tokenizationSpokes = _babylonTokenizationSpokes();
-    address[4] memory tokens = [USDT, USDC, GHO, WBTC];
-    uint256[4] memory assetIds = [
-      BABYLON_USDT_ASSET_ID,
-      BABYLON_USDC_ASSET_ID,
-      BABYLON_GHO_ASSET_ID,
-      BABYLON_WBTC_ASSET_ID
-    ];
+    address[4] memory tokens = _tokenizationSpokeUnderlyings();
+    uint256[4] memory assetIds = _tokenizationSpokeAssetIds();
     for (uint256 i; i < tokenizationSpokes.length; ++i) {
       ITokenizationSpoke tokenizationSpoke = ITokenizationSpoke(tokenizationSpokes[i]);
       uint256 amount = 4 * 10 ** IERC20(tokens[i]).decimals();
       deal(tokens[i], supplier, amount);
       vm.startPrank(supplier);
-      (bool ok, ) = tokens[i].call(abi.encodeCall(IERC20.approve, (tokenizationSpokes[i], amount)));
-      require(ok, 'approve');
+      _approve({token: tokens[i], spender: tokenizationSpokes[i], amount: amount});
       uint256 shares = tokenizationSpoke.deposit(amount, supplier);
       assertEq(IERC20(tokens[i]).balanceOf(supplier), 0, 'deposited');
 
@@ -1400,14 +1430,9 @@ contract AaveV4Ethereum_OnboardNativeBTCViaBabylon_20261119_Test is BabylonTestB
   function test_tokenizationSpokeDeposits() public {
     _executePayload();
     address[4] memory tokenizationSpokes = _babylonTokenizationSpokes();
-    address[4] memory tokens = [USDT, USDC, GHO, WBTC];
+    address[4] memory tokens = _tokenizationSpokeUnderlyings();
     uint40[4] memory addCaps = [uint40(1_000_000), 1_000_000, 1_000_000, 10];
-    uint256[4] memory assetIds = [
-      BABYLON_USDT_ASSET_ID,
-      BABYLON_USDC_ASSET_ID,
-      BABYLON_GHO_ASSET_ID,
-      BABYLON_WBTC_ASSET_ID
-    ];
+    uint256[4] memory assetIds = _tokenizationSpokeAssetIds();
     string[4] memory names = [
       'Wrapped Aave Babylon USDT',
       'Wrapped Aave Babylon USDC',
@@ -1425,10 +1450,7 @@ contract AaveV4Ethereum_OnboardNativeBTCViaBabylon_20261119_Test is BabylonTestB
       uint256 amount = addCaps[i] * 10 ** IERC20(tokens[i]).decimals();
       deal(tokens[i], supplier, amount + 1);
       vm.startPrank(supplier);
-      (bool ok, ) = tokens[i].call(
-        abi.encodeCall(IERC20.approve, (tokenizationSpokes[i], amount + 1))
-      );
-      require(ok, 'approve');
+      _approve({token: tokens[i], spender: tokenizationSpokes[i], amount: amount + 1});
       uint256 shares = tokenizationSpoke.deposit(amount, supplier);
       assertEq(tokenizationSpoke.balanceOf(supplier), shares, 'shares');
       assertEq(tokenizationSpoke.totalAssets(), amount, 'total assets');
@@ -1530,7 +1552,7 @@ contract AaveV4Ethereum_OnboardNativeBTCViaBabylon_20261119_Test is BabylonTestB
 
   // ─── expected values ───
 
-  /// @dev Add and draw caps in whole tokens, from the LlamaRisk parameters of 13 Nov 2026.
+  /// @dev Add and draw caps in whole tokens.
   function _expectedAdditions() internal pure returns (SpokeAddition[] memory additions) {
     additions = new SpokeAddition[](15);
     additions[0] = SpokeAddition(BABYLON_HUB, BABYLON_VAULT_BTC_ASSET_ID, BABYLON_SPOKE, 20, 0);
@@ -1612,6 +1634,22 @@ contract AaveV4Ethereum_OnboardNativeBTCViaBabylon_20261119_Test is BabylonTestB
         collateralFactor: 0,
         maxLiquidationBonus: 100_00
       });
+  }
+
+  /// @dev Underlying of each Babylon Tokenization Spoke, in the order of
+  /// `_babylonTokenizationSpokes`.
+  function _tokenizationSpokeUnderlyings() internal pure returns (address[4] memory) {
+    return [USDT, USDC, GHO, WBTC];
+  }
+
+  /// @dev Babylon Hub asset id of each Babylon Tokenization Spoke, in the same order.
+  function _tokenizationSpokeAssetIds() internal pure returns (uint256[4] memory) {
+    return [
+      BABYLON_USDT_ASSET_ID,
+      BABYLON_USDC_ASSET_ID,
+      BABYLON_GHO_ASSET_ID,
+      BABYLON_WBTC_ASSET_ID
+    ];
   }
 
   /// @dev addAsset, updateAssetConfig, addSpoke, updateSpokeConfig, setInterestRateData,
@@ -1877,7 +1915,7 @@ contract AaveV4Ethereum_OnboardNativeBTCViaBabylon_20261119_Test is BabylonTestB
     proposal = new AaveV4Ethereum_OnboardNativeBTCViaBabylon_20261119();
   }
 
-  /// @dev Mainnet as it is, handed over and with neither guardian role granted.
+  /// @dev Mainnet at the fork block, handed over and with neither guardian role granted.
   function _handoverWithoutGuardianGrants() internal {
     vm.createSelectFork(vm.rpcUrl('mainnet'), FORK_BLOCK);
     proposal = new AaveV4Ethereum_OnboardNativeBTCViaBabylon_20261119();

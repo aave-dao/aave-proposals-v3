@@ -34,8 +34,6 @@ interface IBabylonTimelockController {
 
   function isOperationPending(bytes32 id) external view returns (bool);
 
-  function isOperationDone(bytes32 id) external view returns (bool);
-
   function getTimestamp(bytes32 id) external view returns (uint256);
 
   function getMinDelay() external view returns (uint256);

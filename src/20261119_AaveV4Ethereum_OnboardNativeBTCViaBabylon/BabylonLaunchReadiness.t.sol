@@ -27,11 +27,11 @@ contract BabylonLaunchReadinessTest is Test {
     BabylonMainnet.AAVE_ADAPTER_PROXY_MANAGER;
   address internal constant BABYLON_BTC_VAULT_SWAP_SPOKE = BabylonMainnet.BTC_VAULT_SWAP_SPOKE;
   address internal constant VAULT_BTC = BabylonMainnet.VAULT_BTC;
-  address internal constant APPLICATION_TIMELOCK = BabylonMainnet.APPLICATION_TIMELOCK;
-  address internal constant PROTOCOL_TIMELOCK = BabylonMainnet.PROTOCOL_TIMELOCK;
-  address internal constant INTERIM_GOVERNANCE = BabylonMainnet.INTERIM_GOVERNANCE;
-  address internal constant EMERGENCY_GUARDIAN = BabylonMainnet.EMERGENCY_GUARDIAN;
-  address internal constant FEE_RECIPIENT = BabylonMainnet.FEE_RECIPIENT;
+  address internal constant BABYLON_APPLICATION_TIMELOCK = BabylonMainnet.APPLICATION_TIMELOCK;
+  address internal constant BABYLON_PROTOCOL_TIMELOCK = BabylonMainnet.PROTOCOL_TIMELOCK;
+  address internal constant BABYLON_INTERIM_GOVERNANCE = BabylonMainnet.INTERIM_GOVERNANCE;
+  address internal constant BABYLON_EMERGENCY_GUARDIAN = BabylonMainnet.EMERGENCY_GUARDIAN;
+  address internal constant BABYLON_FEE_RECIPIENT = BabylonMainnet.FEE_RECIPIENT;
   // the two owners of every Babylon Safe at deployment
   address internal constant PLACEHOLDER_OWNER_1 = 0xF6D401E079F53Fb7dDB8bC759Fb9a53E5B4b26EF;
   address internal constant PLACEHOLDER_OWNER_2 = 0x270C35Ee0b78C25869a9734caF77da96383b1b1a;
@@ -52,7 +52,11 @@ contract BabylonLaunchReadinessTest is Test {
   }
 
   function test_safesHaveRealOwners() public view {
-    address[3] memory safes = [INTERIM_GOVERNANCE, EMERGENCY_GUARDIAN, FEE_RECIPIENT];
+    address[3] memory safes = [
+      BABYLON_INTERIM_GOVERNANCE,
+      BABYLON_EMERGENCY_GUARDIAN,
+      BABYLON_FEE_RECIPIENT
+    ];
     string[3] memory names = ['Interim Governance', 'Emergency Guardian', 'fee recipient'];
     for (uint256 i; i < safes.length; ++i) {
       address[] memory owners = ISafe(safes[i]).getOwners();
@@ -70,11 +74,11 @@ contract BabylonLaunchReadinessTest is Test {
   }
 
   function test_aaveLabsSitsOnTheEmergencyGuardian() public view {
-    assertTrue(ISafe(EMERGENCY_GUARDIAN).isOwner(AAVE_LABS_SAFE), 'Aave Labs seat');
+    assertTrue(ISafe(BABYLON_EMERGENCY_GUARDIAN).isOwner(AAVE_LABS_SAFE), 'Aave Labs seat');
   }
 
   /// @dev Each role is granted, or the grant is queued on the application timelock.
-  function test_securityCouncilGuardianRoles() public {
+  function test_securityCouncilGuardianRoles() public view {
     bytes32[2] memory roles = [
       BABYLON_APPLICATION_PAUSE_GUARDIAN_ROLE,
       BABYLON_APPLICATION_FREEZE_GUARDIAN_ROLE
@@ -93,8 +97,8 @@ contract BabylonLaunchReadinessTest is Test {
 
   /// @dev Prints every operation queued on either timelock. Any call to an Aave integration
   /// contract other than the two guardian grants fails and needs a manual review.
-  function test_queuedOperationsOnAaveIntegrationContracts() public {
-    address[2] memory timelocks = [APPLICATION_TIMELOCK, PROTOCOL_TIMELOCK];
+  function test_queuedOperationsOnAaveIntegrationContracts() public view {
+    address[2] memory timelocks = [BABYLON_APPLICATION_TIMELOCK, BABYLON_PROTOCOL_TIMELOCK];
     for (uint256 i; i < timelocks.length; ++i) {
       Vm.EthGetLogs[] memory logs = _scheduled(timelocks[i]);
       console.log('timelock', timelocks[i]);
@@ -125,20 +129,20 @@ contract BabylonLaunchReadinessTest is Test {
 
   function test_timelockDelays() public view {
     assertEq(
-      IBabylonTimelockController(APPLICATION_TIMELOCK).getMinDelay(),
+      IBabylonTimelockController(BABYLON_APPLICATION_TIMELOCK).getMinDelay(),
       5 days,
       'application timelock delay'
     );
     assertEq(
-      IBabylonTimelockController(PROTOCOL_TIMELOCK).getMinDelay(),
+      IBabylonTimelockController(BABYLON_PROTOCOL_TIMELOCK).getMinDelay(),
       5 days,
       'protocol timelock delay'
     );
   }
 
   /// @dev Returns when the queued grant of `role` becomes executable, zero if none is pending.
-  function _pendingGrant(bytes32 role) internal returns (uint256) {
-    Vm.EthGetLogs[] memory logs = _scheduled(APPLICATION_TIMELOCK);
+  function _pendingGrant(bytes32 role) internal view returns (uint256) {
+    Vm.EthGetLogs[] memory logs = _scheduled(BABYLON_APPLICATION_TIMELOCK);
     for (uint256 i; i < logs.length; ++i) {
       (address target, uint256 value, bytes memory data, , ) = abi.decode(
         logs[i].data,
@@ -149,15 +153,15 @@ contract BabylonLaunchReadinessTest is Test {
         target == BABYLON_AAVE_ADAPTER &&
         value == 0 &&
         keccak256(data) == keccak256(_grant(role)) &&
-        IBabylonTimelockController(APPLICATION_TIMELOCK).isOperationPending(id)
+        IBabylonTimelockController(BABYLON_APPLICATION_TIMELOCK).isOperationPending(id)
       ) {
-        return IBabylonTimelockController(APPLICATION_TIMELOCK).getTimestamp(id);
+        return IBabylonTimelockController(BABYLON_APPLICATION_TIMELOCK).getTimestamp(id);
       }
     }
     return 0;
   }
 
-  function _scheduled(address timelock) internal returns (Vm.EthGetLogs[] memory) {
+  function _scheduled(address timelock) internal view returns (Vm.EthGetLogs[] memory) {
     bytes32[] memory topics = new bytes32[](1);
     topics[0] = IBabylonTimelockController.CallScheduled.selector;
     return vm.eth_getLogs(TIMELOCKS_DEPLOY_BLOCK, block.number, timelock, topics);
