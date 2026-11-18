@@ -1,0 +1,29 @@
+src/20261119_AaveV4Ethereum_OnboardNativeBTCViaBabylon/AaveV4Ethereum_OnboardNativeBTCViaBabylon_20261119.t.sol
+  s_477c0d90c4846f::t_34e900c1a0ed5b 11,37-38,238,469-470,744,768-787,790-791,839-840,847-848,857-858,865-866,871-872,876-877,881-882,886-887,899,906-910,927-928,943-947,1060,1171,1173,1175,1177,1397-1398,1404,1433,1435,1453,1555,1639-1654,1918
+src/20261119_AaveV4Ethereum_OnboardNativeBTCViaBabylon/BabylonLaunchReadiness.t.sol
+  s_477c0d90c4846f::t_ed280c7e6a0f21 30-34,55-59,77,81,100-101,132,137,144-145,156,158,164
+src/20261119_AaveV4Ethereum_OnboardNativeBTCViaBabylon/BabylonLiquidationFlows.t.sol
+  s_477c0d90c4846f::t_f8aae97c5c2361 76,144,180,182,215,221,223,318,387,395,400,406,417,451,476-477,494,499-500,524,549-550,607,609,620,623,625,633-634,649,654,659,689,691,726,743,758,763,768,801,836,878,890,909,949,952,954,974,1023-1052,1058,1072,1077,1084,1090-1102,1195,1286-1290
+src/20261119_AaveV4Ethereum_OnboardNativeBTCViaBabylon/BabylonPegInHelper.sol
+  s_477c0d90c4846f::t_d380fcc05c88aa 15-16,18-20,208-212,214-218,221,240-244,353,374
+src/20261119_AaveV4Ethereum_OnboardNativeBTCViaBabylon/BabylonTestBase.sol
+  s_477c0d90c4846f::t_c3b82de4dd9a9d 10-11,23-24,46,95,129-135,137-141,251,256-261,277-278,282-283
+src/interfaces/babylon/IAaveAdapter.sol
+  s_477c0d90c4846f::t_b76f8c891380cc 4
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "0c43d71bb772f3f832ffc4dc075a859184dd3837",
+  "prompts": {},
+  "sessions": {
+    "s_477c0d90c4846f": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "9de15bb6-ef2d-4870-b4ab-7a2a27701508",
+        "model": "claude-fable-5-2"
+      },
+      "human_author": "Alexandru Niculae <43644109+avniculae@users.noreply.github.com>"
+    }
+  }
+}
