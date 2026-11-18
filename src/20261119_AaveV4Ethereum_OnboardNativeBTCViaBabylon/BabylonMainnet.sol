@@ -12,6 +12,12 @@ library BabylonMainnet {
     0xf86510AffA83a492200d7150901F5915bb48A067;
   address internal constant AAVE_ADAPTER_CONFIG = 0xaB6900Dee104781ADFdEa151ccFf8acE47E33C54;
   address internal constant AAVE_ADAPTER_PROXY_MANAGER = 0xd73AcD95867c775Bc48979E5DB4E8ED63F9C78DB;
+  address internal constant BTC_VAULT_REGISTRY = 0x8fC87a314B34371761a4F9F08cF8A0B4cB051541;
+  address internal constant PROTOCOL_PARAMS = 0x39E02aa1dbf55A7fdd70f2D6f64fe24293E82cF8;
+  address internal constant APPLICATION_REGISTRY = 0xffb014C0666072b5c11bbc1EfAe43011e848660e;
+  address internal constant CAP_POLICY = 0x844aaF1964DD0f7d1aaA549620448b04291c3284;
+  address internal constant ALLOW_LIST_POLICY = 0xa6c4aeD1082a15C0561B57e6c53bFF075AA56dF0;
+  address internal constant FEE_ESCROW = 0xB1CD06838375b9DF58D3Ab7cA5EDCdC5B4D74611;
   address internal constant VAULT_BTC = 0x69712D713FD30aBEF48b5D14eC2a9FB834D2c341;
   address internal constant BTC_VAULT_SWAP_SPOKE = 0xFe354b6A67E9a308B600d35B0b3e2e6F33f3c6d9;
   address internal constant BTC_VAULT_SWAP_SPOKE_IMPLEMENTATION =
@@ -23,6 +29,7 @@ library BabylonMainnet {
   address internal constant DEPLOYER = 0x29D6008BFB46007a554Fcf47Ac05d5F4F4BE7313;
   // admin of the AaveAdapter roles, 5 day delay
   address internal constant APPLICATION_TIMELOCK = 0x0a575185163a2446F7A0433f48B0395ca4A9fBb0;
+  // admin of the BTCVaultRegistry, ProtocolParams, ApplicationRegistry and the policies
   address internal constant PROTOCOL_TIMELOCK = 0xDeC656861922d11A3F08e8ba3631cCdeA877D9d3;
   // the only proposer on Babylon's timelocks
   address internal constant INTERIM_GOVERNANCE = 0xcd9e54acA1B7fb9BcE10208201b01559A6B01949;

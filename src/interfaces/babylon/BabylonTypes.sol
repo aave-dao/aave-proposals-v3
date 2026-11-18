@@ -48,3 +48,38 @@ struct AddressBTCKeyPair {
   address ethAddress;
   bytes32 btcPubKey;
 }
+
+struct VaultKeeperRegistration {
+  address adminEthAddress;
+  bytes32 opBtcKey;
+  bytes payoutScript;
+  address opEthKey;
+  bytes ethPopSignature;
+}
+
+struct TBVProtocolParams {
+  uint64 minimumPegInAmount;
+  uint64 maxPegInAmount;
+  uint64 pegInAckTimeout;
+  uint64 pegInActivationTimeout;
+  uint8 maxHtlcOutputCount;
+  uint64 expiredPegInGraceBlocks;
+  uint64 peginActivationDelay;
+  uint8 maxFundingInputCount;
+}
+
+struct ApplicationCapParams {
+  uint256 totalCapBTC;
+  uint256 perAddressCapBTC;
+}
+
+struct EscrowedVaultPreviewResult {
+  bytes32 vaultId;
+  uint256 amountVault;
+  uint256 amountDebt;
+  uint256 amountInterest;
+  uint256 amountExitBtcEquivalent;
+  uint256 amountExitBtcToAcquire;
+  uint256 amountProfitEst;
+  uint256 amountDeficitEst;
+}

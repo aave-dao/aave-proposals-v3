@@ -11,6 +11,10 @@ interface IAaveAdapter {
 
   error InvalidPostLiquidationState();
 
+  error PositionNotHealthy();
+
+  error ExcessiveExitBtcPayment();
+
   error TBV_Frozen();
 
   error TBV_Paused();
@@ -52,6 +56,8 @@ interface IAaveAdapter {
     TokenAmount[] memory minPayouts
   ) external returns (bytes32, uint256, TokenAmount[] memory);
 
+  function reorderVaults(bytes32[] memory permuted) external;
+
   function withdrawCollaterals(bytes32[] memory vaultIds) external returns (uint256);
 
   function pause() external;
@@ -65,6 +71,12 @@ interface IAaveAdapter {
   function grantRole(bytes32 role, address account) external;
 
   function hasRole(bytes32 role, address account) external view returns (bool);
+
+  function allowedToDeposit(
+    address vaultReceiver,
+    uint256 nVaultsToDeposit,
+    uint256 amountToDeposit
+  ) external view returns (bool);
 
   function getPosition(address borrower) external view returns (MarketPosition memory);
 
