@@ -13,7 +13,7 @@ import {AaveV3ZkSync_RemoveEmissionAdmins_20261029} from './AaveV3ZkSync_RemoveE
 contract DeployZkSync is ZkSyncScript {
   function run() external broadcast {
     // deploy payloads
-    address payload0 = address(new AaveV3ZkSync_RemoveEmissionAdmins_20261029{salt: 'aave'}());
+    address payload0 = address(new AaveV3ZkSync_RemoveEmissionAdmins_20261029{salt: 'v1'}());
 
     // compose action
     IPayloadsControllerCore.ExecutionAction[]
