@@ -49,6 +49,7 @@ contract CreateProposal is EthereumScript {
       vm,
       payloads,
       GovernanceV3Ethereum.VOTING_PORTAL_ETH_AVAX,
+      // TODO(tempo): add TempoADIPathActivation.md from the governance forum post
       GovV3Helpers.ipfsHashFile(
         vm,
         'src/20261118_AaveV3Ethereum_TempoADIPathActivation/TempoADIPathActivation.md'
