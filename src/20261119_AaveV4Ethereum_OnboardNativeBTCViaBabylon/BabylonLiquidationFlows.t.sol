@@ -7,150 +7,12 @@ import {IHub} from 'aave-v4/hub/interfaces/IHub.sol';
 import {ISpoke} from 'aave-v4/spoke/interfaces/ISpoke.sol';
 import {IAaveOracle} from 'aave-v4/spoke/interfaces/IAaveOracle.sol';
 import {IHubConfigurator} from 'aave-v4/hub/interfaces/IHubConfigurator.sol';
-import {IBTCVaultSwap} from './IBTCVaultSwap.sol';
+import {IAaveAdapter} from 'src/interfaces/babylon/IAaveAdapter.sol';
+import {IBTCVaultSwap} from 'src/interfaces/babylon/IBTCVaultSwap.sol';
+import {IBTCVaultRegistry} from 'src/interfaces/babylon/IBTCVaultRegistry.sol';
+import {IApplicationRegistry} from 'src/interfaces/babylon/IApplicationRegistry.sol';
+import {BTCVaultBasicInfo, BTCVaultProtocolInfo, TokenAmount, MarketPosition, AddressBTCKeyPair} from 'src/interfaces/babylon/BabylonTypes.sol';
 import {BabylonTestBase} from './BabylonTestBase.sol';
-
-struct BTCVaultBasicInfo {
-  address depositor;
-  bytes32 depositorBtcPubKey;
-  uint256 amount;
-  address vaultProvider;
-  uint8 status;
-  address applicationEntryPoint;
-  uint256 createdAt;
-}
-
-struct BTCVaultProtocolInfo {
-  bytes depositorSignedPeginTx;
-  uint16 universalChallengersVersion;
-  uint16 appVaultKeepersVersion;
-  uint16 offchainParamsVersion;
-  uint256 verifiedAt;
-  bytes32 depositorWotsPkHash;
-  bytes32 hashlock;
-  uint8 htlcVout;
-  bytes depositorPopSignature;
-  bytes32 prePeginTxHash;
-  uint16 vaultProviderCommissionBps;
-  uint256 claimExpiredUntil;
-  uint16 vaultCoreVersion;
-  uint64 vpKeyEpoch;
-  uint64 appKeeperKeyEpoch;
-  uint64 ucKeyEpoch;
-}
-
-struct TokenAmount {
-  address token;
-  uint256 amount;
-}
-
-struct MarketPosition {
-  bytes32[] vaultIds;
-  uint256 totalCollateralBTC;
-  address proxyContract;
-}
-
-interface IAaveAdapterFlows {
-  error InvalidPositionSizes();
-
-  error InvalidPostLiquidationState();
-
-  error TBV_Frozen();
-
-  function activateVault(
-    bytes32 vaultId,
-    BTCVaultBasicInfo memory info,
-    bytes memory data
-  ) external;
-
-  function borrowFromCorePosition(
-    uint256 debtReserveId,
-    uint256 amount,
-    address receiver
-  ) external returns (uint256, uint256);
-
-  function repayToCorePosition(
-    address borrower,
-    uint256 debtReserveId,
-    uint256 amount
-  ) external returns (uint256, uint256, uint256);
-
-  function liquidate(
-    address borrower,
-    uint256 debtReserveId,
-    uint256 maxDebtToRepay,
-    uint256 maxExitBtc,
-    bytes32 claimerBtcPubKey
-  ) external returns (bytes32, uint256);
-
-  function liquidateWithLLP(
-    address borrower,
-    address llp,
-    uint256 debtReserveId,
-    uint256 maxDebtToRepay,
-    uint256 maxExitBtc,
-    TokenAmount[] memory minPayouts
-  ) external returns (bytes32, uint256, TokenAmount[] memory);
-
-  function withdrawCollaterals(bytes32[] memory vaultIds) external returns (uint256);
-
-  function getPosition(address borrower) external view returns (MarketPosition memory);
-
-  function pauseState() external view returns (uint8);
-
-  function unfreeze() external;
-
-  function applicationRecipient() external view returns (address);
-
-  function BTC_VAULT_REGISTRY() external view returns (address);
-
-  function APP_REGISTRY() external view returns (address);
-
-  function getVaultUsageStatus(bytes32 vaultId) external view returns (uint8);
-
-  function vaultOwner(bytes32 vaultId) external view returns (address);
-}
-
-interface IBTCVaultSwapFlows {
-  error EnforcedPause();
-
-  error EnforcedFreeze();
-
-  function vaultsInfo(bytes32 vaultId) external view returns (uint128, uint128, uint128, uint8);
-
-  function swapExitBtcForVault(bytes32 vaultId, uint256 maxExitBtc) external returns (uint256);
-}
-
-interface IBTCVaultRegistry {
-  function getBtcVaultBasicInfo(bytes32 vaultId) external view returns (BTCVaultBasicInfo memory);
-
-  function getBTCVaultAmountsBatch(
-    bytes32[] calldata vaultIds
-  ) external view returns (uint256[] memory);
-
-  function redeemVaultForAVK(bytes32 vaultId, bytes32 claimerBtcPubKey) external;
-
-  function redeemVaultForDepositor(bytes32 vaultId) external;
-
-  function getBtcVaultProtocolInfo(
-    bytes32 vaultId
-  ) external view returns (BTCVaultProtocolInfo memory);
-}
-
-struct AddressBTCKeyPair {
-  address ethAddress;
-  bytes32 btcPubKey;
-}
-
-interface IApplicationRegistry {
-  error UnauthorizedVaultKeeper();
-
-  function getCurrentVaultKeepers(
-    address appEntryPoint
-  ) external view returns (AddressBTCKeyPair[] memory);
-
-  function getCurrentVaultKeepersVersion(address appEntryPoint) external view returns (uint16);
-}
 
 /**
  * @dev Drives Babylon's deployed AaveAdapter and BTCVaultSwap against the Babylon Spoke after the
@@ -165,12 +27,20 @@ contract BabylonLiquidationFlowsTest is BabylonTestBase {
   bytes32 internal constant VAULT_2 = keccak256('vault-2');
   bytes32 internal constant CLAIMER_BTC_KEY = bytes32(uint256(7));
 
+  // every vault in these tests holds 1 BTC
+  uint256 internal constant VAULT_AMOUNT = 1e8;
+
   // AaveAdapter vault usage status
   uint8 internal constant VAULT_LLP_OWNED = 2;
   uint8 internal constant VAULT_REDEEMED = 3;
 
-  IAaveAdapterFlows internal adapter = IAaveAdapterFlows(AAVE_ADAPTER);
-  IBTCVaultSwapFlows internal swap = IBTCVaultSwapFlows(BTC_VAULT_SWAP);
+  // AaveAdapter pause state
+  uint8 internal constant ADAPTER_ACTIVE = 0;
+  uint8 internal constant ADAPTER_FROZEN = 1;
+  uint8 internal constant ADAPTER_PAUSED = 2;
+
+  IAaveAdapter internal adapter = IAaveAdapter(BABYLON_AAVE_ADAPTER);
+  IBTCVaultSwap internal swap = IBTCVaultSwap(BABYLON_BTC_VAULT_SWAP_SPOKE);
   address internal registry;
   address internal applicationRegistry;
   address internal liquidator = makeAddr('liquidator');
@@ -189,7 +59,7 @@ contract BabylonLiquidationFlowsTest is BabylonTestBase {
   }
 
   function test_activateVault_revertsBeforeTheProposal() public {
-    BTCVaultBasicInfo memory info = _vaultInfo(user, 1e8);
+    BTCVaultBasicInfo memory info = _vaultInfo(user, VAULT_AMOUNT);
     _mockRegistryForVault(VAULT_1, info);
     vm.expectRevert(IHub.SpokeNotActive.selector);
     vm.prank(registry);
@@ -200,11 +70,11 @@ contract BabylonLiquidationFlowsTest is BabylonTestBase {
   /// activates and withdraws vaults and only blocks new borrows.
   function test_activateAndWithdrawWhileAdapterFrozen() public {
     _executePayload();
-    assertEq(adapter.pauseState(), 1, 'adapter frozen');
-    _activate(VAULT_1, 1e8);
+    assertEq(adapter.pauseState(), ADAPTER_FROZEN, 'adapter frozen');
+    _activate(VAULT_1, VAULT_AMOUNT);
     address proxy = _proxy();
-    assertEq(_suppliedVaultBtc(proxy), 1e8, 'supplied');
-    assertEq(IERC20(VAULT_BTC).totalSupply(), 1e8, 'vaultBTC minted');
+    assertEq(_suppliedVaultBtc(proxy), VAULT_AMOUNT, 'supplied');
+    assertEq(IERC20(VAULT_BTC).totalSupply(), VAULT_AMOUNT, 'vaultBTC minted');
     (bool isCollateral, bool isBorrowing) = ISpoke(BABYLON_SPOKE).getUserReserveStatus(
       VAULT_BTC_RESERVE_ID,
       proxy
@@ -212,11 +82,11 @@ contract BabylonLiquidationFlowsTest is BabylonTestBase {
     assertTrue(isCollateral, 'collateral enabled');
     assertFalse(isBorrowing, 'borrowing');
 
-    vm.expectRevert(IAaveAdapterFlows.TBV_Frozen.selector);
+    vm.expectRevert(IAaveAdapter.TBV_Frozen.selector);
     vm.prank(user);
     adapter.borrowFromCorePosition(CORE_USDC_RESERVE_ID, 1e6, user);
 
-    _mockVaultAmounts(_one(VAULT_1), _one(1e8));
+    _mockVaultAmounts(_one(VAULT_1), _one(VAULT_AMOUNT));
     vm.prank(user);
     adapter.withdrawCollaterals(_one(VAULT_1));
     assertEq(IERC20(VAULT_BTC).totalSupply(), 0, 'vaultBTC burned');
@@ -232,7 +102,7 @@ contract BabylonLiquidationFlowsTest is BabylonTestBase {
     skip(1 days);
     deal(USDC, user, borrowed * 2);
     vm.startPrank(user);
-    IERC20(USDC).approve(AAVE_ADAPTER, type(uint256).max);
+    IERC20(USDC).approve(BABYLON_AAVE_ADAPTER, UINT256_MAX);
     adapter.repayToCorePosition(user, CORE_USDC_RESERVE_ID, borrowed * 2);
     vm.stopPrank();
     assertEq(_usdcDebt(proxy), 0, 'debt repaid');
@@ -255,12 +125,12 @@ contract BabylonLiquidationFlowsTest is BabylonTestBase {
       borrower: user,
       debtReserveId: CORE_USDC_RESERVE_ID,
       maxDebtToRepay: _debt * 2,
-      maxExitBtc: type(uint256).max,
+      maxExitBtc: UINT256_MAX,
       claimerBtcPubKey: CLAIMER_BTC_KEY
     });
 
     assertEq(vaultId, VAULT_1, 'vault');
-    assertEq(seized, 1e8, 'whole vault seized');
+    assertEq(seized, VAULT_AMOUNT, 'whole vault seized');
     _fee = IERC20(WBTC).balanceOf(adapter.applicationRecipient()) - recipientBefore;
     _fairness = IERC20(WBTC).balanceOf(user);
     assertEq(1e8 - IERC20(WBTC).balanceOf(liquidator), _fee + _fairness, 'liquidator WBTC paid');
@@ -301,7 +171,8 @@ contract BabylonLiquidationFlowsTest is BabylonTestBase {
     _assertFeeAndFairness();
 
     // the swap pays 98% of the vault value, the 2% sell discount is the arbitrageur's margin
-    uint256 vaultValue = (1e8 * _price(VAULT_BTC_RESERVE_ID)) / _price(BABYLON_WBTC_RESERVE_ID);
+    uint256 vaultValue = (VAULT_AMOUNT * _price(VAULT_BTC_RESERVE_ID)) /
+      _price(BABYLON_WBTC_RESERVE_ID);
     assertApproxEqAbs(_payout, (vaultValue * 98) / 100, 3, 'payout');
     assertEq(
       liquidityBefore - IHub(CORE_HUB).getAssetLiquidity(CORE_WBTC_ASSET_ID),
@@ -309,26 +180,34 @@ contract BabylonLiquidationFlowsTest is BabylonTestBase {
       'core hub liquidity drawn'
     );
     assertApproxEqAbs(
-      IHub(CORE_HUB).getSpokeTotalOwed(CORE_WBTC_ASSET_ID, BTC_VAULT_SWAP),
+      IHub(CORE_HUB).getSpokeTotalOwed(CORE_WBTC_ASSET_ID, BABYLON_BTC_VAULT_SWAP_SPOKE),
       _payout,
       2,
       'swap debt on the core hub'
     );
     (uint128 amountVault, uint128 drawn, uint128 sharesOwed, ) = swap.vaultsInfo(VAULT_1);
-    assertEq(amountVault, 1e8, 'escrowed vault');
+    assertEq(amountVault, VAULT_AMOUNT, 'escrowed vault');
     assertEq(drawn, _payout, 'escrow drawn');
     assertEq(
-      IHub(CORE_HUB).getSpokeDrawnShares(CORE_WBTC_ASSET_ID, BTC_VAULT_SWAP),
+      IHub(CORE_HUB).getSpokeDrawnShares(CORE_WBTC_ASSET_ID, BABYLON_BTC_VAULT_SWAP_SPOKE),
       sharesOwed,
       'escrow shares'
     );
-    assertEq(adapter.vaultOwner(VAULT_1), BTC_VAULT_SWAP, 'vault owner');
+    assertEq(adapter.vaultOwner(VAULT_1), BABYLON_BTC_VAULT_SWAP_SPOKE, 'vault owner');
     assertEq(adapter.getVaultUsageStatus(VAULT_1), VAULT_LLP_OWNED, 'vault held by the swap');
     assertEq(_suppliedVaultBtc(_proxy()), 0, 'collateral left');
 
     _arbitrage();
-    assertEq(IHub(CORE_HUB).getSpokeDrawnShares(CORE_WBTC_ASSET_ID, BTC_VAULT_SWAP), 0, 'repaid');
-    assertEq(IHub(CORE_HUB).getSpokeDeficitRay(CORE_WBTC_ASSET_ID, BTC_VAULT_SWAP), 0, 'deficit');
+    assertEq(
+      IHub(CORE_HUB).getSpokeDrawnShares(CORE_WBTC_ASSET_ID, BABYLON_BTC_VAULT_SWAP_SPOKE),
+      0,
+      'repaid'
+    );
+    assertEq(
+      IHub(CORE_HUB).getSpokeDeficitRay(CORE_WBTC_ASSET_ID, BABYLON_BTC_VAULT_SWAP_SPOKE),
+      0,
+      'deficit'
+    );
     assertGe(
       IHub(CORE_HUB).getAssetLiquidity(CORE_WBTC_ASSET_ID),
       liquidityBefore,
@@ -345,9 +224,9 @@ contract BabylonLiquidationFlowsTest is BabylonTestBase {
     _mockVaultProtocolInfo(VAULT_1);
     deal(WBTC, arbitrageur, 2e8);
     vm.startPrank(arbitrageur);
-    IERC20(WBTC).approve(BTC_VAULT_SWAP, type(uint256).max);
+    IERC20(WBTC).approve(BABYLON_BTC_VAULT_SWAP_SPOKE, UINT256_MAX);
     vm.expectRevert(IApplicationRegistry.UnauthorizedVaultKeeper.selector);
-    swap.swapExitBtcForVault(VAULT_1, type(uint256).max);
+    swap.swapExitBtcForVault(VAULT_1, UINT256_MAX);
     vm.stopPrank();
   }
 
@@ -362,20 +241,122 @@ contract BabylonLiquidationFlowsTest is BabylonTestBase {
     address keeper = _vaultKeeper();
     deal(WBTC, keeper, 2e8);
     vm.prank(keeper);
-    IERC20(WBTC).approve(BTC_VAULT_SWAP, type(uint256).max);
+    IERC20(WBTC).approve(BABYLON_BTC_VAULT_SWAP_SPOKE, UINT256_MAX);
 
     vm.prank(BTC_VAULT_SWAP_MULTISIG);
-    IBTCVaultSwap(BTC_VAULT_SWAP).pause();
-    vm.expectRevert(IBTCVaultSwapFlows.EnforcedPause.selector);
+    IBTCVaultSwap(BABYLON_BTC_VAULT_SWAP_SPOKE).pause();
+    vm.expectRevert(IBTCVaultSwap.EnforcedPause.selector);
     vm.prank(keeper);
-    swap.swapExitBtcForVault(VAULT_1, type(uint256).max);
-    assertGt(IHub(CORE_HUB).getSpokeDrawnShares(CORE_WBTC_ASSET_ID, BTC_VAULT_SWAP), 0, 'debt');
+    swap.swapExitBtcForVault(VAULT_1, UINT256_MAX);
+    assertGt(
+      IHub(CORE_HUB).getSpokeDrawnShares(CORE_WBTC_ASSET_ID, BABYLON_BTC_VAULT_SWAP_SPOKE),
+      0,
+      'debt'
+    );
 
     vm.prank(V4_SECURITY_COUNCIL);
-    IBTCVaultSwap(BTC_VAULT_SWAP).unpause();
+    IBTCVaultSwap(BABYLON_BTC_VAULT_SWAP_SPOKE).unpause();
     vm.prank(keeper);
-    swap.swapExitBtcForVault(VAULT_1, type(uint256).max);
-    assertEq(IHub(CORE_HUB).getSpokeDrawnShares(CORE_WBTC_ASSET_ID, BTC_VAULT_SWAP), 0, 'repaid');
+    swap.swapExitBtcForVault(VAULT_1, UINT256_MAX);
+    assertEq(
+      IHub(CORE_HUB).getSpokeDrawnShares(CORE_WBTC_ASSET_ID, BABYLON_BTC_VAULT_SWAP_SPOKE),
+      0,
+      'repaid'
+    );
+  }
+
+  /// @dev A paused AaveAdapter blocks every position action, exits included. The Aave V4 Security
+  /// Council pauses, and Babylon's Interim Governance, which also holds the pause guardian role,
+  /// can undo it.
+  function test_adapterPaused_blocksPositionActions() public {
+    uint256 borrowed = _openAndBorrow(75_00);
+    address proxy = _proxy();
+    vm.prank(V4_SECURITY_COUNCIL);
+    adapter.pause();
+    assertEq(adapter.pauseState(), ADAPTER_PAUSED, 'adapter paused');
+
+    deal(USDC, user, borrowed * 2);
+    vm.startPrank(user);
+    IERC20(USDC).approve(BABYLON_AAVE_ADAPTER, UINT256_MAX);
+    vm.expectRevert(IAaveAdapter.TBV_Paused.selector);
+    adapter.borrowFromCorePosition(CORE_USDC_RESERVE_ID, 1e6, user);
+    vm.expectRevert(IAaveAdapter.TBV_Paused.selector);
+    adapter.repayToCorePosition(user, CORE_USDC_RESERVE_ID, borrowed * 2);
+    vm.expectRevert(IAaveAdapter.TBV_Paused.selector);
+    adapter.withdrawCollaterals(_one(VAULT_1));
+    vm.stopPrank();
+
+    _scaleBtcPrices(94_00);
+    assertLt(ISpoke(BABYLON_SPOKE).getUserAccountData(proxy).healthFactor, 1e18, 'liquidatable');
+    _debt = _usdcDebt(proxy);
+    _fundLiquidator({usdc: _debt * 2, wbtc: 1e8});
+    vm.startPrank(liquidator);
+    vm.expectRevert(IAaveAdapter.TBV_Paused.selector);
+    adapter.liquidate({
+      borrower: user,
+      debtReserveId: CORE_USDC_RESERVE_ID,
+      maxDebtToRepay: _debt * 2,
+      maxExitBtc: UINT256_MAX,
+      claimerBtcPubKey: CLAIMER_BTC_KEY
+    });
+    vm.expectRevert(IAaveAdapter.TBV_Paused.selector);
+    adapter.liquidateWithLLP({
+      borrower: user,
+      llp: BABYLON_BTC_VAULT_SWAP_SPOKE,
+      debtReserveId: CORE_USDC_RESERVE_ID,
+      maxDebtToRepay: _debt * 2,
+      maxExitBtc: UINT256_MAX,
+      minPayouts: new TokenAmount[](0)
+    });
+    vm.stopPrank();
+
+    vm.prank(BABYLON_INTERIM_GOVERNANCE);
+    adapter.unpause();
+    assertEq(adapter.pauseState(), ADAPTER_ACTIVE, 'adapter unpaused');
+    vm.prank(user);
+    adapter.repayToCorePosition(user, CORE_USDC_RESERVE_ID, borrowed * 2);
+    assertEq(_usdcDebt(proxy), 0, 'debt repaid');
+  }
+
+  /// @dev A frozen AaveAdapter blocks new borrows only. Repayment and liquidation stay open. The
+  /// Aave V4 Security Council freezes, and Babylon's Interim Governance can undo it.
+  function test_adapterFrozen_blocksBorrowsOnly() public {
+    _openAndBorrow(75_00);
+    address proxy = _proxy();
+    vm.prank(V4_SECURITY_COUNCIL);
+    adapter.freeze();
+    assertEq(adapter.pauseState(), ADAPTER_FROZEN, 'adapter frozen');
+
+    vm.expectRevert(IAaveAdapter.TBV_Frozen.selector);
+    vm.prank(user);
+    adapter.borrowFromCorePosition(CORE_USDC_RESERVE_ID, 1e6, user);
+
+    deal(USDC, user, 1e6);
+    vm.startPrank(user);
+    IERC20(USDC).approve(BABYLON_AAVE_ADAPTER, UINT256_MAX);
+    uint256 debtBefore = _usdcDebt(proxy);
+    adapter.repayToCorePosition(user, CORE_USDC_RESERVE_ID, 1e6);
+    vm.stopPrank();
+    assertLt(_usdcDebt(proxy), debtBefore, 'debt repaid while frozen');
+
+    _scaleBtcPrices(94_00);
+    assertLt(ISpoke(BABYLON_SPOKE).getUserAccountData(proxy).healthFactor, 1e18, 'liquidatable');
+    _debt = _usdcDebt(proxy);
+    _fundLiquidator({usdc: _debt * 2, wbtc: 1e8});
+    vm.prank(liquidator);
+    (, uint256 seized) = adapter.liquidate({
+      borrower: user,
+      debtReserveId: CORE_USDC_RESERVE_ID,
+      maxDebtToRepay: _debt * 2,
+      maxExitBtc: UINT256_MAX,
+      claimerBtcPubKey: CLAIMER_BTC_KEY
+    });
+    assertEq(seized, VAULT_AMOUNT, 'liquidated while frozen');
+    assertEq(_usdcDebt(proxy), 0, 'debt left');
+
+    vm.prank(BABYLON_INTERIM_GOVERNANCE);
+    adapter.unfreeze();
+    assertEq(adapter.pauseState(), ADAPTER_ACTIVE, 'adapter unfrozen');
   }
 
   /// @dev A position worth less than its debt is liquidated in full and the shortfall is reported
@@ -391,7 +372,7 @@ contract BabylonLiquidationFlowsTest is BabylonTestBase {
       borrower: user,
       debtReserveId: CORE_USDC_RESERVE_ID,
       maxDebtToRepay: _debt * 2,
-      maxExitBtc: type(uint256).max,
+      maxExitBtc: UINT256_MAX,
       claimerBtcPubKey: CLAIMER_BTC_KEY
     });
     assertEq(_suppliedVaultBtc(proxy), 0, 'collateral left');
@@ -403,17 +384,17 @@ contract BabylonLiquidationFlowsTest is BabylonTestBase {
   /// @dev Vaults are seized whole and in order, so a liquidation takes the first vault only.
   function test_liquidateFirstOfTwoVaults() public {
     _executePayload();
-    _activate(VAULT_1, 1e8);
-    _mockVaultAmounts(_one(VAULT_1), _one(1e8));
-    _activate(VAULT_2, 1e8);
+    _activate(VAULT_1, VAULT_AMOUNT);
+    _mockVaultAmounts(_one(VAULT_1), _one(VAULT_AMOUNT));
+    _activate(VAULT_2, VAULT_AMOUNT);
     bytes32[] memory vaultIds = new bytes32[](2);
     vaultIds[0] = VAULT_1;
     vaultIds[1] = VAULT_2;
     uint256[] memory amounts = new uint256[](2);
-    amounts[0] = 1e8;
-    amounts[1] = 1e8;
+    amounts[0] = VAULT_AMOUNT;
+    amounts[1] = VAULT_AMOUNT;
     _mockVaultAmounts(vaultIds, amounts);
-    _mockVaultAmounts(_one(VAULT_2), _one(1e8));
+    _mockVaultAmounts(_one(VAULT_2), _one(VAULT_AMOUNT));
     _unfreezeAdapter();
 
     uint256 borrowed = (2 * _price(VAULT_BTC_RESERVE_ID) * 75_00) / 10_000 / 100;
@@ -425,13 +406,13 @@ contract BabylonLiquidationFlowsTest is BabylonTestBase {
     _fundLiquidator({usdc: _debt * 2, wbtc: 1e8});
 
     // too little debt to consume the first vault
-    vm.expectRevert(IAaveAdapterFlows.InvalidPostLiquidationState.selector);
+    vm.expectRevert(IAaveAdapter.InvalidPostLiquidationState.selector);
     vm.prank(liquidator);
     adapter.liquidate({
       borrower: user,
       debtReserveId: CORE_USDC_RESERVE_ID,
       maxDebtToRepay: 1_000e6,
-      maxExitBtc: type(uint256).max,
+      maxExitBtc: UINT256_MAX,
       claimerBtcPubKey: CLAIMER_BTC_KEY
     });
 
@@ -440,13 +421,13 @@ contract BabylonLiquidationFlowsTest is BabylonTestBase {
       borrower: user,
       debtReserveId: CORE_USDC_RESERVE_ID,
       maxDebtToRepay: _debt * 2,
-      maxExitBtc: type(uint256).max,
+      maxExitBtc: UINT256_MAX,
       claimerBtcPubKey: CLAIMER_BTC_KEY
     });
-    assertEq(_suppliedVaultBtc(proxy), 1e8, 'one vault left');
+    assertEq(_suppliedVaultBtc(proxy), VAULT_AMOUNT, 'one vault left');
     assertEq(adapter.getPosition(user).vaultIds.length, 1, 'vault count');
     assertEq(adapter.getPosition(user).vaultIds[0], VAULT_2, 'second vault left');
-    assertEq(IERC20(VAULT_BTC).totalSupply(), 1e8, 'vaultBTC supply');
+    assertEq(IERC20(VAULT_BTC).totalSupply(), VAULT_AMOUNT, 'vaultBTC supply');
     assertGe(
       ISpoke(BABYLON_SPOKE).getUserAccountData(proxy).healthFactor,
       1e18,
@@ -463,16 +444,16 @@ contract BabylonLiquidationFlowsTest is BabylonTestBase {
     _fundLiquidator({usdc: _debt * 4, wbtc: 1e8});
 
     vm.prank(V4_SECURITY_COUNCIL);
-    IBTCVaultSwap(BTC_VAULT_SWAP).freeze();
+    IBTCVaultSwap(BABYLON_BTC_VAULT_SWAP_SPOKE).freeze();
 
-    vm.expectRevert(IBTCVaultSwapFlows.EnforcedFreeze.selector);
+    vm.expectRevert(IBTCVaultSwap.EnforcedFreeze.selector);
     vm.prank(liquidator);
     adapter.liquidateWithLLP({
       borrower: user,
-      llp: BTC_VAULT_SWAP,
+      llp: BABYLON_BTC_VAULT_SWAP_SPOKE,
       debtReserveId: CORE_USDC_RESERVE_ID,
       maxDebtToRepay: _debt * 2,
-      maxExitBtc: type(uint256).max,
+      maxExitBtc: UINT256_MAX,
       minPayouts: new TokenAmount[](0)
     });
 
@@ -481,7 +462,7 @@ contract BabylonLiquidationFlowsTest is BabylonTestBase {
       borrower: user,
       debtReserveId: CORE_USDC_RESERVE_ID,
       maxDebtToRepay: _debt * 2,
-      maxExitBtc: type(uint256).max,
+      maxExitBtc: UINT256_MAX,
       claimerBtcPubKey: CLAIMER_BTC_KEY
     });
     assertEq(_usdcDebt(_proxy()), 0, 'debt left');
@@ -498,7 +479,7 @@ contract BabylonLiquidationFlowsTest is BabylonTestBase {
     IHubConfigurator(HUB_CONFIGURATOR).updateSpokeDrawCap({
       hub: CORE_HUB,
       assetId: CORE_WBTC_ASSET_ID,
-      spoke: BTC_VAULT_SWAP,
+      spoke: BABYLON_BTC_VAULT_SWAP_SPOKE,
       drawCap: 0
     });
 
@@ -506,10 +487,10 @@ contract BabylonLiquidationFlowsTest is BabylonTestBase {
     vm.prank(liquidator);
     adapter.liquidateWithLLP({
       borrower: user,
-      llp: BTC_VAULT_SWAP,
+      llp: BABYLON_BTC_VAULT_SWAP_SPOKE,
       debtReserveId: CORE_USDC_RESERVE_ID,
       maxDebtToRepay: _debt * 2,
-      maxExitBtc: type(uint256).max,
+      maxExitBtc: UINT256_MAX,
       minPayouts: new TokenAmount[](0)
     });
   }
@@ -520,13 +501,13 @@ contract BabylonLiquidationFlowsTest is BabylonTestBase {
     _executePayload();
     BTCVaultBasicInfo memory info = _vaultInfo(user, 20e8);
     _mockRegistryForVault(VAULT_1, info);
-    vm.expectRevert(IAaveAdapterFlows.InvalidPositionSizes.selector);
+    vm.expectRevert(IAaveAdapter.InvalidPositionSizes.selector);
     vm.prank(registry);
     adapter.activateVault(VAULT_1, info, '');
 
-    _activate(VAULT_1, 1e8);
-    _mockVaultAmounts(_one(VAULT_1), _one(1e8));
-    _activate(VAULT_2, 1e8);
+    _activate(VAULT_1, VAULT_AMOUNT);
+    _mockVaultAmounts(_one(VAULT_1), _one(VAULT_AMOUNT));
+    _activate(VAULT_2, VAULT_AMOUNT);
     assertEq(_suppliedVaultBtc(_proxy()), 2e8, 'position at the limit');
   }
 
@@ -534,8 +515,8 @@ contract BabylonLiquidationFlowsTest is BabylonTestBase {
 
   function _openAndBorrow(uint256 ltvBps) internal returns (uint256 borrowed) {
     _executePayload();
-    _activate(VAULT_1, 1e8);
-    _mockVaultAmounts(_one(VAULT_1), _one(1e8));
+    _activate(VAULT_1, VAULT_AMOUNT);
+    _mockVaultAmounts(_one(VAULT_1), _one(VAULT_AMOUNT));
     _unfreezeAdapter();
     // 1 BTC of collateral, prices have 8 decimals and USDC has 6
     borrowed = (_price(VAULT_BTC_RESERVE_ID) * ltvBps) / 10_000 / 100;
@@ -551,10 +532,10 @@ contract BabylonLiquidationFlowsTest is BabylonTestBase {
     vm.prank(liquidator);
     (, , TokenAmount[] memory payouts) = adapter.liquidateWithLLP({
       borrower: user,
-      llp: BTC_VAULT_SWAP,
+      llp: BABYLON_BTC_VAULT_SWAP_SPOKE,
       debtReserveId: CORE_USDC_RESERVE_ID,
       maxDebtToRepay: _debt * 2,
-      maxExitBtc: type(uint256).max,
+      maxExitBtc: UINT256_MAX,
       minPayouts: new TokenAmount[](0)
     });
     assertEq(payouts[0].token, WBTC, 'payout token');
@@ -570,8 +551,8 @@ contract BabylonLiquidationFlowsTest is BabylonTestBase {
     address keeper = _vaultKeeper();
     deal(WBTC, keeper, 2e8);
     vm.startPrank(keeper);
-    IERC20(WBTC).approve(BTC_VAULT_SWAP, type(uint256).max);
-    uint256 paid = swap.swapExitBtcForVault(VAULT_1, type(uint256).max);
+    IERC20(WBTC).approve(BABYLON_BTC_VAULT_SWAP_SPOKE, UINT256_MAX);
+    uint256 paid = swap.swapExitBtcForVault(VAULT_1, UINT256_MAX);
     vm.stopPrank();
     assertGe(paid, _payout, 'keeper repays at least the draw');
   }
@@ -580,7 +561,7 @@ contract BabylonLiquidationFlowsTest is BabylonTestBase {
   function _mockVaultProtocolInfo(bytes32 vaultId) internal {
     BTCVaultProtocolInfo memory protocolInfo;
     protocolInfo.appVaultKeepersVersion = IApplicationRegistry(applicationRegistry)
-      .getCurrentVaultKeepersVersion(AAVE_ADAPTER);
+      .getCurrentVaultKeepersVersion(BABYLON_AAVE_ADAPTER);
     vm.mockCall(
       registry,
       abi.encodeCall(IBTCVaultRegistry.getBtcVaultProtocolInfo, (vaultId)),
@@ -590,7 +571,7 @@ contract BabylonLiquidationFlowsTest is BabylonTestBase {
 
   function _vaultKeeper() internal view returns (address) {
     AddressBTCKeyPair[] memory keepers = IApplicationRegistry(applicationRegistry)
-      .getCurrentVaultKeepers(AAVE_ADAPTER);
+      .getCurrentVaultKeepers(BABYLON_AAVE_ADAPTER);
     assertGt(keepers.length, 0, 'no vault keeper registered');
     return keepers[0].ethAddress;
   }
@@ -605,7 +586,7 @@ contract BabylonLiquidationFlowsTest is BabylonTestBase {
     );
     uint256 vaultBtcPrice = _price(VAULT_BTC_RESERVE_ID);
     uint256 wbtcPrice = _price(BABYLON_WBTC_RESERVE_ID);
-    uint256 expectedFee = (1e8 * vaultBtcPrice * (bonus - 100_00) * 10_00) /
+    uint256 expectedFee = (VAULT_AMOUNT * vaultBtcPrice * (bonus - 100_00) * 10_00) /
       (bonus * 100_00) /
       wbtcPrice;
     assertApproxEqAbs(_fee, expectedFee, 2, 'fee is 10% of the bonus');
@@ -613,7 +594,9 @@ contract BabylonLiquidationFlowsTest is BabylonTestBase {
     // debt value at the oracle USDC price, 8 decimals, USDC has 6
     uint256 seizedBySpoke = (_debt * _price(CORE_USDC_RESERVE_ID) * bonus * 1e8) /
       (vaultBtcPrice * 100_00 * 1e6);
-    uint256 expectedFairness = ((1e8 - seizedBySpoke) * 100_00 * vaultBtcPrice) / bonus / wbtcPrice;
+    uint256 expectedFairness = ((VAULT_AMOUNT - seizedBySpoke) * 100_00 * vaultBtcPrice) /
+      bonus /
+      wbtcPrice;
     assertApproxEqRel(_fairness, expectedFairness, 1e14, 'fairness payment');
   }
 
@@ -628,7 +611,7 @@ contract BabylonLiquidationFlowsTest is BabylonTestBase {
         amount: amount,
         vaultProvider: address(0xBEEF),
         status: 2,
-        applicationEntryPoint: AAVE_ADAPTER,
+        applicationEntryPoint: BABYLON_AAVE_ADAPTER,
         createdAt: block.number
       });
   }
@@ -690,8 +673,8 @@ contract BabylonLiquidationFlowsTest is BabylonTestBase {
     deal(USDC, liquidator, usdc);
     deal(WBTC, liquidator, wbtc);
     vm.startPrank(liquidator);
-    IERC20(USDC).approve(AAVE_ADAPTER, type(uint256).max);
-    IERC20(WBTC).approve(AAVE_ADAPTER, type(uint256).max);
+    IERC20(USDC).approve(BABYLON_AAVE_ADAPTER, UINT256_MAX);
+    IERC20(WBTC).approve(BABYLON_AAVE_ADAPTER, UINT256_MAX);
     vm.stopPrank();
   }
 

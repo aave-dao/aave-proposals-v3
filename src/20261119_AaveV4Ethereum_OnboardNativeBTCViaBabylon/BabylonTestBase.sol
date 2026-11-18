@@ -9,90 +9,19 @@ import {ISpoke} from 'aave-v4/spoke/interfaces/ISpoke.sol';
 import {ITokenizationSpoke} from 'aave-v4/spoke/interfaces/ITokenizationSpoke.sol';
 import {IAccessManaged} from 'aave-v4/dependencies/openzeppelin/IAccessManaged.sol';
 import {IAccessManagerEnumerable} from 'aave-v4/access/interfaces/IAccessManagerEnumerable.sol';
-import {AaveV4EthereumGetters} from 'aave-address-book/AaveV4Ethereum.sol';
+import {AaveV4Ethereum, AaveV4EthereumHubs, AaveV4EthereumSpokes, AaveV4EthereumAssets, AaveV4EthereumGetters} from 'aave-address-book/AaveV4Ethereum.sol';
+import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
+import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
+import {IAaveAdapter} from 'src/interfaces/babylon/IAaveAdapter.sol';
+import {IVaultBTC} from 'src/interfaces/babylon/IVaultBTC.sol';
+import {BabylonMainnet} from './BabylonMainnet.sol';
 import {AaveV4Ethereum_OnboardNativeBTCViaBabylon_20261119} from './AaveV4Ethereum_OnboardNativeBTCViaBabylon_20261119.sol';
 
-interface IVaultBTC {
-  function HUB() external view returns (address);
-
-  function adapter() external view returns (address);
-
-  function mint(address to, uint256 amount) external;
-
-  function addValidProxy(address proxyAddress) external;
-}
-
-interface IAaveAdapter {
-  function BTC_VAULT_CORE_SPOKE() external view returns (address);
-
-  function BTC_VAULT_HUB() external view returns (address);
-
-  function EXIT_BTC_RESERVE_ID() external view returns (uint256);
-
-  function VAULT_BTC_RESERVE_ID() external view returns (uint256);
-
-  function liquidationFeeBps() external view returns (uint256);
-
-  function hasRole(bytes32 role, address account) external view returns (bool);
-
-  function grantRole(bytes32 role, address account) external;
-}
-
-interface IBTCVaultSwapView {
-  function ADAPTER() external view returns (address);
-
-  function HUB() external view returns (address);
-
-  function EXIT_BTC() external view returns (address);
-
-  function EXIT_BTC_ASSET_ID() external view returns (uint256);
-
-  function sellDiscountBps() external view returns (uint256);
-
-  function minimumProfitThresholdBps() external view returns (uint256);
-
-  function isPaused() external view returns (bool);
-
-  function isFrozen() external view returns (bool);
-}
-
-interface IBabylonSpoke {
-  error UnsupportedLiquidationCall();
-
-  function LIQUIDATION_MANAGER() external view returns (address);
-
-  function MANAGED_COLLATERAL_RESERVE_ID() external view returns (uint256);
-
-  function liquidationCall(
-    uint256 debtReserveId,
-    uint256 debtToCover,
-    address user,
-    uint256 collateralToLiquidate
-  ) external;
-}
-
-interface ISafe {
-  function getOwners() external view returns (address[] memory);
-
-  function getThreshold() external view returns (uint256);
-
-  function getModulesPaginated(
-    address start,
-    uint256 pageSize
-  ) external view returns (address[] memory, address);
-}
-
-interface IOwnable {
-  function owner() external view returns (address);
-
-  function transferOwnership(address newOwner) external;
-}
-
 /**
- * @dev Fork setup shared by the Babylon launch tests. Every address and value below is written out
- * from its source (aave-address-book, the Aave deployment report, Babylon's deployment, the
- * LlamaRisk parameters) and none is read from the payload, so a wrong constant in the payload fails
- * a test.
+ * @dev Fork setup shared by the Babylon launch tests. Aave's addresses come from aave-address-book
+ * and Babylon's from `BabylonMainnet`. The addresses of the Aave deployment and the LlamaRisk
+ * parameters are written out from their source. None is read from the payload, so a wrong constant
+ * in the payload fails a test.
  */
 abstract contract BabylonTestBase is ProtocolV4TestBaseEthereum {
   // after the handover of the Babylon Hub and Babylon Spoke, sent in blocks 26,409,220 to 26,409,237
@@ -101,21 +30,18 @@ abstract contract BabylonTestBase is ProtocolV4TestBaseEthereum {
   uint256 internal constant PRE_HANDOVER_BLOCK = 26_407_400;
   uint256 internal constant BABYLON_SPOKE_DEPLOY_BLOCK = 26_394_302;
 
-  // aave-address-book AaveV4Ethereum
-  address internal constant ACCESS_MANAGER = 0x08aE3BE30958cDd1847ec58fFfd4C451a87fDF01;
-  address internal constant HUB_CONFIGURATOR = 0x1F0753480bB03EaA00863224602267B7E0525C3d;
-  address internal constant SPOKE_CONFIGURATOR = 0x9BFFf48BFb5A7AE70c348d4d4cb97E8DEFa5389a;
-  address internal constant TREASURY_SPOKE = 0xB9B0b8616f6Bf6841972a52058132BE08d723155;
-  address internal constant CORE_HUB = 0xCca852Bc40e560adC3b1Cc58CA5b55638ce826c9;
-  address internal constant MAIN_SPOKE = 0x94e7A5dCbE816e498b89aB752661904E2F56c485;
-  address internal constant RISK_STEWARD = 0x6f48d9Cdb8EE6E17c96B2d8Aec128af426A295c1;
-  address internal constant RISK_COUNCIL = 0x47c71dFEB55Ebaa431Ae3fbF99Ea50e0D3d30fA8;
-  // aave-address-book GovernanceV3Ethereum
-  address internal constant EXECUTOR_LVL_1 = 0x5300A1a15135EA4dc7aD5a167152C01EFc9b192A;
-  // aave-address-book MiscEthereum
-  address internal constant V4_SECURITY_COUNCIL = 0x187AAE17d4931310B3fc75743e7F16Bdc9eD77e9;
+  address internal constant ACCESS_MANAGER = address(AaveV4Ethereum.ACCESS_MANAGER);
+  address internal constant HUB_CONFIGURATOR = address(AaveV4Ethereum.HUB_CONFIGURATOR);
+  address internal constant SPOKE_CONFIGURATOR = address(AaveV4Ethereum.SPOKE_CONFIGURATOR);
+  address internal constant TREASURY_SPOKE = address(AaveV4Ethereum.TREASURY_SPOKE);
+  address internal constant CORE_HUB = address(AaveV4EthereumHubs.CORE_HUB);
+  address internal constant MAIN_SPOKE = address(AaveV4EthereumSpokes.MAIN_SPOKE);
+  address internal constant RISK_STEWARD = AaveV4Ethereum.RISK_STEWARD;
+  address internal constant RISK_COUNCIL = AaveV4Ethereum.RISK_COUNCIL;
+  address internal constant EXECUTOR_LVL_1 = GovernanceV3Ethereum.EXECUTOR_LVL_1;
+  address internal constant V4_SECURITY_COUNCIL = MiscEthereum.V4_SECURITY_COUNCIL;
   address internal constant V4_SECURITY_COUNCIL_EXECUTOR =
-    0x14339e2178A954d5FB839D5Ff31644fE0F25F517;
+    MiscEthereum.V4_SECURITY_COUNCIL_EXECUTOR;
 
   // Aave deployment report, aave-v4 scripts/markets/babylon/reports/mainnet.json
   address internal constant BABYLON_HUB = 0xAd0fd800cbaF41a4Ced1BEa3a4f90aA18CfBC49d;
@@ -140,34 +66,32 @@ abstract contract BabylonTestBase is ProtocolV4TestBaseEthereum {
   address internal constant DEPLOYMENT_SPOKE_CONFIGURATOR =
     0x18cBeC03D6cB32cfbC3F1e7791b4fDE3fD205000;
 
-  // Babylon's deployment
-  address internal constant AAVE_ADAPTER = 0xadca531564f3B26d0aAF48a044d741fD6cD571Ea;
-  address internal constant AAVE_ADAPTER_IMPLEMENTATION =
-    0xf86510AffA83a492200d7150901F5915bb48A067;
-  address internal constant BTC_VAULT_SWAP_IMPLEMENTATION =
-    0xbA1A3AF731e2561465c642623427883CaC9B8677;
-  address internal constant VAULT_BTC = 0x69712D713FD30aBEF48b5D14eC2a9FB834D2c341;
-  address internal constant BTC_VAULT_SWAP = 0xFe354b6A67E9a308B600d35B0b3e2e6F33f3c6d9;
-  address internal constant BTC_VAULT_SWAP_PROXY_ADMIN = 0xdFf5C4b8baC0c3969a08F50926C4a3A72ec4a019;
-  // the only proposer on Babylon's timelocks
-  address internal constant BABYLON_INTERIM_GOVERNANCE = 0xcd9e54acA1B7fb9BcE10208201b01559A6B01949;
-  // admin of the AaveAdapter roles, 5 day delay
-  address internal constant BABYLON_APPLICATION_TIMELOCK =
-    0x0a575185163a2446F7A0433f48B0395ca4A9fBb0;
-  // keccak256 of the role names, as Babylon's AaveAdapter defines them
-  bytes32 internal constant APPLICATION_PAUSE_GUARDIAN =
-    0xca16ee6b20db9286cfb1a9beee8e8a87e6c3bf160859d756b3335bdcde7871d2;
-  bytes32 internal constant APPLICATION_FREEZE_GUARDIAN =
-    0x0c21afe69d1e0290272fa2a9f3df85589b7946c6845042b725f40fa7a09e18a0;
+  address internal constant BABYLON_AAVE_ADAPTER = BabylonMainnet.AAVE_ADAPTER;
+  address internal constant BABYLON_AAVE_ADAPTER_IMPLEMENTATION =
+    BabylonMainnet.AAVE_ADAPTER_IMPLEMENTATION;
+  address internal constant BABYLON_BTC_VAULT_SWAP_SPOKE = BabylonMainnet.BTC_VAULT_SWAP_SPOKE;
+  address internal constant BABYLON_BTC_VAULT_SWAP_SPOKE_IMPLEMENTATION =
+    BabylonMainnet.BTC_VAULT_SWAP_SPOKE_IMPLEMENTATION;
+  address internal constant BABYLON_BTC_VAULT_SWAP_SPOKE_PROXY_ADMIN =
+    BabylonMainnet.BTC_VAULT_SWAP_SPOKE_PROXY_ADMIN;
+  address internal constant VAULT_BTC = BabylonMainnet.VAULT_BTC;
+  address internal constant BABYLON_DEPLOYER = BabylonMainnet.DEPLOYER;
+  address internal constant BABYLON_INTERIM_GOVERNANCE = BabylonMainnet.INTERIM_GOVERNANCE;
+  address internal constant BABYLON_APPLICATION_TIMELOCK = BabylonMainnet.APPLICATION_TIMELOCK;
+  bytes32 internal constant BABYLON_APPLICATION_ADMIN_ROLE = BabylonMainnet.APPLICATION_ADMIN_ROLE;
+  bytes32 internal constant BABYLON_APPLICATION_PAUSE_GUARDIAN_ROLE =
+    BabylonMainnet.APPLICATION_PAUSE_GUARDIAN_ROLE;
+  bytes32 internal constant BABYLON_APPLICATION_FREEZE_GUARDIAN_ROLE =
+    BabylonMainnet.APPLICATION_FREEZE_GUARDIAN_ROLE;
   // Aave Labs, Babylon and LlamaRisk 2-of-3 Safe
   address internal constant BTC_VAULT_SWAP_MULTISIG = 0x828AA986e31D60Eb07EFC1543FF9297835f4A9f7;
 
-  address internal constant USDT = 0xdAC17F958D2ee523a2206206994597C13D831ec7;
-  address internal constant USDC = 0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48;
-  address internal constant GHO = 0x40D16FC0246aD3160Ccc09B8D0D3A2cD28aE6C2f;
-  address internal constant WBTC = 0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599;
-  address internal constant USDG = 0xe343167631d89B6Ffc58B88d6b7fB0228795491D;
-  address internal constant RLUSD = 0x8292Bb45bf1Ee4d140127049757C2E0fF06317eD;
+  address internal constant USDT = AaveV4EthereumAssets.USDT_UNDERLYING;
+  address internal constant USDC = AaveV4EthereumAssets.USDC_UNDERLYING;
+  address internal constant GHO = AaveV4EthereumAssets.GHO_UNDERLYING;
+  address internal constant WBTC = AaveV4EthereumAssets.WBTC_UNDERLYING;
+  address internal constant USDG = AaveV4EthereumAssets.USDG_UNDERLYING;
+  address internal constant RLUSD = AaveV4EthereumAssets.RLUSD_UNDERLYING;
 
   // LlamaRisk price feed recommendation
   address internal constant BTC_USD_SVR_FEED = 0xb41E773f507F7a7EA890b1afB7d2b660c30C8B0A;
@@ -235,15 +159,15 @@ abstract contract BabylonTestBase is ProtocolV4TestBaseEthereum {
   /// application timelock, which it has not queued yet. Once the grants are executed on-chain, move
   /// `FORK_BLOCK` past them and delete this replay.
   function _replayGuardianGrants(bool pause, bool freeze) internal {
-    IAaveAdapter adapter = IAaveAdapter(AAVE_ADAPTER);
+    IAaveAdapter adapter = IAaveAdapter(BABYLON_AAVE_ADAPTER);
     require(
-      !adapter.hasRole(APPLICATION_PAUSE_GUARDIAN, V4_SECURITY_COUNCIL) &&
-        !adapter.hasRole(APPLICATION_FREEZE_GUARDIAN, V4_SECURITY_COUNCIL),
+      !adapter.hasRole(BABYLON_APPLICATION_PAUSE_GUARDIAN_ROLE, V4_SECURITY_COUNCIL) &&
+        !adapter.hasRole(BABYLON_APPLICATION_FREEZE_GUARDIAN_ROLE, V4_SECURITY_COUNCIL),
       'guardian roles are on-chain: move FORK_BLOCK past the grants and delete the replay'
     );
     vm.startPrank(BABYLON_APPLICATION_TIMELOCK);
-    if (pause) adapter.grantRole(APPLICATION_PAUSE_GUARDIAN, V4_SECURITY_COUNCIL);
-    if (freeze) adapter.grantRole(APPLICATION_FREEZE_GUARDIAN, V4_SECURITY_COUNCIL);
+    if (pause) adapter.grantRole(BABYLON_APPLICATION_PAUSE_GUARDIAN_ROLE, V4_SECURITY_COUNCIL);
+    if (freeze) adapter.grantRole(BABYLON_APPLICATION_FREEZE_GUARDIAN_ROLE, V4_SECURITY_COUNCIL);
     vm.stopPrank();
   }
 
@@ -310,7 +234,7 @@ abstract contract BabylonTestBase is ProtocolV4TestBaseEthereum {
   /// @dev vaultBTC is minted by the AaveAdapter and moves only to the Hub, the adapter or a
   /// registered position proxy.
   function _mintVaultBtc(address to, uint256 amount) internal {
-    vm.startPrank(AAVE_ADAPTER);
+    vm.startPrank(BABYLON_AAVE_ADAPTER);
     IVaultBTC(VAULT_BTC).addValidProxy(to);
     IVaultBTC(VAULT_BTC).mint(to, amount);
     vm.stopPrank();

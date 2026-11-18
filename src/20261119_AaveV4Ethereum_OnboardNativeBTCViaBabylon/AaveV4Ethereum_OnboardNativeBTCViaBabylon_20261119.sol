@@ -11,8 +11,9 @@ import {IHub} from 'aave-v4/hub/interfaces/IHub.sol';
 import {IAccessManaged} from 'aave-v4/dependencies/openzeppelin/IAccessManaged.sol';
 import {Ownable} from 'aave-v4/dependencies/openzeppelin/Ownable.sol';
 import {IAccessControl} from 'openzeppelin-contracts/contracts/access/IAccessControl.sol';
+import {Roles} from 'aave-v4/deployments/utils/libraries/Roles.sol';
 import {V4RoleWiring} from 'aave-helpers/src/v4-config-engine/V4RoleWiring.sol';
-import {IBTCVaultSwap} from './IBTCVaultSwap.sol';
+import {IBTCVaultSwap} from 'src/interfaces/babylon/IBTCVaultSwap.sol';
 
 /**
  * @title Onboard Native BTC as Collateral to Aave V4 via Babylon Trustless Bitcoin Vaults
@@ -54,38 +55,42 @@ contract AaveV4Ethereum_OnboardNativeBTCViaBabylon_20261119 is AaveV4PayloadEthe
 
   // Babylon's AaveAdapter, the liquidation manager of the Babylon Spoke
   // https://etherscan.io/address/0xadca531564f3B26d0aAF48a044d741fD6cD571Ea
-  address public constant AAVE_ADAPTER = 0xadca531564f3B26d0aAF48a044d741fD6cD571Ea;
+  address public constant BABYLON_AAVE_ADAPTER = 0xadca531564f3B26d0aAF48a044d741fD6cD571Ea;
 
   // https://etherscan.io/address/0xFe354b6A67E9a308B600d35B0b3e2e6F33f3c6d9
-  address public constant BTC_VAULT_SWAP = 0xFe354b6A67E9a308B600d35B0b3e2e6F33f3c6d9;
+  address public constant BABYLON_BTC_VAULT_SWAP_SPOKE = 0xFe354b6A67E9a308B600d35B0b3e2e6F33f3c6d9;
+
+  // https://etherscan.io/address/0xdFf5C4b8baC0c3969a08F50926C4a3A72ec4a019
+  address public constant BABYLON_BTC_VAULT_SWAP_SPOKE_PROXY_ADMIN =
+    0xdFf5C4b8baC0c3969a08F50926C4a3A72ec4a019;
 
   // Aave Labs, Babylon and LlamaRisk 2-of-3 Safe
   // https://etherscan.io/address/0x828AA986e31D60Eb07EFC1543FF9297835f4A9f7
   address public constant BTC_VAULT_SWAP_MULTISIG = 0x828AA986e31D60Eb07EFC1543FF9297835f4A9f7;
 
-  uint64 public constant BABYLON_BTC_VAULT_SWAP_FEE_ROLE = 2001;
-  uint64 public constant BABYLON_BTC_VAULT_SWAP_GUARDIAN_ROLE = 2002;
-
   uint32 public constant BTC_VAULT_SWAP_FEE_EXECUTION_DELAY = 5 days;
 
   // AaveAdapter roles that pause and unpause, and freeze, Babylon's side of the market
-  bytes32 public constant APPLICATION_PAUSE_GUARDIAN = keccak256('APPLICATION_PAUSE_GUARDIAN');
-  bytes32 public constant APPLICATION_FREEZE_GUARDIAN = keccak256('APPLICATION_FREEZE_GUARDIAN');
+  bytes32 public constant BABYLON_APPLICATION_PAUSE_GUARDIAN_ROLE =
+    keccak256('APPLICATION_PAUSE_GUARDIAN');
+  bytes32 public constant BABYLON_APPLICATION_FREEZE_GUARDIAN_ROLE =
+    keccak256('APPLICATION_FREEZE_GUARDIAN');
 
   /// @dev The Babylon Hub and Babylon Spoke must be fully handed over to Aave governance: both under
-  /// the Aave V4 AccessManager, with their ProxyAdmins owned by the V4 Security Council. Babylon must
-  /// also have granted the V4 Security Council both guardian roles on its AaveAdapter.
+  /// the Aave V4 AccessManager, with their ProxyAdmins owned by the Aave V4 Security Council. The
+  /// same must hold for Babylon's BTCVaultSwap spoke. Babylon must also have granted the Aave V4
+  /// Security Council both guardian roles on its AaveAdapter.
   function _preExecute() internal view override {
     require(
-      IAccessControl(AAVE_ADAPTER).hasRole(
-        APPLICATION_PAUSE_GUARDIAN,
+      IAccessControl(BABYLON_AAVE_ADAPTER).hasRole(
+        BABYLON_APPLICATION_PAUSE_GUARDIAN_ROLE,
         MiscEthereum.V4_SECURITY_COUNCIL
       ),
       'AAVE_ADAPTER_PAUSE_GUARDIAN_NOT_GRANTED'
     );
     require(
-      IAccessControl(AAVE_ADAPTER).hasRole(
-        APPLICATION_FREEZE_GUARDIAN,
+      IAccessControl(BABYLON_AAVE_ADAPTER).hasRole(
+        BABYLON_APPLICATION_FREEZE_GUARDIAN_ROLE,
         MiscEthereum.V4_SECURITY_COUNCIL
       ),
       'AAVE_ADAPTER_FREEZE_GUARDIAN_NOT_GRANTED'
@@ -106,6 +111,15 @@ contract AaveV4Ethereum_OnboardNativeBTCViaBabylon_20261119 is AaveV4PayloadEthe
       Ownable(BABYLON_SPOKE_PROXY_ADMIN).owner() == MiscEthereum.V4_SECURITY_COUNCIL,
       'BABYLON_SPOKE_PROXY_ADMIN_NOT_HANDED_OVER'
     );
+    require(
+      IAccessManaged(BABYLON_BTC_VAULT_SWAP_SPOKE).authority() ==
+        address(AaveV4Ethereum.ACCESS_MANAGER),
+      'BABYLON_BTC_VAULT_SWAP_SPOKE_WRONG_AUTHORITY'
+    );
+    require(
+      Ownable(BABYLON_BTC_VAULT_SWAP_SPOKE_PROXY_ADMIN).owner() == MiscEthereum.V4_SECURITY_COUNCIL,
+      'BABYLON_BTC_VAULT_SWAP_SPOKE_PROXY_ADMIN_WRONG_OWNER'
+    );
   }
 
   function accessManagerRoleMemberships()
@@ -117,7 +131,7 @@ contract AaveV4Ethereum_OnboardNativeBTCViaBabylon_20261119 is AaveV4PayloadEthe
     IConfigEngine.RoleMembership[] memory items = new IConfigEngine.RoleMembership[](5);
     items[0] = IConfigEngine.RoleMembership({
       authority: address(AaveV4Ethereum.ACCESS_MANAGER),
-      roleId: BABYLON_BTC_VAULT_SWAP_FEE_ROLE,
+      roleId: Roles.BABYLON_BTC_VAULT_SWAP_FEE_ROLE,
       account: BTC_VAULT_SWAP_MULTISIG,
       granted: true,
       executionDelay: BTC_VAULT_SWAP_FEE_EXECUTION_DELAY
@@ -138,16 +152,16 @@ contract AaveV4Ethereum_OnboardNativeBTCViaBabylon_20261119 is AaveV4PayloadEthe
     IConfigEngine.RoleUpdate[] memory items = new IConfigEngine.RoleUpdate[](2);
     items[0] = IConfigEngine.RoleUpdate({
       authority: address(AaveV4Ethereum.ACCESS_MANAGER),
-      roleId: BABYLON_BTC_VAULT_SWAP_FEE_ROLE,
+      roleId: Roles.BABYLON_BTC_VAULT_SWAP_FEE_ROLE,
       admin: EngineFlags.KEEP_CURRENT_UINT64,
-      guardian: BABYLON_BTC_VAULT_SWAP_GUARDIAN_ROLE,
+      guardian: Roles.BABYLON_BTC_VAULT_SWAP_GUARDIAN_ROLE,
       grantDelay: EngineFlags.KEEP_CURRENT_UINT32,
       label: 'BABYLON_BTC_VAULT_SWAP_FEE_ROLE',
       labelUpdate: false
     });
     items[1] = IConfigEngine.RoleUpdate({
       authority: address(AaveV4Ethereum.ACCESS_MANAGER),
-      roleId: BABYLON_BTC_VAULT_SWAP_GUARDIAN_ROLE,
+      roleId: Roles.BABYLON_BTC_VAULT_SWAP_GUARDIAN_ROLE,
       admin: EngineFlags.KEEP_CURRENT_UINT64,
       guardian: EngineFlags.KEEP_CURRENT_UINT64,
       grantDelay: EngineFlags.KEEP_CURRENT_UINT32,
@@ -176,15 +190,15 @@ contract AaveV4Ethereum_OnboardNativeBTCViaBabylon_20261119 is AaveV4PayloadEthe
       memory btcVaultSwapWiring = new IConfigEngine.TargetFunctionRoleUpdate[](2);
     btcVaultSwapWiring[0] = IConfigEngine.TargetFunctionRoleUpdate({
       authority: address(AaveV4Ethereum.ACCESS_MANAGER),
-      target: BTC_VAULT_SWAP,
+      target: BABYLON_BTC_VAULT_SWAP_SPOKE,
       selectors: feeSelectors,
-      roleId: BABYLON_BTC_VAULT_SWAP_FEE_ROLE
+      roleId: Roles.BABYLON_BTC_VAULT_SWAP_FEE_ROLE
     });
     btcVaultSwapWiring[1] = IConfigEngine.TargetFunctionRoleUpdate({
       authority: address(AaveV4Ethereum.ACCESS_MANAGER),
-      target: BTC_VAULT_SWAP,
+      target: BABYLON_BTC_VAULT_SWAP_SPOKE,
       selectors: guardianSelectors,
-      roleId: BABYLON_BTC_VAULT_SWAP_GUARDIAN_ROLE
+      roleId: Roles.BABYLON_BTC_VAULT_SWAP_GUARDIAN_ROLE
     });
 
     return
@@ -293,7 +307,7 @@ contract AaveV4Ethereum_OnboardNativeBTCViaBabylon_20261119 is AaveV4PayloadEthe
       });
       items[6] = _spokeToAssetsAddition({
         hub: address(AaveV4EthereumHubs.CORE_HUB),
-        spoke: BTC_VAULT_SWAP,
+        spoke: BABYLON_BTC_VAULT_SWAP_SPOKE,
         assets: assets
       });
     }
@@ -306,7 +320,7 @@ contract AaveV4Ethereum_OnboardNativeBTCViaBabylon_20261119 is AaveV4PayloadEthe
     return
       IConfigEngine.RoleMembership({
         authority: address(AaveV4Ethereum.ACCESS_MANAGER),
-        roleId: BABYLON_BTC_VAULT_SWAP_GUARDIAN_ROLE,
+        roleId: Roles.BABYLON_BTC_VAULT_SWAP_GUARDIAN_ROLE,
         account: account,
         granted: true,
         executionDelay: 0
