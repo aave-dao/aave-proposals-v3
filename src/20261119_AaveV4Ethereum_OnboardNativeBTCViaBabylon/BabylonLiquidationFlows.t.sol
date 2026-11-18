@@ -572,6 +572,95 @@ contract BabylonLiquidationFlowsTest is BabylonPegInHelper {
     assertEq(_escrowStatus(vault1), ESCROW_REDEEMED, 'escrow redeemed');
   }
 
+  /// @dev Interest accrues on the escrow's Core Hub debt. Once the debt exceeds the vault value less
+  /// the keeper's minimum profit, the keeper pays that capped price and the rest is reported as a
+  /// WBTC deficit.
+  function test_arbitrage_reportsDeficitOnceInterestExceedsTheDiscount() public {
+    _openAndBorrow(75_00);
+    _scaleBtcPrices(94_00);
+    _liquidateWithBtcVaultSwap();
+    uint256 vaultValue = (VAULT_AMOUNT * _price(VAULT_BTC_RESERVE_ID)) /
+      _price(BABYLON_WBTC_RESERVE_ID);
+    uint256 price = vaultValue - (vaultValue * swap.minimumProfitThresholdBps()) / 100_00;
+    assertLt(
+      IHub(CORE_HUB).getSpokeTotalOwed(CORE_WBTC_ASSET_ID, BABYLON_BTC_VAULT_SWAP_SPOKE),
+      price,
+      'debt above the capped price at escrow'
+    );
+    uint256 yearsPassed;
+    while (
+      IHub(CORE_HUB).getSpokeTotalOwed(CORE_WBTC_ASSET_ID, BABYLON_BTC_VAULT_SWAP_SPOKE) <= price
+    ) {
+      skip(365 days);
+      assertLt(++yearsPassed, 100, 'debt never reaches the capped price');
+    }
+    uint256 owed = IHub(CORE_HUB).getSpokeTotalOwed(
+      CORE_WBTC_ASSET_ID,
+      BABYLON_BTC_VAULT_SWAP_SPOKE
+    );
+    EscrowedVaultPreviewResult memory preview = swap.previewEscrowedVaults(_one(vault1))[0];
+    assertEq(preview.amountDebt, owed, 'previewed debt');
+    // the swap rounds the vault value up
+    assertApproxEqAbs(preview.amountExitBtcToAcquire, price, 2, 'previewed price');
+    assertEq(preview.amountDeficitEst, owed - preview.amountExitBtcToAcquire, 'previewed deficit');
+
+    address keeper = _vaultKeeper().ethAddress;
+    deal(WBTC, keeper, 2e8);
+    vm.startPrank(keeper);
+    IERC20(WBTC).approve(BABYLON_BTC_VAULT_SWAP_SPOKE, UINT256_MAX);
+    uint256 paid = swap.swapExitBtcForVault(vault1, UINT256_MAX);
+    vm.stopPrank();
+    assertEq(paid, preview.amountExitBtcToAcquire, 'keeper pays the previewed price');
+    assertApproxEqAbs(paid, price, 2, 'keeper pays the vault value less the minimum profit');
+    assertLt(paid, owed, 'keeper repaid the whole debt');
+    assertApproxEqAbs(
+      IHub(CORE_HUB).getSpokeDeficitRay(CORE_WBTC_ASSET_ID, BABYLON_BTC_VAULT_SWAP_SPOKE) / 1e27,
+      owed - paid,
+      2,
+      'deficit'
+    );
+    assertEq(
+      IHub(CORE_HUB).getSpokeDrawnShares(CORE_WBTC_ASSET_ID, BABYLON_BTC_VAULT_SWAP_SPOKE),
+      0,
+      'drawn'
+    );
+    assertEq(_registryVaultStatus(vault1), REGISTRY_VAULT_REDEEMED, 'redeemed in the registry');
+    assertEq(_escrowStatus(vault1), ESCROW_REDEEMED, 'escrow redeemed');
+  }
+
+  /// @dev An underwater position liquidated through BTCVaultSwap leaves a USDC deficit on the
+  /// Babylon Spoke credit line. The escrow still settles in full, since vaultBTC and WBTC fell
+  /// together.
+  function test_liquidateUnderwaterWithBtcVaultSwap_escrowSettlesInFull() public {
+    _openAndBorrow(75_00);
+    _scaleBtcPrices(70_00);
+    _liquidateWithBtcVaultSwap();
+    address proxy = _proxy();
+    assertEq(_suppliedVaultBtc(proxy), 0, 'collateral left');
+    assertEq(_usdcDebt(proxy), 0, 'debt left');
+    assertLt(_debt * 2 - IERC20(USDC).balanceOf(liquidator), _debt, 'liquidator repaid less');
+    assertGt(
+      IHub(CORE_HUB).getSpokeDeficitRay(CORE_USDC_ASSET_ID, BABYLON_SPOKE),
+      0,
+      'USDC deficit'
+    );
+    assertEq(adapter.getVaultUsageStatus(vault1), VAULT_LLP_OWNED, 'vault held by the swap');
+
+    _arbitrage();
+    assertEq(
+      IHub(CORE_HUB).getSpokeDrawnShares(CORE_WBTC_ASSET_ID, BABYLON_BTC_VAULT_SWAP_SPOKE),
+      0,
+      'drawn'
+    );
+    assertEq(
+      IHub(CORE_HUB).getSpokeDeficitRay(CORE_WBTC_ASSET_ID, BABYLON_BTC_VAULT_SWAP_SPOKE),
+      0,
+      'WBTC deficit'
+    );
+    assertEq(_registryVaultStatus(vault1), REGISTRY_VAULT_REDEEMED, 'redeemed in the registry');
+    assertEq(_escrowStatus(vault1), ESCROW_REDEEMED, 'escrow redeemed');
+  }
+
   function test_arbitrage_revertsWith_notVaultKeeper() public {
     _openAndBorrow(75_00);
     _scaleBtcPrices(94_00);
