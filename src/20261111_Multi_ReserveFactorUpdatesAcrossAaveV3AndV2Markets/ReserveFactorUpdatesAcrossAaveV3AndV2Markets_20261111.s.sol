@@ -18,6 +18,7 @@ import {AaveV3Optimism_ReserveFactorUpdatesAcrossAaveV3AndV2Markets_20261111} fr
 import {AaveV3Gnosis_ReserveFactorUpdatesAcrossAaveV3AndV2Markets_20261111} from './AaveV3Gnosis_ReserveFactorUpdatesAcrossAaveV3AndV2Markets_20261111.sol';
 import {AaveV3Linea_ReserveFactorUpdatesAcrossAaveV3AndV2Markets_20261111} from './AaveV3Linea_ReserveFactorUpdatesAcrossAaveV3AndV2Markets_20261111.sol';
 import {AaveV2Ethereum_ReserveFactorUpdatesAcrossAaveV3AndV2Markets_20261111} from './AaveV2Ethereum_ReserveFactorUpdatesAcrossAaveV3AndV2Markets_20261111.sol';
+import {AaveV2Avalanche_ReserveFactorUpdatesAcrossAaveV3AndV2Markets_20261111} from './AaveV2Avalanche_ReserveFactorUpdatesAcrossAaveV3AndV2Markets_20261111.sol';
 
 /**
  * @dev Deploy Ethereum
@@ -126,11 +127,15 @@ contract DeployAvalanche is AvalancheScript {
     address payload0 = GovV3Helpers.deployDeterministic(
       type(AaveV3Avalanche_ReserveFactorUpdatesAcrossAaveV3AndV2Markets_20261111).creationCode
     );
+    address payload1 = GovV3Helpers.deployDeterministic(
+      type(AaveV2Avalanche_ReserveFactorUpdatesAcrossAaveV3AndV2Markets_20261111).creationCode
+    );
 
     // compose action
     IPayloadsControllerCore.ExecutionAction[]
-      memory actions = new IPayloadsControllerCore.ExecutionAction[](1);
+      memory actions = new IPayloadsControllerCore.ExecutionAction[](2);
     actions[0] = GovV3Helpers.buildAction(payload0);
+    actions[1] = GovV3Helpers.buildAction(payload1);
 
     // register action at payloadsController
     GovV3Helpers.createPayload(actions);
@@ -323,9 +328,12 @@ contract CreateProposal is EthereumScript {
 
     {
       IPayloadsControllerCore.ExecutionAction[]
-        memory actionsAvalanche = new IPayloadsControllerCore.ExecutionAction[](1);
+        memory actionsAvalanche = new IPayloadsControllerCore.ExecutionAction[](2);
       actionsAvalanche[0] = GovV3Helpers.buildAction(
         type(AaveV3Avalanche_ReserveFactorUpdatesAcrossAaveV3AndV2Markets_20261111).creationCode
+      );
+      actionsAvalanche[1] = GovV3Helpers.buildAction(
+        type(AaveV2Avalanche_ReserveFactorUpdatesAcrossAaveV3AndV2Markets_20261111).creationCode
       );
       payloads[4] = GovV3Helpers.buildAvalanchePayload(vm, actionsAvalanche);
     }

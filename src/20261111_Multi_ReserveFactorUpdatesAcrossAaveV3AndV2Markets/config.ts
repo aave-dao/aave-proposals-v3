@@ -18,6 +18,7 @@ export const config: ConfigFile = {
       'AaveV3Gnosis',
       'AaveV3Linea',
       'AaveV2Ethereum',
+      'AaveV2Avalanche',
     ],
     title: 'Reserve Factor Updates Across Aave V3 and V2 Markets',
     shortName: 'ReserveFactorUpdatesAcrossAaveV3AndV2Markets',
@@ -408,5 +409,6 @@ export const config: ConfigFile = {
       cache: {blockNumber: 32577924},
     },
     AaveV2Ethereum: {configs: {OTHERS: {}}, cache: {blockNumber: 26393644}},
+    AaveV2Avalanche: {configs: {OTHERS: {}}, cache: {blockNumber: 100047514}},
   },
 };
