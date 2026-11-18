@@ -356,6 +356,97 @@ contract AaveV4Ethereum_OnboardNativeBTCViaBabylon_20261119_Test is BabylonTestB
     _expectGovernanceExecutionReverts();
   }
 
+  function test_revertsWith_adapterWrongSpoke() public {
+    vm.mockCall(
+      BABYLON_AAVE_ADAPTER,
+      abi.encodeCall(IAaveAdapter.BTC_VAULT_CORE_SPOKE, ()),
+      abi.encode(CORE_HUB)
+    );
+    vm.expectRevert('AAVE_ADAPTER_WRONG_SPOKE');
+    proposal.execute();
+    _expectGovernanceExecutionReverts();
+  }
+
+  function test_revertsWith_adapterWrongExitReserve() public {
+    assertEq(
+      proposal.BABYLON_SPOKE_WBTC_RESERVE_ID(),
+      BABYLON_WBTC_RESERVE_ID,
+      'payload exit reserve'
+    );
+    assertEq(
+      ISpoke(BABYLON_SPOKE).getReserve(BABYLON_WBTC_RESERVE_ID).underlying,
+      WBTC,
+      'exit reserve underlying'
+    );
+    vm.mockCall(
+      BABYLON_AAVE_ADAPTER,
+      abi.encodeCall(IAaveAdapter.EXIT_BTC_RESERVE_ID, ()),
+      abi.encode(BABYLON_WBTC_RESERVE_ID + 1)
+    );
+    vm.expectRevert('AAVE_ADAPTER_WRONG_EXIT_RESERVE');
+    proposal.execute();
+    _expectGovernanceExecutionReverts();
+  }
+
+  function test_revertsWith_tokenizationSpokeProxyAdminWrongOwner() public {
+    address[4] memory tokenizationSpokes = _babylonTokenizationSpokes();
+    address[4] memory proxyAdmins = [
+      proposal.BABYLON_USDT_TOKENIZATION_SPOKE_PROXY_ADMIN(),
+      proposal.BABYLON_USDC_TOKENIZATION_SPOKE_PROXY_ADMIN(),
+      proposal.BABYLON_GHO_TOKENIZATION_SPOKE_PROXY_ADMIN(),
+      proposal.BABYLON_WBTC_TOKENIZATION_SPOKE_PROXY_ADMIN()
+    ];
+    for (uint256 i; i < proxyAdmins.length; ++i) {
+      assertEq(proxyAdmins[i], _proxyAdmin(tokenizationSpokes[i]), 'payload proxy admin');
+      uint256 snapshot = vm.snapshotState();
+      vm.prank(V4_SECURITY_COUNCIL);
+      IOwnable(proxyAdmins[i]).transferOwnership(DEPLOYER);
+      vm.expectRevert('BABYLON_TOKENIZATION_SPOKE_PROXY_ADMIN_WRONG_OWNER');
+      proposal.execute();
+      _expectGovernanceExecutionReverts();
+      vm.revertToState(snapshot);
+    }
+  }
+
+  /// @dev The proposal keeps the admin, guardian and grant delay of both roles, so it only
+  /// executes while they are untouched.
+  function test_revertsWith_btcVaultSwapRoleAlreadyConfigured() public {
+    IAccessManager accessManager = IAccessManager(ACCESS_MANAGER);
+    uint64[2] memory roles = [
+      BABYLON_BTC_VAULT_SWAP_FEE_ROLE,
+      BABYLON_BTC_VAULT_SWAP_GUARDIAN_ROLE
+    ];
+    for (uint256 i; i < roles.length; ++i) {
+      assertEq(accessManager.getRoleAdmin(roles[i]), ADMIN_ROLE, 'role admin');
+      assertEq(accessManager.getRoleGuardian(roles[i]), ADMIN_ROLE, 'role guardian');
+      assertEq(accessManager.getRoleGrantDelay(roles[i]), 0, 'role grant delay');
+
+      uint256 snapshot = vm.snapshotState();
+      vm.prank(V4_SECURITY_COUNCIL);
+      accessManager.setRoleAdmin(roles[i], BABYLON_BTC_VAULT_SWAP_DOMAIN_ADMIN_ROLE);
+      vm.expectRevert('BABYLON_BTC_VAULT_SWAP_ROLE_ALREADY_CONFIGURED');
+      proposal.execute();
+      vm.revertToState(snapshot);
+
+      snapshot = vm.snapshotState();
+      vm.prank(V4_SECURITY_COUNCIL);
+      accessManager.setRoleGuardian(roles[i], BABYLON_BTC_VAULT_SWAP_DOMAIN_ADMIN_ROLE);
+      vm.expectRevert('BABYLON_BTC_VAULT_SWAP_ROLE_ALREADY_CONFIGURED');
+      proposal.execute();
+      vm.revertToState(snapshot);
+
+      // a new grant delay only applies after the AccessManager's setback
+      snapshot = vm.snapshotState();
+      vm.prank(V4_SECURITY_COUNCIL);
+      accessManager.setGrantDelay(roles[i], 1 days);
+      skip(accessManager.minSetback());
+      assertEq(accessManager.getRoleGrantDelay(roles[i]), 1 days, 'grant delay set');
+      vm.expectRevert('BABYLON_BTC_VAULT_SWAP_ROLE_ALREADY_CONFIGURED');
+      proposal.execute();
+      vm.revertToState(snapshot);
+    }
+  }
+
   function test_revertsWith_pauseGuardianNotGranted() public {
     _handoverWithoutGuardianGrants();
     _replayGuardianGrants({pause: false, freeze: true});

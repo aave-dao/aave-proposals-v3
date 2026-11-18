@@ -13,6 +13,7 @@ import {Ownable} from 'aave-v4/dependencies/openzeppelin/Ownable.sol';
 import {IAccessControl} from 'openzeppelin-contracts/contracts/access/IAccessControl.sol';
 import {Roles} from 'aave-v4/deployments/utils/libraries/Roles.sol';
 import {V4RoleWiring} from 'aave-helpers/src/v4-config-engine/V4RoleWiring.sol';
+import {IAaveAdapter} from 'src/interfaces/babylon/IAaveAdapter.sol';
 import {IBTCVaultSwap} from 'src/interfaces/babylon/IBTCVaultSwap.sol';
 import {AaveAdapterRoles} from 'src/interfaces/babylon/AaveAdapterRoles.sol';
 
@@ -51,6 +52,22 @@ contract AaveV4Ethereum_OnboardNativeBTCViaBabylon_20261119 is AaveV4PayloadEthe
   address public constant BABYLON_WBTC_TOKENIZATION_SPOKE =
     0xb9C2d84578bD1a6548781d7793342E390E9B6eE7;
 
+  // https://etherscan.io/address/0x875b816985Bc1F7B6a7e9608fbbE5e8c56811c5F
+  address public constant BABYLON_USDT_TOKENIZATION_SPOKE_PROXY_ADMIN =
+    0x875b816985Bc1F7B6a7e9608fbbE5e8c56811c5F;
+
+  // https://etherscan.io/address/0xEF93477E5709D7279C1fc7b2516e86fE1D71abc0
+  address public constant BABYLON_USDC_TOKENIZATION_SPOKE_PROXY_ADMIN =
+    0xEF93477E5709D7279C1fc7b2516e86fE1D71abc0;
+
+  // https://etherscan.io/address/0xA941a839D200C9972eB5A50649557c5daAA3188e
+  address public constant BABYLON_GHO_TOKENIZATION_SPOKE_PROXY_ADMIN =
+    0xA941a839D200C9972eB5A50649557c5daAA3188e;
+
+  // https://etherscan.io/address/0xB927Dcd6B84609B5bddc79cCdf027Ccc437c9994
+  address public constant BABYLON_WBTC_TOKENIZATION_SPOKE_PROXY_ADMIN =
+    0xB927Dcd6B84609B5bddc79cCdf027Ccc437c9994;
+
   // https://etherscan.io/address/0x69712D713FD30aBEF48b5D14eC2a9FB834D2c341
   address public constant VAULT_BTC = 0x69712D713FD30aBEF48b5D14eC2a9FB834D2c341;
 
@@ -71,11 +88,17 @@ contract AaveV4Ethereum_OnboardNativeBTCViaBabylon_20261119 is AaveV4PayloadEthe
 
   uint32 public constant BTC_VAULT_SWAP_FEE_EXECUTION_DELAY = 5 days;
 
+  // WBTC reserve of the Babylon Spoke, the exit reserve of Babylon's AaveAdapter
+  uint256 public constant BABYLON_SPOKE_WBTC_RESERVE_ID = 4;
+
   /// @dev The Babylon Hub and Babylon Spoke must be fully handed over to Aave governance: both under
   /// the Aave V4 AccessManager, with their ProxyAdmins owned by the Aave V4 Security Council. The
-  /// same must hold for Babylon's BTCVaultSwap spoke. Babylon must also have granted the Aave V4
-  /// Security Council both guardian roles on its AaveAdapter, which pause and unpause, and freeze,
-  /// Babylon's side of the market.
+  /// same must hold for Babylon's BTCVaultSwap spoke, and the Tokenization Spoke ProxyAdmins must be
+  /// owned by the Aave V4 Security Council. Babylon must also have granted the Aave V4 Security
+  /// Council both guardian roles on its AaveAdapter, which pause and unpause, and freeze, Babylon's
+  /// side of the market, and the AaveAdapter must point at the Babylon Spoke and its WBTC reserve.
+  /// The BTCVaultSwap roles must not be configured yet, since their admin, guardian and grant delay
+  /// are kept as they are.
   function _preExecute() internal view override {
     require(
       IAccessControl(BABYLON_AAVE_ADAPTER).hasRole(
@@ -116,6 +139,40 @@ contract AaveV4Ethereum_OnboardNativeBTCViaBabylon_20261119 is AaveV4PayloadEthe
       Ownable(BABYLON_BTC_VAULT_SWAP_SPOKE_PROXY_ADMIN).owner() == MiscEthereum.V4_SECURITY_COUNCIL,
       'BABYLON_BTC_VAULT_SWAP_SPOKE_PROXY_ADMIN_WRONG_OWNER'
     );
+    require(
+      IAaveAdapter(BABYLON_AAVE_ADAPTER).BTC_VAULT_CORE_SPOKE() == BABYLON_SPOKE,
+      'AAVE_ADAPTER_WRONG_SPOKE'
+    );
+    require(
+      IAaveAdapter(BABYLON_AAVE_ADAPTER).EXIT_BTC_RESERVE_ID() == BABYLON_SPOKE_WBTC_RESERVE_ID,
+      'AAVE_ADAPTER_WRONG_EXIT_RESERVE'
+    );
+    address[4] memory tokenizationSpokeProxyAdmins = [
+      BABYLON_USDT_TOKENIZATION_SPOKE_PROXY_ADMIN,
+      BABYLON_USDC_TOKENIZATION_SPOKE_PROXY_ADMIN,
+      BABYLON_GHO_TOKENIZATION_SPOKE_PROXY_ADMIN,
+      BABYLON_WBTC_TOKENIZATION_SPOKE_PROXY_ADMIN
+    ];
+    for (uint256 i; i < tokenizationSpokeProxyAdmins.length; ++i) {
+      require(
+        Ownable(tokenizationSpokeProxyAdmins[i]).owner() == MiscEthereum.V4_SECURITY_COUNCIL,
+        'BABYLON_TOKENIZATION_SPOKE_PROXY_ADMIN_WRONG_OWNER'
+      );
+    }
+    uint64[2] memory btcVaultSwapRoles = [
+      Roles.BABYLON_BTC_VAULT_SWAP_FEE_ROLE,
+      Roles.BABYLON_BTC_VAULT_SWAP_GUARDIAN_ROLE
+    ];
+    for (uint256 i; i < btcVaultSwapRoles.length; ++i) {
+      require(
+        AaveV4Ethereum.ACCESS_MANAGER.getRoleAdmin(btcVaultSwapRoles[i]) ==
+          Roles.ACCESS_MANAGER_ADMIN_ROLE &&
+          AaveV4Ethereum.ACCESS_MANAGER.getRoleGuardian(btcVaultSwapRoles[i]) ==
+          Roles.ACCESS_MANAGER_ADMIN_ROLE &&
+          AaveV4Ethereum.ACCESS_MANAGER.getRoleGrantDelay(btcVaultSwapRoles[i]) == 0,
+        'BABYLON_BTC_VAULT_SWAP_ROLE_ALREADY_CONFIGURED'
+      );
+    }
   }
 
   function accessManagerRoleMemberships()
