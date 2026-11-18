@@ -4,8 +4,7 @@ pragma solidity ^0.8.0;
 import {AaveV3ZkSync} from 'aave-address-book/AaveV3ZkSync.sol';
 import {IPool} from 'aave-address-book/AaveV3.sol';
 
-import 'forge-std/Test.sol';
-import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/zksync/src/ProtocolV3TestBase.sol';
+import {ProtocolV3TestBase} from 'aave-helpers/zksync/src/ProtocolV3TestBase.sol';
 import {EmissionAdminRemovalChecks} from '../../../src/20261029_Multi_RemoveEmissionAdmins/EmissionAdminRemovalChecks.sol';
 import {AaveV3ZkSync_RemoveEmissionAdmins_20261029} from './AaveV3ZkSync_RemoveEmissionAdmins_20261029.sol';
 
@@ -31,13 +30,13 @@ contract AaveV3ZkSync_RemoveEmissionAdmins_20261029_Test is
    */
   function test_defaultProposalExecution() public {
     // e2e off: every reserve is frozen, so the e2e collateral picker finds nothing to supply
-    defaultTest(
-      'AaveV3ZkSync_RemoveEmissionAdmins_20261029',
-      AaveV3ZkSync.POOL,
-      address(proposal),
-      false,
-      false
-    );
+    defaultTest({
+      reportName: 'AaveV3ZkSync_RemoveEmissionAdmins_20261029',
+      pool: AaveV3ZkSync.POOL,
+      payload: address(proposal),
+      runE2E: false,
+      runSeatbelt: false
+    });
   }
 
   function test_emissionAdminsRemoved() public {

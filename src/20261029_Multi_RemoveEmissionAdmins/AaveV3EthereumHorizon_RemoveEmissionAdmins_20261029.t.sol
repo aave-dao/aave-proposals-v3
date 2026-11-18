@@ -4,7 +4,6 @@ pragma solidity ^0.8.0;
 import {AaveV3EthereumHorizon} from 'aave-address-book/AaveV3EthereumHorizon.sol';
 import {IPool} from 'aave-address-book/AaveV3.sol';
 
-import 'forge-std/Test.sol';
 import {GovV3Helpers} from 'aave-helpers/src/GovV3Helpers.sol';
 import {ProtocolV3HorizonTestBase} from '../../tests/utils/horizon/ProtocolV3HorizonTestBase.sol';
 import {EmissionAdminRemovalChecks} from './EmissionAdminRemovalChecks.sol';
