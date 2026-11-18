@@ -1835,6 +1835,12 @@ contract AaveV4Ethereum_OnboardNativeBTCViaBabylon_20261119_Test is BabylonTestB
     );
     assertEq(dynamicConfig.collateralFactor, expected.collateralFactor, 'collateral factor');
     assertEq(dynamicConfig.maxLiquidationBonus, expected.maxLiquidationBonus, 'max bonus');
+    // at the health factor where the max bonus starts, the collateral still covers debt and bonus
+    assertLe(
+      uint256(dynamicConfig.maxLiquidationBonus) * dynamicConfig.collateralFactor * 1e10,
+      spoke.getLiquidationConfig().healthFactorForMaxBonus,
+      'max bonus times collateral factor above the health factor for max bonus'
+    );
     assertEq(dynamicConfig.liquidationFee, 0, 'liquidation fee');
     assertEq(
       IAaveOracle(BABYLON_SPOKE_ORACLE).getReserveSource(reserveId),

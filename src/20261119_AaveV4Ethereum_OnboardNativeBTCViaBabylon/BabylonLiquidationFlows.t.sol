@@ -1234,6 +1234,11 @@ contract BabylonLiquidationFlowsTest is BabylonPegInHelper {
     uint256 debtValue = _debt * _price(CORE_USDC_RESERVE_ID) * 100;
     uint256 repaid = _debt * 2 - IERC20(USDC).balanceOf(liquidator);
     uint256 deficit = IHub(CORE_HUB).getSpokeDeficitRay(CORE_USDC_ASSET_ID, BABYLON_SPOKE);
+    // max bonus times collateral factor is below the health factor for max bonus, so a position
+    // liquidated before the max bonus applies never leaves a deficit
+    if (_healthFactor >= ISpoke(BABYLON_SPOKE).getLiquidationConfig().healthFactorForMaxBonus) {
+      assertEq(deficit, 0, 'deficit above the health factor for max bonus');
+    }
     if (collateralValue * 100_00 >= debtValue * bonus) {
       assertEq(deficit, 0, 'deficit on a covered position');
       assertEq(repaid, _debt, 'debt repaid by liquidator');
