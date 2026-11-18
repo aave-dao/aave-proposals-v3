@@ -28,4 +28,10 @@ library BabylonMainnet {
   address internal constant INTERIM_GOVERNANCE = 0xcd9e54acA1B7fb9BcE10208201b01559A6B01949;
   address internal constant EMERGENCY_GUARDIAN = 0xbd8AEfA24Bd875c6a36C4Dc3be818059372dF2B0;
   address internal constant FEE_RECIPIENT = 0x5b1AdCC0330c8c1D5A70302E657174416a25Ba8C;
+  // fee recipient once Babylon's queued batch executes
+  address internal constant QUEUED_FEE_RECIPIENT = 0x6F4009EF05baE2C2B6074458B411372723E4027F;
+  // freeze guardians of the AaveAdapter besides the Safes and the Aave V4 Security Council
+  address internal constant FREEZE_GUARDIAN_1 = 0x9539706d585Ac92E57076a59Ac23B66ebC8a044f;
+  address internal constant FREEZE_GUARDIAN_2 = 0xCe32DDC41De2eB5A587d4A7194b73fc7cF78d54d;
+  address internal constant FREEZE_GUARDIAN_3 = 0x9df6DB43B620B78618E19E7A75C2Dfa57987CAC7;
 }

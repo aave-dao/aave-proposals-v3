@@ -15,6 +15,8 @@ interface IAaveAdapter {
 
   error TBV_Paused();
 
+  error TBV_Unauthorized();
+
   function activateVault(
     bytes32 vaultId,
     BTCVaultBasicInfo memory info,
@@ -77,6 +79,12 @@ interface IAaveAdapter {
   function interestFeeBps() external view returns (uint256);
 
   function applicationRecipient() external view returns (address);
+
+  function interestFeeRecipient() external view returns (address);
+
+  function setApplicationRecipient(address newRecipient) external;
+
+  function setInterestFeeRecipient(address newRecipient) external;
 
   function BTC_VAULT_CORE_SPOKE() external view returns (address);
 

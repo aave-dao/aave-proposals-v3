@@ -13,6 +13,7 @@ import {IBTCVaultRegistry} from 'src/interfaces/babylon/IBTCVaultRegistry.sol';
 import {IApplicationRegistry} from 'src/interfaces/babylon/IApplicationRegistry.sol';
 import {BTCVaultBasicInfo, BTCVaultProtocolInfo, TokenAmount, MarketPosition, AddressBTCKeyPair} from 'src/interfaces/babylon/BabylonTypes.sol';
 import {BabylonTestBase} from './BabylonTestBase.sol';
+import {BabylonMainnet} from './BabylonMainnet.sol';
 
 /**
  * @dev Drives Babylon's deployed AaveAdapter and BTCVaultSwap against the Babylon Spoke after the
@@ -153,6 +154,77 @@ contract BabylonLiquidationFlowsTest is BabylonTestBase {
     assertEq(IHub(CORE_HUB).getSpokeDeficitRay(CORE_USDC_ASSET_ID, BABYLON_SPOKE), 0, 'deficit');
     assertEq(adapter.getVaultUsageStatus(VAULT_1), VAULT_REDEEMED, 'redeemed');
     assertEq(adapter.getPosition(user).vaultIds.length, 0, 'vaults left');
+  }
+
+  /// @dev Babylon's queued timelock batch moves both adapter fees to a new recipient. The
+  /// liquidation fee then goes there, and nothing goes to the previous recipient.
+  function test_liquidateDirect_feeGoesToQueuedRecipient() public {
+    address previousRecipient = adapter.applicationRecipient();
+    assertEq(previousRecipient, BabylonMainnet.FEE_RECIPIENT, 'recipient before the batch');
+    vm.startPrank(BABYLON_APPLICATION_TIMELOCK);
+    adapter.setApplicationRecipient(BabylonMainnet.QUEUED_FEE_RECIPIENT);
+    adapter.setInterestFeeRecipient(BabylonMainnet.QUEUED_FEE_RECIPIENT);
+    vm.stopPrank();
+    assertEq(
+      adapter.applicationRecipient(),
+      BabylonMainnet.QUEUED_FEE_RECIPIENT,
+      'application recipient'
+    );
+    assertEq(
+      adapter.interestFeeRecipient(),
+      BabylonMainnet.QUEUED_FEE_RECIPIENT,
+      'interest fee recipient'
+    );
+
+    uint256 recipientBefore = IERC20(WBTC).balanceOf(BabylonMainnet.QUEUED_FEE_RECIPIENT);
+    uint256 previousBefore = IERC20(WBTC).balanceOf(previousRecipient);
+    test_liquidateDirect();
+    assertGt(_fee, 0, 'fee');
+    assertEq(
+      IERC20(WBTC).balanceOf(BabylonMainnet.QUEUED_FEE_RECIPIENT) - recipientBefore,
+      _fee,
+      'new recipient fee'
+    );
+    assertEq(IERC20(WBTC).balanceOf(previousRecipient), previousBefore, 'previous recipient');
+  }
+
+  /// @dev Babylon's freeze-only guardians can freeze the adapter and nothing else. The Aave V4
+  /// Security Council lifts each freeze.
+  function test_freezeOnlyGuardiansFreeze_securityCouncilUnfreezes() public {
+    address[3] memory freezers = [
+      BabylonMainnet.FREEZE_GUARDIAN_1,
+      BabylonMainnet.FREEZE_GUARDIAN_2,
+      BabylonMainnet.FREEZE_GUARDIAN_3
+    ];
+    assertTrue(
+      adapter.hasRole(BABYLON_APPLICATION_FREEZE_GUARDIAN_ROLE, freezers[0]),
+      'first freeze guardian holds the role since deployment'
+    );
+    // the other two are granted by Babylon's queued timelock batch
+    vm.startPrank(BABYLON_APPLICATION_TIMELOCK);
+    adapter.grantRole(BABYLON_APPLICATION_FREEZE_GUARDIAN_ROLE, freezers[1]);
+    adapter.grantRole(BABYLON_APPLICATION_FREEZE_GUARDIAN_ROLE, freezers[2]);
+    vm.stopPrank();
+    _unfreezeAdapter();
+
+    for (uint256 i; i < freezers.length; ++i) {
+      assertFalse(
+        adapter.hasRole(BABYLON_APPLICATION_PAUSE_GUARDIAN_ROLE, freezers[i]),
+        'freeze guardian is a pause guardian'
+      );
+      vm.startPrank(freezers[i]);
+      vm.expectRevert(IAaveAdapter.TBV_Unauthorized.selector);
+      adapter.pause();
+      adapter.freeze();
+      assertEq(adapter.pauseState(), ADAPTER_FROZEN, 'frozen');
+      vm.expectRevert(IAaveAdapter.TBV_Unauthorized.selector);
+      adapter.unfreeze();
+      vm.stopPrank();
+
+      vm.prank(V4_SECURITY_COUNCIL);
+      adapter.unfreeze();
+      assertEq(adapter.pauseState(), ADAPTER_ACTIVE, 'unfrozen by the Security Council');
+    }
   }
 
   /// @dev The liquidator is paid in WBTC drawn from the Core Hub credit line the proposal opens,

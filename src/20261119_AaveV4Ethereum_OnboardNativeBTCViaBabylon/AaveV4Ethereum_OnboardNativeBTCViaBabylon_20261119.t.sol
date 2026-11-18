@@ -1354,6 +1354,49 @@ contract AaveV4Ethereum_OnboardNativeBTCViaBabylon_20261119_Test is BabylonTestB
     );
   }
 
+  /// @dev Suppliers get their assets back in full, and a Tokenization Spoke cannot draw.
+  function test_tokenizationSpokeWithdrawals() public {
+    _executePayload();
+    address[4] memory tokenizationSpokes = _babylonTokenizationSpokes();
+    address[4] memory tokens = [USDT, USDC, GHO, WBTC];
+    uint256[4] memory assetIds = [
+      BABYLON_USDT_ASSET_ID,
+      BABYLON_USDC_ASSET_ID,
+      BABYLON_GHO_ASSET_ID,
+      BABYLON_WBTC_ASSET_ID
+    ];
+    for (uint256 i; i < tokenizationSpokes.length; ++i) {
+      ITokenizationSpoke tokenizationSpoke = ITokenizationSpoke(tokenizationSpokes[i]);
+      uint256 amount = 4 * 10 ** IERC20(tokens[i]).decimals();
+      deal(tokens[i], supplier, amount);
+      vm.startPrank(supplier);
+      (bool ok, ) = tokens[i].call(abi.encodeCall(IERC20.approve, (tokenizationSpokes[i], amount)));
+      require(ok, 'approve');
+      uint256 shares = tokenizationSpoke.deposit(amount, supplier);
+      assertEq(IERC20(tokens[i]).balanceOf(supplier), 0, 'deposited');
+
+      assertEq(tokenizationSpoke.withdraw(amount / 4, supplier, supplier), shares / 4, 'withdraw');
+      assertEq(
+        tokenizationSpoke.redeem(shares - shares / 4, supplier, supplier),
+        amount - amount / 4,
+        'redeem'
+      );
+      vm.stopPrank();
+      assertEq(IERC20(tokens[i]).balanceOf(supplier), amount, 'assets back');
+      assertEq(tokenizationSpoke.balanceOf(supplier), 0, 'shares left');
+      assertEq(tokenizationSpoke.totalAssets(), 0, 'total assets');
+      assertEq(
+        IHub(BABYLON_HUB).getSpokeAddedShares(assetIds[i], tokenizationSpokes[i]),
+        0,
+        'hub shares left'
+      );
+
+      vm.expectRevert(abi.encodeWithSelector(IHub.DrawCapExceeded.selector, 0));
+      vm.prank(tokenizationSpokes[i]);
+      IHub(BABYLON_HUB).draw(assetIds[i], 1, supplier);
+    }
+  }
+
   function test_tokenizationSpokeDeposits() public {
     _executePayload();
     address[4] memory tokenizationSpokes = _babylonTokenizationSpokes();
