@@ -34,7 +34,9 @@ contract AaveV3InkWhitelabel_RemoveEmissionAdmins_20261029_Test is
     defaultTest(
       'AaveV3InkWhitelabel_RemoveEmissionAdmins_20261029',
       AaveV3InkWhitelabel.POOL,
-      address(proposal)
+      address(proposal),
+      true,
+      true
     );
   }
 
