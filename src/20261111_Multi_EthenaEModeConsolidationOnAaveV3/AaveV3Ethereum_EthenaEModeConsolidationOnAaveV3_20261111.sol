@@ -59,6 +59,7 @@ contract AaveV3Ethereum_EthenaEModeConsolidationOnAaveV3_20261111 is AaveV3Paylo
     });
     assetEModeUpdates[2] = IAaveV3ConfigEngine.AssetEModeUpdate({
       asset: AaveV3EthereumAssets.USDe_UNDERLYING,
+      // PT-USDe Stablecoins September 2025, no address book constant
       eModeCategory: 19,
       borrowable: EngineFlags.KEEP_CURRENT,
       collateral: EngineFlags.KEEP_CURRENT,
