@@ -118,7 +118,7 @@ export const config: ConfigFile = {
           pmUpdates: [],
         },
       },
-      cache: {blockNumber: 98782788},
+      cache: {blockNumber: 100513152},
       labels: {
         '0x9a5926fd88f747c357738b1e82afb46ab80f0a6b': {
           label: 'USAT',

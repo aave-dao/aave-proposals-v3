@@ -24,7 +24,7 @@ contract AaveV4Avalanche_OnboardUSATCoreHub_20261028_Test is ProtocolV4TestBaseA
   AaveV4Avalanche_OnboardUSATCoreHub_20261028 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('avalanche'), 98782788);
+    vm.createSelectFork(vm.rpcUrl('avalanche'), 100513152);
     proposal = new AaveV4Avalanche_OnboardUSATCoreHub_20261028();
   }
 
