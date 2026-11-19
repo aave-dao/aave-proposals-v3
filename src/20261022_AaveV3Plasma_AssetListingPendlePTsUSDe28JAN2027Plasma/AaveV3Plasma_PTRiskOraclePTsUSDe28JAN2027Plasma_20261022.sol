@@ -18,7 +18,7 @@ contract AaveV3Plasma_PTRiskOraclePTsUSDe28JAN2027Plasma_20261022 is IProposalGe
   error AgentMismatch(uint256 agentId);
   error EModeNotFound();
 
-  /// https://plasmascan.to/address/0x257561233419039BeC3a28be717d14B4f490883D
+  // https://plasmascan.to/address/0x257561233419039BeC3a28be717d14B4f490883D
   address public constant PT_sUSDE_28JAN2027 = 0x257561233419039BeC3a28be717d14B4f490883D;
   string public constant EMODE_LABEL = 'sUSDe_PT_sUSDe_28JAN2027__Stablecoins';
 
