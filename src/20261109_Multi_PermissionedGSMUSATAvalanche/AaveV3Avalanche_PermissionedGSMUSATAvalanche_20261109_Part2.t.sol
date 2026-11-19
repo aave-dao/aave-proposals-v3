@@ -21,6 +21,7 @@ import {IGsmRegistry} from 'src/interfaces/IGsmRegistry.sol';
 import {IPermissionedGsm} from 'src/interfaces/IPermissionedGsm.sol';
 import {IFixedPriceStrategy4626} from 'src/interfaces/IFixedPriceStrategy4626.sol';
 
+import {AaveV4Avalanche_OnboardUSATCoreHub_20261028} from '../20261028_AaveV4Avalanche_OnboardUSATCoreHub/AaveV4Avalanche_OnboardUSATCoreHub_20261028.sol';
 import {AaveV3Avalanche_PermissionedGSMUSATAvalanche_20261109_Part1} from './AaveV3Avalanche_PermissionedGSMUSATAvalanche_20261109_Part1.sol';
 import {AaveV3Avalanche_PermissionedGSMUSATAvalanche_20261109_Part2} from './AaveV3Avalanche_PermissionedGSMUSATAvalanche_20261109_Part2.sol';
 import {PermissionedGSMUSATAvalancheSetup as Setup} from './setup/PermissionedGSMUSATAvalancheSetup.sol';
@@ -31,8 +32,8 @@ import {SupportedChainsCheck} from './setup/SupportedChainsCheck.sol';
  * @dev Test for AaveV3Avalanche_PermissionedGSMUSATAvalanche_20261109_Part2
  * command: FOUNDRY_PROFILE=test forge test --match-path=src/20261109_Multi_PermissionedGSMUSATAvalanche/AaveV3Avalanche_PermissionedGSMUSATAvalanche_20261109_Part2.t.sol -vv
  *
- * Pure fork: test_permissionedSwap fails until FORK_BLOCK is past aave-proposals-v3 PR 1236, which
- * creates waCoreUSAT.
+ * setUp executes the USAT onboarding payload (AaveV4Avalanche_OnboardUSATCoreHub_20261028) first,
+ * because this AIP depends on it. It lists waCoreUSAT on the Core Hub.
  */
 contract AaveV3Avalanche_PermissionedGSMUSATAvalanche_20261109_Part2_Test is
   ProtocolV3TestBase,
@@ -42,7 +43,7 @@ contract AaveV3Avalanche_PermissionedGSMUSATAvalanche_20261109_Part2_Test is
   uint256 internal constant FORK_BLOCK = 99954000;
   // waCoreUSAT shares, 6 decimals (TokenizationSpoke decimals = underlying decimals); set at GSM deployment
   uint128 internal constant GSM_EXPOSURE_CAP = 20_000_000e6;
-  // Aave V4 TokenizationSpoke for USAT, not deployed at the fork block
+  // Aave V4 TokenizationSpoke for USAT
   // https://snowscan.xyz/address/0x653F2541E7d51a846e92fA6F7866bA92e465a379
   address internal constant WA_CORE_USAT = 0x653F2541E7d51a846e92fA6F7866bA92e465a379;
   // FixedPriceStrategy4626, ratio 1e18
@@ -65,6 +66,8 @@ contract AaveV3Avalanche_PermissionedGSMUSATAvalanche_20261109_Part2_Test is
 
   function setUp() public {
     vm.createSelectFork(vm.rpcUrl('avalanche'), FORK_BLOCK);
+    executePayload(vm, address(new AaveV4Avalanche_OnboardUSATCoreHub_20261028()));
+
     part1 = new AaveV3Avalanche_PermissionedGSMUSATAvalanche_20261109_Part1();
     proposal = new AaveV3Avalanche_PermissionedGSMUSATAvalanche_20261109_Part2();
     gsm = proposal.GSM_USAT();
@@ -191,7 +194,7 @@ contract AaveV3Avalanche_PermissionedGSMUSATAvalanche_20261109_Part2_Test is
     assertFalse(gsm.hasRole(gsm.TOKEN_RESCUER_ROLE(), GovernanceV3Avalanche.EXECUTOR_LVL_1));
   }
 
-  /// @dev Price strategy output against waCoreUSAT's own ERC4626 previews (fails until PR 1236 creates it)
+  /// @dev Price strategy output against waCoreUSAT's own ERC4626 previews
   function test_priceStrategyMatchesWaCoreUsat() public view {
     IFixedPriceStrategy4626 priceStrategy = IFixedPriceStrategy4626(gsm.PRICE_STRATEGY());
     IERC4626 waCoreUsat = IERC4626(WA_CORE_USAT);
