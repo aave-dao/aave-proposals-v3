@@ -80,10 +80,10 @@ A new linear discount oracle is deployed for the 28 January 2027 maturity. It pr
 
 The second payload in this proposal adds the new PT to the LlamaRisk PT Risk Oracle agents that are already registered on the Plasma AgentHub. It runs after the listing, because it needs the eMode the listing creates.
 
-| Agent                                                         | Agent id | Market added                                       |
-| ------------------------------------------------------------- | -------- | -------------------------------------------------- |
-| Discount rate (`MiscPlasma.LLAMARISK_PT_DISCOUNT_RATE_AGENT`) | 2        | PT-sUSDe-28JAN2027                                 |
-| eMode (`MiscPlasma.LLAMARISK_PT_EMODE_AGENT`)                 | 3        | eMode `sUSDe_PT_sUSDe_28JAN2027__Stablecoins` (27) |
+| Agent                                                         | Agent id | Agent address                                                                                                          | Market added                                       |
+| ------------------------------------------------------------- | -------- | ---------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------- |
+| Discount rate (`MiscPlasma.LLAMARISK_PT_DISCOUNT_RATE_AGENT`) | 2        | [0xC0F2BC223262338959732896758a9Fe95d2b4E29](https://plasmascan.to/address/0xC0F2BC223262338959732896758a9Fe95d2b4E29) | PT-sUSDe-28JAN2027                                 |
+| eMode (`MiscPlasma.LLAMARISK_PT_EMODE_AGENT`)                 | 3        | [0xBcFaBC3ea806d4755ED3F1eA2C5EAE92706Beb29](https://plasmascan.to/address/0xBcFaBC3ea806d4755ED3F1eA2C5EAE92706Beb29) | eMode `sUSDe_PT_sUSDe_28JAN2027__Stablecoins` (27) |
 
 The payload calls `addAllowedMarket` on `MiscPlasma.AGENT_HUB` for each. It reads the eMode id from the pool by label rather than hardcoding it, and checks that both agent ids still point at the LlamaRisk agents. Agents, roles, range bounds and timelocks are unchanged: 100 bps per discount rate injection with a 2 day minimum delay, and 50 bps per eMode LTV, LT and LB injection with a 3 day minimum delay.
 
