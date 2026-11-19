@@ -110,6 +110,17 @@ It also creates two roles for BTCVaultSwap on the Aave V4 AccessManager:
 
 Role 2002 is the guardian of role 2001, so any of its members can cancel a scheduled fee change during the 5 days. Both roles are administered through the AccessManager by its admins, Executor Level 1 and the V4 Security Council, which can change their members.
 
+### Babylon Fee Parameters
+
+Set by Babylon on its contracts and not changed by this proposal. Role 2001 changes the two BTCVaultSwap parameters through `setSwapFeeBps`.
+
+| Contract     | Parameter                   | Value |
+| ------------ | --------------------------- | ----- |
+| BTCVaultSwap | `sellDiscountBps`           | 2%    |
+| BTCVaultSwap | `minimumProfitThresholdBps` | 0.50% |
+| AaveAdapter  | `liquidationFeeBps`         | 10%   |
+| AaveAdapter  | `interestFeeBps`            | 10%   |
+
 ### Price feed Recommendation
 
 Native BTC Collateral is priced with the [Chainlink BTC/USD SVR feed](https://etherscan.io/address/0xb41E773f507F7a7EA890b1afB7d2b660c30C8B0A). The other reserves reuse the price sources already in use on Aave V4 Ethereum. All are already configured.

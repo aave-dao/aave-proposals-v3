@@ -50,6 +50,8 @@ interface IAaveAdapter {
 
   function reorderVaults(bytes32[] memory permuted) external;
 
+  function updateUserDynamicConfig() external;
+
   function withdrawCollaterals(bytes32[] memory vaultIds) external returns (uint256);
 
   function pause() external;

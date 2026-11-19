@@ -84,6 +84,12 @@ abstract contract BabylonTestBase is ProtocolV4TestBaseEthereum {
     AaveAdapterRoles.APPLICATION_FREEZE_GUARDIAN_ROLE;
   // Aave Labs, Babylon and LlamaRisk 2-of-3 Safe
   address internal constant BTC_VAULT_SWAP_MULTISIG = 0x828AA986e31D60Eb07EFC1543FF9297835f4A9f7;
+  address internal constant BTC_VAULT_SWAP_MULTISIG_OWNER_1 =
+    0x2B99790c35a401be873FA7Eb514D9220736BB1cA;
+  address internal constant BTC_VAULT_SWAP_MULTISIG_OWNER_2 =
+    0xb291232F480F41c75802C4a60F1D2AC03404Afef;
+  address internal constant BTC_VAULT_SWAP_MULTISIG_OWNER_3 =
+    0x4095d75b9eE5BF443d5680135C4106f9179b5B28;
 
   address internal constant USDT = AaveV4EthereumAssets.USDT_UNDERLYING;
   address internal constant USDC = AaveV4EthereumAssets.USDC_UNDERLYING;

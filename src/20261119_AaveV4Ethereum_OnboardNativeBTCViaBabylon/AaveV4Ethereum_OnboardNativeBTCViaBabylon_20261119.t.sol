@@ -287,9 +287,9 @@ contract AaveV4Ethereum_OnboardNativeBTCViaBabylon_20261119_Test is BabylonTestB
     assertEq(safe.getThreshold(), 2, 'threshold');
     address[] memory owners = safe.getOwners();
     assertEq(owners.length, 3, 'owner count');
-    assertEq(owners[0], 0x2B99790c35a401be873FA7Eb514D9220736BB1cA, 'owner');
-    assertEq(owners[1], 0xb291232F480F41c75802C4a60F1D2AC03404Afef, 'owner');
-    assertEq(owners[2], 0x4095d75b9eE5BF443d5680135C4106f9179b5B28, 'owner');
+    assertEq(owners[0], BTC_VAULT_SWAP_MULTISIG_OWNER_1, 'owner');
+    assertEq(owners[1], BTC_VAULT_SWAP_MULTISIG_OWNER_2, 'owner');
+    assertEq(owners[2], BTC_VAULT_SWAP_MULTISIG_OWNER_3, 'owner');
     (address[] memory modules, ) = safe.getModulesPaginated(address(1), 10);
     assertEq(modules.length, 0, 'modules');
     // keccak256("guard_manager.guard.address")
@@ -423,6 +423,11 @@ contract AaveV4Ethereum_OnboardNativeBTCViaBabylon_20261119_Test is BabylonTestB
       assertEq(accessManager.getRoleAdmin(roles[i]), ADMIN_ROLE, 'role admin');
       assertEq(accessManager.getRoleGuardian(roles[i]), ADMIN_ROLE, 'role guardian');
       assertEq(accessManager.getRoleGrantDelay(roles[i]), 0, 'role grant delay');
+      assertEq(
+        IAccessManagerEnumerable(ACCESS_MANAGER).getRoleMemberCount(roles[i]),
+        0,
+        'role member count'
+      );
 
       uint256 snapshot = vm.snapshotState();
       vm.prank(V4_SECURITY_COUNCIL);
@@ -444,6 +449,18 @@ contract AaveV4Ethereum_OnboardNativeBTCViaBabylon_20261119_Test is BabylonTestB
       accessManager.setGrantDelay(roles[i], 1 days);
       skip(accessManager.minSetback());
       assertEq(accessManager.getRoleGrantDelay(roles[i]), 1 days, 'grant delay set');
+      vm.expectRevert('BABYLON_BTC_VAULT_SWAP_ROLE_ALREADY_CONFIGURED');
+      proposal.execute();
+      vm.revertToState(snapshot);
+
+      snapshot = vm.snapshotState();
+      vm.prank(V4_SECURITY_COUNCIL);
+      accessManager.grantRole(roles[i], DEPLOYER, 0);
+      assertEq(
+        IAccessManagerEnumerable(ACCESS_MANAGER).getRoleMemberCount(roles[i]),
+        1,
+        'member granted'
+      );
       vm.expectRevert('BABYLON_BTC_VAULT_SWAP_ROLE_ALREADY_CONFIGURED');
       proposal.execute();
       vm.revertToState(snapshot);
@@ -1587,13 +1604,7 @@ contract AaveV4Ethereum_OnboardNativeBTCViaBabylon_20261119_Test is BabylonTestB
     additions[11] = SpokeAddition(CORE_HUB, CORE_USDG_ASSET_ID, BABYLON_SPOKE, 0, 250_000);
     additions[12] = SpokeAddition(CORE_HUB, CORE_GHO_ASSET_ID, BABYLON_SPOKE, 0, 100_000);
     additions[13] = SpokeAddition(CORE_HUB, CORE_RLUSD_ASSET_ID, BABYLON_SPOKE, 0, 100_000);
-    additions[14] = SpokeAddition(
-      CORE_HUB,
-      CORE_WBTC_ASSET_ID,
-      BABYLON_BTC_VAULT_SWAP_SPOKE,
-      0,
-      5
-    );
+    additions[14] = SpokeAddition(CORE_HUB, CORE_WBTC_ASSET_ID, BABYLON_BTC_VAULT_SWAP_SPOKE, 0, 5);
   }
 
   function _expectedReserves() internal pure returns (ExpectedReserve[] memory expected) {

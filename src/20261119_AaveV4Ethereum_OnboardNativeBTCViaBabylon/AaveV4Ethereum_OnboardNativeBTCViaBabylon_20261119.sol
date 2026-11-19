@@ -97,8 +97,8 @@ contract AaveV4Ethereum_OnboardNativeBTCViaBabylon_20261119 is AaveV4PayloadEthe
   /// owned by the Aave V4 Security Council. Babylon must also have granted the Aave V4 Security
   /// Council both guardian roles on its AaveAdapter, which pause and unpause, and freeze, Babylon's
   /// side of the market, and the AaveAdapter must point at the Babylon Spoke and its WBTC reserve.
-  /// The BTCVaultSwap roles must not be configured yet, since their admin, guardian and grant delay
-  /// are kept as they are.
+  /// The BTCVaultSwap roles must have no members and no configuration yet, since their admin,
+  /// guardian and grant delay are kept as they are.
   function _preExecute() internal view override {
     require(
       IAccessControl(BABYLON_AAVE_ADAPTER).hasRole(
@@ -169,7 +169,8 @@ contract AaveV4Ethereum_OnboardNativeBTCViaBabylon_20261119 is AaveV4PayloadEthe
           Roles.ACCESS_MANAGER_ADMIN_ROLE &&
           AaveV4Ethereum.ACCESS_MANAGER.getRoleGuardian(btcVaultSwapRoles[i]) ==
           Roles.ACCESS_MANAGER_ADMIN_ROLE &&
-          AaveV4Ethereum.ACCESS_MANAGER.getRoleGrantDelay(btcVaultSwapRoles[i]) == 0,
+          AaveV4Ethereum.ACCESS_MANAGER.getRoleGrantDelay(btcVaultSwapRoles[i]) == 0 &&
+          AaveV4Ethereum.ACCESS_MANAGER.getRoleMemberCount(btcVaultSwapRoles[i]) == 0,
         'BABYLON_BTC_VAULT_SWAP_ROLE_ALREADY_CONFIGURED'
       );
     }
@@ -189,10 +190,10 @@ contract AaveV4Ethereum_OnboardNativeBTCViaBabylon_20261119 is AaveV4PayloadEthe
       granted: true,
       executionDelay: BTC_VAULT_SWAP_FEE_EXECUTION_DELAY
     });
-    items[1] = _guardianMembership(BTC_VAULT_SWAP_MULTISIG);
-    items[2] = _guardianMembership(MiscEthereum.V4_SECURITY_COUNCIL);
-    items[3] = _guardianMembership(MiscEthereum.V4_SECURITY_COUNCIL_EXECUTOR);
-    items[4] = _guardianMembership(GovernanceV3Ethereum.EXECUTOR_LVL_1);
+    items[1] = _btcVaultSwapGuardianMembership(BTC_VAULT_SWAP_MULTISIG);
+    items[2] = _btcVaultSwapGuardianMembership(MiscEthereum.V4_SECURITY_COUNCIL);
+    items[3] = _btcVaultSwapGuardianMembership(MiscEthereum.V4_SECURITY_COUNCIL_EXECUTOR);
+    items[4] = _btcVaultSwapGuardianMembership(GovernanceV3Ethereum.EXECUTOR_LVL_1);
     return items;
   }
 
@@ -367,7 +368,7 @@ contract AaveV4Ethereum_OnboardNativeBTCViaBabylon_20261119 is AaveV4PayloadEthe
     return items;
   }
 
-  function _guardianMembership(
+  function _btcVaultSwapGuardianMembership(
     address account
   ) internal pure returns (IConfigEngine.RoleMembership memory) {
     return

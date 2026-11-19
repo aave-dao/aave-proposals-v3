@@ -698,9 +698,10 @@ contract BabylonLiquidationFlowsTest is BabylonPegInHelper {
     assertEq(_usdcDebt(proxy), 0, 'debt repaid');
   }
 
-  /// @dev A frozen AaveAdapter blocks new borrows only. Repayment and liquidation stay open. The
-  /// Aave V4 Security Council freezes, and Babylon's Interim Governance can undo it.
-  function test_adapterFrozen_blocksBorrowsOnly() public {
+  /// @dev A frozen AaveAdapter blocks new borrows, vault reordering and dynamic config updates.
+  /// Repayment and liquidation stay open. The Aave V4 Security Council freezes, and Babylon's
+  /// Interim Governance can undo it.
+  function test_adapterFrozen_keepsRepaymentAndLiquidationOpen() public {
     _openAndBorrow(75_00);
     address proxy = _proxy();
     vm.prank(V4_SECURITY_COUNCIL);
@@ -710,6 +711,12 @@ contract BabylonLiquidationFlowsTest is BabylonPegInHelper {
     vm.expectRevert(IAaveAdapter.TBV_Frozen.selector);
     vm.prank(user);
     adapter.borrowFromCorePosition(CORE_USDC_RESERVE_ID, 1e6, user);
+    vm.expectRevert(IAaveAdapter.TBV_Frozen.selector);
+    vm.prank(user);
+    adapter.reorderVaults(_one(vault1));
+    vm.expectRevert(IAaveAdapter.TBV_Frozen.selector);
+    vm.prank(user);
+    adapter.updateUserDynamicConfig();
 
     deal(USDC, user, 1e6);
     vm.startPrank(user);
