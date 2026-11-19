@@ -22,7 +22,6 @@ contract AaveV3Plasma_ReserveFactorUpdatesAcrossAaveV3AndV2Markets_20261111 is A
     IAaveV3ConfigEngine.BorrowUpdate[]
       memory borrowUpdates = new IAaveV3ConfigEngine.BorrowUpdate[](3);
 
-    // waiting for final terms with the Plasma team
     borrowUpdates[0] = IAaveV3ConfigEngine.BorrowUpdate({
       asset: AaveV3PlasmaAssets.USDT0_UNDERLYING,
       enabledToBorrow: EngineFlags.KEEP_CURRENT,
