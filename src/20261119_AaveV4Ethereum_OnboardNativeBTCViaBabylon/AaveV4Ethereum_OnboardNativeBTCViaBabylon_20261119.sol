@@ -356,7 +356,7 @@ contract AaveV4Ethereum_OnboardNativeBTCViaBabylon_20261119 is AaveV4PayloadEthe
       assets[0] = _spokeAssetConfig({
         underlying: AaveV4EthereumAssets.WBTC_UNDERLYING,
         addCap: 0,
-        drawCap: 20
+        drawCap: 5
       });
       items[6] = _spokeToAssetsAddition({
         hub: address(AaveV4EthereumHubs.CORE_HUB),

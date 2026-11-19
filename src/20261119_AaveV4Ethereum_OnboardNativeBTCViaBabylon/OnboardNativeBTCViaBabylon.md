@@ -84,7 +84,7 @@ Set by this proposal. Credit lines are draw-only.
 | Ethereum | Core Hub   | Babylon Spoke | USDG    | 0       | 250,000  |
 | Ethereum | Core Hub   | Babylon Spoke | GHO     | 0       | 100,000  |
 | Ethereum | Core Hub   | Babylon Spoke | RLUSD   | 0       | 100,000  |
-| Ethereum | Core Hub   | BTCVaultSwap  | WBTC    | 0       | 20       |
+| Ethereum | Core Hub   | BTCVaultSwap  | WBTC    | 0       | 5        |
 
 ### Interest Rate Curves
 

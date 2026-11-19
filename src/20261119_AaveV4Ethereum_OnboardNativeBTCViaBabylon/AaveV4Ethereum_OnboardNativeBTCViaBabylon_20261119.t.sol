@@ -1228,10 +1228,10 @@ contract AaveV4Ethereum_OnboardNativeBTCViaBabylon_20261119_Test is BabylonTestB
     _executePayload();
     uint256 balanceBefore = IERC20(WBTC).balanceOf(BABYLON_BTC_VAULT_SWAP_SPOKE);
     vm.prank(BABYLON_BTC_VAULT_SWAP_SPOKE);
-    IHub(CORE_HUB).draw(CORE_WBTC_ASSET_ID, 20e8, BABYLON_BTC_VAULT_SWAP_SPOKE);
-    assertEq(IERC20(WBTC).balanceOf(BABYLON_BTC_VAULT_SWAP_SPOKE), balanceBefore + 20e8, 'drawn');
+    IHub(CORE_HUB).draw(CORE_WBTC_ASSET_ID, 5e8, BABYLON_BTC_VAULT_SWAP_SPOKE);
+    assertEq(IERC20(WBTC).balanceOf(BABYLON_BTC_VAULT_SWAP_SPOKE), balanceBefore + 5e8, 'drawn');
 
-    vm.expectRevert(abi.encodeWithSelector(IHub.DrawCapExceeded.selector, 20));
+    vm.expectRevert(abi.encodeWithSelector(IHub.DrawCapExceeded.selector, 5));
     vm.prank(BABYLON_BTC_VAULT_SWAP_SPOKE);
     IHub(CORE_HUB).draw(CORE_WBTC_ASSET_ID, 1, BABYLON_BTC_VAULT_SWAP_SPOKE);
   }
@@ -1592,7 +1592,7 @@ contract AaveV4Ethereum_OnboardNativeBTCViaBabylon_20261119_Test is BabylonTestB
       CORE_WBTC_ASSET_ID,
       BABYLON_BTC_VAULT_SWAP_SPOKE,
       0,
-      20
+      5
     );
   }
 
