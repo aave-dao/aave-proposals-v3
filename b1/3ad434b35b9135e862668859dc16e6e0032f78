@@ -1,0 +1,25 @@
+package.json
+  s_50112d813487c6::t_a5255c80da7109 42
+foundry.lock
+  s_50112d813487c6::t_75ff250a2351a7 3
+pnpm-lock.yaml
+  s_50112d813487c6::t_738d0ec4186170 15-16,83-84,88-89,1255,1259,1261
+lib/aave-helpers
+  s_50112d813487c6::t_662528f3aa5def 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "b13ad434b35b9135e862668859dc16e6e0032f78",
+  "prompts": {},
+  "sessions": {
+    "s_50112d813487c6": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "919754cc-2f34-4410-82dc-403eb5fc18c3",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "YBM <31329384+yan-man@users.noreply.github.com>"
+    }
+  }
+}
