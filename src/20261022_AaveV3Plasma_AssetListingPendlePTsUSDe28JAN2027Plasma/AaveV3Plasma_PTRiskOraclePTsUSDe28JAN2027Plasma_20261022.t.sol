@@ -10,6 +10,7 @@ import 'forge-std/Test.sol';
 import {AaveV3Plasma_AssetListingPendlePTsUSDe28JAN2027Plasma_20261022} from './AaveV3Plasma_AssetListingPendlePTsUSDe28JAN2027Plasma_20261022.sol';
 import {AaveV3Plasma_PTRiskOraclePTsUSDe28JAN2027Plasma_20261022} from './AaveV3Plasma_PTRiskOraclePTsUSDe28JAN2027Plasma_20261022.sol';
 import {AgentHubConfigs} from '../helpers/agent-hub/Configs.sol';
+import {IAgentConfigurator} from '../interfaces/IAgentConfigurator.sol';
 import {IAgentHub} from '../interfaces/IAgentHub.sol';
 import {IPendlePriceCapAdapter} from '../interfaces/IPendlePriceCapAdapter.sol';
 import {IRiskOracle} from '../interfaces/IRiskOracle.sol';
@@ -144,6 +145,26 @@ contract AaveV3Plasma_PTRiskOraclePTsUSDe28JAN2027Plasma_20261022_Test is Test {
     agentIds[0] = proposal.DISCOUNT_RATE_AGENT_ID();
     (bool shouldExecute, ) = hub.check(agentIds);
     assertFalse(shouldExecute);
+  }
+
+  /// @dev Each agent-id guard reverts with its own id when the hub points the id elsewhere.
+  function test_executeRevertsOnAgentMismatch() public {
+    uint256[2] memory ids = [proposal.DISCOUNT_RATE_AGENT_ID(), proposal.EMODE_AGENT_ID()];
+    for (uint256 i; i < ids.length; i++) {
+      vm.mockCall(
+        address(hub),
+        abi.encodeCall(IAgentConfigurator.getAgentAddress, (ids[i])),
+        abi.encode(address(1))
+      );
+      vm.expectRevert(
+        abi.encodeWithSelector(
+          AaveV3Plasma_PTRiskOraclePTsUSDe28JAN2027Plasma_20261022.AgentMismatch.selector,
+          ids[i]
+        )
+      );
+      proposal.execute();
+      vm.clearMockedCalls();
+    }
   }
 
   function _executeBoth() internal {
