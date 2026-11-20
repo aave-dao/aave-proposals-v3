@@ -100,6 +100,12 @@ export function prefixWithImports(code: string) {
   if (findMatch(code, 'IV2RateStrategyFactory')) {
     imports += `import {IV2RateStrategyFactory} from 'aave-helpers/src/v2-config-engine/IV2RateStrategyFactory.sol';\n`;
   }
+  if (findMatch(code, '\\bIDefaultInterestRateStrategy\\b')) {
+    imports += `import {IDefaultInterestRateStrategy} from 'aave-address-book/AaveV2.sol';\n`;
+  }
+  if (findMatch(code, '\\bIDefaultInterestRateStrategyV2\\b')) {
+    imports += `import {IDefaultInterestRateStrategyV2} from 'aave-v3-origin/contracts/interfaces/IDefaultInterestRateStrategyV2.sol';\n`;
+  }
   if (findMatch(code, '\\bIHub\\b')) {
     imports += `import {IHub} from 'aave-v4/hub/interfaces/IHub.sol';\n`;
   }
