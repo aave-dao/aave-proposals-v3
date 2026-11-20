@@ -4,7 +4,13 @@ import {fetchRateStrategyParamsV3} from './rateUpdates';
 import {fetchCollateralUpdate} from './collateralsUpdates';
 import {fetchCapsUpdate} from './capsUpdates';
 import {Listing, ListingWithCustomImpl, TokenImplementations} from './types';
-import {CHAIN_TO_CHAIN_ID, getMarketChain, getExplorerLink, toSolidityIdentifier} from '../common';
+import {
+  CHAIN_TO_CHAIN_ID,
+  getMarketChain,
+  getExplorerLink,
+  toSolidityIdentifier,
+  toSolidityString,
+} from '../common';
 import {getContract, isAddress} from 'viem';
 import {confirm} from '@inquirer/prompts';
 import {testExecuteProposal} from '../utils/constants';
@@ -27,7 +33,7 @@ async function fetchListing(market: MarketIdentifier): Promise<Listing> {
     client: getClient(CHAIN_TO_CHAIN_ID[chain], {}),
     address: asset,
   });
-  let symbol = '';
+  let symbol: string | undefined;
   try {
     symbol = await erc20.read.symbol();
   } catch (e) {
@@ -35,15 +41,20 @@ async function fetchListing(market: MarketIdentifier): Promise<Listing> {
     console.log(e);
   }
   const decimals = await erc20.read.decimals();
+  const assetSymbol = toSolidityIdentifier(
+    await stringPrompt({
+      message: 'Enter the asset symbol',
+      required: true,
+      defaultValue: symbol,
+    }),
+  );
+
+  const onchainSymbol =
+    symbol ?? (await stringPrompt({message: 'Enter the onchain symbol', required: true}));
 
   return {
-    assetSymbol: toSolidityIdentifier(
-      await stringPrompt({
-        message: 'Enter the asset symbol',
-        required: true,
-        defaultValue: symbol,
-      }),
-    ),
+    assetSymbol,
+    onchainSymbol,
     decimals,
     priceFeed: await addressPrompt({message: 'PriceFeed address', required: true}),
     ...(await fetchCollateralUpdate(market, true)),
@@ -69,7 +80,7 @@ type RenderableListing = Omit<Listing, 'asset' | 'priceFeed'> & {
 
 function renderListingSol(cfg: RenderableListing) {
   return `asset: ${cfg.asset},
-  assetSymbol: "${cfg.assetSymbol}",
+  assetSymbol: ${toSolidityString(cfg.assetSymbol)},
   priceFeed: ${cfg.priceFeed},
   enabledToBorrow: ${translateJsBoolToSol(cfg.enabledToBorrow)},
   flashloanable: ${translateJsBoolToSol(cfg.flashloanable)},
@@ -99,6 +110,9 @@ function generateAssetListingSol(cfg: Listing) {
 }
 
 function listingOverrides(cfgs: Listing[], fnName: string): string[] {
+  for (const cfg of cfgs)
+    if (cfg.onchainSymbol === undefined)
+      throw new Error(`${cfg.assetSymbol}: the listing config has no onchainSymbol`);
   return [
     `function ${fnName}() internal pure override returns (ExpectedListing[] memory listings) {
       listings = new ExpectedListing[](${cfgs.length});
@@ -109,6 +123,7 @@ function listingOverrides(cfgs: Listing[], fnName: string): string[] {
                  listing: IAaveV3ConfigEngine.Listing({
                    ${renderListingSol({
                      ...cfg,
+                     assetSymbol: cfg.onchainSymbol,
                      asset: translateJsAddressToSol(cfg.asset),
                      priceFeed: translateJsAddressToSol(cfg.priceFeed),
                    })}

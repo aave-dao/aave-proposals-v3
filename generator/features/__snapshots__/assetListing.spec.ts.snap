@@ -63,6 +63,7 @@ export const config: ConfigFile = {
         ASSET_LISTING: [
           {
             assetSymbol: 'PSP',
+            onchainSymbol: 'PSP',
             decimals: 18,
             priceFeed: '0x72AFAECF99C9d9C8215fF44C77B94B99C28741e8',
             ltv: '40',

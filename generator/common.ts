@@ -172,6 +172,17 @@ export function toSolidityIdentifier(symbol: string) {
   return symbol.replace(/[^a-zA-Z0-9_]/g, '_');
 }
 
+export function toSolidityString(text: string) {
+  const escaped = text.replace(/[\\"\x00-\x1f\x7f]/g, (c) => {
+    if (c === '\\' || c === '"') return `\\${c}`;
+    if (c === '\n') return '\\n';
+    if (c === '\r') return '\\r';
+    if (c === '\t') return '\\t';
+    return `\\x${c.charCodeAt(0).toString(16).padStart(2, '0')}`;
+  });
+  return /[^\x00-\x7f]/.test(text) ? `unicode"${escaped}"` : `"${escaped}"`;
+}
+
 export function pascalCase(str: string) {
   return str
     .replace(/[\W]/g, ' ') // remove special chars as this is used for solc contract name

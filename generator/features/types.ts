@@ -91,6 +91,7 @@ export interface Listing
   extends CollateralUpdatePartial, BorrowUpdatePartial, CapsUpdatePartial, PriceFeedUpdatePartial {
   asset: Hex;
   assetSymbol: string;
+  onchainSymbol: string;
   rateStrategyParams: RateStrategyParams;
   eModeCategory: string;
   decimals: number;
