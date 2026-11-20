@@ -1,0 +1,19 @@
+src/interfaces/IGranularGuardian.sol
+  s_0252b0f4aeba12::t_1007d835550767 4
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "dbd15902df96dcc7a2497c7fc73f87b513392aab",
+  "prompts": {},
+  "sessions": {
+    "s_0252b0f4aeba12": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "52ad695a-146d-4d56-8536-967a0d94c404",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "DhairyaSethi <55102840+DhairyaSethi@users.noreply.github.com>"
+    }
+  }
+}
