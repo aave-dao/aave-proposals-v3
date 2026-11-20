@@ -11,7 +11,7 @@ LlamaRisk proposes to reposition Aave V3 Core as an instance for liquid, bluechi
 
 The proposal covers rsETH, osETH, LBTC, tBTC and rETH on Core, together with a group of lower-exposure reserves. As of 9 November 2026 these assets held $1.33B of collateral backing $1.03B of debt.
 
-The initial measure is to freeze each reserve in scope, which stops new supply and sets the LTV to zero while leaving existing positions untouched. Borrowable reserves on Core that are frozen, or frozen by this ARFC, and still carry more than $20k of debt also have their reserve factor raised to 99%. LlamaRisk will then work with each asset issuer and with the largest borrowers on an orderly migration, and allow positions to unwind naturally before taking any further action. The proposal also approves a defined range of follow-up controls, including stepwise liquidation threshold reductions and, as the final step of the process, interest rate adjustments with targeted rebates, to be applied through Risk Stewards or Direct-to-AIP proposals only where exposure does not migrate within the next months.
+The initial measure is to freeze each reserve in scope, which stops new supply and sets the LTV to zero while leaving existing positions untouched. Borrowable reserves on Core that are frozen, or frozen by this AIP, and still carry more than $20k of debt also have their reserve factor raised to 99%. LlamaRisk will then work with each asset issuer and with the largest borrowers on an orderly migration, and allow positions to unwind naturally before taking any further action. The proposal also approves a defined range of follow-up controls, including stepwise liquidation threshold reductions and, as the final step of the process, interest rate adjustments with targeted rebates, to be applied through Risk Stewards or Direct-to-AIP proposals only where exposure does not migrate within the next months.
 
 ## Motivation
 
@@ -45,13 +45,13 @@ rsETH and osETH back $862M of WETH debt, almost entirely through leveraged loops
 
 The repositioning reduces exposure gradually and without forced liquidations, in three stages:
 
-1. **Initial measures.** This ARFC freezes each reserve in scope, which sets its LTV to zero including in every E-Mode the asset belongs to. Existing positions remain open, and holders can repay, withdraw or migrate at any time. Collateral that remains on Core is added to the E-Modes in which the assets in scope are borrowed against, so borrowers can swap collateral within their existing E-Mode. The reserve factor of every frozen, borrowable reserve that still carries more than $20k of debt is raised to 99%.
+1. **Initial measures.** This AIP freezes each reserve in scope, which sets its LTV to zero including in every E-Mode the asset belongs to. Existing positions remain open, and holders can repay, withdraw or migrate at any time. Collateral that remains on Core is added to the E-Modes in which the assets in scope are borrowed against, so borrowers can swap collateral within their existing E-Mode. The reserve factor of every frozen, borrowable reserve that still carries more than $20k of debt is raised to 99%.
 2. **Issuer engagement and natural unwinding.** LlamaRisk works with each asset issuer and with the largest borrowers on an orderly migration into collateral that remains on Core or into Aave V4. No further measure is applied to an asset while its exposure declines.
 3. **Follow-up controls.** Where exposure does not decline, the controls approved below are applied through Risk Stewards or Direct-to-AIP proposals within the approved ranges. A borrow rate increase is considered only as the final step of the process. No abrupt parameter change that would liquidate significant positions will be made.
 
 ### Follow-up controls
 
-Approved by this ARFC for the assets in scope and applied only where exposure does not decline after the initial measures. Each step is executed through the Risk Stewards where it falls within their bounds, and through a Direct-to-AIP proposal otherwise, and is announced on the forum beforehand. They are outside this payload.
+Approved by the ARFC for the assets in scope and applied only where exposure does not decline after the initial measures. Each step is executed through the Risk Stewards where it falls within their bounds, and through a Direct-to-AIP proposal otherwise, and is announced on the forum beforehand. They are outside this payload.
 
 | Control                                    | Applies to                           | Approved range                                                                                                                                                                                                                                           | Execution                                               |
 | ------------------------------------------ | ------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------- |
@@ -82,7 +82,7 @@ Freezing a reserve sets its LTV to zero, including in every E-Mode the asset bel
 
 ### Reserve factor
 
-The reserve factor of each borrowable reserve on Core that is frozen, or frozen by this ARFC, and still carries more than $20k of debt is raised to 99%. LUSD, RPL and FRAX already carry a 100% reserve factor and are unchanged.
+The reserve factor of each borrowable reserve on Core that is frozen, or frozen by this AIP, and still carries more than $20k of debt is raised to 99%. LUSD, RPL and FRAX already carry a 100% reserve factor and are unchanged.
 
 | Asset  | Debt    | Current frozen | Current RF | Recommended RF |
 | ------ | ------- | -------------- | ---------- | -------------- |
