@@ -96,10 +96,10 @@ The reserve factor of each borrowable reserve on Core that is frozen, or frozen 
 
 ### E-Mode changes
 
-| E-Mode                    | Current collateral                      | Current borrowable | Collateral added                        | Borrowable removed | LTV / LT  |
-| ------------------------- | --------------------------------------- | ------------------ | --------------------------------------- | ------------------ | --------- |
-| rsETH / ETH, wstETH, ETHx | rsETH                                   | WETH, wstETH, ETHx | wstETH, weETH, cbETH                    | wstETH             | 93% / 95% |
-| ETH correlated            | osETH, rETH, cbETH, wstETH, weETH, WETH | WETH               | None (retained assets already included) | None               | 93% / 95% |
+| E-Mode                    | Current collateral                            | Current borrowable | Collateral added                        | Borrowable removed | LTV / LT  |
+| ------------------------- | --------------------------------------------- | ------------------ | --------------------------------------- | ------------------ | --------- |
+| rsETH / ETH, wstETH, ETHx | rsETH                                         | WETH, wstETH, ETHx | wstETH, weETH, cbETH                    | wstETH             | 93% / 95% |
+| ETH correlated            | osETH, rETH, cbETH, wstETH, weETH, WETH, ETHx | WETH               | None (retained assets already included) | None               | 93% / 95% |
 
 ## References
 
