@@ -77,43 +77,43 @@ contract AaveV3Ethereum_RepositioningAaveV3CoreAroundEstablishedLiquidCollateral
       asset: AaveV3EthereumAssets.CRV_UNDERLYING,
       enabledToBorrow: EngineFlags.KEEP_CURRENT,
       flashloanable: EngineFlags.KEEP_CURRENT,
-      reserveFactor: 99_00
+      reserveFactor: 100_00
     });
     borrowUpdates[1] = IAaveV3ConfigEngine.BorrowUpdate({
       asset: AaveV3EthereumAssets.tBTC_UNDERLYING,
       enabledToBorrow: EngineFlags.KEEP_CURRENT,
       flashloanable: EngineFlags.KEEP_CURRENT,
-      reserveFactor: 99_00
+      reserveFactor: 100_00
     });
     borrowUpdates[2] = IAaveV3ConfigEngine.BorrowUpdate({
       asset: AaveV3EthereumAssets.rETH_UNDERLYING,
       enabledToBorrow: EngineFlags.KEEP_CURRENT,
       flashloanable: EngineFlags.KEEP_CURRENT,
-      reserveFactor: 99_00
+      reserveFactor: 100_00
     });
     borrowUpdates[3] = IAaveV3ConfigEngine.BorrowUpdate({
       asset: AaveV3EthereumAssets.crvUSD_UNDERLYING,
       enabledToBorrow: EngineFlags.KEEP_CURRENT,
       flashloanable: EngineFlags.KEEP_CURRENT,
-      reserveFactor: 99_00
+      reserveFactor: 100_00
     });
     borrowUpdates[4] = IAaveV3ConfigEngine.BorrowUpdate({
       asset: AaveV3EthereumAssets.FBTC_UNDERLYING,
       enabledToBorrow: EngineFlags.KEEP_CURRENT,
       flashloanable: EngineFlags.KEEP_CURRENT,
-      reserveFactor: 99_00
+      reserveFactor: 100_00
     });
     borrowUpdates[5] = IAaveV3ConfigEngine.BorrowUpdate({
       asset: AaveV3EthereumAssets.UNI_UNDERLYING,
       enabledToBorrow: EngineFlags.KEEP_CURRENT,
       flashloanable: EngineFlags.KEEP_CURRENT,
-      reserveFactor: 99_00
+      reserveFactor: 100_00
     });
     borrowUpdates[6] = IAaveV3ConfigEngine.BorrowUpdate({
       asset: AaveV3EthereumAssets.mUSD_UNDERLYING,
       enabledToBorrow: EngineFlags.KEEP_CURRENT,
       flashloanable: EngineFlags.KEEP_CURRENT,
-      reserveFactor: 99_00
+      reserveFactor: 100_00
     });
 
     return borrowUpdates;
