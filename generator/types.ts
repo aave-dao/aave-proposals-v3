@@ -99,6 +99,8 @@ export interface Options {
   discussion: string;
   snapshot: string;
   configFile?: string;
+  riskParams?: string;
+  ops?: string;
   date: string;
 }
 
@@ -310,4 +312,6 @@ export type Files = {
   scripts: Scripts;
   aip: string;
   payloads: {market: MarketIdentifier; payload: string; test: string; contractName: string}[];
+  /// Risk params record the config was built from (`-r`), saved next to config.ts.
+  riskParams?: string;
 };
