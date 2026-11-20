@@ -60,7 +60,7 @@ Use the [MainnetSwapSteward](https://governance.aave.com/t/arfc-steward-deployme
 
 #### Bug Bounty Payments
 
-The following bug bounty payments are to be processed to the researcher and Immunefi.
+The following bug bounty payments are to be processed to the researcher and Immunefi. As the Collector holds almost no idle USDC, the payments are funded from its aEthUSDC, withdrawn to USDC for each recipient.
 
 Asset: USDC `0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48`
 Amount: 1,000
