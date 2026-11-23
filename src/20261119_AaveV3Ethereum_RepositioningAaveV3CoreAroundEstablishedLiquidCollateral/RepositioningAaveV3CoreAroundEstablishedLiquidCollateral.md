@@ -105,8 +105,8 @@ The label of the rsETH E-Mode is updated to `rsETH_wstETH_weETH_cbETH__WETH_ETHx
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20261119_AaveV3Ethereum_RepositioningAaveV3CoreAroundEstablishedLiquidCollateral/AaveV3Ethereum_RepositioningAaveV3CoreAroundEstablishedLiquidCollateral_20261119.sol)
-- Tests: [AaveV3Ethereum](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20261119_AaveV3Ethereum_RepositioningAaveV3CoreAroundEstablishedLiquidCollateral/AaveV3Ethereum_RepositioningAaveV3CoreAroundEstablishedLiquidCollateral_20261119.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/aave-dao/aave-proposals-v3/blob/b441b54983f412d225014802ec510d753baf7ba9/src/20261119_AaveV3Ethereum_RepositioningAaveV3CoreAroundEstablishedLiquidCollateral/AaveV3Ethereum_RepositioningAaveV3CoreAroundEstablishedLiquidCollateral_20261119.sol)
+- Tests: [AaveV3Ethereum](https://github.com/aave-dao/aave-proposals-v3/blob/b441b54983f412d225014802ec510d753baf7ba9/src/20261119_AaveV3Ethereum_RepositioningAaveV3CoreAroundEstablishedLiquidCollateral/AaveV3Ethereum_RepositioningAaveV3CoreAroundEstablishedLiquidCollateral_20261119.t.sol)
 - [Snapshot](https://snapshot.org/#/s:aavedao.eth/proposal/0x7ed3e17373060128618599b425fd0b4312bea86fcd903a1aa99c2622403f7f98)
 - [Discussion](https://governance.aave.com/t/arfc-repositioning-aave-v3-core-around-established-liquid-collateral/26191)
 
