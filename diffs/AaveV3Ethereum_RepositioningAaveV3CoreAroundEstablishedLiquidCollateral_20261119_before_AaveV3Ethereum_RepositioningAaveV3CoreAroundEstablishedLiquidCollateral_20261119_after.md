@@ -108,10 +108,11 @@
 
 ## EMode changes
 
-### EMode: rsETH__ETH_wstETH_ETHx (id: 3)
+### EMode: rsETH_wstETH_weETH_cbETH__WETH_ETHx (id: 3)
 
 | description | value before | value after |
 | --- | --- | --- |
+| label | rsETH__ETH_wstETH_ETHx | rsETH_wstETH_weETH_cbETH__WETH_ETHx |
 | borrowableBitmap | WETH, wstETH, ETHx | WETH, ETHx |
 | collateralBitmap | rsETH | wstETH, cbETH, weETH, rsETH |
 
@@ -122,67 +123,69 @@
 
 | index | event |
 | --- | --- |
-| 0 | AssetCollateralInEModeChanged(asset: 0x7f39C581F595B53c5cb19bD0b3f8dA6c935E2Ca0 (symbol: wstETH), categoryId: 3, collateral: true) |
-| 1 | AssetBorrowableInEModeChanged(asset: 0x7f39C581F595B53c5cb19bD0b3f8dA6c935E2Ca0 (symbol: wstETH), categoryId: 3, borrowable: false) |
-| 2 | AssetCollateralInEModeChanged(asset: 0xCd5fE23C85820F7B72D0926FC9b05b43E359b7ee (symbol: weETH), categoryId: 3, collateral: true) |
-| 3 | AssetCollateralInEModeChanged(asset: 0xBe9895146f7AF43049ca1c1AE358B0541Ea49704 (symbol: cbETH), categoryId: 3, collateral: true) |
-| 4 | ReserveFactorChanged(asset: 0xD533a949740bb3306d119CC777fa900bA034cd52 (symbol: CRV), oldReserveFactor: 5000, newReserveFactor: 10000) |
-| 6 | ReserveFactorChanged(asset: 0x18084fbA666a33d37592fA2633fD49a74DD93a88 (symbol: tBTC), oldReserveFactor: 5000, newReserveFactor: 10000) |
-| 8 | ReserveFactorChanged(asset: 0xae78736Cd615f374D3085123A210448E74Fc6393 (symbol: rETH), oldReserveFactor: 1500, newReserveFactor: 10000) |
-| 10 | ReserveFactorChanged(asset: 0xf939E0A03FB07F59A73314E73794Be0E57ac1b4E (symbol: crvUSD), oldReserveFactor: 5000, newReserveFactor: 10000) |
-| 12 | ReserveFactorChanged(asset: 0xC96dE26018A54D51c097160568752c4E3BD6C364 (symbol: FBTC), oldReserveFactor: 7500, newReserveFactor: 10000) |
-| 14 | ReserveFactorChanged(asset: 0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984 (symbol: UNI), oldReserveFactor: 5000, newReserveFactor: 10000) |
-| 16 | ReserveFactorChanged(asset: 0xacA92E438df0B2401fF60dA7E4337B687a2435DA (symbol: mUSD), oldReserveFactor: 2000, newReserveFactor: 10000) |
-| 18 | AssetLtvzeroInEModeChanged(asset: 0xf1C9acDc66974dFB6dEcB12aA385b9cD01190E38 (symbol: osETH), categoryId: 1, ltvzero: true) |
-| 19 | ReserveFrozen(asset: 0xf1C9acDc66974dFB6dEcB12aA385b9cD01190E38 (symbol: osETH), frozen: true) |
-| 20 | PendingLtvChanged(asset: 0x8236a87084f8B84306f72007F36F2618A5634494 (symbol: LBTC), ltv: 7000) |
-| 21 | CollateralConfigurationChanged(asset: 0x8236a87084f8B84306f72007F36F2618A5634494 (symbol: LBTC), ltv: 0, liquidationThreshold: 7500, liquidationBonus: 10850) |
-| 22 | AssetLtvzeroInEModeChanged(asset: 0x8236a87084f8B84306f72007F36F2618A5634494 (symbol: LBTC), categoryId: 4, ltvzero: true) |
-| 23 | AssetLtvzeroInEModeChanged(asset: 0x8236a87084f8B84306f72007F36F2618A5634494 (symbol: LBTC), categoryId: 5, ltvzero: true) |
-| 24 | AssetLtvzeroInEModeChanged(asset: 0x8236a87084f8B84306f72007F36F2618A5634494 (symbol: LBTC), categoryId: 6, ltvzero: true) |
-| 25 | ReserveFrozen(asset: 0x8236a87084f8B84306f72007F36F2618A5634494 (symbol: LBTC), frozen: true) |
-| 26 | PendingLtvChanged(asset: 0xae78736Cd615f374D3085123A210448E74Fc6393 (symbol: rETH), ltv: 7500) |
-| 27 | CollateralConfigurationChanged(asset: 0xae78736Cd615f374D3085123A210448E74Fc6393 (symbol: rETH), ltv: 0, liquidationThreshold: 7900, liquidationBonus: 10750) |
-| 28 | AssetLtvzeroInEModeChanged(asset: 0xae78736Cd615f374D3085123A210448E74Fc6393 (symbol: rETH), categoryId: 1, ltvzero: true) |
-| 29 | ReserveFrozen(asset: 0xae78736Cd615f374D3085123A210448E74Fc6393 (symbol: rETH), frozen: true) |
-| 30 | PendingLtvChanged(asset: 0x657e8C867D8B37dCC18fA4Caead9C45EB088C642 (symbol: eBTC), ltv: 6700) |
-| 31 | CollateralConfigurationChanged(asset: 0x657e8C867D8B37dCC18fA4Caead9C45EB088C642 (symbol: eBTC), ltv: 0, liquidationThreshold: 7200, liquidationBonus: 11000) |
-| 32 | AssetLtvzeroInEModeChanged(asset: 0x657e8C867D8B37dCC18fA4Caead9C45EB088C642 (symbol: eBTC), categoryId: 7, ltvzero: true) |
-| 33 | ReserveFrozen(asset: 0x657e8C867D8B37dCC18fA4Caead9C45EB088C642 (symbol: eBTC), frozen: true) |
-| 34 | PendingLtvChanged(asset: 0xB0F70C0bD6FD87dbEb7C10dC692a2a6106817072 (symbol: BTC.b), ltv: 7300) |
-| 35 | CollateralConfigurationChanged(asset: 0xB0F70C0bD6FD87dbEb7C10dC692a2a6106817072 (symbol: BTC.b), ltv: 0, liquidationThreshold: 7800, liquidationBonus: 10750) |
-| 36 | ReserveFrozen(asset: 0xB0F70C0bD6FD87dbEb7C10dC692a2a6106817072 (symbol: BTC.b), frozen: true) |
-| 37 | AssetLtvzeroInEModeChanged(asset: 0xD11c452fc99cF405034ee446803b6F6c1F6d5ED8 (symbol: tETH), categoryId: 21, ltvzero: true) |
-| 38 | ReserveFrozen(asset: 0xD11c452fc99cF405034ee446803b6F6c1F6d5ED8 (symbol: tETH), frozen: true) |
-| 39 | AssetLtvzeroInEModeChanged(asset: 0x59bC9FaE5D62B19d4f8d07D758047aCb9EE19d34 (symbol: PT-srUSDe-22OCT2026), categoryId: 47, ltvzero: true) |
-| 40 | AssetLtvzeroInEModeChanged(asset: 0x59bC9FaE5D62B19d4f8d07D758047aCb9EE19d34 (symbol: PT-srUSDe-22OCT2026), categoryId: 48, ltvzero: true) |
-| 41 | ReserveFrozen(asset: 0x59bC9FaE5D62B19d4f8d07D758047aCb9EE19d34 (symbol: PT-srUSDe-22OCT2026), frozen: true) |
-| 42 | ReserveFrozen(asset: 0x5A98FcBEA516Cf06857215779Fd812CA3beF1B32 (symbol: LDO), frozen: true) |
-| 43 | ReserveFrozen(asset: 0xacA92E438df0B2401fF60dA7E4337B687a2435DA (symbol: mUSD), frozen: true) |
+| 0 | EModeCategoryAdded(categoryId: 3, ltv: 9300, liquidationThreshold: 9500, liquidationBonus: 10100, oracle: 0x0000000000000000000000000000000000000000, label: rsETH_wstETH_weETH_cbETH__WETH_ETHx) |
+| 1 | EModeCategoryIsolationChanged(categoryId: 3, isolated: false) |
+| 2 | AssetCollateralInEModeChanged(asset: 0x7f39C581F595B53c5cb19bD0b3f8dA6c935E2Ca0 (symbol: wstETH), categoryId: 3, collateral: true) |
+| 3 | AssetBorrowableInEModeChanged(asset: 0x7f39C581F595B53c5cb19bD0b3f8dA6c935E2Ca0 (symbol: wstETH), categoryId: 3, borrowable: false) |
+| 4 | AssetCollateralInEModeChanged(asset: 0xCd5fE23C85820F7B72D0926FC9b05b43E359b7ee (symbol: weETH), categoryId: 3, collateral: true) |
+| 5 | AssetCollateralInEModeChanged(asset: 0xBe9895146f7AF43049ca1c1AE358B0541Ea49704 (symbol: cbETH), categoryId: 3, collateral: true) |
+| 6 | ReserveFactorChanged(asset: 0xD533a949740bb3306d119CC777fa900bA034cd52 (symbol: CRV), oldReserveFactor: 5000, newReserveFactor: 10000) |
+| 8 | ReserveFactorChanged(asset: 0x18084fbA666a33d37592fA2633fD49a74DD93a88 (symbol: tBTC), oldReserveFactor: 5000, newReserveFactor: 10000) |
+| 10 | ReserveFactorChanged(asset: 0xae78736Cd615f374D3085123A210448E74Fc6393 (symbol: rETH), oldReserveFactor: 1500, newReserveFactor: 10000) |
+| 12 | ReserveFactorChanged(asset: 0xf939E0A03FB07F59A73314E73794Be0E57ac1b4E (symbol: crvUSD), oldReserveFactor: 5000, newReserveFactor: 10000) |
+| 14 | ReserveFactorChanged(asset: 0xC96dE26018A54D51c097160568752c4E3BD6C364 (symbol: FBTC), oldReserveFactor: 7500, newReserveFactor: 10000) |
+| 16 | ReserveFactorChanged(asset: 0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984 (symbol: UNI), oldReserveFactor: 5000, newReserveFactor: 10000) |
+| 18 | ReserveFactorChanged(asset: 0xacA92E438df0B2401fF60dA7E4337B687a2435DA (symbol: mUSD), oldReserveFactor: 2000, newReserveFactor: 10000) |
+| 20 | AssetLtvzeroInEModeChanged(asset: 0xf1C9acDc66974dFB6dEcB12aA385b9cD01190E38 (symbol: osETH), categoryId: 1, ltvzero: true) |
+| 21 | ReserveFrozen(asset: 0xf1C9acDc66974dFB6dEcB12aA385b9cD01190E38 (symbol: osETH), frozen: true) |
+| 22 | PendingLtvChanged(asset: 0x8236a87084f8B84306f72007F36F2618A5634494 (symbol: LBTC), ltv: 7000) |
+| 23 | CollateralConfigurationChanged(asset: 0x8236a87084f8B84306f72007F36F2618A5634494 (symbol: LBTC), ltv: 0, liquidationThreshold: 7500, liquidationBonus: 10850) |
+| 24 | AssetLtvzeroInEModeChanged(asset: 0x8236a87084f8B84306f72007F36F2618A5634494 (symbol: LBTC), categoryId: 4, ltvzero: true) |
+| 25 | AssetLtvzeroInEModeChanged(asset: 0x8236a87084f8B84306f72007F36F2618A5634494 (symbol: LBTC), categoryId: 5, ltvzero: true) |
+| 26 | AssetLtvzeroInEModeChanged(asset: 0x8236a87084f8B84306f72007F36F2618A5634494 (symbol: LBTC), categoryId: 6, ltvzero: true) |
+| 27 | ReserveFrozen(asset: 0x8236a87084f8B84306f72007F36F2618A5634494 (symbol: LBTC), frozen: true) |
+| 28 | PendingLtvChanged(asset: 0xae78736Cd615f374D3085123A210448E74Fc6393 (symbol: rETH), ltv: 7500) |
+| 29 | CollateralConfigurationChanged(asset: 0xae78736Cd615f374D3085123A210448E74Fc6393 (symbol: rETH), ltv: 0, liquidationThreshold: 7900, liquidationBonus: 10750) |
+| 30 | AssetLtvzeroInEModeChanged(asset: 0xae78736Cd615f374D3085123A210448E74Fc6393 (symbol: rETH), categoryId: 1, ltvzero: true) |
+| 31 | ReserveFrozen(asset: 0xae78736Cd615f374D3085123A210448E74Fc6393 (symbol: rETH), frozen: true) |
+| 32 | PendingLtvChanged(asset: 0x657e8C867D8B37dCC18fA4Caead9C45EB088C642 (symbol: eBTC), ltv: 6700) |
+| 33 | CollateralConfigurationChanged(asset: 0x657e8C867D8B37dCC18fA4Caead9C45EB088C642 (symbol: eBTC), ltv: 0, liquidationThreshold: 7200, liquidationBonus: 11000) |
+| 34 | AssetLtvzeroInEModeChanged(asset: 0x657e8C867D8B37dCC18fA4Caead9C45EB088C642 (symbol: eBTC), categoryId: 7, ltvzero: true) |
+| 35 | ReserveFrozen(asset: 0x657e8C867D8B37dCC18fA4Caead9C45EB088C642 (symbol: eBTC), frozen: true) |
+| 36 | PendingLtvChanged(asset: 0xB0F70C0bD6FD87dbEb7C10dC692a2a6106817072 (symbol: BTC.b), ltv: 7300) |
+| 37 | CollateralConfigurationChanged(asset: 0xB0F70C0bD6FD87dbEb7C10dC692a2a6106817072 (symbol: BTC.b), ltv: 0, liquidationThreshold: 7800, liquidationBonus: 10750) |
+| 38 | ReserveFrozen(asset: 0xB0F70C0bD6FD87dbEb7C10dC692a2a6106817072 (symbol: BTC.b), frozen: true) |
+| 39 | AssetLtvzeroInEModeChanged(asset: 0xD11c452fc99cF405034ee446803b6F6c1F6d5ED8 (symbol: tETH), categoryId: 21, ltvzero: true) |
+| 40 | ReserveFrozen(asset: 0xD11c452fc99cF405034ee446803b6F6c1F6d5ED8 (symbol: tETH), frozen: true) |
+| 41 | AssetLtvzeroInEModeChanged(asset: 0x59bC9FaE5D62B19d4f8d07D758047aCb9EE19d34 (symbol: PT-srUSDe-22OCT2026), categoryId: 47, ltvzero: true) |
+| 42 | AssetLtvzeroInEModeChanged(asset: 0x59bC9FaE5D62B19d4f8d07D758047aCb9EE19d34 (symbol: PT-srUSDe-22OCT2026), categoryId: 48, ltvzero: true) |
+| 43 | ReserveFrozen(asset: 0x59bC9FaE5D62B19d4f8d07D758047aCb9EE19d34 (symbol: PT-srUSDe-22OCT2026), frozen: true) |
+| 44 | ReserveFrozen(asset: 0x5A98FcBEA516Cf06857215779Fd812CA3beF1B32 (symbol: LDO), frozen: true) |
+| 45 | ReserveFrozen(asset: 0xacA92E438df0B2401fF60dA7E4337B687a2435DA (symbol: mUSD), frozen: true) |
 
 #### 0x87870Bca3F3fD6335C3F4ce8392D69350B4fA4E2 (AaveV3Ethereum.POOL)
 
 | index | event |
 | --- | --- |
-| 5 | ReserveDataUpdated(reserve: 0xD533a949740bb3306d119CC777fa900bA034cd52 (symbol: CRV), liquidityRate: 0, stableBorrowRate: 0, variableBorrowRate: 56955646007250527401832113, liquidityIndex: 1.0613 [1061336800262703469500299631, 27 decimals], variableBorrowIndex: 1.3547 [1354769251099269445220474440, 27 decimals]) |
-| 7 | ReserveDataUpdated(reserve: 0x18084fbA666a33d37592fA2633fD49a74DD93a88 (symbol: tBTC), liquidityRate: 0, stableBorrowRate: 0, variableBorrowRate: 2515029610818617761379708, liquidityIndex: 1.0001 [1000148530830361987416821284, 27 decimals], variableBorrowIndex: 1.0054 [1005457017397612413045928577, 27 decimals]) |
-| 9 | ReserveDataUpdated(reserve: 0xae78736Cd615f374D3085123A210448E74Fc6393 (symbol: rETH), liquidityRate: 0, stableBorrowRate: 0, variableBorrowRate: 199735307300654127525540, liquidityIndex: 1.0015 [1001543522400077374568697167, 27 decimals], variableBorrowIndex: 1.0165 [1016511719338100930979884322, 27 decimals]) |
-| 11 | ReserveDataUpdated(reserve: 0xf939E0A03FB07F59A73314E73794Be0E57ac1b4E (symbol: crvUSD), liquidityRate: 0, stableBorrowRate: 0, variableBorrowRate: 30440427574589391126372554, liquidityIndex: 1.1997 [1199788488522782624963983079, 27 decimals], variableBorrowIndex: 1.2925 [1292506861501375311668386275, 27 decimals]) |
-| 13 | ReserveDataUpdated(reserve: 0xC96dE26018A54D51c097160568752c4E3BD6C364 (symbol: FBTC), liquidityRate: 0, stableBorrowRate: 0, variableBorrowRate: 5578769154366244902768800, liquidityIndex: 1.0000 [1000009784346046083668983442, 27 decimals], variableBorrowIndex: 1.0055 [1005504102859832709103996445, 27 decimals]) |
-| 15 | ReserveDataUpdated(reserve: 0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984 (symbol: UNI), liquidityRate: 0, stableBorrowRate: 0, variableBorrowRate: 1937043608628760553880289, liquidityIndex: 1.0030 [1003088335186373281999649458, 27 decimals], variableBorrowIndex: 1.0286 [1028674409246449507596424226, 27 decimals]) |
-| 17 | ReserveDataUpdated(reserve: 0xacA92E438df0B2401fF60dA7E4337B687a2435DA (symbol: mUSD), liquidityRate: 0, stableBorrowRate: 0, variableBorrowRate: 153625344692136696623264535, liquidityIndex: 1.0554 [1055408361458660354767234765, 27 decimals], variableBorrowIndex: 1.0866 [1086644664787898264992905995, 27 decimals]) |
+| 7 | ReserveDataUpdated(reserve: 0xD533a949740bb3306d119CC777fa900bA034cd52 (symbol: CRV), liquidityRate: 0, stableBorrowRate: 0, variableBorrowRate: 56955646007250527401832113, liquidityIndex: 1.0613 [1061336800262703469500299631, 27 decimals], variableBorrowIndex: 1.3547 [1354769251099269445220474440, 27 decimals]) |
+| 9 | ReserveDataUpdated(reserve: 0x18084fbA666a33d37592fA2633fD49a74DD93a88 (symbol: tBTC), liquidityRate: 0, stableBorrowRate: 0, variableBorrowRate: 2515029610818617761379708, liquidityIndex: 1.0001 [1000148530830361987416821284, 27 decimals], variableBorrowIndex: 1.0054 [1005457017397612413045928577, 27 decimals]) |
+| 11 | ReserveDataUpdated(reserve: 0xae78736Cd615f374D3085123A210448E74Fc6393 (symbol: rETH), liquidityRate: 0, stableBorrowRate: 0, variableBorrowRate: 199735307300654127525540, liquidityIndex: 1.0015 [1001543522400077374568697167, 27 decimals], variableBorrowIndex: 1.0165 [1016511719338100930979884322, 27 decimals]) |
+| 13 | ReserveDataUpdated(reserve: 0xf939E0A03FB07F59A73314E73794Be0E57ac1b4E (symbol: crvUSD), liquidityRate: 0, stableBorrowRate: 0, variableBorrowRate: 30440427574589391126372554, liquidityIndex: 1.1997 [1199788488522782624963983079, 27 decimals], variableBorrowIndex: 1.2925 [1292506861501375311668386275, 27 decimals]) |
+| 15 | ReserveDataUpdated(reserve: 0xC96dE26018A54D51c097160568752c4E3BD6C364 (symbol: FBTC), liquidityRate: 0, stableBorrowRate: 0, variableBorrowRate: 5578769154366244902768800, liquidityIndex: 1.0000 [1000009784346046083668983442, 27 decimals], variableBorrowIndex: 1.0055 [1005504102859832709103996445, 27 decimals]) |
+| 17 | ReserveDataUpdated(reserve: 0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984 (symbol: UNI), liquidityRate: 0, stableBorrowRate: 0, variableBorrowRate: 1937043608628760553880289, liquidityIndex: 1.0030 [1003088335186373281999649458, 27 decimals], variableBorrowIndex: 1.0286 [1028674409246449507596424226, 27 decimals]) |
+| 19 | ReserveDataUpdated(reserve: 0xacA92E438df0B2401fF60dA7E4337B687a2435DA (symbol: mUSD), liquidityRate: 0, stableBorrowRate: 0, variableBorrowRate: 153625344692136696623264535, liquidityIndex: 1.0554 [1055408361458660354767234765, 27 decimals], variableBorrowIndex: 1.0866 [1086644664787898264992905995, 27 decimals]) |
 
 #### 0x5300A1a15135EA4dc7aD5a167152C01EFc9b192A (AaveV2Ethereum.POOL_ADMIN, AaveV2EthereumAMM.POOL_ADMIN, AaveV3Ethereum.ACL_ADMIN, AaveV3EthereumEtherFi.ACL_ADMIN, AaveV3EthereumHorizon.ACL_ADMIN, AaveV3EthereumLido.ACL_ADMIN, GovernanceV3Ethereum.EXECUTOR_LVL_1)
 
 | index | event |
 | --- | --- |
-| 44 | ExecutedAction(target: 0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f, value: 0, signature: execute(), data: 0x, executionTime: 1795096607, withDelegatecall: true, resultData: 0x) |
+| 46 | ExecutedAction(target: 0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f, value: 0, signature: execute(), data: 0x, executionTime: 1795096607, withDelegatecall: true, resultData: 0x) |
 
 #### 0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5 (GovernanceV3Ethereum.PAYLOADS_CONTROLLER)
 
 | index | event |
 | --- | --- |
-| 45 | PayloadExecuted(payloadId: 483) |
+| 47 | PayloadExecuted(payloadId: 483) |
 
 ## Raw storage changes
 
@@ -219,6 +222,8 @@
 | 0x444fe87642c0ed2e8975bf2256a50b27f0b3ac5dcea4396b81bc0333c8ae2944 | 0x0000000000002a4bac1b9de6231cb7b2000000000348d6b8a443a4dcd8bd643a | 0x0000000000002a4bac3662eebf002ea4000000000348d6bab9217ca2dc84ed22 |
 | 0x444fe87642c0ed2e8975bf2256a50b27f0b3ac5dcea4396b81bc0333c8ae2945 | 0x0000000000000000000009006afee8d300000000000000000000345148d766e5 | 0x0000000000000000000009006aff001f00000000000000000000345148d766e5 |
 | 0x444fe87642c0ed2e8975bf2256a50b27f0b3ac5dcea4396b81bc0333c8ae294a | 0x00000000000006a76f28a8c047ae9a6200000000000000000000015048b15ac4 | 0x00000000000006a76f28a8c047ae9a620000000000000000000001857f492f65 |
+| 0x496a2f4e085f64cdcb89a122836d82e2eae7b8b34a9d30987b642b406c1179b3 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x72734554485f7773744554485f77654554485f63624554485f5f574554485f45 |
+| 0x496a2f4e085f64cdcb89a122836d82e2eae7b8b34a9d30987b642b406c1179b4 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x5448780000000000000000000000000000000000000000000000000000000000 |
 | 0x50039cf134a124858bd88bbc9225ec3c537b89a0e9237ce39fe1813e6edf8259 | 0x0000000000000000000000000000000000000000000000000000000400000000 | 0x0000000000000000000000200000000000000000000000000000000400000000 |
 | 0x533efb5c9f032d0e72b35f5d59b231dc7a9fb94625f73b3c45c394126326354e | 0x0000000000000000000000000000000000000000000000000000000000000004 | 0x0000000000000000000000200000000000000000000000000000000000000004 |
 | 0x5fe3c5c588b626d5a9cebe169e8cb576ea92298dc18cf4686c056d112b1eeec2 | 0x100000000000000000000003e800000000100000000107d081122a9413880000 | 0x100000000000000000000003e800000000100000000107d083122a9413880000 |
@@ -230,6 +235,7 @@
 | 0x79c6e29436490262cb24ee8bc0beb79364a1b588e1732d1098b1d9c2838ed8ae | 0x0000000000000000000000000000000000000000000000000000000000000108 | 0x0000000000000000000400000000000000000000000000000000000000000108 |
 | 0x7a18f972cb3c30997624be86bf2fd31e3cd44e3df901d4f88e0579aa778bb37b | 0x100000000000000000000003e80000000280000000011388810829fe1e781c84 | 0x100000000000000000000003e80000000280000000011388830829fe1e780000 |
 | 0x81d0999fde243adcc41b7fa1be5cea14f789e3a6065b815ac58f4bc0838c3155 | 0x00000000000000000000000000000000000000000010000000002774251c2454 | 0x00000000000000000000000000000000000000000010100000822774251c2454 |
+| 0x81d0999fde243adcc41b7fa1be5cea14f789e3a6065b815ac58f4bc0838c3156 | 0x72734554485f5f4554485f7773744554485f455448780000000000000000002c | 0x0000000000000000000000000000000000000000000000000000000000000047 |
 | 0x81d0999fde243adcc41b7fa1be5cea14f789e3a6065b815ac58f4bc0838c3157 | 0x0000000000000000000000100000000000000000000000000000000080000003 | 0x0000000000000000000000100000000000000000000000000000000080000001 |
 | 0x8223727c8871616f647cb2758c647c4b42bd849cfee84a1e59dda0cadacd8961 | 0x100000000000000000000003e8000000064000000001138881082af81c201a2c | 0x100000000000000000000003e8000000064000000001138883082af81c200000 |
 | 0x8e0cc0f1f0504b4cb44a23b328568106915b169e79003737a7b094503cdbeeb2 | 0x0000000000000000000000008000000000000000000000000000000000000001 | 0x000000000000000000000000a000020000000000000000000000000000000001 |
@@ -383,6 +389,10 @@
       "collateralBitmap": {
         "from": "68719476736",
         "to": "68987912322"
+      },
+      "label": {
+        "from": "rsETH__ETH_wstETH_ETHx",
+        "to": "rsETH_wstETH_weETH_cbETH__WETH_ETHx"
       }
     }
   }

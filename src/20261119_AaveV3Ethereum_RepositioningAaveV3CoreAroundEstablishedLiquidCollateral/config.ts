@@ -18,6 +18,16 @@ export const config: ConfigFile = {
   marketOptions: {
     AaveV3Ethereum: {
       configs: {
+        EMODES_UPDATES: [
+          {
+            eModeCategory: 'AaveV3EthereumEModes.rsETH__WETH_wstETH_ETHx',
+            ltv: '',
+            liqThreshold: '',
+            liqBonus: '',
+            label: 'rsETH_wstETH_weETH_cbETH__WETH_ETHx',
+            isolated: 'KEEP_CURRENT',
+          },
+        ],
         EMODES_ASSETS: [
           {
             asset: 'wstETH',

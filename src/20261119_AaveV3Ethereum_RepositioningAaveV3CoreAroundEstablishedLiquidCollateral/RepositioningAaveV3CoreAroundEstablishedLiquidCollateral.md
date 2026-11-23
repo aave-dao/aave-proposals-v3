@@ -101,6 +101,8 @@ The reserve factor of each borrowable reserve on Core that is frozen, or frozen 
 | rsETH / ETH, wstETH, ETHx | rsETH                                         | WETH, wstETH, ETHx | wstETH, weETH, cbETH                    | wstETH             | 93% / 95% |
 | ETH correlated            | osETH, rETH, cbETH, wstETH, weETH, WETH, ETHx | WETH               | None (retained assets already included) | None               | 93% / 95% |
 
+The label of the rsETH E-Mode is updated to `rsETH_wstETH_weETH_cbETH__WETH_ETHx` to reflect its new collateral and borrowable assets.
+
 ## References
 
 - Implementation: [AaveV3Ethereum](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20261119_AaveV3Ethereum_RepositioningAaveV3CoreAroundEstablishedLiquidCollateral/AaveV3Ethereum_RepositioningAaveV3CoreAroundEstablishedLiquidCollateral_20261119.sol)

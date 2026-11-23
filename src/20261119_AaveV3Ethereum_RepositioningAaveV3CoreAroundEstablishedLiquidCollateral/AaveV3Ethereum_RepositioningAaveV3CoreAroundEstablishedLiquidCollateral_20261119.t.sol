@@ -182,14 +182,19 @@ contract AaveV3Ethereum_RepositioningAaveV3CoreAroundEstablishedLiquidCollateral
       'RSETH_EMODE_BORROWABLE'
     );
 
-    // ltvzero (rsETH only), parameters, label and isolated flag are unchanged
+    // ltvzero (rsETH only), parameters and isolated flag are unchanged
     assertEq(
       AaveV3Ethereum.POOL.getEModeCategoryLtvzeroBitmap(RSETH_EMODE),
       _bit(AaveV3EthereumAssets.rsETH_UNDERLYING)
     );
     _assertEModeCollateralConfig(RSETH_EMODE, 93_00, 95_00, 101_00);
-    assertEq(AaveV3Ethereum.POOL.getEModeCategoryLabel(RSETH_EMODE), 'rsETH__ETH_wstETH_ETHx');
     assertFalse(AaveV3Ethereum.POOL.getIsEModeCategoryIsolated(RSETH_EMODE));
+
+    // the label reflects the new collateral and borrowable assets
+    assertEq(
+      AaveV3Ethereum.POOL.getEModeCategoryLabel(RSETH_EMODE),
+      'rsETH_wstETH_weETH_cbETH__WETH_ETHx'
+    );
   }
 
   /// @dev frozen reserves get LTV 0 and ltvzero in their E-Modes, no other E-Mode bitmap moves

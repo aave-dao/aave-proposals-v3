@@ -30,6 +30,27 @@ contract AaveV3Ethereum_RepositioningAaveV3CoreAroundEstablishedLiquidCollateral
     AaveV3Ethereum.POOL_CONFIGURATOR.setReserveFreeze(AaveV3EthereumAssets.mUSD_UNDERLYING, true);
   }
 
+  function eModeCategoriesUpdates()
+    public
+    pure
+    override
+    returns (IAaveV3ConfigEngine.EModeCategoryUpdate[] memory)
+  {
+    IAaveV3ConfigEngine.EModeCategoryUpdate[]
+      memory eModeUpdates = new IAaveV3ConfigEngine.EModeCategoryUpdate[](1);
+
+    eModeUpdates[0] = IAaveV3ConfigEngine.EModeCategoryUpdate({
+      eModeCategory: AaveV3EthereumEModes.rsETH__WETH_wstETH_ETHx,
+      ltv: EngineFlags.KEEP_CURRENT,
+      liqThreshold: EngineFlags.KEEP_CURRENT,
+      liqBonus: EngineFlags.KEEP_CURRENT,
+      label: 'rsETH_wstETH_weETH_cbETH__WETH_ETHx',
+      isolated: EngineFlags.KEEP_CURRENT
+    });
+
+    return eModeUpdates;
+  }
+
   function assetsEModeUpdates()
     public
     pure
