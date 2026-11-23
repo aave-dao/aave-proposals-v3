@@ -22,6 +22,7 @@ contract AaveV3Monad_November2026FundingUpdate_20261118 is IProposalGenericExecu
   address public constant WMON = 0x3bd359C1119dA7Da1D913D1C4D2B7c461115433A;
 
   uint256 public constant AFC_GHO_ALLOWANCE = 250_000 ether;
+  uint256 public constant AFC_AGHO_ALLOWANCE = 250_000 ether;
 
   function execute() external {
     _afcAllowances();
@@ -34,12 +35,16 @@ contract AaveV3Monad_November2026FundingUpdate_20261118 is IProposalGenericExecu
       MiscMonad.AFC_SAFE,
       AFC_GHO_ALLOWANCE
     );
+    AaveV3Monad.COLLECTOR.approve(
+      IERC20(AaveV3MonadAssets.GHO_A_TOKEN),
+      MiscMonad.AFC_SAFE,
+      AFC_AGHO_ALLOWANCE
+    );
   }
 
   function _rescueGsmRewards() internal {
     IGsm gsm = IGsm(GhoMonad.GSM_USDC);
     uint256 amount = IERC20(WMON).balanceOf(address(gsm));
-    if (amount == 0) return;
 
     bytes32 rescuerRole = gsm.TOKEN_RESCUER_ROLE();
     IAccessControl(address(gsm)).grantRole(rescuerRole, GovernanceV3Monad.EXECUTOR_LVL_1);

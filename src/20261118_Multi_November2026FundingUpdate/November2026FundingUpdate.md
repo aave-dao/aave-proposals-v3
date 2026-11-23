@@ -32,7 +32,7 @@ The Collector holds around 1.3M of USDtb, USDG, EURC and sUSDe that the MainnetS
 
 ### Collector ETH
 
-The Collector holds around 121 ETH that is not earning yield. This publication wraps it into WETH and deposits it into the Core instance.
+The ETH held by the Collector is not earning yield. This publication wraps it into WETH and deposits it into the Core instance.
 
 ### GSM Merkl Rewards
 
@@ -64,18 +64,18 @@ The following bug bounty payments are to be processed to the researcher and Immu
 
 Asset: USDC `0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48`
 Amount: 1,000
-Spender: Researcher `0x0DDE46b923eB74F1860727914f179e82b9eE47B9`
+Recipient: Researcher `0x0DDE46b923eB74F1860727914f179e82b9eE47B9`
 
 Asset: USDC `0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48`
 Amount: 100
-Spender: Immunefi `0x7119f398b6C06095c6E8964C1f58e7C1BAa79E18`
+Recipient: Immunefi `0x7119f398b6C06095c6E8964C1f58e7C1BAa79E18`
 
 #### Deposit ETH
 
 Wrap the ETH held by the Collector into WETH and deposit it into the Core instance on the Collector's behalf.
 
 Asset: ETH, wrapped into WETH `0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2`
-Amount: the Collector's ETH balance at execution (120.86 at the time of writing)
+Amount: the Collector's ETH balance at execution
 Destination: Aave V3 Core, aEthWETH held by the Collector
 
 #### Expand MainnetSwapSteward
@@ -104,9 +104,13 @@ Spender: Ahab `0xAA2461f0f0A3dE5fEAF3273eAe16DEF861cf594e`
 
 ### Plasma
 
-Create a GHO Allowance for the AFC to bridge the GHO held on the Collector to Ethereum via CCIP.
+Create GHO and aPlaGHO Allowances for the AFC to bridge the GHO held on the Collector to Ethereum via CCIP. Part of the Collector's GHO is supplied to the pool as aPlaGHO, and there is no PoolExposureSteward on Plasma, so the AFC withdraws it before bridging.
 
 Asset: GHO `0xb77E872A68C62CfC0dFb02C067Ecc3DA23B4bbf3`
+Amount: 1M
+Spender: AFC `0x22740deBa78d5a0c24C58C740e3715ec29de1bFa`
+
+Asset: aPlaGHO `0xAd571979b4245E163A7E2119EB4dFd94AfDaebC5`
 Amount: 1M
 Spender: AFC `0x22740deBa78d5a0c24C58C740e3715ec29de1bFa`
 
@@ -118,9 +122,13 @@ On the GHO USDT GSM `0xd06114F714beCD6f373e5cE94E07278eF46eBF37`:
 
 ### Monad
 
-Create a GHO Allowance for the AFC to bridge the GHO held on the Collector to Ethereum via CCIP.
+Create GHO and aMonGHO Allowances for the AFC to bridge the GHO held on the Collector to Ethereum via CCIP. Part of the Collector's GHO is supplied to the pool as aMonGHO, and there is no PoolExposureSteward on Monad, so the AFC withdraws it before bridging.
 
 Asset: GHO `0xfc421aD3C883Bf9E7C4f42dE845C4e4405799e73`
+Amount: 250k
+Spender: AFC `0x22740deBa78d5a0c24C58C740e3715ec29de1bFa`
+
+Asset: aMonGHO `0x4586face17B0e3D4d51EcABb4B4EBC2354b61b0D`
 Amount: 250k
 Spender: AFC `0x22740deBa78d5a0c24C58C740e3715ec29de1bFa`
 
@@ -129,6 +137,8 @@ Prior to execution, the AFC will claim the Merkl rewards on behalf of the GHO US
 1. Grant `TOKEN_RESCUER_ROLE` to the Monad Executor Lvl 1 `0xa9d0EAFF48cE1DF468f9eAeb7e628c413343F6A2`.
 2. Call `rescueTokens(WMON, AFC, amount)`, with WMON `0x3bd359C1119dA7Da1D913D1C4D2B7c461115433A` and amount equal to the GSM's WMON balance at execution (1,458,970 accrued at the time of writing). Recipient: AFC `0x22740deBa78d5a0c24C58C740e3715ec29de1bFa`.
 3. Revoke `TOKEN_RESCUER_ROLE` from the Monad Executor.
+
+The payload reverts if the GSM holds no WMON, so it can only be executed once the rewards are claimed.
 
 ### Arbitrum
 

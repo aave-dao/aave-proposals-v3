@@ -7,6 +7,7 @@ import {AaveV3Monad, AaveV3MonadAssets} from 'aave-address-book/AaveV3Monad.sol'
 import {GovernanceV3Monad} from 'aave-address-book/GovernanceV3Monad.sol';
 import {GhoMonad} from 'aave-address-book/GhoMonad.sol';
 import {MiscMonad} from 'aave-address-book/MiscMonad.sol';
+import {GovV3Helpers} from 'aave-helpers/src/GovV3Helpers.sol';
 import {IGsm} from 'src/interfaces/IGsm.sol';
 
 import 'forge-std/Test.sol';
@@ -25,6 +26,8 @@ contract AaveV3Monad_November2026FundingUpdate_20261118_Test is ProtocolV3TestBa
   function setUp() public {
     vm.createSelectFork(vm.rpcUrl('monad'), 123343815);
     proposal = new AaveV3Monad_November2026FundingUpdate_20261118();
+    // rewards are claimed by the AFC before execution
+    deal(proposal.WMON(), GhoMonad.GSM_USDC, 1_458_970 ether);
   }
 
   /**
@@ -55,7 +58,15 @@ contract AaveV3Monad_November2026FundingUpdate_20261118_Test is ProtocolV3TestBa
         MiscMonad.AFC_SAFE
       ),
       0,
-      'AFC should have no allowance before execution'
+      'AFC should have no GHO allowance before execution'
+    );
+    assertEq(
+      IERC20(AaveV3MonadAssets.GHO_A_TOKEN).allowance(
+        address(AaveV3Monad.COLLECTOR),
+        MiscMonad.AFC_SAFE
+      ),
+      0,
+      'AFC should have no aGHO allowance before execution'
     );
 
     executePayload(vm, address(proposal));
@@ -66,17 +77,65 @@ contract AaveV3Monad_November2026FundingUpdate_20261118_Test is ProtocolV3TestBa
         MiscMonad.AFC_SAFE
       ),
       proposal.AFC_GHO_ALLOWANCE(),
-      'unexpected AFC allowance'
+      'unexpected AFC GHO allowance'
+    );
+    assertEq(
+      IERC20(AaveV3MonadAssets.GHO_A_TOKEN).allowance(
+        address(AaveV3Monad.COLLECTOR),
+        MiscMonad.AFC_SAFE
+      ),
+      proposal.AFC_AGHO_ALLOWANCE(),
+      'unexpected AFC aGHO allowance'
+    );
+  }
+
+  function test_afcCanWithdrawAGho() public {
+    executePayload(vm, address(proposal));
+
+    uint256 amount = IERC20(AaveV3MonadAssets.GHO_A_TOKEN).balanceOf(
+      address(AaveV3Monad.COLLECTOR)
+    );
+    assertGt(amount, 0, 'Collector should hold aGHO');
+    uint256 afcBalanceBefore = IERC20(AaveV3MonadAssets.GHO_UNDERLYING).balanceOf(
+      MiscMonad.AFC_SAFE
+    );
+    uint256 afcATokenBalanceBefore = IERC20(AaveV3MonadAssets.GHO_A_TOKEN).balanceOf(
+      MiscMonad.AFC_SAFE
+    );
+
+    vm.startPrank(MiscMonad.AFC_SAFE);
+    IERC20(AaveV3MonadAssets.GHO_A_TOKEN).transferFrom(
+      address(AaveV3Monad.COLLECTOR),
+      MiscMonad.AFC_SAFE,
+      amount
+    );
+    AaveV3Monad.POOL.withdraw(
+      AaveV3MonadAssets.GHO_UNDERLYING,
+      type(uint256).max,
+      MiscMonad.AFC_SAFE
+    );
+    vm.stopPrank();
+
+    assertApproxEqAbs(
+      IERC20(AaveV3MonadAssets.GHO_UNDERLYING).balanceOf(MiscMonad.AFC_SAFE),
+      afcBalanceBefore + afcATokenBalanceBefore + amount,
+      10,
+      'AFC should withdraw the aGHO as GHO'
     );
   }
 
   function test_rescueGsmRewards() public {
     IGsm gsm = IGsm(GhoMonad.GSM_USDC);
-    // rewards are claimed by the AFC before execution
-    deal(proposal.WMON(), address(gsm), 1_458_970 ether);
     uint256 gsmBalance = IERC20(proposal.WMON()).balanceOf(address(gsm));
     uint256 afcBalanceBefore = IERC20(proposal.WMON()).balanceOf(MiscMonad.AFC_SAFE);
     assertGt(gsmBalance, 0, 'GSM should hold rewards to rescue');
+    assertFalse(
+      IAccessControl(address(gsm)).hasRole(
+        gsm.TOKEN_RESCUER_ROLE(),
+        GovernanceV3Monad.EXECUTOR_LVL_1
+      ),
+      'executor should not hold the rescuer role before execution'
+    );
 
     executePayload(vm, address(proposal));
 
@@ -93,5 +152,13 @@ contract AaveV3Monad_November2026FundingUpdate_20261118_Test is ProtocolV3TestBa
       ),
       'executor should not keep the rescuer role'
     );
+  }
+
+  function test_rescueRevertsWithoutRewards() public {
+    deal(proposal.WMON(), GhoMonad.GSM_USDC, 0);
+    uint40 payloadId = GovV3Helpers.readyPayload(vm, address(proposal));
+
+    vm.expectRevert();
+    GovernanceV3Monad.PAYLOADS_CONTROLLER.executePayload(payloadId);
   }
 }

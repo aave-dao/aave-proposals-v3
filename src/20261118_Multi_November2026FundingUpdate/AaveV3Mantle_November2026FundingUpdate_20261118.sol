@@ -17,10 +17,6 @@ contract AaveV3Mantle_November2026FundingUpdate_20261118 is IProposalGenericExec
   uint256 public constant AFC_WETH_ALLOWANCE = 59 ether;
 
   function execute() external {
-    _afcAllowances();
-  }
-
-  function _afcAllowances() internal {
     AaveV3Mantle.COLLECTOR.approve(
       IERC20(AaveV3MantleAssets.USDT0_A_TOKEN),
       MiscMantle.AFC_SAFE,

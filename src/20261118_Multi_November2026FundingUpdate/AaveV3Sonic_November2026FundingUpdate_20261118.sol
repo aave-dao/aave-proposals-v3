@@ -16,10 +16,6 @@ contract AaveV3Sonic_November2026FundingUpdate_20261118 is IProposalGenericExecu
   uint256 public constant AFC_USDC_ALLOWANCE = 100_000e6;
 
   function execute() external {
-    _afcAllowances();
-  }
-
-  function _afcAllowances() internal {
     AaveV3Sonic.COLLECTOR.approve(
       IERC20(AaveV3SonicAssets.USDC_A_TOKEN),
       MiscSonic.AFC_SAFE,

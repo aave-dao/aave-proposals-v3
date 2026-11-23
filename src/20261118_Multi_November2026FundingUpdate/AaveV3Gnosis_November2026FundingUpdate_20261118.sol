@@ -18,10 +18,6 @@ contract AaveV3Gnosis_November2026FundingUpdate_20261118 is IProposalGenericExec
   uint256 public constant AFC_USDCE_ALLOWANCE = 41_000e6;
 
   function execute() external {
-    _afcAllowances();
-  }
-
-  function _afcAllowances() internal {
     AaveV3Gnosis.COLLECTOR.approve(
       IERC20(AaveV3GnosisAssets.WXDAI_A_TOKEN),
       MiscGnosis.AFC_SAFE,

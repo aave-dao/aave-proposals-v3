@@ -19,6 +19,7 @@ import {IGsm} from 'src/interfaces/IGsm.sol';
  */
 contract AaveV3Plasma_November2026FundingUpdate_20261118 is IProposalGenericExecutor {
   uint256 public constant AFC_GHO_ALLOWANCE = 1_000_000 ether;
+  uint256 public constant AFC_AGHO_ALLOWANCE = 1_000_000 ether;
 
   function execute() external {
     _afcAllowances();
@@ -31,12 +32,16 @@ contract AaveV3Plasma_November2026FundingUpdate_20261118 is IProposalGenericExec
       MiscPlasma.AFC_SAFE,
       AFC_GHO_ALLOWANCE
     );
+    AaveV3Plasma.COLLECTOR.approve(
+      IERC20(AaveV3PlasmaAssets.GHO_A_TOKEN),
+      MiscPlasma.AFC_SAFE,
+      AFC_AGHO_ALLOWANCE
+    );
   }
 
   function _rescueGsmRewards() internal {
     IGsm gsm = IGsm(GhoPlasma.GSM_USDT);
     uint256 amount = IERC20(AaveV3PlasmaAssets.WXPL_UNDERLYING).balanceOf(address(gsm));
-    if (amount == 0) return;
 
     bytes32 rescuerRole = gsm.TOKEN_RESCUER_ROLE();
     IAccessControl(address(gsm)).grantRole(rescuerRole, GovernanceV3Plasma.EXECUTOR_LVL_1);

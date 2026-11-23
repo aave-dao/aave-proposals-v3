@@ -19,7 +19,7 @@ contract AaveV3Ethereum_November2026FundingUpdate_20261118_Test is ProtocolV3Tes
   AaveV3Ethereum_November2026FundingUpdate_20261118 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 26443067);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 26479615);
     proposal = new AaveV3Ethereum_November2026FundingUpdate_20261118();
   }
 
@@ -49,10 +49,10 @@ contract AaveV3Ethereum_November2026FundingUpdate_20261118_Test is ProtocolV3Tes
       address(AaveV3Ethereum.COLLECTOR),
       MiscEthereum.V4_AUDIT_DAO_WALLET_SECURITY
     );
-    assertGt(
+    assertEq(
       allowanceBefore,
-      proposal.V4_AUDIT_GHO_ALLOWANCE(),
-      'V4 audit Safe allowance should be above the new amount before execution'
+      1_000_000 ether,
+      'unexpected V4 audit Safe allowance before execution'
     );
 
     executePayload(vm, address(proposal));
@@ -68,6 +68,15 @@ contract AaveV3Ethereum_November2026FundingUpdate_20261118_Test is ProtocolV3Tes
   }
 
   function test_cancelAhabGhoAllowance() public {
+    assertEq(
+      IERC20(AaveV3EthereumAssets.GHO_A_TOKEN).allowance(
+        address(AaveV3Ethereum.COLLECTOR),
+        MiscEthereum.AHAB_SAFE
+      ),
+      10_000_000 ether,
+      'unexpected Ahab aEthGHO allowance before execution'
+    );
+
     executePayload(vm, address(proposal));
 
     assertEq(

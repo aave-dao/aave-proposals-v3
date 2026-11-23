@@ -7,6 +7,7 @@ import {AaveV3Plasma, AaveV3PlasmaAssets} from 'aave-address-book/AaveV3Plasma.s
 import {GovernanceV3Plasma} from 'aave-address-book/GovernanceV3Plasma.sol';
 import {GhoPlasma} from 'aave-address-book/GhoPlasma.sol';
 import {MiscPlasma} from 'aave-address-book/MiscPlasma.sol';
+import {GovV3Helpers} from 'aave-helpers/src/GovV3Helpers.sol';
 import {IGsm} from 'src/interfaces/IGsm.sol';
 
 import 'forge-std/Test.sol';
@@ -53,7 +54,15 @@ contract AaveV3Plasma_November2026FundingUpdate_20261118_Test is ProtocolV3TestB
         MiscPlasma.AFC_SAFE
       ),
       0,
-      'AFC should have no allowance before execution'
+      'AFC should have no GHO allowance before execution'
+    );
+    assertEq(
+      IERC20(AaveV3PlasmaAssets.GHO_A_TOKEN).allowance(
+        address(AaveV3Plasma.COLLECTOR),
+        MiscPlasma.AFC_SAFE
+      ),
+      0,
+      'AFC should have no aGHO allowance before execution'
     );
 
     executePayload(vm, address(proposal));
@@ -64,7 +73,50 @@ contract AaveV3Plasma_November2026FundingUpdate_20261118_Test is ProtocolV3TestB
         MiscPlasma.AFC_SAFE
       ),
       proposal.AFC_GHO_ALLOWANCE(),
-      'unexpected AFC allowance'
+      'unexpected AFC GHO allowance'
+    );
+    assertEq(
+      IERC20(AaveV3PlasmaAssets.GHO_A_TOKEN).allowance(
+        address(AaveV3Plasma.COLLECTOR),
+        MiscPlasma.AFC_SAFE
+      ),
+      proposal.AFC_AGHO_ALLOWANCE(),
+      'unexpected AFC aGHO allowance'
+    );
+  }
+
+  function test_afcCanWithdrawAGho() public {
+    executePayload(vm, address(proposal));
+
+    uint256 amount = IERC20(AaveV3PlasmaAssets.GHO_A_TOKEN).balanceOf(
+      address(AaveV3Plasma.COLLECTOR)
+    );
+    assertGt(amount, 0, 'Collector should hold aGHO');
+    uint256 afcBalanceBefore = IERC20(AaveV3PlasmaAssets.GHO_UNDERLYING).balanceOf(
+      MiscPlasma.AFC_SAFE
+    );
+    uint256 afcATokenBalanceBefore = IERC20(AaveV3PlasmaAssets.GHO_A_TOKEN).balanceOf(
+      MiscPlasma.AFC_SAFE
+    );
+
+    vm.startPrank(MiscPlasma.AFC_SAFE);
+    IERC20(AaveV3PlasmaAssets.GHO_A_TOKEN).transferFrom(
+      address(AaveV3Plasma.COLLECTOR),
+      MiscPlasma.AFC_SAFE,
+      amount
+    );
+    AaveV3Plasma.POOL.withdraw(
+      AaveV3PlasmaAssets.GHO_UNDERLYING,
+      type(uint256).max,
+      MiscPlasma.AFC_SAFE
+    );
+    vm.stopPrank();
+
+    assertApproxEqAbs(
+      IERC20(AaveV3PlasmaAssets.GHO_UNDERLYING).balanceOf(MiscPlasma.AFC_SAFE),
+      afcBalanceBefore + afcATokenBalanceBefore + amount,
+      10,
+      'AFC should withdraw the aGHO as GHO'
     );
   }
 
@@ -75,6 +127,13 @@ contract AaveV3Plasma_November2026FundingUpdate_20261118_Test is ProtocolV3TestB
       MiscPlasma.AFC_SAFE
     );
     assertGt(gsmBalance, 0, 'GSM should hold rewards to rescue');
+    assertFalse(
+      IAccessControl(address(gsm)).hasRole(
+        gsm.TOKEN_RESCUER_ROLE(),
+        GovernanceV3Plasma.EXECUTOR_LVL_1
+      ),
+      'executor should not hold the rescuer role before execution'
+    );
 
     executePayload(vm, address(proposal));
 
@@ -95,5 +154,13 @@ contract AaveV3Plasma_November2026FundingUpdate_20261118_Test is ProtocolV3TestB
       ),
       'executor should not keep the rescuer role'
     );
+  }
+
+  function test_rescueRevertsWithoutRewards() public {
+    deal(AaveV3PlasmaAssets.WXPL_UNDERLYING, GhoPlasma.GSM_USDT, 0);
+    uint40 payloadId = GovV3Helpers.readyPayload(vm, address(proposal));
+
+    vm.expectRevert();
+    GovernanceV3Plasma.PAYLOADS_CONTROLLER.executePayload(payloadId);
   }
 }

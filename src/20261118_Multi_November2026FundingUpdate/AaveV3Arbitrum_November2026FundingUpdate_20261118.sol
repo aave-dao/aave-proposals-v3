@@ -16,10 +16,6 @@ contract AaveV3Arbitrum_November2026FundingUpdate_20261118 is IProposalGenericEx
   uint256 public constant AFC_GHO_ALLOWANCE = 50_000 ether;
 
   function execute() external {
-    _afcAllowances();
-  }
-
-  function _afcAllowances() internal {
     AaveV3Arbitrum.COLLECTOR.approve(
       IERC20(AaveV3ArbitrumAssets.GHO_UNDERLYING),
       MiscArbitrum.AFC_SAFE,
