@@ -6,6 +6,10 @@ import {AaveV3PayloadGnosis} from 'aave-helpers/src/v3-config-engine/AaveV3Paylo
 import {EngineFlags} from 'aave-v3-origin/contracts/extensions/v3-config-engine/EngineFlags.sol';
 import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config-engine/IAaveV3ConfigEngine.sol';
 
+uint256 constant EURe_RF = 15_00;
+uint256 constant USDCe_RF = 20_00;
+uint256 constant GNO_RF = 50_00;
+
 /**
  * @title Reserve Factor Updates Across Aave V3 and V2 Markets
  * @author @TokenLogic
@@ -26,19 +30,19 @@ contract AaveV3Gnosis_ReserveFactorUpdatesAcrossAaveV3AndV2Markets_20261111 is A
       asset: AaveV3GnosisAssets.EURe_UNDERLYING,
       enabledToBorrow: EngineFlags.KEEP_CURRENT,
       flashloanable: EngineFlags.KEEP_CURRENT,
-      reserveFactor: 15_00
+      reserveFactor: EURe_RF
     });
     borrowUpdates[1] = IAaveV3ConfigEngine.BorrowUpdate({
       asset: AaveV3GnosisAssets.USDCe_UNDERLYING,
       enabledToBorrow: EngineFlags.KEEP_CURRENT,
       flashloanable: EngineFlags.KEEP_CURRENT,
-      reserveFactor: 20_00
+      reserveFactor: USDCe_RF
     });
     borrowUpdates[2] = IAaveV3ConfigEngine.BorrowUpdate({
       asset: AaveV3GnosisAssets.GNO_UNDERLYING,
       enabledToBorrow: EngineFlags.KEEP_CURRENT,
       flashloanable: EngineFlags.KEEP_CURRENT,
-      reserveFactor: 50_00
+      reserveFactor: GNO_RF
     });
 
     return borrowUpdates;

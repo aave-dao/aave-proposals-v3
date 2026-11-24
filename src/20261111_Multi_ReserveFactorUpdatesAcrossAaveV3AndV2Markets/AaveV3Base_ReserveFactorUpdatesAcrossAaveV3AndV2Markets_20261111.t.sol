@@ -7,7 +7,7 @@ import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config
 
 import 'forge-std/Test.sol';
 import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/src/ProtocolV3TestBase.sol';
-import {AaveV3Base_ReserveFactorUpdatesAcrossAaveV3AndV2Markets_20261111} from './AaveV3Base_ReserveFactorUpdatesAcrossAaveV3AndV2Markets_20261111.sol';
+import {AaveV3Base_ReserveFactorUpdatesAcrossAaveV3AndV2Markets_20261111, cbBTC_RF, cbETH_RF, wstETH_RF, weETH_RF} from './AaveV3Base_ReserveFactorUpdatesAcrossAaveV3AndV2Markets_20261111.sol';
 
 /**
  * @dev Test for AaveV3Base_ReserveFactorUpdatesAcrossAaveV3AndV2Markets_20261111
@@ -60,25 +60,25 @@ contract AaveV3Base_ReserveFactorUpdatesAcrossAaveV3AndV2Markets_20261111_Test i
       asset: AaveV3BaseAssets.cbBTC_UNDERLYING,
       enabledToBorrow: EngineFlags.KEEP_CURRENT,
       flashloanable: EngineFlags.KEEP_CURRENT,
-      reserveFactor: 100_00
+      reserveFactor: cbBTC_RF
     });
     borrowUpdates[1] = IAaveV3ConfigEngine.BorrowUpdate({
       asset: AaveV3BaseAssets.cbETH_UNDERLYING,
       enabledToBorrow: EngineFlags.KEEP_CURRENT,
       flashloanable: EngineFlags.KEEP_CURRENT,
-      reserveFactor: 100_00
+      reserveFactor: cbETH_RF
     });
     borrowUpdates[2] = IAaveV3ConfigEngine.BorrowUpdate({
       asset: AaveV3BaseAssets.wstETH_UNDERLYING,
       enabledToBorrow: EngineFlags.KEEP_CURRENT,
       flashloanable: EngineFlags.KEEP_CURRENT,
-      reserveFactor: 100_00
+      reserveFactor: wstETH_RF
     });
     borrowUpdates[3] = IAaveV3ConfigEngine.BorrowUpdate({
       asset: AaveV3BaseAssets.weETH_UNDERLYING,
       enabledToBorrow: EngineFlags.KEEP_CURRENT,
       flashloanable: EngineFlags.KEEP_CURRENT,
-      reserveFactor: 100_00
+      reserveFactor: weETH_RF
     });
     return borrowUpdates;
   }

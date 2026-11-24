@@ -6,6 +6,14 @@ import {AaveV3PayloadAvalanche} from 'aave-helpers/src/v3-config-engine/AaveV3Pa
 import {EngineFlags} from 'aave-v3-origin/contracts/extensions/v3-config-engine/EngineFlags.sol';
 import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config-engine/IAaveV3ConfigEngine.sol';
 
+uint256 constant USDC_RF = 25_00;
+uint256 constant WAVAX_RF = 50_00;
+uint256 constant USDt_RF = 25_00;
+uint256 constant DAIe_RF = 90_00;
+uint256 constant WETHe_RF = 50_00;
+uint256 constant BTCb_RF = 100_00;
+uint256 constant WBTCe_RF = 100_00;
+
 /**
  * @title Reserve Factor Updates Across Aave V3 and V2 Markets
  * @author @TokenLogic
@@ -28,43 +36,43 @@ contract AaveV3Avalanche_ReserveFactorUpdatesAcrossAaveV3AndV2Markets_20261111 i
       asset: AaveV3AvalancheAssets.USDC_UNDERLYING,
       enabledToBorrow: EngineFlags.KEEP_CURRENT,
       flashloanable: EngineFlags.KEEP_CURRENT,
-      reserveFactor: 25_00
+      reserveFactor: USDC_RF
     });
     borrowUpdates[1] = IAaveV3ConfigEngine.BorrowUpdate({
       asset: AaveV3AvalancheAssets.WAVAX_UNDERLYING,
       enabledToBorrow: EngineFlags.KEEP_CURRENT,
       flashloanable: EngineFlags.KEEP_CURRENT,
-      reserveFactor: 50_00
+      reserveFactor: WAVAX_RF
     });
     borrowUpdates[2] = IAaveV3ConfigEngine.BorrowUpdate({
       asset: AaveV3AvalancheAssets.USDt_UNDERLYING,
       enabledToBorrow: EngineFlags.KEEP_CURRENT,
       flashloanable: EngineFlags.KEEP_CURRENT,
-      reserveFactor: 25_00
+      reserveFactor: USDt_RF
     });
     borrowUpdates[3] = IAaveV3ConfigEngine.BorrowUpdate({
       asset: AaveV3AvalancheAssets.DAIe_UNDERLYING,
       enabledToBorrow: EngineFlags.KEEP_CURRENT,
       flashloanable: EngineFlags.KEEP_CURRENT,
-      reserveFactor: 90_00
+      reserveFactor: DAIe_RF
     });
     borrowUpdates[4] = IAaveV3ConfigEngine.BorrowUpdate({
       asset: AaveV3AvalancheAssets.WETHe_UNDERLYING,
       enabledToBorrow: EngineFlags.KEEP_CURRENT,
       flashloanable: EngineFlags.KEEP_CURRENT,
-      reserveFactor: 50_00
+      reserveFactor: WETHe_RF
     });
     borrowUpdates[5] = IAaveV3ConfigEngine.BorrowUpdate({
       asset: AaveV3AvalancheAssets.BTCb_UNDERLYING,
       enabledToBorrow: EngineFlags.KEEP_CURRENT,
       flashloanable: EngineFlags.KEEP_CURRENT,
-      reserveFactor: 100_00
+      reserveFactor: BTCb_RF
     });
     borrowUpdates[6] = IAaveV3ConfigEngine.BorrowUpdate({
       asset: AaveV3AvalancheAssets.WBTCe_UNDERLYING,
       enabledToBorrow: EngineFlags.KEEP_CURRENT,
       flashloanable: EngineFlags.KEEP_CURRENT,
-      reserveFactor: 100_00
+      reserveFactor: WBTCe_RF
     });
 
     return borrowUpdates;

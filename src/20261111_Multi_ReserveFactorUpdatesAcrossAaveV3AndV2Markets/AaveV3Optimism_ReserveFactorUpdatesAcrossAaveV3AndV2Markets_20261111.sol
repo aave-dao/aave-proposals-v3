@@ -6,6 +6,12 @@ import {AaveV3PayloadOptimism} from 'aave-helpers/src/v3-config-engine/AaveV3Pay
 import {EngineFlags} from 'aave-v3-origin/contracts/extensions/v3-config-engine/EngineFlags.sol';
 import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config-engine/IAaveV3ConfigEngine.sol';
 
+uint256 constant USDCn_RF = 15_00;
+uint256 constant WETH_RF = 20_00;
+uint256 constant USDT_RF = 15_00;
+uint256 constant WBTC_RF = 100_00;
+uint256 constant wstETH_RF = 100_00;
+
 /**
  * @title Reserve Factor Updates Across Aave V3 and V2 Markets
  * @author @TokenLogic
@@ -28,31 +34,31 @@ contract AaveV3Optimism_ReserveFactorUpdatesAcrossAaveV3AndV2Markets_20261111 is
       asset: AaveV3OptimismAssets.USDCn_UNDERLYING,
       enabledToBorrow: EngineFlags.KEEP_CURRENT,
       flashloanable: EngineFlags.KEEP_CURRENT,
-      reserveFactor: 15_00
+      reserveFactor: USDCn_RF
     });
     borrowUpdates[1] = IAaveV3ConfigEngine.BorrowUpdate({
       asset: AaveV3OptimismAssets.WETH_UNDERLYING,
       enabledToBorrow: EngineFlags.KEEP_CURRENT,
       flashloanable: EngineFlags.KEEP_CURRENT,
-      reserveFactor: 20_00
+      reserveFactor: WETH_RF
     });
     borrowUpdates[2] = IAaveV3ConfigEngine.BorrowUpdate({
       asset: AaveV3OptimismAssets.USDT_UNDERLYING,
       enabledToBorrow: EngineFlags.KEEP_CURRENT,
       flashloanable: EngineFlags.KEEP_CURRENT,
-      reserveFactor: 15_00
+      reserveFactor: USDT_RF
     });
     borrowUpdates[3] = IAaveV3ConfigEngine.BorrowUpdate({
       asset: AaveV3OptimismAssets.WBTC_UNDERLYING,
       enabledToBorrow: EngineFlags.KEEP_CURRENT,
       flashloanable: EngineFlags.KEEP_CURRENT,
-      reserveFactor: 100_00
+      reserveFactor: WBTC_RF
     });
     borrowUpdates[4] = IAaveV3ConfigEngine.BorrowUpdate({
       asset: AaveV3OptimismAssets.wstETH_UNDERLYING,
       enabledToBorrow: EngineFlags.KEEP_CURRENT,
       flashloanable: EngineFlags.KEEP_CURRENT,
-      reserveFactor: 100_00
+      reserveFactor: wstETH_RF
     });
 
     return borrowUpdates;

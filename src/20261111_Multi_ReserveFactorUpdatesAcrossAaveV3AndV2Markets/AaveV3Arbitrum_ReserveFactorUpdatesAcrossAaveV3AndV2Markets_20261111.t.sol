@@ -7,7 +7,7 @@ import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config
 
 import 'forge-std/Test.sol';
 import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/src/ProtocolV3TestBase.sol';
-import {AaveV3Arbitrum_ReserveFactorUpdatesAcrossAaveV3AndV2Markets_20261111} from './AaveV3Arbitrum_ReserveFactorUpdatesAcrossAaveV3AndV2Markets_20261111.sol';
+import {AaveV3Arbitrum_ReserveFactorUpdatesAcrossAaveV3AndV2Markets_20261111, WBTC_RF, ARB_RF, LINK_RF, weETH_RF} from './AaveV3Arbitrum_ReserveFactorUpdatesAcrossAaveV3AndV2Markets_20261111.sol';
 
 /**
  * @dev Test for AaveV3Arbitrum_ReserveFactorUpdatesAcrossAaveV3AndV2Markets_20261111
@@ -60,25 +60,25 @@ contract AaveV3Arbitrum_ReserveFactorUpdatesAcrossAaveV3AndV2Markets_20261111_Te
       asset: AaveV3ArbitrumAssets.WBTC_UNDERLYING,
       enabledToBorrow: EngineFlags.KEEP_CURRENT,
       flashloanable: EngineFlags.KEEP_CURRENT,
-      reserveFactor: 100_00
+      reserveFactor: WBTC_RF
     });
     borrowUpdates[1] = IAaveV3ConfigEngine.BorrowUpdate({
       asset: AaveV3ArbitrumAssets.ARB_UNDERLYING,
       enabledToBorrow: EngineFlags.KEEP_CURRENT,
       flashloanable: EngineFlags.KEEP_CURRENT,
-      reserveFactor: 50_00
+      reserveFactor: ARB_RF
     });
     borrowUpdates[2] = IAaveV3ConfigEngine.BorrowUpdate({
       asset: AaveV3ArbitrumAssets.LINK_UNDERLYING,
       enabledToBorrow: EngineFlags.KEEP_CURRENT,
       flashloanable: EngineFlags.KEEP_CURRENT,
-      reserveFactor: 50_00
+      reserveFactor: LINK_RF
     });
     borrowUpdates[3] = IAaveV3ConfigEngine.BorrowUpdate({
       asset: AaveV3ArbitrumAssets.weETH_UNDERLYING,
       enabledToBorrow: EngineFlags.KEEP_CURRENT,
       flashloanable: EngineFlags.KEEP_CURRENT,
-      reserveFactor: 100_00
+      reserveFactor: weETH_RF
     });
     return borrowUpdates;
   }

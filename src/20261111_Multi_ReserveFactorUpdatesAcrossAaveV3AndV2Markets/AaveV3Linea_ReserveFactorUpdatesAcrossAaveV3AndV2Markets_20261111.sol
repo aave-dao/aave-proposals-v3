@@ -6,6 +6,9 @@ import {AaveV3PayloadLinea} from 'aave-helpers/src/v3-config-engine/AaveV3Payloa
 import {EngineFlags} from 'aave-v3-origin/contracts/extensions/v3-config-engine/EngineFlags.sol';
 import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config-engine/IAaveV3ConfigEngine.sol';
 
+uint256 constant WETH_RF = 20_00;
+uint256 constant USDC_RF = 15_00;
+
 /**
  * @title Reserve Factor Updates Across Aave V3 and V2 Markets
  * @author @TokenLogic
@@ -26,13 +29,13 @@ contract AaveV3Linea_ReserveFactorUpdatesAcrossAaveV3AndV2Markets_20261111 is Aa
       asset: AaveV3LineaAssets.WETH_UNDERLYING,
       enabledToBorrow: EngineFlags.KEEP_CURRENT,
       flashloanable: EngineFlags.KEEP_CURRENT,
-      reserveFactor: 20_00
+      reserveFactor: WETH_RF
     });
     borrowUpdates[1] = IAaveV3ConfigEngine.BorrowUpdate({
       asset: AaveV3LineaAssets.USDC_UNDERLYING,
       enabledToBorrow: EngineFlags.KEEP_CURRENT,
       flashloanable: EngineFlags.KEEP_CURRENT,
-      reserveFactor: 15_00
+      reserveFactor: USDC_RF
     });
 
     return borrowUpdates;

@@ -7,7 +7,7 @@ import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config
 
 import 'forge-std/Test.sol';
 import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/src/ProtocolV3TestBase.sol';
-import {AaveV3Optimism_ReserveFactorUpdatesAcrossAaveV3AndV2Markets_20261111} from './AaveV3Optimism_ReserveFactorUpdatesAcrossAaveV3AndV2Markets_20261111.sol';
+import {AaveV3Optimism_ReserveFactorUpdatesAcrossAaveV3AndV2Markets_20261111, USDCn_RF, WETH_RF, USDT_RF, WBTC_RF, wstETH_RF} from './AaveV3Optimism_ReserveFactorUpdatesAcrossAaveV3AndV2Markets_20261111.sol';
 
 /**
  * @dev Test for AaveV3Optimism_ReserveFactorUpdatesAcrossAaveV3AndV2Markets_20261111
@@ -61,31 +61,31 @@ contract AaveV3Optimism_ReserveFactorUpdatesAcrossAaveV3AndV2Markets_20261111_Te
       asset: AaveV3OptimismAssets.USDCn_UNDERLYING,
       enabledToBorrow: EngineFlags.KEEP_CURRENT,
       flashloanable: EngineFlags.KEEP_CURRENT,
-      reserveFactor: 15_00
+      reserveFactor: USDCn_RF
     });
     borrowUpdates[1] = IAaveV3ConfigEngine.BorrowUpdate({
       asset: AaveV3OptimismAssets.WETH_UNDERLYING,
       enabledToBorrow: EngineFlags.KEEP_CURRENT,
       flashloanable: EngineFlags.KEEP_CURRENT,
-      reserveFactor: 20_00
+      reserveFactor: WETH_RF
     });
     borrowUpdates[2] = IAaveV3ConfigEngine.BorrowUpdate({
       asset: AaveV3OptimismAssets.USDT_UNDERLYING,
       enabledToBorrow: EngineFlags.KEEP_CURRENT,
       flashloanable: EngineFlags.KEEP_CURRENT,
-      reserveFactor: 15_00
+      reserveFactor: USDT_RF
     });
     borrowUpdates[3] = IAaveV3ConfigEngine.BorrowUpdate({
       asset: AaveV3OptimismAssets.WBTC_UNDERLYING,
       enabledToBorrow: EngineFlags.KEEP_CURRENT,
       flashloanable: EngineFlags.KEEP_CURRENT,
-      reserveFactor: 100_00
+      reserveFactor: WBTC_RF
     });
     borrowUpdates[4] = IAaveV3ConfigEngine.BorrowUpdate({
       asset: AaveV3OptimismAssets.wstETH_UNDERLYING,
       enabledToBorrow: EngineFlags.KEEP_CURRENT,
       flashloanable: EngineFlags.KEEP_CURRENT,
-      reserveFactor: 100_00
+      reserveFactor: wstETH_RF
     });
     return borrowUpdates;
   }

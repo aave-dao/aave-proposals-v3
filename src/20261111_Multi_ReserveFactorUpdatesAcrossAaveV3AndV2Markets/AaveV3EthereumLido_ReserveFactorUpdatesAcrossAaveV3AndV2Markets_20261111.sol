@@ -6,6 +6,8 @@ import {AaveV3PayloadEthereumLido} from 'aave-helpers/src/v3-config-engine/AaveV
 import {EngineFlags} from 'aave-v3-origin/contracts/extensions/v3-config-engine/EngineFlags.sol';
 import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config-engine/IAaveV3ConfigEngine.sol';
 
+uint256 constant wstETH_RF = 50_00;
+
 /**
  * @title Reserve Factor Updates Across Aave V3 and V2 Markets
  * @author @TokenLogic
@@ -28,7 +30,7 @@ contract AaveV3EthereumLido_ReserveFactorUpdatesAcrossAaveV3AndV2Markets_2026111
       asset: AaveV3EthereumLidoAssets.wstETH_UNDERLYING,
       enabledToBorrow: EngineFlags.KEEP_CURRENT,
       flashloanable: EngineFlags.KEEP_CURRENT,
-      reserveFactor: 50_00
+      reserveFactor: wstETH_RF
     });
 
     return borrowUpdates;

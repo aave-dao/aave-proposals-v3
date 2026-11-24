@@ -7,7 +7,7 @@ import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config
 
 import 'forge-std/Test.sol';
 import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/src/ProtocolV3TestBase.sol';
-import {AaveV3Gnosis_ReserveFactorUpdatesAcrossAaveV3AndV2Markets_20261111} from './AaveV3Gnosis_ReserveFactorUpdatesAcrossAaveV3AndV2Markets_20261111.sol';
+import {AaveV3Gnosis_ReserveFactorUpdatesAcrossAaveV3AndV2Markets_20261111, EURe_RF, USDCe_RF, GNO_RF} from './AaveV3Gnosis_ReserveFactorUpdatesAcrossAaveV3AndV2Markets_20261111.sol';
 
 /**
  * @dev Test for AaveV3Gnosis_ReserveFactorUpdatesAcrossAaveV3AndV2Markets_20261111
@@ -59,19 +59,19 @@ contract AaveV3Gnosis_ReserveFactorUpdatesAcrossAaveV3AndV2Markets_20261111_Test
       asset: AaveV3GnosisAssets.EURe_UNDERLYING,
       enabledToBorrow: EngineFlags.KEEP_CURRENT,
       flashloanable: EngineFlags.KEEP_CURRENT,
-      reserveFactor: 15_00
+      reserveFactor: EURe_RF
     });
     borrowUpdates[1] = IAaveV3ConfigEngine.BorrowUpdate({
       asset: AaveV3GnosisAssets.USDCe_UNDERLYING,
       enabledToBorrow: EngineFlags.KEEP_CURRENT,
       flashloanable: EngineFlags.KEEP_CURRENT,
-      reserveFactor: 20_00
+      reserveFactor: USDCe_RF
     });
     borrowUpdates[2] = IAaveV3ConfigEngine.BorrowUpdate({
       asset: AaveV3GnosisAssets.GNO_UNDERLYING,
       enabledToBorrow: EngineFlags.KEEP_CURRENT,
       flashloanable: EngineFlags.KEEP_CURRENT,
-      reserveFactor: 50_00
+      reserveFactor: GNO_RF
     });
     return borrowUpdates;
   }

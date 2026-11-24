@@ -6,6 +6,9 @@ import {AaveV3PayloadBNB} from 'aave-helpers/src/v3-config-engine/AaveV3PayloadB
 import {EngineFlags} from 'aave-v3-origin/contracts/extensions/v3-config-engine/EngineFlags.sol';
 import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config-engine/IAaveV3ConfigEngine.sol';
 
+uint256 constant ETH_RF = 25_00;
+uint256 constant BTCB_RF = 100_00;
+
 /**
  * @title Reserve Factor Updates Across Aave V3 and V2 Markets
  * @author @TokenLogic
@@ -26,13 +29,13 @@ contract AaveV3BNB_ReserveFactorUpdatesAcrossAaveV3AndV2Markets_20261111 is Aave
       asset: AaveV3BNBAssets.ETH_UNDERLYING,
       enabledToBorrow: EngineFlags.KEEP_CURRENT,
       flashloanable: EngineFlags.KEEP_CURRENT,
-      reserveFactor: 25_00
+      reserveFactor: ETH_RF
     });
     borrowUpdates[1] = IAaveV3ConfigEngine.BorrowUpdate({
       asset: AaveV3BNBAssets.BTCB_UNDERLYING,
       enabledToBorrow: EngineFlags.KEEP_CURRENT,
       flashloanable: EngineFlags.KEEP_CURRENT,
-      reserveFactor: 100_00
+      reserveFactor: BTCB_RF
     });
 
     return borrowUpdates;
