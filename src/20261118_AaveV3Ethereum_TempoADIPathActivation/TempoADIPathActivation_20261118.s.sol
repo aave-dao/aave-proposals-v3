@@ -6,8 +6,7 @@ import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
 
 import {EthereumScript} from 'solidity-utils/contracts/utils/ScriptUtils.sol';
 
-// TODO(tempo): Ethereum payload deployed from aave-dao/adi-deploy; it enables the Ethereum -> Tempo (4217) adapters on the Ethereum CrossChainController
-address constant PAYLOAD = address(0);
+address constant PAYLOAD = 0x648E4aEc794213F42b5E839Ab409f7f14cb399DB;
 
 /**
  * @dev Deploy Ethereum
