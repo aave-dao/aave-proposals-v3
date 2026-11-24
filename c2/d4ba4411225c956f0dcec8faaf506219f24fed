@@ -1,0 +1,14 @@
+tests/utils/horizon/HorizonConfigAssertionHelper.sol
+  h_5f4a69ef285bfa 21-22
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.6",
+  "base_commit_sha": "c2d4ba4411225c956f0dcec8faaf506219f24fed",
+  "prompts": {},
+  "humans": {
+    "h_5f4a69ef285bfa": {
+      "author": "Prince <sinhaprince013@gmail.com>"
+    }
+  }
+}

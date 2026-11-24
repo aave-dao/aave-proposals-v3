@@ -1,0 +1,27 @@
+src/20261119_AaveV4Ethereum_OnboardNativeBTCViaBabylon/AaveV4Ethereum_OnboardNativeBTCViaBabylon_20261119.sol
+  s_477c0d90c4846f::t_00ebbece2810ee 17,77-78,82,89
+src/20261119_AaveV4Ethereum_OnboardNativeBTCViaBabylon/AaveV4Ethereum_OnboardNativeBTCViaBabylon_20261119.t.sol
+  s_477c0d90c4846f::t_3320b2767b1a10 424,426-428,432-433,437-438
+src/20261119_AaveV4Ethereum_OnboardNativeBTCViaBabylon/BabylonLaunchReadiness.t.sol
+  s_477c0d90c4846f::t_41d8f766b74d5e 9,43,45
+src/20261119_AaveV4Ethereum_OnboardNativeBTCViaBabylon/BabylonTestBase.sol
+  s_477c0d90c4846f::t_a7103771ffd025 17,82-83,85,87
+src/interfaces/babylon/AaveAdapterRoles.sol
+  s_477c0d90c4846f::t_3ca8029c3440a9 1-14
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "56eac1fdeea0a6558b3601663a225792ecd79b74",
+  "prompts": {},
+  "sessions": {
+    "s_477c0d90c4846f": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "9de15bb6-ef2d-4870-b4ab-7a2a27701508",
+        "model": "claude-fable-5-2"
+      },
+      "human_author": "Alexandru Niculae <43644109+avniculae@users.noreply.github.com>"
+    }
+  }
+}
