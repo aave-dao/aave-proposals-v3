@@ -1,0 +1,135 @@
+src/20260915_Multi_OracleDeprecationForLongTailAssets/AaveV3Ethereum_OracleDeprecationForLongTailAssets_20260915.sol
+  s_fcf886f510ff24::t_13e9b138119c54 9-10,23,45,48,50,52,76,79,81,83,151-241
+  s_fcf886f510ff24::t_9e564c8fcb8178 25-44,49,80
+  s_fcf886f510ff24::t_bf3cdcfd2b90e6 1-8,11-22,24,46-47,51,53-75,77-78,82,84-150,242
+src/20260915_Multi_OracleDeprecationForLongTailAssets/AaveV3Avalanche_OracleDeprecationForLongTailAssets_20260915.sol
+  s_fcf886f510ff24::t_9e564c8fcb8178 22-29,34
+  s_fcf886f510ff24::t_13e9b138119c54 9-10,20,30,33,35,37,60-90
+  s_fcf886f510ff24::t_98aac5e541f7a8 1-8,11-19,21,31-32,36,38-59,91
+src/20260915_Multi_OracleDeprecationForLongTailAssets/AaveV3Arbitrum_OracleDeprecationForLongTailAssets_20260915.t.sol
+  s_fcf886f510ff24::t_88d42a11c34e01 14-15,35,41,103-106,108-115,117-124,126-131
+  s_fcf886f510ff24::t_504546ee01c237 16-17,28,42-43,54,69,79,132-211
+  s_fcf886f510ff24::t_13e9b138119c54 12-13,40
+  s_fcf886f510ff24::t_9e564c8fcb8178 75-78
+  s_fcf886f510ff24::t_fba5936c89d2eb 1-11,18-27,29-34,36-39,44-53,55-68,70-74,80-102,107,116,125,212
+src/20260915_Multi_OracleDeprecationForLongTailAssets/AaveV3Optimism_OracleDeprecationForLongTailAssets_20260915.sol
+  s_fcf886f510ff24::t_9e564c8fcb8178 23-30,35
+  s_fcf886f510ff24::t_13e9b138119c54 9-10,21,31,34,36,38,70-111
+  s_fcf886f510ff24::t_d90bd08413542f 1-8,11-20,22,32-33,37,39-69,112
+src/20260915_Multi_OracleDeprecationForLongTailAssets/AaveV3Celo_OracleDeprecationForLongTailAssets_20260915.t.sol
+  s_fcf886f510ff24::t_13e9b138119c54 12-13,40
+  s_fcf886f510ff24::t_88d42a11c34e01 14-15,35,41,93-96,98-103
+  s_fcf886f510ff24::t_9e564c8fcb8178 71-74
+  s_fcf886f510ff24::t_504546ee01c237 16-17,28,42-43,52,65,75,104-137
+  s_fcf886f510ff24::t_ed81ef0891ac68 1-11,18-27,29-34,36-39,44-51,53-64,66-70,76-92,97,138
+src/20260915_Multi_OracleDeprecationForLongTailAssets/AaveV2Polygon_OracleDeprecationForLongTailAssets_20260915.t.sol
+  s_fcf886f510ff24::t_6140fc1b37bb96 12
+  s_fcf886f510ff24::t_88d42a11c34e01 14-15,35,41,43-110
+  s_fcf886f510ff24::t_504546ee01c237 16-17,28,42,111-152
+  s_fcf886f510ff24::t_13e9b138119c54 4-11,13,40
+  s_fcf886f510ff24::t_dcb9f141de0e52 1-3,18-27,29-34,36-39,153
+src/20260915_Multi_OracleDeprecationForLongTailAssets/AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915.t.sol
+  s_fcf886f510ff24::t_13e9b138119c54 4-11,13,40
+  s_fcf886f510ff24::t_504546ee01c237 16-17,28,42,466-693
+  s_fcf886f510ff24::t_88d42a11c34e01 14-15,35,41,43-465
+  s_fcf886f510ff24::t_6140fc1b37bb96 12
+  s_fcf886f510ff24::t_f1423a6dd6cb8a 1-3,18-27,29-34,36-39,694
+src/20260915_Multi_OracleDeprecationForLongTailAssets/AaveV3Optimism_OracleDeprecationForLongTailAssets_20260915.t.sol
+  s_fcf886f510ff24::t_13e9b138119c54 11-12,39
+  s_fcf886f510ff24::t_9e564c8fcb8178 74-77
+  s_fcf886f510ff24::t_88d42a11c34e01 13-14,34,40,78-81,83-90,92-99,101-106
+  s_fcf886f510ff24::t_504546ee01c237 15-16,27,41-42,53,68,107-182
+  s_fcf886f510ff24::t_018093bd7b98a5 1-10,17-26,28-33,35-38,43-52,54-67,69-73,82,91,100,183
+src/20260915_Multi_OracleDeprecationForLongTailAssets/AaveV3Polygon_OracleDeprecationForLongTailAssets_20260915.t.sol
+  s_fcf886f510ff24::t_88d42a11c34e01 13-14,34,40,94-97,99-106,108-115,117-122
+  s_fcf886f510ff24::t_504546ee01c237 15-16,27,41-42,53,64,123-198
+  s_fcf886f510ff24::t_13e9b138119c54 11-12,39,77-93
+  s_fcf886f510ff24::t_9e564c8fcb8178 59-63
+  s_fcf886f510ff24::t_67dd8fddfd95d4 1-10,17-26,28-33,35-38,43-52,54-58,65-76,98,107,116,199
+src/20260915_Multi_OracleDeprecationForLongTailAssets/config.ts
+  s_fcf886f510ff24::t_13e9b138119c54 1-2
+  s_fcf886f510ff24::t_9e564c8fcb8178 173-405
+  s_fcf886f510ff24::t_f8f6d170cfb864 3-172,406-497
+src/20260915_Multi_OracleDeprecationForLongTailAssets/AaveV3Scroll_OracleDeprecationForLongTailAssets_20260915.sol
+  s_fcf886f510ff24::t_13e9b138119c54 9-58
+  s_fcf886f510ff24::t_9febc56efd5fe2 1-8,59
+src/20260915_Multi_OracleDeprecationForLongTailAssets/AaveV3Avalanche_OracleDeprecationForLongTailAssets_20260915.t.sol
+  s_fcf886f510ff24::t_88d42a11c34e01 13-14,34,40,75-78,80-87,89-94
+  s_fcf886f510ff24::t_504546ee01c237 15-16,27,41-42,52,65,95-148
+  s_fcf886f510ff24::t_13e9b138119c54 11-12,39
+  s_fcf886f510ff24::t_9e564c8fcb8178 71-74
+  s_fcf886f510ff24::t_12f741576ec036 1-10,17-26,28-33,35-38,43-51,53-64,66-70,79,88,149
+src/20260915_Multi_OracleDeprecationForLongTailAssets/AaveV3Celo_OracleDeprecationForLongTailAssets_20260915.sol
+  s_fcf886f510ff24::t_13e9b138119c54 9-10,20,30,33,35,37,49,52,54,56,70-89
+  s_fcf886f510ff24::t_9e564c8fcb8178 22-29,34,53
+  s_fcf886f510ff24::t_55ccccbd41e1af 1-8,11-19,21,31-32,36,38-48,50-51,55,57-69,90
+src/20260915_Multi_OracleDeprecationForLongTailAssets/DeprecationPriceAdapter.sol
+  s_fcf886f510ff24::t_6140fc1b37bb96 4
+  s_fcf886f510ff24::t_13e9b138119c54 1-3,5-29
+src/20260915_Multi_OracleDeprecationForLongTailAssets/AaveV3EthereumEtherFi_OracleDeprecationForLongTailAssets_20260915.t.sol
+  s_fcf886f510ff24::t_504546ee01c237 15-16,29,43-44,53,66,86-120
+  s_fcf886f510ff24::t_9e564c8fcb8178 72-74
+  s_fcf886f510ff24::t_88d42a11c34e01 13-14,36,42,75-78,80-85
+  s_fcf886f510ff24::t_13e9b138119c54 11-12,41
+  s_fcf886f510ff24::t_307120d2f2c2d2 1-10,17-28,30-35,37-40,45-52,54-65,67-71,79,121
+src/20260915_Multi_OracleDeprecationForLongTailAssets/DeprecationPriceAdapter.t.sol
+  s_fcf886f510ff24::t_88d42a11c34e01 1-3,5-53
+  s_fcf886f510ff24::t_6140fc1b37bb96 4
+src/20260915_Multi_OracleDeprecationForLongTailAssets/AaveV3EthereumEtherFi_OracleDeprecationForLongTailAssets_20260915.sol
+  s_fcf886f510ff24::t_9e564c8fcb8178 27-33,38
+  s_fcf886f510ff24::t_13e9b138119c54 9-10,22,24-25,34,37,39,41,55-74
+  s_fcf886f510ff24::t_e3c69e44d7a884 1-8,11-21,23,26,35-36,40,42-54,75
+src/20260915_Multi_OracleDeprecationForLongTailAssets/AaveV2Polygon_OracleDeprecationForLongTailAssets_20260915.sol
+  s_fcf886f510ff24::t_dc6b96923dfac6 4
+  s_fcf886f510ff24::t_13e9b138119c54 10-84
+  s_fcf886f510ff24::t_fc3f6a2fedf12f 1-3,5-9,85
+src/20260915_Multi_OracleDeprecationForLongTailAssets/AaveV2Ethereum_OracleDeprecationForLongTailAssets_20260915.sol
+  s_fcf886f510ff24::t_13e9b138119c54 10-304
+  s_fcf886f510ff24::t_dc6b96923dfac6 4
+  s_fcf886f510ff24::t_d0ed32136f778b 1-3,5-9,305
+src/20260915_Multi_OracleDeprecationForLongTailAssets/AaveV3Ethereum_OracleDeprecationForLongTailAssets_20260915.t.sol
+  s_fcf886f510ff24::t_88d42a11c34e01 14-15,35,41,136-139,141-148,150-157,159-166,168-175,177-184,186-193,195-200
+  s_fcf886f510ff24::t_13e9b138119c54 12-13,40,129-135
+  s_fcf886f510ff24::t_504546ee01c237 16-17,28,42-43,58,77,99,201-370
+  s_fcf886f510ff24::t_9e564c8fcb8178 83-98
+  s_fcf886f510ff24::t_619dfe5758d7ca 1-11,18-27,29-34,36-39,44-57,59-76,78-82,100-128,140,149,158,167,176,185,194,371
+src/20260915_Multi_OracleDeprecationForLongTailAssets/AaveV3Polygon_OracleDeprecationForLongTailAssets_20260915.sol
+  s_fcf886f510ff24::t_9e564c8fcb8178 22-30,35
+  s_fcf886f510ff24::t_13e9b138119c54 9-10,20,31,34,36,38,70-122
+  s_fcf886f510ff24::t_82adb670ef0506 1-8,11-19,21,32-33,37,39-69,123
+src/20260915_Multi_OracleDeprecationForLongTailAssets/AaveV3Arbitrum_OracleDeprecationForLongTailAssets_20260915.sol
+  s_fcf886f510ff24::t_13e9b138119c54 9-10,21,31,34,36,38,56,59,61,63,95-136
+  s_fcf886f510ff24::t_9e564c8fcb8178 23-30,35,60
+  s_fcf886f510ff24::t_0e3ff67b90e391 1-8,11-20,22,32-33,37,39-55,57-58,62,64-94,137
+src/20260915_Multi_OracleDeprecationForLongTailAssets/AaveV3Scroll_OracleDeprecationForLongTailAssets_20260915.t.sol
+  s_fcf886f510ff24::t_13e9b138119c54 4-11,38
+  s_fcf886f510ff24::t_88d42a11c34e01 12-13,33,39,50-53,55-60
+  s_fcf886f510ff24::t_504546ee01c237 14-15,26,40-41,61-86
+  s_fcf886f510ff24::t_816a89f89a7a67 1-3,16-25,27-32,34-37,42-49,54,87
+src/20260915_Multi_OracleDeprecationForLongTailAssets/OracleDeprecationForLongTailAssets.md
+  s_fcf886f510ff24::t_88d42a11c34e01 10-816
+  s_fcf886f510ff24::t_6d63fd96721cb5 1-9,817-831
+src/20260915_Multi_OracleDeprecationForLongTailAssets/DRAFT.md
+  s_fcf886f510ff24::t_5e2aedd1da5457 21-38
+  s_fcf886f510ff24::t_0c3adc08c6239f 1-20,39-88
+src/20260915_Multi_OracleDeprecationForLongTailAssets/OracleDeprecationForLongTailAssets_20260915.s.sol
+  s_fcf886f510ff24::t_94b68a4329d9d8 1-279
+src/20260915_Multi_OracleDeprecationForLongTailAssets/forum-source.txt
+  s_fcf886f510ff24::t_f774c3cb5f6be2 1-823
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "f301d9bb7b3a69df082c7adfba119cb0b14e523c",
+  "prompts": {},
+  "sessions": {
+    "s_fcf886f510ff24": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a0a4ab-17d1-7d12-b10d-c9adf50c142b",
+        "model": "gpt-6-astra"
+      },
+      "human_author": "AlbertoCentonze <11707683+AlbertoCentonze@users.noreply.github.com>"
+    }
+  }
+}

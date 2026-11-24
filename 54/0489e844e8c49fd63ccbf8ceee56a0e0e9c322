@@ -1,0 +1,12 @@
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.4",
+  "base_commit_sha": "540489e844e8c49fd63ccbf8ceee56a0e0e9c322",
+  "prompts": {},
+  "humans": {
+    "h_ac33fd5bdc4037": {
+      "author": "YBM"
+    }
+  }
+}

@@ -1,0 +1,38 @@
+src/20260514_AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosUSDGPendle/OnboardPTUSDG24SEP2026OnV4PaxosUSDGPendle.md
+  s_3895ce55bb609b::t_0398dc4e6953b5 9,16-19
+  s_3895ce55bb609b::t_6dcff44de61639 13
+  s_3895ce55bb609b::t_cdc81d75c31829 15
+diffs/AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosUSDGPendle_20260514_before_AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosUSDGPendle_20260514_after.md
+  s_3895ce55bb609b::t_c891506370d2c7 154,176-192,215-256,261-262,268-271,277-297,303,309,428-447,453-454,456-457,460,463-464,467,471,476,487-488,526-537,540,577-599
+src/20260514_AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosUSDGPendle/AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosUSDGPendle_20260514.sol
+  s_3895ce55bb609b::t_e1abf913e867ab 41-45
+  s_3895ce55bb609b::t_e0bc69466ef7e8 92-93,100-101
+  h_0f977de3f043fc 20
+  s_3895ce55bb609b::t_7fa6dcc4c536c0 197-199
+src/20260514_AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosUSDGPendle/AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosUSDGPendle_20260514.t.sol
+  s_3895ce55bb609b::t_8ce39350bffd48 138-184,186-194,196-200
+  s_3895ce55bb609b::t_c74c5d50f5814c 447,450-459
+  s_3895ce55bb609b::t_f6ebe83a52063a 81,83,88-90
+  s_3895ce55bb609b::t_0d7a36e2ea7b3c 536-541
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.7",
+  "base_commit_sha": "35528384980c96568a1674555994d9a2b5f512a4",
+  "prompts": {},
+  "humans": {
+    "h_0f977de3f043fc": {
+      "author": "Alexandru Niculae <43644109+avniculae@users.noreply.github.com>"
+    }
+  },
+  "sessions": {
+    "s_3895ce55bb609b": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "a274f271-8ea2-4dcc-8517-5a0f4eb72235",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Alexandru Niculae <43644109+avniculae@users.noreply.github.com>"
+    }
+  }
+}

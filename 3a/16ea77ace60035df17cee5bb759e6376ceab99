@@ -1,0 +1,25 @@
+src/20260409_AaveV4Ethereum_IncreaseCaps/AaveV4Ethereum_IncreaseCaps_20260409.t.sol
+  6d01bd43b4bc6296 122,144,146-147,188,197,199-200,227,235,237-238,265,274,276-277
+src/20260409_AaveV4Ethereum_IncreaseCaps/AaveV4Ethereum_IncreaseCaps_20260409_Fork.t.sol
+  6d01bd43b4bc6296 17-18,22-25
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.2.8",
+  "base_commit_sha": "3a16ea77ace60035df17cee5bb759e6376ceab99",
+  "prompts": {
+    "6d01bd43b4bc6296": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "2e1a1bbe-d574-437d-bebb-cc9191e05604",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Alexandru Niculae",
+      "messages": [],
+      "total_additions": 24,
+      "total_deletions": 75,
+      "accepted_lines": 22,
+      "overriden_lines": 2
+    }
+  }
+}

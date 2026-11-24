@@ -1,0 +1,19 @@
+src/20260707_Multi_AaveV3LTVAndEModeUpdate/AaveV3LTVAndEModeUpdate.md
+  s_0107487baa2c4b::t_ad724d4f824ef4 53
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.13",
+  "base_commit_sha": "8baef4fc485763bcd29fbf40695726acaf15213d",
+  "prompts": {},
+  "sessions": {
+    "s_0107487baa2c4b": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f5acb-3bb9-7881-8d38-dec9e290a3b9",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "AlbertoCentonze <11707683+AlbertoCentonze@users.noreply.github.com>"
+    }
+  }
+}

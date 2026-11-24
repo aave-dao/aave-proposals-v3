@@ -1,0 +1,89 @@
+src/20260507_Multi_CAPOSnapshotRatioUpdateAcrossAaveV3/AaveV3Gnosis_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507.t.sol
+  s_7213da700302c5::t_0ea1b03fe4534c 28-35,72-84
+  s_7213da700302c5::t_66e9546987b837 36-39
+  s_7213da700302c5::t_9f22f44edd0767 5
+src/20260507_Multi_CAPOSnapshotRatioUpdateAcrossAaveV3/AaveV3Plasma_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507.t.sol
+  s_7213da700302c5::t_c7d3bfd875fdde 5
+  s_7213da700302c5::t_ca7a9412421975 28-35,72-84
+  s_7213da700302c5::t_a019d00eeb21ca 36-39
+src/20260507_Multi_CAPOSnapshotRatioUpdateAcrossAaveV3/AaveV3Linea_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507.t.sol
+  s_7213da700302c5::t_db81f2dc0c74a2 36-39
+  s_7213da700302c5::t_405cc62a4835af 28-35,84-107
+  s_7213da700302c5::t_a379f0b39415f0 5
+src/20260507_Multi_CAPOSnapshotRatioUpdateAcrossAaveV3/AaveV3Linea_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507.sol
+  s_7213da700302c5::t_c776df8115653a 13
+  s_7213da700302c5::t_51276e7ad2e018 5
+src/20260507_Multi_CAPOSnapshotRatioUpdateAcrossAaveV3/AaveV3Mantle_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507.sol
+  s_7213da700302c5::t_ab5322c58a4cb2 5
+  s_7213da700302c5::t_2a1a75516865f2 13
+src/helpers/capo/CAPOUpdateBasePayload.sol
+  s_7213da700302c5::t_3817a492a9985a 1-35
+src/20260507_Multi_CAPOSnapshotRatioUpdateAcrossAaveV3/AaveV3Polygon_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507.t.sol
+  s_7213da700302c5::t_bf6fe4fe0d7a37 5
+  s_7213da700302c5::t_fdd4551b133667 36-39
+  s_7213da700302c5::t_3431b74af97f5b 28-35,72-84
+src/20260507_Multi_CAPOSnapshotRatioUpdateAcrossAaveV3/AaveV3Mantle_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507.t.sol
+  s_7213da700302c5::t_bec33a2ca8e31f 36-39
+  s_7213da700302c5::t_23139e770ae806 5
+  s_7213da700302c5::t_798d990c3bb93a 28-35,62-67,70-71
+src/20260507_Multi_CAPOSnapshotRatioUpdateAcrossAaveV3/AaveV3Ethereum_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507.t.sol
+  s_7213da700302c5::t_4e8e43140fb51d 38-41
+  s_7213da700302c5::t_4d36ee6cc20729 134-145,170-171
+  s_7213da700302c5::t_44e9d4e2f8ebf6 30-37,146-169,172-203
+  s_7213da700302c5::t_db0ec6222b456a 5,7
+  s_7213da700302c5::t_3afe0bdfef0da1 6
+src/helpers/capo/CAPOUpdateBaseTest.sol
+  h_0f977de3f043fc 136-138,143,214-215
+  s_7213da700302c5::t_0a58b391c528cf 6-7
+  s_7213da700302c5::t_1ec9163ab1ca87 99-121
+  s_7213da700302c5::t_a18d0ea8fe458e 47-98,122-134
+  s_7213da700302c5::t_a8c4d9898a9715 178-186,188-206
+  s_7213da700302c5::t_f772c060724c6f 174-175,209-213,216
+  s_7213da700302c5::t_2c47cd62dec3c3 17-19,43-46,147-173,176-177,187,207-208,217-231
+  s_7213da700302c5::t_60c262af7d8da3 318
+  s_7213da700302c5::t_c6e18794b5d649 12-13
+src/20260507_Multi_CAPOSnapshotRatioUpdateAcrossAaveV3/AaveV3EthereumLido_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507.t.sol
+  s_7213da700302c5::t_9cd0d0bf5d5f7c 28-35,72-84
+  s_7213da700302c5::t_ffcc1319715495 5
+  s_7213da700302c5::t_07061562c0314a 36-39
+src/20260507_Multi_CAPOSnapshotRatioUpdateAcrossAaveV3/AaveV3Ethereum_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507.sol
+  s_7213da700302c5::t_668a3072801479 13
+  s_7213da700302c5::t_39bbe7e812d59a 4
+src/20260507_Multi_CAPOSnapshotRatioUpdateAcrossAaveV3/AaveV3Avalanche_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507.sol
+  s_7213da700302c5::t_39da86ce180b11 12
+  s_7213da700302c5::t_43d0ea7e17e217 5
+src/20260507_Multi_CAPOSnapshotRatioUpdateAcrossAaveV3/AaveV3Gnosis_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507.sol
+  s_7213da700302c5::t_e48d6418db8056 5
+  s_7213da700302c5::t_06750410a0e151 13
+src/20260507_Multi_CAPOSnapshotRatioUpdateAcrossAaveV3/AaveV3Plasma_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507.sol
+  s_7213da700302c5::t_0508b14b5668bf 13
+  s_7213da700302c5::t_71a526240e1d1d 5
+src/20260507_Multi_CAPOSnapshotRatioUpdateAcrossAaveV3/AaveV3Polygon_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507.sol
+  s_7213da700302c5::t_a2c641139e998c 5
+  s_7213da700302c5::t_430e23d691f613 13
+src/20260507_Multi_CAPOSnapshotRatioUpdateAcrossAaveV3/AaveV3Avalanche_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507.t.sol
+  s_7213da700302c5::t_fc70e26eef6424 36-39
+  s_7213da700302c5::t_bacdae1c19e5d4 28-35,72-84
+  s_7213da700302c5::t_63a7d0427a69c3 5
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.4",
+  "base_commit_sha": "004b6f0c1bda6e5c4ba6c102174f630d971585a6",
+  "prompts": {},
+  "humans": {
+    "h_0f977de3f043fc": {
+      "author": "Alexandru Niculae <43644109+avniculae@users.noreply.github.com>"
+    }
+  },
+  "sessions": {
+    "s_7213da700302c5": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "9621d1f1-8563-4688-97d5-496352d2f3f9",
+        "model": "unknown"
+      },
+      "human_author": "Alexandru Niculae <43644109+avniculae@users.noreply.github.com>"
+    }
+  }
+}

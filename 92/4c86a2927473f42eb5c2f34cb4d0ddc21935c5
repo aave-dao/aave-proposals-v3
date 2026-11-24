@@ -1,0 +1,9 @@
+generator/features/types.ts
+  ai_agent 91-94
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.1",
+  "base_commit_sha": "924c86a2927473f42eb5c2f34cb4d0ddc21935c5",
+  "prompts": {}
+}

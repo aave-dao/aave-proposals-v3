@@ -1,0 +1,23 @@
+src/20260423_Multi_LiquidateRsETHPositions/AaveV3Ethereum_LiquidateRsETHPositions_20260423.sol
+  9b11fa5009db891c 77-80
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.4",
+  "base_commit_sha": "8a83e65a288bb771bb09e0e4f6a5d412ef1e3332",
+  "prompts": {
+    "9b11fa5009db891c": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "bd2fd5f6-5b78-4926-8e60-25676f15d91b",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "YBM",
+      "messages": [],
+      "total_additions": 700,
+      "total_deletions": 95,
+      "accepted_lines": 672,
+      "overriden_lines": 0
+    }
+  }
+}

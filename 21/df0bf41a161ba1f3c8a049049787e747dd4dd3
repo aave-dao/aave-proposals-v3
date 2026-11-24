@@ -1,0 +1,29 @@
+src/helpers/v4-config-engine/tests/RoleUpdatesLib.t.sol
+  s_0f0bf6d86e8530::t_b9ea8fb954d387 13-15
+  s_0f0bf6d86e8530::t_636b6196bdc7bf 52-53,58-59,61
+  s_0f0bf6d86e8530::t_3952d8b338d793 30-32
+src/20260514_AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosUSDGPendle/AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosUSDGPendle_20260514.sol
+  s_0f0bf6d86e8530::t_137c06cd53fe6c 11
+  s_0f0bf6d86e8530::t_a76c32d054a356 82,98-102,110-114
+src/helpers/v4-spoke/AaveV4PayloadEthereumSpokeForkTestBase.sol
+  s_0f0bf6d86e8530::t_6fbd6875c954c2 713
+  s_0f0bf6d86e8530::t_b2410e081205b7 677-681,683-686
+foundry.toml
+  s_0f0bf6d86e8530::t_11855a1f586c41 62-65
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.8",
+  "base_commit_sha": "21df0bf41a161ba1f3c8a049049787e747dd4dd3",
+  "prompts": {},
+  "sessions": {
+    "s_0f0bf6d86e8530": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "aa3a14a6-6b49-4cf4-ad50-dcae9bfb9688",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Alexandru Niculae <43644109+avniculae@users.noreply.github.com>"
+    }
+  }
+}

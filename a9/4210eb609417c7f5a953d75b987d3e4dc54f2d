@@ -1,0 +1,35 @@
+src/20260409_AaveV4Ethereum_RegisterFeeSharesMinterKeeper/RegisterFeeSharesMinterKeeper_20260409.s.sol
+  16c90ef1ab7a51df 1-69
+src/20260409_AaveV4Ethereum_RegisterFeeSharesMinterKeeper/RegisterFeeSharesMinterKeeper.md
+  16c90ef1ab7a51df 1-34
+src/20260409_AaveV4Ethereum_RegisterFeeSharesMinterKeeper/AaveV4Ethereum_RegisterFeeSharesMinterKeeper_20260409.t.sol
+  16c90ef1ab7a51df 1-187
+src/20260409_AaveV4Ethereum_RegisterFeeSharesMinterKeeper/dependencies/IHub.sol
+  16c90ef1ab7a51df 1-12
+src/20260409_AaveV4Ethereum_RegisterFeeSharesMinterKeeper/AaveV4Ethereum_RegisterFeeSharesMinterKeeper_20260409.sol
+  16c90ef1ab7a51df 1-42,44-130
+src/20260409_AaveV4Ethereum_RegisterFeeSharesMinterKeeper/dependencies/FeeSharesMinterBase.sol
+  16c90ef1ab7a51df 9
+src/interfaces/IFeeSharesMinterBase.sol
+  16c90ef1ab7a51df 1-19
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.2.6",
+  "base_commit_sha": "a94210eb609417c7f5a953d75b987d3e4dc54f2d",
+  "prompts": {
+    "16c90ef1ab7a51df": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "6937254b-d858-4217-8551-a86624f79670",
+        "model": "claude-4.6-opus-high-thinking"
+      },
+      "human_author": "CheyenneAtapour",
+      "messages": [],
+      "total_additions": 1120,
+      "total_deletions": 217,
+      "accepted_lines": 451,
+      "overriden_lines": 1
+    }
+  }
+}

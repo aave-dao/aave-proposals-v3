@@ -1,0 +1,43 @@
+diffs/AaveV4Avalanche_AaveV4AvalancheActivation_20260708_before_AaveV4Avalanche_AaveV4AvalancheActivation_20260708_after.md
+  s_d10fefbc33a85a::t_e2c69aafef8852 1-394
+src/interfaces/IOwnable2Step.sol
+  s_d10fefbc33a85a::t_e2c69aafef8852 1-10
+src/20260708_AaveV4Avalanche_AaveV4AvalancheActivation/config.ts
+  s_d10fefbc33a85a::t_e2c69aafef8852 1-15
+src/20260708_AaveV4Avalanche_AaveV4AvalancheActivation/AaveV4AvalancheActivation.md
+  s_d10fefbc33a85a::t_e2c69aafef8852 1-152
+src/20260708_AaveV4Avalanche_AaveV4AvalancheActivation/AaveV4Avalanche_AaveV4AvalancheActivation_20260708.sol
+  s_d10fefbc33a85a::t_e2c69aafef8852 1-41
+src/20260708_AaveV4Avalanche_AaveV4AvalancheActivation/AaveV4Avalanche_AaveV4AvalancheActivation_20260708.t.sol
+  s_d10fefbc33a85a::t_e2c69aafef8852 1-388
+src/20260708_AaveV4Avalanche_AaveV4AvalancheActivation/AaveV4AvalancheActivation_20260708.s.sol
+  s_d10fefbc33a85a::t_e2c69aafef8852 1-63
+foundry.lock
+  s_d10fefbc33a85a::t_494522564b1fd3 5
+lib/aave-helpers
+  s_2b0bd2bd28aa30::t_91b9037154bb33 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.11",
+  "base_commit_sha": "a1c5c445235fa1d5d1f8096dbd07e9c2ea5580db",
+  "prompts": {},
+  "sessions": {
+    "s_2b0bd2bd28aa30": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f46c2-492a-7242-ab97-720a31641b80",
+        "model": "gpt-5.5"
+      },
+      "human_author": "AlbertoCentonze <11707683+AlbertoCentonze@users.noreply.github.com>"
+    },
+    "s_d10fefbc33a85a": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f4c2b-9522-7852-893c-6a2267d354a7",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "AlbertoCentonze <11707683+AlbertoCentonze@users.noreply.github.com>"
+    }
+  }
+}

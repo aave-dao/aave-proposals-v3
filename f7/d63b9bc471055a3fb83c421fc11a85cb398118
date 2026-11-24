@@ -1,0 +1,41 @@
+src/20260423_Multi_LiquidateRsETHPositions/LiquidateRsETHPositionsBase.sol
+  9b11fa5009db891c 132,138-142
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.4",
+  "base_commit_sha": "f7d63b9bc471055a3fb83c421fc11a85cb398118",
+  "prompts": {
+    "4b4eeeae5b91c231": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "1dde61d5-1989-4978-b1f3-43791965422e",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "YBM",
+      "messages": [],
+      "total_additions": 562,
+      "total_deletions": 329,
+      "accepted_lines": 220,
+      "overriden_lines": 0
+    },
+    "9b11fa5009db891c": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "bd2fd5f6-5b78-4926-8e60-25676f15d91b",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "YBM",
+      "messages": [],
+      "total_additions": 578,
+      "total_deletions": 56,
+      "accepted_lines": 2567,
+      "overriden_lines": 43
+    }
+  },
+  "humans": {
+    "h_ac33fd5bdc4037": {
+      "author": "YBM"
+    }
+  }
+}

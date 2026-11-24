@@ -1,0 +1,24 @@
+generator/features/assetListing.ts
+  s_0221e6de41ee68::t_2871215cc99d67 303-307
+generator/features/mocks/configs.ts
+  s_0221e6de41ee68::t_66bb844bc695da 8,53-64
+  s_0221e6de41ee68::t_c6a96e87c63058 65-67
+generator/features/assetListing.spec.ts
+  s_0221e6de41ee68::t_66bb844bc695da 3-4
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.15",
+  "base_commit_sha": "0a27599275294de429046d0dcdf71857c653a89e",
+  "prompts": {},
+  "sessions": {
+    "s_0221e6de41ee68": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f8595-db9a-7cb3-9cc3-5ec61b4fbd39",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": null
+    }
+  }
+}

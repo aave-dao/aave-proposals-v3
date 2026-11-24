@@ -1,0 +1,39 @@
+tests/utils/horizon/IRwaOracleParameterRegistry.sol
+  s_27070cf0ae3899::t_ffa338b5e28d5a 1-43
+tests/utils/horizon/AaveHorizonGovV3Helpers.sol
+  s_27070cf0ae3899::t_ffa338b5e28d5a 1-109
+tests/utils/horizon/AaveV3EthereumHorizonCustom.sol
+  s_27070cf0ae3899::t_ffa338b5e28d5a 1-27,31-59
+  s_27070cf0ae3899::t_c934fd985deffc 28-30
+tests/utils/horizon/Errors.sol
+  s_27070cf0ae3899::t_ffa338b5e28d5a 1-109
+tests/utils/horizon/HorizonRwaWhitelistHelper.sol
+  s_27070cf0ae3899::t_078e530026dba0 51
+  s_27070cf0ae3899::t_ffa338b5e28d5a 1-4,6-50,52-336
+  s_27070cf0ae3899::t_505be25e402913 5
+tests/utils/horizon/ProtocolV3HorizonTestBase.sol
+  s_27070cf0ae3899::t_9f2b1cbdaf659a 66,69,76-78
+  s_27070cf0ae3899::t_ffa338b5e28d5a 1-65,67-68,70-75,79-84,86-456,458-609
+  s_27070cf0ae3899::t_8c57c28e298d78 457
+  s_27070cf0ae3899::t_523af08ced4343 85
+tests/utils/horizon/HorizonConfigAssertionHelper.sol
+  s_27070cf0ae3899::t_ffa338b5e28d5a 1-601
+tests/utils/horizon/ISafeAccount.sol
+  s_27070cf0ae3899::t_ffa338b5e28d5a 1-18
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "5c03775a980cd7127dc32c6b21f8b124af7f2a5c",
+  "prompts": {},
+  "sessions": {
+    "s_27070cf0ae3899": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "c0b34d16-8be4-488b-bc86-602f235678e9",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "DhairyaSethi <55102840+DhairyaSethi@users.noreply.github.com>"
+    }
+  }
+}

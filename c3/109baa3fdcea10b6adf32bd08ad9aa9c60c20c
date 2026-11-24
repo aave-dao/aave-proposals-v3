@@ -1,0 +1,34 @@
+src/20260514_AaveV3Ethereum_UpdateUSDGPriceFeed/AaveV3Ethereum_UpdateUSDGPriceFeed_20260514.t.sol
+  s_0f0bf6d86e8530::t_2e61cbf1a20821 14
+src/helpers/v4-spoke/AaveV4PayloadEthereumSpokeTestBase.sol
+  s_0f0bf6d86e8530::t_b27037cc709a15 6-7
+src/20260514_AaveV3Ethereum_UpdateUSDGPriceFeed/UpdateUSDGPriceFeed_20260514.s.sol
+  s_0f0bf6d86e8530::t_3471b2eae89ba7 1-63
+src/20260514_AaveV3Ethereum_UpdateUSDGPriceFeed/config.ts
+  s_0f0bf6d86e8530::t_d69d3855ead0a1 1-15
+src/20260514_AaveV3Ethereum_UpdateUSDGPriceFeed/AaveV3Ethereum_UpdateUSDGPriceFeed_20260514.sol
+  h_0f977de3f043fc 1-36
+src/20260514_AaveV3Ethereum_UpdateUSDGPriceFeed/UpdateUSDGPriceFeed.md
+  s_0f0bf6d86e8530::t_76121997d3ef7b 1-39
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.8",
+  "base_commit_sha": "c3109baa3fdcea10b6adf32bd08ad9aa9c60c20c",
+  "prompts": {},
+  "humans": {
+    "h_0f977de3f043fc": {
+      "author": "Alexandru Niculae <43644109+avniculae@users.noreply.github.com>"
+    }
+  },
+  "sessions": {
+    "s_0f0bf6d86e8530": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "aa3a14a6-6b49-4cf4-ad50-dcae9bfb9688",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Alexandru Niculae <43644109+avniculae@users.noreply.github.com>"
+    }
+  }
+}

@@ -1,0 +1,14 @@
+src/20260513_AaveV3EthereumLido_RenewLlamaRiskAsRiskServiceProviderEpoch4/RenewLlamaRiskAsRiskServiceProviderEpoch4.md
+  h_739c25e72c37fb 69-70,72
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.11",
+  "base_commit_sha": "14d4ec0829d1c3ede3ab0218eefa1ee9efd70ebf",
+  "prompts": {},
+  "humans": {
+    "h_739c25e72c37fb": {
+      "author": "DhairyaSethi <55102840+DhairyaSethi@users.noreply.github.com>"
+    }
+  }
+}

@@ -1,0 +1,66 @@
+generator/features/borrowsUpdates.ts
+  s_3c613cca907125::t_9c43be4df8d98d 9,85
+  s_3c613cca907125::t_fde35f4bd7f4e8 30
+  s_3c613cca907125::t_4dd6241360185d 1,31-54,79
+generator/features/borrowsUpdates.spec.ts
+  s_3c613cca907125::t_f1910b475a7fb2 31-49,53-54
+  s_3c613cca907125::t_deac20988af296 1-30,55-56
+  s_3c613cca907125::t_d3baad484c1c3d 50-52
+generator/features/collateralsUpdates.spec.ts
+  s_3c613cca907125::t_e764d8586cd1ee 42-53,57-58
+  s_3c613cca907125::t_d3baad484c1c3d 54-56
+generator/features/capsUpdates.spec.ts
+  s_3c613cca907125::t_d3baad484c1c3d 56-58
+  s_3c613cca907125::t_abb044f4db6370 48,64
+  s_3c613cca907125::t_77e7c2d38e0247 44-47,49-55,59-60
+  s_3c613cca907125::t_181d14908f0140 4-5,61-63,65-67,69-78,80-91
+generator/features/collateralsUpdates.ts
+  s_3c613cca907125::t_2146d31e5f3164 8,99
+generator/utils/constants.ts
+  s_3c613cca907125::t_84d0baaea63cca 1-2,17-38
+  s_3c613cca907125::t_dcc38c75765d18 39
+generator/features/assetListing.ts
+  s_3c613cca907125::t_b86644cd36010e 89-113,117-119,125-132
+  s_3c613cca907125::t_385156b6210a4b 114-116,120-124
+  s_3c613cca907125::t_c5c7a50d1d4413 10,147-162,279-285,328-332,334-335
+  s_3c613cca907125::t_d3baad484c1c3d 214-218
+generator/features/freeze.spec.ts
+  s_3c613cca907125::t_6c2b4651c15602 22-33,37-38
+  s_3c613cca907125::t_d3baad484c1c3d 34-36
+  s_3c613cca907125::t_9c4d61dac6bf82 1-21,39-40
+generator/features/assetListing.spec.ts
+  s_3c613cca907125::t_b7e137f9c286e9 40-52,56-57
+  s_3c613cca907125::t_8d8c310c67c090 20-39,58-59
+  s_3c613cca907125::t_d3baad484c1c3d 53-55
+generator/features/freeze.ts
+  s_3c613cca907125::t_9ea0eeb54d9be1 8,58
+  s_3c613cca907125::t_6dad92a000cbd6 2,10-27
+  s_3c613cca907125::t_f637cb719529f2 9
+generator/features/capsUpdates.ts
+  s_3c613cca907125::t_3b270977646a92 8,81
+generator/features/__snapshots__/assetListing.spec.ts.snap
+  s_3c613cca907125::t_1e1f76a6a65d43 177-178,206,217-246,405-433,435
+generator/features/__snapshots__/eModesCreation.spec.ts.snap
+  s_3c613cca907125::t_2faa3cad95d77b 213-214,245,257-285
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "754124a2b5dfcbc5fb8b86f4393899f2e5eaa62d",
+  "prompts": {},
+  "humans": {
+    "h_8b974fbabf2fb7": {
+      "author": "Alberto <albe@AMWM-H65F40J09H.local>"
+    }
+  },
+  "sessions": {
+    "s_3c613cca907125": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f3794-268d-75b1-9e56-8673cc8a4eb1",
+        "model": "gpt-5.5"
+      },
+      "human_author": "Alberto <albe@AMWM-H65F40J09H.local>"
+    }
+  }
+}

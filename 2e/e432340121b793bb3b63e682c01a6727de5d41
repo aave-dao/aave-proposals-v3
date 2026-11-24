@@ -1,0 +1,88 @@
+src/20260514_AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosStablecoinCorrelated/AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosStablecoinCorrelated_20260514.t.sol
+  s_ea19cda32f7289::t_c908d0b37bb5ab 20-21,31-32
+  s_ea19cda32f7289::t_c842c7d468a1af 127-129,136-138
+  s_ea19cda32f7289::t_ecc40f306bdf4b 41,151,265,270,363,368,373,390,415,431-432,438-439,462-463,470,473-475,479
+  s_ea19cda32f7289::t_5dc8b523ca8cf5 22
+  s_ea19cda32f7289::t_b897fdf9010d4a 15-16,19,27-28,30,34-35,38,48,50-55,57,60-61,76,89,126,131,135,139-144,146-150,156,162-163,174,184-185,187-188,195-198,204-207,214,217,225-230,232-244,251,257-264,266-268,275,283,289-290,378,394-398,400-414,416-430,433-437,440-461,464-469,471-472,476-478,480-501,504-515,522-525,529,547
+  s_ea19cda32f7289::t_67d1fa4b04c366 399
+src/20260514_AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosStablecoinCorrelated/OnboardPTUSDG24SEP2026OnV4PaxosStablecoinCorrelated_20260514.s.sol
+  s_ea19cda32f7289::t_b897fdf9010d4a 1-63
+src/helpers/v4-hub/AaveV4PayloadEthereumHub.sol
+  s_ea19cda32f7289::t_87984339765c71 33
+  h_0f977de3f043fc 105
+  s_ea19cda32f7289::t_fdaaf0fc61e177 19
+  s_ea19cda32f7289::t_198c716913cab4 1-10,20-32,34-58,60-62,64-65,72-79,81-104,106-159
+  s_ea19cda32f7289::t_9c0dbaea739635 66-71
+  s_ea19cda32f7289::t_e9bfdaf099e03b 80
+  s_ea19cda32f7289::t_a99d07fd95370b 11-18,59,63
+src/helpers/v4-spoke/AaveV4PayloadEthereumSpoke.sol
+  s_ea19cda32f7289::t_ac3e088703e559 213-215,222-235
+  s_ea19cda32f7289::t_6c37066980fa5f 11-16,206,210-211,216-218
+  s_ea19cda32f7289::t_d4706c85d77ffd 49
+  s_ea19cda32f7289::t_8090b5aef60a75 149
+  s_ea19cda32f7289::t_d46b0279329fa4 169
+  s_ea19cda32f7289::t_0a62a01d5f2859 113
+  s_ea19cda32f7289::t_953f0b42ac6b67 8
+src/20260514_AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosStablecoinCorrelated/OnboardPTUSDG24SEP2026OnV4PaxosStablecoinCorrelated.md
+  s_ea19cda32f7289::t_b897fdf9010d4a 2,9,13,15,23,25,29,31-45,47-51,63-64
+src/helpers/v4-spoke/AaveV4PayloadEthereumSpokeTestBase.sol
+  s_ea19cda32f7289::t_2fe2d5b892d77a 23,27,31-32
+  s_ea19cda32f7289::t_de96c7aefbf7bc 8
+src/helpers/v4-hub/tests/MockHubProposal.sol
+  s_ea19cda32f7289::t_6e05ee8fbb52cb 1-7,9-38
+  s_ea19cda32f7289::t_61a2323e64175b 8
+src/helpers/v4-hub/tests/AaveV4PayloadEthereumHub.t.sol
+  s_ea19cda32f7289::t_f77adb288e1dd4 1-6,8-27,40-53
+  s_ea19cda32f7289::t_217b87cb9dfaf1 7
+  s_ea19cda32f7289::t_821406e446429f 28-39
+src/20260514_AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosStablecoinCorrelated/AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosStablecoinCorrelated_20260514.sol
+  s_ea19cda32f7289::t_3513a35866fac6 119
+  s_ea19cda32f7289::t_d1a6a7bbf98388 6,12,22
+  s_ea19cda32f7289::t_5bfa246ea58337 11
+  s_ea19cda32f7289::t_ecc40f306bdf4b 32,48
+  s_ea19cda32f7289::t_b897fdf9010d4a 4-5,7,16,21,27-29,41-42,52,56-58,60-64,130-134,136,138,141,143-159,165,167,174-187,191,198,200,211-232,254-277
+  s_ea19cda32f7289::t_7fd9f43d3235f0 59
+  s_ea19cda32f7289::t_e0fce80096954f 65-118
+  s_ea19cda32f7289::t_bff502354cf8bb 25-26,30
+src/helpers/v4-spoke/AaveV4PayloadEthereumSpokeForkTestBase.sol
+  s_ea19cda32f7289::t_09a38fec7d1704 64,71,111,562,579
+  s_ea19cda32f7289::t_ed82feeef5bf4d 18
+src/helpers/v4-config-engine/RoleUpdatesLib.sol
+  s_ea19cda32f7289::t_02dc75faa61920 1-22
+src/helpers/v4-hub/TokenizationSpokeLib.sol
+  s_ea19cda32f7289::t_a2f09732eb7c2b 1-26
+src/20260514_AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosStablecoinCorrelated/config.ts
+  s_ea19cda32f7289::t_b897fdf9010d4a 7,14
+  s_ea19cda32f7289::t_6519aa54da85c6 6
+src/helpers/v4-hub/AaveV4PayloadEthereumHubTestBase.sol
+  s_ea19cda32f7289::t_4e647d282bd92e 1-86
+src/helpers/v4-hub/AaveV4PayloadEthereumHubForkTestBase.sol
+  s_ea19cda32f7289::t_7878bbdefbc5bb 7
+  s_ea19cda32f7289::t_4c64b536600a0a 24-37
+  s_ea19cda32f7289::t_2a6593a337d9d0 99
+  s_ea19cda32f7289::t_37d6768a3f8853 10
+  s_ea19cda32f7289::t_4b95c3c34f92f3 14
+  s_ea19cda32f7289::t_d5fcbdbfafcfae 91-98,100-124
+  s_ea19cda32f7289::t_fe632041e3b0d2 1-6,8-9,11-13,15-23,38-90,125-138
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.6",
+  "base_commit_sha": "2ee432340121b793bb3b63e682c01a6727de5d41",
+  "prompts": {},
+  "humans": {
+    "h_0f977de3f043fc": {
+      "author": "Alexandru Niculae <43644109+avniculae@users.noreply.github.com>"
+    }
+  },
+  "sessions": {
+    "s_ea19cda32f7289": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "238742f4-64b9-49f8-9775-3602d92852ac",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Alexandru Niculae <43644109+avniculae@users.noreply.github.com>"
+    }
+  }
+}

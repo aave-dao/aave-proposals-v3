@@ -1,0 +1,22 @@
+diffs/AaveV4Ethereum_OnboardPTUSDG28MAY2026OnV4PlusUSDGCorrelated_20260514_before_AaveV4Ethereum_OnboardPTUSDG28MAY2026OnV4PlusUSDGCorrelated_20260514_after.md
+  s_e6f03a5706bb6f::t_f5ed695b9adc65 39,46,64,69,81,93,99
+  s_e6f03a5706bb6f::t_8e56f85ec72e3d 111
+src/20260514_AaveV4Ethereum_OnboardPTUSDG28MAY2026OnV4CoreUSDGCorrelated/AaveV4Ethereum_OnboardPTUSDG28MAY2026OnV4CoreUSDGCorrelated_20260514.t.sol
+  s_e6f03a5706bb6f::t_da9cf02a8b7edc 4-10,12-16,18-19,22-23,25-26,28-33,38,40,42,44-45,47,49-52,54-66,68-82,84-87,89-91,93-108,110-303,306-319,322-323,325-329,331-357,360-431,434-598,600-602,604,606-607,609-611,613-639,641-642,644-650,652-654,656-678,680-705,707-709,711-790
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.8",
+  "base_commit_sha": "a25b3679edf37ab7bcbfe164a28b3274a638542b",
+  "prompts": {},
+  "sessions": {
+    "s_e6f03a5706bb6f": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "d3ae4ab7-c9b9-4921-8eb5-42bf3abfc075",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": null
+    }
+  }
+}

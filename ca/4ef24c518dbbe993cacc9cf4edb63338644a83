@@ -1,0 +1,14 @@
+src/20260423_Multi_LiquidateRsETHPositions/arbitrum/LiquidateRsETHArbitrumSetupTest.t.sol
+  h_ac33fd5bdc4037 96-98
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.4",
+  "base_commit_sha": "ca4ef24c518dbbe993cacc9cf4edb63338644a83",
+  "prompts": {},
+  "humans": {
+    "h_ac33fd5bdc4037": {
+      "author": "YBM"
+    }
+  }
+}

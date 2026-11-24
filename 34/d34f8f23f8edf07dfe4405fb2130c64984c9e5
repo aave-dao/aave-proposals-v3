@@ -1,0 +1,32 @@
+package.json
+  s_dc698e82f27c4d::t_258dc5262f5175 32
+diffs/AaveV3Ethereum_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507_cbETH_Capo.md
+  s_dc698e82f27c4d::t_a2103b55f36e71 3-28,31,33-39
+src/helpers/capo/capo-report.ts
+  s_dc698e82f27c4d::t_790fc694f92ef6 29
+  s_dc698e82f27c4d::t_9ce53e6823eb03 88
+  s_dc698e82f27c4d::t_e8a86fa84a323b 133,141,146-148,151
+package-lock.json
+  ai_agent 28
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.1",
+  "base_commit_sha": "34d34f8f23f8edf07dfe4405fb2130c64984c9e5",
+  "prompts": {},
+  "humans": {
+    "h_739c25e72c37fb": {
+      "author": "DhairyaSethi <55102840+DhairyaSethi@users.noreply.github.com>"
+    }
+  },
+  "sessions": {
+    "s_dc698e82f27c4d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "586a9eba-a4a4-4455-b316-c66740ece60a",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "DhairyaSethi <55102840+DhairyaSethi@users.noreply.github.com>"
+    }
+  }
+}

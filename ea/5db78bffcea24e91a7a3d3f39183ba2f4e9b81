@@ -1,0 +1,59 @@
+generator/features/mocks/configs.ts
+  s_e6c500d640ad6f::t_f9af888214005a 3-4,98-126
+  s_e6c500d640ad6f::t_a4576f145f2f4e 127
+foundry.lock
+  s_e6c500d640ad6f::t_09a8dd1ef0724a 5
+generator/features/__snapshots__/collateralsUpdates.spec.ts.snap
+  s_e6c500d640ad6f::t_35d9e937c3e343 1-58
+generator/features/capsUpdates.spec.ts
+  s_e6c500d640ad6f::t_f9af888214005a 1-61
+generator/features/capsUpdates.ts
+  s_e6c500d640ad6f::t_ea5457c6168145 83
+  s_e6c500d640ad6f::t_f9af888214005a 1,24-47,74,80-82
+generator/features/borrowsUpdates.ts
+  s_e6c500d640ad6f::t_f9af888214005a 1,29-53,78,84-86
+  s_e6c500d640ad6f::t_9bfb5f341fd3ec 87
+generator/templates/test.template.ts
+  s_e6c500d640ad6f::t_f9af888214005a 37-45,47-58,86
+  s_e6c500d640ad6f::t_721c4b468c4fe0 46
+generator/features/collateralsUpdates.spec.ts
+  s_e6c500d640ad6f::t_f9af888214005a 1-60
+generator/features/freeze.ts
+  s_e6c500d640ad6f::t_653170a5e5c63b 57
+  s_e6c500d640ad6f::t_f9af888214005a 2,9-24,54-56
+generator/features/collateralsUpdates.ts
+  s_e6c500d640ad6f::t_f9af888214005a 35-64,92,98-100
+  s_e6c500d640ad6f::t_7539c7ade3c3c9 101
+generator/features/borrowsUpdates.spec.ts
+  s_e6c500d640ad6f::t_f9af888214005a 1-29
+generator/features/__snapshots__/capsUpdates.spec.ts.snap
+  s_e6c500d640ad6f::t_d605a7f10d7efe 1-50
+generator/features/__snapshots__/priceFeedsUpdate.spec.ts.snap
+  s_e6c500d640ad6f::t_a35e88b835bedd 116-124
+generator/types.ts
+  s_e6c500d640ad6f::t_f9af888214005a 119
+generator/features/freeze.spec.ts
+  s_e6c500d640ad6f::t_f9af888214005a 1-20
+generator/features/__snapshots__/assetListing.spec.ts.snap
+  s_e6c500d640ad6f::t_80caf6cdf1c092 203-211
+generator/features/__snapshots__/eModesCreation.spec.ts.snap
+  s_e6c500d640ad6f::t_627fa7810f0d4f 242-250
+lib/aave-helpers
+  s_e6c500d640ad6f::t_aa276092a056c7 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.13",
+  "base_commit_sha": "ea5db78bffcea24e91a7a3d3f39183ba2f4e9b81",
+  "prompts": {},
+  "sessions": {
+    "s_e6c500d640ad6f": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f5b9d-4da8-7db2-9be1-9be11eeba394",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": null
+    }
+  }
+}

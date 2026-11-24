@@ -1,0 +1,34 @@
+src/20260423_Multi_LiquidateRsETHPositions/setup/GuardianEnabledFlag.t.sol
+  23988b23b6963afe 26-30
+src/interfaces/IGuardianEnabledFlag.sol
+  h_ac33fd5bdc4037 10
+src/20260423_Multi_LiquidateRsETHPositions/setup/GuardianEnabledFlag.sol
+  23988b23b6963afe 16
+src/20260423_Multi_LiquidateRsETHPositions/setup/LiquidateRsETHAddresses.sol
+  h_ac33fd5bdc4037 33,53
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.4",
+  "base_commit_sha": "1a04d7c861f285ad550139c2e40ce5f99bd5d6b9",
+  "prompts": {
+    "23988b23b6963afe": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "b9ae993a-be57-472e-a5f7-df9c9df00afd",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "YBM",
+      "messages": [],
+      "total_additions": 6,
+      "total_deletions": 0,
+      "accepted_lines": 6,
+      "overriden_lines": 0
+    }
+  },
+  "humans": {
+    "h_ac33fd5bdc4037": {
+      "author": "YBM"
+    }
+  }
+}

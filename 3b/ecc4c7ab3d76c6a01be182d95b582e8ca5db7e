@@ -1,0 +1,31 @@
+src/20260903_AaveV4Ethereum_IncreaseCaps/AaveV4Ethereum_IncreaseCaps_20260903.md
+  s_22f02fd415067e::t_3d44997dd7d4c7 4,9,19-23,72,115
+  s_22f02fd415067e::t_d2eb3abb494f4e 31-32,82,95-97,100-101
+src/20260903_AaveV4Ethereum_IncreaseCaps/AaveV4Ethereum_IncreaseCaps_20260903.sol
+  s_22f02fd415067e::t_6125c57480c5f5 7,14,20,24-26,29-30,38-47,51-59,73-75,113
+  s_22f02fd415067e::t_15582fd39acf8b 8,60
+  s_22f02fd415067e::t_d2eb3abb494f4e 21-23,27-28,31-37,48-50,61-72
+src/20260903_AaveV4Ethereum_IncreaseCaps/AaveV4Ethereum_IncreaseCaps_20260903_Fork.t.sol
+  s_22f02fd415067e::t_818c7057b919d9 29-30
+src/20260903_AaveV4Ethereum_IncreaseCaps/AaveV4Ethereum_IncreaseCaps_20260903.t.sol
+  s_22f02fd415067e::t_818c7057b919d9 10,40,52,160-197,202
+  s_22f02fd415067e::t_d2eb3abb494f4e 41-44,53-56,198-201
+  s_22f02fd415067e::t_e1ca53bdf7fc0a 128-129
+  s_22f02fd415067e::t_445ed66ff9429b 203
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.2",
+  "base_commit_sha": "3becc4c7ab3d76c6a01be182d95b582e8ca5db7e",
+  "prompts": {},
+  "sessions": {
+    "s_22f02fd415067e": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a0682b-c509-7731-9b96-3857004f2b04",
+        "model": "gpt-6-astra"
+      },
+      "human_author": "AlbertoCentonze <11707683+AlbertoCentonze@users.noreply.github.com>"
+    }
+  }
+}

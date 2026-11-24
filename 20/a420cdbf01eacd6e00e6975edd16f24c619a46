@@ -1,0 +1,42 @@
+src/20260423_Multi_LiquidateRsETHPositions/mainnet/LiquidateRsETHEthereumSetupTest.t.sol
+  ae68ced1b12e7edf 67,72,76-77,82-83,86-88
+  h_ac33fd5bdc4037 4,10,63,334-335,350-351,414-423,476-501
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.4",
+  "base_commit_sha": "20a420cdbf01eacd6e00e6975edd16f24c619a46",
+  "prompts": {
+    "93d7929e432837e8": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "f095f339-547c-46e7-9f4c-f3fc71e2ae0d",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "YBM",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 1,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "ae68ced1b12e7edf": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "8831ea3c-0db5-4f55-b73a-ad4d0d3aa878",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "YBM",
+      "messages": [],
+      "total_additions": 67,
+      "total_deletions": 45,
+      "accepted_lines": 11,
+      "overriden_lines": 0
+    }
+  },
+  "humans": {
+    "h_ac33fd5bdc4037": {
+      "author": "YBM"
+    }
+  }
+}

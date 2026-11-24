@@ -1,0 +1,51 @@
+src/20261029_Multi_RemoveEmissionAdmins/AaveV3Gnosis_RemoveEmissionAdmins_20261029.sol
+  s_27070cf0ae3899::t_ccea537cba85d4 12
+src/20261029_Multi_RemoveEmissionAdmins/AaveV3Ethereum_RemoveEmissionAdmins_20261029.sol
+  s_27070cf0ae3899::t_ccea537cba85d4 13
+src/20261029_Multi_RemoveEmissionAdmins/AaveV3EthereumHorizon_RemoveEmissionAdmins_20261029.sol
+  s_27070cf0ae3899::t_ccea537cba85d4 12
+src/20261029_Multi_RemoveEmissionAdmins/AaveV3Base_RemoveEmissionAdmins_20261029.sol
+  s_27070cf0ae3899::t_ccea537cba85d4 12
+src/20261029_Multi_RemoveEmissionAdmins/AaveV3XLayer_RemoveEmissionAdmins_20261029.sol
+  s_27070cf0ae3899::t_ccea537cba85d4 12
+src/20261029_Multi_RemoveEmissionAdmins/AaveV3Arbitrum_RemoveEmissionAdmins_20261029.sol
+  s_27070cf0ae3899::t_ccea537cba85d4 12
+src/20261029_Multi_RemoveEmissionAdmins/AaveV3Celo_RemoveEmissionAdmins_20261029.sol
+  s_27070cf0ae3899::t_ccea537cba85d4 12
+src/20261029_Multi_RemoveEmissionAdmins/AaveV3Optimism_RemoveEmissionAdmins_20261029.sol
+  s_27070cf0ae3899::t_ccea537cba85d4 12
+src/20261029_Multi_RemoveEmissionAdmins/config.ts
+  s_27070cf0ae3899::t_ccea537cba85d4 26
+src/20261029_Multi_RemoveEmissionAdmins/RemoveEmissionAdmins.md
+  s_27070cf0ae3899::t_ccea537cba85d4 4,52
+src/20261029_Multi_RemoveEmissionAdmins/AaveV3Mantle_RemoveEmissionAdmins_20261029.sol
+  s_27070cf0ae3899::t_ccea537cba85d4 12
+src/20261029_Multi_RemoveEmissionAdmins/AaveV3Avalanche_RemoveEmissionAdmins_20261029.sol
+  s_27070cf0ae3899::t_ccea537cba85d4 12
+src/20261029_Multi_RemoveEmissionAdmins/AaveV3Polygon_RemoveEmissionAdmins_20261029.sol
+  s_27070cf0ae3899::t_ccea537cba85d4 12
+src/20261029_Multi_RemoveEmissionAdmins/AaveV3BNB_RemoveEmissionAdmins_20261029.sol
+  s_27070cf0ae3899::t_ccea537cba85d4 12
+src/20261029_Multi_RemoveEmissionAdmins/AaveV3Plasma_RemoveEmissionAdmins_20261029.sol
+  s_27070cf0ae3899::t_ccea537cba85d4 12
+src/20261029_Multi_RemoveEmissionAdmins/AaveV3Linea_RemoveEmissionAdmins_20261029.sol
+  s_27070cf0ae3899::t_ccea537cba85d4 12
+src/20261029_Multi_RemoveEmissionAdmins/AaveV3MegaEth_RemoveEmissionAdmins_20261029.sol
+  s_27070cf0ae3899::t_ccea537cba85d4 12
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "47f3f6b5bf06860935eaedd2eccf0f017d29c704",
+  "prompts": {},
+  "sessions": {
+    "s_27070cf0ae3899": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "c0b34d16-8be4-488b-bc86-602f235678e9",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "DhairyaSethi <55102840+DhairyaSethi@users.noreply.github.com>"
+    }
+  }
+}

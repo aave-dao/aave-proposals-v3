@@ -1,0 +1,19 @@
+generator/features/assetListing.ts
+  s_9f64eda37ab66b::t_535efaee937594 207,318-324
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.13",
+  "base_commit_sha": "b372f7c62b38da0382850891d68e471b7e4469e3",
+  "prompts": {},
+  "sessions": {
+    "s_9f64eda37ab66b": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f5c12-c8cd-7501-a70d-3f73ef1f5357",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "AlbertoCentonze <11707683+AlbertoCentonze@users.noreply.github.com>"
+    }
+  }
+}

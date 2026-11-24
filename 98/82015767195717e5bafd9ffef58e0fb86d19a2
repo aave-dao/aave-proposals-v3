@@ -1,0 +1,45 @@
+src/20260423_Multi_LiquidateRsETHPositions/mainnet/AaveV3Ethereum_LiquidateRsETHPositionUser2_20260423.sol
+  h_e42aa0fb58e660 9
+src/20260423_Multi_LiquidateRsETHPositions/arbitrum/AaveV3Arbitrum_LiquidateRsETHPositionUser3_20260423.sol
+  h_e42aa0fb58e660 9
+src/20260423_Multi_LiquidateRsETHPositions/arbitrum/AaveV3Arbitrum_LiquidateRsETHPositionUser4_20260423.sol
+  h_e42aa0fb58e660 9
+src/20260423_Multi_LiquidateRsETHPositions/arbitrum/AaveV3Arbitrum_LiquidateRsETHPositionUser2_20260423.sol
+  h_e42aa0fb58e660 9
+src/20260423_Multi_LiquidateRsETHPositions/arbitrum/AaveV3Arbitrum_LiquidateRsETHPositionUser5_20260423.sol
+  h_e42aa0fb58e660 9
+src/20260423_Multi_LiquidateRsETHPositions/arbitrum/AaveV3Arbitrum_LiquidateRsETHPositionUser1_20260423.sol
+  h_e42aa0fb58e660 9
+src/20260423_Multi_LiquidateRsETHPositions/arbitrum/AaveV3Arbitrum_LiquidateRsETHPositionUser6_20260423.sol
+  h_e42aa0fb58e660 9
+src/20260423_Multi_LiquidateRsETHPositions/mainnet/AaveV3Ethereum_LiquidateRsETHPositionUser1_20260423.sol
+  h_e42aa0fb58e660 9
+src/20260423_Multi_LiquidateRsETHPositions/LiquidateRsETHPositions.md
+  h_e42aa0fb58e660 63
+  c16788477c80ab43 61-62
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.4",
+  "base_commit_sha": "9882015767195717e5bafd9ffef58e0fb86d19a2",
+  "prompts": {
+    "c16788477c80ab43": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "b8646c59-dfc2-402f-b7b3-1e2f41fbdee7",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "Alexandru Niculae",
+      "messages": [],
+      "total_additions": 2,
+      "total_deletions": 1,
+      "accepted_lines": 2,
+      "overriden_lines": 0
+    }
+  },
+  "humans": {
+    "h_e42aa0fb58e660": {
+      "author": "Alexandru Niculae"
+    }
+  }
+}

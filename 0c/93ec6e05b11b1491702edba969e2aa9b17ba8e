@@ -1,0 +1,19 @@
+.github/workflows/test.yml
+  s_510e21aa38cba9::t_949316e4147560 58-71
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.11",
+  "base_commit_sha": "0c93ec6e05b11b1491702edba969e2aa9b17ba8e",
+  "prompts": {},
+  "sessions": {
+    "s_510e21aa38cba9": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "23791a5a-f479-44d6-a62a-e27c8498e76c",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "AlbertoCentonze <11707683+AlbertoCentonze@users.noreply.github.com>"
+    }
+  }
+}

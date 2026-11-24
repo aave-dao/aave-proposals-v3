@@ -1,0 +1,24 @@
+src/20260507_AaveV4Ethereum_SVRfeeds/AaveV4Ethereum_SVRfeeds_20260507.sol
+  s_7a6b840f6661c8::t_a3c4d3c35be212 55
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.1",
+  "base_commit_sha": "c5262c6c302ce63655ff7a127fecf9330aa17240",
+  "prompts": {},
+  "humans": {
+    "h_71908bb6884da4": {
+      "author": "YBM <31329384+yan-man@users.noreply.github.com>"
+    }
+  },
+  "sessions": {
+    "s_7a6b840f6661c8": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "5e8d4a9b-75a7-4476-9344-7455341128c7",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "YBM <31329384+yan-man@users.noreply.github.com>"
+    }
+  }
+}

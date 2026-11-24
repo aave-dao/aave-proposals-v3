@@ -1,0 +1,14 @@
+src/20260505_Multi_ChaosAgentHubOffboarding/ChaosAgentHubOffboarding.md
+  h_739c25e72c37fb 2
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.1",
+  "base_commit_sha": "e275f83d044ecf9fe08ee3857b3c78624ac44f17",
+  "prompts": {},
+  "humans": {
+    "h_739c25e72c37fb": {
+      "author": "DhairyaSethi <55102840+DhairyaSethi@users.noreply.github.com>"
+    }
+  }
+}

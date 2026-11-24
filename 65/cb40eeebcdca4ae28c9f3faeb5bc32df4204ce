@@ -1,0 +1,32 @@
+src/20260507_AaveV4Ethereum_SVRfeeds/AaveV4Ethereum_SVRfeeds_20260507.t.sol
+  s_a46e7d8cdd071c::t_5510f1ad92dd7e 45
+  h_71908bb6884da4 27-28,33,42,44,47,315,339-340,345,347,373-375,378,382,384,387,393-394
+  s_a46e7d8cdd071c::t_b133b33635d127 261,272,274-276,282-283
+  s_a46e7d8cdd071c::t_13f79075a83e90 258,273,277-281
+  s_a46e7d8cdd071c::t_2b139ac4b38248 9
+  s_a46e7d8cdd071c::t_7f869d2da8fe16 29-32
+  s_a46e7d8cdd071c::t_21ab5e5fe969c0 341-344,346,348-364,366-372,376-377,379-381,383,385-386,388-392,395-398
+  s_a46e7d8cdd071c::t_c94d8087b8ab11 314,319-320,323
+  s_a46e7d8cdd071c::t_056595ab7e4dfd 316-318,324-336,427-429
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.4",
+  "base_commit_sha": "65cb40eeebcdca4ae28c9f3faeb5bc32df4204ce",
+  "prompts": {},
+  "humans": {
+    "h_71908bb6884da4": {
+      "author": "YBM <31329384+yan-man@users.noreply.github.com>"
+    }
+  },
+  "sessions": {
+    "s_a46e7d8cdd071c": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "5e91c851-57d9-4260-be76-8b03ed3ababd",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "YBM <31329384+yan-man@users.noreply.github.com>"
+    }
+  }
+}

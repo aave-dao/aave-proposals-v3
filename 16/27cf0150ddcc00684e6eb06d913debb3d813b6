@@ -1,0 +1,52 @@
+src/20260424_AaveV3_StewardsTxs/AaveV3Base_20260424_AaveV3_StewardsTxs_Base.t.sol
+  d62ce230a712bad6 1-281
+src/20260424_AaveV3_StewardsTxs/AaveV3EthereumLido_20260424_AaveV3_StewardsTxs_EthereumLido.t.sol
+  d62ce230a712bad6 1-206
+src/20260424_AaveV3_StewardsTxs/AaveV3Mantle_20260424_AaveV3_StewardsTxs_Mantle.t.sol
+  d62ce230a712bad6 1-191
+src/20260424_AaveV3_StewardsTxs/AaveV3Arbitrum_20260424_AaveV3_StewardsTxs_Arbitrum.t.sol
+  d62ce230a712bad6 1-281
+src/20260424_AaveV3_StewardsTxs/AaveV3Celo_20260424_AaveV3_StewardsTxs_Celo.t.sol
+  d62ce230a712bad6 1-176
+src/20260424_AaveV3_StewardsTxs/AaveV3Avalanche_20260424_AaveV3_StewardsTxs_Avalanche.t.sol
+  d62ce230a712bad6 1-266
+src/20260424_AaveV3_StewardsTxs/AaveV3Gnosis_20260424_AaveV3_StewardsTxs_Gnosis.t.sol
+  d62ce230a712bad6 1-191
+diffs/AaveV3Linea_20260424_AaveV3_StewardsTxs_Linea_before_AaveV3Linea_20260424_AaveV3_StewardsTxs_Linea_after.md
+  d62ce230a712bad6 1-64,66-88,96-181
+src/20260424_AaveV3_StewardsTxs/AaveV3Linea_20260424_AaveV3_StewardsTxs_Linea.t.sol
+  d62ce230a712bad6 1-206
+diffs/AaveV3Mantle_20260424_AaveV3_StewardsTxs_Mantle_before_AaveV3Mantle_20260424_AaveV3_StewardsTxs_Mantle_after.md
+  d62ce230a712bad6 1-153
+diffs/AaveV3Optimism_20260424_AaveV3_StewardsTxs_Optimism_before_AaveV3Optimism_20260424_AaveV3_StewardsTxs_Optimism_after.md
+  d62ce230a712bad6 1-217
+src/20260424_AaveV3_StewardsTxs/AaveV3BNB_20260424_AaveV3_StewardsTxs_BNB.t.sol
+  d62ce230a712bad6 1-191
+src/20260424_AaveV3_StewardsTxs/AaveV3Optimism_20260424_AaveV3_StewardsTxs_Optimism.t.sol
+  d62ce230a712bad6 1-254
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.4",
+  "base_commit_sha": "1627cf0150ddcc00684e6eb06d913debb3d813b6",
+  "prompts": {
+    "d62ce230a712bad6": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6a6f7306-689c-4e28-9b7e-2cf27d25c227",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "YBM",
+      "messages": [],
+      "total_additions": 5755,
+      "total_deletions": 13,
+      "accepted_lines": 5733,
+      "overriden_lines": 9
+    }
+  },
+  "humans": {
+    "h_ac33fd5bdc4037": {
+      "author": "YBM"
+    }
+  }
+}

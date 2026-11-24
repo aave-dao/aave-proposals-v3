@@ -1,0 +1,25 @@
+src/20261009_AaveV4EthereumSentoraCurated_SentoraMarketActivation/AaveV4EthereumSentoraCurated_SentoraMarketActivation_20261009.t.sol
+  s_2843833aabf52a::t_e31f548b8928d4 43
+src/20261009_AaveV4EthereumSentoraCurated_SentoraMarketActivation/AaveV4EthereumSentoraCurated_SentoraPreLaunchConfig_20261016.t.sol
+  s_2843833aabf52a::t_e44e7cba4039f5 6,64-65,79,101-132,141,230-238,240-241,253-261
+src/20261009_AaveV4EthereumSentoraCurated_SentoraMarketActivation/SentoraAccessControl.t.sol
+  s_2843833aabf52a::t_6b9e7bc41dfc73 27
+src/20261009_AaveV4EthereumSentoraCurated_SentoraMarketActivation/SentoraTestBase.sol
+  s_2843833aabf52a::t_c35bc2e546e05b 8,51
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "5573ee5c5cc867d8af727c93e82f2d1ea7ef5fc2",
+  "prompts": {},
+  "sessions": {
+    "s_2843833aabf52a": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "ae63ebf5-88d7-4dfe-976c-39793e6bfe86",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "DhairyaSethi <55102840+DhairyaSethi@users.noreply.github.com>"
+    }
+  }
+}

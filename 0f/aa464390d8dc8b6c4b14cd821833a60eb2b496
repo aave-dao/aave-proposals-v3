@@ -1,0 +1,29 @@
+src/20260423_Multi_LiquidateRsETHPositions/mainnet/LiquidateRsETHEthereumSetupTest.t.sol
+  h_ac33fd5bdc4037 258
+  b5dbe9e04dd94054 252,256-257,259,261
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.4",
+  "base_commit_sha": "0faa464390d8dc8b6c4b14cd821833a60eb2b496",
+  "prompts": {
+    "b5dbe9e04dd94054": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "1ba3285d-9ab5-4bd7-8f2e-d560691e1481",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "YBM",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 9,
+      "overriden_lines": 0
+    }
+  },
+  "humans": {
+    "h_ac33fd5bdc4037": {
+      "author": "YBM"
+    }
+  }
+}

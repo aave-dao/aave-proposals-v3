@@ -1,0 +1,35 @@
+src/20260916_Multi_AaveV4CapsIncreaseRound17/AaveV4CapsIncreaseRound17.md
+  s_c37f53d458d1e6::t_372478a7d4b4f7 111-112,115-116
+  s_c37f53d458d1e6::t_ae3308249e9600 27-32,108-110,114
+  s_c37f53d458d1e6::t_bbdb332e815e55 4,23,76-87,92-93,98-101,106-107,113,117-118,132
+src/20260916_Multi_AaveV4CapsIncreaseRound17/AaveV4Ethereum_IncreaseCaps_20260916.t.sol
+  s_c37f53d458d1e6::t_bbdb332e815e55 7,31-32,160-162,164,166,168-174,176,178,180,201-227
+  s_c37f53d458d1e6::t_7512ad058809d1 163,165,167,175,177,179
+  s_c37f53d458d1e6::t_63fd30e0e72e90 181,228
+src/20260916_Multi_AaveV4CapsIncreaseRound17/AaveV4Ethereum_IncreaseCaps_20260916_Fork.t.sol
+  s_c37f53d458d1e6::t_bbdb332e815e55 8,25
+  s_c37f53d458d1e6::t_115bd68495470c 26
+src/20260916_Multi_AaveV4CapsIncreaseRound17/AaveV4Ethereum_IncreaseCaps_20260916.sol
+  s_c37f53d458d1e6::t_bbdb332e815e55 6,11,13,17-43,93-115
+  s_c37f53d458d1e6::t_5fc48e2e0e335a 116
+src/20260916_Multi_AaveV4CapsIncreaseRound17/AaveV4Avalanche_IncreaseCaps_20260916.sol
+  s_c37f53d458d1e6::t_bbdb332e815e55 12
+src/20260916_Multi_AaveV4CapsIncreaseRound17/AaveV4Arc_IncreaseCaps_20260916.sol
+  s_c37f53d458d1e6::t_bbdb332e815e55 12
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "57945f5f8c88f152ff6871c7a8ab85635e195874",
+  "prompts": {},
+  "sessions": {
+    "s_c37f53d458d1e6": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a0aa52-36d0-7f63-9d8b-c9e824169e05",
+        "model": "gpt-6-astra"
+      },
+      "human_author": "AlbertoCentonze <11707683+AlbertoCentonze@users.noreply.github.com>"
+    }
+  }
+}

@@ -1,0 +1,27 @@
+generator/cli.ts
+  s_660dbf28683829::t_093efffea177ae 84
+generator/common.spec.ts
+  s_660dbf28683829::t_093efffea177ae 2-3,28-33
+  s_660dbf28683829::t_e68409b9622e4e 34-35
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "fb03507f6a27e0b200900ce2c8326af92724cb09",
+  "prompts": {},
+  "humans": {
+    "h_8b974fbabf2fb7": {
+      "author": "Alberto <albe@AMWM-H65F40J09H.local>"
+    }
+  },
+  "sessions": {
+    "s_660dbf28683829": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f4195-9dbe-74f2-a5c7-08265bd91f1a",
+        "model": "gpt-5.5"
+      },
+      "human_author": "Alberto <albe@AMWM-H65F40J09H.local>"
+    }
+  }
+}

@@ -1,0 +1,49 @@
+src/20260514_AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosUSDGPendle/AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosUSDGPendle_20260514.t.sol
+  s_df471eb49f6634::t_37b18d1079e68e 460
+  s_df471eb49f6634::t_71769cc10aaede 403,407,416-418
+  s_df471eb49f6634::t_9e067e6623d850 378-384,386-393
+  h_0f977de3f043fc 404-406,413
+  s_df471eb49f6634::t_c2fe04b9be3274 394-402,408-412,414-415,419-420
+  s_df471eb49f6634::t_5beffd0bf42baf 467
+  s_df471eb49f6634::t_38a7cf9d46cbac 446
+  s_df471eb49f6634::t_d59b6e853072f5 55-57
+  s_df471eb49f6634::t_672ff33342c2dc 48-53
+  s_df471eb49f6634::t_8f19b86783d532 20
+  s_df471eb49f6634::t_cf85cc4fc970c6 54
+  s_df471eb49f6634::t_c98a30faee3ab4 71
+  s_df471eb49f6634::t_2ac21fe1df39aa 324-325,329
+  s_df471eb49f6634::t_9c513b0d0601d9 373-374
+src/20260514_AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosUSDGPendle/OnboardPTUSDG24SEP2026OnV4PaxosUSDGPendle.md
+  s_df471eb49f6634::t_e7cd85fd7a39bf 19
+  s_df471eb49f6634::t_e1e6f45babb5e4 63
+diffs/AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosUSDGPendle_20260514_before_AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosUSDGPendle_20260514_after.md
+  s_df471eb49f6634::t_cf85cc4fc970c6 3-26,48-49,82,115,147-148,241,379,382,388,400,404-444,450,456,460-465,502,634,647,661,674-675,693,730-735,760-765,787-788,1015-1050
+src/20260514_AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosUSDGPendle/AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosUSDGPendle_20260514.sol
+  s_df471eb49f6634::t_889c3cd0246fa5 34,36-38
+  s_df471eb49f6634::t_f95868dca77d28 191-192,194-220
+  s_df471eb49f6634::t_429884c47a6c92 193
+  s_df471eb49f6634::t_22091d6fa7c745 180
+  s_df471eb49f6634::t_b55feb88443d41 7-9
+  h_0f977de3f043fc 33
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.8",
+  "base_commit_sha": "cc9ea11b57959b77a2245337d212e3c7972b9301",
+  "prompts": {},
+  "humans": {
+    "h_0f977de3f043fc": {
+      "author": "Alexandru Niculae <43644109+avniculae@users.noreply.github.com>"
+    }
+  },
+  "sessions": {
+    "s_df471eb49f6634": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "68ce97a0-dfaf-4676-93bf-952490e74da2",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Alexandru Niculae <43644109+avniculae@users.noreply.github.com>"
+    }
+  }
+}

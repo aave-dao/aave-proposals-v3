@@ -1,0 +1,34 @@
+src/interfaces/IStakeToken.sol
+  s_230ef88db3c189::t_c0c0491c9a8b75 1-6
+src/interfaces/IUmbrella.sol
+  s_230ef88db3c189::t_ed1f1c9079ae6f 4,8
+  s_230ef88db3c189::t_4df31b06e5c7c4 5,7
+  s_230ef88db3c189::t_065e8b7c0e1a77 1-3,6,9
+src/20260720_Multi_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment/AaveV3Ethereum_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720.t.sol
+  s_230ef88db3c189::t_4df31b06e5c7c4 50-51,55
+  s_230ef88db3c189::t_61934a0502fcaf 48
+  s_230ef88db3c189::t_c0c0491c9a8b75 10,68,70
+  s_230ef88db3c189::t_065e8b7c0e1a77 11,47,67,69
+  s_230ef88db3c189::t_bf7a14f39edcf2 56,58,71
+src/20260720_Multi_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment/RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment.md
+  s_230ef88db3c189::t_fb6953dac8d56f 26,87
+src/20260720_Multi_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment/AaveV3Ethereum_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720.sol
+  s_230ef88db3c189::t_065e8b7c0e1a77 9,24
+  s_230ef88db3c189::t_4df31b06e5c7c4 25
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "5a569e511ba42d25f55fb95e814b3b4cb03d3c57",
+  "prompts": {},
+  "sessions": {
+    "s_230ef88db3c189": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f7e82-9f09-7752-9ac6-6984381a9ded",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "AlbertoCentonze <11707683+AlbertoCentonze@users.noreply.github.com>"
+    }
+  }
+}

@@ -1,0 +1,19 @@
+.agents/skills/write-aave-proposals/references/asset-listing.md
+  s_215cf904a2e561::t_c978f6d3369639 10-11
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "3760c9bf4c373cfb1f3fd813f8e4f49ff6b505d5",
+  "prompts": {},
+  "sessions": {
+    "s_215cf904a2e561": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a03318-2422-7010-8891-82126247fd68",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "AlbertoCentonze <11707683+AlbertoCentonze@users.noreply.github.com>"
+    }
+  }
+}

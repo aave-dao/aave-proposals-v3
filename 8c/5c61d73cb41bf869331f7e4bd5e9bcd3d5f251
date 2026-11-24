@@ -1,0 +1,54 @@
+generator/features/capsUpdates.ts
+  s_3c613cca907125::t_67c6259592d5c6 27-30,35-36,70-72,105
+  s_3c613cca907125::t_83b7f36cae501a 1,9-10,40-61,74-77,111
+  s_3c613cca907125::t_415be1dab59a17 2,31-34,37-38,62-69,73,96,112-113,115
+  s_3c613cca907125::t_3b36c9cbc63ec1 39,114
+  s_3c613cca907125::t_02f4a5f3f6e2b8 116
+generator/features/collateralsUpdates.spec.ts
+  s_3c613cca907125::t_40f479d5393f7e 31-32,34,37,39,56-59
+generator/features/mocks/configs.ts
+  s_3c613cca907125::t_83b7f36cae501a 3,115-125
+  s_3c613cca907125::t_5a4f0415a484d7 126-127
+generator/features/collateralsUpdates.ts
+  s_3c613cca907125::t_67c6259592d5c6 48-50,57-58,111-112
+  s_3c613cca907125::t_46470474539356 38-41,88
+  s_3c613cca907125::t_83b7f36cae501a 10,68-74,79,82-87
+  s_3c613cca907125::t_2d462c6259ffa5 2,43-45,51-56,107-110,113-118,138,147,154-155,157
+  s_3c613cca907125::t_37abb4a5713863 61,156
+generator/features/reserveConfigTestHelpers.ts
+  s_3c613cca907125::t_83b7f36cae501a 1-13
+generator/features/capsUpdates.spec.ts
+  s_3c613cca907125::t_40f479d5393f7e 31-32,34,37,39,52-53
+  s_3c613cca907125::t_83b7f36cae501a 1-30,33,35-36,38,40-51,54-55
+generator/features/__snapshots__/assetListing.spec.ts.snap
+  s_3c613cca907125::t_f2a76e9a7b210b 180,187,203-209
+generator/features/__snapshots__/capsUpdates.spec.ts.snap
+  s_3c613cca907125::t_bee6b63bd844d3 1-47
+generator/features/__snapshots__/collateralsUpdates.spec.ts.snap
+  s_3c613cca907125::t_46ba97311ccd5d 31-33,35-49,52
+generator/features/__snapshots__/eModesCreation.spec.ts.snap
+  s_3c613cca907125::t_843f4445c36fd3 219,226,242-248
+generator/features/__snapshots__/priceFeedsUpdate.spec.ts.snap
+  s_3c613cca907125::t_528477793496b0 94,101,116-122
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "8c5c61d73cb41bf869331f7e4bd5e9bcd3d5f251",
+  "prompts": {},
+  "humans": {
+    "h_8b974fbabf2fb7": {
+      "author": "Alberto <albe@AMWM-H65F40J09H.local>"
+    }
+  },
+  "sessions": {
+    "s_3c613cca907125": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f3794-268d-75b1-9e56-8673cc8a4eb1",
+        "model": "gpt-5.5"
+      },
+      "human_author": "Alberto <albe@AMWM-H65F40J09H.local>"
+    }
+  }
+}

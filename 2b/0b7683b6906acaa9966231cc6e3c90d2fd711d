@@ -1,0 +1,40 @@
+src/20260423_Multi_LiquidateRsETHPositions/AaveV3Ethereum_LiquidateRsETHPositions_20260423.t.sol
+  c16788477c80ab43 6,12,14-15,19,34-42,51-72,81-83,85-86,90-101,105-112,124-127,130-138,143-145,149-156,159-162,165-184,186,188-191,196-198,202-219,223,225,228,230-233,235-243,247-266,270,272,275,277-283,285-292,295-304,308-316,320-325,329-331,333-337,339-355,358-371,373-376,381-382,384-386,390-392,394,398,407-412,416-417,420-424,426-435,437,440-453,456-470,473-475,479-481,483-484,486,488,490-491,493-494,496-502,504-505,507,509-512,514-515,517-522,524-529,531,541,552-606
+  h_e42aa0fb58e660 116-118,222,269
+src/20260423_Multi_LiquidateRsETHPositions/AaveV3Arbitrum_LiquidateRsETHPositions_20260423.sol
+  c16788477c80ab43 4,6-7,15,17-18,27-29,31-33,35-37,39-41,43-45,47-49,51-53,55-57,59-66
+src/20260423_Multi_LiquidateRsETHPositions/LiquidateRsETHPositionsBase.sol
+  c16788477c80ab43 1-219
+src/20260423_Multi_LiquidateRsETHPositions/AaveV3Ethereum_LiquidateRsETHPositions_20260423.sol
+  c16788477c80ab43 4,6,8,16,18-19,24-26,28-30,32-34,36-38,40-42,44-46,48-50,52-54,56-60,62-82
+src/20260423_Multi_LiquidateRsETHPositions/AaveV3Arbitrum_LiquidateRsETHPositions_20260423.t.sol
+  c16788477c80ab43 5,11,15,30-41,57-83,92-94,96-122,136-139,142-149,155-157,161-168,171-180,183-214,216-236,240-243,245-247,250-251,253-261,265-285,288,290-291,293,295-306,309-316,318-319,322-323,327-330,332-337,339-347,350-377,379-388,390-393,395-405,409-413,415-416,420-421,424,426-429,431-435,438-443,447-448,451-460,463-472,475-479,481-501,503,506-508,510-512,514-516,518-521,523-527,535-538,541-543,545,547,549-550,559,561,563,565-567,577-596
+  h_e42aa0fb58e660 128-130,287
+src/interfaces/IFixedPriceFeed.sol
+  h_e42aa0fb58e660 1-58
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.4",
+  "base_commit_sha": "2b0b7683b6906acaa9966231cc6e3c90d2fd711d",
+  "prompts": {
+    "c16788477c80ab43": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "b8646c59-dfc2-402f-b7b3-1e2f41fbdee7",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "Alexandru Niculae",
+      "messages": [],
+      "total_additions": 3901,
+      "total_deletions": 1753,
+      "accepted_lines": 2652,
+      "overriden_lines": 42
+    }
+  },
+  "humans": {
+    "h_e42aa0fb58e660": {
+      "author": "Alexandru Niculae"
+    }
+  }
+}

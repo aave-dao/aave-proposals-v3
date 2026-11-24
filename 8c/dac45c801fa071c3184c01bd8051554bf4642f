@@ -1,0 +1,85 @@
+src/20260826_Multi_LowAdoptionAssetDeprecationOnAaveV3/AaveV3Gnosis_LowAdoptionAssetDeprecationOnAaveV3_20260826.t.sol
+  s_8b1176abc90d3e::t_5a7585804e088a 22
+src/20260826_Multi_LowAdoptionAssetDeprecationOnAaveV3/AaveV3Optimism_LowAdoptionAssetDeprecationOnAaveV3_20260826.t.sol
+  s_8b1176abc90d3e::t_5a7585804e088a 20
+diffs/AaveV3Sonic_LowAdoptionAssetDeprecationOnAaveV3_20260826_before_AaveV3Sonic_LowAdoptionAssetDeprecationOnAaveV3_20260826_after.md
+  s_8b1176abc90d3e::t_3d70e47030357e 93-98,112,126-127,143-146,148-151,153-156
+zksync/src/20260826_Multi_LowAdoptionAssetDeprecationOnAaveV3/AaveV3ZkSync_LowAdoptionAssetDeprecationOnAaveV3_20260826.t.sol
+  s_8b1176abc90d3e::t_5a7585804e088a 18
+src/20260826_Multi_LowAdoptionAssetDeprecationOnAaveV3/AaveV3Scroll_LowAdoptionAssetDeprecationOnAaveV3_20260826.t.sol
+  s_8b1176abc90d3e::t_5a7585804e088a 20
+src/20260826_Multi_LowAdoptionAssetDeprecationOnAaveV3/AaveV3Avalanche_LowAdoptionAssetDeprecationOnAaveV3_20260826.t.sol
+  s_8b1176abc90d3e::t_5a7585804e088a 20
+src/20260826_Multi_LowAdoptionAssetDeprecationOnAaveV3/AaveV3Metis_LowAdoptionAssetDeprecationOnAaveV3_20260826.t.sol
+  s_8b1176abc90d3e::t_5a7585804e088a 20
+src/20260826_Multi_LowAdoptionAssetDeprecationOnAaveV3/AaveV3Soneium_LowAdoptionAssetDeprecationOnAaveV3_20260826.t.sol
+  s_8b1176abc90d3e::t_5a7585804e088a 20
+src/20260826_Multi_LowAdoptionAssetDeprecationOnAaveV3/AaveV3Base_LowAdoptionAssetDeprecationOnAaveV3_20260826.t.sol
+  s_8b1176abc90d3e::t_5a7585804e088a 20
+src/20260826_Multi_LowAdoptionAssetDeprecationOnAaveV3/AaveV3BNB_LowAdoptionAssetDeprecationOnAaveV3_20260826.t.sol
+  s_8b1176abc90d3e::t_5a7585804e088a 20
+src/20260826_Multi_LowAdoptionAssetDeprecationOnAaveV3/AaveV3Arbitrum_LowAdoptionAssetDeprecationOnAaveV3_20260826.t.sol
+  s_8b1176abc90d3e::t_5a7585804e088a 20
+diffs/AaveV3Gnosis_LowAdoptionAssetDeprecationOnAaveV3_20260826_before_AaveV3Gnosis_LowAdoptionAssetDeprecationOnAaveV3_20260826_after.md
+  s_8b1176abc90d3e::t_3d70e47030357e 42-43,49,69-70,77-80,83-86
+src/20260826_Multi_LowAdoptionAssetDeprecationOnAaveV3/AaveV3Ethereum_LowAdoptionAssetDeprecationOnAaveV3_20260826.t.sol
+  s_8b1176abc90d3e::t_5a7585804e088a 20
+src/20260826_Multi_LowAdoptionAssetDeprecationOnAaveV3/AaveV3Ethereum_LowAdoptionAssetDeprecationOnAaveV3Part2_20260826.t.sol
+  s_8b1176abc90d3e::t_5a7585804e088a 22
+src/20260826_Multi_LowAdoptionAssetDeprecationOnAaveV3/AaveV3Plasma_LowAdoptionAssetDeprecationOnAaveV3_20260826.t.sol
+  s_8b1176abc90d3e::t_5a7585804e088a 20
+src/20260826_Multi_LowAdoptionAssetDeprecationOnAaveV3/AaveV3MegaEth_LowAdoptionAssetDeprecationOnAaveV3_20260826.t.sol
+  s_8b1176abc90d3e::t_5a7585804e088a 20
+src/20260826_Multi_LowAdoptionAssetDeprecationOnAaveV3/AaveV3EthereumLido_LowAdoptionAssetDeprecationOnAaveV3_20260826.t.sol
+  s_8b1176abc90d3e::t_5a7585804e088a 22
+src/20260826_Multi_LowAdoptionAssetDeprecationOnAaveV3/AaveV3Sonic_LowAdoptionAssetDeprecationOnAaveV3_20260826.t.sol
+  s_8b1176abc90d3e::t_5a7585804e088a 20
+src/20260826_Multi_LowAdoptionAssetDeprecationOnAaveV3/AaveV3Polygon_LowAdoptionAssetDeprecationOnAaveV3_20260826.t.sol
+  s_8b1176abc90d3e::t_5a7585804e088a 20
+diffs/AaveV3Arbitrum_LowAdoptionAssetDeprecationOnAaveV3_20260826_before_AaveV3Arbitrum_LowAdoptionAssetDeprecationOnAaveV3_20260826_after.md
+  s_8b1176abc90d3e::t_66620b1908bb26 96-99,105,111,121-124,127-130,135-138,140-143,156-157
+diffs/AaveV3Avalanche_LowAdoptionAssetDeprecationOnAaveV3_20260826_before_AaveV3Avalanche_LowAdoptionAssetDeprecationOnAaveV3_20260826_after.md
+  s_8b1176abc90d3e::t_a1a56953a91672 52-53,59,73-74,81-84,87-90
+diffs/AaveV3BNB_LowAdoptionAssetDeprecationOnAaveV3_20260826_before_AaveV3BNB_LowAdoptionAssetDeprecationOnAaveV3_20260826_after.md
+  s_8b1176abc90d3e::t_39eae332fd43cf 56-58,64,85-88,90-93,95-98,105-106
+diffs/AaveV3Base_LowAdoptionAssetDeprecationOnAaveV3_20260826_before_AaveV3Base_LowAdoptionAssetDeprecationOnAaveV3_20260826_after.md
+  s_8b1176abc90d3e::t_7a7b50a1138253 55-56,62,76-77,84-87,93-96
+diffs/AaveV3EthereumLido_LowAdoptionAssetDeprecationOnAaveV3_20260826_before_AaveV3EthereumLido_LowAdoptionAssetDeprecationOnAaveV3_20260826_after.md
+  s_8b1176abc90d3e::t_1d2a42a29e3b34 49,55,61,70-73,84-85
+diffs/AaveV3Ethereum_LowAdoptionAssetDeprecationOnAaveV3Part2_20260826_before_AaveV3Ethereum_LowAdoptionAssetDeprecationOnAaveV3Part2_20260826_after.md
+  s_8b1176abc90d3e::t_4dea446e89b9f9 188,194,256-257
+diffs/AaveV3Ethereum_LowAdoptionAssetDeprecationOnAaveV3_20260826_before_AaveV3Ethereum_LowAdoptionAssetDeprecationOnAaveV3_20260826_after.md
+  s_8b1176abc90d3e::t_3c64569d283afd 155-163,169,175,194-197,201-204,208-211,213-216,218-221,224-227,230-233,235-238,241-244,250-251
+diffs/AaveV3MegaEth_LowAdoptionAssetDeprecationOnAaveV3_20260826_before_AaveV3MegaEth_LowAdoptionAssetDeprecationOnAaveV3_20260826_after.md
+  s_8b1176abc90d3e::t_ca89b4dbe9d13f 39,45,62-65,71-72
+diffs/AaveV3Metis_LowAdoptionAssetDeprecationOnAaveV3_20260826_before_AaveV3Metis_LowAdoptionAssetDeprecationOnAaveV3_20260826_after.md
+  s_8b1176abc90d3e::t_0d792badd9b731 86-95,111,125-126,143-146,148-151,153-156,158-161,163-166
+diffs/AaveV3Optimism_LowAdoptionAssetDeprecationOnAaveV3_20260826_before_AaveV3Optimism_LowAdoptionAssetDeprecationOnAaveV3_20260826_after.md
+  s_8b1176abc90d3e::t_84798dbeee5fd7 57-59,65,79-80,88-91,93-96,99-102
+diffs/AaveV3Plasma_LowAdoptionAssetDeprecationOnAaveV3_20260826_before_AaveV3Plasma_LowAdoptionAssetDeprecationOnAaveV3_20260826_after.md
+  s_8b1176abc90d3e::t_b5ece30a9f39b1 133-134,140,159-162,181-184,200-201
+diffs/AaveV3Polygon_LowAdoptionAssetDeprecationOnAaveV3_20260826_before_AaveV3Polygon_LowAdoptionAssetDeprecationOnAaveV3_20260826_after.md
+  s_8b1176abc90d3e::t_1d9fd3818d8ee9 123-129,135,149-150,157-160,162-165,169-172,176-179,181-184,186-189,191-194
+diffs/AaveV3Scroll_LowAdoptionAssetDeprecationOnAaveV3_20260826_before_AaveV3Scroll_LowAdoptionAssetDeprecationOnAaveV3_20260826_after.md
+  s_8b1176abc90d3e::t_ee8efcf94b5fab 76-85,101,116-119,121-124,126-129,131-134,136-139,145-146
+diffs/AaveV3Soneium_LowAdoptionAssetDeprecationOnAaveV3_20260826_before_AaveV3Soneium_LowAdoptionAssetDeprecationOnAaveV3_20260826_after.md
+  s_8b1176abc90d3e::t_ffb7f53ba996a5 64-69,83,97-98,113-116,118-121,123-126
+diffs/AaveV3ZkSync_LowAdoptionAssetDeprecationOnAaveV3_20260826_before_AaveV3ZkSync_LowAdoptionAssetDeprecationOnAaveV3_20260826_after.md
+  s_8b1176abc90d3e::t_3ce7b121b288f4 80-81,98-101,104-107,109-112,115-118,120-123
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "8cdac45c801fa071c3184c01bd8051554bf4642f",
+  "prompts": {},
+  "sessions": {
+    "s_8b1176abc90d3e": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a09f8f-65f6-7b63-827e-2b9eb7c8960f",
+        "model": "gpt-6-astra"
+      },
+      "human_author": "AlbertoCentonze <11707683+AlbertoCentonze@users.noreply.github.com>"
+    }
+  }
+}

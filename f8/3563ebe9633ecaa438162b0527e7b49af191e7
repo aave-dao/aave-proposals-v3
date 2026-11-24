@@ -1,0 +1,57 @@
+src/20260708_AaveV4Avalanche_AaveV4AvalancheActivation/AaveV4Avalanche_AaveV4AvalancheActivation_20260708.sol
+  h_739c25e72c37fb 1-41
+diffs/AaveV4Avalanche_AaveV4AvalancheActivation_20260708_before_AaveV4Avalanche_AaveV4AvalancheActivation_20260708_after.md
+  s_2086f495a8840c::t_1d41e9a8e3b075 1-394
+src/20260708_AaveV4Avalanche_AaveV4AvalancheActivation/AaveV4Avalanche_AaveV4AvalancheActivation_20260708.t.sol
+  s_2086f495a8840c::t_9aec75db8204ab 5-11,13,16,23-31,37-41,44-45,62-73,83-103,110-127,133-142,150-155,157-183,192-314,319-346,350-392
+  s_2086f495a8840c::t_fb95f8d73e9ddf 51-57,59
+  s_2086f495a8840c::t_7c86b3b50d4455 12,18-19,74-82,104-109,128-132,143-149,156
+  s_2086f495a8840c::t_6c656d10007896 184-191,315-318,347-349
+  h_739c25e72c37fb 1-4,15,17,20-22,32-36,42-43,46-50,58,60-61,393-394
+  s_2086f495a8840c::t_356e20fe0ada7d 14
+src/20260708_AaveV4Avalanche_AaveV4AvalancheActivation/config.ts
+  h_739c25e72c37fb 1-15
+src/20260708_AaveV4Avalanche_AaveV4AvalancheActivation/AaveV4AvalancheActivation.md
+  s_2086f495a8840c::t_c953f07d429416 98-105
+  s_2086f495a8840c::t_55f94f5d89f08c 94-95
+  s_2086f495a8840c::t_66a341e002212e 54-68
+  s_2086f495a8840c::t_52cd1a9cde8623 91
+  s_2086f495a8840c::t_901d9fc3aeecdf 36-37
+  h_739c25e72c37fb 1-21,24-35,38-43,52-53,70-71,92-93,96-97,106-116
+  s_2086f495a8840c::t_b52f2a098f8e72 22-23
+  s_2086f495a8840c::t_ab86dc8c51ed5a 44-50
+  s_2086f495a8840c::t_aaf148888d69eb 72-90
+src/20260708_AaveV4Avalanche_AaveV4AvalancheActivation/AaveV4Avalanche.sol
+  h_739c25e72c37fb 1-245
+src/20260708_AaveV4Avalanche_AaveV4AvalancheActivation/utils/Scenarios.sol
+  s_2086f495a8840c::t_31728a734cf812 10-11
+  s_2086f495a8840c::t_1f2d45e085048e 1-9,12-721
+src/interfaces/IOwnable2Step.sol
+  s_2086f495a8840c::t_8cd2622e2cf879 1-10
+src/20260708_AaveV4Avalanche_AaveV4AvalancheActivation/utils/ProtocolV4TestBase.sol
+  s_2086f495a8840c::t_099af079960624 11-17
+  s_2086f495a8840c::t_1f2d45e085048e 1-10,18-1026
+src/20260708_AaveV4Avalanche_AaveV4AvalancheActivation/AaveV4AvalancheActivation_20260708.s.sol
+  h_739c25e72c37fb 1-63
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "f83563ebe9633ecaa438162b0527e7b49af191e7",
+  "prompts": {},
+  "humans": {
+    "h_739c25e72c37fb": {
+      "author": "DhairyaSethi <55102840+DhairyaSethi@users.noreply.github.com>"
+    }
+  },
+  "sessions": {
+    "s_2086f495a8840c": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "770a40d6-7465-41df-966d-03ac4bfeaa06",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": null
+    }
+  }
+}

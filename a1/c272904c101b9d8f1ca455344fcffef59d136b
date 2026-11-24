@@ -1,0 +1,14 @@
+src/20260423_Multi_LiquidateRsETHPositions/config.ts
+  h_e42aa0fb58e660 10
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.4",
+  "base_commit_sha": "a1c272904c101b9d8f1ca455344fcffef59d136b",
+  "prompts": {},
+  "humans": {
+    "h_e42aa0fb58e660": {
+      "author": "Alexandru Niculae"
+    }
+  }
+}

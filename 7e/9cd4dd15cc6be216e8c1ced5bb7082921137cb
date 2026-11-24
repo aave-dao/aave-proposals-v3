@@ -1,0 +1,111 @@
+src/20260511_Multi_WETHLTVRestorationAcrossV3Instances/AaveV3Linea_WETHLTVRestorationAcrossV3Instances_20260511.sol
+  s_7213da700302c5::t_2c60b184de7861 5
+  h_0f977de3f043fc 1-4,6-14,19-20
+  s_7213da700302c5::t_cd17f1dd1a6b62 15-18
+src/20260511_Multi_WETHLTVRestorationAcrossV3Instances/WETHLTVRestorationAcrossV3Instances.md
+  s_7213da700302c5::t_1bb3136e14d56a 2-6,10-13,16-20,25,30-37,42-47,55-58,71
+  h_0f977de3f043fc 9,14-15,21-22,26-29,38-41,48-54,59-60,66
+src/20260511_Multi_WETHLTVRestorationAcrossV3Instances/AaveV3Ethereum_WETHLTVRestorationAcrossV3Instances_20260511.t.sol
+  s_7213da700302c5::t_1164ab2ae4ad08 25
+  s_7213da700302c5::t_8a9dab0d2c5fcf 5-17,37-43,45-47,49-51,53-55,57-66
+  s_7213da700302c5::t_0cf517d0270803 4,18-21,34-36,44,48,52,56
+src/20260511_Multi_WETHLTVRestorationAcrossV3Instances/AaveV3EthereumLido_WETHLTVRestorationAcrossV3Instances_20260511.t.sol
+  s_7213da700302c5::t_3f8e1b010428e2 24
+  s_7213da700302c5::t_7f8baaeb503d68 5-15,36-42,44-46,48-50,52-61
+  s_7213da700302c5::t_d5b2a0912c76e8 4,17-20,33-35,43,47,51
+src/20260511_Multi_WETHLTVRestorationAcrossV3Instances/AaveV3Mantle_WETHLTVRestorationAcrossV3Instances_20260511.sol
+  s_7213da700302c5::t_5d6b061b30ec63 5
+  h_0f977de3f043fc 10
+  s_7213da700302c5::t_7bc3d6c157547c 15-18
+src/20260511_Multi_WETHLTVRestorationAcrossV3Instances/AaveV3Linea_WETHLTVRestorationAcrossV3Instances_20260511.t.sol
+  s_7213da700302c5::t_5a1f55b202af27 4,17-20,33-35,43,47,51
+  s_7213da700302c5::t_f5a1f6cc9e7a2d 5-16,36-42,44-46,48-50,52-61
+  s_7213da700302c5::t_64e614e2e2bece 24
+diffs/AaveV3EthereumLido_WETHLTVRestorationAcrossV3Instances_20260511_before_AaveV3EthereumLido_WETHLTVRestorationAcrossV3Instances_20260511_after.md
+  s_7213da700302c5::t_c1ae1ec83084fc 1-24,26-50,53-68
+diffs/AaveV3Mantle_WETHLTVRestorationAcrossV3Instances_20260511_before_AaveV3Mantle_WETHLTVRestorationAcrossV3Instances_20260511_after.md
+  s_7213da700302c5::t_8ab3233eab9ab0 1-24,26-50,53-68
+  s_7213da700302c5::t_7cad14c0e9b194 25,51-52
+src/20260511_Multi_WETHLTVRestorationAcrossV3Instances/AaveV3Base_WETHLTVRestorationAcrossV3Instances_20260511.t.sol
+  s_7213da700302c5::t_76aabbddfe0779 25
+  s_7213da700302c5::t_939b8171031e03 4,18-21,34-36,44,48,52,56
+  s_7213da700302c5::t_ae4d50e1bf6723 5-17,37-43,45-47,49-51,53-55,57-66
+src/20260511_Multi_WETHLTVRestorationAcrossV3Instances/AaveV3Base_WETHLTVRestorationAcrossV3Instances_20260511.sol
+  h_0f977de3f043fc 10
+  s_7213da700302c5::t_576854c9823210 5,14-15
+  s_7213da700302c5::t_de85389cb86edc 17-23
+diffs/AaveV3Arbitrum_WETHLTVRestorationAcrossV3Instances_20260511_before_AaveV3Arbitrum_WETHLTVRestorationAcrossV3Instances_20260511_after.md
+  s_7213da700302c5::t_08c82744537e88 1-25,27-52,55-70
+src/20260511_Multi_WETHLTVRestorationAcrossV3Instances/AaveV3Ethereum_WETHLTVRestorationAcrossV3Instances_20260511.sol
+  s_7213da700302c5::t_9d97a7ecd99158 5,14-15
+  s_7213da700302c5::t_f9d485d94722d9 17-23
+  h_0f977de3f043fc 10
+src/20260511_Multi_WETHLTVRestorationAcrossV3Instances/AaveV3Arbitrum_WETHLTVRestorationAcrossV3Instances_20260511.t.sol
+  s_7213da700302c5::t_c5839319b682bd 4,18-21,34-36,44,48,52,56
+  s_7213da700302c5::t_311cd1e466d941 25
+  s_7213da700302c5::t_7c1995ddf2aac8 5-17,37-43,45-47,49-51,53-55,57-66
+src/20260511_Multi_WETHLTVRestorationAcrossV3Instances/AaveV3EthereumLido_WETHLTVRestorationAcrossV3Instances_20260511.sol
+  h_0f977de3f043fc 10
+  s_7213da700302c5::t_5ea0b76388aad5 17-20
+  s_7213da700302c5::t_e633b33c1ec16c 5
+src/20260511_Multi_WETHLTVRestorationAcrossV3Instances/AaveV3Mantle_WETHLTVRestorationAcrossV3Instances_20260511.t.sol
+  s_7213da700302c5::t_fce1399b3f2e19 32-34
+  s_7213da700302c5::t_b6f3139cc9d86d 5-16,38-44,46-48,50-52,54-63
+  s_7213da700302c5::t_54458215b5558e 24
+  s_7213da700302c5::t_89588c6a67c2e5 4,17-20,35-37,45,49,53
+diffs/AaveV3Linea_WETHLTVRestorationAcrossV3Instances_20260511_before_AaveV3Linea_WETHLTVRestorationAcrossV3Instances_20260511_after.md
+  s_7213da700302c5::t_402c7568a1e7ac 1-24,26-38,41-68
+src/20260511_Multi_WETHLTVRestorationAcrossV3Instances/AaveV3Arbitrum_WETHLTVRestorationAcrossV3Instances_20260511.sol
+  s_7213da700302c5::t_3c1c98030d3e72 17-23
+  s_7213da700302c5::t_655a4b52097cc7 5,14-15
+  h_0f977de3f043fc 10
+src/20260511_Multi_WETHLTVRestorationAcrossV3Instances/setup/WETHLTVRestorationBaseTest.t.sol
+  s_7213da700302c5::t_15e98baa9d297c 24,116,119,141-142,146-147,198
+  s_7213da700302c5::t_7f9495aaeaf3d4 23,115,118,140,144,185,197
+  s_7213da700302c5::t_33646b4ad36744 16-22,25-26,51,54-55,61-78,80-83,91-109,111-114,117,120-139,152,155-156,171,178-184,186-196,199
+  s_7213da700302c5::t_0795dbb7105e77 1-15,27-50,52-53,56-60,79,84-90,110,143,148-151,153-154,157-158,161-166,168-170,172-177,200-201
+  h_0f977de3f043fc 145,159-160,167
+src/20260511_Multi_WETHLTVRestorationAcrossV3Instances/config.ts
+  s_7213da700302c5::t_7310d5ed4377c4 22-27
+diffs/AaveV3Ethereum_WETHLTVRestorationAcrossV3Instances_20260511_before_AaveV3Ethereum_WETHLTVRestorationAcrossV3Instances_20260511_after.md
+  s_7213da700302c5::t_1bb3136e14d56a 1-25,27-52,55-70
+diffs/AaveV3Base_WETHLTVRestorationAcrossV3Instances_20260511_before_AaveV3Base_WETHLTVRestorationAcrossV3Instances_20260511_after.md
+  s_7213da700302c5::t_9517d9fe7c3f5e 1-70
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.4",
+  "base_commit_sha": "7e9cd4dd15cc6be216e8c1ced5bb7082921137cb",
+  "prompts": {
+    "123e5f6828ab339d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "c50242c6-abbb-40fe-b17c-600aa43c9475",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "Alexandru Niculae <43644109+avniculae@users.noreply.github.com>",
+      "total_additions": 1098,
+      "total_deletions": 413,
+      "accepted_lines": 645,
+      "overriden_lines": 4
+    }
+  },
+  "humans": {
+    "h_0f977de3f043fc": {
+      "author": "Alexandru Niculae <43644109+avniculae@users.noreply.github.com>"
+    },
+    "h_e42aa0fb58e660": {
+      "author": "Alexandru Niculae"
+    }
+  },
+  "sessions": {
+    "s_7213da700302c5": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "9621d1f1-8563-4688-97d5-496352d2f3f9",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "Alexandru Niculae <43644109+avniculae@users.noreply.github.com>"
+    }
+  }
+}

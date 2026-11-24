@@ -1,0 +1,23 @@
+src/20260409_AaveV4Ethereum_IncreaseCaps/AaveV4Ethereum_IncreaseCaps_20260409.t.sol
+  801906b739766cb9 102-151,167-190,205-226,245-247,252-263,266,268-270
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.2.6",
+  "base_commit_sha": "ebed41651c43ccf42eecbcb315774e74e5e4e046",
+  "prompts": {
+    "801906b739766cb9": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "efe024a4-cd62-4785-a2f5-2a3147170161",
+        "model": "<synthetic>"
+      },
+      "human_author": "Alexandru Niculae",
+      "messages": [],
+      "total_additions": 152,
+      "total_deletions": 101,
+      "accepted_lines": 116,
+      "overriden_lines": 0
+    }
+  }
+}

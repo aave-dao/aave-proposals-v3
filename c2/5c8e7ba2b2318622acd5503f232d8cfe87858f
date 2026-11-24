@@ -1,0 +1,34 @@
+src/20260423_Multi_LiquidateRsETHPositions/mainnet/LiquidateRsETHEthereumSetup.sol
+  h_ac33fd5bdc4037 59,61-62,65
+src/20260423_Multi_LiquidateRsETHPositions/arbitrum/LiquidateRsETHArbitrumSetup.sol
+  h_ac33fd5bdc4037 51
+  ae68ced1b12e7edf 50,52-53
+src/20260423_Multi_LiquidateRsETHPositions/setup/LiquidateRsETHPositionsSetupTest.t.sol
+  ae68ced1b12e7edf 327,335-337,343-348,353,375-377,383-388
+  h_ac33fd5bdc4037 326
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.4",
+  "base_commit_sha": "c25c8e7ba2b2318622acd5503f232d8cfe87858f",
+  "prompts": {
+    "ae68ced1b12e7edf": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "8831ea3c-0db5-4f55-b73a-ad4d0d3aa878",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "YBM",
+      "messages": [],
+      "total_additions": 532,
+      "total_deletions": 439,
+      "accepted_lines": 1776,
+      "overriden_lines": 24
+    }
+  },
+  "humans": {
+    "h_ac33fd5bdc4037": {
+      "author": "YBM"
+    }
+  }
+}

@@ -1,0 +1,52 @@
+src/20260423_Multi_LiquidateRsETHPositions/setup/LiquidateRsETHPositionsSetupTest.t.sol
+  h_ac33fd5bdc4037 42-43,45-49,72-73,80-81,84-85,96-97,100,102-103,115,125,129,136,166,194-195,198,200-207,211-212,220,228,238,240,270-271,276,279-281,283-289,294,296-298,302,309,312,314,318-319,321-323,325-327,333-334,336,339-341,345-349,353,355-356,359-360,366-367,369-373,377-381,384,386-387,389-409,413,415-416,418,426-427,429-430,432,434,438,442,444,447-448,451-455,465-466,469-470,473,475,477,480,482,486-490,492-494,498,500-504,506,508-509,512,521,529,543-554,556,561-562,564-566,592,623-640,703-716
+src/20260423_Multi_LiquidateRsETHPositions/arbitrum/LiquidateRsETHPositions_Arbitrum_20260423_Gas.t.sol
+  h_ac33fd5bdc4037 59,65,71,77,83,89,96,105,111-112
+diffs/AaveV3Arbitrum_LiquidateRsETHPositionUser5_20260423_before_AaveV3Arbitrum_LiquidateRsETHPositionUser5_20260423_after.md
+  23988b23b6963afe 59-60,62-64
+src/20260423_Multi_LiquidateRsETHPositions/setup/LiquidateRsETHAddresses.sol
+  h_ac33fd5bdc4037 1-54
+src/20260423_Multi_LiquidateRsETHPositions/arbitrum/LiquidateRsETHArbitrumSetup.sol
+  h_ac33fd5bdc4037 6,10,14,18,22,26,30,34,38,41-42,46,50-51
+src/20260423_Multi_LiquidateRsETHPositions/setup/LiquidateRsETHPositionsGuardianEnabledTest.t.sol
+  h_ac33fd5bdc4037 27,37,49,51,70,72,92,111
+diffs/AaveV3Arbitrum_LiquidateRsETHPositionUser2_20260423_before_AaveV3Arbitrum_LiquidateRsETHPositionUser2_20260423_after.md
+  23988b23b6963afe 59-60,62
+diffs/AaveV3Arbitrum_LiquidateRsETHPositionUser3_20260423_before_AaveV3Arbitrum_LiquidateRsETHPositionUser3_20260423_after.md
+  23988b23b6963afe 59-60,62
+diffs/AaveV3Arbitrum_LiquidateRsETHPositionUser6_20260423_before_AaveV3Arbitrum_LiquidateRsETHPositionUser6_20260423_after.md
+  23988b23b6963afe 59-60,62-64
+src/20260423_Multi_LiquidateRsETHPositions/mainnet/LiquidateRsETHEthereumSetup.sol
+  h_ac33fd5bdc4037 8,14,18,22,26,30,34,38,42,45-46,50,54,64-65
+src/20260423_Multi_LiquidateRsETHPositions/mainnet/LiquidateRsETHPositions_Ethereum_20260423_Gas.t.sol
+  h_ac33fd5bdc4037 49,57,62-63
+diffs/AaveV3Arbitrum_LiquidateRsETHPositionUser1_20260423_before_AaveV3Arbitrum_LiquidateRsETHPositionUser1_20260423_after.md
+  23988b23b6963afe 59-60,62
+diffs/AaveV3Arbitrum_LiquidateRsETHPositionUser4_20260423_before_AaveV3Arbitrum_LiquidateRsETHPositionUser4_20260423_after.md
+  23988b23b6963afe 59-60,62
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.4",
+  "base_commit_sha": "5c48e1fb65fcd0894902e6305b5450a754ca368c",
+  "prompts": {
+    "23988b23b6963afe": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "b9ae993a-be57-472e-a5f7-df9c9df00afd",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "YBM",
+      "messages": [],
+      "total_additions": 14,
+      "total_deletions": 108,
+      "accepted_lines": 14,
+      "overriden_lines": 0
+    }
+  },
+  "humans": {
+    "h_ac33fd5bdc4037": {
+      "author": "YBM"
+    }
+  }
+}

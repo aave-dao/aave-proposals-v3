@@ -1,0 +1,23 @@
+src/helpers/v4-spoke/AaveV4PayloadEthereumSpokeTestBase.sol
+  s_3895ce55bb609b::t_870cf8d6937028 17,21,25
+  s_3895ce55bb609b::t_f2df8c6676fe35 55
+  s_3895ce55bb609b::t_bb400848ab6c00 126
+  s_3895ce55bb609b::t_3dde21e36716ae 29
+  s_3895ce55bb609b::t_5a7b0471e74835 42
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.7",
+  "base_commit_sha": "e58a5dd6e3f84890aca8d00afd58ea9c1f84f23a",
+  "prompts": {},
+  "sessions": {
+    "s_3895ce55bb609b": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "a274f271-8ea2-4dcc-8517-5a0f4eb72235",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Alexandru Niculae <43644109+avniculae@users.noreply.github.com>"
+    }
+  }
+}

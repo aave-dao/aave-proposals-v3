@@ -1,0 +1,73 @@
+src/20260507_Multi_CAPOSnapshotRatioUpdateAcrossAaveV3/AaveV3Mantle_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507.t.sol
+  s_e9a719eaae5cf8::t_f906eaa94dc117 100
+  s_e9a719eaae5cf8::t_d92465dc76804e 99,106
+  s_e9a719eaae5cf8::t_aa373c816495c0 101-105
+diffs/AaveV3EthereumLido_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507_before_AaveV3EthereumLido_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507_after.md
+  s_e9a719eaae5cf8::t_fa6ce129b994b5 3,66
+src/20260507_Multi_CAPOSnapshotRatioUpdateAcrossAaveV3/AaveV3EthereumLido_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507.t.sol
+  s_e9a719eaae5cf8::t_749f24505feb70 115,122-123,130
+  s_e9a719eaae5cf8::t_aa373c816495c0 117-121,125-129
+  s_e9a719eaae5cf8::t_f7a27a20eedb41 116,124
+src/20260507_Multi_CAPOSnapshotRatioUpdateAcrossAaveV3/AaveV3Gnosis_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507.t.sol
+  s_e9a719eaae5cf8::t_1297a7d3d8196a 113,130-136
+  s_e9a719eaae5cf8::t_3ec9b41d133cc0 114,122
+  s_e9a719eaae5cf8::t_aa373c816495c0 115-119,123-127
+  s_e9a719eaae5cf8::t_abdc3e2b0cdcdb 120-121,128-129
+src/20260507_Multi_CAPOSnapshotRatioUpdateAcrossAaveV3/AaveV3Linea_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507.t.sol
+  s_e9a719eaae5cf8::t_1b869af1689636 142,150,158
+  s_e9a719eaae5cf8::t_aa373c816495c0 143-147,151-155,159-163
+  s_e9a719eaae5cf8::t_4616b7db42a351 141,166-172
+  s_e9a719eaae5cf8::t_889bc7d15fb363 148-149,156-157,164-165
+src/20260507_Multi_CAPOSnapshotRatioUpdateAcrossAaveV3/AaveV3Plasma_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507.t.sol
+  s_e9a719eaae5cf8::t_18fbe2bcdc1821 113,130-136
+  s_e9a719eaae5cf8::t_aa373c816495c0 115-119,123-127
+  s_e9a719eaae5cf8::t_6ce94dafe090f4 120-121,128-129
+  s_e9a719eaae5cf8::t_3608ace3f7f0bc 114,122
+src/helpers/capo/CAPOUpdateBaseTest.sol
+  s_e9a719eaae5cf8::t_3893915aabc052 6-7,22
+  s_e9a719eaae5cf8::t_21fb2ae9e764be 23-24
+  s_e9a719eaae5cf8::t_b1ff3c066a6b0e 162-164,166-167,174-175
+  s_e9a719eaae5cf8::t_c901f2c2eab4b8 176-184,193-200,207-208,211-214,219,221-224,226-227
+  h_0f977de3f043fc 69,204,220,225
+  s_e9a719eaae5cf8::t_aa491a9c404229 428
+  s_e9a719eaae5cf8::t_4b88e664e7592d 458,468,478
+  s_e9a719eaae5cf8::t_d056dcbaa30ac5 185-192,201-203,205-206,210,215-218
+  s_e9a719eaae5cf8::t_fc3c853ecd80df 165,168-173
+  s_e9a719eaae5cf8::t_69493a12ddc28f 270
+src/20260507_Multi_CAPOSnapshotRatioUpdateAcrossAaveV3/AaveV3Polygon_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507.t.sol
+  s_e9a719eaae5cf8::t_aa373c816495c0 115-119,123-127
+  s_e9a719eaae5cf8::t_779edf0b79933c 114,122
+  s_e9a719eaae5cf8::t_aa35c036ea166d 113,130-136
+  s_e9a719eaae5cf8::t_3ba7a24af5c73f 120-121,128-129
+src/20260507_Multi_CAPOSnapshotRatioUpdateAcrossAaveV3/AaveV3Ethereum_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507.t.sol
+  s_e9a719eaae5cf8::t_aa373c816495c0 271-275,279-283,287-291,295-299,303-307,311-315,319-323
+  s_e9a719eaae5cf8::t_7744ae6cda18c6 269,326-340
+  s_e9a719eaae5cf8::t_1ec4776f09278a 270,278,286,294,302,310,318
+  s_e9a719eaae5cf8::t_3d8a74fcfa34a5 276-277,284-285,292-293,300-301,308-309,316-317,324-325
+src/20260507_Multi_CAPOSnapshotRatioUpdateAcrossAaveV3/AaveV3Avalanche_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507.t.sol
+  s_e9a719eaae5cf8::t_bbb8f2c0e4b54b 120-121,128-129
+  s_e9a719eaae5cf8::t_65cf161db40b6c 113,130-136
+  s_e9a719eaae5cf8::t_53d7b3d877fa63 114,122
+  s_e9a719eaae5cf8::t_aa373c816495c0 115-119,123-127
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.8",
+  "base_commit_sha": "2364174500fceae43832bb2330b1a66129a659cb",
+  "prompts": {},
+  "humans": {
+    "h_0f977de3f043fc": {
+      "author": "Alexandru Niculae <43644109+avniculae@users.noreply.github.com>"
+    }
+  },
+  "sessions": {
+    "s_e9a719eaae5cf8": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6395a9d4-0161-4243-ac5e-114b3f9b740c",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "Alexandru Niculae <43644109+avniculae@users.noreply.github.com>"
+    }
+  }
+}

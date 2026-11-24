@@ -1,0 +1,42 @@
+src/20260507_Multi_CAPOSnapshotRatioUpdateAcrossAaveV3/AaveV3Avalanche_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507.t.sol
+  h_0f977de3f043fc 40-42,51-58
+src/20260507_Multi_CAPOSnapshotRatioUpdateAcrossAaveV3/AaveV3EthereumLido_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507.t.sol
+  h_0f977de3f043fc 40-42,51-58
+src/20260507_Multi_CAPOSnapshotRatioUpdateAcrossAaveV3/AaveV3Polygon_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507.t.sol
+  h_0f977de3f043fc 40-42,51-58
+src/20260507_Multi_CAPOSnapshotRatioUpdateAcrossAaveV3/AaveV3Linea_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507.t.sol
+  h_0f977de3f043fc 40-42,51-62
+src/20260507_Multi_CAPOSnapshotRatioUpdateAcrossAaveV3/AaveV3Mantle_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507.t.sol
+  s_7213da700302c5::t_527a5f0394fcea 55,69
+  h_0f977de3f043fc 5-6,18-19,43-45,47,56-68
+src/20260507_Multi_CAPOSnapshotRatioUpdateAcrossAaveV3/AaveV3Gnosis_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507.t.sol
+  h_0f977de3f043fc 40-42,51-58
+src/20260507_Multi_CAPOSnapshotRatioUpdateAcrossAaveV3/AaveV3Ethereum_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507.t.sol
+  h_0f977de3f043fc 42-44,53-80
+src/20260507_Multi_CAPOSnapshotRatioUpdateAcrossAaveV3/AaveV3Plasma_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507.t.sol
+  h_0f977de3f043fc 40-42,51-58
+src/helpers/capo/CAPOUpdateBaseTest.sol
+  s_7213da700302c5::t_2dbcb542e98512 122-144
+  h_0f977de3f043fc 145-159
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.8",
+  "base_commit_sha": "30960bab2d267d64aa860c8c5b678a9a558e8cca",
+  "prompts": {},
+  "humans": {
+    "h_0f977de3f043fc": {
+      "author": "Alexandru Niculae <43644109+avniculae@users.noreply.github.com>"
+    }
+  },
+  "sessions": {
+    "s_7213da700302c5": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "9621d1f1-8563-4688-97d5-496352d2f3f9",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "Alexandru Niculae <43644109+avniculae@users.noreply.github.com>"
+    }
+  }
+}

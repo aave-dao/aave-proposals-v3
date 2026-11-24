@@ -1,0 +1,23 @@
+src/20261009_AaveV4EthereumSentoraCurated_SentoraMarketActivation/SentoraMarketActivation.md
+  s_2843833aabf52a::t_588e0992a4809e 31,42
+src/20261009_AaveV4EthereumSentoraCurated_SentoraMarketActivation/SentoraPreLaunchConfig_20261016.s.sol
+  s_2843833aabf52a::t_af0c6ab847e1c1 7,27,39,41-42
+src/20261009_AaveV4EthereumSentoraCurated_SentoraMarketActivation/SentoraPreLaunchCouncilCalls.sol
+  s_2843833aabf52a::t_e4f173fc2461ac 6,13-14,25-27,36,47-53
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "2a09b667de5edee6c384084a5f5676ea96612242",
+  "prompts": {},
+  "sessions": {
+    "s_2843833aabf52a": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "ae63ebf5-88d7-4dfe-976c-39793e6bfe86",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "DhairyaSethi <55102840+DhairyaSethi@users.noreply.github.com>"
+    }
+  }
+}

@@ -1,0 +1,30 @@
+src/20260423_Multi_LiquidateRsETHPositions/LiquidateRsETHPositions.md
+  c16788477c80ab43 48
+src/20260423_Multi_LiquidateRsETHPositions/setup/LiquidateRsETHPositionsSetupTest.t.sol
+  h_e42aa0fb58e660 31,545
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.4",
+  "base_commit_sha": "cf39e6c3d3eb5a17096322b5b7469dbd415c19ad",
+  "prompts": {
+    "c16788477c80ab43": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "b8646c59-dfc2-402f-b7b3-1e2f41fbdee7",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "Alexandru Niculae",
+      "messages": [],
+      "total_additions": 1675,
+      "total_deletions": 1,
+      "accepted_lines": 1675,
+      "overriden_lines": 0
+    }
+  },
+  "humans": {
+    "h_e42aa0fb58e660": {
+      "author": "Alexandru Niculae"
+    }
+  }
+}

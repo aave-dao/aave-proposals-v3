@@ -1,0 +1,24 @@
+src/20261013_AaveV4Avalanche_OnboardUSDeCoreHub/AaveV4Avalanche_OnboardUSDeCoreHub_20261013.t.sol
+  s_8879f1657f3409::t_de308a1656b3ac 7
+  s_8879f1657f3409::t_a66706fc3532e8 122,125-128
+  s_8879f1657f3409::t_9cfe085cd16b2d 354
+  s_8879f1657f3409::t_e2ead393a1d38c 13
+  s_8879f1657f3409::t_6a305df1053bc1 129,329-348,355-375
+  s_8879f1657f3409::t_be8a873a3cb7eb 376
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "07124c268f2bff3fd6a17833fc790ce4dcc9b6d4",
+  "prompts": {},
+  "sessions": {
+    "s_8879f1657f3409": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "5d7c645f-86e9-46c3-befe-aafb0d0ea486",
+        "model": "unknown"
+      },
+      "human_author": "Alexandru Niculae <43644109+avniculae@users.noreply.github.com>"
+    }
+  }
+}

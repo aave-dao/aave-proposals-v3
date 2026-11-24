@@ -1,0 +1,45 @@
+generator/features/freeze.ts
+  s_22f80b5bcb6d41::t_4a88a24df7d6c4 17
+  s_22f80b5bcb6d41::t_e79f80ad6d1d62 11-13,18
+generator/features/assetListing.spec.ts
+  s_22f80b5bcb6d41::t_b9b92f78934b30 31,34
+generator/features/assetListing.ts
+  s_22f80b5bcb6d41::t_8e3dd3fc2d95a2 114-116,120,122-123
+generator/features/freeze.spec.ts
+  s_22f80b5bcb6d41::t_19302ea2c8eb02 17-18,34
+generator/features/__snapshots__/assetListing.spec.ts.snap
+  s_22f80b5bcb6d41::t_cac3a8bb08234a 220-247,249,409-411,413,432-433
+generator/features/__snapshots__/eModesCreation.spec.ts.snap
+  s_22f80b5bcb6d41::t_512b54a3335da0 259-286,288
+lib/aave-helpers
+  s_50e0a2a61afb2a::t_fe9f21a7a4d001 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "a21cd841fc2b10386697313ea40df7de077e29b7",
+  "prompts": {},
+  "humans": {
+    "h_8b974fbabf2fb7": {
+      "author": "Alberto <albe@AMWM-H65F40J09H.local>"
+    }
+  },
+  "sessions": {
+    "s_22f80b5bcb6d41": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f3c89-d210-7122-b483-d92bfbdf7c86",
+        "model": "gpt-5.5"
+      },
+      "human_author": "Alberto <albe@AMWM-H65F40J09H.local>"
+    },
+    "s_50e0a2a61afb2a": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f2828-55d7-75d3-8493-8b822001388c",
+        "model": "gpt-5.5"
+      },
+      "human_author": "Alberto <albe@AMWM-H65F40J09H.local>"
+    }
+  }
+}

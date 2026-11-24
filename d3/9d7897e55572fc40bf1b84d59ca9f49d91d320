@@ -1,0 +1,28 @@
+src/20260423_Multi_LiquidateRsETHPositions/setup/LiquidateRsETHConstants.sol
+  h_ac33fd5bdc4037 23-24,56-61
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.4",
+  "base_commit_sha": "d39d7897e55572fc40bf1b84d59ca9f49d91d320",
+  "prompts": {
+    "ae68ced1b12e7edf": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "8831ea3c-0db5-4f55-b73a-ad4d0d3aa878",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "YBM",
+      "messages": [],
+      "total_additions": 28,
+      "total_deletions": 19,
+      "accepted_lines": 1642,
+      "overriden_lines": 19
+    }
+  },
+  "humans": {
+    "h_ac33fd5bdc4037": {
+      "author": "YBM"
+    }
+  }
+}

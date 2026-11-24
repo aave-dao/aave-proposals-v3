@@ -1,0 +1,62 @@
+src/helpers/v4-spoke/AaveV4PayloadEthereumSpoke.sol
+  s_96f7627871f1d8::t_083763c7ddd705 5,13-24,28-33,40-47,49-64,66-101,103-117,125-155,168-191,286-293
+  s_96f7627871f1d8::t_d811021861498a 118-124
+  s_96f7627871f1d8::t_f17ca475f38843 328-342
+  s_96f7627871f1d8::t_7f2dd699fab7dd 156-167
+  s_96f7627871f1d8::t_48abe418d62131 1-4,6-12,48,102,192-285,294-327,343
+  s_96f7627871f1d8::t_7a9a7990167484 25-27,34-39
+  s_96f7627871f1d8::t_6cb9910cf7a807 65
+src/20260514_AaveV4Ethereum_OnboardPTUSDG28MAY2026OnV4CoreUSDGCorrelated/AaveV4Ethereum_OnboardPTUSDG28MAY2026OnV4CoreUSDGCorrelated_20260514.t.sol
+  s_96f7627871f1d8::t_1db369d48da4f6 26
+  s_96f7627871f1d8::t_2742039d5c2dbc 18
+  s_96f7627871f1d8::t_c172d59f197bea 687
+  s_96f7627871f1d8::t_da25786ea65566 27
+  s_96f7627871f1d8::t_49893c1f75056d 19
+  s_96f7627871f1d8::t_c19a433c694f79 686,688-693
+remappings.txt
+  s_96f7627871f1d8::t_535ebbf28086fd 10
+src/helpers/v4-spoke/AaveV4PayloadEthereumSpokeForkTestBase.sol
+  s_96f7627871f1d8::t_e362a323af8bbd 1-99
+src/helpers/v4-spoke/AaveV4PayloadEthereumSpokeTestBase.sol
+  s_96f7627871f1d8::t_68d94d8d9f8521 1-169
+src/20260514_AaveV4Ethereum_OnboardPTUSDG28MAY2026OnV4CoreUSDGCorrelated/AaveV4Ethereum_OnboardPTUSDG28MAY2026OnV4CoreUSDGCorrelated_20260514.sol
+  s_96f7627871f1d8::t_b98b1ad5fe2a26 55
+  s_96f7627871f1d8::t_f63984fac1f32b 70-72,77-79,90-95,101-106
+  s_96f7627871f1d8::t_2e0d02ce570525 8,17,32,40-42,44-45,56-60
+  s_96f7627871f1d8::t_851f500960d38c 20,53
+  s_96f7627871f1d8::t_d54a0f63a3af8d 5
+  s_96f7627871f1d8::t_c76cd1da30535c 48-51,65-68,74-75,81,84-87,97-98,111-117
+  s_96f7627871f1d8::t_b021be0a4ea96e 36-38
+src/helpers/v4-spoke/tests/MockSpokeProposal.sol
+  s_96f7627871f1d8::t_7d3a387a60607c 38-40,45-47,58-63,69-74
+  s_96f7627871f1d8::t_55b72185a7bf63 4
+  s_96f7627871f1d8::t_502a628b2a1c96 1-3,5-19,24-26,28-32,37,41,44,48,50-51,56-57,64,67-68,75-78,86-87
+  s_96f7627871f1d8::t_7e24eba1e83e7c 20-23,33-36,42-43,49,52-55,65-66,79-85
+  s_96f7627871f1d8::t_cc711a7f155cc9 27
+src/helpers/v4-spoke/tests/AaveV4PayloadEthereumSpoke.t.sol
+  s_96f7627871f1d8::t_b23d890a05648c 1-119
+foundry.toml
+  h_0f977de3f043fc 5
+  s_96f7627871f1d8::t_1353c94b25058f 17
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.11",
+  "base_commit_sha": "d501d884e3813dcd92b084de189d26ef6e8b226b",
+  "prompts": {},
+  "humans": {
+    "h_0f977de3f043fc": {
+      "author": "Alexandru Niculae <43644109+avniculae@users.noreply.github.com>"
+    }
+  },
+  "sessions": {
+    "s_96f7627871f1d8": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "d9107236-f9a2-474b-9361-8252c4cc14dd",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "Alexandru Niculae <43644109+avniculae@users.noreply.github.com>"
+    }
+  }
+}

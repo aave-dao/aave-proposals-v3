@@ -1,0 +1,27 @@
+generator/features/assetListing.spec.ts
+  s_d10fefbc33a85a::t_dcfdc2be311239 62-89,91-92
+  s_d10fefbc33a85a::t_d37fcf53a0efa0 7
+  s_d10fefbc33a85a::t_2cfa6dd8cca542 3-4,61,90
+generator/features/mocks/configs.ts
+  s_d10fefbc33a85a::t_009b956b9703ac 64
+  s_d10fefbc33a85a::t_2cfa6dd8cca542 8,53-63,65
+  s_d10fefbc33a85a::t_b6797ccbeb6fc6 66-68
+generator/utils/compileGeneratedFiles.ts
+  s_d10fefbc33a85a::t_d37fcf53a0efa0 1-37
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.11",
+  "base_commit_sha": "a241f54763e21f4f7ab83cbeb922160b8f09a32f",
+  "prompts": {},
+  "sessions": {
+    "s_d10fefbc33a85a": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f4c2b-9522-7852-893c-6a2267d354a7",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "AlbertoCentonze <11707683+AlbertoCentonze@users.noreply.github.com>"
+    }
+  }
+}

@@ -1,0 +1,24 @@
+src/helpers/capo/CAPOUpdateBaseTest.sol
+  s_dc698e82f27c4d::t_3e119ac1f0f364 286-294
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.1",
+  "base_commit_sha": "c7a6e86ef23b70e46399283c4baf61da534e4da7",
+  "prompts": {},
+  "humans": {
+    "h_739c25e72c37fb": {
+      "author": "DhairyaSethi <55102840+DhairyaSethi@users.noreply.github.com>"
+    }
+  },
+  "sessions": {
+    "s_dc698e82f27c4d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "586a9eba-a4a4-4455-b316-c66740ece60a",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "DhairyaSethi <55102840+DhairyaSethi@users.noreply.github.com>"
+    }
+  }
+}

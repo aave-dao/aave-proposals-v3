@@ -1,0 +1,52 @@
+src/20260423_Multi_LiquidateRsETHPositions/LiquidateRsETHArbitrumWstethBase.sol
+  h_ac33fd5bdc4037 112-116
+src/20260423_Multi_LiquidateRsETHPositions/LiquidateRsETHEthereumBaseTest.t.sol
+  aaae40232770f9ac 185,189-190,194-195,200,202,208-211,216-218
+src/20260423_Multi_LiquidateRsETHPositions/LiquidateRsETHArbitrumWstethBaseTest.t.sol
+  aaae40232770f9ac 381
+src/20260423_Multi_LiquidateRsETHPositions/LiquidateRsETHPositionsBaseTest.t.sol
+  aaae40232770f9ac 427,431-432,470-472,520,527-529
+  h_ac33fd5bdc4037 430
+src/20260423_Multi_LiquidateRsETHPositions/LiquidateRsETHPositions_Ethereum_20260423_Gas.t.sol
+  09e61eb39fd98ad1 63-67
+src/20260423_Multi_LiquidateRsETHPositions/LiquidateRsETHPositions_Arbitrum_20260423_Gas.t.sol
+  09e61eb39fd98ad1 112-116
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.4",
+  "base_commit_sha": "8f8b93c346e09876d8dcfc746c99bf046491b09c",
+  "prompts": {
+    "09e61eb39fd98ad1": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6ea7a022-5201-4ac2-9ad3-ad00e03b7326",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "YBM",
+      "messages": [],
+      "total_additions": 10,
+      "total_deletions": 4,
+      "accepted_lines": 10,
+      "overriden_lines": 0
+    },
+    "aaae40232770f9ac": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "30da7df6-5e8b-4c62-bb8a-a1946379ead3",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "YBM",
+      "messages": [],
+      "total_additions": 36,
+      "total_deletions": 27,
+      "accepted_lines": 204,
+      "overriden_lines": 2
+    }
+  },
+  "humans": {
+    "h_ac33fd5bdc4037": {
+      "author": "YBM"
+    }
+  }
+}

@@ -1,0 +1,37 @@
+src/20260514_AaveV4Ethereum_OnboardPTUSDG28MAY2026OnV4PlusUSDGCorrelated/AaveV4Ethereum_OnboardPTUSDG28MAY2026OnV4PlusUSDGCorrelated_20260514.t.sol
+  s_e6f03a5706bb6f::t_782dc62459077a 21-22
+  s_e6f03a5706bb6f::t_fde9850dfe5276 258-263,265-272,274-280,282-299,301-312
+  s_e6f03a5706bb6f::t_312e3170ac4ebf 264
+  s_e6f03a5706bb6f::t_5ee9c9d3e2c293 281
+  s_e6f03a5706bb6f::t_646ada3a79f3ad 8-9
+  s_e6f03a5706bb6f::t_dfb3327a252a2b 273
+  s_e6f03a5706bb6f::t_5af8f392ede0e1 300
+src/20260514_AaveV4Ethereum_OnboardPTUSDG28MAY2026OnV4PlusUSDGCorrelated/AaveV4Ethereum_OnboardPTUSDG28MAY2026OnV4PlusUSDGCorrelated_20260514.sol
+  s_e6f03a5706bb6f::t_e4387bc0ac5082 10
+  s_e6f03a5706bb6f::t_b79bf5e5b43c97 29-31
+diffs/AaveV4Ethereum_OnboardPTUSDG28MAY2026OnV4PlusUSDGCorrelated_20260514_before_AaveV4Ethereum_OnboardPTUSDG28MAY2026OnV4PlusUSDGCorrelated_20260514_after.md
+  s_e6f03a5706bb6f::t_2cfd13124e57f4 1-114
+src/20260514_AaveV4Ethereum_OnboardPTUSDG28MAY2026OnV4PlusUSDGCorrelated/OnboardPTUSDG28MAY2026OnV4PlusUSDGCorrelated_20260514.s.sol
+  h_0f977de3f043fc 1-70
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.8",
+  "base_commit_sha": "6b323e9dd1517f46b5641a58ca379bc48eb17e5c",
+  "prompts": {},
+  "humans": {
+    "h_0f977de3f043fc": {
+      "author": "Alexandru Niculae <43644109+avniculae@users.noreply.github.com>"
+    }
+  },
+  "sessions": {
+    "s_e6f03a5706bb6f": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "d3ae4ab7-c9b9-4921-8eb5-42bf3abfc075",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "Alexandru Niculae <43644109+avniculae@users.noreply.github.com>"
+    }
+  }
+}

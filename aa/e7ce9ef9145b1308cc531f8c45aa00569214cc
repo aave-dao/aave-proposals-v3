@@ -1,0 +1,19 @@
+src/20260623_AaveV3Ethereum_StkGhoMigratorClaimHelper/AaveV3Ethereum_StkGhoMigratorClaimHelper_20260623.t.sol
+  s_bf75d0657e5bfd::t_9d4f70d0da99cf 31
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.5",
+  "base_commit_sha": "aae7ce9ef9145b1308cc531f8c45aa00569214cc",
+  "prompts": {},
+  "sessions": {
+    "s_bf75d0657e5bfd": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "a045ea25-ba2f-4783-8214-e987111c157a",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Alexandru Niculae <43644109+avniculae@users.noreply.github.com>"
+    }
+  }
+}

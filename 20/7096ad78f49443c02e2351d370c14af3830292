@@ -1,0 +1,220 @@
+diffs/AaveV3EthereumEtherFi_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720_before_AaveV3EthereumEtherFi_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720_after.md
+  s_230ef88db3c189::t_008fd3a042182c 1-70
+diffs/AaveV3Monad_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720_before_AaveV3Monad_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720_after.md
+  s_230ef88db3c189::t_008fd3a042182c 1-70
+src/20260720_Multi_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment/AaveV3Polygon_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720.t.sol
+  s_230ef88db3c189::t_e24ae0c38ba9b2 1-3,5,9-14,16,19,24,36,43
+  s_230ef88db3c189::t_a0949bd7c0f80a 4,6-8,15,17-18,20-23,25-35,37-42
+src/20260720_Multi_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment/AaveV3Sonic_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720.t.sol
+  s_230ef88db3c189::t_a0949bd7c0f80a 4,6-8,15,17-18,20-23,25-35,37-42
+  s_230ef88db3c189::t_e24ae0c38ba9b2 1-3,5,9-14,16,19,24,36,43
+diffs/AaveV3XLayer_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720_before_AaveV3XLayer_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720_after.md
+  s_230ef88db3c189::t_008fd3a042182c 1-70
+src/20260720_Multi_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment/AaveV3Plasma_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720.t.sol
+  s_230ef88db3c189::t_e24ae0c38ba9b2 1-3,5,9-14,16,19,24,36,43
+  s_230ef88db3c189::t_a0949bd7c0f80a 4,6-8,15,17-18,20-23,25-35,37-42
+diffs/AaveV3Sonic_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720_before_AaveV3Sonic_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720_after.md
+  s_230ef88db3c189::t_008fd3a042182c 1-70
+diffs/AaveV3MegaEth_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720_before_AaveV3MegaEth_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720_after.md
+  s_230ef88db3c189::t_008fd3a042182c 1-70
+diffs/AaveV3EthereumLido_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720_before_AaveV3EthereumLido_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720_after.md
+  s_230ef88db3c189::t_008fd3a042182c 1-70
+src/20260720_Multi_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment/AaveV3MegaEth_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720.sol
+  s_230ef88db3c189::t_e24ae0c38ba9b2 1-3,6-13,15,19
+  s_230ef88db3c189::t_a0949bd7c0f80a 4-5,14,16-18
+diffs/AaveV3Ethereum_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720_before_AaveV3Ethereum_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720_after.md
+  s_230ef88db3c189::t_008fd3a042182c 19,74-75
+diffs/AaveV3Plasma_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720_before_AaveV3Plasma_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720_after.md
+  s_230ef88db3c189::t_008fd3a042182c 1-70
+diffs/AaveV3Celo_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720_before_AaveV3Celo_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720_after.md
+  s_230ef88db3c189::t_008fd3a042182c 1-70
+diffs/AaveV3Arbitrum_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720_before_AaveV3Arbitrum_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720_after.md
+  s_230ef88db3c189::t_008fd3a042182c 1-70
+src/20260720_Multi_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment/AaveV3Scroll_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720.sol
+  s_230ef88db3c189::t_e24ae0c38ba9b2 1-3,6-13,15,19
+  s_230ef88db3c189::t_a0949bd7c0f80a 4-5,14,16-18
+src/20260720_Multi_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment/AaveV3MegaEth_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720.t.sol
+  s_230ef88db3c189::t_a0949bd7c0f80a 4,6-8,15,17-18,20-23,25-35,37-42
+  s_230ef88db3c189::t_e24ae0c38ba9b2 1-3,5,9-14,16,19,24,36,43
+src/20260720_Multi_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment/AaveV3EthereumLido_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720.t.sol
+  s_230ef88db3c189::t_e24ae0c38ba9b2 1-3,5,9-14,16,19,24,36,47
+  s_230ef88db3c189::t_a0949bd7c0f80a 4,6-8,15,17-18,20-23,25-35,37-46
+src/20260720_Multi_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment/RiskStewardCooldownReductionBase.sol
+  s_230ef88db3c189::t_a0949bd7c0f80a 4-6,9,11-13,15-20,22-23,25-27,29-34,36-37
+  s_230ef88db3c189::t_a464343303f07e 14,21,24
+  s_230ef88db3c189::t_25e11b3418f38c 1-3,7-8,38
+  s_230ef88db3c189::t_2277a6beb9fc4a 10,28,35
+diffs/AaveV3Avalanche_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720_before_AaveV3Avalanche_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720_after.md
+  s_230ef88db3c189::t_008fd3a042182c 1-70
+src/20260720_Multi_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment/AaveV3Gnosis_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720.t.sol
+  s_230ef88db3c189::t_e24ae0c38ba9b2 1-3,5,9-14,16,19,24,36,43
+  s_230ef88db3c189::t_a0949bd7c0f80a 4,6-8,15,17-18,20-23,25-35,37-42
+diffs/AaveV3Mantle_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720_before_AaveV3Mantle_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720_after.md
+  s_230ef88db3c189::t_008fd3a042182c 1-70
+src/20260720_Multi_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment/AaveV3Celo_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720.sol
+  s_230ef88db3c189::t_a0949bd7c0f80a 4-5,14,16-18
+  s_230ef88db3c189::t_e24ae0c38ba9b2 1-3,6-13,15,19
+src/20260720_Multi_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment/AaveV3Base_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720.t.sol
+  s_230ef88db3c189::t_a0949bd7c0f80a 4,6-8,15,17-18,20-23,25-35,37-42
+  s_230ef88db3c189::t_e24ae0c38ba9b2 1-3,5,9-14,16,19,24,36,43
+src/20260720_Multi_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment/AaveV3Avalanche_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720.sol
+  s_230ef88db3c189::t_a0949bd7c0f80a 4-5,14,16-18
+  s_230ef88db3c189::t_e24ae0c38ba9b2 1-3,6-13,15,19
+src/20260720_Multi_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment/AaveV3Optimism_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720.sol
+  s_230ef88db3c189::t_e24ae0c38ba9b2 1-3,6-13,15,19
+  s_230ef88db3c189::t_a0949bd7c0f80a 4-5,14,16-18
+src/20260720_Multi_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment/AaveV3Optimism_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720.t.sol
+  s_230ef88db3c189::t_e24ae0c38ba9b2 1-3,5,9-14,16,19,24,36,43
+  s_230ef88db3c189::t_a0949bd7c0f80a 4,6-8,15,17-18,20-23,25-35,37-42
+src/20260720_Multi_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment/AaveV3Mantle_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720.sol
+  s_230ef88db3c189::t_a0949bd7c0f80a 4-5,14,16-18
+  s_230ef88db3c189::t_e24ae0c38ba9b2 1-3,6-13,15,19
+diffs/AaveV3Soneium_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720_before_AaveV3Soneium_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720_after.md
+  s_230ef88db3c189::t_008fd3a042182c 1-72
+diffs/AaveV3BNB_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720_before_AaveV3BNB_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720_after.md
+  s_230ef88db3c189::t_008fd3a042182c 1-70
+src/20260720_Multi_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment/AaveV3Soneium_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720.sol
+  s_230ef88db3c189::t_e24ae0c38ba9b2 1-3,6-13,15,19
+  s_230ef88db3c189::t_a0949bd7c0f80a 4-5,14,16-18
+src/20260720_Multi_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment/AaveV3Celo_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720.t.sol
+  s_230ef88db3c189::t_e24ae0c38ba9b2 1-3,5,9-14,16,19,24,36,43
+  s_230ef88db3c189::t_a0949bd7c0f80a 4,6-8,15,17-18,20-23,25-35,37-42
+src/20260720_Multi_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment/AaveV3Sonic_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720.sol
+  s_230ef88db3c189::t_e24ae0c38ba9b2 1-3,6-13,15,19
+  s_230ef88db3c189::t_a0949bd7c0f80a 4-5,14,16-18
+src/20260720_Multi_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment/AaveV3Soneium_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720.t.sol
+  s_230ef88db3c189::t_e24ae0c38ba9b2 1-3,5,9-14,16,19,24,36,43
+  s_230ef88db3c189::t_a0949bd7c0f80a 4,6-8,15,17-18,20-23,25-35,37-42
+src/20260720_Multi_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment/AaveV3EthereumLido_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720.sol
+  s_230ef88db3c189::t_e24ae0c38ba9b2 1-3,6-13,15,19
+  s_230ef88db3c189::t_a0949bd7c0f80a 4-5,14,16-18
+src/20260720_Multi_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment/AaveV3Avalanche_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720.t.sol
+  s_230ef88db3c189::t_a0949bd7c0f80a 4,6-8,15,17-18,20-23,25-35,37-42
+  s_230ef88db3c189::t_e24ae0c38ba9b2 1-3,5,9-14,16,19,24,36,43
+src/20260720_Multi_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment/AaveV3Arbitrum_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720.t.sol
+  s_230ef88db3c189::t_a0949bd7c0f80a 4,6-8,15,17-18,20-23,25-35,37-42
+  s_230ef88db3c189::t_e24ae0c38ba9b2 1-3,5,9-14,16,19,24,36,43
+src/20260720_Multi_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment/AaveV3Metis_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720.sol
+  s_230ef88db3c189::t_e24ae0c38ba9b2 1-3,6-13,15,19
+  s_230ef88db3c189::t_a0949bd7c0f80a 4-5,14,16-18
+src/20260720_Multi_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment/AaveV3Polygon_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720.sol
+  s_230ef88db3c189::t_e24ae0c38ba9b2 1-3,6-13,15,19
+  s_230ef88db3c189::t_a0949bd7c0f80a 4-5,14,16-18
+src/20260720_Multi_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment/RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment.md
+  s_230ef88db3c189::t_29baf24d11e1c6 22,26
+  s_230ef88db3c189::t_f6fb6791a62613 10,23,27
+  s_230ef88db3c189::t_0c932f740e236d 30-31,33
+src/20260720_Multi_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment/AaveV3Ethereum_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720.t.sol
+  s_230ef88db3c189::t_a0949bd7c0f80a 11,23,29,46
+  s_230ef88db3c189::t_e24ae0c38ba9b2 20
+src/20260720_Multi_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment/AaveV3BNB_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720.t.sol
+  s_230ef88db3c189::t_e24ae0c38ba9b2 1-3,5,9-14,16,19,24,36,43
+  s_230ef88db3c189::t_a0949bd7c0f80a 4,6-8,15,17-18,20-23,25-35,37-42
+src/20260720_Multi_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment/AaveV3Base_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720.sol
+  s_230ef88db3c189::t_e24ae0c38ba9b2 1-3,6-13,15,19
+  s_230ef88db3c189::t_a0949bd7c0f80a 4-5,14,16-18
+src/20260720_Multi_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment/AaveV3BNB_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720.sol
+  s_230ef88db3c189::t_e24ae0c38ba9b2 1-3,6-13,15,19
+  s_230ef88db3c189::t_a0949bd7c0f80a 4-5,14,16-18
+zksync/src/20260720_Multi_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment/AaveV3ZkSync_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720.t.sol
+  s_230ef88db3c189::t_e24ae0c38ba9b2 1-3,5,9-14,16,19,23,26,38,42
+  s_230ef88db3c189::t_a0949bd7c0f80a 4,6-8,15,17-18,20-22,24-25,27-37,39-41
+diffs/AaveV3Base_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720_before_AaveV3Base_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720_after.md
+  s_230ef88db3c189::t_008fd3a042182c 1-70
+src/20260720_Multi_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment/AaveV3EthereumEtherFi_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720.sol
+  s_230ef88db3c189::t_e24ae0c38ba9b2 1-3,6-13,15,19
+  s_230ef88db3c189::t_a0949bd7c0f80a 4-5,14,16-18
+diffs/AaveV3Polygon_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720_before_AaveV3Polygon_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720_after.md
+  s_230ef88db3c189::t_008fd3a042182c 1-70
+src/20260720_Multi_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment/AaveV3Metis_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720.t.sol
+  s_230ef88db3c189::t_e24ae0c38ba9b2 1-3,5,9-14,16,19,24,36,43
+  s_230ef88db3c189::t_a0949bd7c0f80a 4,6-8,15,17-18,20-23,25-35,37-42
+diffs/AaveV3Linea_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720_before_AaveV3Linea_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720_after.md
+  s_230ef88db3c189::t_008fd3a042182c 1-70
+diffs/AaveV3Scroll_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720_before_AaveV3Scroll_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720_after.md
+  s_230ef88db3c189::t_008fd3a042182c 1-70
+src/20260720_Multi_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment/AaveV3Linea_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720.t.sol
+  s_230ef88db3c189::t_a0949bd7c0f80a 4,6-8,15,17-18,20-23,25-35,37-42
+  s_230ef88db3c189::t_e24ae0c38ba9b2 1-3,5,9-14,16,19,24,36,43
+zksync/src/20260720_Multi_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment/RiskStewardCooldownReductionBase.sol
+  s_230ef88db3c189::t_a0949bd7c0f80a 4-6,9,11-13,15-20,22-23,25-27,29-34,36-37
+  s_230ef88db3c189::t_2277a6beb9fc4a 10,28,35
+  s_230ef88db3c189::t_a464343303f07e 14,21,24
+  s_230ef88db3c189::t_a4c7d777bc5b30 1-3,7-8,38
+diffs/AaveV3Metis_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720_before_AaveV3Metis_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720_after.md
+  s_230ef88db3c189::t_008fd3a042182c 1-72
+src/20260720_Multi_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment/AaveV3Monad_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720.t.sol
+  s_230ef88db3c189::t_e24ae0c38ba9b2 1-3,5,9-14,16,19,24,38,45
+  s_230ef88db3c189::t_a0949bd7c0f80a 4,6-8,15,17-18,20-23,25-37,39-44
+src/20260720_Multi_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment/config.ts
+  s_230ef88db3c189::t_934557c1a7ed63 4-27,38,61
+  s_230ef88db3c189::t_e24ae0c38ba9b2 39-60
+src/20260720_Multi_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment/AaveV3Gnosis_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720.sol
+  s_230ef88db3c189::t_a0949bd7c0f80a 4-5,14,16-18
+  s_230ef88db3c189::t_e24ae0c38ba9b2 1-3,6-13,15,19
+diffs/AaveV3Optimism_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720_before_AaveV3Optimism_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720_after.md
+  s_230ef88db3c189::t_008fd3a042182c 1-70
+src/20260720_Multi_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment/RiskStewardCooldownReductionBaseTest.sol
+  s_230ef88db3c189::t_25e11b3418f38c 1-3,8-9,69
+  s_230ef88db3c189::t_a0949bd7c0f80a 4-7,10-68
+src/20260720_Multi_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment/AaveV3XLayer_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720.sol
+  s_230ef88db3c189::t_e24ae0c38ba9b2 1-3,6-13,15,19
+  s_230ef88db3c189::t_a0949bd7c0f80a 4-5,14,16-18
+src/20260720_Multi_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment/AaveV3Scroll_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720.t.sol
+  s_230ef88db3c189::t_a0949bd7c0f80a 4,6-8,15,17-18,20-23,25-35,37-42
+  s_230ef88db3c189::t_e24ae0c38ba9b2 1-3,5,9-14,16,19,24,36,43
+src/20260720_Multi_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment/AaveV3EthereumEtherFi_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720.t.sol
+  s_230ef88db3c189::t_a0949bd7c0f80a 4,6-8,15,17-18,20-23,25-35,37-46
+  s_230ef88db3c189::t_e24ae0c38ba9b2 1-3,5,9-14,16,19,24,36,47
+src/20260720_Multi_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment/AaveV3Mantle_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720.t.sol
+  s_230ef88db3c189::t_e24ae0c38ba9b2 1-3,5,9-14,16,19,24,36,43
+  s_230ef88db3c189::t_a0949bd7c0f80a 4,6-8,15,17-18,20-23,25-35,37-42
+src/20260720_Multi_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment/RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720.s.sol
+  s_230ef88db3c189::t_0c932f740e236d 1-3,29-35,63-70,86-93,109-116,132-139,155-162,178-185,201-208,224-231,247-254,270-277,293-300,316-323,339-346,362-369,385-392,408-415,431-438,454-461,477-483,558,712
+  s_230ef88db3c189::t_a0949bd7c0f80a 4-28,36-62,71-85,94-108,117-131,140-154,163-177,186-200,209-223,232-246,255-269,278-292,301-315,324-338,347-361,370-384,393-407,416-430,439-453,462-476,484-557,559-711
+src/20260720_Multi_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment/AaveV3Arbitrum_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720.sol
+  s_230ef88db3c189::t_e24ae0c38ba9b2 1-3,6-13,15,19
+  s_230ef88db3c189::t_a0949bd7c0f80a 4-5,14,16-18
+src/20260720_Multi_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment/AaveV3XLayer_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720.t.sol
+  s_230ef88db3c189::t_e24ae0c38ba9b2 1-3,5,9-14,16,19,24,36,43
+  s_230ef88db3c189::t_a0949bd7c0f80a 4,6-8,15,17-18,20-23,25-35,37-42
+src/20260720_Multi_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment/AaveV3Ethereum_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720.sol
+  s_230ef88db3c189::t_a0949bd7c0f80a 9,18,23
+  s_230ef88db3c189::t_e24ae0c38ba9b2 17,19
+zksync/src/20260720_Multi_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment/RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720.s.sol
+  s_230ef88db3c189::t_a0949bd7c0f80a 4,6-7,15-19,22,27
+  s_230ef88db3c189::t_e24ae0c38ba9b2 10-11,13
+zksync/src/20260720_Multi_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment/AaveV3ZkSync_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720.sol
+  s_230ef88db3c189::t_e24ae0c38ba9b2 1-3,6-13,15,19
+  s_230ef88db3c189::t_a0949bd7c0f80a 4-5,14,16-18
+src/20260720_Multi_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment/AaveV3Monad_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720.sol
+  s_230ef88db3c189::t_a0949bd7c0f80a 4-5,14,16-18
+  s_230ef88db3c189::t_e24ae0c38ba9b2 1-3,6-13,15,19
+diffs/AaveV3Gnosis_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720_before_AaveV3Gnosis_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720_after.md
+  s_230ef88db3c189::t_008fd3a042182c 1-70
+src/20260720_Multi_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment/AaveV3Linea_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720.sol
+  s_230ef88db3c189::t_a0949bd7c0f80a 4-5,14,16-18
+  s_230ef88db3c189::t_e24ae0c38ba9b2 1-3,6-13,15,19
+zksync/src/20260720_Multi_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment/RiskStewardCooldownReductionBaseTest.sol
+  s_230ef88db3c189::t_a4c7d777bc5b30 1-3,7-8,39
+  s_230ef88db3c189::t_a0949bd7c0f80a 4-6,9-38
+src/20260720_Multi_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment/AaveV3Plasma_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720.sol
+  s_230ef88db3c189::t_a0949bd7c0f80a 4-5,14,16-18
+  s_230ef88db3c189::t_e24ae0c38ba9b2 1-3,6-13,15,19
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.14",
+  "base_commit_sha": "207096ad78f49443c02e2351d370c14af3830292",
+  "prompts": {},
+  "sessions": {
+    "s_230ef88db3c189": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f7e82-9f09-7752-9ac6-6984381a9ded",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "AlbertoCentonze <11707683+AlbertoCentonze@users.noreply.github.com>"
+    }
+  }
+}

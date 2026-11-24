@@ -1,0 +1,14 @@
+src/20260423_Multi_LiquidateRsETHPositions/LiquidateRsETHPositionsBase.sol
+  h_e42aa0fb58e660 29
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.4",
+  "base_commit_sha": "3f1be705ac2c77e5b2f907ad11cb27a8f9f61734",
+  "prompts": {},
+  "humans": {
+    "h_e42aa0fb58e660": {
+      "author": "Alexandru Niculae"
+    }
+  }
+}

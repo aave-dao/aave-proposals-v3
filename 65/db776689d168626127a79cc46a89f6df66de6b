@@ -1,0 +1,23 @@
+src/20261008_AaveV3Ethereum_StkGhoMigratorUpdate/AaveV3Ethereum_StkGhoMigratorUpdate_20261008.sol
+  s_94aa91a40ba583::t_bc54f7c9cb22de 11
+src/20261008_AaveV3Ethereum_StkGhoMigratorUpdate/config.ts
+  s_94aa91a40ba583::t_bc54f7c9cb22de 9
+src/20261008_AaveV3Ethereum_StkGhoMigratorUpdate/StkGhoMigratorUpdate.md
+  s_94aa91a40ba583::t_bc54f7c9cb22de 4,43-45
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "65db776689d168626127a79cc46a89f6df66de6b",
+  "prompts": {},
+  "sessions": {
+    "s_94aa91a40ba583": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "7626f193-bcd8-4dce-806f-66fa2f3610bd",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Alexandru Niculae <43644109+avniculae@users.noreply.github.com>"
+    }
+  }
+}

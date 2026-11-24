@@ -1,0 +1,19 @@
+src/20260925_AaveV3Plasma_Onboard_PTsUSDe22OCT2026_Oracle/Onboard_PTsUSDe22OCT2026_Oracle.md
+  s_81cef993188be4::t_7ff7b72244dd1c 90
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "ff8ba4e9eb572162f022808e9b1d8c3c41538724",
+  "prompts": {},
+  "sessions": {
+    "s_81cef993188be4": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "8ad1349e-6965-4894-b793-ce73d2d50a1d",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "DhairyaSethi <55102840+DhairyaSethi@users.noreply.github.com>"
+    }
+  }
+}

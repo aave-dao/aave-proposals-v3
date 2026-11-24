@@ -1,0 +1,43 @@
+src/20260423_Multi_LiquidateRsETHPositions/LiquidateRsETHEthereumBaseTest.t.sol
+  aaae40232770f9ac 22
+src/20260423_Multi_LiquidateRsETHPositions/LiquidateRsETHArbitrumBaseTest.t.sol
+  aaae40232770f9ac 11
+src/20260423_Multi_LiquidateRsETHPositions/LiquidateRsETHArbitrumWstethBase.sol
+  aaae40232770f9ac 29-30
+src/20260423_Multi_LiquidateRsETHPositions/LiquidateRsETHPositions_Arbitrum_20260423_Gas.t.sol
+  aaae40232770f9ac 37
+src/20260423_Multi_LiquidateRsETHPositions/LiquidateRsETHPositions_Ethereum_20260423_Gas.t.sol
+  aaae40232770f9ac 34
+src/20260423_Multi_LiquidateRsETHPositions/LiquidateRsETHPositionsBaseTest.t.sol
+  aaae40232770f9ac 148,150,152-161,249,259-261,272,282-284,391,413,417,419,423,426,429-431,434-439,455-480,520,524-525,532-533
+  h_ac33fd5bdc4037 146,425,427,432
+src/20260423_Multi_LiquidateRsETHPositions/LiquidateRsETHPositionsBase.sol
+  aaae40232770f9ac 24-41,69,100,155,158-161,164,168,231,245,277
+src/20260423_Multi_LiquidateRsETHPositions/LiquidateRsETHArbitrumWstethBase_MinDebtThreshold.t.sol
+  aaae40232770f9ac 49
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.4",
+  "base_commit_sha": "c14130dc313878bfd5b5a38d2a10d43afeb435cd",
+  "prompts": {
+    "aaae40232770f9ac": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "30da7df6-5e8b-4c62-bb8a-a1946379ead3",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "YBM",
+      "messages": [],
+      "total_additions": 294,
+      "total_deletions": 295,
+      "accepted_lines": 270,
+      "overriden_lines": 13
+    }
+  },
+  "humans": {
+    "h_ac33fd5bdc4037": {
+      "author": "YBM"
+    }
+  }
+}

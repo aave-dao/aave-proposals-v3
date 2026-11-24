@@ -1,0 +1,23 @@
+src/20260409_AaveV4Ethereum_IncreaseCaps/AaveV4Ethereum_IncreaseCaps_20260409_Fork.t.sol
+  63fcade59174beca 1-9,11-19,21-22,31-34,36-59,61-71,73-105
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.2.6",
+  "base_commit_sha": "726bcf4aca74c3e3a8a9a0b3434147a180a5acd0",
+  "prompts": {
+    "63fcade59174beca": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "1871e514-70ab-46a2-879e-2e408358cd6b",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "YBM",
+      "messages": [],
+      "total_additions": 112,
+      "total_deletions": 0,
+      "accepted_lines": 92,
+      "overriden_lines": 13
+    }
+  }
+}

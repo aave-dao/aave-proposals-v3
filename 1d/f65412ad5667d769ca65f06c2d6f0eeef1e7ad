@@ -1,0 +1,20 @@
+src/20261009_AaveV4EthereumSentoraCurated_SentoraMarketActivation/SentoraRevenue.t.sol
+  s_2843833aabf52a::t_16e86fe769bf6d 9,17,34-35,41-42,69,74,77,85,95-98,107-112,114,133-142
+  s_2843833aabf52a::t_b6fb7e22fbc5d4 143-144
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "1df65412ad5667d769ca65f06c2d6f0eeef1e7ad",
+  "prompts": {},
+  "sessions": {
+    "s_2843833aabf52a": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "ae63ebf5-88d7-4dfe-976c-39793e6bfe86",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "DhairyaSethi <55102840+DhairyaSethi@users.noreply.github.com>"
+    }
+  }
+}

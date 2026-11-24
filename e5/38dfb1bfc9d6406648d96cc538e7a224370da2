@@ -1,0 +1,47 @@
+src/20260514_AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4CoreUSDGCorrelated/AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4CoreUSDGCorrelated_20260514.t.sol
+  s_5b9dcbdbe1b416::t_2db3f6edd5671d 9
+  s_5b9dcbdbe1b416::t_e627ced1b58ce2 249,256,258,276-279,289,292-295,302,306
+  s_5b9dcbdbe1b416::t_bb3dc54870f6a1 15-139,152-226,255,257,259-265,272-275,280-288,290-291,296-301,303-305,307-390
+  s_5b9dcbdbe1b416::t_a4ec8dbc9607c1 241
+  s_5b9dcbdbe1b416::t_545ed689ea29f0 266-271
+  s_5b9dcbdbe1b416::t_f4586c106d1106 13
+  s_5b9dcbdbe1b416::t_0401752b6afeef 146
+src/20260514_AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4CoreUSDGCorrelated/config.ts
+  s_5b9dcbdbe1b416::t_b9fc7466d2c6fd 1-8,12-13,15
+  s_5b9dcbdbe1b416::t_921c4a167756c8 9-11
+  s_5b9dcbdbe1b416::t_7527ea20cfee7c 14
+src/20260514_AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4CoreUSDGCorrelated/AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4CoreUSDGCorrelated_20260514.sol
+  s_5b9dcbdbe1b416::t_3e735471a0a946 10,15-122
+  s_5b9dcbdbe1b416::t_1efd3da514357e 12-13
+diffs/AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4CoreUSDGCorrelated_20260514_before_AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4CoreUSDGCorrelated_20260514_after.md
+  s_5b9dcbdbe1b416::t_1c4c96910141f8 1-536
+src/20260514_AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4CoreUSDGCorrelated/OnboardPTUSDG24SEP2026OnV4CoreUSDGCorrelated.md
+  s_5b9dcbdbe1b416::t_b9fc7466d2c6fd 1-3,5-8,11,14,17,49-53,56-59
+  s_5b9dcbdbe1b416::t_23f3a6447a84a7 4,9-10,12-13,15-16,18-23,25-29,31-48,55
+  h_0f977de3f043fc 54
+src/20260514_AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4CoreUSDGCorrelated/OnboardPTUSDG24SEP2026OnV4CoreUSDGCorrelated_20260514.s.sol
+  s_5b9dcbdbe1b416::t_b9fc7466d2c6fd 8-59
+src/interfaces/IPendlePriceCapAdapter.sol
+  s_5b9dcbdbe1b416::t_8c0105791ff46b 29-33
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.2",
+  "base_commit_sha": "e538dfb1bfc9d6406648d96cc538e7a224370da2",
+  "prompts": {},
+  "humans": {
+    "h_0f977de3f043fc": {
+      "author": "Alexandru Niculae <43644109+avniculae@users.noreply.github.com>"
+    }
+  },
+  "sessions": {
+    "s_5b9dcbdbe1b416": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "18add9d4-163c-4d80-93bc-2e86aad47036",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "Alexandru Niculae <43644109+avniculae@users.noreply.github.com>"
+    }
+  }
+}

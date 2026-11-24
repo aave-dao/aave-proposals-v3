@@ -1,0 +1,51 @@
+src/interfaces/IPriceCapAdapterStable.sol
+  s_5cb454b1abacbb::t_bc00ce511ec470 7
+src/20260909_AaveV4Arc_AaveV4ArcActivation/AaveV4Arc_AaveV4ArcActivation_20260909.t.sol
+  s_5cb454b1abacbb::t_5c0cf6ef986807 385
+  s_5cb454b1abacbb::t_7352b10a30ac9e 414-416,418-419,421-425,428-437,439-440,442-443,446-447,449-451,453-456,458-462,464-468,470-477,479,482-523,525,531,537,546,548
+  s_5cb454b1abacbb::t_903b3d4c247e71 411-413,426,444
+  s_5cb454b1abacbb::t_9a5a77516114e1 393-397,420,441
+  s_5cb454b1abacbb::t_1f17dec1170b57 399-406,417,438,448,452,457,463,469,478,480
+  s_5cb454b1abacbb::t_2561543ce11648 408
+  s_5cb454b1abacbb::t_14ff3d6d90147b 387-391
+  s_5cb454b1abacbb::t_240741f410239e 1-384,386,392,398,407,409-410,427,445,481,549
+  s_5cb454b1abacbb::t_5aa63600dc531c 524,526-530,532-536,538-545,547,550-591
+pnpm-workspace.yaml
+  s_5cb454b1abacbb::t_4703621c419d50 7
+pnpm-lock.yaml
+  s_5cb454b1abacbb::t_839591ef05cace 51-56,83-84,88-89,1242,1244-1245,1257
+src/20260909_AaveV4Arc_AaveV4ArcActivation/AaveV4Arc_AaveV4ArcActivation_20260909.sol
+  s_5cb454b1abacbb::t_a4a4711c3a96b1 1-42
+diffs/AaveV4Arc_AaveV4ArcActivation_20260909_before_AaveV4Arc_AaveV4ArcActivation_20260909_after.md
+  s_5cb454b1abacbb::t_8fe07d4012ee7e 1-227
+foundry.toml
+  s_5cb454b1abacbb::t_8801f503c4fb04 65
+src/20260909_AaveV4Arc_AaveV4ArcActivation/AaveV4ArcActivation.md
+  s_5cb454b1abacbb::t_fb385c9e623fb1 1-110
+src/interfaces/IEURPriceCapAdapterStable.sol
+  s_5cb454b1abacbb::t_546890da142eed 1-13
+package.json
+  s_5cb454b1abacbb::t_adc8d9f6dceb69 33-34
+foundry.lock
+  s_5cb454b1abacbb::t_9ee111b46f9f26 5,9
+src/20260909_AaveV4Arc_AaveV4ArcActivation/AaveV4ArcActivation_20260909.s.sol
+  s_5cb454b1abacbb::t_613a8d8b840470 1-43
+lib/aave-helpers
+  s_5cb454b1abacbb::t_a20d13204f9b67 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.2",
+  "base_commit_sha": "8e72d89234ad1cef0ebd079b37acb79c3c9a24af",
+  "prompts": {},
+  "sessions": {
+    "s_5cb454b1abacbb": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "cf6c5f8c-2bd0-4298-a34d-805f54004688",
+        "model": "claude-fable-5-1"
+      },
+      "human_author": "DhairyaSethi <55102840+DhairyaSethi@users.noreply.github.com>"
+    }
+  }
+}

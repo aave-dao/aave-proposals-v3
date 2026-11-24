@@ -1,0 +1,25 @@
+src/20260423_Multi_LiquidateRsETHPositions/AaveV3Ethereum_LiquidateRsETHPositions_20260423.t.sol
+  c16788477c80ab43 248-252,255-256,265-273,303-311,325-339,357-361
+src/20260423_Multi_LiquidateRsETHPositions/AaveV3Arbitrum_LiquidateRsETHPositions_20260423.t.sol
+  c16788477c80ab43 204-208,211-212,216-224,249-257,266-268,272-283,290-293
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.2",
+  "base_commit_sha": "d5302e62dcb20e311aafc406fe13065c17aba74d",
+  "prompts": {
+    "c16788477c80ab43": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "b8646c59-dfc2-402f-b7b3-1e2f41fbdee7",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "Alexandru Niculae",
+      "messages": [],
+      "total_additions": 100,
+      "total_deletions": 11,
+      "accepted_lines": 91,
+      "overriden_lines": 0
+    }
+  }
+}

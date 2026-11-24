@@ -1,0 +1,21 @@
+src/20260720_Multi_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment/RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment.md
+  s_230ef88db3c189::t_41811ed009eb6a 10,22,26,30
+src/20260720_Multi_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment/RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720.s.sol
+  s_230ef88db3c189::t_6641254bd26f4e 7,438,509,519,529,539,549,559,569,579,589,599,609,619
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.20",
+  "base_commit_sha": "8a591f8ac5c75b03865bf0142345d06d9faea2bd",
+  "prompts": {},
+  "sessions": {
+    "s_230ef88db3c189": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f7e82-9f09-7752-9ac6-6984381a9ded",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "AlbertoCentonze <11707683+AlbertoCentonze@users.noreply.github.com>"
+    }
+  }
+}

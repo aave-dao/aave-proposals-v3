@@ -1,0 +1,24 @@
+diffs/AaveV4Avalanche_OnboardUSATCoreHub_20261028_before_AaveV4Avalanche_OnboardUSATCoreHub_20261028_after.md
+  s_c0f7ea89c97d02::t_0113e5d0e8eb13 150,256
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "8a38b72c62450f3777b9d7ea8c6a11530f5d55b6",
+  "prompts": {},
+  "humans": {
+    "h_71908bb6884da4": {
+      "author": "YBM <31329384+yan-man@users.noreply.github.com>"
+    }
+  },
+  "sessions": {
+    "s_c0f7ea89c97d02": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "fe9f8b51-373d-4be5-8a96-d98efe165f1e",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "YBM <31329384+yan-man@users.noreply.github.com>"
+    }
+  }
+}

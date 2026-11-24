@@ -1,0 +1,25 @@
+src/20260423_Multi_LiquidateRsETHPositions/arbitrum/LiquidateRsETHArbitrumSetupTest.t.sol
+  23988b23b6963afe 57-60,70,80,98,122
+src/20260423_Multi_LiquidateRsETHPositions/mainnet/LiquidateRsETHEthereumSetupTest.t.sol
+  23988b23b6963afe 141,148,174,177,212,215,221,234,237
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.4",
+  "base_commit_sha": "9542a30b2de67b41ccfd4643f61b04076363ef53",
+  "prompts": {
+    "23988b23b6963afe": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "b9ae993a-be57-472e-a5f7-df9c9df00afd",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "YBM",
+      "messages": [],
+      "total_additions": 17,
+      "total_deletions": 13,
+      "accepted_lines": 17,
+      "overriden_lines": 0
+    }
+  }
+}

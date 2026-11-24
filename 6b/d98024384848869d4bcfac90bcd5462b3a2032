@@ -1,0 +1,56 @@
+src/20260423_Multi_LiquidateRsETHPositions/AaveV3Ethereum_LiquidateRsETHPositionUser1_20260423.sol
+  h_ac33fd5bdc4037 29
+src/20260423_Multi_LiquidateRsETHPositions/LiquidateRsETHArbitrumWstethBase_MinDebtThreshold.t.sol
+  aaae40232770f9ac 62-64,67-74,77
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.4",
+  "base_commit_sha": "6bd98024384848869d4bcfac90bcd5462b3a2032",
+  "prompts": {
+    "09e61eb39fd98ad1": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6ea7a022-5201-4ac2-9ad3-ad00e03b7326",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "YBM",
+      "messages": [],
+      "total_additions": 223,
+      "total_deletions": 58,
+      "accepted_lines": 595,
+      "overriden_lines": 1
+    },
+    "46a6b787cd143f16": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "586bea96-1097-4cc2-a28e-258bea0ebc67",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "YBM",
+      "messages": [],
+      "total_additions": 62,
+      "total_deletions": 0,
+      "accepted_lines": 1944,
+      "overriden_lines": 2
+    },
+    "aaae40232770f9ac": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "30da7df6-5e8b-4c62-bb8a-a1946379ead3",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "YBM",
+      "messages": [],
+      "total_additions": 16,
+      "total_deletions": 5,
+      "accepted_lines": 193,
+      "overriden_lines": 0
+    }
+  },
+  "humans": {
+    "h_ac33fd5bdc4037": {
+      "author": "YBM"
+    }
+  }
+}

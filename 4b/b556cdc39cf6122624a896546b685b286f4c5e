@@ -1,0 +1,23 @@
+generator/features/assetListing.spec.ts
+  s_9f64eda37ab66b::t_007adc60d1752f 61-82
+generator/templates/test.template.ts
+  s_9f64eda37ab66b::t_007adc60d1752f 20,30-34,38
+generator/features/assetListing.ts
+  s_9f64eda37ab66b::t_007adc60d1752f 125-134,217,328-333
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.13",
+  "base_commit_sha": "4bb556cdc39cf6122624a896546b685b286f4c5e",
+  "prompts": {},
+  "sessions": {
+    "s_9f64eda37ab66b": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f5c12-c8cd-7501-a70d-3f73ef1f5357",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "AlbertoCentonze <11707683+AlbertoCentonze@users.noreply.github.com>"
+    }
+  }
+}

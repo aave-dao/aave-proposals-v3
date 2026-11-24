@@ -1,0 +1,35 @@
+generator/templates/test.template.spec.ts
+  s_4d6edd1a6a4999::t_a878f0aca32ba5 40-42,49-54,76-81
+  s_4d6edd1a6a4999::t_83abdc4e5d435e 55,82
+  s_4d6edd1a6a4999::t_8b4e572c37f5f8 83
+generator/templates/test.template.ts
+  s_4d6edd1a6a4999::t_83abdc4e5d435e 59
+  s_4d6edd1a6a4999::t_8b4848faa67364 40-41,54-58,82
+generator/features/__snapshots__/assetListing.spec.ts.snap
+  s_4d6edd1a6a4999::t_85c5700d6cdfb7 183,199,203-208
+generator/features/__snapshots__/eModesCreation.spec.ts.snap
+  s_4d6edd1a6a4999::t_1f665489d3b364 222,238,242-247
+generator/features/__snapshots__/priceFeedsUpdate.spec.ts.snap
+  s_4d6edd1a6a4999::t_4ce5fce93c3f16 95,111,115-120
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "a88a539aa86f60c5602a8758bae11bd1df86ed2c",
+  "prompts": {},
+  "humans": {
+    "h_8b974fbabf2fb7": {
+      "author": "Alberto <albe@AMWM-H65F40J09H.local>"
+    }
+  },
+  "sessions": {
+    "s_4d6edd1a6a4999": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f38fe-6375-77b2-910e-082db3b00d0e",
+        "model": "gpt-5.5"
+      },
+      "human_author": "Alberto <albe@AMWM-H65F40J09H.local>"
+    }
+  }
+}

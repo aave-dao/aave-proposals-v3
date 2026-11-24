@@ -1,0 +1,27 @@
+generator/features/__snapshots__/assetListing.spec.ts.snap
+  s_3c139ce5290e35::t_879a13ea58f955 182,220-244,405-406,408-410,428-429
+generator/features/assetListing.spec.ts
+  s_3c139ce5290e35::t_441a4e7fb5cfdf 31-32,35
+generator/features/assetListing.ts
+  s_3c139ce5290e35::t_d507f6f1802a3e 114-115,119-124
+generator/templates/test.template.ts
+  s_3c139ce5290e35::t_96cffc3726237e 28-31,35-44,48
+lib/aave-helpers
+  s_3c139ce5290e35::t_3ae5392e8ea172 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "1b57ac2941f1a83ad89544c8ae01bddf459b2b78",
+  "prompts": {},
+  "sessions": {
+    "s_3c139ce5290e35": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a01f25-ed71-71e2-9996-184e34a2b97f",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "AlbertoCentonze <11707683+AlbertoCentonze@users.noreply.github.com>"
+    }
+  }
+}

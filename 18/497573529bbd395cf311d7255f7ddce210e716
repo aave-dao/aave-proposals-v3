@@ -1,0 +1,77 @@
+diffs/AaveV3XLayer_WhitelistXLayerFlashBorrower_20260821_before_AaveV3XLayer_WhitelistXLayerFlashBorrower_20260821_after.md
+  s_8b1176abc90d3e::t_13003f531ca856 1-43
+src/20260806_AaveV3Arbitrum_USDCGSMArbitrum/AaveV3Arbitrum_USDCGSMArbitrum_20260806.t.sol
+  s_8b1176abc90d3e::t_13003f531ca856 1-474
+diffs/AaveV3Arbitrum_USDCGSMArbitrum_20260806_before_AaveV3Arbitrum_USDCGSMArbitrum_20260806_after.md
+  s_8b1176abc90d3e::t_13003f531ca856 1-108
+src/20260818_AaveV3XLayer_AaveV3XLayerUSDCListing/AaveV3XLayerUSDCListing_20260818.s.sol
+  s_8b1176abc90d3e::t_13003f531ca856 1-63
+diffs/AaveV3XLayer_AaveV3XLayerUSDCListing_20260818_before_AaveV3XLayer_AaveV3XLayerUSDCListing_20260818_after.md
+  s_8b1176abc90d3e::t_13003f531ca856 1-376
+src/20260824_AaveV4Ethereum_OnboardPAXGGlobalDollarHub/config.ts
+  s_8b1176abc90d3e::t_13003f531ca856 1-192
+src/20260821_AaveV3XLayer_WhitelistXLayerFlashBorrower/AaveV3XLayer_WhitelistXLayerFlashBorrower_20260821.sol
+  s_8b1176abc90d3e::t_13003f531ca856 1-23
+package.json
+  s_8b1176abc90d3e::t_13003f531ca856 42-43
+src/20260806_AaveV3Arbitrum_USDCGSMArbitrum/config.ts
+  s_8b1176abc90d3e::t_13003f531ca856 1-15
+src/20260806_AaveV3Arbitrum_USDCGSMArbitrum/USDCGSMArbitrum_20260806.s.sol
+  s_8b1176abc90d3e::t_13003f531ca856 1-63
+src/20260824_AaveV4Ethereum_OnboardPAXGGlobalDollarHub/AaveV4Ethereum_OnboardPAXGGlobalDollarHub_20260824.t.sol
+  s_8b1176abc90d3e::t_13003f531ca856 1-673
+src/20260818_AaveV3XLayer_AaveV3XLayerUSDCListing/AaveV3XLayerUSDCListing.md
+  s_8b1176abc90d3e::t_13003f531ca856 1-67
+src/20260818_AaveV3XLayer_AaveV3XLayerUSDCListing/config.ts
+  s_8b1176abc90d3e::t_13003f531ca856 1-82
+src/20260821_AaveV3XLayer_WhitelistXLayerFlashBorrower/AaveV3XLayer_WhitelistXLayerFlashBorrower_20260821.t.sol
+  s_8b1176abc90d3e::t_13003f531ca856 1-68
+src/20260821_AaveV3XLayer_WhitelistXLayerFlashBorrower/WhitelistXLayerFlashBorrower_20260821.s.sol
+  s_8b1176abc90d3e::t_13003f531ca856 1-63
+src/20260806_AaveV3Arbitrum_USDCGSMArbitrum/USDCGSMArbitrum.md
+  s_8b1176abc90d3e::t_13003f531ca856 1-39
+src/20260818_AaveV3XLayer_AaveV3XLayerUSDCListing/AaveV3XLayer_AaveV3XLayerUSDCListing_20260818.sol
+  s_8b1176abc90d3e::t_13003f531ca856 1-150
+src/20260824_AaveV4Ethereum_OnboardPAXGGlobalDollarHub/AaveV4Ethereum_OnboardPAXGGlobalDollarHub_20260824.sol
+  s_8b1176abc90d3e::t_13003f531ca856 1-238
+src/20260821_AaveV3XLayer_WhitelistXLayerFlashBorrower/WhitelistXLayerFlashBorrower.md
+  s_8b1176abc90d3e::t_13003f531ca856 1-40
+src/20260821_AaveV3XLayer_WhitelistXLayerFlashBorrower/config.ts
+  s_8b1176abc90d3e::t_13003f531ca856 1-21
+.gitignore
+  s_8b1176abc90d3e::t_13003f531ca856 17
+src/20260806_AaveV3Arbitrum_USDCGSMArbitrum/AaveV3Arbitrum_USDCGSMArbitrum_20260806.sol
+  s_8b1176abc90d3e::t_13003f531ca856 1-93
+src/interfaces/IGhoReserve.sol
+  s_8b1176abc90d3e::t_13003f531ca856 8
+src/20260824_AaveV4Ethereum_OnboardPAXGGlobalDollarHub/OnboardPAXGGlobalDollarHub_20260824.s.sol
+  s_8b1176abc90d3e::t_13003f531ca856 1-63
+src/20260824_AaveV4Ethereum_OnboardPAXGGlobalDollarHub/OnboardPAXGGlobalDollarHub.md
+  s_8b1176abc90d3e::t_13003f531ca856 1-78
+src/20260818_AaveV3XLayer_AaveV3XLayerUSDCListing/AaveV3XLayer_AaveV3XLayerUSDCListing_20260818.t.sol
+  s_8b1176abc90d3e::t_13003f531ca856 1-237
+diffs/AaveV4Ethereum_OnboardPAXGGlobalDollarHub_20260824_before_AaveV4Ethereum_OnboardPAXGGlobalDollarHub_20260824_after.md
+  s_8b1176abc90d3e::t_13003f531ca856 1-821
+foundry.lock
+  s_8b1176abc90d3e::t_d269d3a491c360 5
+pnpm-lock.yaml
+  s_8b1176abc90d3e::t_e2264f6dc5c80f 13,15-16,18-19,55,83-84,88-89,949-950,1233-1234,1238,1240,1242,1244-1245,1248-1249,1257,1262,1265,1713,1715,1881,1929,1937,2063,2069,2071,2154
+lib/aave-helpers
+  s_8b1176abc90d3e::t_dd56787e07d3dd 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "18497573529bbd395cf311d7255f7ddce210e716",
+  "prompts": {},
+  "sessions": {
+    "s_8b1176abc90d3e": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a09f8f-65f6-7b63-827e-2b9eb7c8960f",
+        "model": "gpt-6-astra"
+      },
+      "human_author": "AlbertoCentonze <11707683+AlbertoCentonze@users.noreply.github.com>"
+    }
+  }
+}

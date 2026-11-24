@@ -1,0 +1,14 @@
+src/20260425_AaveV3MegaEth_OnboardUSDeToTheAaveV3MegaETHInstance/OnboardUSDeToTheAaveV3MegaETHInstance.md
+  h_c84ca9b512ee6d 61-62
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.4",
+  "base_commit_sha": "05ea6c8f283b6404d2285324b95425aa31ecfd59",
+  "prompts": {},
+  "humans": {
+    "h_c84ca9b512ee6d": {
+      "author": "DhairyaSethi"
+    }
+  }
+}

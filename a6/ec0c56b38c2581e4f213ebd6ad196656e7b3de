@@ -1,0 +1,31 @@
+src/interfaces/IStkGhoMigrator.sol
+  h_dd1a1ee57491bb 1-7
+src/20260623_AaveV3Ethereum_StkGhoMigratorClaimHelper/AaveV3Ethereum_StkGhoMigratorClaimHelper_20260623.sol
+  h_dd1a1ee57491bb 1-23
+src/20260623_AaveV3Ethereum_StkGhoMigratorClaimHelper/config.ts
+  h_dd1a1ee57491bb 1-14
+src/20260623_AaveV3Ethereum_StkGhoMigratorClaimHelper/AaveV3Ethereum_StkGhoMigratorClaimHelper_20260623.t.sol
+  h_dd1a1ee57491bb 4-15,23-28,32-36,38-74,76-77
+  s_7a7db270208a16::t_1af54b725c9cde 1-3,16-22,29-31,37,78
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.10",
+  "base_commit_sha": "a6ec0c56b38c2581e4f213ebd6ad196656e7b3de",
+  "prompts": {},
+  "humans": {
+    "h_dd1a1ee57491bb": {
+      "author": "AGMASO <agmguindo@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_7a7db270208a16": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019ef363-7815-78e2-8de1-47675c372cff",
+        "model": "gpt-5.5"
+      },
+      "human_author": "AGMASO <agmguindo@gmail.com>"
+    }
+  }
+}

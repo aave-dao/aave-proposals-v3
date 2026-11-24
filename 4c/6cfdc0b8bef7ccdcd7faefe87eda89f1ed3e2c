@@ -1,0 +1,91 @@
+src/20260707_Multi_AaveV3LTVAndEModeUpdate/AaveV3Mantle_AaveV3LTVAndEModeUpdate_20260707.t.sol
+  s_59edd78a894f70::t_54bba607d24e6d 50-69
+src/20260707_Multi_AaveV3LTVAndEModeUpdate/AaveV3EthereumLido_AaveV3LTVAndEModeUpdate_20260707.t.sol
+  s_59edd78a894f70::t_21de82942c0c3d 45-59
+src/20260707_Multi_AaveV3LTVAndEModeUpdate/AaveV3Ethereum_AaveV3LTVAndEModeUpdate_20260707.t.sol
+  s_59edd78a894f70::t_ac24a3ac42701c 46-65
+src/20260707_Multi_AaveV3LTVAndEModeUpdate/AaveV3Avalanche_AaveV3LTVAndEModeUpdate_20260707.t.sol
+  s_59edd78a894f70::t_050bc3bec5a6e2 45-59
+src/20260707_Multi_AaveV3LTVAndEModeUpdate/AaveV3Gnosis_AaveV3LTVAndEModeUpdate_20260707.t.sol
+  s_59edd78a894f70::t_4c0b4a7a443d9e 45-59
+generator/templates/test.template.ts
+  s_1b298b9aaba146::t_41532bac04f00c 79
+  s_22f80b5bcb6d41::t_98bd1f53a0a409 21
+generator/features/__snapshots__/assetListing.spec.ts.snap
+  s_1b298b9aaba146::t_252b09cce599e6 198,202-204
+  s_22f80b5bcb6d41::t_35582623f72b39 182,189
+generator/features/__snapshots__/eModesCreation.spec.ts.snap
+  s_1b298b9aaba146::t_6415239ac22e89 237,241-243
+  s_22f80b5bcb6d41::t_660e245d1712ed 221,228
+generator/features/__snapshots__/priceFeedsUpdate.spec.ts.snap
+  s_1b298b9aaba146::t_4cec0150ea8176 110,114-115
+  s_22f80b5bcb6d41::t_426335042fca91 94,101
+generator/utils/constants.ts
+  s_22f80b5bcb6d41::t_fcbd0c4876012b 2
+generator/features/assetListing.ts
+  s_22f80b5bcb6d41::t_fcbd0c4876012b 10
+  s_22f80b5bcb6d41::t_ae8803da71d2e3 211,213,323,331
+generator/common.ts
+  s_22f80b5bcb6d41::t_98bd1f53a0a409 103-105
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.11",
+  "base_commit_sha": "4c6cfdc0b8bef7ccdcd7faefe87eda89f1ed3e2c",
+  "prompts": {},
+  "humans": {
+    "h_8b974fbabf2fb7": {
+      "author": "Alberto <albe@AMWM-H65F40J09H.local>"
+    }
+  },
+  "sessions": {
+    "s_1b298b9aaba146": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f3bc6-efaa-7121-9785-be51af5089a8",
+        "model": "gpt-5.5"
+      },
+      "human_author": "Alberto <albe@AMWM-H65F40J09H.local>"
+    },
+    "s_22f80b5bcb6d41": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f3c89-d210-7122-b483-d92bfbdf7c86",
+        "model": "gpt-5.5"
+      },
+      "human_author": "Alberto <albe@AMWM-H65F40J09H.local>"
+    },
+    "s_3c613cca907125": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f3794-268d-75b1-9e56-8673cc8a4eb1",
+        "model": "gpt-5.5"
+      },
+      "human_author": "Alberto <albe@AMWM-H65F40J09H.local>"
+    },
+    "s_4d6edd1a6a4999": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f38fe-6375-77b2-910e-082db3b00d0e",
+        "model": "gpt-5.5"
+      },
+      "human_author": "Alberto <albe@AMWM-H65F40J09H.local>"
+    },
+    "s_50e0a2a61afb2a": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f2828-55d7-75d3-8493-8b822001388c",
+        "model": "gpt-5.5"
+      },
+      "human_author": "Alberto <albe@AMWM-H65F40J09H.local>"
+    },
+    "s_59edd78a894f70": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "dc900c02-c2c3-4aa2-b5e6-eed7b8cd7e79",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "AlbertoCentonze <11707683+AlbertoCentonze@users.noreply.github.com>"
+    }
+  }
+}

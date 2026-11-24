@@ -1,0 +1,19 @@
+src/20261118_AaveV3Ethereum_TempoADIPathActivation/TempoADIPathActivation_20261118.s.sol
+  s_6a35c7236c154f::t_4c2907af29f8da 52
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "cda387acaa09b36b9b63840aa2e4aef68421f558",
+  "prompts": {},
+  "sessions": {
+    "s_6a35c7236c154f": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "bd5a467a-723f-4364-bec8-e91a7578c8fe",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "AlbertoCentonze <11707683+AlbertoCentonze@users.noreply.github.com>"
+    }
+  }
+}

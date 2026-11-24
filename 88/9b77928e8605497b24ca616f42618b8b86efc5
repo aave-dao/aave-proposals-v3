@@ -1,0 +1,36 @@
+diffs/AaveV3Plasma_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507_before_AaveV3Plasma_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507_after.md
+  s_dc698e82f27c4d::t_93e02dfbe2f7b3 1-55
+diffs/AaveV3Mantle_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507_before_AaveV3Mantle_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507_after.md
+  s_dc698e82f27c4d::t_93e02dfbe2f7b3 1-42
+diffs/AaveV3Gnosis_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507_before_AaveV3Gnosis_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507_after.md
+  s_dc698e82f27c4d::t_93e02dfbe2f7b3 1-55
+diffs/AaveV3Linea_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507_before_AaveV3Linea_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507_after.md
+  s_dc698e82f27c4d::t_93e02dfbe2f7b3 1-68
+diffs/AaveV3Ethereum_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507_before_AaveV3Ethereum_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507_after.md
+  s_dc698e82f27c4d::t_93e02dfbe2f7b3 1-120
+diffs/AaveV3Polygon_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507_before_AaveV3Polygon_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507_after.md
+  s_dc698e82f27c4d::t_93e02dfbe2f7b3 1-55
+diffs/AaveV3Avalanche_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507_before_AaveV3Avalanche_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507_after.md
+  s_dc698e82f27c4d::t_93e02dfbe2f7b3 1-55
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.1",
+  "base_commit_sha": "889b77928e8605497b24ca616f42618b8b86efc5",
+  "prompts": {},
+  "humans": {
+    "h_739c25e72c37fb": {
+      "author": "DhairyaSethi <55102840+DhairyaSethi@users.noreply.github.com>"
+    }
+  },
+  "sessions": {
+    "s_dc698e82f27c4d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "586a9eba-a4a4-4455-b316-c66740ece60a",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "DhairyaSethi <55102840+DhairyaSethi@users.noreply.github.com>"
+    }
+  }
+}

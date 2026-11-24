@@ -1,0 +1,23 @@
+src/20260511_Multi_WETHLTVRestorationAcrossV3Instances/setup/WETHLTVRestorationEmodeBaseTest.t.sol
+  s_7213da700302c5::t_bedd9b9c6da274 20-21,25,27,30-32,38,40-42,45-46,48-55,57-58,60,63-65,73-95
+src/20260511_Multi_WETHLTVRestorationAcrossV3Instances/setup/WETHLTVRestorationBaseTest.t.sol
+  s_7213da700302c5::t_197ffeda4ff19d 34-43
+  s_7213da700302c5::t_0762fd14274414 90,104,106,110,115-117,119,121,148-151,156-159
+  s_7213da700302c5::t_7960eda62fa863 91,93,96-98,107,111,113-114,118,122,124,127-129,137-147,152-155
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.4",
+  "base_commit_sha": "088a2cfa31ce8a69f06b46a5b1382d17a6968455",
+  "prompts": {},
+  "sessions": {
+    "s_7213da700302c5": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "9621d1f1-8563-4688-97d5-496352d2f3f9",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "Alexandru Niculae <43644109+avniculae@users.noreply.github.com>"
+    }
+  }
+}

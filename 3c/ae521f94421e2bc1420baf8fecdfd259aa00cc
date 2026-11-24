@@ -1,0 +1,45 @@
+src/20260423_Multi_LiquidateRsETHPositions/arbitrum/AaveV3Arbitrum_LiquidateRsETHPositionUser6_20260423.t.sol
+  09e61eb39fd98ad1 20-26
+src/20260423_Multi_LiquidateRsETHPositions/arbitrum/AaveV3Arbitrum_LiquidateRsETHPositionUser5_20260423.t.sol
+  09e61eb39fd98ad1 20-26
+src/20260423_Multi_LiquidateRsETHPositions/arbitrum/LiquidateRsETHArbitrumSetupTest.t.sol
+  09e61eb39fd98ad1 130-140
+src/20260423_Multi_LiquidateRsETHPositions/arbitrum/AaveV3Arbitrum_LiquidateRsETHPositionUser4_20260423.t.sol
+  09e61eb39fd98ad1 20-26
+src/20260423_Multi_LiquidateRsETHPositions/arbitrum/LiquidateRsETHArbitrumWstethSetupTest.t.sol
+  09e61eb39fd98ad1 19-29,31,34-35
+src/20260423_Multi_LiquidateRsETHPositions/mainnet/LiquidateRsETHEthereumSetupTest.t.sol
+  09e61eb39fd98ad1 377-382,386
+src/20260423_Multi_LiquidateRsETHPositions/setup/LiquidateRsETHPositionsSetupTest.t.sol
+  09e61eb39fd98ad1 38
+src/20260423_Multi_LiquidateRsETHPositions/arbitrum/AaveV3Arbitrum_LiquidateRsETHPositionUser1_20260423.t.sol
+  09e61eb39fd98ad1 20-26
+src/20260423_Multi_LiquidateRsETHPositions/mainnet/AaveV3Ethereum_LiquidateRsETHPositionUser2_20260423.t.sol
+  09e61eb39fd98ad1 23-29
+src/20260423_Multi_LiquidateRsETHPositions/arbitrum/AaveV3Arbitrum_LiquidateRsETHPositionUser2_20260423.t.sol
+  09e61eb39fd98ad1 20-26
+src/20260423_Multi_LiquidateRsETHPositions/mainnet/AaveV3Ethereum_LiquidateRsETHPositionUser1_20260423.t.sol
+  09e61eb39fd98ad1 20-26
+src/20260423_Multi_LiquidateRsETHPositions/arbitrum/AaveV3Arbitrum_LiquidateRsETHPositionUser3_20260423.t.sol
+  09e61eb39fd98ad1 20-26
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.4",
+  "base_commit_sha": "3cae521f94421e2bc1420baf8fecdfd259aa00cc",
+  "prompts": {
+    "09e61eb39fd98ad1": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6ea7a022-5201-4ac2-9ad3-ad00e03b7326",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "YBM",
+      "messages": [],
+      "total_additions": 3795,
+      "total_deletions": 40,
+      "accepted_lines": 3780,
+      "overriden_lines": 0
+    }
+  }
+}

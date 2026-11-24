@@ -1,0 +1,26 @@
+src/20260708_AaveV4Avalanche_AaveV4AvalancheActivation/AaveV4AvalancheActivation.md
+  s_2086f495a8840c::t_3f07f5960c0259 102-124,134-142
+  s_2086f495a8840c::t_76ab1edcb768cb 125-133
+  h_739c25e72c37fb 24
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "bc7ebc761fad0344508f45b466de00ddb17017bc",
+  "prompts": {},
+  "humans": {
+    "h_739c25e72c37fb": {
+      "author": "DhairyaSethi <55102840+DhairyaSethi@users.noreply.github.com>"
+    }
+  },
+  "sessions": {
+    "s_2086f495a8840c": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "770a40d6-7465-41df-966d-03ac4bfeaa06",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "DhairyaSethi <55102840+DhairyaSethi@users.noreply.github.com>"
+    }
+  }
+}

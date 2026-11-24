@@ -1,0 +1,28 @@
+src/20260612_AaveV3Ethereum_MonadADIPathActivation/MonadADIPathActivation_20260612.s.sol
+  h_739c25e72c37fb 1-57
+src/20260612_AaveV3Ethereum_MonadADIPathActivation/MonadADIPathActivation.md
+  s_5fc52eb1c96a67::t_fdb5dc0b079e33 32,46
+  h_739c25e72c37fb 26,34,41,50,57-61
+  s_5fc52eb1c96a67::t_09d8f752af2e47 25,27-30,33,35-40,42-45,49,51
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.6",
+  "base_commit_sha": "6a2d29bbe6570d692e55ffee130b0fcfb0d5fcc4",
+  "prompts": {},
+  "humans": {
+    "h_739c25e72c37fb": {
+      "author": "DhairyaSethi <55102840+DhairyaSethi@users.noreply.github.com>"
+    }
+  },
+  "sessions": {
+    "s_5fc52eb1c96a67": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "196931e2-c1c7-4fe0-9eec-a7e7b537acb1",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "DhairyaSethi <55102840+DhairyaSethi@users.noreply.github.com>"
+    }
+  }
+}

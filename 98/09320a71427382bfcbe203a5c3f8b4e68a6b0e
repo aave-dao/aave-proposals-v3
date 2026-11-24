@@ -1,0 +1,30 @@
+src/20260423_Multi_LiquidateRsETHPositions/setup/LiquidateRsETHPositionsSetupTest.t.sol
+  h_ac33fd5bdc4037 609-622
+src/20260423_Multi_LiquidateRsETHPositions/setup/LiquidateRsETHAddresses.sol
+  h_ac33fd5bdc4037 22-25,54-61
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.4",
+  "base_commit_sha": "9809320a71427382bfcbe203a5c3f8b4e68a6b0e",
+  "prompts": {
+    "ae68ced1b12e7edf": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "8831ea3c-0db5-4f55-b73a-ad4d0d3aa878",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "YBM",
+      "messages": [],
+      "total_additions": 8,
+      "total_deletions": 8,
+      "accepted_lines": 4,
+      "overriden_lines": 8
+    }
+  },
+  "humans": {
+    "h_ac33fd5bdc4037": {
+      "author": "YBM"
+    }
+  }
+}

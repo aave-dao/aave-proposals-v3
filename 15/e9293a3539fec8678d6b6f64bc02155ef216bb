@@ -1,0 +1,32 @@
+src/20260420_AaveV3Ethereum_UmbrellaPause/AaveV3Ethereum_UmbrellaPause_20260420.sol
+  h_ac33fd5bdc4037 4,7-8,18-19,21-22
+  25f6a1e21504b500 6,23-24
+src/20260420_AaveV3Ethereum_UmbrellaPause/AaveV3Ethereum_UmbrellaPause_20260420.t.sol
+  25f6a1e21504b500 11,14-15,66-68,70-72,74,85-89
+  h_ac33fd5bdc4037 6,35,42-44,69,73,75-84
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.2",
+  "base_commit_sha": "15e9293a3539fec8678d6b6f64bc02155ef216bb",
+  "prompts": {
+    "25f6a1e21504b500": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "46834386-47f9-4f6e-959f-723ecf8d50ac",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "YBM",
+      "messages": [],
+      "total_additions": 60,
+      "total_deletions": 15,
+      "accepted_lines": 43,
+      "overriden_lines": 8
+    }
+  },
+  "humans": {
+    "h_ac33fd5bdc4037": {
+      "author": "YBM"
+    }
+  }
+}

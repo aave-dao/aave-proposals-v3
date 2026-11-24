@@ -1,0 +1,25 @@
+src/20260507_Multi_CAPOSnaphotRatioUpdateAcrossAaveV3/CAPOSnaphotRatioUpdateAcrossAaveV3.md
+  s_25275b458df108::t_334468c808a2b1 21,23-43,47-49
+  h_739c25e72c37fb 22,53
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.1",
+  "base_commit_sha": "58ee438ee4822929a58a287c62f9c314f71ee338",
+  "prompts": {},
+  "humans": {
+    "h_739c25e72c37fb": {
+      "author": "DhairyaSethi <55102840+DhairyaSethi@users.noreply.github.com>"
+    }
+  },
+  "sessions": {
+    "s_25275b458df108": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "0c668963-850b-427c-b79a-ad47299ec6d6",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "DhairyaSethi <55102840+DhairyaSethi@users.noreply.github.com>"
+    }
+  }
+}

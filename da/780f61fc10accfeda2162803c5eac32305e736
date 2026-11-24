@@ -1,0 +1,33 @@
+src/20260423_Multi_LiquidateRsETHPositions/arbitrum/AaveV3Arbitrum_LiquidateRsETHPositionUser6_20260423.sol
+  ae68ced1b12e7edf 16-19
+src/20260423_Multi_LiquidateRsETHPositions/arbitrum/AaveV3Arbitrum_LiquidateRsETHPositionUser5_20260423.sol
+  ae68ced1b12e7edf 16-19
+src/20260423_Multi_LiquidateRsETHPositions/arbitrum/AaveV3Arbitrum_LiquidateRsETHPositionUser4_20260423.sol
+  ae68ced1b12e7edf 16-19
+src/20260423_Multi_LiquidateRsETHPositions/arbitrum/AaveV3Arbitrum_LiquidateRsETHPositionUser2_20260423.sol
+  ae68ced1b12e7edf 16,18-19
+src/20260423_Multi_LiquidateRsETHPositions/arbitrum/AaveV3Arbitrum_LiquidateRsETHPositionUser3_20260423.sol
+  ae68ced1b12e7edf 16-19
+src/20260423_Multi_LiquidateRsETHPositions/arbitrum/AaveV3Arbitrum_LiquidateRsETHPositionUser1_20260423.sol
+  ae68ced1b12e7edf 17,19-20
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.4",
+  "base_commit_sha": "da780f61fc10accfeda2162803c5eac32305e736",
+  "prompts": {
+    "ae68ced1b12e7edf": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "8831ea3c-0db5-4f55-b73a-ad4d0d3aa878",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "YBM",
+      "messages": [],
+      "total_additions": 36,
+      "total_deletions": 4,
+      "accepted_lines": 1031,
+      "overriden_lines": 2
+    }
+  }
+}

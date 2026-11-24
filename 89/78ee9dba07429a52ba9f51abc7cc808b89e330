@@ -1,0 +1,30 @@
+src/20260423_Multi_LiquidateRsETHPositions/LiquidateRsETHEthereumBaseTest.t.sol
+  3ad5c6016d89e246 278,374-375
+src/20260423_Multi_LiquidateRsETHPositions/LiquidateRsETHArbitrumWstethBase_MinDebtThreshold.t.sol
+  3ad5c6016d89e246 135-137,143-154
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.4",
+  "base_commit_sha": "8978ee9dba07429a52ba9f51abc7cc808b89e330",
+  "prompts": {
+    "3ad5c6016d89e246": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "429aa4a0-9995-4f84-b187-aeb886e5f68f",
+        "model": "gpt-5.3-codex"
+      },
+      "human_author": "YBM",
+      "messages": [],
+      "total_additions": 19,
+      "total_deletions": 13,
+      "accepted_lines": 18,
+      "overriden_lines": 0
+    }
+  },
+  "humans": {
+    "h_ac33fd5bdc4037": {
+      "author": "YBM"
+    }
+  }
+}

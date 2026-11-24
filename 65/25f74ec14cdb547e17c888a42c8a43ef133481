@@ -1,0 +1,30 @@
+src/helpers/capo/capo-report.ts
+  s_dc698e82f27c4d::t_533dc9c26347ac 89
+  s_dc698e82f27c4d::t_ba01fab3469e8e 30
+  h_739c25e72c37fb 105-114
+package-lock.json
+  ai_agent 23-24
+package.json
+  s_dc698e82f27c4d::t_52cabbccdb5621 48-49
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.1",
+  "base_commit_sha": "6525f74ec14cdb547e17c888a42c8a43ef133481",
+  "prompts": {},
+  "humans": {
+    "h_739c25e72c37fb": {
+      "author": "DhairyaSethi <55102840+DhairyaSethi@users.noreply.github.com>"
+    }
+  },
+  "sessions": {
+    "s_dc698e82f27c4d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "586a9eba-a4a4-4455-b316-c66740ece60a",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "DhairyaSethi <55102840+DhairyaSethi@users.noreply.github.com>"
+    }
+  }
+}

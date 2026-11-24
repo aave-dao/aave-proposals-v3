@@ -1,0 +1,29 @@
+.github/workflows/test.yml
+  h_ac33fd5bdc4037 37
+  8f5d838c325104a3 36,38-41
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.4",
+  "base_commit_sha": "e6c2e73f8424d81e86f6ca5bbe2ed344ab6e75f4",
+  "prompts": {
+    "8f5d838c325104a3": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "4233f88f-8f50-4c26-9d90-4c3a75adb044",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "YBM",
+      "messages": [],
+      "total_additions": 9,
+      "total_deletions": 0,
+      "accepted_lines": 173992,
+      "overriden_lines": 1
+    }
+  },
+  "humans": {
+    "h_ac33fd5bdc4037": {
+      "author": "YBM"
+    }
+  }
+}

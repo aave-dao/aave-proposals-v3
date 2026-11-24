@@ -1,0 +1,42 @@
+src/20260707_Multi_AaveV3LTVAndEModeUpdate/AaveV3Mantle_AaveV3LTVAndEModeUpdate_20260707.sol
+  s_d2f5fa2e73328c::t_ebb0e9e9895ec6 11
+src/20260707_Multi_AaveV3LTVAndEModeUpdate/AaveV3Gnosis_AaveV3LTVAndEModeUpdate_20260707.t.sol
+  s_d2f5fa2e73328c::t_84e65a682a3051 24-33
+src/20260707_Multi_AaveV3LTVAndEModeUpdate/AaveV3Gnosis_AaveV3LTVAndEModeUpdate_20260707.sol
+  s_d2f5fa2e73328c::t_ebb0e9e9895ec6 11
+src/20260707_Multi_AaveV3LTVAndEModeUpdate/config.ts
+  s_d2f5fa2e73328c::t_2924f78abc12de 14
+src/20260707_Multi_AaveV3LTVAndEModeUpdate/AaveV3Avalanche_AaveV3LTVAndEModeUpdate_20260707.t.sol
+  s_d2f5fa2e73328c::t_84e65a682a3051 24-33
+src/20260707_Multi_AaveV3LTVAndEModeUpdate/AaveV3EthereumLido_AaveV3LTVAndEModeUpdate_20260707.sol
+  s_d2f5fa2e73328c::t_ebb0e9e9895ec6 11
+src/20260707_Multi_AaveV3LTVAndEModeUpdate/AaveV3LTVAndEModeUpdate.md
+  s_d2f5fa2e73328c::t_ec013e1c348724 3
+  s_d2f5fa2e73328c::t_860e43e230611b 96
+src/20260707_Multi_AaveV3LTVAndEModeUpdate/AaveV3Ethereum_AaveV3LTVAndEModeUpdate_20260707.sol
+  s_d2f5fa2e73328c::t_ebb0e9e9895ec6 11
+src/20260707_Multi_AaveV3LTVAndEModeUpdate/AaveV3Ethereum_AaveV3LTVAndEModeUpdate_20260707.t.sol
+  s_d2f5fa2e73328c::t_84e65a682a3051 24-43
+src/20260707_Multi_AaveV3LTVAndEModeUpdate/AaveV3EthereumLido_AaveV3LTVAndEModeUpdate_20260707.t.sol
+  s_d2f5fa2e73328c::t_84e65a682a3051 24-33
+src/20260707_Multi_AaveV3LTVAndEModeUpdate/AaveV3Mantle_AaveV3LTVAndEModeUpdate_20260707.t.sol
+  s_d2f5fa2e73328c::t_84e65a682a3051 28-42
+src/20260707_Multi_AaveV3LTVAndEModeUpdate/AaveV3Avalanche_AaveV3LTVAndEModeUpdate_20260707.sol
+  s_d2f5fa2e73328c::t_ebb0e9e9895ec6 11
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.14",
+  "base_commit_sha": "6a65216895bdac1aca756f70467c6a5bfebfa5f7",
+  "prompts": {},
+  "sessions": {
+    "s_d2f5fa2e73328c": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f6059-0e02-7f23-a53a-7fe8c03fd7fc",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "AlbertoCentonze <11707683+AlbertoCentonze@users.noreply.github.com>"
+    }
+  }
+}

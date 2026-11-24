@@ -1,0 +1,27 @@
+src/20260806_AaveV3Arbitrum_USDCGSMArbitrum/AaveV3Arbitrum_USDCGSMArbitrum_20260806.sol
+  s_2843833aabf52a::t_087be0292891d2 84
+src/20261009_AaveV4EthereumSentoraCurated_SentoraMarketActivation/SentoraOracles.t.sol
+  s_2843833aabf52a::t_087be0292891d2 109
+src/20260806_AaveV3Arbitrum_USDCGSMArbitrum/AaveV3Arbitrum_USDCGSMArbitrum_20260806.t.sol
+  s_2843833aabf52a::t_087be0292891d2 62,65,128,132,136
+src/20261009_AaveV4EthereumSentoraCurated_SentoraMarketActivation/SentoraMarketActivation.md
+  s_2843833aabf52a::t_087be0292891d2 37-40
+src/20261009_AaveV4EthereumSentoraCurated_SentoraMarketActivation/SentoraRevenue.t.sol
+  s_2843833aabf52a::t_087be0292891d2 155-156
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "2d123f30b1755a608afa7336cd514625448dd8e8",
+  "prompts": {},
+  "sessions": {
+    "s_2843833aabf52a": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "ae63ebf5-88d7-4dfe-976c-39793e6bfe86",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "DhairyaSethi <55102840+DhairyaSethi@users.noreply.github.com>"
+    }
+  }
+}

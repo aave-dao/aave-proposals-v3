@@ -1,0 +1,54 @@
+src/20260506_Multi_AddCoWFactoriesToFlashBorrowers/AaveV3Arbitrum_AddCoWFactoriesToFlashBorrowers_20260506.sol
+  ai_agent 1-19
+src/20260506_Multi_AddCoWFactoriesToFlashBorrowers/AaveV3Plasma_AddCoWFactoriesToFlashBorrowers_20260506.t.sol
+  ai_agent 1-39
+src/20260506_Multi_AddCoWFactoriesToFlashBorrowers/AaveV3Linea_AddCoWFactoriesToFlashBorrowers_20260506.t.sol
+  ai_agent 1-39
+src/20260506_Multi_AddCoWFactoriesToFlashBorrowers/config.ts
+  ai_agent 1-62
+src/20260506_Multi_AddCoWFactoriesToFlashBorrowers/AaveV3Base_AddCoWFactoriesToFlashBorrowers_20260506.t.sol
+  ai_agent 1-39
+src/20260506_Multi_AddCoWFactoriesToFlashBorrowers/AaveV3Avalanche_AddCoWFactoriesToFlashBorrowers_20260506.sol
+  ai_agent 1-19
+src/20260506_Multi_AddCoWFactoriesToFlashBorrowers/AaveV3Base_AddCoWFactoriesToFlashBorrowers_20260506.sol
+  ai_agent 1-19
+src/20260506_Multi_AddCoWFactoriesToFlashBorrowers/AaveV3Ethereum_AddCoWFactoriesToFlashBorrowers_20260506.sol
+  ai_agent 1-19
+src/20260506_Multi_AddCoWFactoriesToFlashBorrowers/AaveV3Gnosis_AddCoWFactoriesToFlashBorrowers_20260506.sol
+  ai_agent 1-19
+src/20260506_Multi_AddCoWFactoriesToFlashBorrowers/AaveV3Linea_AddCoWFactoriesToFlashBorrowers_20260506.sol
+  ai_agent 1-19
+src/20260506_Multi_AddCoWFactoriesToFlashBorrowers/AaveV3Arbitrum_AddCoWFactoriesToFlashBorrowers_20260506.t.sol
+  ai_agent 1-41
+src/20260506_Multi_AddCoWFactoriesToFlashBorrowers/AaveV3Polygon_AddCoWFactoriesToFlashBorrowers_20260506.t.sol
+  ai_agent 1-39
+src/20260506_Multi_AddCoWFactoriesToFlashBorrowers/AaveV3BNB_AddCoWFactoriesToFlashBorrowers_20260506.sol
+  ai_agent 1-19
+src/20260506_Multi_AddCoWFactoriesToFlashBorrowers/AaveV3BNB_AddCoWFactoriesToFlashBorrowers_20260506.t.sol
+  ai_agent 1-39
+src/20260506_Multi_AddCoWFactoriesToFlashBorrowers/AaveV3Gnosis_AddCoWFactoriesToFlashBorrowers_20260506.t.sol
+  ai_agent 1-39
+src/20260506_Multi_AddCoWFactoriesToFlashBorrowers/AaveV3Plasma_AddCoWFactoriesToFlashBorrowers_20260506.sol
+  ai_agent 1-19
+src/20260506_Multi_AddCoWFactoriesToFlashBorrowers/AaveV3Avalanche_AddCoWFactoriesToFlashBorrowers_20260506.t.sol
+  ai_agent 1-41
+src/20260506_Multi_AddCoWFactoriesToFlashBorrowers/AaveV3Polygon_AddCoWFactoriesToFlashBorrowers_20260506.sol
+  ai_agent 1-19
+src/20260506_Multi_AddCoWFactoriesToFlashBorrowers/AddCoWFactoriesToFlashBorrowers.md
+  ai_agent 1-60
+src/20260506_Multi_AddCoWFactoriesToFlashBorrowers/AddCoWFactoriesToFlashBorrowers_20260506.s.sol
+  ai_agent 1-319
+src/20260506_Multi_AddCoWFactoriesToFlashBorrowers/AaveV3Ethereum_AddCoWFactoriesToFlashBorrowers_20260506.t.sol
+  ai_agent 1-41
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.1",
+  "base_commit_sha": "6672edd5d0056ca642a65c2010fabb39ff719347",
+  "prompts": {},
+  "humans": {
+    "h_739c25e72c37fb": {
+      "author": "DhairyaSethi <55102840+DhairyaSethi@users.noreply.github.com>"
+    }
+  }
+}

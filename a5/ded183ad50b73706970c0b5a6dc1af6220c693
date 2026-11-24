@@ -1,0 +1,24 @@
+src/20260514_Multi_UpdateUSDGPriceFeed/AaveV3Ethereum_UpdateUSDGPriceFeed_20260514.t.sol
+  s_0f0bf6d86e8530::t_339ed1932e2e0a 54
+  s_0f0bf6d86e8530::t_36aa13095fc182 39
+src/20260514_Multi_UpdateUSDGPriceFeed/AaveV3InkWhitelabel_UpdateUSDGPriceFeed_20260514.t.sol
+  s_0f0bf6d86e8530::t_4e98c99faa5a2f 43
+src/20260514_Multi_UpdateUSDGPriceFeed/AaveV3XLayer_UpdateUSDGPriceFeed_20260514.t.sol
+  s_0f0bf6d86e8530::t_c0ae6a6768d621 35
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.9",
+  "base_commit_sha": "a5ded183ad50b73706970c0b5a6dc1af6220c693",
+  "prompts": {},
+  "sessions": {
+    "s_0f0bf6d86e8530": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "aa3a14a6-6b49-4cf4-ad50-dcae9bfb9688",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Alexandru Niculae <43644109+avniculae@users.noreply.github.com>"
+    }
+  }
+}

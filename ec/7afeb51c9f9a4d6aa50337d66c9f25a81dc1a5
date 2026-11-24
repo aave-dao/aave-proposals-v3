@@ -1,0 +1,101 @@
+diffs/AaveV3Avalanche_AaveV3LTVAndEModeUpdate_20260707_before_AaveV3Avalanche_AaveV3LTVAndEModeUpdate_20260707_after.md
+  s_59edd78a894f70::t_c7ce7ffbbcda26 1-23,25-29,31-37,40-61
+src/20260707_Multi_AaveV3LTVAndEModeUpdate/AaveV3Ethereum_AaveV3LTVAndEModeUpdate_20260707.t.sol
+  s_59edd78a894f70::t_c7ce7ffbbcda26 1-19,21-45,46-80
+generator/features/__snapshots__/assetListing.spec.ts.snap
+  s_59edd78a894f70::t_615ca75a5f0866 203-211
+src/20260707_Multi_AaveV3LTVAndEModeUpdate/AaveV3Gnosis_AaveV3LTVAndEModeUpdate_20260707.t.sol
+  s_59edd78a894f70::t_c7ce7ffbbcda26 1-19,21-44,45-63
+diffs/AaveV3EthereumLido_AaveV3LTVAndEModeUpdate_20260707_before_AaveV3EthereumLido_AaveV3LTVAndEModeUpdate_20260707_after.md
+  s_59edd78a894f70::t_c7ce7ffbbcda26 1-23,25-29,31-43,46-61
+src/20260707_Multi_AaveV3LTVAndEModeUpdate/AaveV3LTVAndEModeUpdate_20260707.s.sol
+  s_59edd78a894f70::t_c7ce7ffbbcda26 1-167
+generator/features/borrowsUpdates.ts
+  s_59edd78a894f70::t_c7ce7ffbbcda26 1,29-53,78,84-86
+  s_59edd78a894f70::t_486397bf3e4b6d 87
+src/20260707_Multi_AaveV3LTVAndEModeUpdate/AaveV3Gnosis_AaveV3LTVAndEModeUpdate_20260707.sol
+  s_59edd78a894f70::t_c7ce7ffbbcda26 1-35
+generator/features/freeze.spec.ts
+  s_59edd78a894f70::t_c7ce7ffbbcda26 1-20
+src/20260707_Multi_AaveV3LTVAndEModeUpdate/AaveV3Avalanche_AaveV3LTVAndEModeUpdate_20260707.t.sol
+  s_59edd78a894f70::t_c7ce7ffbbcda26 1-19,21-44,45-63
+diffs/AaveV3Mantle_AaveV3LTVAndEModeUpdate_20260707_before_AaveV3Mantle_AaveV3LTVAndEModeUpdate_20260707_after.md
+  s_59edd78a894f70::t_c7ce7ffbbcda26 1-30,32-40,42-52,54-58,60-66,68-76,79-105,107-115
+generator/features/capsUpdates.ts
+  s_59edd78a894f70::t_b1ce63035aeccd 83
+  s_59edd78a894f70::t_c7ce7ffbbcda26 1,24-47,74,80-82
+src/20260707_Multi_AaveV3LTVAndEModeUpdate/AaveV3Avalanche_AaveV3LTVAndEModeUpdate_20260707.sol
+  s_59edd78a894f70::t_c7ce7ffbbcda26 1-35
+src/20260707_Multi_AaveV3LTVAndEModeUpdate/AaveV3Ethereum_AaveV3LTVAndEModeUpdate_20260707.sol
+  s_59edd78a894f70::t_c7ce7ffbbcda26 1-46
+generator/features/__snapshots__/collateralsUpdates.spec.ts.snap
+  s_59edd78a894f70::t_a73942745857a2 1-58
+diffs/AaveV3Gnosis_AaveV3LTVAndEModeUpdate_20260707_before_AaveV3Gnosis_AaveV3LTVAndEModeUpdate_20260707_after.md
+  s_59edd78a894f70::t_c7ce7ffbbcda26 1-23,25-29,31-37,40-61
+generator/features/__snapshots__/eModesCreation.spec.ts.snap
+  s_59edd78a894f70::t_de654bdbb623e7 242-250
+src/20260707_Multi_AaveV3LTVAndEModeUpdate/AaveV3EthereumLido_AaveV3LTVAndEModeUpdate_20260707.sol
+  s_59edd78a894f70::t_c7ce7ffbbcda26 1-27
+diffs/AaveV3Ethereum_AaveV3LTVAndEModeUpdate_20260707_before_AaveV3Ethereum_AaveV3LTVAndEModeUpdate_20260707_after.md
+  s_59edd78a894f70::t_c7ce7ffbbcda26 1-31,33-37,39-46,48-52,55-76
+generator/features/__snapshots__/priceFeedsUpdate.spec.ts.snap
+  s_59edd78a894f70::t_a99aced9964d6d 116-124
+generator/features/borrowsUpdates.spec.ts
+  s_59edd78a894f70::t_c7ce7ffbbcda26 1-29
+src/20260707_Multi_AaveV3LTVAndEModeUpdate/config.ts
+  s_59edd78a894f70::t_c7ce7ffbbcda26 1-26,28-34,36-42,44-56,58-62,64-66,68-70
+src/20260707_Multi_AaveV3LTVAndEModeUpdate/AaveV3LTVAndEModeUpdate.md
+  s_59edd78a894f70::t_c7ce7ffbbcda26 1-52,54-115
+src/20260707_Multi_AaveV3LTVAndEModeUpdate/AaveV3EthereumLido_AaveV3LTVAndEModeUpdate_20260707.t.sol
+  s_59edd78a894f70::t_c7ce7ffbbcda26 1-19,21-44,45-61
+generator/features/collateralsUpdates.ts
+  s_59edd78a894f70::t_6d33dd0584470e 101
+  s_59edd78a894f70::t_c7ce7ffbbcda26 35-64,92,98-100
+generator/features/freeze.ts
+  s_59edd78a894f70::t_c7ce7ffbbcda26 2,9-24,54-56
+  s_59edd78a894f70::t_2eeaf5b380fad5 57
+src/20260707_Multi_AaveV3LTVAndEModeUpdate/AaveV3Mantle_AaveV3LTVAndEModeUpdate_20260707.t.sol
+  s_59edd78a894f70::t_c7ce7ffbbcda26 1-23,25-49,50-82,84-166
+src/20260707_Multi_AaveV3LTVAndEModeUpdate/AaveV3Mantle_AaveV3LTVAndEModeUpdate_20260707.sol
+  s_59edd78a894f70::t_c7ce7ffbbcda26 1-63,65-71
+generator/features/collateralsUpdates.spec.ts
+  s_59edd78a894f70::t_c7ce7ffbbcda26 1-60
+generator/templates/test.template.ts
+  s_59edd78a894f70::t_c7ce7ffbbcda26 36-57,86
+  s_727da59f99c345::t_6e290d136b2443 35
+generator/types.ts
+  s_59edd78a894f70::t_c7ce7ffbbcda26 119
+generator/features/capsUpdates.spec.ts
+  s_59edd78a894f70::t_c7ce7ffbbcda26 1-61
+generator/features/mocks/configs.ts
+  s_59edd78a894f70::t_93af0c2c377e23 127
+  s_59edd78a894f70::t_c7ce7ffbbcda26 3-4,98-126
+generator/features/__snapshots__/capsUpdates.spec.ts.snap
+  s_59edd78a894f70::t_963e3fd6da9b18 1-50
+generator/features/assetListing.ts
+  s_727da59f99c345::t_d0a9a990f3f751 155-170,275-281
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.11",
+  "base_commit_sha": "ec7afeb51c9f9a4d6aa50337d66c9f25a81dc1a5",
+  "prompts": {},
+  "sessions": {
+    "s_59edd78a894f70": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "dc900c02-c2c3-4aa2-b5e6-eed7b8cd7e79",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": null
+    },
+    "s_727da59f99c345": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f5ab0-c16c-70c1-9f3d-16d6ac3ff3d3",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "AlbertoCentonze <11707683+AlbertoCentonze@users.noreply.github.com>"
+    }
+  }
+}

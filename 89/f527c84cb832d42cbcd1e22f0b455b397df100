@@ -1,0 +1,27 @@
+src/20260916_Multi_AaveV4CapsIncreaseRound17/AaveV4Arc_IncreaseCaps_20260916.sol
+  s_c37f53d458d1e6::t_833f64de3e1157 4-5,15
+src/20260916_Multi_AaveV4CapsIncreaseRound17/AaveV4Ethereum_IncreaseCaps_20260916.sol
+  s_c37f53d458d1e6::t_833f64de3e1157 4-5,15
+src/20260916_Multi_AaveV4CapsIncreaseRound17/AaveV4Avalanche_IncreaseCaps_20260916.sol
+  s_c37f53d458d1e6::t_833f64de3e1157 4-5,15
+foundry.lock
+  s_c37f53d458d1e6::t_1d9c2826401d6e 3
+lib/aave-helpers
+  s_c37f53d458d1e6::t_fec0da0e9ad335 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "89f527c84cb832d42cbcd1e22f0b455b397df100",
+  "prompts": {},
+  "sessions": {
+    "s_c37f53d458d1e6": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a0aa52-36d0-7f63-9d8b-c9e824169e05",
+        "model": "gpt-6-astra"
+      },
+      "human_author": "AlbertoCentonze <11707683+AlbertoCentonze@users.noreply.github.com>"
+    }
+  }
+}

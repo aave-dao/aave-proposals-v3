@@ -1,0 +1,79 @@
+src/20260423_Multi_LiquidateRsETHPositions/setup/LiquidateRsETHPositionsSetupTest.t.sol
+  c16788477c80ab43 15,18,23,33
+src/20260423_Multi_LiquidateRsETHPositions/arbitrum/AaveV3Arbitrum_LiquidateRsETHPositionUser1_20260423.sol
+  c16788477c80ab43 4,13
+src/20260423_Multi_LiquidateRsETHPositions/arbitrum/AaveV3Arbitrum_LiquidateRsETHPositionUser2_20260423.sol
+  c16788477c80ab43 1-19
+src/20260423_Multi_LiquidateRsETHPositions/arbitrum/LiquidateRsETHArbitrumWstethSetupTest.t.sol
+  c16788477c80ab43 13,15,29-30,36,38,42-43
+src/20260423_Multi_LiquidateRsETHPositions/arbitrum/AaveV3Arbitrum_LiquidateRsETHPositionUser1_20260423.t.sol
+  c16788477c80ab43 4-5,10,13,15
+src/20260423_Multi_LiquidateRsETHPositions/mainnet/LiquidateRsETHEthereumSetupTest.t.sol
+  c16788477c80ab43 16,18,22-24,62,81-100,137-140
+src/20260423_Multi_LiquidateRsETHPositions/mainnet/AaveV3Ethereum_LiquidateRsETHPositionUser2_20260423.t.sol
+  c16788477c80ab43 1-35
+src/20260423_Multi_LiquidateRsETHPositions/arbitrum/AaveV3Arbitrum_LiquidateRsETHPositionUser3_20260423.sol
+  c16788477c80ab43 1-19
+src/20260423_Multi_LiquidateRsETHPositions/arbitrum/AaveV3Arbitrum_LiquidateRsETHPositionUser4_20260423.sol
+  c16788477c80ab43 1-19
+src/20260423_Multi_LiquidateRsETHPositions/arbitrum/LiquidateRsETHArbitrumSetup.sol
+  c16788477c80ab43 11-15,44
+src/20260423_Multi_LiquidateRsETHPositions/arbitrum/AaveV3Arbitrum_LiquidateRsETHPositionUser2_20260423.t.sol
+  c16788477c80ab43 1-32
+src/20260423_Multi_LiquidateRsETHPositions/mainnet/AaveV3Ethereum_LiquidateRsETHPositionUser1_20260423.t.sol
+  c16788477c80ab43 4-5,10,13,15
+src/20260423_Multi_LiquidateRsETHPositions/arbitrum/AaveV3Arbitrum_LiquidateRsETHPositionUser6_20260423.t.sol
+  c16788477c80ab43 1-32
+src/20260423_Multi_LiquidateRsETHPositions/mainnet/LiquidateRsETHEthereumSetup.sol
+  c16788477c80ab43 10-12
+src/20260423_Multi_LiquidateRsETHPositions/arbitrum/AaveV3Arbitrum_LiquidateRsETHPositionUser6_20260423.sol
+  c16788477c80ab43 4,7,12
+src/20260423_Multi_LiquidateRsETHPositions/setup/LiquidateRsETHPositionsSetup.sol
+  c16788477c80ab43 13,31,34,58-62,75,77,114-116,122-124,132-133,135-136,138-141,145,151
+  h_e42aa0fb58e660 125-128,134,137
+src/20260423_Multi_LiquidateRsETHPositions/arbitrum/AaveV3Arbitrum_LiquidateRsETHPositionUser5_20260423.sol
+  c16788477c80ab43 4,7,12
+src/20260423_Multi_LiquidateRsETHPositions/mainnet/LiquidateRsETHPositions_Ethereum_20260423_Gas.t.sol
+  c16788477c80ab43 1-87
+src/20260423_Multi_LiquidateRsETHPositions/mainnet/AaveV3Ethereum_LiquidateRsETHPositionUser2_20260423.sol
+  c16788477c80ab43 1-19
+src/20260423_Multi_LiquidateRsETHPositions/arbitrum/AaveV3Arbitrum_LiquidateRsETHPositionUser3_20260423.t.sol
+  c16788477c80ab43 1-32
+src/20260423_Multi_LiquidateRsETHPositions/mainnet/AaveV3Ethereum_LiquidateRsETHPositionUser1_20260423.sol
+  c16788477c80ab43 4,12
+src/20260423_Multi_LiquidateRsETHPositions/arbitrum/LiquidateRsETHArbitrumSetupTest.t.sol
+  c16788477c80ab43 11-12,14
+src/20260423_Multi_LiquidateRsETHPositions/arbitrum/LiquidateRsETHPositions_Arbitrum_20260423_Gas.t.sol
+  c16788477c80ab43 1-134
+src/20260423_Multi_LiquidateRsETHPositions/arbitrum/AaveV3Arbitrum_LiquidateRsETHPositionUser4_20260423.t.sol
+  c16788477c80ab43 1-32
+src/20260423_Multi_LiquidateRsETHPositions/arbitrum/AaveV3Arbitrum_LiquidateRsETHPositionUser5_20260423.t.sol
+  c16788477c80ab43 1-32
+src/20260423_Multi_LiquidateRsETHPositions/LiquidateRsETHPositions_20260423.s.sol
+  c16788477c80ab43 9-10,12-17
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.4",
+  "base_commit_sha": "48918d7fac4c09e6c8dff68c5360e2e0a4b0f9a6",
+  "prompts": {
+    "c16788477c80ab43": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "b8646c59-dfc2-402f-b7b3-1e2f41fbdee7",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "Alexandru Niculae",
+      "messages": [],
+      "total_additions": 8699,
+      "total_deletions": 804,
+      "accepted_lines": 8045,
+      "overriden_lines": 26
+    }
+  },
+  "humans": {
+    "h_e42aa0fb58e660": {
+      "author": "Alexandru Niculae"
+    }
+  }
+}

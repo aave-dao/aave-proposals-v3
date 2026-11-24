@@ -1,0 +1,25 @@
+generator/types.ts
+  s_59edd78a894f70::t_0208968cb9698c 119
+generator/templates/test.template.ts
+  s_59edd78a894f70::t_71a59209280610 37
+  s_59edd78a894f70::t_0208968cb9698c 7,23-27,34-36,38,40-60,71,89
+  s_59edd78a894f70::t_e7a1f08292540f 90
+generator/templates/test.template.spec.ts
+  s_59edd78a894f70::t_0208968cb9698c 1-85
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.13",
+  "base_commit_sha": "38ea9bdc8f6409c125b3eac3fd6406597de44e64",
+  "prompts": {},
+  "sessions": {
+    "s_59edd78a894f70": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "dc900c02-c2c3-4aa2-b5e6-eed7b8cd7e79",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "AlbertoCentonze <11707683+AlbertoCentonze@users.noreply.github.com>"
+    }
+  }
+}

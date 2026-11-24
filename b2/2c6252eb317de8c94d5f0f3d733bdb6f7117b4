@@ -1,0 +1,30 @@
+src/20260507_AaveV4Ethereum_SVRfeeds/AaveV4Ethereum_SVRfeeds_20260507.t.sol
+  s_a46e7d8cdd071c::t_c94d8087b8ab11 351,356,359-360
+  s_a46e7d8cdd071c::t_056595ab7e4dfd 353-355,357-358,361-404
+  s_a46e7d8cdd071c::t_7f869d2da8fe16 41-46
+  h_71908bb6884da4 36,38,291-292,352
+  s_a46e7d8cdd071c::t_13f79075a83e90 290,294-295,297,300,310,314-318
+  s_a46e7d8cdd071c::t_5510f1ad92dd7e 39
+  s_a46e7d8cdd071c::t_b133b33635d127 289,293,296,298-299,301-305,307,309,311-313,319-322
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.4",
+  "base_commit_sha": "b22c6252eb317de8c94d5f0f3d733bdb6f7117b4",
+  "prompts": {},
+  "humans": {
+    "h_71908bb6884da4": {
+      "author": "YBM <31329384+yan-man@users.noreply.github.com>"
+    }
+  },
+  "sessions": {
+    "s_a46e7d8cdd071c": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "5e91c851-57d9-4260-be76-8b03ed3ababd",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "YBM <31329384+yan-man@users.noreply.github.com>"
+    }
+  }
+}

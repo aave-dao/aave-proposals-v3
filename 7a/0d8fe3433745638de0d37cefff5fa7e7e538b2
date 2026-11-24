@@ -1,0 +1,27 @@
+src/20260615_AaveV3Plasma_OnboardPTSUSDe22OCT2026ToAaveV3Plasma/AaveV3Plasma_OnboardPTSUSDe22OCT2026ToAaveV3Plasma_20260615.t.sol
+  s_50c50aa6d63e2e::t_b9cc6bf4a7deed 209-210,215
+  h_739c25e72c37fb 24
+src/20260615_AaveV3Plasma_OnboardPTSUSDe22OCT2026ToAaveV3Plasma/config.ts
+  h_739c25e72c37fb 60
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.7",
+  "base_commit_sha": "7a0d8fe3433745638de0d37cefff5fa7e7e538b2",
+  "prompts": {},
+  "humans": {
+    "h_739c25e72c37fb": {
+      "author": "DhairyaSethi <55102840+DhairyaSethi@users.noreply.github.com>"
+    }
+  },
+  "sessions": {
+    "s_50c50aa6d63e2e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "8144740f-45c3-4fe4-b514-f0c9b9cd4a21",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": null
+    }
+  }
+}

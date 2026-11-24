@@ -1,0 +1,19 @@
+diffs/AaveV3Arbitrum_USDCGSMArbitrum_20260806_before_AaveV3Arbitrum_USDCGSMArbitrum_20260806_after.md
+  s_aa0e821335bfbe::t_285a55e4029a4d 3,15,72,90
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "9c4094d3bd3f78da0c17d2cf329199450cd82f23",
+  "prompts": {},
+  "sessions": {
+    "s_aa0e821335bfbe": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "edaecceb-7478-4b1a-9553-5a942127e3f7",
+        "model": "unknown"
+      },
+      "human_author": "Alexandru Niculae <43644109+avniculae@users.noreply.github.com>"
+    }
+  }
+}

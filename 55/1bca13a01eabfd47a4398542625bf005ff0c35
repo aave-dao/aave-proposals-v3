@@ -1,0 +1,39 @@
+src/20260424_AaveV3_StewardsTxs/AaveV3Sonic_20260424_AaveV3_StewardsTxs_Sonic.t.sol
+  d62ce230a712bad6 7,16,126,133-137,141,147-152,156
+  h_ac33fd5bdc4037 38
+src/20260424_AaveV3_StewardsTxs/AaveV3Plasma_20260424_AaveV3_StewardsTxs_Plasma.t.sol
+  d62ce230a712bad6 1-34,36-90,92-221
+  h_ac33fd5bdc4037 35,91
+src/20260424_AaveV3_StewardsTxs/utils/ProtocolV3TestBase.sol
+  d62ce230a712bad6 1-871
+diffs/AaveV3Plasma_20260424_AaveV3_StewardsTxs_Plasma_before_AaveV3Plasma_20260424_AaveV3_StewardsTxs_Plasma_after.md
+  d62ce230a712bad6 1-179
+src/20260424_AaveV3_StewardsTxs/base.t.sol
+  h_ac33fd5bdc4037 15-16
+  d62ce230a712bad6 1-14,17-62
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.4",
+  "base_commit_sha": "551bca13a01eabfd47a4398542625bf005ff0c35",
+  "prompts": {
+    "d62ce230a712bad6": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6a6f7306-689c-4e28-9b7e-2cf27d25c227",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "YBM",
+      "messages": [],
+      "total_additions": 1407,
+      "total_deletions": 248,
+      "accepted_lines": 1361,
+      "overriden_lines": 2
+    }
+  },
+  "humans": {
+    "h_ac33fd5bdc4037": {
+      "author": "YBM"
+    }
+  }
+}

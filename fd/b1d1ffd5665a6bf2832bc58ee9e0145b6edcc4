@@ -1,0 +1,98 @@
+generator/features/freeze.spec.ts
+  s_59edd78a894f70::t_c7ce7ffbbcda26 1-20
+src/20260707_Multi_AaveV3LTVAndEModeUpdate/AaveV3EthereumLido_AaveV3LTVAndEModeUpdate_20260707.sol
+  s_59edd78a894f70::t_c7ce7ffbbcda26 1-27
+src/20260707_Multi_AaveV3LTVAndEModeUpdate/AaveV3Mantle_AaveV3LTVAndEModeUpdate_20260707.t.sol
+  s_59edd78a894f70::t_c7ce7ffbbcda26 1-186
+src/20260707_Multi_AaveV3LTVAndEModeUpdate/AaveV3LTVAndEModeUpdate.md
+  s_59edd78a894f70::t_c7ce7ffbbcda26 1-115
+diffs/AaveV3EthereumLido_AaveV3LTVAndEModeUpdate_20260707_before_AaveV3EthereumLido_AaveV3LTVAndEModeUpdate_20260707_after.md
+  s_59edd78a894f70::t_c7ce7ffbbcda26 1-61
+generator/templates/test.template.ts
+  s_59edd78a894f70::t_c7ce7ffbbcda26 35-57,86
+generator/features/__snapshots__/eModesCreation.spec.ts.snap
+  s_59edd78a894f70::t_de654bdbb623e7 213-214,244-252,259-289
+generator/features/__snapshots__/assetListing.spec.ts.snap
+  s_59edd78a894f70::t_615ca75a5f0866 177-178,205-213,219-250,409-434
+src/20260707_Multi_AaveV3LTVAndEModeUpdate/AaveV3Ethereum_AaveV3LTVAndEModeUpdate_20260707.t.sol
+  s_59edd78a894f70::t_c7ce7ffbbcda26 1-100
+generator/features/assetListing.spec.ts
+  s_59edd78a894f70::t_c7ce7ffbbcda26 20-38
+generator/features/__snapshots__/collateralsUpdates.spec.ts.snap
+  s_59edd78a894f70::t_a73942745857a2 1-58
+src/20260707_Multi_AaveV3LTVAndEModeUpdate/AaveV3EthereumLido_AaveV3LTVAndEModeUpdate_20260707.t.sol
+  s_59edd78a894f70::t_c7ce7ffbbcda26 1-76
+generator/types.ts
+  s_59edd78a894f70::t_c7ce7ffbbcda26 119
+generator/features/capsUpdates.spec.ts
+  s_59edd78a894f70::t_c7ce7ffbbcda26 1-61
+generator/features/collateralsUpdates.spec.ts
+  s_59edd78a894f70::t_c7ce7ffbbcda26 1-60
+generator/features/__snapshots__/priceFeedsUpdate.spec.ts.snap
+  s_59edd78a894f70::t_a99aced9964d6d 116-124
+generator/features/assetListing.ts
+  s_59edd78a894f70::t_c7ce7ffbbcda26 89-129,144-159,212,274-280,324-330
+generator/features/freeze.ts
+  s_59edd78a894f70::t_2eeaf5b380fad5 57
+  s_59edd78a894f70::t_c7ce7ffbbcda26 2,9-24,54-56
+diffs/AaveV3Ethereum_AaveV3LTVAndEModeUpdate_20260707_before_AaveV3Ethereum_AaveV3LTVAndEModeUpdate_20260707_after.md
+  s_59edd78a894f70::t_c7ce7ffbbcda26 1-76
+generator/features/borrowsUpdates.ts
+  s_59edd78a894f70::t_486397bf3e4b6d 87
+  s_59edd78a894f70::t_c7ce7ffbbcda26 1,29-53,78,84-86
+generator/features/capsUpdates.ts
+  s_59edd78a894f70::t_b1ce63035aeccd 83
+  s_59edd78a894f70::t_c7ce7ffbbcda26 1,24-47,74,80-82
+diffs/AaveV3Mantle_AaveV3LTVAndEModeUpdate_20260707_before_AaveV3Mantle_AaveV3LTVAndEModeUpdate_20260707_after.md
+  s_59edd78a894f70::t_c7ce7ffbbcda26 1-115
+diffs/AaveV3Gnosis_AaveV3LTVAndEModeUpdate_20260707_before_AaveV3Gnosis_AaveV3LTVAndEModeUpdate_20260707_after.md
+  s_59edd78a894f70::t_c7ce7ffbbcda26 1-61
+generator/templates/test.template.spec.ts
+  s_59edd78a894f70::t_c7ce7ffbbcda26 1-92
+diffs/AaveV3Avalanche_AaveV3LTVAndEModeUpdate_20260707_before_AaveV3Avalanche_AaveV3LTVAndEModeUpdate_20260707_after.md
+  s_59edd78a894f70::t_c7ce7ffbbcda26 1-61
+src/20260707_Multi_AaveV3LTVAndEModeUpdate/config.ts
+  s_59edd78a894f70::t_c7ce7ffbbcda26 1-70
+src/20260707_Multi_AaveV3LTVAndEModeUpdate/AaveV3Ethereum_AaveV3LTVAndEModeUpdate_20260707.sol
+  s_59edd78a894f70::t_c7ce7ffbbcda26 1-46
+src/20260707_Multi_AaveV3LTVAndEModeUpdate/AaveV3Mantle_AaveV3LTVAndEModeUpdate_20260707.sol
+  s_59edd78a894f70::t_c7ce7ffbbcda26 1-71
+generator/features/mocks/configs.ts
+  s_59edd78a894f70::t_93af0c2c377e23 127
+  s_59edd78a894f70::t_c7ce7ffbbcda26 3-4,98-126
+src/20260707_Multi_AaveV3LTVAndEModeUpdate/AaveV3Avalanche_AaveV3LTVAndEModeUpdate_20260707.sol
+  s_59edd78a894f70::t_c7ce7ffbbcda26 1-35
+src/20260707_Multi_AaveV3LTVAndEModeUpdate/AaveV3Avalanche_AaveV3LTVAndEModeUpdate_20260707.t.sol
+  s_59edd78a894f70::t_c7ce7ffbbcda26 1-78
+generator/features/borrowsUpdates.spec.ts
+  s_59edd78a894f70::t_c7ce7ffbbcda26 1-29
+generator/features/collateralsUpdates.ts
+  s_59edd78a894f70::t_6d33dd0584470e 101
+  s_59edd78a894f70::t_c7ce7ffbbcda26 35-64,92,98-100
+src/20260707_Multi_AaveV3LTVAndEModeUpdate/AaveV3Gnosis_AaveV3LTVAndEModeUpdate_20260707.sol
+  s_59edd78a894f70::t_c7ce7ffbbcda26 1-35
+generator/features/__snapshots__/capsUpdates.spec.ts.snap
+  s_59edd78a894f70::t_963e3fd6da9b18 1-50
+src/20260707_Multi_AaveV3LTVAndEModeUpdate/AaveV3Gnosis_AaveV3LTVAndEModeUpdate_20260707.t.sol
+  s_59edd78a894f70::t_c7ce7ffbbcda26 1-78
+src/20260707_Multi_AaveV3LTVAndEModeUpdate/AaveV3LTVAndEModeUpdate_20260707.s.sol
+  s_59edd78a894f70::t_c7ce7ffbbcda26 1-167
+lib/aave-helpers
+  s_59edd78a894f70::t_80beed9b0ea9e1 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.11",
+  "base_commit_sha": "fdb1d1ffd5665a6bf2832bc58ee9e0145b6edcc4",
+  "prompts": {},
+  "sessions": {
+    "s_59edd78a894f70": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "dc900c02-c2c3-4aa2-b5e6-eed7b8cd7e79",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": null
+    }
+  }
+}

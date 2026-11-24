@@ -1,0 +1,32 @@
+src/20260423_Multi_LiquidateRsETHPositions/mainnet/LiquidateRsETHEthereumSetup.sol
+  ae68ced1b12e7edf 61-65
+src/20260423_Multi_LiquidateRsETHPositions/setup/LiquidateRsETHConstants.sol
+  ae68ced1b12e7edf 1-3,5-62
+src/20260423_Multi_LiquidateRsETHPositions/setup/LiquidateRsETHPositionsSetup.sol
+  ae68ced1b12e7edf 10,19,39-42,86-89,209
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.4",
+  "base_commit_sha": "f37dd685bb2e1560385c0178039d4d06d60ba1aa",
+  "prompts": {
+    "ae68ced1b12e7edf": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "8831ea3c-0db5-4f55-b73a-ad4d0d3aa878",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "YBM",
+      "messages": [],
+      "total_additions": 751,
+      "total_deletions": 18,
+      "accepted_lines": 744,
+      "overriden_lines": 4
+    }
+  },
+  "humans": {
+    "h_ac33fd5bdc4037": {
+      "author": "YBM"
+    }
+  }
+}

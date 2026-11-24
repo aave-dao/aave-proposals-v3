@@ -1,0 +1,76 @@
+diffs/AaveV4Ethereum_OnboardPTUSDG28MAY2026OnV4PlusUSDGCorrelated_20260514_before_AaveV4Ethereum_OnboardPTUSDG28MAY2026OnV4PlusUSDGCorrelated_20260514_after.md
+  s_e6f03a5706bb6f::t_f5ed695b9adc65 39,46,64,69,81,93,99
+  s_e6f03a5706bb6f::t_8e56f85ec72e3d 111
+src/20260514_AaveV4Ethereum_OnboardPTUSDG28MAY2026OnV4PlusUSDGCorrelated/AaveV4Ethereum_OnboardPTUSDG28MAY2026OnV4PlusUSDGCorrelated_20260514.t.sol
+  s_e6f03a5706bb6f::t_714c0233233a49 291
+  s_e6f03a5706bb6f::t_877d95a11be65a 213-223
+  s_e6f03a5706bb6f::t_946edbf350d1a0 326
+  s_e6f03a5706bb6f::t_988e68bf1e3634 12
+  s_e6f03a5706bb6f::t_6713f346605f65 14
+  s_e6f03a5706bb6f::t_031685913fa72a 85,89,91-98,102-106
+  s_e6f03a5706bb6f::t_1102f3e32142eb 42-45
+  s_e6f03a5706bb6f::t_9c7b34b5a27f23 13
+  s_e6f03a5706bb6f::t_cd90d09df9fdab 99-100
+  s_e6f03a5706bb6f::t_f6bac0bff6f74f 490-494
+  s_e6f03a5706bb6f::t_d1e5cf3c4f24b6 740-781
+  s_e6f03a5706bb6f::t_9fecebd44088b9 10
+  s_e6f03a5706bb6f::t_4b40ed0ec18553 174-193,197-212
+  s_e6f03a5706bb6f::t_a20b7a102b5515 58,61,68-73
+  s_e6f03a5706bb6f::t_db6f767676f56f 101
+  s_e6f03a5706bb6f::t_a3dbbaefd86136 573-681
+  s_e6f03a5706bb6f::t_a29975ebaab615 59-60,62-64,66
+  s_e6f03a5706bb6f::t_b3a949c26e22d5 684,715-716
+  s_e6f03a5706bb6f::t_4dfb59ebf52b20 722-724
+  s_e6f03a5706bb6f::t_4a14c51641b4df 789-790
+  s_e6f03a5706bb6f::t_7f8cb5f6d33a3e 255,259
+  s_e6f03a5706bb6f::t_ec3b259373d032 266
+  s_e6f03a5706bb6f::t_6d46c447d16d90 518,526-536,538-551
+  h_0f977de3f043fc 46-47
+  s_e6f03a5706bb6f::t_3208fab372dee3 9
+  s_e6f03a5706bb6f::t_0085ffd966efef 244
+  s_e6f03a5706bb6f::t_cb760f31907277 782-786,788
+  s_e6f03a5706bb6f::t_698e3baad1c586 84,112,114
+  s_e6f03a5706bb6f::t_4f2b442f4a9f27 194-196
+  s_e6f03a5706bb6f::t_8a84db2cf668d9 245-249
+  s_e6f03a5706bb6f::t_832dabc4cd9e78 337-338,343-350,353-371,376-378
+  s_e6f03a5706bb6f::t_97d131179e27a5 6
+  s_e6f03a5706bb6f::t_8ed8cd658796d3 495-517,519-525,537,552-572,682-683,685-714
+  s_e6f03a5706bb6f::t_f68a62efd05539 74
+  s_e6f03a5706bb6f::t_88d61c11a8e88e 160,162,166-167,170,224-234,267-268,271-278,281-285
+  s_e6f03a5706bb6f::t_c75682b28972bb 238-239,241-243,251
+  s_e6f03a5706bb6f::t_286d610c1a8594 4,7
+  s_e6f03a5706bb6f::t_13fa15a91145fe 410-489
+  s_e6f03a5706bb6f::t_5ba29e92d12deb 65
+src/20260514_AaveV4Ethereum_OnboardPTUSDG28MAY2026OnV4PlusUSDGCorrelated/AaveV4Ethereum_OnboardPTUSDG28MAY2026OnV4PlusUSDGCorrelated_20260514.sol
+  h_0f977de3f043fc 23,27,34,62
+  s_e6f03a5706bb6f::t_b8755e0554757d 49-50
+  s_e6f03a5706bb6f::t_8686c47352a074 275-282
+  s_e6f03a5706bb6f::t_82f6d95f72da3b 138-139,142,149,153,161
+  s_e6f03a5706bb6f::t_8a1e92257d3e7f 15,37-38
+  s_e6f03a5706bb6f::t_e802cfd8642477 184
+  s_e6f03a5706bb6f::t_908d1a0f7bfe33 33,35
+  s_e6f03a5706bb6f::t_dc751f0176d109 248
+  s_e6f03a5706bb6f::t_27a161ce724e5f 111,115
+  s_e6f03a5706bb6f::t_9e949f79018cea 267-270
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.8",
+  "base_commit_sha": "f019fab3771d4a5512cc602d9c4319f7c602ae74",
+  "prompts": {},
+  "humans": {
+    "h_0f977de3f043fc": {
+      "author": "Alexandru Niculae <43644109+avniculae@users.noreply.github.com>"
+    }
+  },
+  "sessions": {
+    "s_e6f03a5706bb6f": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "d3ae4ab7-c9b9-4921-8eb5-42bf3abfc075",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "Alexandru Niculae <43644109+avniculae@users.noreply.github.com>"
+    }
+  }
+}

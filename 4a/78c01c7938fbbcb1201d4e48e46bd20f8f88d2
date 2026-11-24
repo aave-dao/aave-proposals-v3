@@ -1,0 +1,19 @@
+src/20261029_Multi_RemoveEmissionAdmins/RemoveEmissionAdmins.md
+  s_27070cf0ae3899::t_b2b4f5a85156c7 17
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "4a78c01c7938fbbcb1201d4e48e46bd20f8f88d2",
+  "prompts": {},
+  "sessions": {
+    "s_27070cf0ae3899": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "c0b34d16-8be4-488b-bc86-602f235678e9",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "DhairyaSethi <55102840+DhairyaSethi@users.noreply.github.com>"
+    }
+  }
+}

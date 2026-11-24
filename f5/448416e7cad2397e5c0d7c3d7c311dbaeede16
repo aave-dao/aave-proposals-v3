@@ -1,0 +1,18 @@
+src/20260423_Multi_LiquidateRsETHPositions/setup/LiquidateRsETHPositionsSetup.sol
+  h_e42aa0fb58e660 27,47-56,96,175,196-213,239,243-250,252,265
+src/20260423_Multi_LiquidateRsETHPositions/setup/LiquidateRsETHPositionsSetupTest.t.sol
+  h_e42aa0fb58e660 99,127,213
+src/20260423_Multi_LiquidateRsETHPositions/arbitrum/LiquidateRsETHArbitrumWstethSetupTest.t.sol
+  h_e42aa0fb58e660 64
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.4",
+  "base_commit_sha": "f5448416e7cad2397e5c0d7c3d7c311dbaeede16",
+  "prompts": {},
+  "humans": {
+    "h_e42aa0fb58e660": {
+      "author": "Alexandru Niculae"
+    }
+  }
+}

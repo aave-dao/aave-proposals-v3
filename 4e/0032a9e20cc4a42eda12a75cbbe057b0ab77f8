@@ -1,0 +1,141 @@
+generator/templates/test.template.ts
+  s_0a8dcf3bcd71ba::t_8076bf2c926ce0 46
+  s_1b298b9aaba146::t_41532bac04f00c 57
+  s_22f80b5bcb6d41::t_98bd1f53a0a409 21
+  s_22f80b5bcb6d41::t_e17917cc199a51 22,29,31-34,49,52
+  s_22f80b5bcb6d41::t_f3f97cdc506c0e 53
+  s_e77fd3dfa3a590::t_03d752e7bbeb68 35
+generator/utils/constants.ts
+  s_0a8dcf3bcd71ba::t_98d06b58d11770 1
+  s_22f80b5bcb6d41::t_fcbd0c4876012b 2
+generator/common.spec.ts
+  s_0a8dcf3bcd71ba::t_8076bf2c926ce0 21-22,24
+  s_22f80b5bcb6d41::t_d01c7e864ffda7 19-20
+generator/features/__snapshots__/assetListing.spec.ts.snap
+  s_1b298b9aaba146::t_252b09cce599e6 196,200-202
+  s_22f80b5bcb6d41::t_35582623f72b39 180,187
+generator/features/__snapshots__/eModesCreation.spec.ts.snap
+  s_1b298b9aaba146::t_6415239ac22e89 235,239-241
+  s_22f80b5bcb6d41::t_660e245d1712ed 219,226
+generator/features/__snapshots__/priceFeedsUpdate.spec.ts.snap
+  s_1b298b9aaba146::t_4cec0150ea8176 110,114-115
+  s_22f80b5bcb6d41::t_426335042fca91 94,101
+generator/features/assetListing.ts
+  s_22f80b5bcb6d41::t_fcbd0c4876012b 10
+  s_22f80b5bcb6d41::t_ae8803da71d2e3 154,171,274,282
+generator/common.ts
+  s_22f80b5bcb6d41::t_98bd1f53a0a409 103-105
+.gitmodules
+  s_2b0bd2bd28aa30::t_cac06c38aca2b1 6
+generator/prompts.spec.ts
+  s_04c0c5f0d12637::t_d96c95d5a9f9be 31
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "4e0032a9e20cc4a42eda12a75cbbe057b0ab77f8",
+  "prompts": {},
+  "humans": {
+    "h_8b974fbabf2fb7": {
+      "author": "Alberto <albe@AMWM-H65F40J09H.local>"
+    }
+  },
+  "sessions": {
+    "s_04c0c5f0d12637": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f46f5-d81c-72b1-a022-4a7f56a682ae",
+        "model": "gpt-5.5"
+      },
+      "human_author": "AlbertoCentonze <11707683+AlbertoCentonze@users.noreply.github.com>"
+    },
+    "s_0a8dcf3bcd71ba": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f390d-2008-72d1-a9da-d3d94582a671",
+        "model": "gpt-5.5"
+      },
+      "human_author": "Alberto <albe@AMWM-H65F40J09H.local>"
+    },
+    "s_1b298b9aaba146": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f3bc6-efaa-7121-9785-be51af5089a8",
+        "model": "gpt-5.5"
+      },
+      "human_author": "Alberto <albe@AMWM-H65F40J09H.local>"
+    },
+    "s_22f80b5bcb6d41": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f3c89-d210-7122-b483-d92bfbdf7c86",
+        "model": "gpt-5.5"
+      },
+      "human_author": "Alberto <albe@AMWM-H65F40J09H.local>"
+    },
+    "s_2b0bd2bd28aa30": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f46c2-492a-7242-ab97-720a31641b80",
+        "model": "gpt-5.5"
+      },
+      "human_author": "Alberto <albe@AMWM-H65F40J09H.local>"
+    },
+    "s_3c613cca907125": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f3794-268d-75b1-9e56-8673cc8a4eb1",
+        "model": "gpt-5.5"
+      },
+      "human_author": "Alberto <albe@AMWM-H65F40J09H.local>"
+    },
+    "s_4d6edd1a6a4999": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f38fe-6375-77b2-910e-082db3b00d0e",
+        "model": "gpt-5.5"
+      },
+      "human_author": "Alberto <albe@AMWM-H65F40J09H.local>"
+    },
+    "s_50e0a2a61afb2a": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f2828-55d7-75d3-8493-8b822001388c",
+        "model": "gpt-5.5"
+      },
+      "human_author": "Alberto <albe@AMWM-H65F40J09H.local>"
+    },
+    "s_660dbf28683829": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f4195-9dbe-74f2-a5c7-08265bd91f1a",
+        "model": "gpt-5.5"
+      },
+      "human_author": "Alberto <albe@AMWM-H65F40J09H.local>"
+    },
+    "s_8de2264ff40c5d": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f373d-7235-78d1-a7fd-335b4a2a5c90",
+        "model": "gpt-5.5"
+      },
+      "human_author": "Alberto <albe@AMWM-H65F40J09H.local>"
+    },
+    "s_aa0f347709e752": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "167f5022-5e4e-46c3-be8b-fb3b9bfc7dc6",
+        "model": "claude-fable-5"
+      },
+      "human_author": "Alberto <albe@AMWM-H65F40J09H.local>"
+    },
+    "s_e77fd3dfa3a590": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f469c-5793-7ec0-9827-be954b369e9b",
+        "model": "gpt-5.5"
+      },
+      "human_author": "Alberto <albe@AMWM-H65F40J09H.local>"
+    }
+  }
+}

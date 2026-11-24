@@ -1,0 +1,32 @@
+src/20260423_Multi_LiquidateRsETHPositions/AaveV3Arbitrum_LiquidateRsETHPositionUser1_20260423.sol
+  h_ac33fd5bdc4037 1-22,24-25
+  c3cc58002a39cf59 23
+src/20260423_Multi_LiquidateRsETHPositions/AaveV3Arbitrum_LiquidateRsETHPositionUser1_20260423.t.sol
+  h_ac33fd5bdc4037 1-10,12-31,42-70
+  c3cc58002a39cf59 11,32-41
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.4",
+  "base_commit_sha": "83c9dcb7f189b7e8d8808ada340df1a7437c6248",
+  "prompts": {
+    "c3cc58002a39cf59": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "d532b038-103a-409d-aee7-5b000b0fdcd2",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "YBM",
+      "messages": [],
+      "total_additions": 29,
+      "total_deletions": 328,
+      "accepted_lines": 2078,
+      "overriden_lines": 0
+    }
+  },
+  "humans": {
+    "h_ac33fd5bdc4037": {
+      "author": "YBM"
+    }
+  }
+}

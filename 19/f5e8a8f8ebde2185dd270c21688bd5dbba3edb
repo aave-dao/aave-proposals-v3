@@ -1,0 +1,35 @@
+diffs/AaveV4EthereumSentoraCurated_SentoraMarketActivation_20261009_before_AaveV4EthereumSentoraCurated_SentoraMarketActivation_20261009_after.md
+  s_2843833aabf52a::t_3090e9c36910de 183-187,189-190,198,226-227,248-249,252,259-260,264-265
+src/20261009_AaveV4EthereumSentoraCurated_SentoraMarketActivation/AaveV4EthereumSentoraCurated_SentoraMarketActivation_20261009.t.sol
+  s_2843833aabf52a::t_e27c8fd32767da 27,43-47,86-93,95
+src/20261009_AaveV4EthereumSentoraCurated_SentoraMarketActivation/SentoraAccessControl.t.sol
+  s_2843833aabf52a::t_64a764ad057970 30-37,227-233
+src/20261009_AaveV4EthereumSentoraCurated_SentoraMarketActivation/SentoraEmergency.t.sol
+  s_2843833aabf52a::t_5e4c798c2c93f9 238-239,241,269,306
+src/20261009_AaveV4EthereumSentoraCurated_SentoraMarketActivation/SentoraLiquidation.t.sol
+  s_2843833aabf52a::t_d1a7e830509cf8 48,59,99-103,112-114
+src/20261009_AaveV4EthereumSentoraCurated_SentoraMarketActivation/SentoraMarketOpen.t.sol
+  s_2843833aabf52a::t_8574d886c1e991 60-61,67-68,75,96-97,99,103-123,125,129,132,246-255,257-269,272-286
+src/20261009_AaveV4EthereumSentoraCurated_SentoraMarketActivation/SentoraRevenue.t.sol
+  s_2843833aabf52a::t_fc9a8eaf6a04bd 97
+src/20261009_AaveV4EthereumSentoraCurated_SentoraMarketActivation/SentoraRiskSteward.t.sol
+  s_2843833aabf52a::t_aeb3f46b02c9d8 24,70,75-79
+src/20261009_AaveV4EthereumSentoraCurated_SentoraMarketActivation/SentoraTestBase.sol
+  s_2843833aabf52a::t_66ddc838cdb0f7 15-18,21-24,27,49,79,82-86,94-146
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "19f5e8a8f8ebde2185dd270c21688bd5dbba3edb",
+  "prompts": {},
+  "sessions": {
+    "s_2843833aabf52a": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "ae63ebf5-88d7-4dfe-976c-39793e6bfe86",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "DhairyaSethi <55102840+DhairyaSethi@users.noreply.github.com>"
+    }
+  }
+}

@@ -1,0 +1,29 @@
+generator/features/assetListing.ts
+  s_727da59f99c345::t_d0a9a990f3f751 155-170,275-281
+generator/features/collateralsUpdates.ts
+  s_727da59f99c345::t_f06e6f8bf996b4 2,63-73
+generator/features/capsUpdates.ts
+  s_727da59f99c345::t_b4776a8a9298fd 1,50-58
+generator/templates/test.template.ts
+  s_727da59f99c345::t_6e290d136b2443 35
+generator/features/borrowsUpdates.ts
+  s_727da59f99c345::t_83f395a4e2fb89 1,53-62
+generator/features/freeze.ts
+  s_727da59f99c345::t_a98e0d97d3d434 2
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.12",
+  "base_commit_sha": "55f00d97c38edd035b843d44593f720fb214bcc7",
+  "prompts": {},
+  "sessions": {
+    "s_727da59f99c345": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f5ab0-c16c-70c1-9f3d-16d6ac3ff3d3",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "AlbertoCentonze <11707683+AlbertoCentonze@users.noreply.github.com>"
+    }
+  }
+}

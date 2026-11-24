@@ -1,0 +1,42 @@
+diffs/AaveV3Arbitrum_LiquidateRsETHPositions_20260423_before_AaveV3Arbitrum_LiquidateRsETHPositions_20260423_after.md
+  9b11fa5009db891c 27-28,34-36,45-60,66-99,105-116,122-145,151-158,164-167,173,179,185
+diffs/AaveV3Ethereum_LiquidateRsETHPositions_20260423_before_AaveV3Ethereum_LiquidateRsETHPositions_20260423_after.md
+  9b11fa5009db891c 27-28,34-36,41,45-50,56-65,71-74,80-91,95-98,104-105,111,117
+src/20260423_Multi_LiquidateRsETHPositions/AaveV3Ethereum_LiquidateRsETHPositions_20260423_Gas.t.sol
+  9b11fa5009db891c 34-35
+src/20260423_Multi_LiquidateRsETHPositions/AaveV3Arbitrum_LiquidateRsETHPositions_20260423.t.sol
+  h_ac33fd5bdc4037 49
+src/20260423_Multi_LiquidateRsETHPositions/AaveV3Ethereum_LiquidateRsETHPositions_20260423.t.sol
+  h_ac33fd5bdc4037 50
+src/20260423_Multi_LiquidateRsETHPositions/AaveV3Ethereum_LiquidateRsETHPositions_20260423.sol
+  h_ac33fd5bdc4037 23,25,79-80
+src/20260423_Multi_LiquidateRsETHPositions/LiquidateRsETHPositionsBase.sol
+  c16788477c80ab43 270-272
+  h_ac33fd5bdc4037 67,71,157,180-185,289,313
+  9b11fa5009db891c 32,53,55-62,64,66,68-70,72-76,78,82-83,85,89,93,96-102,121,134,155-156,158,161,163-164,166,174,176,178,203-215,217,220,256,265-269,273,275,278,280,283,305-308,310-312,314-320
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.4",
+  "base_commit_sha": "2915bd893b8dd060a0a5b17aa7ae5ff74438f5c4",
+  "prompts": {
+    "9b11fa5009db891c": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "bd2fd5f6-5b78-4926-8e60-25676f15d91b",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "YBM",
+      "messages": [],
+      "total_additions": 416,
+      "total_deletions": 465,
+      "accepted_lines": 789,
+      "overriden_lines": 6
+    }
+  },
+  "humans": {
+    "h_ac33fd5bdc4037": {
+      "author": "YBM"
+    }
+  }
+}

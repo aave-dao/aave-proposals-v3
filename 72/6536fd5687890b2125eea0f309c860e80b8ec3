@@ -1,0 +1,21 @@
+package.json
+  s_df471eb49f6634::t_ab132834a91364 41
+diffs/AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosUSDGPendle_20260514_before_AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosUSDGPendle_20260514_after.md
+  s_df471eb49f6634::t_fd0f5c3a159553 239-241
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.8",
+  "base_commit_sha": "726536fd5687890b2125eea0f309c860e80b8ec3",
+  "prompts": {},
+  "sessions": {
+    "s_df471eb49f6634": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "68ce97a0-dfaf-4676-93bf-952490e74da2",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Alexandru Niculae <43644109+avniculae@users.noreply.github.com>"
+    }
+  }
+}

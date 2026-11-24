@@ -1,0 +1,16 @@
+src/20260612_AaveV4Ethereum_IncreaseCaps/AaveV4Ethereum_IncreaseCaps_20260612.sol
+  h_739c25e72c37fb 11
+src/20260612_AaveV4Ethereum_IncreaseCaps/AaveV4Ethereum_IncreaseCaps_20260612.md
+  h_739c25e72c37fb 4,76
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.6",
+  "base_commit_sha": "e2797c94268dfa608831e02e8ebe2a4e2361b466",
+  "prompts": {},
+  "humans": {
+    "h_739c25e72c37fb": {
+      "author": "DhairyaSethi <55102840+DhairyaSethi@users.noreply.github.com>"
+    }
+  }
+}

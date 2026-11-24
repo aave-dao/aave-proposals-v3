@@ -1,0 +1,45 @@
+src/20260423_Multi_LiquidateRsETHPositions/setup/GuardianEnabledFlag.sol
+  09e61eb39fd98ad1 4,6-7,17,23,28
+  h_ac33fd5bdc4037 1-3,5,8-16,18-22,24-27,29-30
+src/20260423_Multi_LiquidateRsETHPositions/setup/GuardianEnabledFlag.t.sol
+  09e61eb39fd98ad1 1-11,13-40,43-49,52-57,60-68,73-88
+  h_ac33fd5bdc4037 12,41-42,50-51,58-59,69-72
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.4",
+  "base_commit_sha": "7977e6960cd8689797a30424634e4d8aa60a1b8d",
+  "prompts": {
+    "09e61eb39fd98ad1": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6ea7a022-5201-4ac2-9ad3-ad00e03b7326",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "YBM",
+      "messages": [],
+      "total_additions": 730,
+      "total_deletions": 132,
+      "accepted_lines": 2449,
+      "overriden_lines": 38
+    },
+    "48df541cf0113e97": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "491006d9-aa72-4e30-a03b-485f949ca221",
+        "model": "gpt-5.3-codex"
+      },
+      "human_author": "YBM",
+      "messages": [],
+      "total_additions": 106,
+      "total_deletions": 33,
+      "accepted_lines": 106,
+      "overriden_lines": 0
+    }
+  },
+  "humans": {
+    "h_ac33fd5bdc4037": {
+      "author": "YBM"
+    }
+  }
+}

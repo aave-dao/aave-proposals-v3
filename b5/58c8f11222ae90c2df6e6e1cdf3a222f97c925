@@ -1,0 +1,56 @@
+src/20260423_Multi_LiquidateRsETHPositions/setup/LiquidateRsETHPositionsBaseTest.t.sol
+  4ef4475fd552196d 10,22,128-130,133-134,136,138,140-149,162-166,365-366,373-374,379-381,383,463,465,467-469,472-481,483-484,486-490,570,574,576,578-579,581-582,584-587,589-595,597,600-605,607-619
+  h_ac33fd5bdc4037 382,464,470-471,569,571,573,588,596,598-599,606
+  09e61eb39fd98ad1 135,137,139,150-151,485,491-493,575,577,580,583
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.4",
+  "base_commit_sha": "b558c8f11222ae90c2df6e6e1cdf3a222f97c925",
+  "prompts": {
+    "09e61eb39fd98ad1": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6ea7a022-5201-4ac2-9ad3-ad00e03b7326",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "YBM",
+      "messages": [],
+      "total_additions": 27,
+      "total_deletions": 17,
+      "accepted_lines": 1971,
+      "overriden_lines": 0
+    },
+    "4ef4475fd552196d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "f34ed70c-447c-4c93-939d-c6f6123fbf40",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "YBM",
+      "messages": [],
+      "total_additions": 918,
+      "total_deletions": 93,
+      "accepted_lines": 738,
+      "overriden_lines": 27
+    },
+    "d14f78ec1366eeb2": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "7606a86f-6771-4db5-afba-f11b18d3df25",
+        "model": "gpt-5.3-codex"
+      },
+      "human_author": "YBM",
+      "messages": [],
+      "total_additions": 15,
+      "total_deletions": 29,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    }
+  },
+  "humans": {
+    "h_ac33fd5bdc4037": {
+      "author": "YBM"
+    }
+  }
+}

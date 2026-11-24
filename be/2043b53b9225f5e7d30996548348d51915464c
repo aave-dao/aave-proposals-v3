@@ -1,0 +1,21 @@
+foundry.lock
+  s_736049714065f0::t_d1dff67430a41a 4-5
+lib/aave-helpers
+  s_736049714065f0::t_fde153524e6a0e 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "be2043b53b9225f5e7d30996548348d51915464c",
+  "prompts": {},
+  "sessions": {
+    "s_736049714065f0": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019ff4fe-442c-7393-b1a9-70a970877e1a",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": null
+    }
+  }
+}

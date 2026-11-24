@@ -1,0 +1,68 @@
+src/20260423_Multi_LiquidateRsETHPositions/AaveV3Arbitrum_LiquidateRsETHPositionUser2_20260423.sol
+  46a6b787cd143f16 16-17
+diffs/AaveV3Ethereum_LiquidateRsETHPositionUser2_20260423_before_AaveV3Ethereum_LiquidateRsETHPositionUser2_20260423_after.md
+  46a6b787cd143f16 40,57,59,83
+src/20260423_Multi_LiquidateRsETHPositions/AaveV3Ethereum_LiquidateRsETHPositionUser1_20260423.t.sol
+  h_ac33fd5bdc4037 41-42
+src/20260423_Multi_LiquidateRsETHPositions/AaveV3Ethereum_LiquidateRsETHPositionUser1_20260423.sol
+  46a6b787cd143f16 19-20
+src/20260423_Multi_LiquidateRsETHPositions/AaveV3Arbitrum_LiquidateRsETHPositionUser4_20260423.sol
+  46a6b787cd143f16 16-17
+src/20260423_Multi_LiquidateRsETHPositions/AaveV3Ethereum_LiquidateRsETHPositionUser2_20260423.sol
+  46a6b787cd143f16 16-17
+src/20260423_Multi_LiquidateRsETHPositions/AaveV3Arbitrum_LiquidateRsETHPositionUser5_20260423.sol
+  46a6b787cd143f16 16-17
+diffs/AaveV3Ethereum_LiquidateRsETHPositionUser1_20260423_before_AaveV3Ethereum_LiquidateRsETHPositionUser1_20260423_after.md
+  46a6b787cd143f16 57
+src/20260423_Multi_LiquidateRsETHPositions/LiquidateRsETHArbitrumBaseTest.t.sol
+  c3cc58002a39cf59 1-10,12-65
+  h_ac33fd5bdc4037 11
+src/20260423_Multi_LiquidateRsETHPositions/AaveV3Arbitrum_LiquidateRsETHPositionUser1_20260423.sol
+  46a6b787cd143f16 17-18
+src/20260423_Multi_LiquidateRsETHPositions/AaveV3Arbitrum_LiquidateRsETHPositionUser6_20260423.sol
+  46a6b787cd143f16 16-17
+src/20260423_Multi_LiquidateRsETHPositions/AaveV3Arbitrum_LiquidateRsETHPositionUser2_20260423.t.sol
+  46a6b787cd143f16 33-34
+src/20260423_Multi_LiquidateRsETHPositions/AaveV3Arbitrum_LiquidateRsETHPositionUser1_20260423.t.sol
+  46a6b787cd143f16 36-37
+src/20260423_Multi_LiquidateRsETHPositions/AaveV3Arbitrum_LiquidateRsETHPositionUser3_20260423.sol
+  46a6b787cd143f16 16-17
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.4",
+  "base_commit_sha": "689d54e9b7814c72922b356fce7a270a1137dcc1",
+  "prompts": {
+    "46a6b787cd143f16": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "586bea96-1097-4cc2-a28e-258bea0ebc67",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "YBM",
+      "messages": [],
+      "total_additions": 856,
+      "total_deletions": 1277,
+      "accepted_lines": 2446,
+      "overriden_lines": 0
+    },
+    "c3cc58002a39cf59": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "d532b038-103a-409d-aee7-5b000b0fdcd2",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "YBM",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 1865,
+      "overriden_lines": 7
+    }
+  },
+  "humans": {
+    "h_ac33fd5bdc4037": {
+      "author": "YBM"
+    }
+  }
+}

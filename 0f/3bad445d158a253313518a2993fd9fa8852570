@@ -1,0 +1,19 @@
+.agents/skills/write-aave-proposals/references/aip-authoring.md
+  s_a3f28c8996e1c7::t_d4af09b760a0cc 6-7
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "0f3bad445d158a253313518a2993fd9fa8852570",
+  "prompts": {},
+  "sessions": {
+    "s_a3f28c8996e1c7": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "5e7ffa18-4b82-47f3-923d-335921cbaf9b",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "AlbertoCentonze <11707683+AlbertoCentonze@users.noreply.github.com>"
+    }
+  }
+}

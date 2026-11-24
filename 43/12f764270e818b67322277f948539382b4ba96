@@ -1,0 +1,28 @@
+src/20260603_Multi_MaintenanceGrantALRETRY_ROLEOnADI/MaintenanceGrantALRETRY_ROLEOnADI.md
+  s_4bf5eeebbe10dc::t_e7157d75b7f39f 13
+  s_4bf5eeebbe10dc::t_1168d89017e7f2 31
+src/20260603_Multi_MaintenanceGrantALRETRY_ROLEOnADI_Part2/MaintenanceGrantALRETRY_ROLEOnADI_20260603_Part2.s.sol
+  s_4bf5eeebbe10dc::t_2ba127cacbfead 223
+  s_4bf5eeebbe10dc::t_e5a4121d0940b5 232,241,250,259,268,277,286,295,304
+src/20260603_Multi_MaintenanceGrantALRETRY_ROLEOnADI_Part2/MaintenanceGrantALRETRY_ROLEOnADI_Part2.md
+  s_4bf5eeebbe10dc::t_96517f6b4323c6 31
+  s_4bf5eeebbe10dc::t_878e62d80b3033 36
+  s_4bf5eeebbe10dc::t_3930d0353fae5e 35
+  s_4bf5eeebbe10dc::t_be1c94b67e8d7e 13
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.23",
+  "base_commit_sha": "4312f764270e818b67322277f948539382b4ba96",
+  "prompts": {},
+  "sessions": {
+    "s_4bf5eeebbe10dc": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "f147d1c2-e35d-4a7e-a7a7-e35e70a7fc97",
+        "model": "claude-fable-5"
+      },
+      "human_author": "DhairyaSethi <55102840+DhairyaSethi@users.noreply.github.com>"
+    }
+  }
+}

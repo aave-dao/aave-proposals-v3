@@ -1,0 +1,19 @@
+src/20260803_Multi_AaveV4CapsIncreaseRound12/AaveV4Ethereum_IncreaseCaps_20260803.sol
+  s_e9b86c9f9839ef::t_ac4c9376dd3b26 11
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.20",
+  "base_commit_sha": "3efb6c4ab5601af2c5bb7a3a2de657cd8c2abc00",
+  "prompts": {},
+  "sessions": {
+    "s_e9b86c9f9839ef": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019fc6d1-bc28-72a3-8ba6-6db153814f2e",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "AlbertoCentonze <11707683+AlbertoCentonze@users.noreply.github.com>"
+    }
+  }
+}

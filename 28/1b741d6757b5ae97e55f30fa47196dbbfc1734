@@ -1,0 +1,33 @@
+generator/features/__snapshots__/assetListing.spec.ts.snap
+  s_bf75d0657e5bfd::t_5c9ba5c669809d 197
+generator/features/__snapshots__/eModesCreation.spec.ts.snap
+  s_bf75d0657e5bfd::t_014c336b732d5a 236
+generator/features/__snapshots__/priceFeedsUpdate.spec.ts.snap
+  s_bf75d0657e5bfd::t_63f416286f86fa 111
+generator/features/__snapshots__/rateUpdates.spec.ts.snap
+  s_bf75d0657e5bfd::t_959e657fa97737 217
+generator/features/v4/__snapshots__/allModules.spec.ts.snap
+  s_bf75d0657e5bfd::t_97da1a579efe6c 714
+generator/features/v4/__snapshots__/hubSpokeConfigUpdate.spec.ts.snap
+  s_bf75d0657e5bfd::t_842ac96b608a5e 128
+generator/features/v4/__snapshots__/useCases.spec.ts.snap
+  s_bf75d0657e5bfd::t_0fbf2435ae9a7d 578
+generator/templates/test.template.ts
+  s_bf75d0657e5bfd::t_41c7c496a2943a 58
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.5",
+  "base_commit_sha": "281b741d6757b5ae97e55f30fa47196dbbfc1734",
+  "prompts": {},
+  "sessions": {
+    "s_bf75d0657e5bfd": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "a045ea25-ba2f-4783-8214-e987111c157a",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Alexandru Niculae <43644109+avniculae@users.noreply.github.com>"
+    }
+  }
+}

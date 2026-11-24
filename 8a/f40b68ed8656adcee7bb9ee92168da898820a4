@@ -1,0 +1,41 @@
+generator/features/collateralsUpdates.spec.ts
+  s_8de2264ff40c5d::t_b9503efa70691c 1-13,28-50,74-75
+  s_aa0f347709e752::t_2b3785235da4b9 14-27,51-73
+generator/features/collateralsUpdates.ts
+  s_8de2264ff40c5d::t_b9503efa70691c 2,9,37-84,128-129
+  s_8de2264ff40c5d::t_b25f18528dd068 130
+generator/features/mocks/configs.ts
+  s_8de2264ff40c5d::t_b9503efa70691c 3,97-111
+  s_8de2264ff40c5d::t_7a8f9665fd09b5 112-113
+generator/features/__snapshots__/collateralsUpdates.spec.ts.snap
+  s_aa0f347709e752::t_a8262d4785c818 1-52
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "8af40b68ed8656adcee7bb9ee92168da898820a4",
+  "prompts": {},
+  "humans": {
+    "h_8b974fbabf2fb7": {
+      "author": "Alberto <albe@AMWM-H65F40J09H.local>"
+    }
+  },
+  "sessions": {
+    "s_8de2264ff40c5d": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f373d-7235-78d1-a7fd-335b4a2a5c90",
+        "model": "gpt-5.5"
+      },
+      "human_author": "Alberto <albe@AMWM-H65F40J09H.local>"
+    },
+    "s_aa0f347709e752": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "167f5022-5e4e-46c3-be8b-fb3b9bfc7dc6",
+        "model": "claude-fable-5"
+      },
+      "human_author": "Alberto <albe@AMWM-H65F40J09H.local>"
+    }
+  }
+}

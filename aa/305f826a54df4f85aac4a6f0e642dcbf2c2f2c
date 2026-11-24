@@ -1,0 +1,77 @@
+generator/common.ts
+  s_0a8dcf3bcd71ba::t_8076bf2c926ce0 103-133
+generator/features/borrowsUpdates.spec.ts
+  s_0a8dcf3bcd71ba::t_98d06b58d11770 50-52
+generator/templates/test.template.ts
+  s_0a8dcf3bcd71ba::t_8076bf2c926ce0 21,36,40,53
+  s_0a8dcf3bcd71ba::t_b62fbaffd16e4f 56
+generator/templates/test.template.spec.ts
+  s_0a8dcf3bcd71ba::t_b62fbaffd16e4f 86,97-102,104
+generator/features/assetListing.spec.ts
+  s_0a8dcf3bcd71ba::t_98d06b58d11770 40,53-54
+generator/utils/constants.ts
+  s_0a8dcf3bcd71ba::t_98d06b58d11770 1
+  s_0a8dcf3bcd71ba::t_24587ffd068081 19
+generator/features/collateralsUpdates.spec.ts
+  s_0a8dcf3bcd71ba::t_98d06b58d11770 42,54-56
+generator/common.spec.ts
+  s_0a8dcf3bcd71ba::t_8076bf2c926ce0 19-37,32-33,37
+generator/features/capsUpdates.spec.ts
+  s_0a8dcf3bcd71ba::t_98d06b58d11770 44,56-58,61,84-85
+  s_0a8dcf3bcd71ba::t_663c6721d8b2b8 87
+generator/features/freeze.spec.ts
+  s_0a8dcf3bcd71ba::t_98d06b58d11770 34-36
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "aa305f826a54df4f85aac4a6f0e642dcbf2c2f2c",
+  "prompts": {},
+  "humans": {
+    "h_8b974fbabf2fb7": {
+      "author": "Alberto <albe@AMWM-H65F40J09H.local>"
+    }
+  },
+  "sessions": {
+    "s_0a8dcf3bcd71ba": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f390d-2008-72d1-a9da-d3d94582a671",
+        "model": "gpt-5.5"
+      },
+      "human_author": "Alberto <albe@AMWM-H65F40J09H.local>"
+    },
+    "s_3c613cca907125": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f3794-268d-75b1-9e56-8673cc8a4eb1",
+        "model": "gpt-5.5"
+      },
+      "human_author": "Alberto <albe@AMWM-H65F40J09H.local>"
+    },
+    "s_59edd78a894f70": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "dc900c02-c2c3-4aa2-b5e6-eed7b8cd7e79",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "AlbertoCentonze <11707683+AlbertoCentonze@users.noreply.github.com>"
+    },
+    "s_8de2264ff40c5d": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f373d-7235-78d1-a7fd-335b4a2a5c90",
+        "model": "gpt-5.5"
+      },
+      "human_author": "Alberto <albe@AMWM-H65F40J09H.local>"
+    },
+    "s_aa0f347709e752": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "167f5022-5e4e-46c3-be8b-fb3b9bfc7dc6",
+        "model": "claude-fable-5"
+      },
+      "human_author": "Alberto <albe@AMWM-H65F40J09H.local>"
+    }
+  }
+}

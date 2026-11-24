@@ -1,0 +1,43 @@
+diffs/AaveV3Gnosis_AaveV3LTVAndEModeUpdate_20260707_before_AaveV3Gnosis_AaveV3LTVAndEModeUpdate_20260707_after.md
+  s_a29e3e9eb1cbe2::t_ca9937c442e5e9 24,30,38-39
+diffs/AaveV3EthereumLido_AaveV3LTVAndEModeUpdate_20260707_before_AaveV3EthereumLido_AaveV3LTVAndEModeUpdate_20260707_after.md
+  s_a29e3e9eb1cbe2::t_ca9937c442e5e9 24,30,44-45
+src/20260707_Multi_AaveV3LTVAndEModeUpdate/AaveV3Mantle_AaveV3LTVAndEModeUpdate_20260707.t.sol
+  s_a29e3e9eb1cbe2::t_5a1a2616b356ce 83
+  s_a29e3e9eb1cbe2::t_39a9ddbfb38f7f 24
+diffs/AaveV3Mantle_AaveV3LTVAndEModeUpdate_20260707_before_AaveV3Mantle_AaveV3LTVAndEModeUpdate_20260707_after.md
+  s_a29e3e9eb1cbe2::t_ca9937c442e5e9 31,41,53,59,67,77-78,106
+src/20260707_Multi_AaveV3LTVAndEModeUpdate/AaveV3Gnosis_AaveV3LTVAndEModeUpdate_20260707.t.sol
+  s_a29e3e9eb1cbe2::t_39a9ddbfb38f7f 20
+src/20260707_Multi_AaveV3LTVAndEModeUpdate/config.ts
+  s_a29e3e9eb1cbe2::t_39a9ddbfb38f7f 27,35,43,63,67
+  s_a29e3e9eb1cbe2::t_bbfc318b3bb131 57
+diffs/AaveV3Ethereum_AaveV3LTVAndEModeUpdate_20260707_before_AaveV3Ethereum_AaveV3LTVAndEModeUpdate_20260707_after.md
+  s_a29e3e9eb1cbe2::t_ca9937c442e5e9 32,38,47,53-54
+src/20260707_Multi_AaveV3LTVAndEModeUpdate/AaveV3EthereumLido_AaveV3LTVAndEModeUpdate_20260707.t.sol
+  s_a29e3e9eb1cbe2::t_39a9ddbfb38f7f 20
+src/20260707_Multi_AaveV3LTVAndEModeUpdate/AaveV3Mantle_AaveV3LTVAndEModeUpdate_20260707.sol
+  s_a29e3e9eb1cbe2::t_5a1a2616b356ce 64
+src/20260707_Multi_AaveV3LTVAndEModeUpdate/AaveV3Avalanche_AaveV3LTVAndEModeUpdate_20260707.t.sol
+  s_a29e3e9eb1cbe2::t_39a9ddbfb38f7f 20
+src/20260707_Multi_AaveV3LTVAndEModeUpdate/AaveV3Ethereum_AaveV3LTVAndEModeUpdate_20260707.t.sol
+  s_a29e3e9eb1cbe2::t_39a9ddbfb38f7f 20
+diffs/AaveV3Avalanche_AaveV3LTVAndEModeUpdate_20260707_before_AaveV3Avalanche_AaveV3LTVAndEModeUpdate_20260707_after.md
+  s_a29e3e9eb1cbe2::t_ca9937c442e5e9 24,30,38-39
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.13",
+  "base_commit_sha": "f80b58a679fb286fb5d0bcdb22a7a7626cabc5a1",
+  "prompts": {},
+  "sessions": {
+    "s_a29e3e9eb1cbe2": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f5c09-bfa0-79a3-837c-8c1d7945ecbf",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "AlbertoCentonze <11707683+AlbertoCentonze@users.noreply.github.com>"
+    }
+  }
+}

@@ -1,0 +1,57 @@
+src/helpers/v4-hub/AaveV4PayloadEthereumHub.sol
+  s_aa6acfc5c7f4eb::t_d294c01c465195 145-154
+src/helpers/v4-spoke/tests/MockSpokeProposal.sol
+  s_aa6acfc5c7f4eb::t_f9af870a8d3c90 74-125
+src/helpers/v4-spoke/tests/AaveV4PayloadEthereumSpoke.t.sol
+  s_aa6acfc5c7f4eb::t_50189098e0e0b0 40-57
+  s_aa6acfc5c7f4eb::t_a096735ded2616 10
+src/20260514_AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosUSDGPendle/AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosUSDGPendle_20260514.t.sol
+  s_aa6acfc5c7f4eb::t_d59eef4e6fa2fd 12,20,28-29,31,42,58,62,77,90,147-165,176,198,202,204-205,226-227,234,237,271,278,283,291,371,376,381,386,403,428,444-445,451-452,497-501,503,515-548
+src/helpers/v4-hub/tests/AaveV4PayloadEthereumHub.t.sol
+  s_aa6acfc5c7f4eb::t_3fad850f656ee4 7
+  s_aa6acfc5c7f4eb::t_cb770ae96da2a1 50-61
+src/20260514_AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosUSDGPendle/config.ts
+  s_aa6acfc5c7f4eb::t_d59eef4e6fa2fd 1-15
+src/20260514_AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosUSDGPendle/OnboardPTUSDG24SEP2026OnV4PaxosUSDGPendle.md
+  s_aa6acfc5c7f4eb::t_d59eef4e6fa2fd 1-70
+src/helpers/v4-hub/tests/MockHubProposal.sol
+  s_aa6acfc5c7f4eb::t_955713ef3992cd 21-25
+src/20260514_AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosUSDGPendle/OnboardPTUSDG24SEP2026OnV4PaxosUSDGPendle_20260514.s.sol
+  s_aa6acfc5c7f4eb::t_d59eef4e6fa2fd 1-63
+diffs/AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosUSDGPendle_20260514_before_AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosUSDGPendle_20260514_after.md
+  s_aa6acfc5c7f4eb::t_d59eef4e6fa2fd 138,140-143,284,326,332,334-337,339,351,355,602,610,614,618,622
+src/20260514_AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosUSDGPendle/AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosUSDGPendle_20260514.sol
+  s_aa6acfc5c7f4eb::t_d59eef4e6fa2fd 16,21,30,32,48,51,55
+src/helpers/v4-hub/tests/TokenizationSpokeLib.t.sol
+  s_aa6acfc5c7f4eb::t_744cbfdff6e018 1-94
+src/helpers/v4-config-engine/tests/RoleUpdatesLib.t.sol
+  s_aa6acfc5c7f4eb::t_89253db92629f6 1-67
+src/helpers/v4-spoke/AaveV4PayloadEthereumSpokeForkTestBase.sol
+  s_aa6acfc5c7f4eb::t_330fce1427b0dc 430
+  s_aa6acfc5c7f4eb::t_47c45bcb3059af 205
+  s_aa6acfc5c7f4eb::t_2fdaa98f9a6ba1 682-686,688-699
+  s_aa6acfc5c7f4eb::t_3f20f816f2e68a 325
+  s_aa6acfc5c7f4eb::t_c1f11558934af1 369
+  s_aa6acfc5c7f4eb::t_46b7672d269934 48-51
+  s_aa6acfc5c7f4eb::t_3201dba8b5bd15 349
+  s_aa6acfc5c7f4eb::t_46eff929030d23 196-199
+  s_aa6acfc5c7f4eb::t_0084c070ae89f5 687
+  s_aa6acfc5c7f4eb::t_c1fa859259141a 498
+  s_aa6acfc5c7f4eb::t_936676fe375e91 42-47
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.7",
+  "base_commit_sha": "79e08c65ee4dad7f711fc3622a44c88840499530",
+  "prompts": {},
+  "sessions": {
+    "s_aa6acfc5c7f4eb": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "1dceb05d-321e-4de8-9e10-e5f5ff183471",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Alexandru Niculae <43644109+avniculae@users.noreply.github.com>"
+    }
+  }
+}

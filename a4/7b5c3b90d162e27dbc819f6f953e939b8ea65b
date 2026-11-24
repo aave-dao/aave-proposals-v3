@@ -1,0 +1,21 @@
+.github/workflows/test.yml
+  s_c37f53d458d1e6::t_728b9b47bbb44d 62-96
+src/20260916_Multi_AaveV4CapsIncreaseRound17/AaveV4Arc_IncreaseCaps_20260916.t.sol
+  s_c37f53d458d1e6::t_728b9b47bbb44d 102-103,107
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "a47b5c3b90d162e27dbc819f6f953e939b8ea65b",
+  "prompts": {},
+  "sessions": {
+    "s_c37f53d458d1e6": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a0aa52-36d0-7f63-9d8b-c9e824169e05",
+        "model": "gpt-6-astra"
+      },
+      "human_author": "AlbertoCentonze <11707683+AlbertoCentonze@users.noreply.github.com>"
+    }
+  }
+}

@@ -1,0 +1,40 @@
+src/20260720_AaveV3Ethereum_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment/AaveV3Ethereum_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720.sol
+  s_230ef88db3c189::t_44df381458ad91 1-3,8,10-13,15-17,20,24,31,33,39
+  s_230ef88db3c189::t_ba9628ee3fd9b0 4-7,9,18-19,21-23,25-30,32,34-38
+  s_230ef88db3c189::t_8ea7b0215c22b2 14
+diffs/AaveV3Ethereum_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720_before_AaveV3Ethereum_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720_after.md
+  s_230ef88db3c189::t_65d817bd517809 1-82
+src/20260720_AaveV3Ethereum_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment/AaveV3Ethereum_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720.t.sol
+  s_230ef88db3c189::t_3331b754b25366 124-129,131-139
+  s_230ef88db3c189::t_44df381458ad91 1-3,14-15,17-23,25,141
+  s_230ef88db3c189::t_ba9628ee3fd9b0 4-13,16,24,26-123,130,140
+src/20260720_AaveV3Ethereum_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment/RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment.md
+  s_230ef88db3c189::t_44df381458ad91 1,6-29,31-38
+  s_230ef88db3c189::t_0683bb75589c15 2-4
+  s_230ef88db3c189::t_8ea7b0215c22b2 5,30
+src/20260720_AaveV3Ethereum_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment/config.ts
+  s_230ef88db3c189::t_44df381458ad91 1-10,13-16
+  s_230ef88db3c189::t_8ea7b0215c22b2 11-12
+src/interfaces/IRiskSteward.sol
+  s_230ef88db3c189::t_ba9628ee3fd9b0 63-64
+src/20260720_AaveV3Ethereum_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment/RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720.s.sol
+  s_230ef88db3c189::t_ba9628ee3fd9b0 4-5,7-8,16-20,22-24,26-27,35-36,38-45,47-58
+  s_230ef88db3c189::t_4cd8f9e472e676 46
+  s_230ef88db3c189::t_44df381458ad91 1-3,6,9-15,21,25,28-34,37,59
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.14",
+  "base_commit_sha": "53ffa0eea17c39b5d11b99309de1f7366584855a",
+  "prompts": {},
+  "sessions": {
+    "s_230ef88db3c189": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f7e82-9f09-7752-9ac6-6984381a9ded",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "AlbertoCentonze <11707683+AlbertoCentonze@users.noreply.github.com>"
+    }
+  }
+}

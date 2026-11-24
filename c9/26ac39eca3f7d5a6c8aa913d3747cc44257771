@@ -1,0 +1,18 @@
+diffs/AaveV3Linea_CAPOSnaphotRatioUpdateAcrossAaveV3_20260507_weETH_Capo.md
+  ai_agent 1-36
+diffs/AaveV3Linea_CAPOSnaphotRatioUpdateAcrossAaveV3_20260507_ezETH_Capo.md
+  ai_agent 1-29
+diffs/AaveV3Linea_CAPOSnaphotRatioUpdateAcrossAaveV3_20260507_wstETH_Capo.md
+  ai_agent 1-36
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.1",
+  "base_commit_sha": "c926ac39eca3f7d5a6c8aa913d3747cc44257771",
+  "prompts": {},
+  "humans": {
+    "h_739c25e72c37fb": {
+      "author": "DhairyaSethi <55102840+DhairyaSethi@users.noreply.github.com>"
+    }
+  }
+}

@@ -1,0 +1,23 @@
+src/20260803_Multi_AaveV4CapsIncreaseRound12/LocalV4AddressBook.sol
+  s_742e455d65663e::t_fbaa192751b1ba 5,15-18
+src/20260803_Multi_AaveV4CapsIncreaseRound12/AaveV4Ethereum_IncreaseCaps_20260803.t.sol
+  s_742e455d65663e::t_fbaa192751b1ba 4,107-108,271-275,277-280
+  s_742e455d65663e::t_62a12b39ce9bf6 276,281
+  s_742e455d65663e::t_b7b3d2f56f032e 282-284
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.21",
+  "base_commit_sha": "5e2fc9e01d8bea019cd0c96d706bb8cdd9bb9531",
+  "prompts": {},
+  "sessions": {
+    "s_742e455d65663e": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019fd15d-3336-7340-9cd2-b6d1eb032188",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "AlbertoCentonze <11707683+AlbertoCentonze@users.noreply.github.com>"
+    }
+  }
+}

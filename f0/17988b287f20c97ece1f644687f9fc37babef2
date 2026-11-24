@@ -1,0 +1,16 @@
+src/20260623_AaveV3Monad_AaveV3MonadActivation/config.ts
+  h_739c25e72c37fb 219,241
+src/20260623_AaveV3Monad_AaveV3MonadActivation/AaveV3MonadActivation.md
+  h_739c25e72c37fb 248,268,300-301
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.3",
+  "base_commit_sha": "f017988b287f20c97ece1f644687f9fc37babef2",
+  "prompts": {},
+  "humans": {
+    "h_739c25e72c37fb": {
+      "author": "DhairyaSethi <55102840+DhairyaSethi@users.noreply.github.com>"
+    }
+  }
+}

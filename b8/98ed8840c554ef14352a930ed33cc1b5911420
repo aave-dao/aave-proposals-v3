@@ -1,0 +1,27 @@
+remappings.txt
+  801906b739766cb9 10-11
+src/20260409_AaveV4Ethereum_IncreaseCaps/AaveV4Ethereum_IncreaseCaps_20260409.t.sol
+  801906b739766cb9 1-18,20-24,26-31,33,35-37,39-51,53-55,57-65,71,73-503,505,507-552
+src/20260409_AaveV4Ethereum_IncreaseCaps/AaveV4Ethereum_IncreaseCaps_20260409.sol
+  801906b739766cb9 33
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.2.6",
+  "base_commit_sha": "b898ed8840c554ef14352a930ed33cc1b5911420",
+  "prompts": {
+    "801906b739766cb9": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "efe024a4-cd62-4785-a2f5-2a3147170161",
+        "model": "<synthetic>"
+      },
+      "human_author": "Alexandru Niculae",
+      "messages": [],
+      "total_additions": 375,
+      "total_deletions": 153,
+      "accepted_lines": 540,
+      "overriden_lines": 11
+    }
+  }
+}

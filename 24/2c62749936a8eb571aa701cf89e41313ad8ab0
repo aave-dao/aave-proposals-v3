@@ -1,0 +1,31 @@
+src/20260423_Multi_LiquidateRsETHPositions/LiquidateRsETHPositionsBase.sol
+  46a6b787cd143f16 62
+src/20260423_Multi_LiquidateRsETHPositions/LiquidateRsETHArbitrumWstethBase.sol
+  h_ac33fd5bdc4037 111,113,115
+  46a6b787cd143f16 43-56
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.4",
+  "base_commit_sha": "242c62749936a8eb571aa701cf89e41313ad8ab0",
+  "prompts": {
+    "46a6b787cd143f16": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "586bea96-1097-4cc2-a28e-258bea0ebc67",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "YBM",
+      "messages": [],
+      "total_additions": 19,
+      "total_deletions": 12,
+      "accepted_lines": 2190,
+      "overriden_lines": 3
+    }
+  },
+  "humans": {
+    "h_ac33fd5bdc4037": {
+      "author": "YBM"
+    }
+  }
+}

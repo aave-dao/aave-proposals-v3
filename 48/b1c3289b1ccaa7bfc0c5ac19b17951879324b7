@@ -1,0 +1,14 @@
+src/20260514_AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PlusUSDGCorrelated/OnboardPTUSDG24SEP2026OnV4PlusUSDGCorrelated.md
+  h_0f977de3f043fc 1-59
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.2",
+  "base_commit_sha": "48b1c3289b1ccaa7bfc0c5ac19b17951879324b7",
+  "prompts": {},
+  "humans": {
+    "h_0f977de3f043fc": {
+      "author": "Alexandru Niculae <43644109+avniculae@users.noreply.github.com>"
+    }
+  }
+}

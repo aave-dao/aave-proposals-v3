@@ -1,0 +1,41 @@
+generator/templates/test.template.spec.ts
+  s_3c613cca907125::t_d8eaf4382fd6bb 93-97
+  s_3c613cca907125::t_2039efd749a4ef 87-88
+  s_3c613cca907125::t_7d1ee1de1d31fd 78-82,90-91
+  s_3c613cca907125::t_c94d8815eb4531 92
+generator/features/collateralsUpdates.spec.ts
+  s_3c613cca907125::t_ad28283e9ac779 52-53
+  s_3c613cca907125::t_c1546f7e5b6971 42-51
+generator/templates/test.template.ts
+  s_3c613cca907125::t_57472d8220ebc9 26-30
+generator/features/capsUpdates.ts
+  s_3c613cca907125::t_aa4ee104b51a0d 2
+  s_3c613cca907125::t_7e1afecd775aa5 25-31,74,90-91
+generator/features/collateralsUpdates.ts
+  s_3c613cca907125::t_f6a3a4bd29adb8 2
+  s_3c613cca907125::t_5e9d6dd80abe55 36-40,92,108-109
+generator/features/capsUpdates.spec.ts
+  s_3c613cca907125::t_87f87595e364ee 42-51
+  s_3c613cca907125::t_f4ed52128491d5 52-53
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "5c18f9190a5290b095ee7f8145d3c683bd6b8734",
+  "prompts": {},
+  "humans": {
+    "h_8b974fbabf2fb7": {
+      "author": "Alberto <albe@AMWM-H65F40J09H.local>"
+    }
+  },
+  "sessions": {
+    "s_3c613cca907125": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f3794-268d-75b1-9e56-8673cc8a4eb1",
+        "model": "gpt-5.5"
+      },
+      "human_author": "Alberto <albe@AMWM-H65F40J09H.local>"
+    }
+  }
+}

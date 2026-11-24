@@ -1,0 +1,69 @@
+src/20260514_Multi_UpdateUSDGPriceFeed/UpdateUSDGPriceFeed.md
+  s_0f0bf6d86e8530::t_7dc4dbf9413ae2 26
+  s_0f0bf6d86e8530::t_b40b0e2961913a 21-24
+  s_0f0bf6d86e8530::t_fa29c7de2d6787 9-10,12-15,18-20,27-31
+  s_0f0bf6d86e8530::t_81301e81f11d13 4
+  s_0f0bf6d86e8530::t_40de10eb5262d5 37
+  s_0f0bf6d86e8530::t_a1c27c67d6b66e 1-3,5-8,11,16-17,32-34,38-41
+  s_0f0bf6d86e8530::t_e04c8b5b393651 25
+  s_0f0bf6d86e8530::t_adb6c224c1fdeb 35-36
+src/20260514_Multi_UpdateUSDGPriceFeed/AaveV3InkWhitelabel_UpdateUSDGPriceFeed_20260514.t.sol
+  s_0f0bf6d86e8530::t_cf65ff68b9d76a 5
+  s_0f0bf6d86e8530::t_aa8ab43e4d0069 16
+  s_0f0bf6d86e8530::t_3ee19e746377ea 45-49
+  s_0f0bf6d86e8530::t_bed9c68a8907d7 27,33,36-37,42,55-56,65,71-92
+src/20260514_Multi_UpdateUSDGPriceFeed/AaveV3Ethereum_UpdateUSDGPriceFeed_20260514.t.sol
+  s_0f0bf6d86e8530::t_b1849bd11d3d20 98-112
+  s_0f0bf6d86e8530::t_498bceccdbb005 113-130
+  s_0f0bf6d86e8530::t_a1c27c67d6b66e 1-3,6-8,12-18,22-33,94,97,131
+  s_0f0bf6d86e8530::t_7827e15eb619f7 50-69
+  s_0f0bf6d86e8530::t_f7c79400af8909 4,9-11,19-21,34-49,70-93,95-96
+  s_0f0bf6d86e8530::t_32e6b6123ba6f2 5
+src/20260514_Multi_UpdateUSDGPriceFeed/config.ts
+  s_0f0bf6d86e8530::t_a1c27c67d6b66e 1-8,10-17,19-25,27-32
+  s_0f0bf6d86e8530::t_70bee974a369b6 26
+  s_0f0bf6d86e8530::t_4a7273a13536ec 18
+  s_0f0bf6d86e8530::t_9f23ab849a01a5 9
+src/20260514_Multi_UpdateUSDGPriceFeed/UpdateUSDGPriceFeed_20260514.s.sol
+  s_0f0bf6d86e8530::t_dc8ae38e2d65f2 58-82
+  s_0f0bf6d86e8530::t_96ee1b03727194 6,8,11
+  s_0f0bf6d86e8530::t_a1c27c67d6b66e 1-5,7,9-10,12-57,83-119
+src/20260514_Multi_UpdateUSDGPriceFeed/AaveV3InkWhitelabel_UpdateUSDGPriceFeed_20260514.sol
+  s_0f0bf6d86e8530::t_8be24b91262f33 13-26
+src/20260514_Multi_UpdateUSDGPriceFeed/AaveV3XLayer_UpdateUSDGPriceFeed_20260514.sol
+  s_0f0bf6d86e8530::t_a1c27c67d6b66e 1-11,13-14,17-27,29-33
+  s_0f0bf6d86e8530::t_30cf0773f478b6 15-16,28
+  s_0f0bf6d86e8530::t_a6de33c43c744a 12
+src/20260514_Multi_UpdateUSDGPriceFeed/AaveV3XLayer_UpdateUSDGPriceFeed_20260514.t.sol
+  s_0f0bf6d86e8530::t_a1c27c67d6b66e 1-3,6-8,12-18,22-30,59,77
+  s_0f0bf6d86e8530::t_212a6264cc7f6e 4,9-11,20-21,31-58
+  s_0f0bf6d86e8530::t_9fa7623132fe05 5
+  s_0f0bf6d86e8530::t_1ffa6fc1811f47 19
+  s_0f0bf6d86e8530::t_e414b95e438f1a 60-76
+src/20260514_Multi_UpdateUSDGPriceFeed/AaveV3Ethereum_UpdateUSDGPriceFeed_20260514.sol
+  s_0f0bf6d86e8530::t_1f5df446407b6b 12
+  s_0f0bf6d86e8530::t_a1c27c67d6b66e 1-11,13-14,17-23,25-27,35-39
+  s_0f0bf6d86e8530::t_4f0cd989bfd3f0 15-16,28,34
+  s_0f0bf6d86e8530::t_6dce66f09c0724 24,29-33
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.9",
+  "base_commit_sha": "6b12d43221740e6ca86f4ea4c1eba702b89814f6",
+  "prompts": {},
+  "humans": {
+    "h_0f977de3f043fc": {
+      "author": "Alexandru Niculae <43644109+avniculae@users.noreply.github.com>"
+    }
+  },
+  "sessions": {
+    "s_0f0bf6d86e8530": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "aa3a14a6-6b49-4cf4-ad50-dcae9bfb9688",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Alexandru Niculae <43644109+avniculae@users.noreply.github.com>"
+    }
+  }
+}

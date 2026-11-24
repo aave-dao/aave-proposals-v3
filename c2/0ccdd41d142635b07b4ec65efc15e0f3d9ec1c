@@ -1,0 +1,23 @@
+src/20260410_AaveV3Scroll_OffboardInstance/AaveV3Scroll_OffboardInstance_20260410.t.sol
+  222493644cfb5660 4,6,39,47-48,50
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.2.8",
+  "base_commit_sha": "c20ccdd41d142635b07b4ec65efc15e0f3d9ec1c",
+  "prompts": {
+    "222493644cfb5660": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "85eee335-ee72-49ce-aa34-ebe2217187d5",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Alexandru Niculae",
+      "messages": [],
+      "total_additions": 6,
+      "total_deletions": 5,
+      "accepted_lines": 6,
+      "overriden_lines": 0
+    }
+  }
+}

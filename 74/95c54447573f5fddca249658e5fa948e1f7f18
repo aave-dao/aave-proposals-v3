@@ -1,0 +1,34 @@
+src/20260511_Multi_WETHLTVRestorationAcrossV3Instances/setup/WETHLTVRestorationBaseTest.t.sol
+  s_7213da700302c5::t_3dad4f064dc991 92,97-106,117,127-133,137,139-146
+  s_7213da700302c5::t_72fdbe22a9a526 20-21
+  s_7213da700302c5::t_621a0c73c0b617 114,138
+  s_7213da700302c5::t_cf25fcf3d06001 149,154-155,164
+  s_7213da700302c5::t_a4f203795038e4 10
+src/20260511_Multi_WETHLTVRestorationAcrossV3Instances/setup/WETHLTVRestorationEmodeBaseTest.t.sol
+  s_7213da700302c5::t_ea318983ce45ee 57,81
+  s_7213da700302c5::t_0fe7ebefb06464 5
+  s_7213da700302c5::t_a6ff9c1560dffe 33,38-47,60,70-76,80,82-89
+src/20260511_Multi_WETHLTVRestorationAcrossV3Instances/WETHLTVRestorationAcrossV3Instances.md
+  s_7213da700302c5::t_a8c70f5213e10b 2,4-5
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.4",
+  "base_commit_sha": "7495c54447573f5fddca249658e5fa948e1f7f18",
+  "prompts": {},
+  "humans": {
+    "h_0f977de3f043fc": {
+      "author": "Alexandru Niculae <43644109+avniculae@users.noreply.github.com>"
+    }
+  },
+  "sessions": {
+    "s_7213da700302c5": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "9621d1f1-8563-4688-97d5-496352d2f3f9",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "Alexandru Niculae <43644109+avniculae@users.noreply.github.com>"
+    }
+  }
+}

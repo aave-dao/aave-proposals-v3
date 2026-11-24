@@ -1,0 +1,19 @@
+lib/aave-helpers
+  s_d39b00ea4045cb::t_b72fb808f371f9 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.8",
+  "base_commit_sha": "aaf311081fca9ca53a94a1ba384f40c2dfe38f5b",
+  "prompts": {},
+  "sessions": {
+    "s_d39b00ea4045cb": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "5d32d931-b224-44c8-bf10-d09244f8aa33",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Alexandru Niculae <43644109+avniculae@users.noreply.github.com>"
+    }
+  }
+}

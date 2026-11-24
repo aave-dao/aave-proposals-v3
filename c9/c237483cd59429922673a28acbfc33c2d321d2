@@ -1,0 +1,37 @@
+generator/utils/constants.ts
+  s_22f80b5bcb6d41::t_fcbd0c4876012b 2
+generator/features/freeze.ts
+  s_22f80b5bcb6d41::t_ae8803da71d2e3 57-59
+generator/features/borrowsUpdates.ts
+  s_22f80b5bcb6d41::t_ae8803da71d2e3 84-86
+generator/features/collateralsUpdates.ts
+  s_22f80b5bcb6d41::t_ae8803da71d2e3 98-100
+generator/features/capsUpdates.ts
+  s_22f80b5bcb6d41::t_ae8803da71d2e3 80-82
+generator/templates/test.template.spec.ts
+  s_22f80b5bcb6d41::t_ae8803da71d2e3 6,71
+generator/features/assetListing.ts
+  s_22f80b5bcb6d41::t_fcbd0c4876012b 10
+  s_22f80b5bcb6d41::t_ae8803da71d2e3 214-216,326-334
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "c9c237483cd59429922673a28acbfc33c2d321d2",
+  "prompts": {},
+  "humans": {
+    "h_8b974fbabf2fb7": {
+      "author": "Alberto <albe@AMWM-H65F40J09H.local>"
+    }
+  },
+  "sessions": {
+    "s_22f80b5bcb6d41": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f3c89-d210-7122-b483-d92bfbdf7c86",
+        "model": "gpt-5.5"
+      },
+      "human_author": "Alberto <albe@AMWM-H65F40J09H.local>"
+    }
+  }
+}

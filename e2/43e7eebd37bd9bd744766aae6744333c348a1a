@@ -1,0 +1,61 @@
+diffs/AaveV3Ethereum_StkGhoMigratorUpdate_20261008_before_AaveV3Ethereum_StkGhoMigratorUpdate_20261008_after.md
+  s_2843833aabf52a::t_afa3ff0a0d549c 1-55
+diffs/AaveV3Monad_Onboard_PTAUSD17DEC2026_Oracle_20261002_before_AaveV3Monad_Onboard_PTAUSD17DEC2026_Oracle_20261002_after.md
+  s_2843833aabf52a::t_f25df591fb0e4f 1-109
+diffs/AaveV3XLayer_AssetListingPendlePTUSDG25FEB2027XLayer_20260930_before_AaveV3XLayer_AssetListingPendlePTUSDG25FEB2027XLayer_20260930_after.md
+  s_2843833aabf52a::t_f83c6ccd5b4fa3 1-297
+diffs/preAaveV3Monad_Onboard_PTAUSD17DEC2026_Oracle_20261002_postAaveV3Monad_Onboard_PTAUSD17DEC2026_Oracle_20261002.md
+  s_2843833aabf52a::t_8a6d5092046e0c 1-5
+package.json
+  s_2843833aabf52a::t_07c6503cf0637c 42
+pnpm-lock.yaml
+  s_2843833aabf52a::t_dbed73d38aa835 15-16,78-79,83-84,88-89,1251,1255,1259,1261
+src/20260930_AaveV3XLayer_AssetListingPendlePTUSDG25FEB2027XLayer/AaveV3XLayer_AssetListingPendlePTUSDG25FEB2027XLayer_20260930.sol
+  s_2843833aabf52a::t_26d0ce834a11e7 1-97
+src/20260930_AaveV3XLayer_AssetListingPendlePTUSDG25FEB2027XLayer/AaveV3XLayer_AssetListingPendlePTUSDG25FEB2027XLayer_20260930.t.sol
+  s_2843833aabf52a::t_13aef947a7ecc6 1-332
+src/20260930_AaveV3XLayer_AssetListingPendlePTUSDG25FEB2027XLayer/AssetListingPendlePTUSDG25FEB2027XLayer.md
+  s_2843833aabf52a::t_a2078daf93b0da 1-83
+src/20260930_AaveV3XLayer_AssetListingPendlePTUSDG25FEB2027XLayer/AssetListingPendlePTUSDG25FEB2027XLayer_20260930.s.sol
+  s_2843833aabf52a::t_612dc2c38acbe4 1-63
+src/20260930_AaveV3XLayer_AssetListingPendlePTUSDG25FEB2027XLayer/config.ts
+  s_2843833aabf52a::t_81933e2aa4a7e7 1-58
+src/20261002_AaveV3Monad_Onboard_PTAUSD17DEC2026_Oracle/AaveV3Monad_Onboard_PTAUSD17DEC2026_Oracle_20261002.sol
+  s_2843833aabf52a::t_aed41c6233715b 1-80
+src/20261002_AaveV3Monad_Onboard_PTAUSD17DEC2026_Oracle/AaveV3Monad_Onboard_PTAUSD17DEC2026_Oracle_20261002.t.sol
+  s_2843833aabf52a::t_c7fb6991abc65f 1-311
+src/20261002_AaveV3Monad_Onboard_PTAUSD17DEC2026_Oracle/Onboard_PTAUSD17DEC2026_Oracle.md
+  s_2843833aabf52a::t_7c8d0230bac34c 1-92
+src/20261002_AaveV3Monad_Onboard_PTAUSD17DEC2026_Oracle/Onboard_PTAUSD17DEC2026_Oracle_20261002.s.sol
+  s_2843833aabf52a::t_5a88dcfbd0a813 1-63
+src/20261002_AaveV3Monad_Onboard_PTAUSD17DEC2026_Oracle/config.ts
+  s_2843833aabf52a::t_294fd6f1056786 1-15
+src/20261008_AaveV3Ethereum_StkGhoMigratorUpdate/AaveV3Ethereum_StkGhoMigratorUpdate_20261008.sol
+  s_2843833aabf52a::t_9455e6d7277aea 1-25
+src/20261008_AaveV3Ethereum_StkGhoMigratorUpdate/AaveV3Ethereum_StkGhoMigratorUpdate_20261008.t.sol
+  s_2843833aabf52a::t_531b59d68709ac 1-676
+src/20261008_AaveV3Ethereum_StkGhoMigratorUpdate/StkGhoMigratorUpdate.md
+  s_2843833aabf52a::t_e2a88858583e6b 1-54
+src/20261008_AaveV3Ethereum_StkGhoMigratorUpdate/StkGhoMigratorUpdate_20261008.s.sol
+  s_2843833aabf52a::t_9a37acf9a98b1c 1-63
+src/20261008_AaveV3Ethereum_StkGhoMigratorUpdate/config.ts
+  s_2843833aabf52a::t_a78440c2a72f52 1-14
+src/interfaces/IStkGhoMigrator.sol
+  s_2843833aabf52a::t_43326526b7c15e 5-6,8-10,12-19
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "e243e7eebd37bd9bd744766aae6744333c348a1a",
+  "prompts": {},
+  "sessions": {
+    "s_2843833aabf52a": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "ae63ebf5-88d7-4dfe-976c-39793e6bfe86",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "DhairyaSethi <55102840+DhairyaSethi@users.noreply.github.com>"
+    }
+  }
+}

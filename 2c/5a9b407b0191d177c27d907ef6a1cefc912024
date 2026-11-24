@@ -1,0 +1,16 @@
+package.json
+  h_739c25e72c37fb 42-43
+pnpm-lock.yaml
+  h_739c25e72c37fb 14-19,949-950,1262,1881
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.2",
+  "base_commit_sha": "2c5a9b407b0191d177c27d907ef6a1cefc912024",
+  "prompts": {},
+  "humans": {
+    "h_739c25e72c37fb": {
+      "author": "DhairyaSethi <55102840+DhairyaSethi@users.noreply.github.com>"
+    }
+  }
+}

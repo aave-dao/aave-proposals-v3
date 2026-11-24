@@ -1,0 +1,39 @@
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.4",
+  "base_commit_sha": "c5cba85cdcc445dd124591457c6c7840c7be95df",
+  "prompts": {
+    "46a6b787cd143f16": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "586bea96-1097-4cc2-a28e-258bea0ebc67",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "YBM",
+      "messages": [],
+      "total_additions": 1818,
+      "total_deletions": 2455,
+      "accepted_lines": 1784,
+      "overriden_lines": 0
+    },
+    "c3cc58002a39cf59": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "d532b038-103a-409d-aee7-5b000b0fdcd2",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "YBM",
+      "messages": [],
+      "total_additions": 1961,
+      "total_deletions": 77,
+      "accepted_lines": 1644,
+      "overriden_lines": 2
+    }
+  },
+  "humans": {
+    "h_ac33fd5bdc4037": {
+      "author": "YBM"
+    }
+  }
+}

@@ -1,0 +1,16 @@
+src/20260623_AaveV3Ethereum_StkGhoMigratorClaimHelper/StkGhoMigratorClaimHelper.md
+  h_dd1a1ee57491bb 2
+src/20260623_AaveV3Ethereum_StkGhoMigratorClaimHelper/AaveV3Ethereum_StkGhoMigratorClaimHelper_20260623.sol
+  h_dd1a1ee57491bb 16
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.11",
+  "base_commit_sha": "76feded5323cc6cb85d4256b77cb46a046b2923e",
+  "prompts": {},
+  "humans": {
+    "h_dd1a1ee57491bb": {
+      "author": "AGMASO <agmguindo@gmail.com>"
+    }
+  }
+}

@@ -1,0 +1,28 @@
+src/20260424_AaveV3_StewardsTxs/AaveV3EthereumLido_20260424_AaveV3_StewardsTxs_EthereumLido.t.sol
+  e01e2a1e49f1dd1c 17,164
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.4",
+  "base_commit_sha": "115f132fc71fc51d70193bfdb40feaadc92900f0",
+  "prompts": {
+    "e01e2a1e49f1dd1c": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "27d16904-07fd-46c0-854b-2816ea658c20",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "YBM",
+      "messages": [],
+      "total_additions": 12,
+      "total_deletions": 12,
+      "accepted_lines": 1367,
+      "overriden_lines": 8
+    }
+  },
+  "humans": {
+    "h_ac33fd5bdc4037": {
+      "author": "YBM"
+    }
+  }
+}

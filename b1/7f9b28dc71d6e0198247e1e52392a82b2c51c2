@@ -1,0 +1,34 @@
+src/20260603_AaveV4Ethereum_IncreaseCaps/IncreaseCaps_20260603.s.sol
+  s_25c055bfdf51b5::t_9a8a2feb67506d 1-20
+src/20260603_AaveV4Ethereum_IncreaseCaps/AaveV4Ethereum_IncreaseCaps_20260603.sol
+  h_0f977de3f043fc 11
+  s_25c055bfdf51b5::t_a382fc6001c92f 1-10,12-129
+src/20260603_AaveV4Ethereum_IncreaseCaps/AaveV4Ethereum_IncreaseCaps_20260603_Fork.t.sol
+  s_25c055bfdf51b5::t_700f43bf9431ba 1-32
+src/20260603_AaveV4Ethereum_IncreaseCaps/AaveV4Ethereum_IncreaseCaps_20260603.md
+  h_0f977de3f043fc 4,105
+  s_25c055bfdf51b5::t_9a5505b135011c 1-3,5-104,106-109
+src/20260603_AaveV4Ethereum_IncreaseCaps/AaveV4Ethereum_IncreaseCaps_20260603.t.sol
+  s_25c055bfdf51b5::t_df2918c4bd4666 1-393
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.2",
+  "base_commit_sha": "b17f9b28dc71d6e0198247e1e52392a82b2c51c2",
+  "prompts": {},
+  "humans": {
+    "h_0f977de3f043fc": {
+      "author": "Alexandru Niculae <43644109+avniculae@users.noreply.github.com>"
+    }
+  },
+  "sessions": {
+    "s_25c055bfdf51b5": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "557dad0e-80b7-4fbd-bec1-ba674bd9c1f7",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Alexandru Niculae <43644109+avniculae@users.noreply.github.com>"
+    }
+  }
+}

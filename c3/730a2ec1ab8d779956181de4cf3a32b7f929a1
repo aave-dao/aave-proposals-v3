@@ -1,0 +1,46 @@
+src/20260603_Multi_MaintenanceGrantALRETRY_ROLEOnADI/AaveV3InkWhitelabel_MaintenanceGrantALRETRY_ROLEOnADI_20260603.t.sol
+  s_5e558071466415::t_518d9bfa006c49 61-67
+  s_5e558071466415::t_7722ad47673cd4 1-6,9-48,69
+  s_5e558071466415::t_1ab934e4241210 49,60,68
+  s_5e558071466415::t_441236d8056620 7-8,50-59
+src/20260603_Multi_MaintenanceGrantALRETRY_ROLEOnADI/AaveV3InkWhitelabel_MaintenanceGrantALRETRY_ROLEOnADI_20260603.sol
+  s_5e558071466415::t_edc3213a6ccadf 1-25
+src/20260603_Multi_MaintenanceGrantALRETRY_ROLEOnADI/config.ts
+  s_5e558071466415::t_c628dd6fa1fa6a 55
+  s_5e558071466415::t_361380196707be 24
+src/20260603_Multi_MaintenanceGrantALRETRY_ROLEOnADI/MaintenanceGrantALRETRY_ROLEOnADI.md
+  s_5e558071466415::t_45a7b8d6d11149 31
+  s_5e558071466415::t_84b4a37c8de4d5 32
+src/20260603_Multi_MaintenanceGrantALRETRY_ROLEOnADI/MaintenanceGrantALRETRY_ROLEOnADI_20260603.s.sol
+  s_5e558071466415::t_329dbc73b141d1 425-445
+  s_5e558071466415::t_483f7fe04b5203 7
+  s_5e558071466415::t_610b6c96393dea 26
+  s_5e558071466415::t_8316668748cff0 453
+  s_5e558071466415::t_46cdc6cf41680d 628-636
+src/20260603_Multi_MaintenanceGrantALRETRY_ROLEOnADI/MaintenanceGrantALRETRY_ROLEOnADITestBase.sol
+  s_5e558071466415::t_4b576a580030ea 55
+diffs/AaveV3InkWhitelabel_MaintenanceGrantALRETRY_ROLEOnADI_20260603_before_AaveV3InkWhitelabel_MaintenanceGrantALRETRY_ROLEOnADI_20260603_after.md
+  s_5e558071466415::t_100ff0b9a763f9 40-44
+  s_5e558071466415::t_c079d63329dffd 1-39
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.7",
+  "base_commit_sha": "c3730a2ec1ab8d779956181de4cf3a32b7f929a1",
+  "prompts": {},
+  "humans": {
+    "h_739c25e72c37fb": {
+      "author": "DhairyaSethi <55102840+DhairyaSethi@users.noreply.github.com>"
+    }
+  },
+  "sessions": {
+    "s_5e558071466415": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "9d422ae6-8302-4b15-a719-7d8f2ada6df2",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "DhairyaSethi <55102840+DhairyaSethi@users.noreply.github.com>"
+    }
+  }
+}

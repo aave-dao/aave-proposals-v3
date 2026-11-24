@@ -1,0 +1,26 @@
+src/20260511_Multi_WETHLTVRestorationAcrossV3Instances/AaveV3Ethereum_WETHLTVRestorationAcrossV3Instances_20260511.sol
+  s_7213da700302c5::t_1b1f647ab4dd12 5
+  s_7213da700302c5::t_277f62bf64e6b3 14-15
+src/20260511_Multi_WETHLTVRestorationAcrossV3Instances/AaveV3Base_WETHLTVRestorationAcrossV3Instances_20260511.sol
+  s_7213da700302c5::t_7fed202e0f8aac 14
+  s_7213da700302c5::t_9626f258ea17da 5
+src/20260511_Multi_WETHLTVRestorationAcrossV3Instances/AaveV3Arbitrum_WETHLTVRestorationAcrossV3Instances_20260511.sol
+  s_7213da700302c5::t_9260b6ff37b9f6 14
+  s_7213da700302c5::t_8d37759f022ba1 5
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.4",
+  "base_commit_sha": "b5e0cf81a95070ac349afb11550a49ace5d372f4",
+  "prompts": {},
+  "sessions": {
+    "s_7213da700302c5": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "9621d1f1-8563-4688-97d5-496352d2f3f9",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "Alexandru Niculae <43644109+avniculae@users.noreply.github.com>"
+    }
+  }
+}

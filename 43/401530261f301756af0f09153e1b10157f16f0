@@ -1,0 +1,31 @@
+generator/e2e/compileGeneratedFiles.ts
+  s_0221e6de41ee68::t_2871215cc99d67 1-41
+package.json
+  s_0221e6de41ee68::t_2871215cc99d67 5-6
+.github/workflows/test.yml
+  s_0221e6de41ee68::t_2871215cc99d67 59-73
+generator/e2e/generatedBytecode.spec.ts
+  s_0221e6de41ee68::t_f3008417a64723 25-30
+  s_0221e6de41ee68::t_0ba94ebe83bf5d 36-48,50-52,54-63,73-78,80-105,107-109,112-114,116-118,120-121
+  s_0221e6de41ee68::t_9a51057233180a 3-4
+  s_0221e6de41ee68::t_323918f969e76f 64-70,72,79,106
+  s_0221e6de41ee68::t_2871215cc99d67 1-2,5-24,31-35,49,53,71,110-111,115,119,122
+generator/features/assetListing.ts
+  s_0221e6de41ee68::t_2871215cc99d67 258-262,277
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.15",
+  "base_commit_sha": "43401530261f301756af0f09153e1b10157f16f0",
+  "prompts": {},
+  "sessions": {
+    "s_0221e6de41ee68": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f8595-db9a-7cb3-9cc3-5ec61b4fbd39",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "AlbertoCentonze <11707683+AlbertoCentonze@users.noreply.github.com>"
+    }
+  }
+}

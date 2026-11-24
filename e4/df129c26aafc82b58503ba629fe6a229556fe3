@@ -1,0 +1,21 @@
+generator/cli.ts
+  s_25304433704b2f::t_962251de8d1ffb 84
+generator/cli.spec.ts
+  s_25304433704b2f::t_55bad831dfcb2a 1-18
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.13",
+  "base_commit_sha": "e4df129c26aafc82b58503ba629fe6a229556fe3",
+  "prompts": {},
+  "sessions": {
+    "s_25304433704b2f": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f5ba5-cd5e-7642-ba2b-ec4a0750c810",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "AlbertoCentonze <11707683+AlbertoCentonze@users.noreply.github.com>"
+    }
+  }
+}

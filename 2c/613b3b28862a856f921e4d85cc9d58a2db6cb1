@@ -1,0 +1,23 @@
+foundry.toml
+  63fcade59174beca 14
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.2.8",
+  "base_commit_sha": "2c613b3b28862a856f921e4d85cc9d58a2db6cb1",
+  "prompts": {
+    "63fcade59174beca": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "1871e514-70ab-46a2-879e-2e408358cd6b",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "YBM",
+      "messages": [],
+      "total_additions": 259,
+      "total_deletions": 0,
+      "accepted_lines": 1,
+      "overriden_lines": 0
+    }
+  }
+}

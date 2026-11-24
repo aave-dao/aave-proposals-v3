@@ -1,0 +1,19 @@
+src/20260916_Multi_AaveV4CapsIncreaseRound17/AaveV4CapsIncreaseRound17.md
+  s_c37f53d458d1e6::t_6cae166310d14a 9
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "3d6aae333af038de4e979480a511f39676fd852c",
+  "prompts": {},
+  "sessions": {
+    "s_c37f53d458d1e6": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a0aa52-36d0-7f63-9d8b-c9e824169e05",
+        "model": "gpt-6-astra"
+      },
+      "human_author": "AlbertoCentonze <11707683+AlbertoCentonze@users.noreply.github.com>"
+    }
+  }
+}

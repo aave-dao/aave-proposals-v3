@@ -1,0 +1,33 @@
+src/20260507_AaveV4Ethereum_SVRfeeds/AaveV4Ethereum_SVRfeeds_20260507.sol
+  s_8f5d838c325104::t_3e1c37c9720e0b 16-20,22-32,34-35,37-38,40-41,43-44,46-47,49-53
+  s_8f5d838c325104::t_2cff5b177c972d 76-84,86-87,89-90,92-93,95-97,99-100,103,106,111-115,121
+  h_71908bb6884da4 33
+  s_8f5d838c325104::t_9383243f0c345a 21,36,39,42,45,48,54
+src/20260507_AaveV4Ethereum_SVRfeeds/AaveV4Ethereum_SVRfeeds_20260507.t.sol
+  h_71908bb6884da4 182,279
+  s_8f5d838c325104::t_3abee0adf3e51e 226-230
+  s_8f5d838c325104::t_1c57e0a2b0b1a2 186
+  s_8f5d838c325104::t_f77bf99dee228e 244-249,253-259,261-263
+  s_8f5d838c325104::t_f3d460a59811c8 183-185,187-210
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.1",
+  "base_commit_sha": "5a0a58330a0fe7a870d2c38c2f53373ac48677f0",
+  "prompts": {},
+  "humans": {
+    "h_71908bb6884da4": {
+      "author": "YBM <31329384+yan-man@users.noreply.github.com>"
+    }
+  },
+  "sessions": {
+    "s_8f5d838c325104": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "4233f88f-8f50-4c26-9d90-4c3a75adb044",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "YBM <31329384+yan-man@users.noreply.github.com>"
+    }
+  }
+}

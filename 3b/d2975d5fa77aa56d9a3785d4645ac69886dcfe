@@ -1,0 +1,25 @@
+foundry.lock
+  s_477c0d90c4846f::t_24138f174e4fcc 3
+lib/aave-helpers
+  s_477c0d90c4846f::t_70545ed63062f0 1
+package.json
+  s_477c0d90c4846f::t_160d18419d19c1 42
+pnpm-lock.yaml
+  s_477c0d90c4846f::t_b7f69f916f0bb3 15-16,83-84,88-89,1255,1259,1261
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "3bd2975d5fa77aa56d9a3785d4645ac69886dcfe",
+  "prompts": {},
+  "sessions": {
+    "s_477c0d90c4846f": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "9de15bb6-ef2d-4870-b4ab-7a2a27701508",
+        "model": "claude-fable-5-2"
+      },
+      "human_author": "Alexandru Niculae <43644109+avniculae@users.noreply.github.com>"
+    }
+  }
+}

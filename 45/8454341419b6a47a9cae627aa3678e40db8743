@@ -1,0 +1,30 @@
+src/20260423_Multi_LiquidateRsETHPositions/AaveV3Ethereum_LiquidateRsETHPositions_20260423.sol
+  h_ac33fd5bdc4037 21,24,26,53,62-63
+src/20260423_Multi_LiquidateRsETHPositions/AaveV3Arbitrum_LiquidateRsETHPositions_20260423.sol
+  h_ac33fd5bdc4037 17,19-24,51,60-65
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.4",
+  "base_commit_sha": "458454341419b6a47a9cae627aa3678e40db8743",
+  "prompts": {
+    "9b11fa5009db891c": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "bd2fd5f6-5b78-4926-8e60-25676f15d91b",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "YBM",
+      "messages": [],
+      "total_additions": 1860,
+      "total_deletions": 32,
+      "accepted_lines": 2355,
+      "overriden_lines": 9
+    }
+  },
+  "humans": {
+    "h_ac33fd5bdc4037": {
+      "author": "YBM"
+    }
+  }
+}

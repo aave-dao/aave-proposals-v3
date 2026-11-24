@@ -1,0 +1,20 @@
+src/20261009_AaveV4EthereumSentoraCurated_SentoraMarketActivation/SentoraOracles.t.sol
+  s_2843833aabf52a::t_6b16265f64e83b 109
+  s_2843833aabf52a::t_a191eb4c895517 6-7,10-30,38-48,85-108,110-144,146-162,164-181
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "0131c68898626df63099d6c49fb6d0e76a3b8b8a",
+  "prompts": {},
+  "sessions": {
+    "s_2843833aabf52a": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "ae63ebf5-88d7-4dfe-976c-39793e6bfe86",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "DhairyaSethi <55102840+DhairyaSethi@users.noreply.github.com>"
+    }
+  }
+}

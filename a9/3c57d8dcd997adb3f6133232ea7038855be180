@@ -1,0 +1,38 @@
+src/20260423_Multi_LiquidateRsETHPositions/setup/LiquidateRsETHPositionsSetupTest.t.sol
+  23988b23b6963afe 217-218,708,712
+  h_ac33fd5bdc4037 224,226-227,234,236,238,707,710,713
+src/20260423_Multi_LiquidateRsETHPositions/arbitrum/LiquidateRsETHArbitrumSetupTest.t.sol
+  23988b23b6963afe 59-62,76,86,104,128
+  h_ac33fd5bdc4037 67,71-74
+src/20260423_Multi_LiquidateRsETHPositions/mainnet/LiquidateRsETHEthereumSetupTest.t.sol
+  23988b23b6963afe 147,154,180,183,218,221,227,240,243
+  h_ac33fd5bdc4037 130,134-137
+src/20260423_Multi_LiquidateRsETHPositions/setup/LiquidateRsETHPositionsGuardianEnabledTest.t.sol
+  h_ac33fd5bdc4037 10,72,76-78,97,116
+  23988b23b6963afe 28,32,44,54
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.4",
+  "base_commit_sha": "a93c57d8dcd997adb3f6133232ea7038855be180",
+  "prompts": {
+    "23988b23b6963afe": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "b9ae993a-be57-472e-a5f7-df9c9df00afd",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "YBM",
+      "messages": [],
+      "total_additions": 747,
+      "total_deletions": 27,
+      "accepted_lines": 740,
+      "overriden_lines": 3
+    }
+  },
+  "humans": {
+    "h_ac33fd5bdc4037": {
+      "author": "YBM"
+    }
+  }
+}

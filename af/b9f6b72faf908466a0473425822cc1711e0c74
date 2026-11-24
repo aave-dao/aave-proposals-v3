@@ -1,0 +1,41 @@
+diffs/AaveV3Ethereum_Onboard_PTsrUSDe22OCT2026_Oracle_20260817_before_AaveV3Ethereum_Onboard_PTsrUSDe22OCT2026_Oracle_20260817_after.md
+  s_8a50f9b770bb3b::t_0342a133acb13e 1-112
+diffs/preAaveV3Ethereum_Onboard_PTsrUSDe22OCT2026_Oracle_20260817_postAaveV3Ethereum_Onboard_PTsrUSDe22OCT2026_Oracle_20260817.md
+  s_8a50f9b770bb3b::t_608d8f1f068ba6 1-5
+lib/aave-helpers
+  s_8a50f9b770bb3b::t_25a427c0acf9e2 1
+remappings.txt
+  s_8a50f9b770bb3b::t_eb7f2b321cf83f 12
+src/20260817_AaveV3Ethereum_Onboard_PTsrUSDe22OCT2026_Oracle/AaveV3Ethereum_Onboard_PTsrUSDe22OCT2026_Oracle_20260817.sol
+  s_8a50f9b770bb3b::t_6d32691f11cdd8 4,7-8,11-14,16-17,19-21,23-24,26-33,35,37-38,40-50,52,54-59,61-72,74-93
+src/20260817_AaveV3Ethereum_Onboard_PTsrUSDe22OCT2026_Oracle/AaveV3Ethereum_Onboard_PTsrUSDe22OCT2026_Oracle_20260817.t.sol
+  s_8a50f9b770bb3b::t_12518062d9b541 4-6,9-17,20-21,23-29,32-39,42,45,51-56,61-63,66-68,71,74-79,81,84-86,88-99,103-106,109-111,115-149,151-153,156-160,162-164,167-171,173-175,177,179,181-234,237-238,240-243,245-249,252-255,257-260,262-263,266-269,272-275,277-286,290-304,307-314
+src/20260817_AaveV3Ethereum_Onboard_PTsrUSDe22OCT2026_Oracle/Onboard_PTsrUSDe22OCT2026_Oracle.md
+  s_8a50f9b770bb3b::t_73cd8e381f7610 2-4,9,13,15,17,21,23,25,27-48,50,52-81,83-86
+src/20260817_AaveV3Ethereum_Onboard_PTsrUSDe22OCT2026_Oracle/Onboard_PTsrUSDe22OCT2026_Oracle_20260817.s.sol
+  s_8a50f9b770bb3b::t_5aca74daf5bf0b 8,12-13,19,34,46,59
+src/20260817_AaveV3Ethereum_Onboard_PTsrUSDe22OCT2026_Oracle/config.ts
+  s_8a50f9b770bb3b::t_2a531e8e5c2a14 5-8,10-11,14
+src/helpers/agent-hub/AgentHubAgentActivationPayload.sol
+  s_8a50f9b770bb3b::t_89656c80ba7328 5-16,18-51,53-69
+src/helpers/agent-hub/Configs.sol
+  s_8a50f9b770bb3b::t_09ccca33613621 4-6,8-9,11-12,14-15
+src/interfaces/IBaseAaveAgent.sol
+  s_8a50f9b770bb3b::t_e5bb59e046312c 8-12
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "afb9f6b72faf908466a0473425822cc1711e0c74",
+  "prompts": {},
+  "sessions": {
+    "s_8a50f9b770bb3b": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "f923f572-323b-4b2a-8961-eb0f37ba3f94",
+        "model": "claude-fable-5"
+      },
+      "human_author": "DhairyaSethi <55102840+DhairyaSethi@users.noreply.github.com>"
+    }
+  }
+}

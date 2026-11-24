@@ -1,0 +1,37 @@
+src/20260806_AaveV3Arbitrum_USDCGSMArbitrum/AaveV3Arbitrum_USDCGSMArbitrum_20260806.t.sol
+  s_2843833aabf52a::t_894c2ec6c8a95a 31,33-34,125,132,324,327
+  s_2843833aabf52a::t_526d194b75a730 32,35,62,66,88,122,124,127,130,137,144,151-152,229,232,237,247,259,325
+src/20260826_Multi_LowAdoptionAssetDeprecationOnAaveV3/AaveV3Optimism_LowAdoptionAssetDeprecationOnAaveV3_20260826.sol
+  s_2843833aabf52a::t_f6ae30eb4ab790 17,26,54
+src/20260826_Multi_LowAdoptionAssetDeprecationOnAaveV3/AaveV3Arbitrum_LowAdoptionAssetDeprecationOnAaveV3_20260826.t.sol
+  s_2843833aabf52a::t_f6ae30eb4ab790 52,69,90,121,160
+src/20260806_AaveV3Arbitrum_USDCGSMArbitrum/AaveV3Arbitrum_USDCGSMArbitrum_20260806.sol
+  s_2843833aabf52a::t_894c2ec6c8a95a 19,21-22,86
+  s_2843833aabf52a::t_526d194b75a730 20,23,35-36,48-50,74,79-81,84,89-90,93-94
+src/20260826_Multi_LowAdoptionAssetDeprecationOnAaveV3/AaveV3Polygon_LowAdoptionAssetDeprecationOnAaveV3_20260826.t.sol
+  s_2843833aabf52a::t_f6ae30eb4ab790 44,73,94,112,164
+src/20260826_Multi_LowAdoptionAssetDeprecationOnAaveV3/AaveV3Optimism_LowAdoptionAssetDeprecationOnAaveV3_20260826.t.sol
+  s_2843833aabf52a::t_f6ae30eb4ab790 44,59,74,92,119
+src/20260826_Multi_LowAdoptionAssetDeprecationOnAaveV3/AaveV3Polygon_LowAdoptionAssetDeprecationOnAaveV3_20260826.sol
+  s_2843833aabf52a::t_f6ae30eb4ab790 17,26,79
+src/20260826_Multi_LowAdoptionAssetDeprecationOnAaveV3/AaveV3Arbitrum_LowAdoptionAssetDeprecationOnAaveV3_20260826.sol
+  s_2843833aabf52a::t_f6ae30eb4ab790 20,43,83
+src/20260512_Multi_RemoteGSMLaunchArbitrum/AaveV3Arbitrum_RemoteGSMLaunchArbitrum_20260512_Part2.t.sol
+  s_2843833aabf52a::t_cd81190c3af4d1 337,347,365
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "78a9b8bd873ab35852ea78680422b9910a808aed",
+  "prompts": {},
+  "sessions": {
+    "s_2843833aabf52a": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "ae63ebf5-88d7-4dfe-976c-39793e6bfe86",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "DhairyaSethi <55102840+DhairyaSethi@users.noreply.github.com>"
+    }
+  }
+}

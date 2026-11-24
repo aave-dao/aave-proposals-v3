@@ -1,0 +1,57 @@
+foundry.lock
+  s_a29e3e9eb1cbe2::t_188d45af8d81c4 5
+generator/cli.spec.ts
+  s_a29e3e9eb1cbe2::t_1d79f113c64e5d 1-18
+generator/cli.ts
+  s_a29e3e9eb1cbe2::t_01ecc2ea7780ca 84
+generator/features/__snapshots__/assetListing.spec.ts.snap
+  s_a29e3e9eb1cbe2::t_533aa1c0dd8f2e 203-211
+generator/features/__snapshots__/capsUpdates.spec.ts.snap
+  s_a29e3e9eb1cbe2::t_f302aa6c9db77f 1-50
+generator/features/__snapshots__/collateralsUpdates.spec.ts.snap
+  s_a29e3e9eb1cbe2::t_c30e96ff2c4c89 1-58
+generator/features/__snapshots__/eModesCreation.spec.ts.snap
+  s_a29e3e9eb1cbe2::t_ef2d703bd2d5f5 242-250
+generator/features/__snapshots__/priceFeedsUpdate.spec.ts.snap
+  s_a29e3e9eb1cbe2::t_08e21b8df67879 116-124
+generator/features/borrowsUpdates.spec.ts
+  s_a29e3e9eb1cbe2::t_a7e2fe02260952 1-29
+generator/features/borrowsUpdates.ts
+  s_a29e3e9eb1cbe2::t_52b357130cf161 1,29-53,78,84-87
+generator/features/capsUpdates.spec.ts
+  s_a29e3e9eb1cbe2::t_8acd2d71eadc83 1-61
+generator/features/capsUpdates.ts
+  s_a29e3e9eb1cbe2::t_5b966332fb6cbc 1,24-47,74,80-83
+generator/features/collateralsUpdates.spec.ts
+  s_a29e3e9eb1cbe2::t_9c08e6bc3414d1 1-60
+generator/features/collateralsUpdates.ts
+  s_a29e3e9eb1cbe2::t_a130ffda3f9b80 35-64,92,98-101
+generator/features/freeze.spec.ts
+  s_a29e3e9eb1cbe2::t_d92363eccc7094 1-20
+generator/features/freeze.ts
+  s_a29e3e9eb1cbe2::t_9809a56d6d2cd4 2,9-24,54-57
+generator/features/mocks/configs.ts
+  s_a29e3e9eb1cbe2::t_2a4c0d17d18004 3-4,98-127
+generator/prompts.spec.ts
+  s_a29e3e9eb1cbe2::t_a0931fbba9eadc 31
+generator/templates/test.template.ts
+  s_a29e3e9eb1cbe2::t_30a98e9a8de165 37-58,86
+generator/types.ts
+  s_a29e3e9eb1cbe2::t_3f226d1cb191d6 119
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.14",
+  "base_commit_sha": "e2d35dae980b0b8aa060bcc17fdf40848a192588",
+  "prompts": {},
+  "sessions": {
+    "s_a29e3e9eb1cbe2": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f5c09-bfa0-79a3-837c-8c1d7945ecbf",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "AlbertoCentonze <11707683+AlbertoCentonze@users.noreply.github.com>"
+    }
+  }
+}

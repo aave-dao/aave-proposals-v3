@@ -1,0 +1,23 @@
+src/20260407_AaveV3Ethereum_OnboardPTUSDG28MAY2026OnV3Core/OnboardPTUSDG28MAY2026OnV3Core.md
+  3c729e851f2d2e0a 50-52,54-55,59-62,64-66
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.2.5",
+  "base_commit_sha": "76ad1b8eaa69ac8ff1c51118841f6a8f425cf707",
+  "prompts": {
+    "3c729e851f2d2e0a": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "efff92d3-615a-4a92-bd83-47047db076f8",
+        "model": "claude-sonnet-4-6"
+      },
+      "human_author": "DhairyaSethi",
+      "messages": [],
+      "total_additions": 26,
+      "total_deletions": 23,
+      "accepted_lines": 12,
+      "overriden_lines": 2
+    }
+  }
+}

@@ -1,0 +1,18 @@
+src/20260525_AaveV3Ethereum_MaintenanceGrantALRETRY_ROLEOnADI/AaveV3Ethereum_MaintenanceGrantALRETRY_ROLEOnADI_20260525.sol
+  h_739c25e72c37fb 15
+src/interfaces/IGranularGuardian.sol
+  h_739c25e72c37fb 4,11
+src/20260525_AaveV3Ethereum_MaintenanceGrantALRETRY_ROLEOnADI/AaveV3Ethereum_MaintenanceGrantALRETRY_ROLEOnADI_20260525.t.sol
+  h_739c25e72c37fb 9-10,18-19,36-49
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.0",
+  "base_commit_sha": "a5fa1b79fd8b8abb679b7f14a32a5551da3182f3",
+  "prompts": {},
+  "humans": {
+    "h_739c25e72c37fb": {
+      "author": "DhairyaSethi <55102840+DhairyaSethi@users.noreply.github.com>"
+    }
+  }
+}

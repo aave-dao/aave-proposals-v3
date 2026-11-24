@@ -1,0 +1,64 @@
+generator/templates/test.template.spec.ts
+  s_22f80b5bcb6d41::t_6d7069ee20bec3 38
+  s_22f80b5bcb6d41::t_d0e487a436799f 18,50-51,53,83,85,109,111
+  s_22f80b5bcb6d41::t_23018454c1c60b 26,93
+  s_22f80b5bcb6d41::t_f0e3fda4c1d7a1 40,75,104
+  s_22f80b5bcb6d41::t_c72191beb298e9 52,54,84,86,110,112
+generator/templates/test.template.ts
+  s_22f80b5bcb6d41::t_d0e0b755356827 50-52
+  s_22f80b5bcb6d41::t_2b57d46409c58a 28,33-34
+  s_22f80b5bcb6d41::t_0ee4f727eea7a7 27
+  s_22f80b5bcb6d41::t_44db4dc16c4e66 29-32
+generator/types.ts
+  s_22f80b5bcb6d41::t_44db4dc16c4e66 119
+generator/features/capsUpdates.ts
+  s_22f80b5bcb6d41::t_44db4dc16c4e66 82
+generator/common.ts
+  s_22f80b5bcb6d41::t_6d7069ee20bec3 121
+  s_22f80b5bcb6d41::t_23018454c1c60b 120
+generator/features/borrowsUpdates.ts
+  s_22f80b5bcb6d41::t_44db4dc16c4e66 86
+generator/common.spec.ts
+  s_22f80b5bcb6d41::t_6d7069ee20bec3 28
+  s_22f80b5bcb6d41::t_23018454c1c60b 27
+generator/features/freeze.ts
+  s_22f80b5bcb6d41::t_44db4dc16c4e66 59
+generator/features/capsUpdates.spec.ts
+  s_22f80b5bcb6d41::t_7468abbbb29853 20
+  s_22f80b5bcb6d41::t_d0e487a436799f 21,92-93,95
+  s_22f80b5bcb6d41::t_c72191beb298e9 22-26
+  s_22f80b5bcb6d41::t_bf7640c8717d8d 89
+generator/features/collateralsUpdates.ts
+  s_22f80b5bcb6d41::t_44db4dc16c4e66 100
+generator/features/__snapshots__/assetListing.spec.ts.snap
+  s_22f80b5bcb6d41::t_35582623f72b39 182,189,209-211
+generator/features/__snapshots__/capsUpdates.spec.ts.snap
+  s_22f80b5bcb6d41::t_89f1678bfcb976 44-47
+generator/features/__snapshots__/collateralsUpdates.spec.ts.snap
+  s_22f80b5bcb6d41::t_b2a458f53dde98 52-55
+generator/features/__snapshots__/eModesCreation.spec.ts.snap
+  s_22f80b5bcb6d41::t_660e245d1712ed 221,228,248-250
+generator/features/__snapshots__/priceFeedsUpdate.spec.ts.snap
+  s_22f80b5bcb6d41::t_426335042fca91 94,101,121-123
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "bd4a9a058efd2843bb54acc6207412cebb18e8c0",
+  "prompts": {},
+  "humans": {
+    "h_8b974fbabf2fb7": {
+      "author": "Alberto <albe@AMWM-H65F40J09H.local>"
+    }
+  },
+  "sessions": {
+    "s_22f80b5bcb6d41": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f3c89-d210-7122-b483-d92bfbdf7c86",
+        "model": "gpt-5.5"
+      },
+      "human_author": "Alberto <albe@AMWM-H65F40J09H.local>"
+    }
+  }
+}

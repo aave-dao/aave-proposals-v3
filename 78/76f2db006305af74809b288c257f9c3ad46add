@@ -1,0 +1,19 @@
+src/20260826_Multi_LowAdoptionAssetDeprecationOnAaveV3/LowAdoptionAssetDeprecationOnAaveV3.md
+  s_22271148bfa964::t_c7dda0449e1700 12,66
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.24",
+  "base_commit_sha": "7876f2db006305af74809b288c257f9c3ad46add",
+  "prompts": {},
+  "sessions": {
+    "s_22271148bfa964": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "098ec70f-48e6-456c-9417-38447e23eca5",
+        "model": "claude-fable-5"
+      },
+      "human_author": "DhairyaSethi <55102840+DhairyaSethi@users.noreply.github.com>"
+    }
+  }
+}

@@ -1,0 +1,36 @@
+src/20260407_AaveV3Ethereum_OnboardPTUSDG28MAY2026OnV3Core/AaveV3Ethereum_OnboardPTUSDG28MAY2026OnV3Core_20260407.t.sol
+  4dfd879daa26d529 47,49,62,66
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.2.8",
+  "base_commit_sha": "b509e334e80f7830d5e143f1fc7a294cdc93d52d",
+  "prompts": {
+    "201bc7489f400bdc": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "cf34df3f-9e50-4d77-a174-5b7c42dca7dd",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "DhairyaSethi",
+      "messages": [],
+      "total_additions": 4,
+      "total_deletions": 1,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "4dfd879daa26d529": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "471e91db-5b22-4eef-9844-6f5d98c5df16",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "DhairyaSethi",
+      "messages": [],
+      "total_additions": 161,
+      "total_deletions": 1,
+      "accepted_lines": 115,
+      "overriden_lines": 2
+    }
+  }
+}

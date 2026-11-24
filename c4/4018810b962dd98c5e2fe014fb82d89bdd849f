@@ -1,0 +1,16 @@
+src/20260506_Multi_AddCoWAdaptersToFlashBorrowers/AaveV3Gnosis_AddCoWAdaptersToFlashBorrowers_20260506.t.sol
+  h_739c25e72c37fb 19
+src/20260506_Multi_AddCoWAdaptersToFlashBorrowers/config.ts
+  h_739c25e72c37fb 47
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.1",
+  "base_commit_sha": "c44018810b962dd98c5e2fe014fb82d89bdd849f",
+  "prompts": {},
+  "humans": {
+    "h_739c25e72c37fb": {
+      "author": "DhairyaSethi <55102840+DhairyaSethi@users.noreply.github.com>"
+    }
+  }
+}

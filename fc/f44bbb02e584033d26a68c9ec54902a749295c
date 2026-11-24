@@ -1,0 +1,27 @@
+src/20260507_AaveV4Ethereum_SVRfeeds/AaveV4Ethereum_SVRfeeds_20260507_MultisigGrant.t.sol
+  s_8f5d838c325104::t_0c26a868a29e9b 35
+  s_8f5d838c325104::t_a2089f882d8497 6
+  h_71908bb6884da4 27-30,33-34,40,53,69-70,73-77,86,92-126
+  s_8f5d838c325104::t_b13d631a12184b 1-5,7-26,31-32,36-39,41-52,54-68,71-72,78-85,87-91,127
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.1",
+  "base_commit_sha": "fcf44bbb02e584033d26a68c9ec54902a749295c",
+  "prompts": {},
+  "humans": {
+    "h_71908bb6884da4": {
+      "author": "YBM <31329384+yan-man@users.noreply.github.com>"
+    }
+  },
+  "sessions": {
+    "s_8f5d838c325104": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "4233f88f-8f50-4c26-9d90-4c3a75adb044",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "YBM <31329384+yan-man@users.noreply.github.com>"
+    }
+  }
+}

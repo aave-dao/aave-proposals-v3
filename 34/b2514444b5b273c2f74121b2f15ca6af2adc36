@@ -1,0 +1,29 @@
+src/interfaces/IPriceCapAdapter.sol
+  s_8f5d838c325104::t_d90241771d4329 45-54
+src/20260507_AaveV4Ethereum_SVRfeeds/AaveV4Ethereum_SVRfeeds_20260507.t.sol
+  s_8f5d838c325104::t_dbc51e23d72e34 283,285-321,323-329
+  s_8f5d838c325104::t_0e7eea2d996987 13
+  s_8f5d838c325104::t_90f03908e733bf 35-41,43-44,46-47,49-50
+  h_71908bb6884da4 42,45,48,284,322
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.1",
+  "base_commit_sha": "34b2514444b5b273c2f74121b2f15ca6af2adc36",
+  "prompts": {},
+  "humans": {
+    "h_71908bb6884da4": {
+      "author": "YBM <31329384+yan-man@users.noreply.github.com>"
+    }
+  },
+  "sessions": {
+    "s_8f5d838c325104": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "4233f88f-8f50-4c26-9d90-4c3a75adb044",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "YBM <31329384+yan-man@users.noreply.github.com>"
+    }
+  }
+}

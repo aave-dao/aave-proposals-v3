@@ -1,0 +1,28 @@
+src/20260420_AaveV3Ethereum_UmbrellaPause/config.ts
+  h_ac33fd5bdc4037 10-11
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.0",
+  "base_commit_sha": "3344a3c81a1954accf2f324d27acfc0ac44992e1",
+  "prompts": {
+    "f46906aeec090740": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "78f234da-9d55-40b3-8ece-2a8a67834ced",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "YBM",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 40,
+      "overriden_lines": 0
+    }
+  },
+  "humans": {
+    "h_ac33fd5bdc4037": {
+      "author": "YBM"
+    }
+  }
+}

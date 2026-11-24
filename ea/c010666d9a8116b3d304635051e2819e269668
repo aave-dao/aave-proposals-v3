@@ -1,0 +1,14 @@
+src/20260504_AaveV4Ethereum_IncreaseCaps/AaveV4Ethereum_IncreaseCaps_20260504.sol
+  h_c84ca9b512ee6d 6,11,26-27,77-78,86,88
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.4",
+  "base_commit_sha": "eac010666d9a8116b3d304635051e2819e269668",
+  "prompts": {},
+  "humans": {
+    "h_c84ca9b512ee6d": {
+      "author": "DhairyaSethi"
+    }
+  }
+}

@@ -1,0 +1,60 @@
+src/helpers/v4-constants/V4Constants.sol
+  h_71908bb6884da4 1-6,8-9,14-17,20,58
+  s_8f5d838c325104::t_5f508cd73ec13e 7,10-13,18-19,21-57
+src/20260507_AaveV4Ethereum_SVRfeeds/AaveV4Ethereum_SVRfeeds_20260507_Fork.t.sol
+  s_8f5d838c325104::t_ca273755d553ce 8,22-25
+  s_8f5d838c325104::t_40f442a35054f6 4,10-12
+src/helpers/v4-constants/V4TestHelpers.sol
+  s_8f5d838c325104::t_78c1447625898f 1-30
+src/20260507_AaveV4Ethereum_SVRfeeds/SVRfeeds_20260507.s.sol
+  h_71908bb6884da4 11
+  s_8f5d838c325104::t_27f4420c3f23a8 7,16
+src/20260507_AaveV4Ethereum_SVRfeeds/AaveV4Ethereum_SVRfeeds_20260507.sol
+  s_8f5d838c325104::t_93495b1da9bfc1 12
+  s_8f5d838c325104::t_5de2e0d95a8c98 10,24
+  s_8f5d838c325104::t_df3b13d146a550 6-7,14-22,28-114
+src/20260507_AaveV4Ethereum_SVRfeeds/AaveV4Ethereum_SVRfeeds_20260507.t.sol
+  s_8f5d838c325104::t_86557a472ef13f 4
+  s_8f5d838c325104::t_84193c15066e84 23-24
+  s_8f5d838c325104::t_71794ea16ee836 195-199
+  s_8f5d838c325104::t_616979e5101c2a 215
+  s_8f5d838c325104::t_9c6af9b14fae56 124-128,160-194,203-214,219-222
+  s_8f5d838c325104::t_ac7998ec15bf4a 117
+  s_8f5d838c325104::t_442f9c4336b66c 129-156
+  s_8f5d838c325104::t_8b437dbc608486 67
+  s_8f5d838c325104::t_e6ffdf31ed96ab 6,10
+  s_8f5d838c325104::t_4a62197a313f72 28-29
+  s_8f5d838c325104::t_987c896038e1b2 22
+  s_8f5d838c325104::t_f1ebcc9249db40 237-248
+  s_8f5d838c325104::t_dcaba762a24595 49-63
+  s_8f5d838c325104::t_0c0345a5fff00d 33
+  s_8f5d838c325104::t_43d26f69f80b20 11
+  s_8f5d838c325104::t_e8c0aa38eea808 34-41
+  s_8f5d838c325104::t_35867bee4a6b78 9
+  h_71908bb6884da4 31,88,123
+  s_8f5d838c325104::t_29ce24e2f1facd 8
+  s_8f5d838c325104::t_0d82991eaaef0b 16-20
+Makefile
+  h_71908bb6884da4 17
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.1",
+  "base_commit_sha": "eecf7157e64893bad13b0dd9ceeacaef920dfb69",
+  "prompts": {},
+  "humans": {
+    "h_71908bb6884da4": {
+      "author": "YBM <31329384+yan-man@users.noreply.github.com>"
+    }
+  },
+  "sessions": {
+    "s_8f5d838c325104": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "4233f88f-8f50-4c26-9d90-4c3a75adb044",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "YBM <31329384+yan-man@users.noreply.github.com>"
+    }
+  }
+}

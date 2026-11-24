@@ -1,0 +1,58 @@
+generator/features/freeze.spec.ts
+  s_d10fefbc33a85a::t_6fd00cb8b09e35 4-7,24-25,27-45
+  s_d10fefbc33a85a::t_a803455d754e0e 26
+  s_d10fefbc33a85a::t_b7d9f479311427 46
+generator/features/assetListing.spec.ts
+  s_d10fefbc33a85a::t_b2485c9b67a209 91
+  s_d10fefbc33a85a::t_3097e06884318c 92
+  s_d10fefbc33a85a::t_5ea2a03b32d1db 7,62
+generator/features/rateUpdates.spec.ts
+  s_d10fefbc33a85a::t_8af370ca443e94 7
+  s_d10fefbc33a85a::t_7d357753bdc7af 43-44,46-63
+  s_d10fefbc33a85a::t_a803455d754e0e 45
+  s_d10fefbc33a85a::t_8d2f5e559a1ac5 64
+generator/features/capsUpdates.spec.ts
+  s_d10fefbc33a85a::t_9eeddb0efa5842 4-6,21-32
+  s_d10fefbc33a85a::t_c8e213653a852c 33-34
+generator/features/eModesUpdates.spec.ts
+  s_d10fefbc33a85a::t_6fd00cb8b09e35 4-6,24,32-34,44-49
+  s_d10fefbc33a85a::t_0374bad3a7a8cb 7,25-27,29-31,35-43
+  s_d10fefbc33a85a::t_d2c0b1715d205d 28
+  s_d10fefbc33a85a::t_7d4e018f50f434 50-51
+generator/features/borrowsUpdates.spec.ts
+  s_d10fefbc33a85a::t_6fd00cb8b09e35 4-7,33-34,43-61
+  s_d10fefbc33a85a::t_a803455d754e0e 35-42
+  s_d10fefbc33a85a::t_edd3bf598f6efd 62
+generator/features/collateralsUpdates.spec.ts
+  s_d10fefbc33a85a::t_6fd00cb8b09e35 4-6,21-32
+  s_d10fefbc33a85a::t_5f80230c708be9 33-34
+generator/features/eModesCreation.spec.ts
+  s_d10fefbc33a85a::t_6fd00cb8b09e35 8
+  s_d10fefbc33a85a::t_7d357753bdc7af 63-64
+  s_d10fefbc33a85a::t_14aca9ed2ee12d 65-66
+generator/features/priceFeedsUpdate.spec.ts
+  s_d10fefbc33a85a::t_7d357753bdc7af 41-61
+  s_d10fefbc33a85a::t_6fd00cb8b09e35 7
+  s_d10fefbc33a85a::t_728cac45711482 62
+generator/utils/compileGeneratedFiles.ts
+  s_d10fefbc33a85a::t_c141bc75996f8d 11-12
+  s_d10fefbc33a85a::t_d38087dc885a51 14
+  s_d10fefbc33a85a::t_5ea2a03b32d1db 6,22-24
+  s_d10fefbc33a85a::t_12428c11bfd2ff 25
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.11",
+  "base_commit_sha": "630b28eb4a5cff37e96493f4b8ac13e7936f54d5",
+  "prompts": {},
+  "sessions": {
+    "s_d10fefbc33a85a": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f4c2b-9522-7852-893c-6a2267d354a7",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "AlbertoCentonze <11707683+AlbertoCentonze@users.noreply.github.com>"
+    }
+  }
+}

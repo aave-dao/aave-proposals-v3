@@ -1,0 +1,29 @@
+src/20260409_AaveV4Ethereum_IncreaseCaps/AaveV4Ethereum_IncreaseCaps_20260409.t.sol
+  s_8f5d838c325104::t_bbabbcdf249dd1 78-97
+.github/workflows/test.yml
+  s_8f5d838c325104::t_ff0e552a14f938 36-41
+src/20260415_AaveV4Ethereum_IncreaseCaps/AaveV4Ethereum_IncreaseCaps_20260415.t.sol
+  s_8f5d838c325104::t_1252007900ef90 73-92
+src/20260504_AaveV4Ethereum_IncreaseCaps/AaveV4Ethereum_IncreaseCaps_20260504.t.sol
+  s_8f5d838c325104::t_2bd7a8f5c3d3cc 72-91
+foundry.lock
+  ai_agent 4-5
+.gitmodules
+  s_8f5d838c325104::t_59a1c1c3ae80cb 3
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.1",
+  "base_commit_sha": "e35b730c5e644e65eee24565fa30e2f3e26d9025",
+  "prompts": {},
+  "sessions": {
+    "s_8f5d838c325104": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "4233f88f-8f50-4c26-9d90-4c3a75adb044",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "YBM <31329384+yan-man@users.noreply.github.com>"
+    }
+  }
+}

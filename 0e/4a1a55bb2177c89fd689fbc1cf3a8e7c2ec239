@@ -1,0 +1,25 @@
+src/20260723_Multi_AaveV4Round11CapUpdates/AaveV4Round11CapUpdates.md
+  s_ad8cc01f2934ae::t_a9a8a1fbd44c02 4,17
+src/20260723_Multi_AaveV4Round11CapUpdates/AaveV4Ethereum_AaveV4Round11CapUpdates_20260723.sol
+  s_ad8cc01f2934ae::t_a9a8a1fbd44c02 13
+src/20260723_Multi_AaveV4Round11CapUpdates/AaveV4Avalanche_AaveV4Round11CapUpdates_20260723.sol
+  s_ad8cc01f2934ae::t_a9a8a1fbd44c02 13
+src/20260723_Multi_AaveV4Round11CapUpdates/config.ts
+  s_ad8cc01f2934ae::t_5d5d02766cdad0 12
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.15",
+  "base_commit_sha": "0e4a1a55bb2177c89fd689fbc1cf3a8e7c2ec239",
+  "prompts": {},
+  "sessions": {
+    "s_ad8cc01f2934ae": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f8ec2-717e-76e2-8bcc-b624b61fb485",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "AlbertoCentonze <11707683+AlbertoCentonze@users.noreply.github.com>"
+    }
+  }
+}

@@ -1,0 +1,31 @@
+src/20260507_AaveV4Ethereum_SVRfeeds/AaveV4Ethereum_SVRfeeds_20260507_MultisigGrant.t.sol
+  h_71908bb6884da4 27,32,45,61-62,65-69,78,84-118
+  s_8f5d838c325104::t_b13d631a12184b 1-5,7-26,28-31,33-44,46-60,63-64,70-77,79-83,119
+  s_8f5d838c325104::t_a2089f882d8497 6
+src/helpers/v4-constants/V4SafeHelpers.sol
+  h_71908bb6884da4 7
+  s_8f5d838c325104::t_409ace45433f5b 1-6,8-59
+src/interfaces/ISafeAccount.sol
+  s_8f5d838c325104::t_3772c9eecf942c 1-21
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.1",
+  "base_commit_sha": "d3f81bffa064453ca6a39b746fa2cac258224944",
+  "prompts": {},
+  "humans": {
+    "h_71908bb6884da4": {
+      "author": "YBM <31329384+yan-man@users.noreply.github.com>"
+    }
+  },
+  "sessions": {
+    "s_8f5d838c325104": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "4233f88f-8f50-4c26-9d90-4c3a75adb044",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "YBM <31329384+yan-man@users.noreply.github.com>"
+    }
+  }
+}

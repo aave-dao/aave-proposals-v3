@@ -1,0 +1,41 @@
+generator/common.spec.ts
+  s_1b298b9aaba146::t_a0b802b26693a7 28
+generator/common.ts
+  s_1b298b9aaba146::t_0854fdb2eaf087 121
+generator/templates/test.template.ts
+  s_1b298b9aaba146::t_41532bac04f00c 36-44,65,69,72
+generator/templates/test.template.spec.ts
+  s_1b298b9aaba146::t_cf9b6f3f121007 40,49-50,54-55,58,80-81,85-88,110-111
+  s_1b298b9aaba146::t_f800036488256e 51-52,56,82-84,112-114
+generator/features/capsUpdates.spec.ts
+  s_1b298b9aaba146::t_7aa739e42ba148 86,91-93
+  s_1b298b9aaba146::t_f800036488256e 88-89
+  s_1b298b9aaba146::t_8561f73eaec6dc 90
+generator/features/__snapshots__/assetListing.spec.ts.snap
+  s_1b298b9aaba146::t_252b09cce599e6 198,202-209
+generator/features/__snapshots__/eModesCreation.spec.ts.snap
+  s_1b298b9aaba146::t_6415239ac22e89 237,241-248
+generator/features/__snapshots__/priceFeedsUpdate.spec.ts.snap
+  s_1b298b9aaba146::t_4cec0150ea8176 110,114-121
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "13cb7c3dd9f8d066c7f2f7eb9398d240b03353a2",
+  "prompts": {},
+  "humans": {
+    "h_8b974fbabf2fb7": {
+      "author": "Alberto <albe@AMWM-H65F40J09H.local>"
+    }
+  },
+  "sessions": {
+    "s_1b298b9aaba146": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f3bc6-efaa-7121-9785-be51af5089a8",
+        "model": "gpt-5.5"
+      },
+      "human_author": "Alberto <albe@AMWM-H65F40J09H.local>"
+    }
+  }
+}

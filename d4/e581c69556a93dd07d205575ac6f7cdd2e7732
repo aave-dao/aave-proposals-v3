@@ -1,0 +1,29 @@
+src/helpers/v4/tests/utils/SnapshotV4.sol
+  2913674f624b7f39 12,16
+src/helpers/v4/tests/utils/GatewayScenarios.sol
+  2913674f624b7f39 13,17
+src/helpers/v4/tests/utils/TokenizationActions.sol
+  2913674f624b7f39 11,15
+src/helpers/v4/tests/utils/ProtocolV4TestBase.sol
+  2913674f624b7f39 19-21,29
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.2.5",
+  "base_commit_sha": "d4e581c69556a93dd07d205575ac6f7cdd2e7732",
+  "prompts": {
+    "2913674f624b7f39": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "8631fdd8-3b4b-4061-8da9-8b01c11bd53f",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "YBM",
+      "messages": [],
+      "total_additions": 10,
+      "total_deletions": 7,
+      "accepted_lines": 10,
+      "overriden_lines": 0
+    }
+  }
+}

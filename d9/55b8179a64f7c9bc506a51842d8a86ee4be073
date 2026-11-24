@@ -1,0 +1,62 @@
+src/20260507_Multi_CAPOSnapshotRatioUpdateAcrossAaveV3/AaveV3Mantle_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507.t.sol
+  s_e9a719eaae5cf8::t_69aa2db30558da 27
+src/20260507_Multi_CAPOSnapshotRatioUpdateAcrossAaveV3/config.ts
+  s_e9a719eaae5cf8::t_bea5a752c21f83 24-30
+src/20260507_Multi_CAPOSnapshotRatioUpdateAcrossAaveV3/AaveV3EthereumLido_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507.t.sol
+  s_e9a719eaae5cf8::t_34d5167baff186 26
+  s_e9a719eaae5cf8::t_8b0c1bf1d2e5cf 127
+src/20260507_Multi_CAPOSnapshotRatioUpdateAcrossAaveV3/AaveV3Linea_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507.t.sol
+  s_e9a719eaae5cf8::t_ab2c79d7f9611a 161
+  s_e9a719eaae5cf8::t_8d1bc3bb8edc98 24
+  s_e9a719eaae5cf8::t_3a79081f76bb05 153
+  s_e9a719eaae5cf8::t_d0f7c7119a6147 145
+src/20260423_Multi_LiquidateRsETHPositions/mainnet/LiquidateRsETHEthereumSetupTest.t.sol
+  h_0f977de3f043fc 40
+src/20260507_Multi_CAPOSnapshotRatioUpdateAcrossAaveV3/AaveV3Avalanche_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507.t.sol
+  s_e9a719eaae5cf8::t_6a2f99473aa5c7 117
+  s_e9a719eaae5cf8::t_69bf30d067dfee 24
+src/20260507_Multi_CAPOSnapshotRatioUpdateAcrossAaveV3/AaveV3Gnosis_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507.t.sol
+  s_e9a719eaae5cf8::t_2d1239d4475951 125
+  s_e9a719eaae5cf8::t_f9aa062879a422 134
+  s_e9a719eaae5cf8::t_775da43b3cc023 130
+  s_e9a719eaae5cf8::t_ba948f6d3c3754 24
+  s_e9a719eaae5cf8::t_ac2eff4eb444c2 117
+src/20260507_Multi_CAPOSnapshotRatioUpdateAcrossAaveV3/AaveV3Ethereum_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507.t.sol
+  s_e9a719eaae5cf8::t_3ab39e8260537a 321
+  s_e9a719eaae5cf8::t_edb7452bc4f567 26
+  s_e9a719eaae5cf8::t_44eacb74a93637 281
+  s_e9a719eaae5cf8::t_12686839107a6d 305
+  s_e9a719eaae5cf8::t_d6d0ff5561ca49 297
+  s_e9a719eaae5cf8::t_1a601f1420b5b8 289
+  s_e9a719eaae5cf8::t_88790244c02dc1 313
+src/20260507_Multi_CAPOSnapshotRatioUpdateAcrossAaveV3/AaveV3Plasma_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507.t.sol
+  s_e9a719eaae5cf8::t_443a6583ceeb4c 125
+  s_e9a719eaae5cf8::t_22a47c509775f9 24
+src/20260507_Multi_CAPOSnapshotRatioUpdateAcrossAaveV3/AaveV3Polygon_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507.t.sol
+  s_e9a719eaae5cf8::t_ccdb32b90e7b59 134
+  s_e9a719eaae5cf8::t_b9bfd916d17934 117
+  s_e9a719eaae5cf8::t_03371808a5fca2 125
+  s_e9a719eaae5cf8::t_4eda013f252507 24
+  s_e9a719eaae5cf8::t_652d1b33cad550 130
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.9",
+  "base_commit_sha": "d955b8179a64f7c9bc506a51842d8a86ee4be073",
+  "prompts": {},
+  "humans": {
+    "h_0f977de3f043fc": {
+      "author": "Alexandru Niculae <43644109+avniculae@users.noreply.github.com>"
+    }
+  },
+  "sessions": {
+    "s_e9a719eaae5cf8": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6395a9d4-0161-4243-ac5e-114b3f9b740c",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "Alexandru Niculae <43644109+avniculae@users.noreply.github.com>"
+    }
+  }
+}

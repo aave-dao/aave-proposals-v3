@@ -1,0 +1,39 @@
+src/20261028_Multi_UpdateCoWSwapAdaptersFlashBorrowers/AaveV3Arbitrum_UpdateCoWSwapAdaptersFlashBorrowers_20261028.t.sol
+  s_ab7402e30fb8c3::t_45e9bc302d2319 9
+src/20261028_Multi_UpdateCoWSwapAdaptersFlashBorrowers/AaveV3Avalanche_UpdateCoWSwapAdaptersFlashBorrowers_20261028.t.sol
+  s_ab7402e30fb8c3::t_1b4a2945ec80a7 9
+src/20261028_Multi_UpdateCoWSwapAdaptersFlashBorrowers/AaveV3BNB_UpdateCoWSwapAdaptersFlashBorrowers_20261028.t.sol
+  s_ab7402e30fb8c3::t_8da74b1eaf0dc4 9
+src/20261028_Multi_UpdateCoWSwapAdaptersFlashBorrowers/AaveV3Base_UpdateCoWSwapAdaptersFlashBorrowers_20261028.t.sol
+  s_ab7402e30fb8c3::t_99c0d624522184 9
+src/20261028_Multi_UpdateCoWSwapAdaptersFlashBorrowers/AaveV3EthereumLido_UpdateCoWSwapAdaptersFlashBorrowers_20261028.t.sol
+  s_ab7402e30fb8c3::t_04204fcd76dc90 9
+src/20261028_Multi_UpdateCoWSwapAdaptersFlashBorrowers/AaveV3Ethereum_UpdateCoWSwapAdaptersFlashBorrowers_20261028.t.sol
+  s_ab7402e30fb8c3::t_584c44d953cfba 9
+src/20261028_Multi_UpdateCoWSwapAdaptersFlashBorrowers/AaveV3Gnosis_UpdateCoWSwapAdaptersFlashBorrowers_20261028.t.sol
+  s_ab7402e30fb8c3::t_73a3bd7a1e85a6 9
+src/20261028_Multi_UpdateCoWSwapAdaptersFlashBorrowers/AaveV3Linea_UpdateCoWSwapAdaptersFlashBorrowers_20261028.t.sol
+  s_ab7402e30fb8c3::t_9466e7589fadc8 9
+src/20261028_Multi_UpdateCoWSwapAdaptersFlashBorrowers/AaveV3Plasma_UpdateCoWSwapAdaptersFlashBorrowers_20261028.t.sol
+  s_ab7402e30fb8c3::t_abda4f0051d5ae 9
+src/20261028_Multi_UpdateCoWSwapAdaptersFlashBorrowers/AaveV3Polygon_UpdateCoWSwapAdaptersFlashBorrowers_20261028.t.sol
+  s_ab7402e30fb8c3::t_ca44485a610960 9
+src/helpers/cow-adapters/CoWFlashBorrowerBaseTest.sol
+  s_ab7402e30fb8c3::t_331fe7fb3befec 10
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "cfbd24143867d897af325108442ead4220f89059",
+  "prompts": {},
+  "sessions": {
+    "s_ab7402e30fb8c3": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "18a76094-f424-46d5-b9ea-92fd41a4e5c6",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "DhairyaSethi <55102840+DhairyaSethi@users.noreply.github.com>"
+    }
+  }
+}

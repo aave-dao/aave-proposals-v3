@@ -1,0 +1,34 @@
+src/20260527_AaveV4Ethereum_IncreaseCaps/AaveV4Ethereum_IncreaseCaps_20260527.sol
+  h_739c25e72c37fb 1-28,30-35,49-74
+  s_c9ccd22ada7a88::t_2c779cfdc58294 29,36-48
+src/20260527_AaveV4Ethereum_IncreaseCaps/IncreaseCaps_20260520.s.sol
+  h_739c25e72c37fb 1-20
+src/20260527_AaveV4Ethereum_IncreaseCaps/AaveV4Ethereum_IncreaseCaps_20260527.md
+  s_c9ccd22ada7a88::t_638fe6dd524e27 32-37
+  h_739c25e72c37fb 1-26,41-50
+  s_c9ccd22ada7a88::t_2ec1e1786f87fb 27-31,38-40
+src/20260527_AaveV4Ethereum_IncreaseCaps/AaveV4Ethereum_IncreaseCaps_20260527.t.sol
+  s_c9ccd22ada7a88::t_f46e293a298afe 122-135,140-152,159-171
+  h_739c25e72c37fb 1-121,136-139,153-158,172-219
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.2",
+  "base_commit_sha": "05cf3a9d68bed2b58e0f6c5015e973026849e89a",
+  "prompts": {},
+  "humans": {
+    "h_739c25e72c37fb": {
+      "author": "DhairyaSethi <55102840+DhairyaSethi@users.noreply.github.com>"
+    }
+  },
+  "sessions": {
+    "s_c9ccd22ada7a88": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "fe54a14e-c375-41ca-85a5-25e77cad0288",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "DhairyaSethi <55102840+DhairyaSethi@users.noreply.github.com>"
+    }
+  }
+}

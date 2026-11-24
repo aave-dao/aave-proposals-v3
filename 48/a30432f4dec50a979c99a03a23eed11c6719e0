@@ -1,0 +1,16 @@
+src/20260423_Multi_LiquidateRsETHPositions/mainnet/LiquidateRsETHEthereumSetupTest.t.sol
+  h_e42aa0fb58e660 4,9-10,12,16,21,26,40-51,53,59,62-65,67-69,71-76,78-79,84-110,112-114,181,185,189,328-333
+src/20260423_Multi_LiquidateRsETHPositions/setup/LiquidateRsETHPositionsSetupTest.t.sol
+  h_e42aa0fb58e660 11,19,458-473
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.4",
+  "base_commit_sha": "48a30432f4dec50a979c99a03a23eed11c6719e0",
+  "prompts": {},
+  "humans": {
+    "h_e42aa0fb58e660": {
+      "author": "Alexandru Niculae"
+    }
+  }
+}

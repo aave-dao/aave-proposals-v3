@@ -1,0 +1,69 @@
+src/20260506_Multi_AddCoWFactoriesToFlashBorrowers/AaveV3Plasma_AddCoWFactoriesToFlashBorrowers_20260506.t.sol
+  s_5144b0c8064704::t_9f1a5c17834050 56
+  s_5144b0c8064704::t_cd956e3c1c8407 50-53,57-61
+  s_5144b0c8064704::t_95325fda1c1f1d 5-6,9,15,36-49,54-55,62
+src/20260506_Multi_AddCoWFactoriesToFlashBorrowers/AaveV3Gnosis_AddCoWFactoriesToFlashBorrowers_20260506.t.sol
+  s_5144b0c8064704::t_943fdebd94078d 5-6,9,15,36-49,52-53,56,60
+  s_5144b0c8064704::t_d9076930bfaa94 50-51,55,57,59
+  s_5144b0c8064704::t_e33eecdcecbdc0 58
+  s_5144b0c8064704::t_bb96608a0b5590 54
+src/20260506_Multi_AddCoWFactoriesToFlashBorrowers/setup/CoWFlashBorrowerBaseTest.t.sol
+  s_5144b0c8064704::t_860156ae71a794 279,283,289
+  h_739c25e72c37fb 10,131,133,139-140,241
+  s_5144b0c8064704::t_61db599cc3aa30 127-130,132,134-138
+  s_5144b0c8064704::t_2bd5a51264f35e 388-389,392
+  s_5144b0c8064704::t_725897636e9f88 1-9,11-88,93-94,97-126,141-149,151-240,242-278,280-282,284-288,290-387,390-391,393-563
+  s_5144b0c8064704::t_69b4d7862fcfab 89-92,95-96
+  s_5144b0c8064704::t_5435745744fa3c 150
+src/20260506_Multi_AddCoWFactoriesToFlashBorrowers/AaveV3BNB_AddCoWFactoriesToFlashBorrowers_20260506.t.sol
+  s_5144b0c8064704::t_b3f0ec911a80dc 57
+  s_5144b0c8064704::t_f634c3894b002c 5-6,9,15,36-56,58-59
+src/20260506_Multi_AddCoWFactoriesToFlashBorrowers/AaveV3Polygon_AddCoWFactoriesToFlashBorrowers_20260506.t.sol
+  s_5144b0c8064704::t_42ec6afb6ce2e6 5-6,9,15,36,38-49,52-53,56-57,59-60
+  s_5144b0c8064704::t_7881e8bb2143a9 37
+  s_5144b0c8064704::t_c7fdd17ace5e99 50-51,54-55
+  s_5144b0c8064704::t_4446bd6cc2d1bb 58
+src/20260506_Multi_AddCoWFactoriesToFlashBorrowers/AaveV3Ethereum_AddCoWFactoriesToFlashBorrowers_20260506.t.sol
+  s_5144b0c8064704::t_84c1f4a99b0cb7 61
+  s_5144b0c8064704::t_88b3f6aecf8950 42
+  s_5144b0c8064704::t_5f7ebdcf59e3a7 6,9,15,43,46-47,50,54,56-60,62
+  h_739c25e72c37fb 5,41,44-45,48-49,51-53,55,63-64
+src/20260506_Multi_AddCoWFactoriesToFlashBorrowers/AaveV3Base_AddCoWFactoriesToFlashBorrowers_20260506.t.sol
+  s_5144b0c8064704::t_5237a2285177cd 50,53
+  s_5144b0c8064704::t_511ee503af01d2 5-6,9,15,36-49,51-52,54-56,58-59
+  s_5144b0c8064704::t_cfc5d5e65603c9 57
+src/20260506_Multi_AddCoWFactoriesToFlashBorrowers/AaveV3Linea_AddCoWFactoriesToFlashBorrowers_20260506.t.sol
+  s_5144b0c8064704::t_c62183b6bcaab4 5-6,9,15,36-55,57-58
+  s_5144b0c8064704::t_e436a1aa811d4d 56
+src/20260506_Multi_AddCoWFactoriesToFlashBorrowers/AaveV3Arbitrum_AddCoWFactoriesToFlashBorrowers_20260506.t.sol
+  s_5144b0c8064704::t_29a40d9bf5d897 52-53,56-57
+  s_5144b0c8064704::t_7381ec56a38650 60
+  s_5144b0c8064704::t_eba77cc2f090bb 5-6,9,15,38-51,54-55,58-59,61-62
+src/20260506_Multi_AddCoWFactoriesToFlashBorrowers/setup/CoWFlashBorrowerTestUtils.sol
+  h_739c25e72c37fb 56,88,97-101
+  s_5144b0c8064704::t_4db02ac59b6339 1-55,57-87,89-96,102-397
+src/20260506_Multi_AddCoWFactoriesToFlashBorrowers/AaveV3Avalanche_AddCoWFactoriesToFlashBorrowers_20260506.t.sol
+  s_5144b0c8064704::t_62463675813bc8 5-6,9,15,38-57,59-60
+  s_5144b0c8064704::t_138946e92c5d29 58
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.1",
+  "base_commit_sha": "b275ee63874b7547907da386a7d12c1f59ba9881",
+  "prompts": {},
+  "humans": {
+    "h_739c25e72c37fb": {
+      "author": "DhairyaSethi <55102840+DhairyaSethi@users.noreply.github.com>"
+    }
+  },
+  "sessions": {
+    "s_5144b0c8064704": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "8c4d2a97-102e-4cc7-9437-1cb35ddc30bc",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "DhairyaSethi <55102840+DhairyaSethi@users.noreply.github.com>"
+    }
+  }
+}

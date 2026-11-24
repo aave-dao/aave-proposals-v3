@@ -1,0 +1,19 @@
+.agents/skills/write-aave-proposals/references/asset-listing.md
+  s_2e270b415224bd::t_df0b1b449982f0 13-28
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "8555c4dba9c2c86107e275850efadac9d3fb0827",
+  "prompts": {},
+  "sessions": {
+    "s_2e270b415224bd": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "abaf3ac3-d530-4ce2-87cb-62f190101161",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "AlbertoCentonze <11707683+AlbertoCentonze@users.noreply.github.com>"
+    }
+  }
+}
