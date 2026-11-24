@@ -160,6 +160,10 @@ contract AaveV3Ethereum_UmbrellaRewardRenewalAndParameterUpdateOnAaveV3Core_2026
   }
 
   function test_allowancesAbsolute() public {
+    assertLt(_allowance(AaveV3EthereumAssets.USDC_A_TOKEN), USDC_ALLOWANCE);
+    assertLt(_allowance(AaveV3EthereumAssets.USDT_A_TOKEN), USDT_ALLOWANCE);
+    assertLt(_allowance(AaveV3EthereumAssets.WETH_A_TOKEN), WETH_ALLOWANCE);
+
     executePayload(vm, address(proposal));
 
     assertEq(_allowance(AaveV3EthereumAssets.USDC_A_TOKEN), USDC_ALLOWANCE);

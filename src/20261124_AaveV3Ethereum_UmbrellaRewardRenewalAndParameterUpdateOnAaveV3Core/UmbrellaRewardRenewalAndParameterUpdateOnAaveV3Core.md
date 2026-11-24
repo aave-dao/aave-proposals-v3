@@ -22,26 +22,17 @@ This proposal applies the framework from TokenLogic's June parameter update. Tar
 
 Borrowing has grown in all three covered markets since the June update. USDC loans rose 36%, USDT loans rose 24%, and WETH loans rose 15% (measured in WETH). Part of the USDC growth is recent and concentrated: in early November, one account collateralized with USDe and sUSDe borrowed more than $330M of USDC within a few hours, while USDT borrowing grew more gradually.
 
-Source: TokenLogic Aave Analytics API | November 17, 2026
-
 ## Collateral Quality
 
 We measure collateral quality by the pristine share of the collateral behind each market's debt, with pristine defined as ETH, WBTC, cbBTC, wstETH, USDC and USDT. That share has fallen for both stablecoins and risen for WETH as rsETH left the book.
-Source: TokenLogic Aave Analytics API, Ethereum mainnet | June 3 and November 17, 2026
-
-Source: TokenLogic Aave Analytics API | June 3 and November 17, 2026
 
 Two-thirds of the USDC decline comes from USDe and sUSDe, which rose from 4% to 12% of the collateral behind USDC debt, with weETH accounting for most of the rest. Nearly all of the USDe-backed debt sits in stable-on-stable E-Mode loops. In USDT the smaller decline came as weETH and syrupUSDT grew; Core prices syrupUSDT at Maple's loss-adjusted exit value, and Maple reports no unrealized losses today.
 
 Outside stable-on-stable loops, 1% of USDC debt and 1.3% of USDT debt sit below a health factor of 1.1. If syrupUSDT positions count as credit-bearing, the USDT share is 5.4%, and in both markets collateral covers debt close to twice over.
 
-Source: TokenLogic Aave Analytics API | November 17, 2026
-
 The WETH book remains a leveraged staking book, with weETH at more than half of collateral value. About 94% of WETH debt sits in ETH-correlated E-Mode loops, almost all of it at health factors between 1.01 and 1.06 and exposed to the exchange rate between the liquid staking token and ETH, the risk that materialized in the rsETH incident. In August 2026, [ether.fi](http://ether.fi) [removed restaking](https://etherfi.gitbook.io/etherfi/products/staking/eeth) from weETH, which is now a plain liquid staking token with no EigenLayer AVS slashing exposure. This removes one source of risk to the WETH reserve.
 
 The reserves in the repositioning ARFC's scope back only $68M of USDC debt and $47M of USDT debt, so the repositioning mainly affects WETH. On WETH they back a far larger amount, almost all of it against rsETH and osETH. The ARFC stops new supply and borrowing against osETH and keeps rsETH frozen, as it has been since April. It also adds wstETH, weETH and cbETH to the rsETH E-Mode, so the loops can swap collateral without repaying their WETH debt. The ARFC provides for an orderly migration, worked out with the issuers and largest borrowers, into collateral that remains on Core or into Aave V4.
-
-Source: TokenLogic Aave Analytics API, Aave governance forum | November 17, 2026
 
 ## Deficit Offsets
 
@@ -53,8 +44,6 @@ Yields on the stablecoin alternatives tracked below have risen since June, and A
 
 Lido stETH, weETH and Aave Core WETH supply have stayed close to their June levels, and the WETH Umbrella emission APR on its own sits above both staking yields.
 
-Source: FRED, TokenLogic Aave Analytics API, Morpho, Sky, Ethena, DefiLlama (Maple, Lido, [ether.fi](http://ether.fi)) | 7-day averages to June 3 and to November 17, 2026 (SOFR, T-bill and Fed funds to November 16; sUSDe to November 11); Fed funds is the target-range upper bound
-
 ## Staker Participation Since the June Update
 
 Both stablecoin modules have stayed above target every day since the update executed. A staker who starts a cooldown is not committed to leaving. Across all cooldown windows closed since launch (to October 26), stakers withdrew 44% of queued USDC, 55% of queued USDT and 51% of queued WETH (the historical share). If the historical share of today's USDC queue is withdrawn, USDC stake would stand near 46M, still above target.
@@ -62,10 +51,6 @@ Both stablecoin modules have stayed above target every day since the update exec
 stkwaEthUSDT has held higher still, though stake has declined since the day of the update. Its cooldown queue, more than half of stake, is the largest of the three markets, and the five largest holders account for $24M of it. The queue has grown over the last three weeks.
 
 stkwaEthWETH has sat below target since one large holder withdrew in January. Without that holder, WETH stake has never reached its target, peaking just below it in April. Since the trough in May and June, stake has rebuilt gradually at an emission APR averaging 3.6%.
-
-Source: Ethereum mainnet (stkwaEthUSDC, stkwaEthUSDT, stkwaEthWETH, Umbrella RewardsController) | November 17, 2026
-
-Source: Ethereum mainnet (Umbrella RewardsController), TokenLogic Aave Analytics API | November 17, 2026
 
 ## Recommendation
 
@@ -80,11 +65,8 @@ The main participation risk is the USDT cooldown queue, which contains more than
 WETH Target Liquidity remains unchanged while the WETH book is in transition. The unwind of rsETH and osETH loops may reduce the WETH loan book, but how much of that exposure stays on Core is not yet known. Stake is already 7,200 WETH below target, and raising the target would not automatically increase participation.
 
 We propose keeping the WETH emission unchanged at 470 aEthWETH per year, an APY at target of 2.51%. WETH stake remains below target, and the proposal lowers the premium only where stake sits above target. We will reassess the WETH parameters once the rsETH and osETH offboarding completes.
-Source: Ethereum mainnet (Umbrella RewardsController) | November 17, 2026
 
 The proposal lowers annual reward spend by 6.7% at maximum emission and by 5.5% at today's stakes. The new parameters apply from execution, intended on or before December 2. Over the rest of the period, the proposal saves $49.7k at today's stakes. The new allowances, $1.84M in total, cover the rewards already accrued plus emissions at the maximum rate to the end of the period, as in the September renewal.
-
-Source: Ethereum mainnet (Umbrella RewardsController), TokenLogic Aave Analytics API | November 17, 2026 | WETH at $1,814.66
 
 ## Specification
 
