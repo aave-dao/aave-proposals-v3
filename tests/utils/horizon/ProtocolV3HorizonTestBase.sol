@@ -8,13 +8,9 @@ import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/src/ProtocolV3Test
 import {IPoolAddressesProvider} from 'aave-v3-origin/contracts/interfaces/IPoolAddressesProvider.sol';
 import {IAaveOracle} from 'aave-v3-origin/contracts/interfaces/IAaveOracle.sol';
 import {IPoolConfigurator} from 'aave-v3-origin/contracts/interfaces/IPoolConfigurator.sol';
-import {IACLManager} from 'aave-v3-origin/contracts/interfaces/IACLManager.sol';
-import {AaveV3EthereumHorizonCustom} from './AaveV3EthereumHorizonCustom.sol';
-import {AaveHorizonGovV3Helpers} from './AaveHorizonGovV3Helpers.sol';
 import {HorizonRwaWhitelistHelper} from './HorizonRwaWhitelistHelper.sol';
 import {HorizonConfigAssertionHelper} from './HorizonConfigAssertionHelper.sol';
 import {Errors} from './Errors.sol';
-import {ISafeAccount} from './ISafeAccount.sol';
 
 /**
  * @dev Adapted from ProtocolV3TestBase for the Horizon market (currently at Aave v3.3).
@@ -95,22 +91,6 @@ abstract contract ProtocolV3HorizonTestBase is
 
     e2eTest_v3_3(pool);
     return (configBefore, configAfter);
-  }
-
-  /**
-   * @dev Post-execution test suite. Forks after the payload has already been executed
-   *      on mainnet and validates live state + runs full E2E without executing a payload.
-   *      Skips aToken whitelisting since they are already whitelisted on mainnet.
-   */
-  function defaultTest_v3_3_postExecution(IPool pool) public {
-    ReserveConfig[] memory configs = _getReservesConfigs(pool);
-    _runHorizonValidations(pool, configs);
-
-    _initTestActors();
-    _whitelistRwaUsers(_testActorsArray());
-    _whitelistRwaPool(pool);
-
-    e2eTest_v3_3(pool);
   }
 
   /**
@@ -298,10 +278,6 @@ abstract contract ProtocolV3HorizonTestBase is
     }
   }
 
-  function _pool() internal pure returns (IPool) {
-    return IPool(AaveV3EthereumHorizonCustom.POOL);
-  }
-
   /**
    * @dev Returns the value of `amount` of `config`'s underlying in the oracle base currency (8 decimals),
    *      matching the units returned by `IPool.getUserAccountData`.
@@ -315,27 +291,6 @@ abstract contract ProtocolV3HorizonTestBase is
       IPoolAddressesProvider(pool.ADDRESSES_PROVIDER()).getPriceOracle()
     );
     return (amount * oracle.getAssetPrice(config.underlying)) / 10 ** config.decimals;
-  }
-
-  /**
-   * @dev Execute a Horizon payload through the real executor path.
-   * HORIZON_EMERGENCY calls HORIZON_EXECUTOR.executeTransaction() which delegatecalls
-   * the payload. Matches the production multisig execution flow exactly.
-   */
-  function _executeHorizonPayload(address payload) internal {
-    (address to, bytes memory data, ) = AaveHorizonGovV3Helpers.createExecutorCalldata(payload);
-
-    vm.startPrank(AaveV3EthereumHorizonCustom.HORIZON_EMERGENCY);
-    (bool success, bytes memory resultData) = to.call(data);
-    vm.stopPrank();
-    if (!success) {
-      if (resultData.length > 0) {
-        assembly {
-          revert(add(resultData, 32), mload(resultData))
-        }
-      }
-      revert('_executeHorizonPayload: unknown error');
-    }
   }
 
   function _initTestActors() internal {
@@ -514,100 +469,5 @@ abstract contract ProtocolV3HorizonTestBase is
       if (collateralInEMode && borrowableInEMode) return true;
     }
     return false;
-  }
-
-  function _setExpectedConfig() internal virtual {}
-
-  // ---------------------------------------------------------------------------
-  // Gnosis Safe multisig transaction helpers
-  // ---------------------------------------------------------------------------
-
-  /**
-   * @dev Execute a transaction as the HORIZON_EMERGENCY multisig.
-   * @param to      The `to` address of the Safe transaction.
-   * @param data    The calldata of the Safe transaction.
-   * @param operation 0 = call, 1 = delegatecall.
-   */
-  function _executeEmergencyMultisigTx(
-    address to,
-    bytes memory data,
-    uint8 operation,
-    uint256 nonce
-  ) internal {
-    _executeSafeTx({
-      safe: AaveV3EthereumHorizonCustom.HORIZON_EMERGENCY,
-      to: to,
-      data: data,
-      operation: operation,
-      nonce: nonce
-    });
-  }
-
-  /**
-   * @dev Execute a transaction as the HORIZON_OPS multisig.
-   * @param to        The `to` address of the Safe transaction.
-   * @param data      The calldata of the Safe transaction.
-   * @param operation 0 = call, 1 = delegatecall.
-   * @param nonce     The Safe nonce to set before execution.
-   */
-  function _executeOpsMultisigTx(
-    address to,
-    bytes memory data,
-    uint8 operation,
-    uint256 nonce
-  ) internal {
-    _executeSafeTx({
-      safe: AaveV3EthereumHorizonCustom.HORIZON_OPS,
-      to: to,
-      data: data,
-      operation: operation,
-      nonce: nonce
-    });
-  }
-
-  /**
-   * @dev Core Safe execution: sets threshold to 1 and nonce, picks the first owner,
-   *      and calls execTransaction with a minimal pre-approved signature.
-   */
-  function _executeSafeTx(
-    address safe,
-    address to,
-    bytes memory data,
-    uint8 operation,
-    uint256 nonce
-  ) internal {
-    // reset signer threshold to 1 (slot 4) and set nonce (slot 5)
-    vm.store(safe, bytes32(uint256(4)), bytes32(uint256(1)));
-    // force set nonce for simulation
-    vm.store(safe, bytes32(uint256(5)), bytes32(nonce));
-    address signer = ISafeAccount(safe).getOwners()[0];
-
-    vm.prank(signer);
-    (bool ok, bytes memory ret) = safe.call(
-      abi.encodeCall(
-        ISafeAccount.execTransaction,
-        (
-          to, // to
-          0, // value
-          data,
-          operation,
-          0, // safeTxGas
-          0, // baseGas
-          0, // gasPrice
-          address(0), // gasToken
-          payable(address(0)), // refundReceiver
-          abi.encodePacked(bytes32(uint256(uint160(signer))), bytes32(0), uint8(1)) // r, s, v
-        )
-      )
-    );
-
-    if (!ok) {
-      if (ret.length > 0) {
-        assembly {
-          revert(add(ret, 32), mload(ret))
-        }
-      }
-      revert('_executeSafeTx: unknown error');
-    }
   }
 }
