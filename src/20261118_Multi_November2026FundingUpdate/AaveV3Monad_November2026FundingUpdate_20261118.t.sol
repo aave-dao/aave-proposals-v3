@@ -24,10 +24,8 @@ contract AaveV3Monad_November2026FundingUpdate_20261118_Test is ProtocolV3TestBa
   AaveV3Monad_November2026FundingUpdate_20261118 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('monad'), 123343815);
+    vm.createSelectFork(vm.rpcUrl('monad'), 125108700);
     proposal = new AaveV3Monad_November2026FundingUpdate_20261118();
-    // rewards are claimed by the AFC before execution
-    deal(proposal.WMON(), GhoMonad.GSM_USDC, 1_458_970 ether);
   }
 
   /**
