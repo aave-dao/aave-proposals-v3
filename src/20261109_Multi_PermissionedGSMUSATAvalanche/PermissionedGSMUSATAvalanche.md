@@ -62,11 +62,13 @@ The GSM is permissioned. Each swap direction has its own access control:
 - **Sell:** swap waCoreUSAT for GHO.
 - **Buy:** swap GHO for waCoreUSAT.
 
-An address can have access to one direction or to both directions. The initial whitelist would include only an Aave DAO Safe, controlled by the Aave Finance Committee, with access in both directions. The commercial counterparty would get approved in a follow-up GHO Risk Council transaction.
+An address can have access to one direction or to both directions.
+
+Clarification: the ARFC and the Snapshot named an Aave DAO Safe, controlled by the Aave Finance Committee, as the only address on the initial whitelist, with the commercial counterparty approved in a follow-up GHO Risk Council transaction. This AIP does not give access to that Safe. Instead, it gives access in both directions to two testing addresses and to the final address of the commercial counterparty, all listed in the Initial USAT Configuration table. The GHO Risk Council would revoke the access of the two testing addresses through its Safe after the tests.
 
 The AIP gives the GHO Risk Council ([`0x8513e6F37dBc52De87b166980Fa3F50639694B60`](https://snowscan.xyz/address/0x8513e6F37dBc52De87b166980Fa3F50639694B60)) the swap access manager role. With this role, the GHO Stewards can:
 
-- give or remove buy access, sell access, or both, for any address, including the commercial counterparty, after the AIP executes;
+- give or remove buy access, sell access, or both, for any address, after the AIP executes;
 - open buys, sells, or both to all addresses, and close them again.
 
 Aave Governance keeps the same role and can revoke the GHO Stewards' role at any time.
@@ -77,17 +79,18 @@ Only the GHO Risk Council ([`0x8513e6F37dBc52De87b166980Fa3F50639694B60`](https:
 
 #### Initial USAT Configuration
 
-| Parameter                | Proposed Configuration                                                                                                                                                    |
-| ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Network                  | Avalanche                                                                                                                                                                 |
-| Underlying Asset         | USAT                                                                                                                                                                      |
-| Underlying Asset Address | [`0x9A5926fd88F747c357738b1e82aFB46AB80f0A6b`](https://snowscan.xyz/address/0x9A5926fd88F747c357738b1e82aFB46AB80f0A6b)                                                   |
-| Aave Market              | Aave V4                                                                                                                                                                   |
-| Configured GSM Asset     | waCoreUSAT                                                                                                                                                                |
-| Receipt Token Address    | [`0x653F2541E7d51a846e92fA6F7866bA92e465a379`](https://snowscan.xyz/address/0x653F2541E7d51a846e92fA6F7866bA92e465a379)                                                   |
-| GSM Implementation       | Permissioned remoteGSM                                                                                                                                                    |
-| Approved Aave DAO Safe   | [`0x22740deBa78d5a0c24C58C740e3715ec29de1bFa`](https://snowscan.xyz/address/0x22740deBa78d5a0c24C58C740e3715ec29de1bFa)                                                   |
-| GSM Registry             | The AIP adds the GSM to the Avalanche GsmRegistry [`0x0a0dFf46122dFdc2aF0D5D66f23BA8f78bf17edF`](https://snowscan.xyz/address/0x0a0dFf46122dFdc2aF0D5D66f23BA8f78bf17edF) |
+| Parameter                | Proposed Configuration                                                                                                                                                                                                                           |
+| ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Network                  | Avalanche                                                                                                                                                                                                                                        |
+| Underlying Asset         | USAT                                                                                                                                                                                                                                             |
+| Underlying Asset Address | [`0x9A5926fd88F747c357738b1e82aFB46AB80f0A6b`](https://snowscan.xyz/address/0x9A5926fd88F747c357738b1e82aFB46AB80f0A6b)                                                                                                                          |
+| Aave Market              | Aave V4                                                                                                                                                                                                                                          |
+| Configured GSM Asset     | waCoreUSAT                                                                                                                                                                                                                                       |
+| Receipt Token Address    | [`0x653F2541E7d51a846e92fA6F7866bA92e465a379`](https://snowscan.xyz/address/0x653F2541E7d51a846e92fA6F7866bA92e465a379)                                                                                                                          |
+| GSM Implementation       | Permissioned remoteGSM                                                                                                                                                                                                                           |
+| Testing Swappers         | [`0x1aE7FE695Fe1b71D93e0aaA0dd1CdD3890B83586`](https://snowscan.xyz/address/0x1aE7FE695Fe1b71D93e0aaA0dd1CdD3890B83586), [`0x966cAF619A159F35721b27fEE9147bE99a255991`](https://snowscan.xyz/address/0x966cAF619A159F35721b27fEE9147bE99a255991) |
+| Final Swapper            | [`0xC7b219Ae49Fb6418576E53F9068717D4826F1A0f`](https://snowscan.xyz/address/0xC7b219Ae49Fb6418576E53F9068717D4826F1A0f)                                                                                                                          |
+| GSM Registry             | The AIP adds the GSM to the Avalanche GsmRegistry [`0x0a0dFf46122dFdc2aF0D5D66f23BA8f78bf17edF`](https://snowscan.xyz/address/0x0a0dFf46122dFdc2aF0D5D66f23BA8f78bf17edF)                                                                        |
 
 #### Liquidity and Economic Parameters
 

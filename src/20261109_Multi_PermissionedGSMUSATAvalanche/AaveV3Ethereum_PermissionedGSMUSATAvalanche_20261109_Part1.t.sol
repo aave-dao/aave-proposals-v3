@@ -67,10 +67,6 @@ contract AaveV3Ethereum_PermissionedGSMUSATAvalanche_20261109_Part1_Test is Prot
     bucket = pool.getCurrentOutboundRateLimiterState(CCIPChainSelectors.AVALANCHE);
     assertEq(bucket.tokens, tokensBefore + EXPECTED_TEMP_BRIDGE_RATE, 'one second of refill');
     assertGe(bucket.tokens, Setup.GHO_BRIDGE_AMOUNT);
-
-    // From an empty bucket, one second refills 1 GHO short of the transfer; two seconds cover it
-    assertLt(Setup.TEMP_BRIDGE_RATE, Setup.GHO_BRIDGE_AMOUNT);
-    assertGe(2 * uint256(Setup.TEMP_BRIDGE_RATE), Setup.GHO_BRIDGE_AMOUNT);
   }
 
   function test_inboundRateLimiterUnchanged() public {

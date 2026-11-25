@@ -5,7 +5,6 @@ import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
 import {GhoAvalanche} from 'aave-address-book/GhoAvalanche.sol';
 import {AaveV3Avalanche} from 'aave-address-book/AaveV3Avalanche.sol';
 import {GovernanceV3Avalanche} from 'aave-address-book/GovernanceV3Avalanche.sol';
-import {MiscAvalanche} from 'aave-address-book/MiscAvalanche.sol';
 import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGenericExecutor.sol';
 
 import {CCIPChainSelectors} from 'src/helpers/gho-launch/constants/CCIPChainSelectors.sol';
@@ -41,6 +40,15 @@ contract AaveV3Avalanche_PermissionedGSMUSATAvalanche_20261109_Part2 is IProposa
   IPermissionedGsm public constant GSM_USAT =
     IPermissionedGsm(0xF6b70344b92cAb2D23c96eA834bbb45ADbdd6c40);
 
+  // https://snowscan.xyz/address/0x1aE7FE695Fe1b71D93e0aaA0dd1CdD3890B83586
+  address public constant TESTING_SWAPPER_1 = 0x1aE7FE695Fe1b71D93e0aaA0dd1CdD3890B83586;
+
+  // https://snowscan.xyz/address/0x966cAF619A159F35721b27fEE9147bE99a255991
+  address public constant TESTING_SWAPPER_2 = 0x966cAF619A159F35721b27fEE9147bE99a255991;
+
+  // https://snowscan.xyz/address/0xC7b219Ae49Fb6418576E53F9068717D4826F1A0f
+  address public constant FINAL_SWAPPER = 0xC7b219Ae49Fb6418576E53F9068717D4826F1A0f;
+
   // Remote GSM Draw Limit
   uint256 public constant GSM_RESERVE_LIMIT = 25_000_000 ether;
 
@@ -59,9 +67,15 @@ contract AaveV3Avalanche_PermissionedGSMUSATAvalanche_20261109_Part2 is IProposa
     bytes32 accessManagerRole = GSM_USAT.SWAP_ACCESS_MANAGER_ROLE();
     GSM_USAT.grantRole(accessManagerRole, GovernanceV3Avalanche.EXECUTOR_LVL_1);
     GSM_USAT.grantRole(accessManagerRole, GhoAvalanche.RISK_COUNCIL);
-    // Aave DAO Safe controlled by the Aave Finance Committee, the only swapper at launch
-    GSM_USAT.grantRole(GSM_USAT.BUY_ASSET_ROLE(), MiscAvalanche.AFC_SAFE);
-    GSM_USAT.grantRole(GSM_USAT.SELL_ASSET_ROLE(), MiscAvalanche.AFC_SAFE);
+    // The Risk Council revokes the testing swappers after the tests
+    bytes32 buyRole = GSM_USAT.BUY_ASSET_ROLE();
+    bytes32 sellRole = GSM_USAT.SELL_ASSET_ROLE();
+    GSM_USAT.grantRole(buyRole, TESTING_SWAPPER_1);
+    GSM_USAT.grantRole(sellRole, TESTING_SWAPPER_1);
+    GSM_USAT.grantRole(buyRole, TESTING_SWAPPER_2);
+    GSM_USAT.grantRole(sellRole, TESTING_SWAPPER_2);
+    GSM_USAT.grantRole(buyRole, FINAL_SWAPPER);
+    GSM_USAT.grantRole(sellRole, FINAL_SWAPPER);
 
     AaveV3Avalanche.COLLECTOR.transfer({
       token: IERC20(GhoAvalanche.GHO_TOKEN),

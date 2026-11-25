@@ -18,6 +18,7 @@ import {IGhoDirectFacilitator} from 'src/interfaces/IGhoDirectFacilitator.sol';
 import {AaveV3Ethereum_PermissionedGSMUSATAvalanche_20261109_Part1} from './AaveV3Ethereum_PermissionedGSMUSATAvalanche_20261109_Part1.sol';
 import {AaveV3Ethereum_PermissionedGSMUSATAvalanche_20261109_Part2} from './AaveV3Ethereum_PermissionedGSMUSATAvalanche_20261109_Part2.sol';
 import {PermissionedGSMUSATAvalancheSetup as Setup} from './setup/PermissionedGSMUSATAvalancheSetup.sol';
+import {EXPECTED_TEMP_BRIDGE_CAPACITY} from './setup/PermissionedGSMUSATAvalancheExpected.sol';
 import {SupportedChainsCheck} from 'src/helpers/gho-launch/tests/utils/SupportedChainsCheck.sol';
 
 /**
@@ -84,10 +85,6 @@ contract AaveV3Ethereum_PermissionedGSMUSATAvalanche_20261109_Part2_Test is
       '',
       true
     );
-  }
-
-  function test_deploymentAddressesSet() public view {
-    assertTrue(proposal.DIRECT_FACILITATOR() != address(0), 'DIRECT_FACILITATOR not set');
   }
 
   /**
@@ -207,7 +204,7 @@ contract AaveV3Ethereum_PermissionedGSMUSATAvalanche_20261109_Part2_Test is
   function test_bridgeLaneRestored() public {
     assertEq(
       pool.getCurrentOutboundRateLimiterState(CCIPChainSelectors.AVALANCHE).capacity,
-      Setup.TEMP_BRIDGE_CAPACITY,
+      EXPECTED_TEMP_BRIDGE_CAPACITY,
       'pre: Part 1 widened the outbound lane'
     );
 

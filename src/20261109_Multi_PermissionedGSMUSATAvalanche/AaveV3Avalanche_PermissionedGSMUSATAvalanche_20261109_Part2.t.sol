@@ -24,6 +24,7 @@ import {IFixedPriceStrategy4626} from 'src/interfaces/IFixedPriceStrategy4626.so
 import {AaveV3Avalanche_PermissionedGSMUSATAvalanche_20261109_Part1} from './AaveV3Avalanche_PermissionedGSMUSATAvalanche_20261109_Part1.sol';
 import {AaveV3Avalanche_PermissionedGSMUSATAvalanche_20261109_Part2} from './AaveV3Avalanche_PermissionedGSMUSATAvalanche_20261109_Part2.sol';
 import {PermissionedGSMUSATAvalancheSetup as Setup} from './setup/PermissionedGSMUSATAvalancheSetup.sol';
+import {EXPECTED_TEMP_BRIDGE_CAPACITY} from './setup/PermissionedGSMUSATAvalancheExpected.sol';
 import {AvalancheCcipDelivery} from './setup/AvalancheCcipDelivery.sol';
 import {SupportedChainsCheck} from 'src/helpers/gho-launch/tests/utils/SupportedChainsCheck.sol';
 
@@ -48,11 +49,17 @@ contract AaveV3Avalanche_PermissionedGSMUSATAvalanche_20261109_Part2_Test is
   address internal constant PRICE_STRATEGY = 0x863F2106C5543266b43991Fe842551B0E30FBF0d;
   // https://snowscan.xyz/address/0x9A5926fd88F747c357738b1e82aFB46AB80f0A6b
   address internal constant USAT = 0x9A5926fd88F747c357738b1e82aFB46AB80f0A6b;
-  // Largest USAT holder on Avalanche (EOA, 10,000,003 USAT at FORK_BLOCK), the source of the swap funds
+  // Largest USAT holder on Avalanche (contract, 10,000,003 USAT at FORK_BLOCK), the source of the swap funds
   // https://snowscan.xyz/address/0x3e4C6460aa00c11C81e3C5b95b15d612F5F2d9C7
   address internal constant USAT_HOLDER = 0x3e4C6460aa00c11C81e3C5b95b15d612F5F2d9C7;
   // USAT 6 decimals -> GHO 18 decimals, FixedPriceStrategy4626 price ratio 1e18
   uint256 internal constant USAT_TO_GHO_SCALE = 1e12;
+  // https://snowscan.xyz/address/0x1aE7FE695Fe1b71D93e0aaA0dd1CdD3890B83586
+  address internal constant EXPECTED_TESTING_SWAPPER_1 = 0x1aE7FE695Fe1b71D93e0aaA0dd1CdD3890B83586;
+  // https://snowscan.xyz/address/0x966cAF619A159F35721b27fEE9147bE99a255991
+  address internal constant EXPECTED_TESTING_SWAPPER_2 = 0x966cAF619A159F35721b27fEE9147bE99a255991;
+  // https://snowscan.xyz/address/0xC7b219Ae49Fb6418576E53F9068717D4826F1A0f
+  address internal constant EXPECTED_FINAL_SWAPPER = 0xC7b219Ae49Fb6418576E53F9068717D4826F1A0f;
 
   AaveV3Avalanche_PermissionedGSMUSATAvalanche_20261109_Part1 internal part1;
   AaveV3Avalanche_PermissionedGSMUSATAvalanche_20261109_Part2 internal proposal;
@@ -164,8 +171,12 @@ contract AaveV3Avalanche_PermissionedGSMUSATAvalanche_20261109_Part2_Test is
     assertFalse(gsm.hasRole(gsm.SWAP_FREEZER_ROLE(), GovernanceV3Avalanche.EXECUTOR_LVL_1));
     assertFalse(gsm.hasRole(gsm.SWAP_ACCESS_MANAGER_ROLE(), GovernanceV3Avalanche.EXECUTOR_LVL_1));
     assertFalse(gsm.hasRole(gsm.SWAP_ACCESS_MANAGER_ROLE(), GhoAvalanche.RISK_COUNCIL));
-    assertFalse(gsm.hasRole(gsm.BUY_ASSET_ROLE(), MiscAvalanche.AFC_SAFE));
-    assertFalse(gsm.hasRole(gsm.SELL_ASSET_ROLE(), MiscAvalanche.AFC_SAFE));
+    assertFalse(gsm.hasRole(gsm.BUY_ASSET_ROLE(), EXPECTED_TESTING_SWAPPER_1));
+    assertFalse(gsm.hasRole(gsm.SELL_ASSET_ROLE(), EXPECTED_TESTING_SWAPPER_1));
+    assertFalse(gsm.hasRole(gsm.BUY_ASSET_ROLE(), EXPECTED_TESTING_SWAPPER_2));
+    assertFalse(gsm.hasRole(gsm.SELL_ASSET_ROLE(), EXPECTED_TESTING_SWAPPER_2));
+    assertFalse(gsm.hasRole(gsm.BUY_ASSET_ROLE(), EXPECTED_FINAL_SWAPPER));
+    assertFalse(gsm.hasRole(gsm.SELL_ASSET_ROLE(), EXPECTED_FINAL_SWAPPER));
 
     executePayload(vm, address(proposal));
 
@@ -178,8 +189,14 @@ contract AaveV3Avalanche_PermissionedGSMUSATAvalanche_20261109_Part2_Test is
     assertTrue(gsm.hasRole(gsm.SWAP_ACCESS_MANAGER_ROLE(), GovernanceV3Avalanche.EXECUTOR_LVL_1));
     assertTrue(gsm.hasRole(gsm.SWAP_ACCESS_MANAGER_ROLE(), GhoAvalanche.RISK_COUNCIL));
 
-    assertTrue(gsm.hasRole(gsm.BUY_ASSET_ROLE(), MiscAvalanche.AFC_SAFE));
-    assertTrue(gsm.hasRole(gsm.SELL_ASSET_ROLE(), MiscAvalanche.AFC_SAFE));
+    assertTrue(gsm.hasRole(gsm.BUY_ASSET_ROLE(), EXPECTED_TESTING_SWAPPER_1));
+    assertTrue(gsm.hasRole(gsm.SELL_ASSET_ROLE(), EXPECTED_TESTING_SWAPPER_1));
+    assertTrue(gsm.hasRole(gsm.BUY_ASSET_ROLE(), EXPECTED_TESTING_SWAPPER_2));
+    assertTrue(gsm.hasRole(gsm.SELL_ASSET_ROLE(), EXPECTED_TESTING_SWAPPER_2));
+    assertTrue(gsm.hasRole(gsm.BUY_ASSET_ROLE(), EXPECTED_FINAL_SWAPPER));
+    assertTrue(gsm.hasRole(gsm.SELL_ASSET_ROLE(), EXPECTED_FINAL_SWAPPER));
+    assertFalse(gsm.hasRole(gsm.BUY_ASSET_ROLE(), MiscAvalanche.AFC_SAFE));
+    assertFalse(gsm.hasRole(gsm.SELL_ASSET_ROLE(), MiscAvalanche.AFC_SAFE));
   }
 
   /// @dev Seizure and token rescue need a later AIP that grants these roles first
@@ -254,29 +271,45 @@ contract AaveV3Avalanche_PermissionedGSMUSATAvalanche_20261109_Part2_Test is
     steward.updateGsmBuySellFees(address(gsm), 10, 0);
   }
 
-  /// @dev Funded from real state: a USAT holder's balance, deposited into waCoreUSAT by the safe
+  /// @dev Each approved swapper runs the round trip in isolation from the same state
   function test_permissionedSwap() public {
     executePayload(vm, address(proposal));
 
-    address safe = MiscAvalanche.AFC_SAFE;
+    address[3] memory swappers = [
+      EXPECTED_TESTING_SWAPPER_1,
+      EXPECTED_TESTING_SWAPPER_2,
+      EXPECTED_FINAL_SWAPPER
+    ];
+    for (uint256 i; i < swappers.length; i++) {
+      uint256 snapshot = vm.snapshotState();
+      _swapRoundTrip(swappers[i]);
+      vm.revertToState(snapshot);
+    }
+  }
+
+  /// @dev Funded from real state: a USAT holder's balance, deposited into waCoreUSAT by the swapper
+  function _swapRoundTrip(address swapper) internal {
     IERC20 usat = IERC20(USAT);
     IERC4626 waCoreUsat = IERC4626(WA_CORE_USAT);
     IERC20 gho = IERC20(GhoAvalanche.GHO_TOKEN);
 
     uint256 usatAmount = usat.balanceOf(USAT_HOLDER);
     assertGt(usatAmount, 0, 'USAT_HOLDER has no USAT at FORK_BLOCK');
+    assertEq(usat.balanceOf(swapper), 0, 'swapper starts without USAT');
+    assertEq(gho.balanceOf(swapper), 0, 'swapper starts without GHO');
+    assertEq(IERC20(WA_CORE_USAT).balanceOf(swapper), 0, 'swapper starts without shares');
     vm.prank(USAT_HOLDER);
-    usat.transfer(safe, usatAmount);
+    usat.transfer(swapper, usatAmount);
 
-    vm.startPrank(safe);
+    vm.startPrank(swapper);
     usat.approve(WA_CORE_USAT, usatAmount);
-    uint256 shares = waCoreUsat.deposit(usatAmount, safe);
+    uint256 shares = waCoreUsat.deposit(usatAmount, swapper);
     uint256 expectedGho = waCoreUsat.convertToAssets(shares) * USAT_TO_GHO_SCALE;
 
     waCoreUsat.approve(address(gsm), shares);
-    (, uint256 ghoBought) = gsm.sellAsset(shares, safe);
+    (, uint256 ghoBought) = gsm.sellAsset(shares, swapper);
     assertEq(ghoBought, expectedGho);
-    assertEq(gho.balanceOf(safe), expectedGho);
+    assertEq(gho.balanceOf(swapper), expectedGho);
     assertEq(proposal.GHO_RESERVE().getUsed(address(gsm)), expectedGho);
 
     // The buy rounds against the buyer (Gsm._calculateGhoAmountForBuyAsset, FixedPriceStrategy4626
@@ -288,13 +321,13 @@ contract AaveV3Avalanche_PermissionedGSMUSATAvalanche_20261109_Part2_Test is
     assertApproxEqAbs(buyShares, shares, 1, 'round trip loses at most one share unit');
 
     gho.approve(address(gsm), buyCost);
-    (uint256 assetBought, uint256 ghoSold) = gsm.buyAsset(buyShares, safe);
+    (uint256 assetBought, uint256 ghoSold) = gsm.buyAsset(buyShares, swapper);
     vm.stopPrank();
 
     assertEq(assetBought, buyShares);
     assertEq(ghoSold, buyCost);
-    assertEq(gho.balanceOf(safe), expectedGho - buyCost);
-    assertEq(IERC20(WA_CORE_USAT).balanceOf(safe), buyShares);
+    assertEq(gho.balanceOf(swapper), expectedGho - buyCost);
+    assertEq(IERC20(WA_CORE_USAT).balanceOf(swapper), buyShares);
     assertEq(proposal.GHO_RESERVE().getUsed(address(gsm)), expectedGho - buyCost);
   }
 
@@ -330,15 +363,51 @@ contract AaveV3Avalanche_PermissionedGSMUSATAvalanche_20261109_Part2_Test is
     executePayload(vm, address(proposal));
 
     address newCounterparty = makeAddr('newCounterparty');
+    bytes32 buyRole = gsm.BUY_ASSET_ROLE();
+    bytes32 sellRole = gsm.SELL_ASSET_ROLE();
     vm.startPrank(GhoAvalanche.RISK_COUNCIL);
-    gsm.grantRole(gsm.SELL_ASSET_ROLE(), newCounterparty);
-    gsm.revokeRole(gsm.BUY_ASSET_ROLE(), MiscAvalanche.AFC_SAFE);
+    gsm.grantRole(sellRole, newCounterparty);
+    gsm.revokeRole(buyRole, EXPECTED_TESTING_SWAPPER_1);
+    gsm.revokeRole(sellRole, EXPECTED_TESTING_SWAPPER_1);
+    gsm.revokeRole(buyRole, EXPECTED_TESTING_SWAPPER_2);
+    gsm.revokeRole(sellRole, EXPECTED_TESTING_SWAPPER_2);
+    vm.stopPrank();
+
+    assertTrue(gsm.hasRole(sellRole, newCounterparty));
+    assertFalse(gsm.hasRole(buyRole, EXPECTED_TESTING_SWAPPER_1));
+    assertFalse(gsm.hasRole(sellRole, EXPECTED_TESTING_SWAPPER_1));
+    assertFalse(gsm.hasRole(buyRole, EXPECTED_TESTING_SWAPPER_2));
+    assertFalse(gsm.hasRole(sellRole, EXPECTED_TESTING_SWAPPER_2));
+    assertTrue(gsm.hasRole(buyRole, EXPECTED_FINAL_SWAPPER));
+    assertTrue(gsm.hasRole(sellRole, EXPECTED_FINAL_SWAPPER));
+
+    address[2] memory revoked = [EXPECTED_TESTING_SWAPPER_1, EXPECTED_TESTING_SWAPPER_2];
+    for (uint256 i; i < revoked.length; i++) {
+      vm.startPrank(revoked[i]);
+      vm.expectRevert(
+        abi.encodeWithSelector(
+          IAccessControl.AccessControlUnauthorizedAccount.selector,
+          revoked[i],
+          sellRole
+        )
+      );
+      gsm.sellAsset(1, revoked[i]);
+      vm.expectRevert(
+        abi.encodeWithSelector(
+          IAccessControl.AccessControlUnauthorizedAccount.selector,
+          revoked[i],
+          buyRole
+        )
+      );
+      gsm.buyAsset(1, revoked[i]);
+      vm.stopPrank();
+    }
+
+    vm.startPrank(GhoAvalanche.RISK_COUNCIL);
     gsm.setBuyAccessOpen(true);
     gsm.setSellAccessOpen(true);
     vm.stopPrank();
 
-    assertTrue(gsm.hasRole(gsm.SELL_ASSET_ROLE(), newCounterparty));
-    assertFalse(gsm.hasRole(gsm.BUY_ASSET_ROLE(), MiscAvalanche.AFC_SAFE));
     assertTrue(gsm.getIsBuyAccessOpen());
     assertTrue(gsm.getIsSellAccessOpen());
   }
@@ -356,7 +425,7 @@ contract AaveV3Avalanche_PermissionedGSMUSATAvalanche_20261109_Part2_Test is
   function test_bridgeLaneRestored() public {
     assertEq(
       pool.getCurrentInboundRateLimiterState(CCIPChainSelectors.ETHEREUM).capacity,
-      Setup.TEMP_BRIDGE_CAPACITY,
+      EXPECTED_TEMP_BRIDGE_CAPACITY,
       'pre: Part 1 widened the inbound lane'
     );
 
