@@ -36,6 +36,9 @@ contract AaveV3Ethereum_PermissionedGSMUSATAvalanche_20261109_Part2_Test is
   // https://etherscan.io/tx/0x5fc812349332acdbdf85a27051dd44b50923e1d81e93e69dac332ea399c9db1f
   address internal constant DIRECT_FACILITATOR_DEPLOYER =
     0x0000087348027Bb9826303C9519781e1AfFA7994;
+  uint256 internal constant EXPECTED_BRIDGE_GAS_LIMIT = 750_000;
+  uint256 internal constant EXPECTED_FACILITATOR_CAPACITY = 65_000_000 ether;
+  string internal constant EXPECTED_FACILITATOR_LABEL = 'GhoDirectFacilitator GSM Avalanche';
 
   IUpgradeableLockReleaseTokenPool internal pool =
     IUpgradeableLockReleaseTokenPool(GhoEthereum.GHO_CCIP_TOKEN_POOL);
@@ -164,7 +167,7 @@ contract AaveV3Ethereum_PermissionedGSMUSATAvalanche_20261109_Part2_Test is
     );
     assertEq(config.destination, abi.encode(GhoAvalanche.GHO_CCIP_BRIDGE));
     assertEq(config.extraArgsOverride, new bytes(0));
-    assertEq(config.gasLimit, 750_000);
+    assertEq(config.gasLimit, EXPECTED_BRIDGE_GAS_LIMIT);
   }
 
   function test_bridge() public {
@@ -183,9 +186,9 @@ contract AaveV3Ethereum_PermissionedGSMUSATAvalanche_20261109_Part2_Test is
     executePayload(vm, address(proposal));
 
     IGhoToken.Facilitator memory facilitator = gho.getFacilitator(proposal.DIRECT_FACILITATOR());
-    assertEq(facilitator.bucketCapacity, 65_000_000 ether);
+    assertEq(facilitator.bucketCapacity, EXPECTED_FACILITATOR_CAPACITY);
     assertEq(facilitator.bucketLevel, Setup.GHO_BRIDGE_AMOUNT);
-    assertEq(facilitator.label, 'GhoDirectFacilitator GSM Avalanche');
+    assertEq(facilitator.label, EXPECTED_FACILITATOR_LABEL);
     assertEq(
       IERC20(address(gho)).balanceOf(GhoEthereum.GHO_CCIP_TOKEN_POOL),
       poolGhoBefore + Setup.GHO_BRIDGE_AMOUNT,

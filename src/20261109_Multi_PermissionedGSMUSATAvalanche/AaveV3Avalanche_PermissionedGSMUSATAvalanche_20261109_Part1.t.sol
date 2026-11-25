@@ -11,7 +11,7 @@ import {IGhoToken} from 'src/interfaces/IGhoToken.sol';
 
 import {AaveV3Avalanche_PermissionedGSMUSATAvalanche_20261109_Part1} from './AaveV3Avalanche_PermissionedGSMUSATAvalanche_20261109_Part1.sol';
 import {PermissionedGSMUSATAvalancheSetup as Setup} from './setup/PermissionedGSMUSATAvalancheSetup.sol';
-import {EXPECTED_BUCKET_CAPACITY} from './setup/PermissionedGsmUsatAvalancheFacilitatorProposalBaseTest.t.sol';
+import {EXPECTED_BUCKET_CAPACITY, EXPECTED_TEMP_BRIDGE_CAPACITY, EXPECTED_TEMP_BRIDGE_RATE} from './setup/PermissionedGsmUsatAvalancheFacilitatorProposalBaseTest.t.sol';
 import {AvalancheCcipDelivery} from './setup/AvalancheCcipDelivery.sol';
 import {SupportedChainsCheck} from 'src/helpers/gho-launch/tests/utils/SupportedChainsCheck.sol';
 
@@ -74,8 +74,8 @@ contract AaveV3Avalanche_PermissionedGSMUSATAvalanche_20261109_Part1_Test is
       CCIPChainSelectors.ETHEREUM
     );
     assertTrue(bucket.isEnabled);
-    assertEq(bucket.capacity, Setup.TEMP_BRIDGE_CAPACITY);
-    assertEq(bucket.rate, Setup.TEMP_BRIDGE_RATE);
+    assertEq(bucket.capacity, EXPECTED_TEMP_BRIDGE_CAPACITY);
+    assertEq(bucket.rate, EXPECTED_TEMP_BRIDGE_RATE);
   }
 
   function test_outboundRateLimiterUnchanged() public {
