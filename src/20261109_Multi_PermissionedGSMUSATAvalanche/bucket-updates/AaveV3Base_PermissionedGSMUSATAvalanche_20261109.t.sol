@@ -5,11 +5,11 @@ import {CCIPChainSelectors} from 'src/helpers/gho-launch/constants/CCIPChainSele
 import {AaveV3Base} from 'aave-address-book/AaveV3Base.sol';
 
 import {AaveV3Base_PermissionedGSMUSATAvalanche_20261109} from './AaveV3Base_PermissionedGSMUSATAvalanche_20261109.sol';
-import {PermissionedGsmUsatAvalancheFacilitatorProposalBaseTest} from './setup/PermissionedGsmUsatAvalancheFacilitatorProposalBaseTest.t.sol';
+import {PermissionedGsmUsatAvalancheFacilitatorProposalBaseTest} from './PermissionedGsmUsatAvalancheFacilitatorProposalBaseTest.t.sol';
 
 /**
  * @dev Test for AaveV3Base_PermissionedGSMUSATAvalanche_20261109
- * command: FOUNDRY_PROFILE=test forge test --match-path=src/20261109_Multi_PermissionedGSMUSATAvalanche/AaveV3Base_PermissionedGSMUSATAvalanche_20261109.t.sol -vv
+ * command: FOUNDRY_PROFILE=test forge test --match-path=src/20261109_Multi_PermissionedGSMUSATAvalanche/bucket-updates/AaveV3Base_PermissionedGSMUSATAvalanche_20261109.t.sol -vv
  */
 contract AaveV3Base_PermissionedGSMUSATAvalanche_20261109_Test is
   PermissionedGsmUsatAvalancheFacilitatorProposalBaseTest

@@ -6,11 +6,11 @@ import {AaveV3InkWhitelabel} from 'aave-address-book/AaveV3InkWhitelabel.sol';
 import {GovernanceV3Ink} from 'aave-address-book/GovernanceV3Ink.sol';
 
 import {AaveV3Ink_PermissionedGSMUSATAvalanche_20261109} from './AaveV3Ink_PermissionedGSMUSATAvalanche_20261109.sol';
-import {PermissionedGsmUsatAvalancheFacilitatorProposalBaseTest} from './setup/PermissionedGsmUsatAvalancheFacilitatorProposalBaseTest.t.sol';
+import {PermissionedGsmUsatAvalancheFacilitatorProposalBaseTest} from './PermissionedGsmUsatAvalancheFacilitatorProposalBaseTest.t.sol';
 
 /**
  * @dev Test for AaveV3Ink_PermissionedGSMUSATAvalanche_20261109
- * command: FOUNDRY_PROFILE=test forge test --match-path=src/20261109_Multi_PermissionedGSMUSATAvalanche/AaveV3Ink_PermissionedGSMUSATAvalanche_20261109.t.sol -vv
+ * command: FOUNDRY_PROFILE=test forge test --match-path=src/20261109_Multi_PermissionedGSMUSATAvalanche/bucket-updates/AaveV3Ink_PermissionedGSMUSATAvalanche_20261109.t.sol -vv
  */
 contract AaveV3Ink_PermissionedGSMUSATAvalanche_20261109_Test is
   PermissionedGsmUsatAvalancheFacilitatorProposalBaseTest

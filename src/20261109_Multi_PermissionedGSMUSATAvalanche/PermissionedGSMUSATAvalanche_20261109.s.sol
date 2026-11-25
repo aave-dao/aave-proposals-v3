@@ -9,14 +9,15 @@ import {AaveV3Ethereum_PermissionedGSMUSATAvalanche_20261109_Part1} from './Aave
 import {AaveV3Ethereum_PermissionedGSMUSATAvalanche_20261109_Part2} from './AaveV3Ethereum_PermissionedGSMUSATAvalanche_20261109_Part2.sol';
 import {AaveV3Avalanche_PermissionedGSMUSATAvalanche_20261109_Part1} from './AaveV3Avalanche_PermissionedGSMUSATAvalanche_20261109_Part1.sol';
 import {AaveV3Avalanche_PermissionedGSMUSATAvalanche_20261109_Part2} from './AaveV3Avalanche_PermissionedGSMUSATAvalanche_20261109_Part2.sol';
-import {AaveV3Arbitrum_PermissionedGSMUSATAvalanche_20261109} from './AaveV3Arbitrum_PermissionedGSMUSATAvalanche_20261109.sol';
-import {AaveV3Base_PermissionedGSMUSATAvalanche_20261109} from './AaveV3Base_PermissionedGSMUSATAvalanche_20261109.sol';
-import {AaveV3Gnosis_PermissionedGSMUSATAvalanche_20261109} from './AaveV3Gnosis_PermissionedGSMUSATAvalanche_20261109.sol';
-import {AaveV3Mantle_PermissionedGSMUSATAvalanche_20261109} from './AaveV3Mantle_PermissionedGSMUSATAvalanche_20261109.sol';
-import {AaveV3Plasma_PermissionedGSMUSATAvalanche_20261109} from './AaveV3Plasma_PermissionedGSMUSATAvalanche_20261109.sol';
-import {AaveV3XLayer_PermissionedGSMUSATAvalanche_20261109} from './AaveV3XLayer_PermissionedGSMUSATAvalanche_20261109.sol';
-import {AaveV3Ink_PermissionedGSMUSATAvalanche_20261109} from './AaveV3Ink_PermissionedGSMUSATAvalanche_20261109.sol';
-import {AaveV3Monad_PermissionedGSMUSATAvalanche_20261109} from './AaveV3Monad_PermissionedGSMUSATAvalanche_20261109.sol';
+import {AaveV3Arbitrum_PermissionedGSMUSATAvalanche_20261109} from './bucket-updates/AaveV3Arbitrum_PermissionedGSMUSATAvalanche_20261109.sol';
+import {AaveV3Base_PermissionedGSMUSATAvalanche_20261109} from './bucket-updates/AaveV3Base_PermissionedGSMUSATAvalanche_20261109.sol';
+import {AaveV3Gnosis_PermissionedGSMUSATAvalanche_20261109} from './bucket-updates/AaveV3Gnosis_PermissionedGSMUSATAvalanche_20261109.sol';
+import {AaveV3Mantle_PermissionedGSMUSATAvalanche_20261109} from './bucket-updates/AaveV3Mantle_PermissionedGSMUSATAvalanche_20261109.sol';
+import {AaveV3Plasma_PermissionedGSMUSATAvalanche_20261109} from './bucket-updates/AaveV3Plasma_PermissionedGSMUSATAvalanche_20261109.sol';
+import {AaveV3XLayer_PermissionedGSMUSATAvalanche_20261109} from './bucket-updates/AaveV3XLayer_PermissionedGSMUSATAvalanche_20261109.sol';
+import {AaveV3Ink_PermissionedGSMUSATAvalanche_20261109} from './bucket-updates/AaveV3Ink_PermissionedGSMUSATAvalanche_20261109.sol';
+import {AaveV3Monad_PermissionedGSMUSATAvalanche_20261109} from './bucket-updates/AaveV3Monad_PermissionedGSMUSATAvalanche_20261109.sol';
+import {AaveV3Avalanche_PermissionedGSMUSATAvalanche_20261109} from './bucket-updates/AaveV3Avalanche_PermissionedGSMUSATAvalanche_20261109.sol';
 
 /**
  * @dev Deploy Ethereum
@@ -50,9 +51,13 @@ contract DeployAvalanche is AvalancheScript {
     address payload1 = GovV3Helpers.deployDeterministic(
       type(AaveV3Avalanche_PermissionedGSMUSATAvalanche_20261109_Part2).creationCode
     );
+    address payload2 = GovV3Helpers.deployDeterministic(
+      type(AaveV3Avalanche_PermissionedGSMUSATAvalanche_20261109).creationCode
+    );
 
     GovV3Helpers.createPayload(GovV3Helpers.buildAction(payload0));
     GovV3Helpers.createPayload(GovV3Helpers.buildAction(payload1));
+    GovV3Helpers.createPayload(GovV3Helpers.buildAction(payload2));
   }
 }
 
@@ -182,7 +187,7 @@ contract DeployMonad is MonadScript {
  */
 contract CreateProposal is EthereumScript {
   function run() external {
-    PayloadsControllerUtils.Payload[] memory payloads = new PayloadsControllerUtils.Payload[](12);
+    PayloadsControllerUtils.Payload[] memory payloads = new PayloadsControllerUtils.Payload[](13);
 
     {
       IPayloadsControllerCore.ExecutionAction[]
@@ -222,11 +227,20 @@ contract CreateProposal is EthereumScript {
 
     {
       IPayloadsControllerCore.ExecutionAction[]
+        memory actionsAvalanche = new IPayloadsControllerCore.ExecutionAction[](1);
+      actionsAvalanche[0] = GovV3Helpers.buildAction(
+        type(AaveV3Avalanche_PermissionedGSMUSATAvalanche_20261109).creationCode
+      );
+      payloads[4] = GovV3Helpers.buildAvalanchePayload(vm, actionsAvalanche);
+    }
+
+    {
+      IPayloadsControllerCore.ExecutionAction[]
         memory actionsArbitrum = new IPayloadsControllerCore.ExecutionAction[](1);
       actionsArbitrum[0] = GovV3Helpers.buildAction(
         type(AaveV3Arbitrum_PermissionedGSMUSATAvalanche_20261109).creationCode
       );
-      payloads[4] = GovV3Helpers.buildArbitrumPayload(vm, actionsArbitrum);
+      payloads[5] = GovV3Helpers.buildArbitrumPayload(vm, actionsArbitrum);
     }
 
     {
@@ -235,7 +249,7 @@ contract CreateProposal is EthereumScript {
       actionsBase[0] = GovV3Helpers.buildAction(
         type(AaveV3Base_PermissionedGSMUSATAvalanche_20261109).creationCode
       );
-      payloads[5] = GovV3Helpers.buildBasePayload(vm, actionsBase);
+      payloads[6] = GovV3Helpers.buildBasePayload(vm, actionsBase);
     }
 
     {
@@ -244,7 +258,7 @@ contract CreateProposal is EthereumScript {
       actionsGnosis[0] = GovV3Helpers.buildAction(
         type(AaveV3Gnosis_PermissionedGSMUSATAvalanche_20261109).creationCode
       );
-      payloads[6] = GovV3Helpers.buildGnosisPayload(vm, actionsGnosis);
+      payloads[7] = GovV3Helpers.buildGnosisPayload(vm, actionsGnosis);
     }
 
     {
@@ -253,7 +267,7 @@ contract CreateProposal is EthereumScript {
       actionsMantle[0] = GovV3Helpers.buildAction(
         type(AaveV3Mantle_PermissionedGSMUSATAvalanche_20261109).creationCode
       );
-      payloads[7] = GovV3Helpers.buildMantlePayload(vm, actionsMantle);
+      payloads[8] = GovV3Helpers.buildMantlePayload(vm, actionsMantle);
     }
 
     {
@@ -262,7 +276,7 @@ contract CreateProposal is EthereumScript {
       actionsPlasma[0] = GovV3Helpers.buildAction(
         type(AaveV3Plasma_PermissionedGSMUSATAvalanche_20261109).creationCode
       );
-      payloads[8] = GovV3Helpers.buildPlasmaPayload(vm, actionsPlasma);
+      payloads[9] = GovV3Helpers.buildPlasmaPayload(vm, actionsPlasma);
     }
 
     {
@@ -271,7 +285,7 @@ contract CreateProposal is EthereumScript {
       actionsXLayer[0] = GovV3Helpers.buildAction(
         type(AaveV3XLayer_PermissionedGSMUSATAvalanche_20261109).creationCode
       );
-      payloads[9] = GovV3Helpers.buildXLayerPayload(vm, actionsXLayer);
+      payloads[10] = GovV3Helpers.buildXLayerPayload(vm, actionsXLayer);
     }
 
     {
@@ -280,7 +294,7 @@ contract CreateProposal is EthereumScript {
       actionsInk[0] = GovV3Helpers.buildAction(
         type(AaveV3Ink_PermissionedGSMUSATAvalanche_20261109).creationCode
       );
-      payloads[10] = GovV3Helpers.buildInkPayload(vm, actionsInk);
+      payloads[11] = GovV3Helpers.buildInkPayload(vm, actionsInk);
     }
 
     {
@@ -289,7 +303,7 @@ contract CreateProposal is EthereumScript {
       actionsMonad[0] = GovV3Helpers.buildAction(
         type(AaveV3Monad_PermissionedGSMUSATAvalanche_20261109).creationCode
       );
-      payloads[11] = GovV3Helpers.buildMonadPayload(vm, actionsMonad);
+      payloads[12] = GovV3Helpers.buildMonadPayload(vm, actionsMonad);
     }
 
     vm.startBroadcast();

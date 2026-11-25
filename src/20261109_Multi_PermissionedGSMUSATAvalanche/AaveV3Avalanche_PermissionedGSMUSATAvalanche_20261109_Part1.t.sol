@@ -11,7 +11,7 @@ import {IGhoToken} from 'src/interfaces/IGhoToken.sol';
 
 import {AaveV3Avalanche_PermissionedGSMUSATAvalanche_20261109_Part1} from './AaveV3Avalanche_PermissionedGSMUSATAvalanche_20261109_Part1.sol';
 import {PermissionedGSMUSATAvalancheSetup as Setup} from './setup/PermissionedGSMUSATAvalancheSetup.sol';
-import {EXPECTED_BUCKET_CAPACITY, EXPECTED_TEMP_BRIDGE_CAPACITY, EXPECTED_TEMP_BRIDGE_RATE} from './setup/PermissionedGsmUsatAvalancheFacilitatorProposalBaseTest.t.sol';
+import {EXPECTED_TEMP_BRIDGE_CAPACITY, EXPECTED_TEMP_BRIDGE_RATE} from './setup/PermissionedGSMUSATAvalancheExpected.sol';
 import {AvalancheCcipDelivery} from './setup/AvalancheCcipDelivery.sol';
 import {SupportedChainsCheck} from 'src/helpers/gho-launch/tests/utils/SupportedChainsCheck.sol';
 
@@ -45,19 +45,6 @@ contract AaveV3Avalanche_PermissionedGSMUSATAvalanche_20261109_Part1_Test is
       AaveV3Avalanche.POOL,
       address(proposal)
     );
-  }
-
-  function test_bucketCapacity() public {
-    (uint256 capacityBefore, uint256 levelBefore) = IGhoToken(GhoAvalanche.GHO_TOKEN)
-      .getFacilitatorBucket(GhoAvalanche.GHO_CCIP_TOKEN_POOL);
-
-    executePayload(vm, address(proposal));
-
-    (uint256 capacityAfter, uint256 levelAfter) = IGhoToken(GhoAvalanche.GHO_TOKEN)
-      .getFacilitatorBucket(GhoAvalanche.GHO_CCIP_TOKEN_POOL);
-    assertEq(capacityAfter, capacityBefore + Setup.GHO_BRIDGE_AMOUNT);
-    assertEq(capacityAfter, EXPECTED_BUCKET_CAPACITY);
-    assertEq(levelAfter, levelBefore);
   }
 
   function test_inboundRateLimiter() public {

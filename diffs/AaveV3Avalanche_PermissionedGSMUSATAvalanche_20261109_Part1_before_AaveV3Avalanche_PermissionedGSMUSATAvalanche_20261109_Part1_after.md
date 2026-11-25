@@ -1,30 +1,24 @@
 ## Event logs
 
-#### 0xfc421aD3C883Bf9E7C4f42dE845C4e4405799e73 (AaveV3Avalanche.ASSETS.GHO.UNDERLYING, GhoAvalanche.GHO_TOKEN)
-
-| index | event |
-| --- | --- |
-| 0 | FacilitatorBucketCapacityUpdated(facilitatorAddress: 0xDe6539018B095353A40753Dc54C91C68c9487D4E, oldCapacity: 200000000000000000000000000, newCapacity: 265000000000000000000000000) |
-
 #### 0xDe6539018B095353A40753Dc54C91C68c9487D4E (GhoAvalanche.GHO_CCIP_TOKEN_POOL)
 
 | index | event |
 | --- | --- |
-| 1 | ConfigChanged(config: {isEnabled: true, capacity: 5000000000000000000000000, rate: 1000000000000000000000}) |
-| 2 | ConfigChanged(config: {isEnabled: true, capacity: 71500000000000000000000000, rate: 64999999000000000000000000}) |
-| 3 | ChainConfigured(remoteChainSelector: 5009297550715157269, outboundRateLimiterConfig: {isEnabled: true, capacity: 5000000000000000000000000, rate: 1000000000000000000000}, inboundRateLimiterConfig: {isEnabled: true, capacity: 71500000000000000000000000, rate: 64999999000000000000000000}) |
+| 0 | ConfigChanged(config: {isEnabled: true, capacity: 5000000000000000000000000, rate: 1000000000000000000000}) |
+| 1 | ConfigChanged(config: {isEnabled: true, capacity: 71500000000000000000000000, rate: 64999999000000000000000000}) |
+| 2 | ChainConfigured(remoteChainSelector: 5009297550715157269, outboundRateLimiterConfig: {isEnabled: true, capacity: 5000000000000000000000000, rate: 1000000000000000000000}, inboundRateLimiterConfig: {isEnabled: true, capacity: 71500000000000000000000000, rate: 64999999000000000000000000}) |
 
 #### 0x3C06dce358add17aAf230f2234bCCC4afd50d090 (AaveV2Avalanche.POOL_ADMIN, AaveV3Avalanche.ACL_ADMIN, GovernanceV3Avalanche.EXECUTOR_LVL_1)
 
 | index | event |
 | --- | --- |
-| 4 | ExecutedAction(target: 0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f, value: 0, signature: execute(), data: 0x, executionTime: 1795606390, withDelegatecall: true, resultData: 0x) |
+| 3 | ExecutedAction(target: 0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f, value: 0, signature: execute(), data: 0x, executionTime: 1795606390, withDelegatecall: true, resultData: 0x) |
 
 #### 0x1140CB7CAfAcC745771C2Ea31e7B5C653c5d0B80 (GovernanceV3Avalanche.PAYLOADS_CONTROLLER)
 
 | index | event |
 | --- | --- |
-| 5 | PayloadExecuted(payloadId: 134) |
+| 4 | PayloadExecuted(payloadId: 134) |
 
 ## Raw storage changes
 
@@ -43,12 +37,6 @@
 | 0xc43d59e5cc2bf8f1b992795c27c2d5bb31adadefc93354955ac0e2ca9c5be0f8 | 0x000000000000003635c9adc5dea0000000000000000422ca8b0a00a425000000 | 0x000000000000003635c9adc5dea0000000000000000422ca8b0a00a425000000 |
 | 0xc43d59e5cc2bf8f1b992795c27c2d5bb31adadefc93354955ac0e2ca9c5be0f9 | 0x0000000000000000000000016b05c75c00000000000422c250c386f04002c0f9 | 0x0000000000000000000000016b06c77600000000000422ca8b0a00a425000000 |
 | 0xc43d59e5cc2bf8f1b992795c27c2d5bb31adadefc93354955ac0e2ca9c5be0fa | 0x000000000000003635c9adc5dea0000000000000000422ca8b0a00a425000000 | 0x000000000035c44901a151a2399c000000000000003b24b6c4423c5e77800000 |
-
-### 0xfc421ad3c883bf9e7c4f42de845c4e4405799e73 (AaveV3Avalanche.ASSETS.GHO.UNDERLYING, GhoAvalanche.GHO_TOKEN)
-
-| slot | previous value | new value |
-| --- | --- | --- |
-| 0x9b3b068d87884c5356c62511a016dad778c18fa41fabe618bdc9ba5a1465b7b0 | 0x00000000000010afce62d66ecfb5db380000000000a56fa5b99019a5c8000000 | 0x00000000000010afce62d66ecfb5db380000000000db33eec91221fba9000000 |
 
 
 ## Raw diff
