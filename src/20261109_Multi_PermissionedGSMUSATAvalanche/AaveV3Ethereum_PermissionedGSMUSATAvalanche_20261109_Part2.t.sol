@@ -33,6 +33,9 @@ contract AaveV3Ethereum_PermissionedGSMUSATAvalanche_20261109_Part2_Test is
   // GhoDirectFacilitator registered for the Monad remote GSM (aave-proposals-v3 PR 1158)
   // https://etherscan.io/address/0x0cB7C2A2Ab38Aed3e6096631D7Dba3DaBf237134
   address internal constant MONAD_DIRECT_FACILITATOR = 0x0cB7C2A2Ab38Aed3e6096631D7Dba3DaBf237134;
+  // https://etherscan.io/tx/0x5fc812349332acdbdf85a27051dd44b50923e1d81e93e69dac332ea399c9db1f
+  address internal constant DIRECT_FACILITATOR_DEPLOYER =
+    0x0000087348027Bb9826303C9519781e1AfFA7994;
 
   IUpgradeableLockReleaseTokenPool internal pool =
     IUpgradeableLockReleaseTokenPool(GhoEthereum.GHO_CCIP_TOKEN_POOL);
@@ -100,11 +103,19 @@ contract AaveV3Ethereum_PermissionedGSMUSATAvalanche_20261109_Part2_Test is
     IGhoDirectFacilitator facilitator = IGhoDirectFacilitator(proposal.DIRECT_FACILITATOR());
     assertTrue(facilitator.hasRole(bytes32(0), GovernanceV3Ethereum.EXECUTOR_LVL_1));
     assertTrue(facilitator.hasRole(facilitator.MINTER_ROLE(), GovernanceV3Ethereum.EXECUTOR_LVL_1));
+    assertTrue(facilitator.hasRole(facilitator.BURNER_ROLE(), GovernanceV3Ethereum.EXECUTOR_LVL_1));
     assertEq(
       address(facilitator).codehash,
       MONAD_DIRECT_FACILITATOR.codehash,
       'bytecode differs from the governance-registered Monad facilitator'
     );
+  }
+
+  function test_directFacilitatorDeployerHasNoRoles() public view {
+    IGhoDirectFacilitator facilitator = IGhoDirectFacilitator(proposal.DIRECT_FACILITATOR());
+    assertFalse(facilitator.hasRole(bytes32(0), DIRECT_FACILITATOR_DEPLOYER));
+    assertFalse(facilitator.hasRole(facilitator.MINTER_ROLE(), DIRECT_FACILITATOR_DEPLOYER));
+    assertFalse(facilitator.hasRole(facilitator.BURNER_ROLE(), DIRECT_FACILITATOR_DEPLOYER));
   }
 
   function test_ccipBridgeIdentity() public view {
