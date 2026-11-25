@@ -53,7 +53,7 @@ TokenLogic proposes deploying a permissioned remoteGSM on Avalanche to exchange 
 
 ### Funding the GSM
 
-A new GHO Reserve on Avalanche would provide GHO for the USAT GSM. The initial allocation of 65,000,000 GHO would be newly minted on Ethereum through a new GhoDirectFacilitator for this GSM, with a 65,000,000 GHO bucket. This follows the existing practice of one GhoDirectFacilitator per remote GSM network, as for Arbitrum, Plasma and Monad, so that each facilitator's minted amount shows the GHO backing that network's GSMs. We would bridge the initial allocation to the Avalanche Collector, which would then transfer the funds to the reserve. To support this transfer, we would increase the bridge limits and refill rates, then apply the ongoing settings once the transfer is complete, as we have done previously when deploying new GSMs on Plasma, Monad, and Arbitrum.
+A new GHO Reserve on Avalanche would provide GHO for the USAT GSM. The initial allocation of 65,000,000 GHO would be newly minted on Ethereum through a new GhoDirectFacilitator for Avalanche, with a 65,000,000 GHO bucket. This follows the existing practice of one GhoDirectFacilitator per remote GSM network, as for Arbitrum, Plasma and Monad, so that each facilitator's minted amount shows the GHO backing that network's GSMs. We would bridge the initial allocation to the Avalanche Collector, which would then transfer the funds to the reserve. To support this transfer, we would increase the bridge limits and refill rates, then apply the ongoing settings once the transfer is complete, as we have done previously when deploying new GSMs on Plasma, Monad, and Arbitrum.
 
 ### Access and Administration
 

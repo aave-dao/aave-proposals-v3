@@ -25,7 +25,7 @@ contract AaveV3Ethereum_PermissionedGSMUSATAvalanche_20261109_Part2 is IProposal
 
   // https://etherscan.io/address/0x207b377b904D5e227337F7E708e27Dfa34F6381A
   address public constant DIRECT_FACILITATOR = 0x207b377b904D5e227337F7E708e27Dfa34F6381A;
-  string public constant DIRECT_FACILITATOR_NAME = 'GhoDirectFacilitator GSM USAT Avalanche';
+  string public constant DIRECT_FACILITATOR_NAME = 'GhoDirectFacilitator GSM Avalanche';
 
   uint32 public constant AVALANCHE_BRIDGE_GAS_LIMIT = 750_000;
 

@@ -11,9 +11,9 @@ import {IGhoToken} from 'src/interfaces/IGhoToken.sol';
 
 import {AaveV3Avalanche_PermissionedGSMUSATAvalanche_20261109_Part1} from './AaveV3Avalanche_PermissionedGSMUSATAvalanche_20261109_Part1.sol';
 import {PermissionedGSMUSATAvalancheSetup as Setup} from './setup/PermissionedGSMUSATAvalancheSetup.sol';
-import {EXPECTED_BUCKET_CAPACITY} from './setup/PermissionedGSMUSATAvalancheFacilitatorProposalBaseTest.t.sol';
+import {EXPECTED_BUCKET_CAPACITY} from './setup/PermissionedGsmUsatAvalancheFacilitatorProposalBaseTest.t.sol';
 import {AvalancheCcipDelivery} from './setup/AvalancheCcipDelivery.sol';
-import {SupportedChainsCheck} from './setup/SupportedChainsCheck.sol';
+import {SupportedChainsCheck} from 'src/helpers/gho-launch/tests/utils/SupportedChainsCheck.sol';
 
 /**
  * @dev Test for AaveV3Avalanche_PermissionedGSMUSATAvalanche_20261109_Part1
@@ -61,7 +61,12 @@ contract AaveV3Avalanche_PermissionedGSMUSATAvalanche_20261109_Part1_Test is
   }
 
   function test_inboundRateLimiter() public {
-    _assertDefault(pool.getCurrentInboundRateLimiterState(CCIPChainSelectors.ETHEREUM));
+    _assertRateLimiterConfig(
+      pool.getCurrentInboundRateLimiterState(CCIPChainSelectors.ETHEREUM),
+      true,
+      Setup.DEFAULT_RATE_LIMITER_CAPACITY,
+      Setup.DEFAULT_LIMITER_RATE
+    );
 
     executePayload(vm, address(proposal));
 
@@ -74,11 +79,21 @@ contract AaveV3Avalanche_PermissionedGSMUSATAvalanche_20261109_Part1_Test is
   }
 
   function test_outboundRateLimiterUnchanged() public {
-    _assertDefault(pool.getCurrentOutboundRateLimiterState(CCIPChainSelectors.ETHEREUM));
+    _assertRateLimiterConfig(
+      pool.getCurrentOutboundRateLimiterState(CCIPChainSelectors.ETHEREUM),
+      true,
+      Setup.DEFAULT_RATE_LIMITER_CAPACITY,
+      Setup.DEFAULT_LIMITER_RATE
+    );
 
     executePayload(vm, address(proposal));
 
-    _assertDefault(pool.getCurrentOutboundRateLimiterState(CCIPChainSelectors.ETHEREUM));
+    _assertRateLimiterConfig(
+      pool.getCurrentOutboundRateLimiterState(CCIPChainSelectors.ETHEREUM),
+      true,
+      Setup.DEFAULT_RATE_LIMITER_CAPACITY,
+      Setup.DEFAULT_LIMITER_RATE
+    );
   }
 
   function test_ccipOffRampIsRegistered() public view {

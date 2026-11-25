@@ -5,14 +5,14 @@ import {CCIPChainSelectors} from 'src/helpers/gho-launch/constants/CCIPChainSele
 import {AaveV3XLayer} from 'aave-address-book/AaveV3XLayer.sol';
 
 import {AaveV3XLayer_PermissionedGSMUSATAvalanche_20261109} from './AaveV3XLayer_PermissionedGSMUSATAvalanche_20261109.sol';
-import {PermissionedGSMUSATAvalancheFacilitatorProposalBaseTest} from './setup/PermissionedGSMUSATAvalancheFacilitatorProposalBaseTest.t.sol';
+import {PermissionedGsmUsatAvalancheFacilitatorProposalBaseTest} from './setup/PermissionedGsmUsatAvalancheFacilitatorProposalBaseTest.t.sol';
 
 /**
  * @dev Test for AaveV3XLayer_PermissionedGSMUSATAvalanche_20261109
  * command: FOUNDRY_PROFILE=test forge test --match-path=src/20261109_Multi_PermissionedGSMUSATAvalanche/AaveV3XLayer_PermissionedGSMUSATAvalanche_20261109.t.sol -vv
  */
 contract AaveV3XLayer_PermissionedGSMUSATAvalanche_20261109_Test is
-  PermissionedGSMUSATAvalancheFacilitatorProposalBaseTest
+  PermissionedGsmUsatAvalancheFacilitatorProposalBaseTest
 {
   function setUp() public {
     vm.createSelectFork(vm.rpcUrl('xlayer'), 75792200);

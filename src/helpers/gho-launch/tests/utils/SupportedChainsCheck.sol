@@ -5,8 +5,6 @@ import {Test} from 'forge-std/Test.sol';
 import {GhoCCIPChains} from 'src/helpers/gho-launch/constants/GhoCCIPChains.sol';
 import {IUpgradeableLockReleaseTokenPool, IRateLimiter} from 'src/interfaces/ccip/IUpgradeableLockReleaseTokenPool.sol';
 
-import {PermissionedGSMUSATAvalancheSetup as Setup} from './PermissionedGSMUSATAvalancheSetup.sol';
-
 /**
  * @dev The lane tests loop over GhoCCIPChains; this pins it equal to the lanes the pool reports
  * (`getSupportedChains`) so no lane escapes the checks. It also holds the lane assertions the tests share.
@@ -56,10 +54,15 @@ abstract contract SupportedChainsCheck is Test {
     }
   }
 
-  /// @dev The bucket has the ongoing lane config (`Setup.DEFAULT_*`)
-  function _assertDefault(IRateLimiter.TokenBucket memory bucket) internal pure {
-    assertTrue(bucket.isEnabled);
-    assertEq(bucket.capacity, Setup.DEFAULT_RATE_LIMITER_CAPACITY);
-    assertEq(bucket.rate, Setup.DEFAULT_LIMITER_RATE);
+  /// @dev The bucket has the given enabled state, capacity and rate
+  function _assertRateLimiterConfig(
+    IRateLimiter.TokenBucket memory bucket,
+    bool isEnabled,
+    uint128 capacity,
+    uint128 rate
+  ) internal pure {
+    assertEq(bucket.isEnabled, isEnabled);
+    assertEq(bucket.capacity, capacity);
+    assertEq(bucket.rate, rate);
   }
 }

@@ -4,9 +4,9 @@ pragma solidity ^0.8.0;
 import {ProtocolV3TestBase} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {IGhoToken} from 'src/interfaces/IGhoToken.sol';
 
-import {PermissionedGSMUSATAvalancheFacilitatorProposalBase} from './PermissionedGSMUSATAvalancheFacilitatorProposalBase.sol';
+import {PermissionedGsmUsatAvalancheFacilitatorProposalBase} from './PermissionedGsmUsatAvalancheFacilitatorProposalBase.sol';
 import {PermissionedGSMUSATAvalancheSetup as Setup} from './PermissionedGSMUSATAvalancheSetup.sol';
-import {SupportedChainsCheck} from './SupportedChainsCheck.sol';
+import {SupportedChainsCheck} from 'src/helpers/gho-launch/tests/utils/SupportedChainsCheck.sol';
 
 // ARFC bridge bucket capacity: the Ethereum bridge limit and every remote token pool bucket after execution
 uint256 constant EXPECTED_BUCKET_CAPACITY = 265_000_000 ether;
@@ -14,11 +14,11 @@ uint256 constant EXPECTED_BUCKET_CAPACITY = 265_000_000 ether;
 /**
  * @dev Shared tests for the remote GHO networks other than Avalanche.
  */
-abstract contract PermissionedGSMUSATAvalancheFacilitatorProposalBaseTest is
+abstract contract PermissionedGsmUsatAvalancheFacilitatorProposalBaseTest is
   ProtocolV3TestBase,
   SupportedChainsCheck
 {
-  PermissionedGSMUSATAvalancheFacilitatorProposalBase internal proposal;
+  PermissionedGsmUsatAvalancheFacilitatorProposalBase internal proposal;
   uint64 internal chainSelector;
 
   function test_bucketCapacity() public {

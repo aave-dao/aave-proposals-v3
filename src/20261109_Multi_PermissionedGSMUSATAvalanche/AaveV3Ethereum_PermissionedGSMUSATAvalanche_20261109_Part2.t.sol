@@ -18,7 +18,7 @@ import {IGhoDirectFacilitator} from 'src/interfaces/IGhoDirectFacilitator.sol';
 import {AaveV3Ethereum_PermissionedGSMUSATAvalanche_20261109_Part1} from './AaveV3Ethereum_PermissionedGSMUSATAvalanche_20261109_Part1.sol';
 import {AaveV3Ethereum_PermissionedGSMUSATAvalanche_20261109_Part2} from './AaveV3Ethereum_PermissionedGSMUSATAvalanche_20261109_Part2.sol';
 import {PermissionedGSMUSATAvalancheSetup as Setup} from './setup/PermissionedGSMUSATAvalancheSetup.sol';
-import {SupportedChainsCheck} from './setup/SupportedChainsCheck.sol';
+import {SupportedChainsCheck} from 'src/helpers/gho-launch/tests/utils/SupportedChainsCheck.sol';
 
 /**
  * @dev Test for AaveV3Ethereum_PermissionedGSMUSATAvalanche_20261109_Part2
@@ -199,8 +199,18 @@ contract AaveV3Ethereum_PermissionedGSMUSATAvalanche_20261109_Part2_Test is
 
     executePayload(vm, address(proposal));
 
-    _assertDefault(pool.getCurrentOutboundRateLimiterState(CCIPChainSelectors.AVALANCHE));
-    _assertDefault(pool.getCurrentInboundRateLimiterState(CCIPChainSelectors.AVALANCHE));
+    _assertRateLimiterConfig(
+      pool.getCurrentOutboundRateLimiterState(CCIPChainSelectors.AVALANCHE),
+      true,
+      Setup.DEFAULT_RATE_LIMITER_CAPACITY,
+      Setup.DEFAULT_LIMITER_RATE
+    );
+    _assertRateLimiterConfig(
+      pool.getCurrentInboundRateLimiterState(CCIPChainSelectors.AVALANCHE),
+      true,
+      Setup.DEFAULT_RATE_LIMITER_CAPACITY,
+      Setup.DEFAULT_LIMITER_RATE
+    );
   }
 
   /// @dev Only the widened lane is restored; every other lane keeps its config

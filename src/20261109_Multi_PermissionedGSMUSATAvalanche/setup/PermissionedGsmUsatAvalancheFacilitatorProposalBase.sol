@@ -14,7 +14,7 @@ import {PermissionedGSMUSATAvalancheSetup as Setup} from './PermissionedGSMUSATA
  * - Discussion: https://governance.aave.com/t/arfc-permissioned-gsm-usat-aave-v4-avalanche/25852
  * @dev Payload for every remote GHO network other than Avalanche.
  */
-abstract contract PermissionedGSMUSATAvalancheFacilitatorProposalBase is IProposalGenericExecutor {
+abstract contract PermissionedGsmUsatAvalancheFacilitatorProposalBase is IProposalGenericExecutor {
   using SafeCast for uint256;
 
   function GHO_TOKEN() public view virtual returns (address);

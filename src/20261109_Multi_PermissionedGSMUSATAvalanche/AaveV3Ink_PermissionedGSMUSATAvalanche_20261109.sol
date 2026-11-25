@@ -3,7 +3,7 @@ pragma solidity ^0.8.0;
 
 import {GhoInk} from 'aave-address-book/GhoInk.sol';
 
-import {PermissionedGSMUSATAvalancheFacilitatorProposalBase} from './setup/PermissionedGSMUSATAvalancheFacilitatorProposalBase.sol';
+import {PermissionedGsmUsatAvalancheFacilitatorProposalBase} from './setup/PermissionedGsmUsatAvalancheFacilitatorProposalBase.sol';
 
 /**
  * @title Permissioned GSM: USAT on Aave V4 Avalanche
@@ -12,7 +12,7 @@ import {PermissionedGSMUSATAvalancheFacilitatorProposalBase} from './setup/Permi
  * - Discussion: https://governance.aave.com/t/arfc-permissioned-gsm-usat-aave-v4-avalanche/25852
  */
 contract AaveV3Ink_PermissionedGSMUSATAvalanche_20261109 is
-  PermissionedGSMUSATAvalancheFacilitatorProposalBase
+  PermissionedGsmUsatAvalancheFacilitatorProposalBase
 {
   function GHO_TOKEN() public pure override returns (address) {
     return GhoInk.GHO_TOKEN;

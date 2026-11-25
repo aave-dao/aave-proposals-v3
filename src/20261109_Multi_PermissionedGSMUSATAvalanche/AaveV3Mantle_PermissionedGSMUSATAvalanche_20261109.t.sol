@@ -5,14 +5,14 @@ import {CCIPChainSelectors} from 'src/helpers/gho-launch/constants/CCIPChainSele
 import {AaveV3Mantle} from 'aave-address-book/AaveV3Mantle.sol';
 
 import {AaveV3Mantle_PermissionedGSMUSATAvalanche_20261109} from './AaveV3Mantle_PermissionedGSMUSATAvalanche_20261109.sol';
-import {PermissionedGSMUSATAvalancheFacilitatorProposalBaseTest} from './setup/PermissionedGSMUSATAvalancheFacilitatorProposalBaseTest.t.sol';
+import {PermissionedGsmUsatAvalancheFacilitatorProposalBaseTest} from './setup/PermissionedGsmUsatAvalancheFacilitatorProposalBaseTest.t.sol';
 
 /**
  * @dev Test for AaveV3Mantle_PermissionedGSMUSATAvalanche_20261109
  * command: FOUNDRY_PROFILE=test forge test --match-path=src/20261109_Multi_PermissionedGSMUSATAvalanche/AaveV3Mantle_PermissionedGSMUSATAvalanche_20261109.t.sol -vv
  */
 contract AaveV3Mantle_PermissionedGSMUSATAvalanche_20261109_Test is
-  PermissionedGSMUSATAvalancheFacilitatorProposalBaseTest
+  PermissionedGsmUsatAvalancheFacilitatorProposalBaseTest
 {
   function setUp() public {
     vm.createSelectFork(vm.rpcUrl('mantle'), 103215400);

@@ -5,7 +5,7 @@ import {CCIPChainSelectors} from 'src/helpers/gho-launch/constants/CCIPChainSele
 import {AaveV3Monad} from 'aave-address-book/AaveV3Monad.sol';
 
 import {AaveV3Monad_PermissionedGSMUSATAvalanche_20261109} from './AaveV3Monad_PermissionedGSMUSATAvalanche_20261109.sol';
-import {PermissionedGSMUSATAvalancheFacilitatorProposalBaseTest} from './setup/PermissionedGSMUSATAvalancheFacilitatorProposalBaseTest.t.sol';
+import {PermissionedGsmUsatAvalancheFacilitatorProposalBaseTest} from './setup/PermissionedGsmUsatAvalancheFacilitatorProposalBaseTest.t.sol';
 
 /**
  * @dev Test for AaveV3Monad_PermissionedGSMUSATAvalanche_20261109
@@ -14,7 +14,7 @@ import {PermissionedGSMUSATAvalancheFacilitatorProposalBaseTest} from './setup/P
  * forge-config: default.hardfork = "monad:MonadTen"
  */
 contract AaveV3Monad_PermissionedGSMUSATAvalanche_20261109_Test is
-  PermissionedGSMUSATAvalancheFacilitatorProposalBaseTest
+  PermissionedGsmUsatAvalancheFacilitatorProposalBaseTest
 {
   function setUp() public {
     vm.createSelectFork(vm.rpcUrl('monad'), 121848000);

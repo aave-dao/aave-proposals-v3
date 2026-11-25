@@ -9,7 +9,7 @@ import {CCIPChainSelectors} from 'src/helpers/gho-launch/constants/CCIPChainSele
 
 import {AaveV3Ethereum_PermissionedGSMUSATAvalanche_20261109_Part1} from './AaveV3Ethereum_PermissionedGSMUSATAvalanche_20261109_Part1.sol';
 import {PermissionedGSMUSATAvalancheSetup as Setup} from './setup/PermissionedGSMUSATAvalancheSetup.sol';
-import {EXPECTED_BUCKET_CAPACITY} from './setup/PermissionedGSMUSATAvalancheFacilitatorProposalBaseTest.t.sol';
+import {EXPECTED_BUCKET_CAPACITY} from './setup/PermissionedGsmUsatAvalancheFacilitatorProposalBaseTest.t.sol';
 
 /**
  * @dev Test for AaveV3Ethereum_PermissionedGSMUSATAvalanche_20261109_Part1
