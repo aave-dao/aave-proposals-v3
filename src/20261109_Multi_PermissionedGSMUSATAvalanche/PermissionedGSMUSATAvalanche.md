@@ -84,12 +84,10 @@ Only the GHO Risk Council ([`0x8513e6F37dBc52De87b166980Fa3F50639694B60`](https:
 | Underlying Asset Address | [`0x9A5926fd88F747c357738b1e82aFB46AB80f0A6b`](https://snowscan.xyz/address/0x9A5926fd88F747c357738b1e82aFB46AB80f0A6b)                                                   |
 | Aave Market              | Aave V4                                                                                                                                                                   |
 | Configured GSM Asset     | waCoreUSAT                                                                                                                                                                |
-| Receipt Token Address \* | [`0x653F2541E7d51a846e92fA6F7866bA92e465a379`](https://snowscan.xyz/address/0x653F2541E7d51a846e92fA6F7866bA92e465a379)                                                   |
+| Receipt Token Address    | [`0x653F2541E7d51a846e92fA6F7866bA92e465a379`](https://snowscan.xyz/address/0x653F2541E7d51a846e92fA6F7866bA92e465a379)                                                   |
 | GSM Implementation       | Permissioned remoteGSM                                                                                                                                                    |
 | Approved Aave DAO Safe   | [`0x22740deBa78d5a0c24C58C740e3715ec29de1bFa`](https://snowscan.xyz/address/0x22740deBa78d5a0c24C58C740e3715ec29de1bFa)                                                   |
 | GSM Registry             | The AIP adds the GSM to the Avalanche GsmRegistry [`0x0a0dFf46122dFdc2aF0D5D66f23BA8f78bf17edF`](https://snowscan.xyz/address/0x0a0dFf46122dFdc2aF0D5D66f23BA8f78bf17edF) |
-
-\* Pending USAT onboarding to Aave V4 ([forum](https://governance.aave.com/t/direct-to-aip-onboard-usat-to-aave-v4-core-instance-on-avalanche/25880), [AIP](https://github.com/aave-dao/aave-proposals-v3/pull/1236)).
 
 #### Liquidity and Economic Parameters
 

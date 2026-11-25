@@ -24,7 +24,7 @@ contract AaveV3Avalanche_PermissionedGSMUSATAvalanche_20261109_Part1_Test is
   AvalancheCcipDelivery,
   SupportedChainsCheck
 {
-  uint256 internal constant FORK_BLOCK = 99954000;
+  uint256 internal constant FORK_BLOCK = 101345000;
 
   AaveV3Avalanche_PermissionedGSMUSATAvalanche_20261109_Part1 internal proposal;
   IUpgradeableBurnMintTokenPool internal pool =

@@ -21,7 +21,6 @@ import {IGsmRegistry} from 'src/interfaces/IGsmRegistry.sol';
 import {IPermissionedGsm} from 'src/interfaces/IPermissionedGsm.sol';
 import {IFixedPriceStrategy4626} from 'src/interfaces/IFixedPriceStrategy4626.sol';
 
-import {AaveV4Avalanche_OnboardUSATCoreHub_20261028} from '../20261028_AaveV4Avalanche_OnboardUSATCoreHub/AaveV4Avalanche_OnboardUSATCoreHub_20261028.sol';
 import {AaveV3Avalanche_PermissionedGSMUSATAvalanche_20261109_Part1} from './AaveV3Avalanche_PermissionedGSMUSATAvalanche_20261109_Part1.sol';
 import {AaveV3Avalanche_PermissionedGSMUSATAvalanche_20261109_Part2} from './AaveV3Avalanche_PermissionedGSMUSATAvalanche_20261109_Part2.sol';
 import {PermissionedGSMUSATAvalancheSetup as Setup} from './setup/PermissionedGSMUSATAvalancheSetup.sol';
@@ -31,16 +30,13 @@ import {SupportedChainsCheck} from 'src/helpers/gho-launch/tests/utils/Supported
 /**
  * @dev Test for AaveV3Avalanche_PermissionedGSMUSATAvalanche_20261109_Part2
  * command: FOUNDRY_PROFILE=test forge test --match-path=src/20261109_Multi_PermissionedGSMUSATAvalanche/AaveV3Avalanche_PermissionedGSMUSATAvalanche_20261109_Part2.t.sol -vv
- *
- * setUp executes the USAT onboarding payload (AaveV4Avalanche_OnboardUSATCoreHub_20261028) first,
- * because this AIP depends on it. It lists waCoreUSAT on the Core Hub.
  */
 contract AaveV3Avalanche_PermissionedGSMUSATAvalanche_20261109_Part2_Test is
   ProtocolV3TestBase,
   AvalancheCcipDelivery,
   SupportedChainsCheck
 {
-  uint256 internal constant FORK_BLOCK = 99954000;
+  uint256 internal constant FORK_BLOCK = 101345000;
   // waCoreUSAT shares, 6 decimals (TokenizationSpoke decimals = underlying decimals); set at GSM deployment
   uint128 internal constant GSM_EXPOSURE_CAP = 20_000_000e6;
   // Aave V4 TokenizationSpoke for USAT
@@ -51,7 +47,7 @@ contract AaveV3Avalanche_PermissionedGSMUSATAvalanche_20261109_Part2_Test is
   address internal constant PRICE_STRATEGY = 0x863F2106C5543266b43991Fe842551B0E30FBF0d;
   // https://snowscan.xyz/address/0x9A5926fd88F747c357738b1e82aFB46AB80f0A6b
   address internal constant USAT = 0x9A5926fd88F747c357738b1e82aFB46AB80f0A6b;
-  // Largest USAT holder on Avalanche (EOA, 3 USAT on 2026-11-13), the source of the swap funds
+  // Largest USAT holder on Avalanche (EOA, 10,000,003 USAT at FORK_BLOCK), the source of the swap funds
   // https://snowscan.xyz/address/0x3e4C6460aa00c11C81e3C5b95b15d612F5F2d9C7
   address internal constant USAT_HOLDER = 0x3e4C6460aa00c11C81e3C5b95b15d612F5F2d9C7;
   // USAT 6 decimals -> GHO 18 decimals, FixedPriceStrategy4626 price ratio 1e18
@@ -66,7 +62,6 @@ contract AaveV3Avalanche_PermissionedGSMUSATAvalanche_20261109_Part2_Test is
 
   function setUp() public {
     vm.createSelectFork(vm.rpcUrl('avalanche'), FORK_BLOCK);
-    executePayload(vm, address(new AaveV4Avalanche_OnboardUSATCoreHub_20261028()));
 
     part1 = new AaveV3Avalanche_PermissionedGSMUSATAvalanche_20261109_Part1();
     proposal = new AaveV3Avalanche_PermissionedGSMUSATAvalanche_20261109_Part2();

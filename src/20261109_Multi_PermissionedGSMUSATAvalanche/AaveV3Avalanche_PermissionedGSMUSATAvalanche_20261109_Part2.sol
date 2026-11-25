@@ -21,8 +21,7 @@ import {PermissionedGSMUSATAvalancheSetup as Setup} from './setup/PermissionedGS
  * - Snapshot: https://snapshot.org/#/s:aavedao.eth/proposal/0x3a61c64d6f7d0546d76c8b7d93d29becf262a30240109c4ea9fa8d067ad6c2e2
  * - Discussion: https://governance.aave.com/t/arfc-permissioned-gsm-usat-aave-v4-avalanche/25852
  *
- * @dev Executes after aave-proposals-v3 PR 1236, which creates waCoreUSAT, the GSM underlying.
- * Reverts until the bridged GHO has reached the Avalanche Collector.
+ * @dev Reverts until the bridged GHO has reached the Avalanche Collector.
  * The GSM is deployed with its GhoReserve and the 20M exposure cap already set, and with no fee
  * strategy: fees are 0/0 and FixedFeeStrategy rejects 0/0. No oracle swap freezer: the Aave V3
  * Avalanche oracle has no USAT source.
