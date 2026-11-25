@@ -1,32 +1,13 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import {IAaveV3ConfigEngine as IEngine} from 'aave-v3-origin/contracts/extensions/v3-config-engine/IAaveV3ConfigEngine.sol';
 import {AaveV3EthereumHorizon} from 'aave-address-book/AaveV3EthereumHorizon.sol';
 
 library AaveV3EthereumHorizonCustom {
-  function defaultRwaInterestRateInputData()
-    internal
-    pure
-    returns (IEngine.InterestRateInputData memory)
-  {
-    return
-      IEngine.InterestRateInputData({
-        optimalUsageRatio: 99_00,
-        baseVariableBorrowRate: 0,
-        variableRateSlope1: 0,
-        variableRateSlope2: 0
-      });
-  }
-
   // from AaveV3EthereumHorizon address book
-  address internal constant POOL = address(AaveV3EthereumHorizon.POOL);
   address internal constant DEFAULT_A_TOKEN_IMPL =
     address(AaveV3EthereumHorizon.DEFAULT_A_TOKEN_IMPL);
-  address internal constant DEFAULT_VARIABLE_DEBT_TOKEN_IMPL =
-    address(AaveV3EthereumHorizon.DEFAULT_VARIABLE_DEBT_TOKEN_IMPL);
   address internal constant RWA_A_TOKEN_IMPL = AaveV3EthereumHorizon.RWA_A_TOKEN_IMPL;
-  address internal constant CONFIG_ENGINE = AaveV3EthereumHorizon.CONFIG_ENGINE;
 
   // executor roles
   // https://etherscan.io/address/0xe6ec1f0ae6cd023bd0a9b4d0253bdc755103253c
