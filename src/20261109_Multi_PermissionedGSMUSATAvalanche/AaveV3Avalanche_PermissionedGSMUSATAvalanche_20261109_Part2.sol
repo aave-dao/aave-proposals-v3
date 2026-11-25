@@ -41,10 +41,13 @@ contract AaveV3Avalanche_PermissionedGSMUSATAvalanche_20261109_Part2 is IProposa
   IPermissionedGsm public constant GSM_USAT =
     IPermissionedGsm(0xF6b70344b92cAb2D23c96eA834bbb45ADbdd6c40);
 
+  // Remote GSM Draw Limit
+  uint256 public constant GSM_RESERVE_LIMIT = 25_000_000 ether;
+
   function execute() external {
     GHO_RESERVE.grantRole(GHO_RESERVE.LIMIT_MANAGER_ROLE(), GhoAvalanche.RISK_COUNCIL);
     GHO_RESERVE.addEntity(address(GSM_USAT));
-    GHO_RESERVE.setLimit(address(GSM_USAT), Setup.GSM_RESERVE_LIMIT);
+    GHO_RESERVE.setLimit(address(GSM_USAT), GSM_RESERVE_LIMIT);
 
     GSM_USAT.grantRole(GSM_USAT.SWAP_FREEZER_ROLE(), GovernanceV3Avalanche.EXECUTOR_LVL_1);
 

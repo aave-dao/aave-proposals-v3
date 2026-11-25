@@ -57,8 +57,8 @@ contract AaveV3Ethereum_PermissionedGSMUSATAvalanche_20261109_Part1_Test is Prot
     executePayload(vm, address(proposal));
 
     bucket = pool.getCurrentOutboundRateLimiterState(CCIPChainSelectors.AVALANCHE);
-    assertEq(bucket.capacity, Setup.TEMP_BRIDGE_CAPACITY);
-    assertEq(bucket.rate, Setup.TEMP_BRIDGE_RATE);
+    assertEq(bucket.capacity, 71_500_000 ether);
+    assertEq(bucket.rate, 64_999_999 ether);
     assertTrue(bucket.isEnabled);
     assertEq(bucket.tokens, tokensBefore, 'tokens do not refill in the execution second');
 

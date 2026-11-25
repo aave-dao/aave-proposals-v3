@@ -26,6 +26,7 @@ contract AaveV3Ethereum_PermissionedGSMUSATAvalanche_20261109_Part2 is IProposal
   // https://etherscan.io/address/0x207b377b904D5e227337F7E708e27Dfa34F6381A
   address public constant DIRECT_FACILITATOR = 0x207b377b904D5e227337F7E708e27Dfa34F6381A;
   string public constant DIRECT_FACILITATOR_NAME = 'GhoDirectFacilitator GSM Avalanche';
+  uint128 public constant DIRECT_FACILITATOR_CAPACITY = uint128(Setup.GHO_BRIDGE_AMOUNT);
 
   uint32 public constant AVALANCHE_BRIDGE_GAS_LIMIT = 750_000;
 
@@ -33,7 +34,7 @@ contract AaveV3Ethereum_PermissionedGSMUSATAvalanche_20261109_Part2 is IProposal
     IGhoToken(AaveV3EthereumAssets.GHO_UNDERLYING).addFacilitator({
       facilitatorAddress: DIRECT_FACILITATOR,
       facilitatorLabel: DIRECT_FACILITATOR_NAME,
-      bucketCapacity: Setup.DIRECT_FACILITATOR_CAPACITY
+      bucketCapacity: DIRECT_FACILITATOR_CAPACITY
     });
 
     IGhoDirectFacilitator(DIRECT_FACILITATOR).mint(address(this), Setup.GHO_BRIDGE_AMOUNT);

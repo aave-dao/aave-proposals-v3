@@ -21,11 +21,6 @@ library PermissionedGSMUSATAvalancheSetup {
   uint128 public constant DEFAULT_RATE_LIMITER_CAPACITY = 5_000_000 ether;
   uint128 public constant DEFAULT_LIMITER_RATE = 1_000 ether;
 
-  uint128 public constant DIRECT_FACILITATOR_CAPACITY = uint128(GHO_BRIDGE_AMOUNT);
-
-  // Remote GSM Draw Limit
-  uint256 public constant GSM_RESERVE_LIMIT = 25_000_000 ether;
-
   /**
    * @notice Sets both directions of one GHO lane of `tokenPool` back to the ongoing config,
    * undoing the Part 1 widening. Every other lane is left untouched.
