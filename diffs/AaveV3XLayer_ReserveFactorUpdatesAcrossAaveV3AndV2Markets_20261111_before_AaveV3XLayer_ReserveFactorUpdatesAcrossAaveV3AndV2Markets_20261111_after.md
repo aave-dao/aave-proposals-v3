@@ -1,0 +1,70 @@
+## Reserve changes
+
+### Reserves altered
+
+#### xBTC ([0xb7C00000bcDEeF966b20B3D884B98E64d2b06b4f](https://www.oklink.com/xlayer/address/0xb7C00000bcDEeF966b20B3D884B98E64d2b06b4f))
+
+| description | value before | value after |
+| --- | --- | --- |
+| reserveFactor | 10 % [1000] | 100 % [10000] |
+
+
+## Event logs
+
+#### 0x1408b48B6A610948f04813EA6b2F438A6BBAd2f2 (AaveV3XLayer.POOL_CONFIGURATOR)
+
+| index | event |
+| --- | --- |
+| 0 | ReserveFactorChanged(asset: 0xb7C00000bcDEeF966b20B3D884B98E64d2b06b4f (symbol: xBTC), oldReserveFactor: 1000, newReserveFactor: 10000) |
+
+#### 0xE3F3Caefdd7180F884c01E57f65Df979Af84f116 (AaveV3XLayer.POOL)
+
+| index | event |
+| --- | --- |
+| 1 | ReserveDataUpdated(reserve: 0xb7C00000bcDEeF966b20B3D884B98E64d2b06b4f (symbol: xBTC), liquidityRate: 0, stableBorrowRate: 0, variableBorrowRate: 5214293248033723526886, liquidityIndex: 1.0000 [1000065279118022067985891474, 27 decimals], variableBorrowIndex: 1.0006 [1000674863978540828905884734, 27 decimals]) |
+
+#### 0xE2E8Badc5d50f8a6188577B89f50701cDE2D4e19 (AaveV3XLayer.ACL_ADMIN, GovernanceV3XLayer.EXECUTOR_LVL_1)
+
+| index | event |
+| --- | --- |
+| 2 | ExecutedAction(target: 0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f, value: 0, signature: execute(), data: 0x, executionTime: 1794423727, withDelegatecall: true, resultData: 0x) |
+
+#### 0x80e11cB895a23C901a990239E5534054C66476B5 (GovernanceV3XLayer.PAYLOADS_CONTROLLER)
+
+| index | event |
+| --- | --- |
+| 3 | PayloadExecuted(payloadId: 18) |
+
+## Raw storage changes
+
+### 0x80e11cb895a23c901a990239e5534054c66476b5 (GovernanceV3XLayer.PAYLOADS_CONTROLLER)
+
+| slot | previous value | new value |
+| --- | --- | --- |
+| 0x6a2b6bffaca788160f671fa62d34758b717f75a90ad5a468757c50d61f33c443 | 0x006af4bbae000000000002000000000000000000000000000000000000000000 | 0x006af4bbae000000000003000000000000000000000000000000000000000000 |
+| 0x6a2b6bffaca788160f671fa62d34758b717f75a90ad5a468757c50d61f33c444 | 0x000000000000000000093a800000000000006b22e02f00000000000000000000 | 0x000000000000000000093a800000000000006b22e02f0000000000006af4bbaf |
+
+### 0xe3f3caefdd7180f884c01e57f65df979af84f116 (AaveV3XLayer.POOL)
+
+| slot | previous value | new value |
+| --- | --- | --- |
+| 0x10578d58a12d0152f0877bbc9af0d1b6686547c76d02514be0417b027e072c2b | 0x100000000000000000000003e80000000c800000001403e8850829fe1d4c1b58 | 0x100000000000000000000003e80000000c80000000142710850829fe1d4c1b58 |
+| 0x10578d58a12d0152f0877bbc9af0d1b6686547c76d02514be0417b027e072c2c | 0x000000000000000009e1031bcacc80e900000000033b3c0f698ff27a298635c4 | 0x0000000000000000000000000000000000000000033b3c0f699009b7ea90c092 |
+| 0x10578d58a12d0152f0877bbc9af0d1b6686547c76d02514be0417b027e072c2d | 0x000000000000011aaadaf293b7e42ee600000000033bbd25104efbe534772e09 | 0x000000000000011aaadaf293b7e42ee600000000033bbd2512e864855c82cc3e |
+| 0x10578d58a12d0152f0877bbc9af0d1b6686547c76d02514be0417b027e072c2e | 0x0000000000000000000002006af4b74300000000000000000000000000000000 | 0x0000000000000000000002006af4bbaf00000000000000000000000000000000 |
+
+
+## Raw diff
+
+```json
+{
+  "reserves": {
+    "0xb7C00000bcDEeF966b20B3D884B98E64d2b06b4f": {
+      "reserveFactor": {
+        "from": 1000,
+        "to": 10000
+      }
+    }
+  }
+}
+```
