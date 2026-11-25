@@ -13,7 +13,7 @@ import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGen
  * - Discussion: https://governance.aave.com/t/direct-to-aip-november-2026-funding-update/26312
  */
 contract AaveV3Arbitrum_November2026FundingUpdate_20261118 is IProposalGenericExecutor {
-  uint256 public constant AFC_GHO_ALLOWANCE = 50_000 ether;
+  uint256 public constant AFC_GHO_ALLOWANCE = 100_000 ether;
 
   function execute() external {
     AaveV3Arbitrum.COLLECTOR.approve(

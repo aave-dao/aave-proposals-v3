@@ -21,8 +21,8 @@ contract AaveV3Monad_November2026FundingUpdate_20261118 is IProposalGenericExecu
   // https://monadscan.com/address/0x3bd359C1119dA7Da1D913D1C4D2B7c461115433A
   address public constant WMON = 0x3bd359C1119dA7Da1D913D1C4D2B7c461115433A;
 
-  uint256 public constant AFC_GHO_ALLOWANCE = 250_000 ether;
-  uint256 public constant AFC_AGHO_ALLOWANCE = 250_000 ether;
+  uint256 public constant AFC_GHO_ALLOWANCE = 300_000 ether;
+  uint256 public constant AFC_AGHO_ALLOWANCE = 300_000 ether;
 
   function execute() external {
     _afcAllowances();

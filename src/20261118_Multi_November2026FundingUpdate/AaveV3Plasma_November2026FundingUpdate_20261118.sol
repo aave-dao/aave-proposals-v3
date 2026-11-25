@@ -18,8 +18,8 @@ import {IGsm} from 'src/interfaces/IGsm.sol';
  * - Discussion: https://governance.aave.com/t/direct-to-aip-november-2026-funding-update/26312
  */
 contract AaveV3Plasma_November2026FundingUpdate_20261118 is IProposalGenericExecutor {
-  uint256 public constant AFC_GHO_ALLOWANCE = 1_000_000 ether;
-  uint256 public constant AFC_AGHO_ALLOWANCE = 1_000_000 ether;
+  uint256 public constant AFC_GHO_ALLOWANCE = 1_100_000 ether;
+  uint256 public constant AFC_AGHO_ALLOWANCE = 1_100_000 ether;
 
   function execute() external {
     _afcAllowances();
