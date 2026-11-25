@@ -7,7 +7,7 @@ import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config
 
 import 'forge-std/Test.sol';
 import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/src/ProtocolV3TestBase.sol';
-import {AaveV3Optimism_ReserveFactorUpdatesAcrossAaveV3AndV2Markets_20261111, USDCn_RF, WETH_RF, USDT_RF, WBTC_RF, wstETH_RF} from './AaveV3Optimism_ReserveFactorUpdatesAcrossAaveV3AndV2Markets_20261111.sol';
+import {AaveV3Optimism_ReserveFactorUpdatesAcrossAaveV3AndV2Markets_20261111} from './AaveV3Optimism_ReserveFactorUpdatesAcrossAaveV3AndV2Markets_20261111.sol';
 
 /**
  * @dev Test for AaveV3Optimism_ReserveFactorUpdatesAcrossAaveV3AndV2Markets_20261111
@@ -16,6 +16,12 @@ import {AaveV3Optimism_ReserveFactorUpdatesAcrossAaveV3AndV2Markets_20261111, US
 contract AaveV3Optimism_ReserveFactorUpdatesAcrossAaveV3AndV2Markets_20261111_Test is
   ProtocolV3TestBase
 {
+  uint256 internal constant USDCn_RF = 15_00;
+  uint256 internal constant WETH_RF = 20_00;
+  uint256 internal constant USDT_RF = 15_00;
+  uint256 internal constant WBTC_RF = 100_00;
+  uint256 internal constant wstETH_RF = 100_00;
+
   AaveV3Optimism_ReserveFactorUpdatesAcrossAaveV3AndV2Markets_20261111 internal proposal;
 
   function setUp() public {

@@ -6,14 +6,6 @@ import {AaveV3PayloadAvalanche} from 'aave-helpers/src/v3-config-engine/AaveV3Pa
 import {EngineFlags} from 'aave-v3-origin/contracts/extensions/v3-config-engine/EngineFlags.sol';
 import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config-engine/IAaveV3ConfigEngine.sol';
 
-uint256 constant USDC_RF = 25_00;
-uint256 constant WAVAX_RF = 50_00;
-uint256 constant USDt_RF = 25_00;
-uint256 constant DAIe_RF = 90_00;
-uint256 constant WETHe_RF = 50_00;
-uint256 constant BTCb_RF = 100_00;
-uint256 constant WBTCe_RF = 100_00;
-
 /**
  * @title Reserve Factor Updates Across Aave V3 and V2 Markets
  * @author @TokenLogic
@@ -23,6 +15,14 @@ uint256 constant WBTCe_RF = 100_00;
 contract AaveV3Avalanche_ReserveFactorUpdatesAcrossAaveV3AndV2Markets_20261111 is
   AaveV3PayloadAvalanche
 {
+  uint256 public constant USDC_RF = 25_00;
+  uint256 public constant WAVAX_RF = 50_00;
+  uint256 public constant USDt_RF = 25_00;
+  uint256 public constant DAIe_RF = 90_00;
+  uint256 public constant WETHe_RF = 50_00;
+  uint256 public constant BTCb_RF = 100_00;
+  uint256 public constant WBTCe_RF = 100_00;
+
   function borrowsUpdates()
     public
     pure

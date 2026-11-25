@@ -6,12 +6,6 @@ import {AaveV3PayloadOptimism} from 'aave-helpers/src/v3-config-engine/AaveV3Pay
 import {EngineFlags} from 'aave-v3-origin/contracts/extensions/v3-config-engine/EngineFlags.sol';
 import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config-engine/IAaveV3ConfigEngine.sol';
 
-uint256 constant USDCn_RF = 15_00;
-uint256 constant WETH_RF = 20_00;
-uint256 constant USDT_RF = 15_00;
-uint256 constant WBTC_RF = 100_00;
-uint256 constant wstETH_RF = 100_00;
-
 /**
  * @title Reserve Factor Updates Across Aave V3 and V2 Markets
  * @author @TokenLogic
@@ -21,6 +15,12 @@ uint256 constant wstETH_RF = 100_00;
 contract AaveV3Optimism_ReserveFactorUpdatesAcrossAaveV3AndV2Markets_20261111 is
   AaveV3PayloadOptimism
 {
+  uint256 public constant USDCn_RF = 15_00;
+  uint256 public constant WETH_RF = 20_00;
+  uint256 public constant USDT_RF = 15_00;
+  uint256 public constant WBTC_RF = 100_00;
+  uint256 public constant wstETH_RF = 100_00;
+
   function borrowsUpdates()
     public
     pure

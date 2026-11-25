@@ -7,7 +7,7 @@ import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config
 
 import 'forge-std/Test.sol';
 import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/src/ProtocolV3TestBase.sol';
-import {AaveV3XLayer_ReserveFactorUpdatesAcrossAaveV3AndV2Markets_20261111, xBTC_RF} from './AaveV3XLayer_ReserveFactorUpdatesAcrossAaveV3AndV2Markets_20261111.sol';
+import {AaveV3XLayer_ReserveFactorUpdatesAcrossAaveV3AndV2Markets_20261111} from './AaveV3XLayer_ReserveFactorUpdatesAcrossAaveV3AndV2Markets_20261111.sol';
 
 /**
  * @dev Test for AaveV3XLayer_ReserveFactorUpdatesAcrossAaveV3AndV2Markets_20261111
@@ -16,6 +16,8 @@ import {AaveV3XLayer_ReserveFactorUpdatesAcrossAaveV3AndV2Markets_20261111, xBTC
 contract AaveV3XLayer_ReserveFactorUpdatesAcrossAaveV3AndV2Markets_20261111_Test is
   ProtocolV3TestBase
 {
+  uint256 internal constant xBTC_RF = 100_00;
+
   AaveV3XLayer_ReserveFactorUpdatesAcrossAaveV3AndV2Markets_20261111 internal proposal;
 
   function setUp() public {

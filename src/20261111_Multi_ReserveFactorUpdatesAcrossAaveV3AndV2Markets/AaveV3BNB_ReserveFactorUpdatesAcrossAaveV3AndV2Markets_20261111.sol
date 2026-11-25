@@ -6,9 +6,6 @@ import {AaveV3PayloadBNB} from 'aave-helpers/src/v3-config-engine/AaveV3PayloadB
 import {EngineFlags} from 'aave-v3-origin/contracts/extensions/v3-config-engine/EngineFlags.sol';
 import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config-engine/IAaveV3ConfigEngine.sol';
 
-uint256 constant ETH_RF = 25_00;
-uint256 constant BTCB_RF = 100_00;
-
 /**
  * @title Reserve Factor Updates Across Aave V3 and V2 Markets
  * @author @TokenLogic
@@ -16,6 +13,9 @@ uint256 constant BTCB_RF = 100_00;
  * - Discussion: https://governance.aave.com/t/direct-to-aip-reserve-factor-updates-across-aave-v3-and-v2-markets/26249
  */
 contract AaveV3BNB_ReserveFactorUpdatesAcrossAaveV3AndV2Markets_20261111 is AaveV3PayloadBNB {
+  uint256 public constant ETH_RF = 25_00;
+  uint256 public constant BTCB_RF = 100_00;
+
   function borrowsUpdates()
     public
     pure

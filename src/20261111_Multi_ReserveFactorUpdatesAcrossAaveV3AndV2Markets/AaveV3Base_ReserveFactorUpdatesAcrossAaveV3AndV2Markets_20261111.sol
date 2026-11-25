@@ -6,11 +6,6 @@ import {AaveV3PayloadBase} from 'aave-helpers/src/v3-config-engine/AaveV3Payload
 import {EngineFlags} from 'aave-v3-origin/contracts/extensions/v3-config-engine/EngineFlags.sol';
 import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config-engine/IAaveV3ConfigEngine.sol';
 
-uint256 constant cbBTC_RF = 100_00;
-uint256 constant cbETH_RF = 100_00;
-uint256 constant wstETH_RF = 100_00;
-uint256 constant weETH_RF = 100_00;
-
 /**
  * @title Reserve Factor Updates Across Aave V3 and V2 Markets
  * @author @TokenLogic
@@ -18,6 +13,11 @@ uint256 constant weETH_RF = 100_00;
  * - Discussion: https://governance.aave.com/t/direct-to-aip-reserve-factor-updates-across-aave-v3-and-v2-markets/26249
  */
 contract AaveV3Base_ReserveFactorUpdatesAcrossAaveV3AndV2Markets_20261111 is AaveV3PayloadBase {
+  uint256 public constant cbBTC_RF = 100_00;
+  uint256 public constant cbETH_RF = 100_00;
+  uint256 public constant wstETH_RF = 100_00;
+  uint256 public constant weETH_RF = 100_00;
+
   function borrowsUpdates()
     public
     pure

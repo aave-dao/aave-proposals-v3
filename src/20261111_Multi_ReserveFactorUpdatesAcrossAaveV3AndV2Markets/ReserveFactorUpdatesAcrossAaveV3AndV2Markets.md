@@ -19,7 +19,7 @@ Every borrowable reserve exposes the DAO to collateral, oracle and liquidation r
 - **Avalanche**: larger increases on V3 so that its economics reflect the Aave V4 alternative live on the same chain.
 - **Polygon, Optimism, Gnosis, Linea and BNB Chain**: moderate increases on the main reserves of these smaller markets with limited growth, and a larger one on Polygon DAI, a legacy reserve.
 - **Ethereum Prime wstETH**: utilisation is 31% and supply APY is 6 bps; Prime suppliers use wstETH as collateral and are not meaningfully exposed to the supply rate.
-- **Aave V2 Ethereum and Avalanche (to 99.99%)**: all V2 Ethereum and Avalanche reserves are frozen under the V2 deprecation plan; directing nearly all remaining interest to the DAO gives remaining suppliers a reason to withdraw and pushes open positions to close. With AAVE.e included, all seven Avalanche V2 reserves will have a 99.99% RF.
+- **Aave V2 Ethereum and Avalanche (to 99.99%)**: all V2 Ethereum and Avalanche reserves are frozen under the V2 deprecation plan; directing nearly all remaining interest to the DAO gives remaining suppliers a reason to withdraw and pushes open positions to close. With AAVE.e included, all seven Avalanche V2 reserves will have a 99.99% RF. Ethereum V2 AAVE and stETH are frozen with no debt and keep their current RF.
 
 Ethereum Core WETH is not included, so that its parameters can be coordinated with the ongoing work on Ethereum Core collateral. Reserves not listed in the Specification keep their current RF.
 

@@ -6,17 +6,6 @@ import {AaveV3PayloadEthereum} from 'aave-helpers/src/v3-config-engine/AaveV3Pay
 import {EngineFlags} from 'aave-v3-origin/contracts/extensions/v3-config-engine/EngineFlags.sol';
 import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config-engine/IAaveV3ConfigEngine.sol';
 
-uint256 constant DAI_RF = 30_00;
-uint256 constant WBTC_RF = 100_00;
-uint256 constant cbBTC_RF = 100_00;
-uint256 constant wstETH_RF = 100_00;
-uint256 constant LINK_RF = 50_00;
-uint256 constant weETH_RF = 100_00;
-uint256 constant tBTC_RF = 100_00;
-uint256 constant FBTC_RF = 100_00;
-uint256 constant cbETH_RF = 100_00;
-uint256 constant rETH_RF = 100_00;
-
 /**
  * @title Reserve Factor Updates Across Aave V3 and V2 Markets
  * @author @TokenLogic
@@ -26,6 +15,17 @@ uint256 constant rETH_RF = 100_00;
 contract AaveV3Ethereum_ReserveFactorUpdatesAcrossAaveV3AndV2Markets_20261111 is
   AaveV3PayloadEthereum
 {
+  uint256 public constant DAI_RF = 30_00;
+  uint256 public constant WBTC_RF = 100_00;
+  uint256 public constant cbBTC_RF = 100_00;
+  uint256 public constant wstETH_RF = 100_00;
+  uint256 public constant LINK_RF = 50_00;
+  uint256 public constant weETH_RF = 100_00;
+  uint256 public constant tBTC_RF = 100_00;
+  uint256 public constant FBTC_RF = 100_00;
+  uint256 public constant cbETH_RF = 100_00;
+  uint256 public constant rETH_RF = 100_00;
+
   function borrowsUpdates()
     public
     pure

@@ -6,10 +6,6 @@ import {AaveV3PayloadGnosis} from 'aave-helpers/src/v3-config-engine/AaveV3Paylo
 import {EngineFlags} from 'aave-v3-origin/contracts/extensions/v3-config-engine/EngineFlags.sol';
 import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config-engine/IAaveV3ConfigEngine.sol';
 
-uint256 constant EURe_RF = 15_00;
-uint256 constant USDCe_RF = 20_00;
-uint256 constant GNO_RF = 50_00;
-
 /**
  * @title Reserve Factor Updates Across Aave V3 and V2 Markets
  * @author @TokenLogic
@@ -17,6 +13,10 @@ uint256 constant GNO_RF = 50_00;
  * - Discussion: https://governance.aave.com/t/direct-to-aip-reserve-factor-updates-across-aave-v3-and-v2-markets/26249
  */
 contract AaveV3Gnosis_ReserveFactorUpdatesAcrossAaveV3AndV2Markets_20261111 is AaveV3PayloadGnosis {
+  uint256 public constant EURe_RF = 15_00;
+  uint256 public constant USDCe_RF = 20_00;
+  uint256 public constant GNO_RF = 50_00;
+
   function borrowsUpdates()
     public
     pure

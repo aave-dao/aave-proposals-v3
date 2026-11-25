@@ -7,7 +7,7 @@ import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config
 
 import 'forge-std/Test.sol';
 import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/src/ProtocolV3TestBase.sol';
-import {AaveV3Plasma_ReserveFactorUpdatesAcrossAaveV3AndV2Markets_20261111, USDT0_RF, USDe_RF, GHO_RF} from './AaveV3Plasma_ReserveFactorUpdatesAcrossAaveV3AndV2Markets_20261111.sol';
+import {AaveV3Plasma_ReserveFactorUpdatesAcrossAaveV3AndV2Markets_20261111} from './AaveV3Plasma_ReserveFactorUpdatesAcrossAaveV3AndV2Markets_20261111.sol';
 
 /**
  * @dev Test for AaveV3Plasma_ReserveFactorUpdatesAcrossAaveV3AndV2Markets_20261111
@@ -16,6 +16,10 @@ import {AaveV3Plasma_ReserveFactorUpdatesAcrossAaveV3AndV2Markets_20261111, USDT
 contract AaveV3Plasma_ReserveFactorUpdatesAcrossAaveV3AndV2Markets_20261111_Test is
   ProtocolV3TestBase
 {
+  uint256 internal constant USDT0_RF = 7_50;
+  uint256 internal constant USDe_RF = 35_00;
+  uint256 internal constant GHO_RF = 10_00;
+
   AaveV3Plasma_ReserveFactorUpdatesAcrossAaveV3AndV2Markets_20261111 internal proposal;
 
   function setUp() public {
