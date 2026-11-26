@@ -11,18 +11,22 @@ import {ICapsRangeValidationModule as IRvm} from '../interfaces/ICapsRangeValida
 
 /**
  * @dev LlamaGuard Caps contracts on Arbitrum, under the address book key names they move to once listed.
- *      TODO(PXE-238): production deployment from the prod EOA, verified on Arbiscan.
+ *      Deployed from the LlamaRisk prod EOA and verified on Arbiscan.
  */
 library ArbitrumLlamaGuardCaps {
   address internal constant LLAMARISK_RISK_ORACLE_ADMIN_SAFE =
     0x1a0267E9E5929a5914Ae9DbBf23Bc07B14365471;
-  address internal constant LLAMARISK_CAPS_RISK_ORACLE = address(0);
-  address internal constant LLAMARISK_CAPS_RISK_ORACLE_ROUTER = address(0);
-  address internal constant LLAMARISK_CAPS_PARAMETER_REGISTRY = address(0);
-  address internal constant LLAMARISK_CAPS_RANGE_VALIDATION_MODULE = address(0);
-  address internal constant LLAMARISK_CAPS_REDUCER_ORACLE = address(0);
-  address internal constant LLAMARISK_CAPS_RAISE_AGENT = address(0);
-  address internal constant LLAMARISK_CAPS_CUT_AGENT = address(0);
+  address internal constant LLAMARISK_CAPS_RISK_ORACLE = 0x556c75E6bbf0672bf3510b839Ad229450C474f23;
+  address internal constant LLAMARISK_CAPS_RISK_ORACLE_ROUTER =
+    0x74d8dd6CfCC3BeED9C4Db3fd6c4e471aD721d9F0;
+  address internal constant LLAMARISK_CAPS_PARAMETER_REGISTRY =
+    0x2662d3A9d07589DCAbAA10ea85F66572b51c260d;
+  address internal constant LLAMARISK_CAPS_RANGE_VALIDATION_MODULE =
+    0x039C0E59F728bA984dFAA96dFF977B977aA82Beb;
+  address internal constant LLAMARISK_CAPS_REDUCER_ORACLE =
+    0xC8D89bd6894C315Fb13bBD057357D1380771C181;
+  address internal constant LLAMARISK_CAPS_RAISE_AGENT = 0x996126C29374EbBA1A3AC91c2564C29D0E634765;
+  address internal constant LLAMARISK_CAPS_CUT_AGENT = 0x3Fe54E476007CB315B23284BC1064cCC01a1f666;
 }
 
 /**

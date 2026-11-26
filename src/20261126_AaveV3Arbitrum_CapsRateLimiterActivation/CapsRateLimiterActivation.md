@@ -72,13 +72,13 @@ No reserve configuration is changed by this payload. The snapshot diff is empty 
 ## Deployed Contracts
 
 - `LLAMARISK_RISK_ORACLE_ADMIN_SAFE`: [0x1a0267E9E5929a5914Ae9DbBf23Bc07B14365471](https://arbiscan.io/address/0x1a0267E9E5929a5914Ae9DbBf23Bc07B14365471)
-- `LLAMARISK_CAPS_RISK_ORACLE`: TODO
-- `LLAMARISK_CAPS_RISK_ORACLE_ROUTER`: TODO
-- `LLAMARISK_CAPS_PARAMETER_REGISTRY`: TODO
-- `LLAMARISK_CAPS_RANGE_VALIDATION_MODULE`: TODO
-- `LLAMARISK_CAPS_REDUCER_ORACLE`: TODO
-- `LLAMARISK_CAPS_RAISE_AGENT`: TODO
-- `LLAMARISK_CAPS_CUT_AGENT`: TODO
+- `LLAMARISK_CAPS_RISK_ORACLE`: [0x556c75E6bbf0672bf3510b839Ad229450C474f23](https://arbiscan.io/address/0x556c75E6bbf0672bf3510b839Ad229450C474f23)
+- `LLAMARISK_CAPS_RISK_ORACLE_ROUTER`: [0x74d8dd6CfCC3BeED9C4Db3fd6c4e471aD721d9F0](https://arbiscan.io/address/0x74d8dd6CfCC3BeED9C4Db3fd6c4e471aD721d9F0)
+- `LLAMARISK_CAPS_PARAMETER_REGISTRY`: [0x2662d3A9d07589DCAbAA10ea85F66572b51c260d](https://arbiscan.io/address/0x2662d3A9d07589DCAbAA10ea85F66572b51c260d)
+- `LLAMARISK_CAPS_RANGE_VALIDATION_MODULE`: [0x039C0E59F728bA984dFAA96dFF977B977aA82Beb](https://arbiscan.io/address/0x039C0E59F728bA984dFAA96dFF977B977aA82Beb)
+- `LLAMARISK_CAPS_REDUCER_ORACLE`: [0xC8D89bd6894C315Fb13bBD057357D1380771C181](https://arbiscan.io/address/0xC8D89bd6894C315Fb13bBD057357D1380771C181)
+- `LLAMARISK_CAPS_RAISE_AGENT`: [0x996126C29374EbBA1A3AC91c2564C29D0E634765](https://arbiscan.io/address/0x996126C29374EbBA1A3AC91c2564C29D0E634765)
+- `LLAMARISK_CAPS_CUT_AGENT`: [0x3Fe54E476007CB315B23284BC1064cCC01a1f666](https://arbiscan.io/address/0x3Fe54E476007CB315B23284BC1064cCC01a1f666)
 - Risk Council Safe: [0x3Be327F22eB4BD8042e6944073b8826dCf357Aa2](https://arbiscan.io/address/0x3Be327F22eB4BD8042e6944073b8826dCf357Aa2)
 - `CHAINLINK_CRE_FORWARDER`: [0xF8344CFd5c43616a4366C34E3EEE75af79a74482](https://arbiscan.io/address/0xF8344CFd5c43616a4366C34E3EEE75af79a74482)
 
@@ -95,7 +95,7 @@ Existing Aave contracts referenced, all from the address book:
 
 ### Contract source
 
-The agents are stock `AaveBorrowCapAgent` deployments from [aave-dao/aave-risk-agents](https://github.com/aave-dao/aave-risk-agents). The range validation module, reducer oracle and parameter registry are from [llama-risk/llamaguard-contracts](https://github.com/llama-risk/llamaguard-contracts) at TODO, audited by Certora (report: TODO). The tests check that every contract has bytecode and that its immutable AgentHub, module and Pool wiring matches what this payload registers.
+The agents are stock `AaveBorrowCapAgent` deployments from [aave-dao/aave-risk-agents](https://github.com/aave-dao/aave-risk-agents). The range validation module, reducer oracle and parameter registry are from [llama-risk/llamaguard-contracts](https://github.com/llama-risk/llamaguard-contracts) at [`7ea2f2e`](https://github.com/llama-risk/llamaguard-contracts/commit/7ea2f2ec38acda9fc913800d57a5a6bd77a6658a), audited by Certora (report: TODO). The tests check that every contract has bytecode and that its immutable AgentHub, module and Pool wiring matches what this payload registers.
 
 ## References
 

@@ -19,6 +19,8 @@ import {IRiskOracle} from '../interfaces/IRiskOracle.sol';
 
 interface IOwnable {
   function owner() external view returns (address);
+
+  function pendingOwner() external view returns (address);
 }
 
 /**
@@ -32,8 +34,8 @@ contract AaveV3Arbitrum_CapsRateLimiterActivation_20261126_Test is ProtocolV3Tes
 
   AaveV3Arbitrum_CapsRateLimiterActivation_20261126 internal proposal;
 
-  // TODO(PXE-238): pin to a block after the production deployment.
-  uint256 internal constant FORK_BLOCK = 0;
+  /// @dev After the production deployment and wiring (steps 1 and 2).
+  uint256 internal constant FORK_BLOCK = 527758130;
 
   address internal constant RISK_COUNCIL = 0x3Be327F22eB4BD8042e6944073b8826dCf357Aa2;
 
@@ -121,7 +123,11 @@ contract AaveV3Arbitrum_CapsRateLimiterActivation_20261126_Test is ProtocolV3Tes
     assertEq(IOwnable(rvm).owner(), GovernanceV3Arbitrum.EXECUTOR_LVL_1);
 
     address admin = ArbitrumLlamaGuardCaps.LLAMARISK_RISK_ORACLE_ADMIN_SAFE;
-    assertEq(IOwnable(ROUTER).owner(), admin, 'Router owner');
+    // Two-step: the admin Safe accepts before the AIP executes; until then it is the pending owner.
+    assertTrue(
+      IOwnable(ROUTER).owner() == admin || IOwnable(ROUTER).pendingOwner() == admin,
+      'Router owner'
+    );
     assertEq(IOwnable(ArbitrumLlamaGuardCaps.LLAMARISK_CAPS_RISK_ORACLE).owner(), admin);
     assertEq(
       IOwnable(ArbitrumLlamaGuardCaps.LLAMARISK_CAPS_PARAMETER_REGISTRY).owner(),
