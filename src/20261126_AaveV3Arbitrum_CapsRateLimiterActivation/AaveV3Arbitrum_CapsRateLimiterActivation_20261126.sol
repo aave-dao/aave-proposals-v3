@@ -14,6 +14,8 @@ import {ICapsRangeValidationModule as IRvm} from '../interfaces/ICapsRangeValida
  *      TODO(PXE-238): production deployment from the prod EOA, verified on Arbiscan.
  */
 library ArbitrumLlamaGuardCaps {
+  address internal constant LLAMARISK_RISK_ORACLE_ADMIN_SAFE =
+    0x1a0267E9E5929a5914Ae9DbBf23Bc07B14365471;
   address internal constant LLAMARISK_CAPS_RISK_ORACLE = address(0);
   address internal constant LLAMARISK_CAPS_RISK_ORACLE_ROUTER = address(0);
   address internal constant LLAMARISK_CAPS_PARAMETER_REGISTRY = address(0);
