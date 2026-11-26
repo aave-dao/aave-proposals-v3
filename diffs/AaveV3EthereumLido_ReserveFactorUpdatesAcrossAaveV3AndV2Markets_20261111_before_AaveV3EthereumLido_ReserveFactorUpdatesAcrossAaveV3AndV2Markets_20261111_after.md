@@ -1,0 +1,71 @@
+## Reserve changes
+
+### Reserves altered
+
+#### wstETH ([0x7f39C581F595B53c5cb19bD0b3f8dA6c935E2Ca0](https://etherscan.io/address/0x7f39C581F595B53c5cb19bD0b3f8dA6c935E2Ca0))
+
+| description | value before | value after |
+| --- | --- | --- |
+| reserveFactor | 5 % [500] | 50 % [5000] |
+
+
+## Event logs
+
+#### 0x342631c6CeFC9cfbf97b2fe4aa242a236e1fd517 (AaveV3EthereumLido.POOL_CONFIGURATOR)
+
+| index | event |
+| --- | --- |
+| 0 | ReserveFactorChanged(asset: 0x7f39C581F595B53c5cb19bD0b3f8dA6c935E2Ca0 (symbol: wstETH), oldReserveFactor: 500, newReserveFactor: 5000) |
+
+#### 0x4e033931ad43597d96D6bcc25c280717730B58B1 (AaveV3EthereumLido.POOL)
+
+| index | event |
+| --- | --- |
+| 1 | ReserveDataUpdated(reserve: 0x7f39C581F595B53c5cb19bD0b3f8dA6c935E2Ca0 (symbol: wstETH), liquidityRate: 298159557822849606437703, stableBorrowRate: 0, variableBorrowRate: 1908971548606836643726339, liquidityIndex: 1.0040 [1004007966306400857671939500, 27 decimals], variableBorrowIndex: 1.0079 [1007928420183165463912394246, 27 decimals]) |
+
+#### 0x5300A1a15135EA4dc7aD5a167152C01EFc9b192A (AaveV2Ethereum.POOL_ADMIN, AaveV2EthereumAMM.POOL_ADMIN, AaveV3Ethereum.ACL_ADMIN, AaveV3EthereumEtherFi.ACL_ADMIN, AaveV3EthereumHorizon.ACL_ADMIN, AaveV3EthereumLido.ACL_ADMIN, GovernanceV3Ethereum.EXECUTOR_LVL_1)
+
+| index | event |
+| --- | --- |
+| 2 | ExecutedAction(target: 0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f, value: 0, signature: execute(), data: 0x, executionTime: 1794423719, withDelegatecall: true, resultData: 0x) |
+
+#### 0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5 (GovernanceV3Ethereum.PAYLOADS_CONTROLLER)
+
+| index | event |
+| --- | --- |
+| 3 | PayloadExecuted(payloadId: 483) |
+
+## Raw storage changes
+
+### 0x4e033931ad43597d96d6bcc25c280717730b58b1 (AaveV3EthereumLido.POOL)
+
+| slot | previous value | new value |
+| --- | --- | --- |
+| 0xc9d7ec48cd0d839522455f78914adfeda8686316bb6819e0888e4bcd349e01b2 | 0x100000000000000000000103e800000d6d800000465001f481122968206c2008 | 0x100000000000000000000103e800000d6d8000004650138881122968206c2008 |
+| 0xc9d7ec48cd0d839522455f78914adfeda8686316bb6819e0888e4bcd349e01b3 | 0x00000000000077f62d924f4d425f616000000000033e7eed557749637b2a3df8 | 0x0000000000003f2343138ad73bbf4b4700000000033e7ef4e9c16c3b0e2135ac |
+| 0xc9d7ec48cd0d839522455f78914adfeda8686316bb6819e0888e4bcd349e01b4 | 0x000000000001943d8588d416342590b9000000000341bd0b80f3fa1b2be6db3a | 0x000000000001943d8e152d2e0c4c0403000000000341bd2524c482c6ceae2e06 |
+| 0xc9d7ec48cd0d839522455f78914adfeda8686316bb6819e0888e4bcd349e01b5 | 0x0000000000000000000000006af49d5f00000000000000000000000000000000 | 0x0000000000000000000000006af4bba700000000000000000000000000000000 |
+| 0xc9d7ec48cd0d839522455f78914adfeda8686316bb6819e0888e4bcd349e01ba | 0x000000000000068dd7416d0983ddfccd0000000000000000002ff3066df921be | 0x000000000000068dd7416d0983ddfccd000000000000000000311ddd7e11df4b |
+
+### 0xdabad81af85554e9ae636395611c58f7ec1aaec5 (GovernanceV3Ethereum.PAYLOADS_CONTROLLER)
+
+| slot | previous value | new value |
+| --- | --- | --- |
+| 0xb7d551ab1924ea19cd6ad215c87f3da1ef0dc5bf778394a70eb2808fb00906bc | 0x006af4bba6000000000002000000000000000000000000000000000000000000 | 0x006af4bba6000000000003000000000000000000000000000000000000000000 |
+| 0xb7d551ab1924ea19cd6ad215c87f3da1ef0dc5bf778394a70eb2808fb00906bd | 0x000000000000000000093a800000000000006b22e02700000000000000000000 | 0x000000000000000000093a800000000000006b22e0270000000000006af4bba7 |
+
+
+## Raw diff
+
+```json
+{
+  "reserves": {
+    "0x7f39C581F595B53c5cb19bD0b3f8dA6c935E2Ca0": {
+      "reserveFactor": {
+        "from": 500,
+        "to": 5000
+      }
+    }
+  }
+}
+```
