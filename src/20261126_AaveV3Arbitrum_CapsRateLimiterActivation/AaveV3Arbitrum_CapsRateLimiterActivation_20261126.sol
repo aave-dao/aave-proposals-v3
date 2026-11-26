@@ -27,8 +27,8 @@ library ArbitrumLlamaGuardCaps {
     0xC8D89bd6894C315Fb13bBD057357D1380771C181;
   address internal constant LLAMARISK_CAPS_RAISE_AGENT = 0x996126C29374EbBA1A3AC91c2564C29D0E634765;
   address internal constant LLAMARISK_CAPS_CUT_AGENT = 0x3Fe54E476007CB315B23284BC1064cCC01a1f666;
-  // TODO: deployed once the risk team sets its limits (step 5 of the caps deployment scripts).
-  address internal constant LLAMARISK_CAPS_BORROW_FORWARDER = address(0);
+  address internal constant LLAMARISK_CAPS_BORROW_FORWARDER =
+    0x6bDBAF2B3aCdA83391D1C30b58dD137C5767eAdd;
 }
 
 /**

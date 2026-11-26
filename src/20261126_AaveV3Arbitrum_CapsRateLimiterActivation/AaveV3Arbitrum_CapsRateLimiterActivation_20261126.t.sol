@@ -35,7 +35,7 @@ contract AaveV3Arbitrum_CapsRateLimiterActivation_20261126_Test is ProtocolV3Tes
   AaveV3Arbitrum_CapsRateLimiterActivation_20261126 internal proposal;
 
   /// @dev After the production deployment and wiring (steps 1 and 2).
-  uint256 internal constant FORK_BLOCK = 527782941;
+  uint256 internal constant FORK_BLOCK = 527792680;
 
   address internal constant RISK_COUNCIL = 0x3Be327F22eB4BD8042e6944073b8826dCf357Aa2;
 
@@ -121,6 +121,11 @@ contract AaveV3Arbitrum_CapsRateLimiterActivation_20261126_Test is ProtocolV3Tes
     assertEq(IRvm(rvm).POOL(), address(AaveV3Arbitrum.POOL));
     assertEq(IRvm(rvm).riskCouncil(), RISK_COUNCIL);
     assertEq(IOwnable(rvm).owner(), GovernanceV3Arbitrum.EXECUTOR_LVL_1);
+    assertGt(ArbitrumLlamaGuardCaps.LLAMARISK_CAPS_BORROW_FORWARDER.code.length, 0, 'no forwarder');
+    assertEq(
+      IOwnable(ArbitrumLlamaGuardCaps.LLAMARISK_CAPS_BORROW_FORWARDER).owner(),
+      GovernanceV3Arbitrum.EXECUTOR_LVL_1
+    );
 
     address admin = ArbitrumLlamaGuardCaps.LLAMARISK_RISK_ORACLE_ADMIN_SAFE;
     // Two-step: the admin Safe accepts before the AIP executes; until then it is the pending owner.
@@ -141,15 +146,13 @@ contract AaveV3Arbitrum_CapsRateLimiterActivation_20261126_Test is ProtocolV3Tes
     executePayload(vm, address(proposal));
 
     assertEq(HUB.getAgentCount(), countBefore + 2, 'expected exactly two new agents');
-    // TODO: drop the guard once the forwarder is deployed.
-    if (ArbitrumLlamaGuardCaps.LLAMARISK_CAPS_BORROW_FORWARDER != address(0)) {
-      assertTrue(
-        AaveV3Arbitrum.ACL_MANAGER.isRiskAdmin(
-          ArbitrumLlamaGuardCaps.LLAMARISK_CAPS_BORROW_FORWARDER
-        ),
-        'forwarder is not a risk admin'
-      );
-    }
+    // The forwarder raises caps through the config engine too.
+    assertTrue(
+      AaveV3Arbitrum.ACL_MANAGER.isRiskAdmin(
+        ArbitrumLlamaGuardCaps.LLAMARISK_CAPS_BORROW_FORWARDER
+      ),
+      'forwarder is not a risk admin'
+    );
     _assertAgent(
       raiseAgentId,
       ArbitrumLlamaGuardCaps.LLAMARISK_CAPS_RAISE_AGENT,
