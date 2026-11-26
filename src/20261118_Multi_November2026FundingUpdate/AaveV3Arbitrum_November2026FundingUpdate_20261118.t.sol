@@ -17,7 +17,7 @@ contract AaveV3Arbitrum_November2026FundingUpdate_20261118_Test is ProtocolV3Tes
   AaveV3Arbitrum_November2026FundingUpdate_20261118 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('arbitrum'), 525369509);
+    vm.createSelectFork(vm.rpcUrl('arbitrum'), 527804174);
     proposal = new AaveV3Arbitrum_November2026FundingUpdate_20261118();
   }
 

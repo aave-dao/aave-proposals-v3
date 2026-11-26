@@ -24,7 +24,7 @@ contract AaveV3Monad_November2026FundingUpdate_20261118_Test is ProtocolV3TestBa
   AaveV3Monad_November2026FundingUpdate_20261118 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('monad'), 125108700);
+    vm.createSelectFork(vm.rpcUrl('monad'), 125651484);
     proposal = new AaveV3Monad_November2026FundingUpdate_20261118();
   }
 
@@ -153,10 +153,21 @@ contract AaveV3Monad_November2026FundingUpdate_20261118_Test is ProtocolV3TestBa
   }
 
   function test_rescueRevertsWithoutRewards() public {
-    deal(proposal.WMON(), GhoMonad.GSM_USDC, 0);
+    address wmon = proposal.WMON();
+    deal(wmon, GhoMonad.GSM_USDC, 0);
     uint40 payloadId = GovV3Helpers.readyPayload(vm, address(proposal));
 
     vm.expectRevert();
     GovernanceV3Monad.PAYLOADS_CONTROLLER.executePayload(payloadId);
+
+    IGsm gsm = IGsm(GhoMonad.GSM_USDC);
+    vm.startPrank(GovernanceV3Monad.EXECUTOR_LVL_1);
+    IAccessControl(address(gsm)).grantRole(
+      gsm.TOKEN_RESCUER_ROLE(),
+      GovernanceV3Monad.EXECUTOR_LVL_1
+    );
+    vm.expectRevert(bytes('INVALID_AMOUNT'));
+    gsm.rescueTokens(wmon, MiscMonad.AFC_SAFE, 0);
+    vm.stopPrank();
   }
 }

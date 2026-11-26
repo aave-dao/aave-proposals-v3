@@ -22,7 +22,7 @@ contract AaveV3Plasma_November2026FundingUpdate_20261118_Test is ProtocolV3TestB
   AaveV3Plasma_November2026FundingUpdate_20261118 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('plasma'), 38073370);
+    vm.createSelectFork(vm.rpcUrl('plasma'), 38745731);
     proposal = new AaveV3Plasma_November2026FundingUpdate_20261118();
   }
 
@@ -162,5 +162,15 @@ contract AaveV3Plasma_November2026FundingUpdate_20261118_Test is ProtocolV3TestB
 
     vm.expectRevert();
     GovernanceV3Plasma.PAYLOADS_CONTROLLER.executePayload(payloadId);
+
+    IGsm gsm = IGsm(GhoPlasma.GSM_USDT);
+    vm.startPrank(GovernanceV3Plasma.EXECUTOR_LVL_1);
+    IAccessControl(address(gsm)).grantRole(
+      gsm.TOKEN_RESCUER_ROLE(),
+      GovernanceV3Plasma.EXECUTOR_LVL_1
+    );
+    vm.expectRevert(bytes('INVALID_AMOUNT'));
+    gsm.rescueTokens(AaveV3PlasmaAssets.WXPL_UNDERLYING, MiscPlasma.AFC_SAFE, 0);
+    vm.stopPrank();
   }
 }

@@ -17,7 +17,7 @@ contract AaveV3Sonic_November2026FundingUpdate_20261118_Test is ProtocolV3TestBa
   AaveV3Sonic_November2026FundingUpdate_20261118 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('sonic'), 82759840);
+    vm.createSelectFork(vm.rpcUrl('sonic'), 83173631);
     proposal = new AaveV3Sonic_November2026FundingUpdate_20261118();
   }
 

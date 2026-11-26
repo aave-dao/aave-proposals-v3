@@ -21,12 +21,12 @@ export const config: ConfigFile = {
     votingNetwork: 'AVALANCHE',
   },
   marketOptions: {
-    AaveV3Ethereum: {configs: {OTHERS: {}}, cache: {blockNumber: 26443067}},
-    AaveV3Plasma: {configs: {OTHERS: {}}, cache: {blockNumber: 38073370}},
-    AaveV3Monad: {configs: {OTHERS: {}}, cache: {blockNumber: 123343815}},
-    AaveV3Arbitrum: {configs: {OTHERS: {}}, cache: {blockNumber: 525369509}},
-    AaveV3Mantle: {configs: {OTHERS: {}}, cache: {blockNumber: 103444039}},
+    AaveV3Ethereum: {configs: {OTHERS: {}}, cache: {blockNumber: 26501265}},
+    AaveV3Plasma: {configs: {OTHERS: {}}, cache: {blockNumber: 38745731}},
+    AaveV3Monad: {configs: {OTHERS: {}}, cache: {blockNumber: 125651484}},
+    AaveV3Arbitrum: {configs: {OTHERS: {}}, cache: {blockNumber: 527804174}},
+    AaveV3Mantle: {configs: {OTHERS: {}}, cache: {blockNumber: 103794418}},
     AaveV3Gnosis: {configs: {OTHERS: {}}, cache: {blockNumber: 49345689}},
-    AaveV3Sonic: {configs: {OTHERS: {}}, cache: {blockNumber: 82759840}},
+    AaveV3Sonic: {configs: {OTHERS: {}}, cache: {blockNumber: 83173631}},
   },
 };

@@ -19,7 +19,7 @@ contract AaveV3Ethereum_November2026FundingUpdate_20261118_Test is ProtocolV3Tes
   AaveV3Ethereum_November2026FundingUpdate_20261118 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 26479615);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 26501265);
     proposal = new AaveV3Ethereum_November2026FundingUpdate_20261118();
   }
 

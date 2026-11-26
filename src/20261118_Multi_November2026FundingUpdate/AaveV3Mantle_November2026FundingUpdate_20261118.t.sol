@@ -17,7 +17,7 @@ contract AaveV3Mantle_November2026FundingUpdate_20261118_Test is ProtocolV3TestB
   AaveV3Mantle_November2026FundingUpdate_20261118 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mantle'), 103444039);
+    vm.createSelectFork(vm.rpcUrl('mantle'), 103794418);
     proposal = new AaveV3Mantle_November2026FundingUpdate_20261118();
   }
 
