@@ -128,11 +128,13 @@ contract AaveV3Arbitrum_CapsRateLimiterActivation_20261126 is IProposalGenericEx
     );
 
     // Buffer ceiling: $15M in tokens at Aave oracle prices of 15 Nov 2026. GHO stays with the Risk
-    // Stewards; every other reserve is frozen or has borrowing disabled.
+    // Stewards; every other reserve is frozen or cannot be borrowed.
     _list(rvm, AaveV3ArbitrumAssets.WBTC_UNDERLYING, 233);
     _list(rvm, AaveV3ArbitrumAssets.WETH_UNDERLYING, 8_282);
     _list(rvm, AaveV3ArbitrumAssets.USDT_UNDERLYING, 15_008_779);
     _list(rvm, AaveV3ArbitrumAssets.USDCn_UNDERLYING, 15_003_601);
+    // Borrowing is off, but eModes 3 and 5 allow it: an eMode borrow is checked against the category only.
+    _list(rvm, AaveV3ArbitrumAssets.wstETH_UNDERLYING, 6_625);
   }
 
   /// @dev The hard maximum is the borrow cap at execution, so it stays the value the Risk Stewards set.

@@ -7,7 +7,7 @@ snapshot: "https://snapshot.box/#/s:aavedao.eth/proposal/0xd80bf15385e4f52510813
 
 ## Simple Summary
 
-Activates LlamaGuard Caps, the borrow rate limiter, on Aave V3 Arbitrum. The payload registers a Raise agent and a Cut agent on the Aave-owned AgentHub, grants both RISK_ADMIN, and lists WBTC, WETH, USD₮0 and USDC in the caps range validation module.
+Activates LlamaGuard Caps, the borrow rate limiter, on Aave V3 Arbitrum. The payload registers a Raise agent and a Cut agent on the Aave-owned AgentHub, grants both RISK_ADMIN, and lists WBTC, WETH, USD₮0, USDC and wstETH in the caps range validation module.
 
 ## Motivation
 
@@ -40,6 +40,7 @@ The AgentHub holds agents 0 to 2, so these registrations take ids 3 and 4. The w
 | WETH    | 10% of debt | 8,282          | 332          | 10%      | borrow cap at execution |
 | USD₮0   | 10% of debt | 15,008,779     | 600,352      | 10%      | borrow cap at execution |
 | USDC    | 10% of debt | 15,003,601     | 600,145      | 10%      | borrow cap at execution |
+| wstETH  | 10% of debt | 6,625          | 265          | 10%      | borrow cap at execution |
 
 Amounts are in tokens. The buffer ceiling is $15M at Aave oracle prices of 15 November 2026 and the floor is a 25th of the ceiling. The ARFC gave $25M and $1M as indicative values; Stage 1 starts lower, and the Risk Council can raise the ceiling within the limits below. The hard maximum is read from the Pool when the payload executes, so it stays the value the Risk Stewards set.
 
@@ -54,7 +55,7 @@ A raise sets the cap to debt plus one buffer, at most once every 30 minutes per 
 
 The Risk Council can lower any parameter, retire a reserve and hold off cuts for up to 24 hours. Only governance can list a reserve or change these limits.
 
-GHO is not listed: its caps stay with the Risk Stewards. Every other Arbitrum reserve is frozen or has borrowing disabled. Supply caps are unchanged.
+wstETH has borrowing disabled but can be borrowed in eModes 3 and 5, so it is listed. GHO is not listed: its caps stay with the Risk Stewards. No other Arbitrum reserve can be borrowed, globally or through an eMode. Supply caps are unchanged.
 
 ### Roles
 
