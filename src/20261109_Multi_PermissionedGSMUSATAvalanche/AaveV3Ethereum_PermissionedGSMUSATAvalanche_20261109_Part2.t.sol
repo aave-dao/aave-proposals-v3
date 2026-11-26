@@ -63,6 +63,30 @@ contract AaveV3Ethereum_PermissionedGSMUSATAvalanche_20261109_Part2_Test is
       Setup.GHO_BRIDGE_AMOUNT
     );
 
+    // Direct call shows the cause: the bridge checks the amount against the lane's current tokens
+    IAaveGhoCcipBridge bridge = IAaveGhoCcipBridge(GhoEthereum.GHO_CCIP_BRIDGE);
+    uint128 laneTokens = pool
+      .getCurrentOutboundRateLimiterState(CCIPChainSelectors.AVALANCHE)
+      .tokens;
+    uint256 preDirectCallState = vm.snapshotState();
+    vm.startPrank(GovernanceV3Ethereum.EXECUTOR_LVL_1);
+    bridge.setDestinationChain(
+      CCIPChainSelectors.AVALANCHE,
+      abi.encode(GhoAvalanche.GHO_CCIP_BRIDGE),
+      bytes(''),
+      uint32(EXPECTED_BRIDGE_GAS_LIMIT)
+    );
+    vm.expectRevert(
+      abi.encodeWithSelector(IAaveGhoCcipBridge.RateLimitExceeded.selector, laneTokens)
+    );
+    bridge.send(
+      CCIPChainSelectors.AVALANCHE,
+      Setup.GHO_BRIDGE_AMOUNT,
+      AaveV3EthereumAssets.LINK_UNDERLYING
+    );
+    vm.stopPrank();
+    vm.revertToState(preDirectCallState);
+
     // The executor reverts every failed action with '29' and hides the cause.
     // expectCall only checks that execution reaches the bridge send.
     vm.expectCall(

@@ -35,9 +35,9 @@ The GSM is permissioned. Each swap direction has its own access control:
 
 An address can have access to one direction or to both directions. The proposal grants bidirectional swap permissions to three addresses associated with the first counterparty of the Permissioned GSM. The first two are intended for testing and will later be removed by the GHO Risk Council.
 
-- Testing address 1: [`0x1aE7FE695Fe1b71D93e0aaA0dd1CdD3890B83586`](https://snowscan.xyz/address/0x1aE7FE695Fe1b71D93e0aaA0dd1CdD3890B83586) (controlled by Tether)
-- Testing address 2: [`0x966cAF619A159F35721b27fEE9147bE99a255991`](https://snowscan.xyz/address/0x966cAF619A159F35721b27fEE9147bE99a255991) (controlled by Tether)
-- Final counterparty address: [`0xC7b219Ae49Fb6418576E53F9068717D4826F1A0f`](https://snowscan.xyz/address/0xC7b219Ae49Fb6418576E53F9068717D4826F1A0f) (controlled by Tether)
+- Testing address 1: [`0x1aE7FE695Fe1b71D93e0aaA0dd1CdD3890B83586`](https://snowscan.xyz/address/0x1aE7FE695Fe1b71D93e0aaA0dd1CdD3890B83586) (controlled by counterparty)
+- Testing address 2: [`0x966cAF619A159F35721b27fEE9147bE99a255991`](https://snowscan.xyz/address/0x966cAF619A159F35721b27fEE9147bE99a255991) (controlled by counterparty)
+- Final counterparty address: [`0xC7b219Ae49Fb6418576E53F9068717D4826F1A0f`](https://snowscan.xyz/address/0xC7b219Ae49Fb6418576E53F9068717D4826F1A0f) (controlled by counterparty)
 
 The AIP gives the GHO Risk Council ([`0x8513e6F37dBc52De87b166980Fa3F50639694B60`](https://snowscan.xyz/address/0x8513e6F37dBc52De87b166980Fa3F50639694B60)) the swap access manager role. With this role, the GHO Risk Council can:
 
