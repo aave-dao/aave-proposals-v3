@@ -127,25 +127,47 @@ contract AaveV3Arbitrum_CapsRateLimiterActivation_20261126 is IProposalGenericEx
       })
     );
 
-    // Buffer ceiling: $15M in tokens at Aave oracle prices of 15 Nov 2026. GHO stays with the Risk
-    // Stewards; every other reserve is frozen or cannot be borrowed.
+    // Buffer ceiling: $15M in tokens at Aave oracle prices of 15 Nov 2026.
     _list(rvm, AaveV3ArbitrumAssets.WBTC_UNDERLYING, 233);
     _list(rvm, AaveV3ArbitrumAssets.WETH_UNDERLYING, 8_282);
     _list(rvm, AaveV3ArbitrumAssets.USDT_UNDERLYING, 15_008_779);
     _list(rvm, AaveV3ArbitrumAssets.USDCn_UNDERLYING, 15_003_601);
     // Borrowing is off, but eModes 3 and 5 allow it: an eMode borrow is checked against the category only.
     _list(rvm, AaveV3ArbitrumAssets.wstETH_UNDERLYING, 6_625);
+
+    // Not borrowable today, listed so that a reserve re-enabled later is already rate limited. Their caps
+    // are 1, so the hard maximum is 1 until governance raises it. Buffer ceiling: $15M
+    // at Aave oracle prices of 26 Nov 2026. GHO stays with the Risk Stewards.
+    _list(rvm, AaveV3ArbitrumAssets.DAI_UNDERLYING, 15_007_474);
+    _list(rvm, AaveV3ArbitrumAssets.LINK_UNDERLYING, 1_636_027);
+    _list(rvm, AaveV3ArbitrumAssets.USDCe_UNDERLYING, 15_001_800);
+    _list(rvm, AaveV3ArbitrumAssets.EURS_UNDERLYING, 13_668_173);
+    _list(rvm, AaveV3ArbitrumAssets.MAI_UNDERLYING, 15_739_769);
+    _list(rvm, AaveV3ArbitrumAssets.rETH_UNDERLYING, 7_573);
+    _list(rvm, AaveV3ArbitrumAssets.LUSD_UNDERLYING, 15_000_000);
+    _list(rvm, AaveV3ArbitrumAssets.FRAX_UNDERLYING, 15_000_000);
+    _list(rvm, AaveV3ArbitrumAssets.ARB_UNDERLYING, 133_219_653);
+    _list(rvm, AaveV3ArbitrumAssets.weETH_UNDERLYING, 8_034);
+    _list(rvm, AaveV3ArbitrumAssets.ezETH_UNDERLYING, 8_173);
+    _list(rvm, AaveV3ArbitrumAssets.rsETH_UNDERLYING, 8_209);
+    _list(rvm, AaveV3ArbitrumAssets.tBTC_UNDERLYING, 248);
+    // AAVE has no borrow cap (0), which the module reads as a retired entry, so its hard maximum is set to 1.
+    _setEntry(rvm, AaveV3ArbitrumAssets.AAVE_UNDERLYING, 1, 160_844);
   }
 
   /// @dev The hard maximum is the borrow cap at execution, so it stays the value the Risk Stewards set.
   function _list(IRvm rvm, address asset, uint64 maxHeadroom) internal {
     uint256 cap = AaveV3Arbitrum.POOL.getConfiguration(asset).getBorrowCap();
     if (cap == 0) revert NoLiveBorrowCap(asset); // maxCap 0 would retire the entry
+    _setEntry(rvm, asset, uint64(cap), maxHeadroom);
+  }
+
+  function _setEntry(IRvm rvm, address asset, uint64 maxCap, uint64 maxHeadroom) internal {
     rvm.setRateLimitConfig(
       asset,
       IRvm.CapKind.BORROW,
       IRvm.RateLimitConfig({
-        maxCap: uint64(cap),
+        maxCap: maxCap,
         maxHeadroom: maxHeadroom,
         alphaBps: ALPHA_BPS,
         cutBandBps: CUT_BAND_BPS

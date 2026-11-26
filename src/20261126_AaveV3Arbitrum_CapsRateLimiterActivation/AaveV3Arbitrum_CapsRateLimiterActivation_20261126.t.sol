@@ -35,7 +35,7 @@ contract AaveV3Arbitrum_CapsRateLimiterActivation_20261126_Test is ProtocolV3Tes
   AaveV3Arbitrum_CapsRateLimiterActivation_20261126 internal proposal;
 
   /// @dev After the production deployment and wiring (steps 1 and 2).
-  uint256 internal constant FORK_BLOCK = 527758130;
+  uint256 internal constant FORK_BLOCK = 527782941;
 
   address internal constant RISK_COUNCIL = 0x3Be327F22eB4BD8042e6944073b8826dCf357Aa2;
 

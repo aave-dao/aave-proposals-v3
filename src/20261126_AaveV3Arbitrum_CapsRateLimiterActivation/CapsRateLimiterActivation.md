@@ -7,7 +7,7 @@ snapshot: "https://snapshot.box/#/s:aavedao.eth/proposal/0xd80bf15385e4f52510813
 
 ## Simple Summary
 
-Activates LlamaGuard Caps, the borrow rate limiter, on Aave V3 Arbitrum. The payload registers a Raise agent and a Cut agent on the Aave-owned AgentHub, grants both RISK_ADMIN, and lists WBTC, WETH, USD₮0, USDC and wstETH in the caps range validation module.
+Activates LlamaGuard Caps, the borrow rate limiter, on Aave V3 Arbitrum. The payload registers a Raise agent and a Cut agent on the Aave-owned AgentHub, grants both RISK_ADMIN, and lists every Arbitrum reserve except GHO in the caps range validation module.
 
 ## Motivation
 
@@ -42,7 +42,26 @@ The AgentHub holds agents 0 to 2, so these registrations take ids 3 and 4. The w
 | USDC    | 10% of debt | 15,003,601     | 600,145      | 10%      | borrow cap at execution |
 | wstETH  | 10% of debt | 6,625          | 265          | 10%      | borrow cap at execution |
 
-Amounts are in tokens. The buffer ceiling is $15M at Aave oracle prices of 15 November 2026 and the floor is a 25th of the ceiling. The ARFC gave $25M and $1M as indicative values; Stage 1 starts lower, and the Risk Council can raise the ceiling within the limits below. The hard maximum is read from the Pool when the payload executes, so it stays the value the Risk Stewards set.
+Amounts are in tokens. These five can be borrowed today. The buffer ceiling is $15M at Aave oracle prices of 15 November 2026 and the floor is a 25th of the ceiling. The ARFC gave $25M and $1M as indicative values; Stage 1 starts lower, and the Risk Council can raise the ceiling within the limits below. The hard maximum is read from the Pool when the payload executes, so it stays the value the Risk Stewards set.
+
+The other 14 reserves cannot be borrowed today: they are frozen, or have borrowing disabled with no eMode allowing it. They are listed so that a reserve re-enabled later is already rate limited. Their borrow cap is 1 (AAVE has none), so their hard maximum is 1 until governance raises it with the re-enabling. Same buffer share and cut band, buffer ceiling $15M at Aave oracle prices of 26 November 2026.
+
+| Reserve | Buffer ceiling | Buffer floor | Hard maximum |
+| ------- | -------------- | ------------ | ------------ |
+| DAI     | 15,007,474     | 600,299      | 1            |
+| LINK    | 1,636,027      | 65,442       | 1            |
+| USDC.e  | 15,001,800     | 600,072      | 1            |
+| AAVE    | 160,844        | 6,434        | 1            |
+| EURS    | 13,668,173     | 546,727      | 1            |
+| MAI     | 15,739,769     | 629,591      | 1            |
+| rETH    | 7,573          | 303          | 1            |
+| LUSD    | 15,000,000     | 600,000      | 1            |
+| FRAX    | 15,000,000     | 600,000      | 1            |
+| ARB     | 133,219,653    | 5,328,787    | 1            |
+| weETH   | 8,034          | 322          | 1            |
+| ezETH   | 8,173          | 327          | 1            |
+| rsETH   | 8,209          | 329          | 1            |
+| tBTC    | 248            | 10           | 1            |
 
 A raise sets the cap to debt plus one buffer, at most once every 30 minutes per reserve. A cut brings the cap back to debt plus one buffer once headroom exceeds the buffer by more than the band.
 
@@ -55,7 +74,7 @@ A raise sets the cap to debt plus one buffer, at most once every 30 minutes per 
 
 The Risk Council can lower any parameter, retire a reserve and hold off cuts for up to 24 hours. Only governance can list a reserve or change these limits.
 
-wstETH has borrowing disabled but can be borrowed in eModes 3 and 5, so it is listed. GHO is not listed: its caps stay with the Risk Stewards. No other Arbitrum reserve can be borrowed, globally or through an eMode. Supply caps are unchanged.
+wstETH has borrowing disabled but can be borrowed in eModes 3 and 5. GHO is not listed: its caps stay with the Risk Stewards. Supply caps are unchanged.
 
 ### Roles
 
