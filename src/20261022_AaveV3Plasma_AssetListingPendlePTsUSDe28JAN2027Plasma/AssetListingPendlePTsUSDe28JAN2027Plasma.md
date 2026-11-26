@@ -92,11 +92,6 @@ The payload calls `addAllowedMarket` on `MiscPlasma.AGENT_HUB` for each. It read
 - [Pendle market](https://app.pendle.finance/trade/markets/0xdb96b529d19ff4a7d711e6e082172c77cfe88ed8/swap?view=pt&chain=plasma)
 - [LlamaRisk recommendation](https://governance.aave.com/t/direct-to-aip-onboard-pt-susde-28jan2027-to-aave-v3-plasma-instance/25902/2)
 
-## Next Steps
-
-1. Submit the AIP for a governance vote.
-2. If approved, execute the payloads to list `PT-sUSDe-28JAN2027` on Aave V3 Plasma and add it to the LlamaRisk PT Risk Oracle.
-
 ## References
 
 - Implementation: [AaveV3Plasma](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20261022_AaveV3Plasma_AssetListingPendlePTsUSDe28JAN2027Plasma/AaveV3Plasma_AssetListingPendlePTsUSDe28JAN2027Plasma_20261022.sol)
