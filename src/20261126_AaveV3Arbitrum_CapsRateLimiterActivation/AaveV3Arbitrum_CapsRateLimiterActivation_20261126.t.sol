@@ -141,6 +141,15 @@ contract AaveV3Arbitrum_CapsRateLimiterActivation_20261126_Test is ProtocolV3Tes
     executePayload(vm, address(proposal));
 
     assertEq(HUB.getAgentCount(), countBefore + 2, 'expected exactly two new agents');
+    // TODO: drop the guard once the forwarder is deployed.
+    if (ArbitrumLlamaGuardCaps.LLAMARISK_CAPS_BORROW_FORWARDER != address(0)) {
+      assertTrue(
+        AaveV3Arbitrum.ACL_MANAGER.isRiskAdmin(
+          ArbitrumLlamaGuardCaps.LLAMARISK_CAPS_BORROW_FORWARDER
+        ),
+        'forwarder is not a risk admin'
+      );
+    }
     _assertAgent(
       raiseAgentId,
       ArbitrumLlamaGuardCaps.LLAMARISK_CAPS_RAISE_AGENT,

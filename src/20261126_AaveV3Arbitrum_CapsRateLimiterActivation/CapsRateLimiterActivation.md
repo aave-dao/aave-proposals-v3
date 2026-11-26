@@ -7,7 +7,7 @@ snapshot: "https://snapshot.box/#/s:aavedao.eth/proposal/0xd80bf15385e4f52510813
 
 ## Simple Summary
 
-Activates LlamaGuard Caps, the borrow rate limiter, on Aave V3 Arbitrum. The payload registers a Raise agent and a Cut agent on the Aave-owned AgentHub, grants both RISK_ADMIN, and lists every Arbitrum reserve except GHO in the caps range validation module.
+Activates LlamaGuard Caps, the borrow rate limiter, on Aave V3 Arbitrum. The payload registers a Raise agent and a Cut agent on the Aave-owned AgentHub, grants both and the caps borrow forwarder RISK_ADMIN, and lists every Arbitrum reserve except GHO in the caps range validation module.
 
 ## Motivation
 
@@ -19,7 +19,9 @@ The ARFC passed Snapshot on 20 November 2026 with 371,959 votes for and none aga
 
 The payload performs three groups of actions.
 
-**1. Grant RISK_ADMIN.** `addRiskAdmin` on `AaveV3Arbitrum.ACL_MANAGER` for `LLAMARISK_CAPS_RAISE_AGENT` and `LLAMARISK_CAPS_CUT_AGENT`. Both are stock `AaveBorrowCapAgent` deployments. They delegatecall `AaveV3Arbitrum.CONFIG_ENGINE`, and because delegatecall preserves the caller, the PoolConfigurator sees the agent when it calls `setBorrowCap`, so the role has to sit on the agent.
+**1. Grant RISK_ADMIN.** `addRiskAdmin` on `AaveV3Arbitrum.ACL_MANAGER` for `LLAMARISK_CAPS_RAISE_AGENT`, `LLAMARISK_CAPS_CUT_AGENT` and `LLAMARISK_CAPS_BORROW_FORWARDER`. The two agents are stock `AaveBorrowCapAgent` deployments. They delegatecall `AaveV3Arbitrum.CONFIG_ENGINE`, and because delegatecall preserves the caller, the PoolConfigurator sees the agent when it calls `setBorrowCap`, so the role has to sit on the agent.
+
+`LLAMARISK_CAPS_BORROW_FORWARDER` is the `CapsBorrowForwarder`. It lets the Risk Council Safe raise a borrow cap and borrow for a known large borrower in the same transaction, never above the module's hard maximum. It writes through the config engine as the agents do. Owner `GovernanceV3Arbitrum.EXECUTOR_LVL_1`, caller the Risk Council Safe, limits per raise and between raises: TODO.
 
 **2. Register the agents.** Both are registered on `MiscArbitrum.AGENT_HUB` with `MiscArbitrum.PROTOCOL_GUARDIAN` as agent admin, so either agent can be disabled without a governance cycle.
 
@@ -99,6 +101,7 @@ No reserve configuration is changed by this payload. The snapshot diff is empty 
 - `LLAMARISK_CAPS_REDUCER_ORACLE`: [0xC8D89bd6894C315Fb13bBD057357D1380771C181](https://arbiscan.io/address/0xC8D89bd6894C315Fb13bBD057357D1380771C181)
 - `LLAMARISK_CAPS_RAISE_AGENT`: [0x996126C29374EbBA1A3AC91c2564C29D0E634765](https://arbiscan.io/address/0x996126C29374EbBA1A3AC91c2564C29D0E634765)
 - `LLAMARISK_CAPS_CUT_AGENT`: [0x3Fe54E476007CB315B23284BC1064cCC01a1f666](https://arbiscan.io/address/0x3Fe54E476007CB315B23284BC1064cCC01a1f666)
+- `LLAMARISK_CAPS_BORROW_FORWARDER`: TODO
 - Risk Council Safe: [0x3Be327F22eB4BD8042e6944073b8826dCf357Aa2](https://arbiscan.io/address/0x3Be327F22eB4BD8042e6944073b8826dCf357Aa2)
 - `CHAINLINK_CRE_FORWARDER`: [0xF8344CFd5c43616a4366C34E3EEE75af79a74482](https://arbiscan.io/address/0xF8344CFd5c43616a4366C34E3EEE75af79a74482)
 
