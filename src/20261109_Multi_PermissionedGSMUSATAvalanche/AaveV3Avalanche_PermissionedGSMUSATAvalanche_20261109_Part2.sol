@@ -19,11 +19,7 @@ import {PermissionedGSMUSATAvalancheSetup as Setup} from './setup/PermissionedGS
  * @author TokenLogic
  * - Snapshot: https://snapshot.org/#/s:aavedao.eth/proposal/0x3a61c64d6f7d0546d76c8b7d93d29becf262a30240109c4ea9fa8d067ad6c2e2
  * - Discussion: https://governance.aave.com/t/arfc-permissioned-gsm-usat-aave-v4-avalanche/25852
- *
- * @dev Reverts until the bridged GHO has reached the Avalanche Collector.
- * The GSM is deployed with its GhoReserve and the 20M exposure cap already set, and with no fee
- * strategy: fees are 0/0 and FixedFeeStrategy rejects 0/0. No oracle swap freezer: the Aave V3
- * Avalanche oracle has no USAT source.
+ * @dev Reverts until the bridged GHO reaches the Avalanche Collector, ensuring the payloads are executed in the correct order.
  */
 contract AaveV3Avalanche_PermissionedGSMUSATAvalanche_20261109_Part2 is IProposalGenericExecutor {
   // https://snowscan.xyz/address/0x15f22f39FD7b3612840cF0De49b6f9C4879Aa642
