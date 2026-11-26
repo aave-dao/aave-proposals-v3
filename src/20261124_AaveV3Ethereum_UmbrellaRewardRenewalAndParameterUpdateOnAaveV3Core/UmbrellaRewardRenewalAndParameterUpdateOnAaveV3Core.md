@@ -84,11 +84,6 @@ The AIP will apply the parameters below on the Umbrella RewardsController (`0x46
 | aEthUSDT     | `0x23878914EFE38d27C4D67Ab83ed1b93A74D4086a` | 426,365                          | 230,296                           | ≈424,000                 | 655,000       |
 | aEthWETH     | `0x4d5F47FA6A74757f35C14fD3a6Ef8E3C9BC514E8` | 132.74                           | 86.93                             | ≈173.9                   | 270           |
 
-## Next Steps
-
-1. Gather feedback from the community.
-2. Escalate this proposal directly to the AIP stage.
-
 ## References
 
 - Implementation: [AaveV3Ethereum](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20261124_AaveV3Ethereum_UmbrellaRewardRenewalAndParameterUpdateOnAaveV3Core/AaveV3Ethereum_UmbrellaRewardRenewalAndParameterUpdateOnAaveV3Core_20261124.sol)
