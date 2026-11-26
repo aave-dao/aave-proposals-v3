@@ -21,7 +21,7 @@ The payload performs three groups of actions.
 
 **1. Grant RISK_ADMIN.** `addRiskAdmin` on `AaveV3Arbitrum.ACL_MANAGER` for `LLAMARISK_CAPS_RAISE_AGENT`, `LLAMARISK_CAPS_CUT_AGENT` and `LLAMARISK_CAPS_BORROW_FORWARDER`. The two agents are stock `AaveBorrowCapAgent` deployments. They delegatecall `AaveV3Arbitrum.CONFIG_ENGINE`, and because delegatecall preserves the caller, the PoolConfigurator sees the agent when it calls `setBorrowCap`, so the role has to sit on the agent.
 
-`LLAMARISK_CAPS_BORROW_FORWARDER` is the `CapsBorrowForwarder`. It lets the Risk Council Safe raise a borrow cap and borrow for a known large borrower in the same transaction, never above the module's hard maximum. It writes through the config engine as the agents do. Owner `GovernanceV3Arbitrum.EXECUTOR_LVL_1`, caller the Risk Council Safe. Each raise adds at most 12 buffers of the asset, at most once every 36 hours per asset, like the Risk Steward's borrow cap limits (+100% every 36 hours).
+`LLAMARISK_CAPS_BORROW_FORWARDER` is the `CapsBorrowForwarder`. It lets the Risk Council Safe raise a borrow cap and borrow for a known large borrower in the same transaction, never above the module's hard maximum. It writes through the config engine as the agents do. Owner `GovernanceV3Arbitrum.EXECUTOR_LVL_1`, caller the Risk Council Safe. Each raise adds at most 12 buffers of the asset, at most once every 36 hours per asset, similar to the Risk Steward's borrow cap limits (at most +100% every 36 hours), though not identical: the forwarder counts in buffers of the asset, not a share of the cap.
 
 **2. Register the agents.** Both are registered on `MiscArbitrum.AGENT_HUB` with `MiscArbitrum.PROTOCOL_GUARDIAN` as agent admin, so either agent can be disabled without a governance cycle.
 
