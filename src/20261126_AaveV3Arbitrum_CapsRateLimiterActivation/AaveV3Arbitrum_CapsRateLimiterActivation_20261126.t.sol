@@ -153,6 +153,7 @@ contract AaveV3Arbitrum_CapsRateLimiterActivation_20261126_Test is ProtocolV3Tes
   ///      module to the wrong agents.
   function test_revertIfAgentIdTaken() public deployed {
     address[] memory none = new address[](0);
+    string memory updateType = proposal.UPDATE_TYPE();
     vm.prank(GovernanceV3Arbitrum.EXECUTOR_LVL_1);
     HUB.registerAgent(
       IAgentConfigurator.AgentRegistrationInput({
@@ -164,7 +165,7 @@ contract AaveV3Arbitrum_CapsRateLimiterActivation_20261126_Test is ProtocolV3Tes
         agentAddress: ArbitrumLlamaGuardCaps.LLAMARISK_CAPS_RAISE_AGENT,
         expirationPeriod: 1,
         minimumDelay: 0,
-        updateType: proposal.UPDATE_TYPE(),
+        updateType: updateType,
         agentContext: bytes(''),
         allowedMarkets: none,
         restrictedMarkets: none,
@@ -212,11 +213,13 @@ contract AaveV3Arbitrum_CapsRateLimiterActivation_20261126_Test is ProtocolV3Tes
     executePayload(vm, address(proposal));
 
     address weth = AaveV3ArbitrumAssets.WETH_UNDERLYING;
+    bytes memory newCap = abi.encode(_borrowCap(weth) + 1);
+    string memory updateType = proposal.UPDATE_TYPE();
     vm.prank(ROUTER);
     IRiskOracle(ArbitrumLlamaGuardCaps.LLAMARISK_CAPS_RISK_ORACLE).publishRiskParameterUpdate(
       'e2e-test',
-      abi.encode(_borrowCap(weth) + 1),
-      proposal.UPDATE_TYPE(),
+      newCap,
+      updateType,
       weth,
       bytes('')
     );
