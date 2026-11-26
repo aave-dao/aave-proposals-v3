@@ -33,11 +33,11 @@ abstract contract PermissionedGsmUsatAvalancheFacilitatorProposalBaseTest is
 
   /// @dev The payload only raises the bucket; no lane config changes
   function test_lanesUntouched() public {
-    bytes32 before = _laneConfigHash(proposal.GHO_CCIP_TOKEN_POOL(), chainSelector, 0);
+    bytes32 before = _hashLanesConfig(proposal.GHO_CCIP_TOKEN_POOL(), chainSelector, 0);
 
     executePayload(vm, address(proposal));
 
-    assertEq(_laneConfigHash(proposal.GHO_CCIP_TOKEN_POOL(), chainSelector, 0), before);
+    assertEq(_hashLanesConfig(proposal.GHO_CCIP_TOKEN_POOL(), chainSelector, 0), before);
   }
 
   function test_supportedChainsMatchLibrary() public view {

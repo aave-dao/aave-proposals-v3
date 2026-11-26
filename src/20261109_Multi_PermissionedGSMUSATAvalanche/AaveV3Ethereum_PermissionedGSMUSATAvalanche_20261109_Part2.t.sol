@@ -226,7 +226,7 @@ contract AaveV3Ethereum_PermissionedGSMUSATAvalanche_20261109_Part2_Test is
 
   /// @dev Only the widened lane is restored; every other lane keeps its config
   function test_otherLanesUntouched() public {
-    bytes32 before = _laneConfigHash(
+    bytes32 before = _hashLanesConfig(
       GhoEthereum.GHO_CCIP_TOKEN_POOL,
       CCIPChainSelectors.ETHEREUM,
       CCIPChainSelectors.AVALANCHE
@@ -235,7 +235,7 @@ contract AaveV3Ethereum_PermissionedGSMUSATAvalanche_20261109_Part2_Test is
     executePayload(vm, address(proposal));
 
     assertEq(
-      _laneConfigHash(
+      _hashLanesConfig(
         GhoEthereum.GHO_CCIP_TOKEN_POOL,
         CCIPChainSelectors.ETHEREUM,
         CCIPChainSelectors.AVALANCHE

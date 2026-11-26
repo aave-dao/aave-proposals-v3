@@ -6,10 +6,16 @@ import {GhoCCIPChains} from 'src/helpers/gho-launch/constants/GhoCCIPChains.sol'
 import {IUpgradeableLockReleaseTokenPool, IRateLimiter} from 'src/interfaces/ccip/IUpgradeableLockReleaseTokenPool.sol';
 
 /**
- * @dev The lane tests loop over GhoCCIPChains; this pins it equal to the lanes the pool reports
- * (`getSupportedChains`) so no lane escapes the checks. It also holds the lane assertions the tests share.
+ * @title SupportedChainsCheck
+ * @author TokenLogic
+ * @notice Lane assertions and helpers shared by the GHO CCIP token pool tests of this proposal.
  */
 abstract contract SupportedChainsCheck is Test {
+  /**
+   * @notice Asserts that the pool's getSupportedChains() has the same count as the GhoCCIPChains lanes (every lane except ownSelector, including CCIP 1.6 lanes) and contains each of those selectors.
+   * @param tokenPool The address of the token pool to check.
+   * @param ownSelector The chain selector to exclude from the comparison.
+   */
   function _assertSupportedChainsMatchLibrary(address tokenPool, uint64 ownSelector) internal view {
     uint64[] memory supported = IUpgradeableLockReleaseTokenPool(tokenPool).getSupportedChains();
     GhoCCIPChains.ChainInfo[] memory expected = GhoCCIPChains.getAllChainsExcept(
@@ -26,8 +32,14 @@ abstract contract SupportedChainsCheck is Test {
     }
   }
 
-  /// @dev Hash of the configured rate limits (enabled, capacity, rate) of every lane but `skipSelector`
-  function _laneConfigHash(
+  /**
+   * @notice Hashes enabled/capacity/rate of the current inbound and outbound rate limiter state for every GhoCCIPChains lane, including CCIP 1.6 lanes, except ownSelector and skipSelector.
+   * @param tokenPool The address of the token pool to hash.
+   * @param ownSelector The chain selector to exclude from the hash.
+   * @param skipSelector The additional chain selector to skip during hashing.
+   * @return hash The resulting hash of the rate limiter configurations.
+   */
+  function _hashLanesConfig(
     address tokenPool,
     uint64 ownSelector,
     uint64 skipSelector
@@ -54,15 +66,21 @@ abstract contract SupportedChainsCheck is Test {
     }
   }
 
-  /// @dev The bucket has the given enabled state, capacity and rate
+  /**
+   * @notice Asserts the bucket's isEnabled, capacity and rate equal the given values.
+   * @param bucket The token bucket to verify.
+   * @param isEnabled The expected enabled state.
+   * @param capacity The expected capacity value.
+   * @param rate The expected rate value.
+   */
   function _assertRateLimiterConfig(
     IRateLimiter.TokenBucket memory bucket,
     bool isEnabled,
     uint128 capacity,
     uint128 rate
   ) internal pure {
-    assertEq(bucket.isEnabled, isEnabled);
-    assertEq(bucket.capacity, capacity);
-    assertEq(bucket.rate, rate);
+    assertEq(bucket.isEnabled, isEnabled, 'rate limiter isEnabled');
+    assertEq(bucket.capacity, capacity, 'rate limiter capacity');
+    assertEq(bucket.rate, rate, 'rate limiter rate');
   }
 }
