@@ -44,7 +44,7 @@ This proposal does not resize Deficit Offsets. The USDC offset of 1.3M USDC and 
 
 ## Relative Yield Environment
 
-Yields on the stablecoin alternatives tracked below have risen since June, and Aave Core supply rates rose with them. Stakers earn those rates through waEthUSDC and waEthUSDT on top of Umbrella emissions. Over the last seven days, annualized total yields averaged 7.0% for USDC stakers and 5.0% for USDT stakers. The lower premium proposed for both stablecoins assumes supply rates stay near current levels.
+Yields on the stablecoin alternatives have risen since June, and Aave Core supply rates rose with them. Stakers earn those rates through waEthUSDC and waEthUSDT on top of Umbrella emissions. Over the last seven days, annualized total yields averaged 7.0% for USDC stakers and 5.0% for USDT stakers. The lower premium proposed for both stablecoins assumes supply rates stay near current levels.
 
 Lido stETH, weETH and Aave Core WETH supply have stayed close to their June levels, and the WETH Umbrella emission APR on its own sits above both staking yields.
 
