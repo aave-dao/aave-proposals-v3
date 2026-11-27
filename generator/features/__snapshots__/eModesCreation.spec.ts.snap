@@ -63,6 +63,7 @@ export const config: ConfigFile = {
         ASSET_LISTING: [
           {
             assetSymbol: 'PT_sUSDe_TEST',
+            onchainSymbol: 'PT-sUSDe-TEST',
             decimals: 18,
             priceFeed: '0x9c823f4e19Ef68347810a9C139619273b8282b7e',
             ltv: '0',
@@ -256,7 +257,7 @@ contract AaveV3Ethereum_Test_20231023_Test is ProtocolV3TestBase {
     listings[0] = ExpectedListing({
       listing: IAaveV3ConfigEngine.Listing({
         asset: 0xf7fB83435F455Bd970F2D9f943f4eECE1941b3e9,
-        assetSymbol: 'PT_sUSDe_TEST',
+        assetSymbol: 'PT-sUSDe-TEST',
         priceFeed: 0x9c823f4e19Ef68347810a9C139619273b8282b7e,
         enabledToBorrow: EngineFlags.DISABLED,
         flashloanable: EngineFlags.DISABLED,

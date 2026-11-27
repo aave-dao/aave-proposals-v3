@@ -20,6 +20,7 @@ export const config: ConfigFile = {
         ASSET_LISTING: [
           {
             assetSymbol: 'cirBTC',
+            onchainSymbol: 'cirBTC',
             decimals: 8,
             priceFeed: '0xb41E773f507F7a7EA890b1afB7d2b660c30C8B0A',
             ltv: '73',
