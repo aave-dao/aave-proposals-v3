@@ -1,0 +1,243 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`risk params record > LPF increase on Ethereum: config -> record -> config generates the same payload 1`] = `
+{
+  "aip": "LiquidationProtocolFeeIncreaseWBTCWETHWstETH",
+  "forumPost": "https://governance.aave.com/t/arfc-liquidation-protocol-fee-increase-for-wbtc-weth-and-wsteth-on-aave-v3-ethereum-core/25470",
+  "markets": {
+    "AaveV3Ethereum": {
+      "reserveUpdates": [
+        {
+          "asset": {
+            "symbol": "WBTC",
+          },
+          "liqProtocolFee": 2000,
+        },
+        {
+          "asset": {
+            "symbol": "WETH",
+          },
+          "liqProtocolFee": 2000,
+        },
+        {
+          "asset": {
+            "symbol": "wstETH",
+          },
+          "liqProtocolFee": 2000,
+        },
+      ],
+    },
+  },
+  "provider": "LlamaRisk (implemented by Aave Labs)",
+  "schemaVersion": "1.0",
+  "updatedAt": "2026-10-16",
+  "version": 1,
+}
+`;
+
+exports[`risk params record > USDe X Layer listing + new eMode: config -> record -> config generates the same payload 1`] = `
+{
+  "aip": "AaveV3XLayerUSDeListing",
+  "forumPost": "https://governance.aave.com/t/direct-to-aip-asset-listing-usde-x-layer/25688",
+  "markets": {
+    "AaveV3XLayer": {
+      "eModeAssets": [
+        {
+          "asset": {
+            "symbol": "USDe",
+          },
+          "borrowable": true,
+          "eMode": {
+            "label": "WOKB__USDT_USDG_GHO_USDC",
+          },
+        },
+        {
+          "asset": {
+            "symbol": "USDe",
+          },
+          "borrowable": true,
+          "eMode": {
+            "label": "xBTC__USDT_USDG_GHO_USDC",
+          },
+        },
+        {
+          "asset": {
+            "symbol": "USDe",
+          },
+          "borrowable": true,
+          "eMode": {
+            "label": "xETH__USDT_USDG_GHO_USDC",
+          },
+        },
+        {
+          "asset": {
+            "symbol": "USDe",
+          },
+          "borrowable": true,
+          "eMode": {
+            "label": "xSOL__USDT_USDG_GHO_USDC",
+          },
+        },
+      ],
+      "eModeCreates": [
+        {
+          "borrowable": [
+            {
+              "symbol": "USDT",
+            },
+            {
+              "symbol": "USDG",
+            },
+            {
+              "symbol": "USDC",
+            },
+            {
+              "symbol": "GHO",
+            },
+          ],
+          "collateral": [
+            {
+              "symbol": "USDe",
+            },
+          ],
+          "isolated": false,
+          "label": "USDe__Stablecoins",
+          "liqBonus": 200,
+          "liqThreshold": 9300,
+          "ltv": 9100,
+          "ref": "new1",
+        },
+      ],
+      "listings": [
+        {
+          "asset": {
+            "address": "0x5d3a1Ff2b6BAb83b63cd9AD0787074081a52ef34",
+            "symbol": "USDe",
+          },
+          "borrowCap": 20000000,
+          "borrowable": true,
+          "flashloanable": true,
+          "liqBonus": 0,
+          "liqProtocolFee": 1000,
+          "liqThreshold": 0,
+          "ltv": 0,
+          "priceFeed": "0x7ec7E5497EAf312FE82F8307D05eb0E5f0f157D3",
+          "rates": {
+            "base": 630,
+            "optimal": 8500,
+            "slope1": 25,
+            "slope2": 4500,
+          },
+          "reserveFactor": 2500,
+          "supplyCap": 100000000,
+        },
+      ],
+    },
+  },
+  "provider": "@TokenLogic",
+  "schemaVersion": "1.0",
+  "updatedAt": "2026-10-13",
+  "version": 1,
+}
+`;
+
+exports[`risk params record > multi-market LTV and eMode update: config -> record -> config generates the same payload 1`] = `
+{
+  "aip": "AaveV3LTVAndEModeUpdate",
+  "forumPost": "https://governance.aave.com/t/direct-to-aip-aave-v3-ltv-and-e-mode-update/25067",
+  "markets": {
+    "AaveV3Avalanche": {
+      "reserveUpdates": [
+        {
+          "asset": {
+            "symbol": "AUSD",
+          },
+          "ltv": 0,
+        },
+      ],
+    },
+    "AaveV3Ethereum": {
+      "reserveUpdates": [
+        {
+          "asset": {
+            "symbol": "PYUSD",
+          },
+          "ltv": 0,
+        },
+        {
+          "asset": {
+            "symbol": "wstETH",
+          },
+          "borrowCap": 7000,
+        },
+      ],
+    },
+    "AaveV3EthereumLido": {
+      "reserveUpdates": [
+        {
+          "asset": {
+            "symbol": "wstETH",
+          },
+          "borrowCap": 18000,
+        },
+      ],
+    },
+    "AaveV3Gnosis": {
+      "reserveUpdates": [
+        {
+          "asset": {
+            "symbol": "wstETH",
+          },
+          "ltv": 0,
+        },
+      ],
+    },
+    "AaveV3Mantle": {
+      "eModeCreates": [
+        {
+          "borrowable": [
+            {
+              "symbol": "USDT0",
+            },
+            {
+              "symbol": "USDC",
+            },
+            {
+              "symbol": "GHO",
+            },
+          ],
+          "collateral": [
+            {
+              "symbol": "WMNT",
+            },
+          ],
+          "isolated": true,
+          "label": "WMNT__Stablecoins",
+          "liqBonus": 1000,
+          "liqThreshold": 4500,
+          "ltv": 4000,
+          "ref": "new1",
+        },
+      ],
+      "reserveUpdates": [
+        {
+          "asset": {
+            "symbol": "WETH",
+          },
+          "ltv": 0,
+        },
+        {
+          "asset": {
+            "symbol": "WMNT",
+          },
+          "ltv": 0,
+        },
+      ],
+    },
+  },
+  "provider": "Llama Risk (implemented by Aave Labs)",
+  "schemaVersion": "1.0",
+  "updatedAt": "2026-07-07",
+  "version": 1,
+}
+`;
