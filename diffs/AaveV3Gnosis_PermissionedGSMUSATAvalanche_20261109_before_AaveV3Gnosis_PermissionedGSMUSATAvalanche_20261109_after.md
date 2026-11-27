@@ -1,0 +1,49 @@
+## Event logs
+
+#### 0xfc421aD3C883Bf9E7C4f42dE845C4e4405799e73 (AaveV3Gnosis.ASSETS.GHO.UNDERLYING, GhoGnosis.GHO_TOKEN)
+
+| index | event |
+| --- | --- |
+| 0 | FacilitatorBucketCapacityUpdated(facilitatorAddress: 0xDe6539018B095353A40753Dc54C91C68c9487D4E, oldCapacity: 200000000000000000000000000, newCapacity: 265000000000000000000000000) |
+
+#### 0x1dF462e2712496373A347f8ad10802a5E95f053D (AaveV3Gnosis.ACL_ADMIN, GovernanceV3Gnosis.EXECUTOR_LVL_1)
+
+| index | event |
+| --- | --- |
+| 1 | ExecutedAction(target: 0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f, value: 0, signature: execute(), data: 0x, executionTime: 1794561025, withDelegatecall: true, resultData: 0x) |
+
+#### 0x9A1F491B86D09fC1484b5fab10041B189B60756b (GovernanceV3Gnosis.PAYLOADS_CONTROLLER)
+
+| index | event |
+| --- | --- |
+| 2 | PayloadExecuted(payloadId: 88) |
+
+## Raw storage changes
+
+### 0x4e13adcbdf4a388650fb280715b3391f89619397
+
+**Nonce diff**: 0 → 1
+
+### 0x4e59b44847b379578588920ca78fbf26c0b4956c
+
+**Nonce diff**: 1 → 0
+
+### 0x9a1f491b86d09fc1484b5fab10041b189b60756b (GovernanceV3Gnosis.PAYLOADS_CONTROLLER)
+
+| slot | previous value | new value |
+| --- | --- | --- |
+| 0xca1941ffd2876354dca11a76468fb85895321380bff6312dcbd61b110f22031e | 0x006af6d400000000000002000000000000000000000000000000000000000000 | 0x006af6d400000000000003000000000000000000000000000000000000000000 |
+| 0xca1941ffd2876354dca11a76468fb85895321380bff6312dcbd61b110f22031f | 0x000000000000000000093a800000000000006b24f88100000000000000000000 | 0x000000000000000000093a800000000000006b24f8810000000000006af6d401 |
+
+### 0xfc421ad3c883bf9e7c4f42de845c4e4405799e73 (AaveV3Gnosis.ASSETS.GHO.UNDERLYING, GhoGnosis.GHO_TOKEN)
+
+| slot | previous value | new value |
+| --- | --- | --- |
+| 0x9b3b068d87884c5356c62511a016dad778c18fa41fabe618bdc9ba5a1465b7b0 | 0x000000000000043acb1b82594ef4ad7b0000000000a56fa5b99019a5c8000000 | 0x000000000000043acb1b82594ef4ad7b0000000000db33eec91221fba9000000 |
+
+
+## Raw diff
+
+```json
+{}
+```
