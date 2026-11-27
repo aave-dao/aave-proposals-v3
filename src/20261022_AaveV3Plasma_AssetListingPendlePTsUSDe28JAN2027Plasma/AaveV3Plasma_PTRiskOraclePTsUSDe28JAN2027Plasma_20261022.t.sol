@@ -7,6 +7,7 @@ import {GovV3Helpers} from 'aave-helpers/src/GovV3Helpers.sol';
 import {DataTypes} from 'aave-v3-origin/contracts/protocol/libraries/types/DataTypes.sol';
 
 import 'forge-std/Test.sol';
+import {ProtocolV3TestBase} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {AaveV3Plasma_AssetListingPendlePTsUSDe28JAN2027Plasma_20261022} from './AaveV3Plasma_AssetListingPendlePTsUSDe28JAN2027Plasma_20261022.sol';
 import {AaveV3Plasma_PTRiskOraclePTsUSDe28JAN2027Plasma_20261022} from './AaveV3Plasma_PTRiskOraclePTsUSDe28JAN2027Plasma_20261022.sol';
 import {AgentHubConfigs} from '../helpers/agent-hub/Configs.sol';
@@ -19,7 +20,7 @@ import {IRiskOracle} from '../interfaces/IRiskOracle.sol';
  * @dev Test for AaveV3Plasma_PTRiskOraclePTsUSDe28JAN2027Plasma_20261022, executed after the listing payload
  * command: FOUNDRY_PROFILE=test forge test --match-path=src/20261022_AaveV3Plasma_AssetListingPendlePTsUSDe28JAN2027Plasma/AaveV3Plasma_PTRiskOraclePTsUSDe28JAN2027Plasma_20261022.t.sol -vv
  */
-contract AaveV3Plasma_PTRiskOraclePTsUSDe28JAN2027Plasma_20261022_Test is Test {
+contract AaveV3Plasma_PTRiskOraclePTsUSDe28JAN2027Plasma_20261022_Test is ProtocolV3TestBase {
   uint8 internal constant EXPECTED_EMODE_ID = 27;
 
   AaveV3Plasma_AssetListingPendlePTsUSDe28JAN2027Plasma_20261022 internal listing;
@@ -32,6 +33,16 @@ contract AaveV3Plasma_PTRiskOraclePTsUSDe28JAN2027Plasma_20261022_Test is Test {
     listing = new AaveV3Plasma_AssetListingPendlePTsUSDe28JAN2027Plasma_20261022();
     proposal = new AaveV3Plasma_PTRiskOraclePTsUSDe28JAN2027Plasma_20261022();
     pt = proposal.PT_sUSDE_28JAN2027();
+  }
+
+  /// forge-config: default.isolate = true
+  function test_defaultProposalExecution() public {
+    GovV3Helpers.executePayload(vm, address(listing));
+    defaultTest(
+      'AaveV3Plasma_PTRiskOraclePTsUSDe28JAN2027Plasma_20261022',
+      AaveV3Plasma.POOL,
+      address(proposal)
+    );
   }
 
   function test_constantsMatchTheListing() public view {
