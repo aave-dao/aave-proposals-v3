@@ -19,7 +19,6 @@ import {IGsm} from 'src/interfaces/IGsm.sol';
  */
 contract AaveV3Plasma_November2026FundingUpdate_20261118 is IProposalGenericExecutor {
   uint256 public constant AFC_GHO_ALLOWANCE = 1_100_000 ether;
-  uint256 public constant AFC_AGHO_ALLOWANCE = 1_100_000 ether;
 
   function execute() external {
     _afcAllowances();
@@ -31,11 +30,6 @@ contract AaveV3Plasma_November2026FundingUpdate_20261118 is IProposalGenericExec
       IERC20(AaveV3PlasmaAssets.GHO_UNDERLYING),
       MiscPlasma.AFC_SAFE,
       AFC_GHO_ALLOWANCE
-    );
-    AaveV3Plasma.COLLECTOR.approve(
-      IERC20(AaveV3PlasmaAssets.GHO_A_TOKEN),
-      MiscPlasma.AFC_SAFE,
-      AFC_AGHO_ALLOWANCE
     );
   }
 

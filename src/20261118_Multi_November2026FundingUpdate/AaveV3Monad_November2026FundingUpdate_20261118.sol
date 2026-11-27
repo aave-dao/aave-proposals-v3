@@ -22,7 +22,6 @@ contract AaveV3Monad_November2026FundingUpdate_20261118 is IProposalGenericExecu
   address public constant WMON = 0x3bd359C1119dA7Da1D913D1C4D2B7c461115433A;
 
   uint256 public constant AFC_GHO_ALLOWANCE = 300_000 ether;
-  uint256 public constant AFC_AGHO_ALLOWANCE = 300_000 ether;
 
   function execute() external {
     _afcAllowances();
@@ -34,11 +33,6 @@ contract AaveV3Monad_November2026FundingUpdate_20261118 is IProposalGenericExecu
       IERC20(AaveV3MonadAssets.GHO_UNDERLYING),
       MiscMonad.AFC_SAFE,
       AFC_GHO_ALLOWANCE
-    );
-    AaveV3Monad.COLLECTOR.approve(
-      IERC20(AaveV3MonadAssets.GHO_A_TOKEN),
-      MiscMonad.AFC_SAFE,
-      AFC_AGHO_ALLOWANCE
     );
   }
 

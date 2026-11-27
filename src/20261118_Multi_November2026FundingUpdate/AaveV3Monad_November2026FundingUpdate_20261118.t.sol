@@ -56,15 +56,7 @@ contract AaveV3Monad_November2026FundingUpdate_20261118_Test is ProtocolV3TestBa
         MiscMonad.AFC_SAFE
       ),
       0,
-      'AFC should have no GHO allowance before execution'
-    );
-    assertEq(
-      IERC20(AaveV3MonadAssets.GHO_A_TOKEN).allowance(
-        address(AaveV3Monad.COLLECTOR),
-        MiscMonad.AFC_SAFE
-      ),
-      0,
-      'AFC should have no aGHO allowance before execution'
+      'AFC should have no allowance before execution'
     );
 
     executePayload(vm, address(proposal));
@@ -75,50 +67,7 @@ contract AaveV3Monad_November2026FundingUpdate_20261118_Test is ProtocolV3TestBa
         MiscMonad.AFC_SAFE
       ),
       proposal.AFC_GHO_ALLOWANCE(),
-      'unexpected AFC GHO allowance'
-    );
-    assertEq(
-      IERC20(AaveV3MonadAssets.GHO_A_TOKEN).allowance(
-        address(AaveV3Monad.COLLECTOR),
-        MiscMonad.AFC_SAFE
-      ),
-      proposal.AFC_AGHO_ALLOWANCE(),
-      'unexpected AFC aGHO allowance'
-    );
-  }
-
-  function test_afcCanWithdrawAGho() public {
-    executePayload(vm, address(proposal));
-
-    uint256 amount = IERC20(AaveV3MonadAssets.GHO_A_TOKEN).balanceOf(
-      address(AaveV3Monad.COLLECTOR)
-    );
-    assertGt(amount, 0, 'Collector should hold aGHO');
-    uint256 afcBalanceBefore = IERC20(AaveV3MonadAssets.GHO_UNDERLYING).balanceOf(
-      MiscMonad.AFC_SAFE
-    );
-    uint256 afcATokenBalanceBefore = IERC20(AaveV3MonadAssets.GHO_A_TOKEN).balanceOf(
-      MiscMonad.AFC_SAFE
-    );
-
-    vm.startPrank(MiscMonad.AFC_SAFE);
-    IERC20(AaveV3MonadAssets.GHO_A_TOKEN).transferFrom(
-      address(AaveV3Monad.COLLECTOR),
-      MiscMonad.AFC_SAFE,
-      amount
-    );
-    AaveV3Monad.POOL.withdraw(
-      AaveV3MonadAssets.GHO_UNDERLYING,
-      type(uint256).max,
-      MiscMonad.AFC_SAFE
-    );
-    vm.stopPrank();
-
-    assertApproxEqAbs(
-      IERC20(AaveV3MonadAssets.GHO_UNDERLYING).balanceOf(MiscMonad.AFC_SAFE),
-      afcBalanceBefore + afcATokenBalanceBefore + amount,
-      10,
-      'AFC should withdraw the aGHO as GHO'
+      'unexpected AFC allowance'
     );
   }
 
