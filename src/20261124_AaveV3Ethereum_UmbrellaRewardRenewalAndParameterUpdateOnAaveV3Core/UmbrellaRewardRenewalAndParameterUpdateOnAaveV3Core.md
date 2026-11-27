@@ -4,6 +4,10 @@ author: "@TokenLogic"
 discussions: "https://governance.aave.com/t/direct-to-aip-umbrella-reward-renewal-and-parameter-update-on-aave-v3-core/26462"
 ---
 
+## Simple Summary
+
+This proposal extends the Umbrella rewards for USDC, USDT and WETH on Aave V3 Core to April 2, 2027, updates USDC and USDT Target Liquidity and emissions, and renews the Collector allowances.
+
 ## Overview
 
 The Umbrella reward period for USDC, USDT and WETH on Aave V3 Core ends on December 2, 2026. This proposal extends it to April 2, 2027, renews the Collector allowances and updates the parameters set in [TokenLogic's June parameter update](https://governance.aave.com/t/arfc-umbrella-parameter-update-target-liquidity-and-emission-optimization/25154).
@@ -70,7 +74,7 @@ The proposal lowers annual reward spend by 6.7% at maximum emission and by 5.5% 
 
 ## Specification
 
-The AIP will apply the parameters below on the Umbrella RewardsController (`0x4655Ce3D625a63d30bA704087E52B4C31E38188B`) and approve the allowances below from the Aave Ethereum Collector (`0x464C71f6c2F760DdA6093dCB91C24c39e5d6e18c`). The allowances are final. Each is the rewards unclaimed at 23:00 UTC on November 17 plus maximum-rate emissions from then to April 2, 2027 (the current rate until December 2, the proposed rate after), rounded up. These amounts replace the remaining allowances. The cooldown, unstake window, Deficit Offsets and stkGHO allowance remain unchanged.
+The AIP will apply the parameters below on the Umbrella RewardsController (`0x4655Ce3D625a63d30bA704087E52B4C31E38188B`) and approve the allowances below from the Aave Ethereum Collector (`0x464C71f6c2F760DdA6093dCB91C24c39e5d6e18c`). Each is the rewards unclaimed at 23:00 UTC on November 17 plus maximum-rate emissions from then to April 2, 2027 (the current rate until December 2, the proposed rate after), rounded up. These amounts replace the remaining allowances. The cooldown, unstake window, Deficit Offsets and stkGHO allowance remain unchanged.
 
 | Stake token  | Address                                      | Reward asset | Target Liquidity, current | Target Liquidity, proposed | `maxEmissionPerSecond`, current (reward-token units per second) | `maxEmissionPerSecond`, proposed (reward-token units per second) | `distributionEnd`, current | `distributionEnd`, proposed |
 | ------------ | -------------------------------------------- | ------------ | ------------------------- | -------------------------- | --------------------------------------------------------------- | ---------------------------------------------------------------- | -------------------------- | --------------------------- |

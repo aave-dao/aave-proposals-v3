@@ -58,6 +58,11 @@ contract AaveV3Ethereum_UmbrellaRewardRenewalAndParameterUpdateOnAaveV3Core_2026
   uint256 internal constant WETH_DEFICIT_OFFSET = 53_041.439525910725842244e18;
   uint256 internal constant GHO_DEFICIT_OFFSET = 3_000_000e18;
 
+  // a staker in each module at block 26484891
+  address internal constant USDC_STAKER = 0xeE0CfAaa640916c68CA865Fcbdc2cA0fcb670D0C;
+  address internal constant USDT_STAKER = 0x40bD1a961eD45493b7A0B5d865ddC378c8C93019;
+  address internal constant WETH_STAKER = 0xee27B8031b51575Ae9Aaaa7c21b93FEA242A82Ce;
+
   // sum of calculateCurrentUserReward at block 26484891 over every Transfer from/to address of each stake token since deployment (incl. exited holders)
   uint256 internal constant USDC_UNCLAIMED = 263_416.652094e6;
   uint256 internal constant USDT_UNCLAIMED = 202_042.977524e6;
@@ -189,27 +194,23 @@ contract AaveV3Ethereum_UmbrellaRewardRenewalAndParameterUpdateOnAaveV3Core_2026
     _assertDeficitOffsets();
   }
 
-  function test_lateExecutionKeepsWethRewardsEnabled() public {
-    address usdcStaker = _usdcStakers(address(0))[0];
-    address usdtStaker = _usdtStakers(address(0))[0];
-    address wethStaker = _wethStakers(address(0))[0];
-
+  function test_lateExecutionRestartsRewardsWithoutBackfill() public {
     vm.warp(WETH_CURRENT_DISTRIBUTION_END + 1 days);
     assertEq(_wethEmission(), 0);
-    uint256 usdcAccruedAtOldEnd = _usdcAccrued(usdcStaker);
-    uint256 usdtAccruedAtOldEnd = _usdtAccrued(usdtStaker);
-    uint256 wethAccruedAtOldEnd = _wethAccrued(wethStaker);
+    uint256 usdcAccruedAtOldEnd = _usdcAccrued(USDC_STAKER);
+    uint256 usdtAccruedAtOldEnd = _usdtAccrued(USDT_STAKER);
+    uint256 wethAccruedAtOldEnd = _wethAccrued(WETH_STAKER);
 
     executePayload(vm, address(proposal));
 
     // the gap between the old distributionEnd and execution is not backfilled
-    assertEq(_usdcAccrued(usdcStaker), usdcAccruedAtOldEnd);
-    assertEq(_usdtAccrued(usdtStaker), usdtAccruedAtOldEnd);
-    assertEq(_wethAccrued(wethStaker), wethAccruedAtOldEnd);
+    assertEq(_usdcAccrued(USDC_STAKER), usdcAccruedAtOldEnd);
+    assertEq(_usdtAccrued(USDT_STAKER), usdtAccruedAtOldEnd);
+    assertEq(_wethAccrued(WETH_STAKER), wethAccruedAtOldEnd);
     vm.warp(block.timestamp + 1 hours);
-    assertGt(_usdcAccrued(usdcStaker), usdcAccruedAtOldEnd);
-    assertGt(_usdtAccrued(usdtStaker), usdtAccruedAtOldEnd);
-    assertGt(_wethAccrued(wethStaker), wethAccruedAtOldEnd);
+    assertGt(_usdcAccrued(USDC_STAKER), usdcAccruedAtOldEnd);
+    assertGt(_usdtAccrued(USDT_STAKER), usdtAccruedAtOldEnd);
+    assertGt(_wethAccrued(WETH_STAKER), wethAccruedAtOldEnd);
 
     assertEq(_wethEmission(), WETH_EMISSION);
     assertEq(_usdcEmission(), USDC_NEW_EMISSION);
@@ -238,8 +239,8 @@ contract AaveV3Ethereum_UmbrellaRewardRenewalAndParameterUpdateOnAaveV3Core_2026
     );
   }
 
-  // max emissions from now until the 2nd of April 2027: the current rate until the 2nd of December 2026 end, then the proposed rate
-  // (an upper bound: before December 2, execution starts the lower USDC and USDT rate early; after December 2, nothing accrues between December 2 and execution)
+  // max emissions from now until 2027-04-02: the current rate until the 2026-12-02 end, then the proposed rate
+  // (an upper bound: before 2026-12-02, execution starts the lower USDC and USDT rate early; after 2026-12-02, nothing accrues between 2026-12-02 and execution)
   function _maxEmissions(
     uint256 oldEmission,
     uint256 newEmission,
@@ -464,10 +465,10 @@ contract AaveV3Ethereum_UmbrellaRewardRenewalAndParameterUpdateOnAaveV3Core_2026
       );
   }
 
-  // largest USDT reward debtors at block 26484891 and a new top staker
+  // accounts with unclaimed rewards at block 26484891 (some no longer staked) and a new large staker
   function _usdtStakers(address largeStaker) internal pure returns (address[] memory users) {
     users = new address[](18);
-    users[0] = 0x40bD1a961eD45493b7A0B5d865ddC378c8C93019;
+    users[0] = USDT_STAKER;
     users[1] = 0xeC819b5E1d3B4549cAb841D894A09DF965b240e0;
     users[2] = 0x05279914272C6b352c2afd50f20a892cA8938092;
     users[3] = 0x942c34c92BDF7bb86ce206A186A8139a0B94DefB;
@@ -487,10 +488,10 @@ contract AaveV3Ethereum_UmbrellaRewardRenewalAndParameterUpdateOnAaveV3Core_2026
     users[17] = largeStaker;
   }
 
-  // top USDC stakers with unclaimed rewards and the current top staker
+  // accounts with unclaimed rewards at block 26484891 (some no longer staked) and a new large staker
   function _usdcStakers(address largeStaker) internal pure returns (address[] memory users) {
     users = new address[](20);
-    users[0] = 0xeE0CfAaa640916c68CA865Fcbdc2cA0fcb670D0C;
+    users[0] = USDC_STAKER;
     users[1] = 0xfbeb5B79Ad0C3643Dc3c904eA28981CbcA709B3a;
     users[2] = 0xf9587365a5Ab255CFE8947Bb6B8F5E967A31191f;
     users[3] = 0xd98c48E20eEfa06788d305BB8C56b6c901389E48;
@@ -512,10 +513,10 @@ contract AaveV3Ethereum_UmbrellaRewardRenewalAndParameterUpdateOnAaveV3Core_2026
     users[19] = largeStaker;
   }
 
-  // top WETH stakers with unclaimed rewards and the current top staker
+  // accounts with unclaimed rewards at block 26484891 (some no longer staked) and a new large staker
   function _wethStakers(address largeStaker) internal pure returns (address[] memory users) {
     users = new address[](15);
-    users[0] = 0xee27B8031b51575Ae9Aaaa7c21b93FEA242A82Ce;
+    users[0] = WETH_STAKER;
     users[1] = 0xE7B009F26aae94C3d5919c327E0c4DafE5137aa9;
     users[2] = 0x49D29b200A9F8929D1E368A00097372E41794399;
     users[3] = 0x1367D4854424847A240ce666C576bE2294daE099;
