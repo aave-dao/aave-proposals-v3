@@ -32,7 +32,7 @@ The Collector holds around 1.3M of USDtb, USDG, EURC and sUSDe that the MainnetS
 
 ### Collector ETH
 
-The Collector holds around 292 ETH that is not earning yield. This publication wraps it into WETH and deposits it into the Core instance.
+The Collector holds ETH that is not earning yield. This publication wraps it into WETH and deposits it into the Core instance.
 
 ### GSM Merkl Rewards
 
@@ -75,7 +75,7 @@ Recipient: Immunefi `0x7119f398b6C06095c6E8964C1f58e7C1BAa79E18`
 Wrap the ETH held by the Collector into WETH and deposit it into the Core instance on the Collector's behalf.
 
 Asset: ETH, wrapped into WETH `0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2`
-Amount: the Collector's ETH balance at execution (292.35 at the time of writing)
+Amount: the Collector's ETH balance at execution
 Destination: Aave V3 Core, aEthWETH held by the Collector
 
 #### Expand MainnetSwapSteward
