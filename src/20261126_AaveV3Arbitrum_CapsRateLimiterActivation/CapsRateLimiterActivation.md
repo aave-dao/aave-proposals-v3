@@ -44,7 +44,7 @@ The AgentHub holds agents 0 to 2, so these registrations take ids 3 and 4. The w
 | USDC    | 10% of debt | 15,003,601     | 600,145      | 10%      | borrow cap at execution |
 | wstETH  | 10% of debt | 6,625          | 265          | 10%      | borrow cap at execution |
 
-Amounts are in tokens. These five can be borrowed today. The buffer ceiling is $15M at Aave oracle prices of 15 November 2026 and the floor is a 25th of the ceiling. The ARFC gave $25M and $1M as indicative values; Stage 1 starts lower, and the Risk Council can raise the ceiling within the limits below. The hard maximum is read from the Pool when the payload executes, so it stays the value the Risk Stewards set.
+Amounts are in tokens. These five can be borrowed today. The buffer ceiling is $15M at Aave oracle prices of 15 November 2026 and the floor is a 25th of the ceiling. The ARFC gave $25M and $1M as indicative values; Stage 1 starts lower, and the Risk Council can raise the ceiling within the limits below. The hard maximum is each reserve's borrow cap when the payload executes, and it stays fixed after that. A later Risk Steward raise above it is cut back unless a Risk Council hold is active; lifting it takes the Risk Council (up to 50% per day, within the limits below) or an AIP.
 
 The other 14 reserves cannot be borrowed today: they are frozen, or have borrowing disabled with no eMode allowing it. They are listed so that a reserve re-enabled later is already rate limited. Their borrow cap is 1 (AAVE has none), so their hard maximum is 1 until governance raises it with the re-enabling. Same buffer share and cut band, buffer ceiling $15M at Aave oracle prices of 26 November 2026.
 
@@ -91,6 +91,20 @@ Each part can be switched off on its own. The Protocol Guardian can disable eith
 
 No reserve configuration is changed by this payload. The snapshot diff is empty by design.
 
+### Expected caps after activation
+
+The cut keeper's route is added only after the raise route is live. Its first run then cuts each cap that sits above debt plus one buffer and the band. Estimated from debt on 27 November 2026; the actual values follow debt at that time.
+
+| Reserve | Borrow cap today | Expected cap after the first cut |
+| ------- | ---------------- | -------------------------------- |
+| WBTC    | 250              | ~132                             |
+| WETH    | 65,000           | ~61,900                          |
+| USD₮0   | 52,400,000       | ~43,000,000                      |
+| USDC    | 180,000,000      | ~160,100,000                     |
+| wstETH  | 1,300            | ~331                             |
+
+The other 14 reserves stay at their cap of 1.
+
 ## Deployed Contracts
 
 - `LLAMARISK_RISK_ORACLE_ADMIN_SAFE`: [0x1a0267E9E5929a5914Ae9DbBf23Bc07B14365471](https://arbiscan.io/address/0x1a0267E9E5929a5914Ae9DbBf23Bc07B14365471)
@@ -118,7 +132,7 @@ Existing Aave contracts referenced, all from the address book:
 
 ### Contract source
 
-The agents are stock `AaveBorrowCapAgent` deployments from [aave-dao/aave-risk-agents](https://github.com/aave-dao/aave-risk-agents). The range validation module, reducer oracle and parameter registry are from [llama-risk/llamaguard-contracts](https://github.com/llama-risk/llamaguard-contracts) at [`7ea2f2e`](https://github.com/llama-risk/llamaguard-contracts/commit/7ea2f2ec38acda9fc913800d57a5a6bd77a6658a), audited by Certora (report: TODO). The tests check that every contract has bytecode and that its immutable AgentHub, module and Pool wiring matches what this payload registers.
+The agents are stock `AaveBorrowCapAgent` deployments from [aave-dao/aave-risk-agents](https://github.com/aave-dao/aave-risk-agents). The range validation module, reducer oracle and parameter registry are from [llama-risk/llamaguard-contracts](https://github.com/llama-risk/llamaguard-contracts) at [`7ea2f2e`](https://github.com/llama-risk/llamaguard-contracts/commit/7ea2f2ec38acda9fc913800d57a5a6bd77a6658a), audited by Certora. The tests check that every contract has bytecode and that its immutable AgentHub, module and Pool wiring matches what this payload registers.
 
 ## References
 
