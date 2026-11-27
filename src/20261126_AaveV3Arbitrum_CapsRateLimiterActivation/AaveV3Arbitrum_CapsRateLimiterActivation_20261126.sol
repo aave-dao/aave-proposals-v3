@@ -6,7 +6,7 @@ import {AaveV3Arbitrum, AaveV3ArbitrumAssets} from 'aave-address-book/AaveV3Arbi
 import {MiscArbitrum} from 'aave-address-book/MiscArbitrum.sol';
 import {ReserveConfiguration} from 'aave-v3-origin/contracts/protocol/libraries/configuration/ReserveConfiguration.sol';
 import {DataTypes} from 'aave-v3-origin/contracts/protocol/libraries/types/DataTypes.sol';
-import {IAgentHub, IAgentConfigurator} from '../interfaces/IAgentHub.sol';
+import {IAgentHub, IAgentConfigurator} from '../interfaces/chaos-agents/IAgentHub.sol';
 import {ICapsRangeValidationModule as IRvm} from '../interfaces/ICapsRangeValidationModule.sol';
 
 /**
@@ -58,6 +58,35 @@ contract AaveV3Arbitrum_CapsRateLimiterActivation_20261126 is IProposalGenericEx
   uint16 public constant CUT_BAND_BPS_LIMIT = 20_00;
   uint16 public constant MAX_INCREASE_BPS = 50_00;
   uint40 public constant COOLDOWN = 1 days;
+
+  /// @dev Buffer ceilings (maxHeadroom), whole tokens: $15M at Aave oracle prices of 15 Nov 2026.
+  uint64 public constant WBTC_MAX_HEADROOM = 233;
+  uint64 public constant WETH_MAX_HEADROOM = 8_282;
+  uint64 public constant USDT_MAX_HEADROOM = 15_008_779;
+  uint64 public constant USDCN_MAX_HEADROOM = 15_003_601;
+  /// @dev wstETH borrowing is off, but eModes 3 and 5 allow it: an eMode borrow is checked against the
+  ///      category only.
+  uint64 public constant WSTETH_MAX_HEADROOM = 6_625;
+
+  /// @dev Not borrowable today, listed so that a reserve re-enabled later is already rate limited. Their
+  ///      caps are 1, so the hard maximum is 1 until governance raises it. Buffer ceilings: $15M at Aave
+  ///      oracle prices of 26 Nov 2026. GHO stays with the Risk Stewards.
+  uint64 public constant DAI_MAX_HEADROOM = 15_007_474;
+  uint64 public constant LINK_MAX_HEADROOM = 1_636_027;
+  uint64 public constant USDCE_MAX_HEADROOM = 15_001_800;
+  uint64 public constant EURS_MAX_HEADROOM = 13_668_173;
+  uint64 public constant MAI_MAX_HEADROOM = 15_739_769;
+  uint64 public constant RETH_MAX_HEADROOM = 7_573;
+  uint64 public constant LUSD_MAX_HEADROOM = 15_000_000;
+  uint64 public constant FRAX_MAX_HEADROOM = 15_000_000;
+  uint64 public constant ARB_MAX_HEADROOM = 133_219_653;
+  uint64 public constant WEETH_MAX_HEADROOM = 8_034;
+  uint64 public constant EZETH_MAX_HEADROOM = 8_173;
+  uint64 public constant RSETH_MAX_HEADROOM = 8_209;
+  uint64 public constant TBTC_MAX_HEADROOM = 248;
+  /// @dev AAVE has no borrow cap (0), which the module reads as a retired entry, so its hard maximum is 1.
+  uint64 public constant AAVE_MAX_CAP = 1;
+  uint64 public constant AAVE_MAX_HEADROOM = 160_844;
 
   function execute() external {
     _grantRiskAdmin();
@@ -132,32 +161,26 @@ contract AaveV3Arbitrum_CapsRateLimiterActivation_20261126 is IProposalGenericEx
       })
     );
 
-    // Buffer ceiling: $15M in tokens at Aave oracle prices of 15 Nov 2026.
-    _list(rvm, AaveV3ArbitrumAssets.WBTC_UNDERLYING, 233);
-    _list(rvm, AaveV3ArbitrumAssets.WETH_UNDERLYING, 8_282);
-    _list(rvm, AaveV3ArbitrumAssets.USDT_UNDERLYING, 15_008_779);
-    _list(rvm, AaveV3ArbitrumAssets.USDCn_UNDERLYING, 15_003_601);
-    // Borrowing is off, but eModes 3 and 5 allow it: an eMode borrow is checked against the category only.
-    _list(rvm, AaveV3ArbitrumAssets.wstETH_UNDERLYING, 6_625);
+    _list(rvm, AaveV3ArbitrumAssets.WBTC_UNDERLYING, WBTC_MAX_HEADROOM);
+    _list(rvm, AaveV3ArbitrumAssets.WETH_UNDERLYING, WETH_MAX_HEADROOM);
+    _list(rvm, AaveV3ArbitrumAssets.USDT_UNDERLYING, USDT_MAX_HEADROOM);
+    _list(rvm, AaveV3ArbitrumAssets.USDCn_UNDERLYING, USDCN_MAX_HEADROOM);
+    _list(rvm, AaveV3ArbitrumAssets.wstETH_UNDERLYING, WSTETH_MAX_HEADROOM);
 
-    // Not borrowable today, listed so that a reserve re-enabled later is already rate limited. Their caps
-    // are 1, so the hard maximum is 1 until governance raises it. Buffer ceiling: $15M
-    // at Aave oracle prices of 26 Nov 2026. GHO stays with the Risk Stewards.
-    _list(rvm, AaveV3ArbitrumAssets.DAI_UNDERLYING, 15_007_474);
-    _list(rvm, AaveV3ArbitrumAssets.LINK_UNDERLYING, 1_636_027);
-    _list(rvm, AaveV3ArbitrumAssets.USDCe_UNDERLYING, 15_001_800);
-    _list(rvm, AaveV3ArbitrumAssets.EURS_UNDERLYING, 13_668_173);
-    _list(rvm, AaveV3ArbitrumAssets.MAI_UNDERLYING, 15_739_769);
-    _list(rvm, AaveV3ArbitrumAssets.rETH_UNDERLYING, 7_573);
-    _list(rvm, AaveV3ArbitrumAssets.LUSD_UNDERLYING, 15_000_000);
-    _list(rvm, AaveV3ArbitrumAssets.FRAX_UNDERLYING, 15_000_000);
-    _list(rvm, AaveV3ArbitrumAssets.ARB_UNDERLYING, 133_219_653);
-    _list(rvm, AaveV3ArbitrumAssets.weETH_UNDERLYING, 8_034);
-    _list(rvm, AaveV3ArbitrumAssets.ezETH_UNDERLYING, 8_173);
-    _list(rvm, AaveV3ArbitrumAssets.rsETH_UNDERLYING, 8_209);
-    _list(rvm, AaveV3ArbitrumAssets.tBTC_UNDERLYING, 248);
-    // AAVE has no borrow cap (0), which the module reads as a retired entry, so its hard maximum is set to 1.
-    _setEntry(rvm, AaveV3ArbitrumAssets.AAVE_UNDERLYING, 1, 160_844);
+    _list(rvm, AaveV3ArbitrumAssets.DAI_UNDERLYING, DAI_MAX_HEADROOM);
+    _list(rvm, AaveV3ArbitrumAssets.LINK_UNDERLYING, LINK_MAX_HEADROOM);
+    _list(rvm, AaveV3ArbitrumAssets.USDCe_UNDERLYING, USDCE_MAX_HEADROOM);
+    _list(rvm, AaveV3ArbitrumAssets.EURS_UNDERLYING, EURS_MAX_HEADROOM);
+    _list(rvm, AaveV3ArbitrumAssets.MAI_UNDERLYING, MAI_MAX_HEADROOM);
+    _list(rvm, AaveV3ArbitrumAssets.rETH_UNDERLYING, RETH_MAX_HEADROOM);
+    _list(rvm, AaveV3ArbitrumAssets.LUSD_UNDERLYING, LUSD_MAX_HEADROOM);
+    _list(rvm, AaveV3ArbitrumAssets.FRAX_UNDERLYING, FRAX_MAX_HEADROOM);
+    _list(rvm, AaveV3ArbitrumAssets.ARB_UNDERLYING, ARB_MAX_HEADROOM);
+    _list(rvm, AaveV3ArbitrumAssets.weETH_UNDERLYING, WEETH_MAX_HEADROOM);
+    _list(rvm, AaveV3ArbitrumAssets.ezETH_UNDERLYING, EZETH_MAX_HEADROOM);
+    _list(rvm, AaveV3ArbitrumAssets.rsETH_UNDERLYING, RSETH_MAX_HEADROOM);
+    _list(rvm, AaveV3ArbitrumAssets.tBTC_UNDERLYING, TBTC_MAX_HEADROOM);
+    _setEntry(rvm, AaveV3ArbitrumAssets.AAVE_UNDERLYING, AAVE_MAX_CAP, AAVE_MAX_HEADROOM);
   }
 
   /// @dev The hard maximum is the borrow cap at execution, so it stays the value the Risk Stewards set.

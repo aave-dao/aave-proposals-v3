@@ -4,8 +4,9 @@ pragma solidity ^0.8.0;
 /**
  * @title ICapsRangeValidationModule
  * @author LlamaRisk
- * @notice Owner setters of the LlamaGuard Caps range validation module (`CapsRangeValidationModuleV3`) used by
- *         the activation payload. Source: llama-risk/llamaguard-contracts, src/caps-oracle.
+ * @notice Owner setters and getters of the LlamaGuard Caps range validation module
+ *         (`CapsRangeValidationModuleV3`) used by the activation payload and its tests. Source:
+ *         llama-risk/llamaguard-contracts, src/caps-oracle.
  */
 interface ICapsRangeValidationModule {
   enum CapKind {
@@ -19,11 +20,27 @@ interface ICapsRangeValidationModule {
     CUT
   }
 
+  struct AgentConfig {
+    Direction direction;
+    CapKind kind;
+  }
+
   struct RateLimitConfig {
     uint64 maxCap; // hard maximum cap, whole tokens, at most 2^36 - 1
     uint64 maxHeadroom; // ceiling of the buffer, whole tokens. Floor is ceil(maxHeadroom / 25)
     uint16 alphaBps; // buffer as a share of debt
     uint16 cutBandBps; // a cut needs headroom above (1 + band) * buffer
+  }
+
+  struct KeyState {
+    uint64 maxCap;
+    uint64 maxHeadroom;
+    uint16 alphaBps;
+    uint16 cutBandBps;
+    uint40 holdUntil; // cuts are rejected before it
+    uint40 lastIncreaseAt; // last Risk Council raise of maxCap or maxHeadroom
+    uint40 onboardingUntil; // no cuts before it while the cap is at most listingCap
+    uint64 listingCap;
   }
 
   struct Bounds {
@@ -48,4 +65,10 @@ interface ICapsRangeValidationModule {
     CapKind kind,
     RateLimitConfig calldata rateLimitConfig
   ) external;
+
+  function getAgent(uint256 agentId) external view returns (AgentConfig memory);
+
+  function getKeyState(address asset, CapKind kind) external view returns (KeyState memory);
+
+  function getBounds(CapKind kind) external view returns (Bounds memory);
 }

@@ -12,42 +12,38 @@ import {ReserveConfiguration} from 'aave-v3-origin/contracts/protocol/libraries/
 import {DataTypes} from 'aave-v3-origin/contracts/protocol/libraries/types/DataTypes.sol';
 import {IERC20Metadata} from 'openzeppelin-contracts/contracts/token/ERC20/extensions/IERC20Metadata.sol';
 import {AaveV3Arbitrum_CapsRateLimiterActivation_20261126, ArbitrumLlamaGuardCaps} from './AaveV3Arbitrum_CapsRateLimiterActivation_20261126.sol';
-import {IAgentHub, IAgentConfigurator} from '../interfaces/IAgentHub.sol';
+import {IOwnable} from 'aave-address-book/common/IOwnable.sol';
+import {IAgentHub, IAgentConfigurator} from '../interfaces/chaos-agents/IAgentHub.sol';
 import {IBaseAaveAgent} from '../interfaces/IBaseAaveAgent.sol';
 import {ICapsRangeValidationModule as IRvm} from '../interfaces/ICapsRangeValidationModule.sol';
 import {IRiskOracle} from '../interfaces/IRiskOracle.sol';
-
-interface IOwnable {
-  function owner() external view returns (address);
-
-  function pendingOwner() external view returns (address);
-}
+import {IOwnable2Step} from '../interfaces/IOwnable2Step.sol';
 
 /**
  * @dev Test for AaveV3Arbitrum_CapsRateLimiterActivation_20261126
  * command: FOUNDRY_PROFILE=test forge test --match-path=src/20261126_AaveV3Arbitrum_CapsRateLimiterActivation/AaveV3Arbitrum_CapsRateLimiterActivation_20261126.t.sol -vv
- *
- * Every test is skipped until the LlamaRisk addresses in `ArbitrumLlamaGuardCaps` are filled in.
  */
 contract AaveV3Arbitrum_CapsRateLimiterActivation_20261126_Test is ProtocolV3TestBase {
   using ReserveConfiguration for DataTypes.ReserveConfigurationMap;
 
   AaveV3Arbitrum_CapsRateLimiterActivation_20261126 internal proposal;
 
-  /// @dev After the production deployment and wiring (steps 1 and 2).
-  uint256 internal constant FORK_BLOCK = 527792680;
-
   address internal constant RISK_COUNCIL = 0x3Be327F22eB4BD8042e6944073b8826dCf357Aa2;
 
   IAgentHub internal constant HUB = IAgentHub(MiscArbitrum.AGENT_HUB);
   address internal constant ROUTER = ArbitrumLlamaGuardCaps.LLAMARISK_CAPS_RISK_ORACLE_ROUTER;
 
+  struct Entry {
+    address asset;
+    uint64 maxCap; // 0: the borrow cap at execution
+    uint64 maxHeadroom;
+  }
+
   uint256 internal raiseAgentId;
   uint256 internal cutAgentId;
 
   function setUp() public {
-    if (FORK_BLOCK == 0) vm.createSelectFork(vm.rpcUrl('arbitrum'));
-    else vm.createSelectFork(vm.rpcUrl('arbitrum'), FORK_BLOCK);
+    vm.createSelectFork(vm.rpcUrl('arbitrum'), 527792680);
     proposal = new AaveV3Arbitrum_CapsRateLimiterActivation_20261126();
 
     uint256 startCount = HUB.getAgentCount();
@@ -55,16 +51,8 @@ contract AaveV3Arbitrum_CapsRateLimiterActivation_20261126_Test is ProtocolV3Tes
     cutAgentId = startCount + 1;
   }
 
-  modifier deployed() {
-    vm.skip(
-      ArbitrumLlamaGuardCaps.LLAMARISK_CAPS_RANGE_VALIDATION_MODULE == address(0),
-      'LlamaRisk caps contracts not deployed yet'
-    );
-    _;
-  }
-
   /// forge-config: default.isolate = true
-  function test_defaultProposalExecution() public deployed {
+  function test_defaultProposalExecution() public {
     defaultTest(
       'AaveV3Arbitrum_CapsRateLimiterActivation_20261126',
       AaveV3Arbitrum.POOL,
@@ -73,7 +61,7 @@ contract AaveV3Arbitrum_CapsRateLimiterActivation_20261126_Test is ProtocolV3Tes
   }
 
   /// @dev The payload registers agents and lists reserves in the module; no reserve configuration moves.
-  function test_reserveConfigChanges() public deployed {
+  function test_reserveConfigChanges() public {
     ReserveConfig[] memory allConfigsBefore = createConfigurationSnapshot(
       'preAaveV3Arbitrum_CapsRateLimiterActivation_20261126',
       AaveV3Arbitrum.POOL
@@ -101,7 +89,7 @@ contract AaveV3Arbitrum_CapsRateLimiterActivation_20261126_Test is ProtocolV3Tes
   }
 
   /// @dev Bytecode and immutable wiring of the predeployed contracts, and their owners.
-  function test_contractsPredeployedAndWired() public deployed {
+  function test_contractsPredeployedAndWired() public view {
     address rvm = ArbitrumLlamaGuardCaps.LLAMARISK_CAPS_RANGE_VALIDATION_MODULE;
     address[2] memory agents = [
       ArbitrumLlamaGuardCaps.LLAMARISK_CAPS_RAISE_AGENT,
@@ -130,7 +118,7 @@ contract AaveV3Arbitrum_CapsRateLimiterActivation_20261126_Test is ProtocolV3Tes
     address admin = ArbitrumLlamaGuardCaps.LLAMARISK_RISK_ORACLE_ADMIN_SAFE;
     // Two-step: the admin Safe accepts before the AIP executes; until then it is the pending owner.
     assertTrue(
-      IOwnable(ROUTER).owner() == admin || IOwnable(ROUTER).pendingOwner() == admin,
+      IOwnable2Step(ROUTER).owner() == admin || IOwnable2Step(ROUTER).pendingOwner() == admin,
       'Router owner'
     );
     assertEq(IOwnable(ArbitrumLlamaGuardCaps.LLAMARISK_CAPS_RISK_ORACLE).owner(), admin);
@@ -140,7 +128,7 @@ contract AaveV3Arbitrum_CapsRateLimiterActivation_20261126_Test is ProtocolV3Tes
     );
   }
 
-  function test_agentsRegisteredAndRiskAdminGranted() public deployed {
+  function test_agentsRegisteredAndRiskAdminGranted() public {
     uint256 countBefore = HUB.getAgentCount();
 
     executePayload(vm, address(proposal));
@@ -167,9 +155,77 @@ contract AaveV3Arbitrum_CapsRateLimiterActivation_20261126_Test is ProtocolV3Tes
     );
   }
 
+  /// @dev The module's agents, borrow bounds and every listed entry after execution.
+  function test_rangeValidationModuleConfigured() public {
+    AaveV3Arbitrum_CapsRateLimiterActivation_20261126 p = proposal;
+    Entry[19] memory entries = [
+      Entry(AaveV3ArbitrumAssets.WBTC_UNDERLYING, 0, p.WBTC_MAX_HEADROOM()),
+      Entry(AaveV3ArbitrumAssets.WETH_UNDERLYING, 0, p.WETH_MAX_HEADROOM()),
+      Entry(AaveV3ArbitrumAssets.USDT_UNDERLYING, 0, p.USDT_MAX_HEADROOM()),
+      Entry(AaveV3ArbitrumAssets.USDCn_UNDERLYING, 0, p.USDCN_MAX_HEADROOM()),
+      Entry(AaveV3ArbitrumAssets.wstETH_UNDERLYING, 0, p.WSTETH_MAX_HEADROOM()),
+      Entry(AaveV3ArbitrumAssets.DAI_UNDERLYING, 0, p.DAI_MAX_HEADROOM()),
+      Entry(AaveV3ArbitrumAssets.LINK_UNDERLYING, 0, p.LINK_MAX_HEADROOM()),
+      Entry(AaveV3ArbitrumAssets.USDCe_UNDERLYING, 0, p.USDCE_MAX_HEADROOM()),
+      Entry(AaveV3ArbitrumAssets.EURS_UNDERLYING, 0, p.EURS_MAX_HEADROOM()),
+      Entry(AaveV3ArbitrumAssets.MAI_UNDERLYING, 0, p.MAI_MAX_HEADROOM()),
+      Entry(AaveV3ArbitrumAssets.rETH_UNDERLYING, 0, p.RETH_MAX_HEADROOM()),
+      Entry(AaveV3ArbitrumAssets.LUSD_UNDERLYING, 0, p.LUSD_MAX_HEADROOM()),
+      Entry(AaveV3ArbitrumAssets.FRAX_UNDERLYING, 0, p.FRAX_MAX_HEADROOM()),
+      Entry(AaveV3ArbitrumAssets.ARB_UNDERLYING, 0, p.ARB_MAX_HEADROOM()),
+      Entry(AaveV3ArbitrumAssets.weETH_UNDERLYING, 0, p.WEETH_MAX_HEADROOM()),
+      Entry(AaveV3ArbitrumAssets.ezETH_UNDERLYING, 0, p.EZETH_MAX_HEADROOM()),
+      Entry(AaveV3ArbitrumAssets.rsETH_UNDERLYING, 0, p.RSETH_MAX_HEADROOM()),
+      Entry(AaveV3ArbitrumAssets.tBTC_UNDERLYING, 0, p.TBTC_MAX_HEADROOM()),
+      Entry(AaveV3ArbitrumAssets.AAVE_UNDERLYING, p.AAVE_MAX_CAP(), p.AAVE_MAX_HEADROOM())
+    ];
+    // The hard maximum of a listed reserve is its borrow cap at execution.
+    for (uint256 i; i < entries.length; ++i) {
+      if (entries[i].maxCap == 0) entries[i].maxCap = uint64(_borrowCap(entries[i].asset));
+    }
+
+    executePayload(vm, address(proposal));
+
+    IRvm rvm = IRvm(ArbitrumLlamaGuardCaps.LLAMARISK_CAPS_RANGE_VALIDATION_MODULE);
+
+    IRvm.AgentConfig memory agent = rvm.getAgent(raiseAgentId);
+    assertEq(uint8(agent.direction), uint8(IRvm.Direction.RAISE), 'raise agent direction');
+    assertEq(uint8(agent.kind), uint8(IRvm.CapKind.BORROW), 'raise agent kind');
+    agent = rvm.getAgent(cutAgentId);
+    assertEq(uint8(agent.direction), uint8(IRvm.Direction.CUT), 'cut agent direction');
+    assertEq(uint8(agent.kind), uint8(IRvm.CapKind.BORROW), 'cut agent kind');
+
+    IRvm.Bounds memory bounds = rvm.getBounds(IRvm.CapKind.BORROW);
+    assertEq(bounds.alphaBpsLimit, p.ALPHA_BPS_LIMIT(), 'alphaBpsLimit');
+    assertEq(bounds.cutBandBpsLimit, p.CUT_BAND_BPS_LIMIT(), 'cutBandBpsLimit');
+    assertEq(bounds.maxIncreaseBps, p.MAX_INCREASE_BPS(), 'maxIncreaseBps');
+    assertEq(bounds.cooldown, p.COOLDOWN(), 'cooldown');
+
+    for (uint256 i; i < entries.length; ++i) {
+      IRvm.KeyState memory key = rvm.getKeyState(entries[i].asset, IRvm.CapKind.BORROW);
+      string memory symbol = IERC20Metadata(entries[i].asset).symbol();
+      assertGt(entries[i].maxCap, 0, symbol);
+      assertEq(key.maxCap, entries[i].maxCap, string.concat(symbol, ' maxCap'));
+      assertEq(key.maxHeadroom, entries[i].maxHeadroom, string.concat(symbol, ' maxHeadroom'));
+      assertEq(key.alphaBps, p.ALPHA_BPS(), string.concat(symbol, ' buffer share'));
+      assertEq(key.cutBandBps, p.CUT_BAND_BPS(), string.concat(symbol, ' cut band'));
+      assertEq(key.holdUntil, 0, string.concat(symbol, ' hold'));
+      assertEq(key.lastIncreaseAt, 0, string.concat(symbol, ' lastIncreaseAt'));
+      assertEq(key.onboardingUntil, 0, string.concat(symbol, ' onboarding'));
+    }
+
+    // Every reserve but GHO is listed; GHO stays with the Risk Stewards.
+    assertEq(AaveV3Arbitrum.POOL.getReservesList().length, entries.length + 1, 'reserve count');
+    IRvm.KeyState memory gho = rvm.getKeyState(
+      AaveV3ArbitrumAssets.GHO_UNDERLYING,
+      IRvm.CapKind.BORROW
+    );
+    assertEq(gho.maxCap, 0, 'GHO listed');
+  }
+
   /// @dev If another registration takes id 3 first, the payload must fail rather than wire the
   ///      module to the wrong agents.
-  function test_revertIfAgentIdTaken() public deployed {
+  function test_revertIfAgentIdTaken() public {
     address[] memory none = new address[](0);
     string memory updateType = proposal.UPDATE_TYPE();
     vm.prank(GovernanceV3Arbitrum.EXECUTOR_LVL_1);
@@ -199,7 +255,7 @@ contract AaveV3Arbitrum_CapsRateLimiterActivation_20261126_Test is ProtocolV3Tes
 
   /// @dev Current caps sit above debt plus one buffer, so cuts are due right after execution. The
   ///      Router can apply them; any other caller is skipped.
-  function test_e2eCutThroughRouter() public deployed {
+  function test_e2eCutThroughRouter() public {
     executePayload(vm, address(proposal));
 
     uint256[] memory ids = new uint256[](1);
@@ -227,7 +283,7 @@ contract AaveV3Arbitrum_CapsRateLimiterActivation_20261126_Test is ProtocolV3Tes
   }
 
   /// @dev A raise above debt plus one buffer is refused by the module, so the hub has nothing to run.
-  function test_raiseAboveTheRuleIsRefused() public deployed {
+  function test_raiseAboveTheRuleIsRefused() public {
     executePayload(vm, address(proposal));
 
     address weth = AaveV3ArbitrumAssets.WETH_UNDERLYING;
