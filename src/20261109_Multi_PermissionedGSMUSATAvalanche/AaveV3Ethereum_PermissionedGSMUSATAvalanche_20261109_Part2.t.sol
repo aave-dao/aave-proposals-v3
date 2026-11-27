@@ -123,7 +123,7 @@ contract AaveV3Ethereum_PermissionedGSMUSATAvalanche_20261109_Part2_Test is
     );
   }
 
-  function test_directFacilitatorDeployment() public {
+  function test_directFacilitatorDeployment() public view {
     IGhoDirectFacilitator facilitator = IGhoDirectFacilitator(proposal.DIRECT_FACILITATOR());
     assertTrue(facilitator.hasRole(bytes32(0), GovernanceV3Ethereum.EXECUTOR_LVL_1));
     assertTrue(facilitator.hasRole(facilitator.MINTER_ROLE(), GovernanceV3Ethereum.EXECUTOR_LVL_1));

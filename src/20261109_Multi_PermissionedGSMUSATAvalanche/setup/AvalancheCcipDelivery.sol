@@ -13,22 +13,38 @@ import {CCIPChainSelectors} from 'src/helpers/gho-launch/constants/CCIPChainSele
 import {CCIPChainRouters} from 'src/helpers/gho-launch/constants/CCIPChainRouters.sol';
 
 /**
- * @dev Simulates the Ethereum -> Avalanche delivery of the bridged GHO: the OffRamp mints through the
- * GHO token pool into the Avalanche AaveGhoCcipBridge, then the Router calls `ccipReceive`, which forwards
- * the GHO to the Avalanche Collector.
+ * @title AvalancheCcipDelivery
+ * @author TokenLogic
+ * @notice Test helpers that stand in for the CCIP message from Ethereum on the Avalanche fork.
  */
 abstract contract AvalancheCcipDelivery is Test {
-  // Ethereum -> Avalanche OffRamp registered on the Avalanche router at the fork block
-  // https://snowscan.xyz/address/0x65D04D8dA1405b50d3508aaF94e1B6F5f1A3895C
+  /// @dev Ethereum -> Avalanche OffRamp registered on the Avalanche router at the fork block
+  /// https://snowscan.xyz/address/0x65D04D8dA1405b50d3508aaF94e1B6F5f1A3895C
   address internal constant CCIP_ETH_OFFRAMP = 0x65D04D8dA1405b50d3508aaF94e1B6F5f1A3895C;
 
+  /**
+   * @notice Asserts that the hard-coded OffRamp is live for the Avalanche GHO token pool.
+   * @dev Checks that the pool uses the Avalanche router, and that this router lists CCIP_ETH_OFFRAMP as the
+   * OffRamp for Ethereum, so the pool accepts CCIP_ETH_OFFRAMP as the caller of `releaseOrMint`.
+   */
   function _assertOffRampRegistered() internal view {
+    assertEq(
+      IUpgradeableBurnMintTokenPool_1_5_1(GhoAvalanche.GHO_CCIP_TOKEN_POOL).getRouter(),
+      CCIPChainRouters.AVALANCHE,
+      'GHO token pool does not use the Avalanche router'
+    );
     assertTrue(
       IRouter(CCIPChainRouters.AVALANCHE).isOffRamp(CCIPChainSelectors.ETHEREUM, CCIP_ETH_OFFRAMP),
       'CCIP_ETH_OFFRAMP is not a registered Ethereum -> Avalanche OffRamp'
     );
   }
 
+  /**
+   * @notice Simulates the Avalanche side of the CCIP message that bridges `amount` GHO from Ethereum to the Collector.
+   * @dev The mint consumes the Ethereum lane's inbound rate limit, so the delivery reverts if `amount` exceeds
+   * its current capacity, which Avalanche Part 1 raises.
+   * @param amount The GHO amount to deliver, in base units (18 decimals).
+   */
   function _deliverToAvalancheCollector(uint256 amount) internal {
     vm.prank(CCIP_ETH_OFFRAMP);
     IUpgradeableBurnMintTokenPool_1_5_1(GhoAvalanche.GHO_CCIP_TOKEN_POOL).releaseOrMint(
@@ -50,6 +66,7 @@ abstract contract AvalancheCcipDelivery is Test {
     vm.prank(CCIPChainRouters.AVALANCHE);
     IAny2EVMMessageReceiver(GhoAvalanche.GHO_CCIP_BRIDGE).ccipReceive(
       Client.Any2EVMMessage({
+        // dummy id, the bridge uses it only in events and as the key of a failed message
         messageId: keccak256('usat-gsm-funding'),
         sourceChainSelector: CCIPChainSelectors.ETHEREUM,
         sender: abi.encode(GhoEthereum.GHO_CCIP_BRIDGE),

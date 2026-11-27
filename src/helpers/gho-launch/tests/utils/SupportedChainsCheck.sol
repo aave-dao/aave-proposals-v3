@@ -12,14 +12,18 @@ import {IUpgradeableLockReleaseTokenPool, IRateLimiter} from 'src/interfaces/cci
  */
 abstract contract SupportedChainsCheck is Test {
   /**
-   * @notice Asserts that the pool's getSupportedChains() has the same count as the GhoCCIPChains lanes (every lane except ownSelector, including CCIP 1.6 lanes) and contains each of those selectors.
+   * @notice Asserts that tokenPool has a lane for every chain in GhoCCIPChains except ownChainSelector, including CCIP 1.6 lanes, and no additional lane.
+   * @dev Treats GhoCCIPChains as the source of truth. Compares chain selectors only; remote pool and remote token addresses are not checked.
    * @param tokenPool The address of the token pool to check.
-   * @param ownSelector The chain selector to exclude from the comparison.
+   * @param ownChainSelector The chain selector of tokenPool's own chain, excluded from the comparison.
    */
-  function _assertSupportedChainsMatchLibrary(address tokenPool, uint64 ownSelector) internal view {
+  function _assertSupportedChainsMatchLibrary(
+    address tokenPool,
+    uint64 ownChainSelector
+  ) internal view {
     uint64[] memory supported = IUpgradeableLockReleaseTokenPool(tokenPool).getSupportedChains();
     GhoCCIPChains.ChainInfo[] memory expected = GhoCCIPChains.getAllChainsExcept(
-      ownSelector,
+      ownChainSelector,
       false
     );
     assertEq(supported.length, expected.length, 'supported chain count');
@@ -33,22 +37,27 @@ abstract contract SupportedChainsCheck is Test {
   }
 
   /**
-   * @notice Hashes enabled/capacity/rate of the current inbound and outbound rate limiter state for every GhoCCIPChains lane, including CCIP 1.6 lanes, except ownSelector and skipSelector.
+   * @notice Returns a hash of the rate limit configuration of tokenPool for every GhoCCIPChains lane, excluding ownChainSelector and skipChainSelector.
+   * @dev Lets a test prove that a payload changed no lane except skipChainSelector. Includes CCIP 1.6 lanes.
+   * @dev It covers both inbound and outbound directions, including the enabled state, capacity, and refill rate of each rate limiter.
    * @param tokenPool The address of the token pool to hash.
-   * @param ownSelector The chain selector to exclude from the hash.
-   * @param skipSelector The additional chain selector to skip during hashing.
+   * @param ownChainSelector The chain selector to exclude from the hash.
+   * @param skipChainSelector The additional chain selector to skip during hashing.
    * @return hash The resulting hash of the rate limiter configurations.
    */
   function _hashLanesConfig(
     address tokenPool,
-    uint64 ownSelector,
-    uint64 skipSelector
+    uint64 ownChainSelector,
+    uint64 skipChainSelector
   ) internal view returns (bytes32 hash) {
-    GhoCCIPChains.ChainInfo[] memory chains = GhoCCIPChains.getAllChainsExcept(ownSelector, false);
+    GhoCCIPChains.ChainInfo[] memory chains = GhoCCIPChains.getAllChainsExcept(
+      ownChainSelector,
+      false
+    );
     IUpgradeableLockReleaseTokenPool pool = IUpgradeableLockReleaseTokenPool(tokenPool);
     for (uint256 i = 0; i < chains.length; i++) {
       uint64 selector = chains[i].chainSelector;
-      if (selector == skipSelector) continue;
+      if (selector == skipChainSelector) continue;
       IRateLimiter.TokenBucket memory inbound = pool.getCurrentInboundRateLimiterState(selector);
       IRateLimiter.TokenBucket memory outbound = pool.getCurrentOutboundRateLimiterState(selector);
       hash = keccak256(

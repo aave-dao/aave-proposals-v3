@@ -8,13 +8,14 @@ snapshot: "https://snapshot.org/#/s:aavedao.eth/proposal/0x3a61c64d6f7d0546d76c8
 ## Simple Summary
 
 TokenLogic proposes a Permissioned GHO Stability Module (GSM) that allows approved counterparties to exchange eligible assets for GHO and vice versa. The module will retain the existing GSM functionality while introducing participant-level access controls.
+
 The first application will support USAT on Avalanche. Under this arrangement, USAT remains supplied to Aave V4 while the GSM holds waCoreUSAT, representing USAT supplied to Aave V4 through the USAT Tokenization Spoke. The proposal includes the funding and configuration needed to launch this instance.
 
 ## Motivation
 
 [USAT](https://usat.io/faq/) is a USD-backed stablecoin issued by Anchorage Digital Bank, N.A.
 
-The GSM lets an approved counterparty swap between USAT and GHO on Avalanche while the USAT stays supplied to Aave V4.
+The GSM lets an approved counterparty swap between waCoreUSAT and GHO on Avalanche while the USAT stays supplied to Aave V4.
 
 For this initial launch, an approved counterparty will deposit USAT into the Aave V4 Tokenization Spoke and receive waCoreUSAT. The counterparty will then separately exchange waCoreUSAT for GHO through the Permissioned GSM, which will hold the waCoreUSAT. Returning GHO will allow the counterparty to recover waCoreUSAT. Redemption for underlying USAT will depend on the selected integration and available liquidity.
 
@@ -84,17 +85,17 @@ Only the GHO Risk Council ([`0x8513e6F37dBc52De87b166980Fa3F50639694B60`](https:
 
 #### Bridge Configuration
 
-| **Parameter**                                                | **Proposed Configuration**                                                                                                                            |
+| Parameter                                                    | Proposed Configuration                                                                                                                                |
 | ------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Funding Route and Bridge Endpoint Source                     | [`0x7F2f96fcdC3A29Be75938d2aC3D92E7006919fe6`](https://etherscan.io/address/0x7F2f96fcdC3A29Be75938d2aC3D92E7006919fe6) (Mainnet AaveGhoCcipBridge)   |
 | Funding Route and Bridge Endpoint Destination                | [`0xaf9F841De7477F35D6339943C1E6f0c101bcA621`](https://snowscan.xyz/address/0xaf9F841De7477F35D6339943C1E6f0c101bcA621) (Avalanche AaveGhoCcipBridge) |
 | Initial Inbound Capacity, Ethereum from Avalanche (GHO)      | 5,000,000 (unchanged)                                                                                                                                 |
 | Initial Outbound Capacity, Ethereum → Avalanche (GHO)        | 71,500,000 (Initial GHO funding \* 110%)                                                                                                              |
-| Initial Refill Rate (GHO/s)                                  | 64,999,999 (initial GHO funding - 1)                                                                                                                  |
+| Initial Outbound Refill Rate, Ethereum → Avalanche (GHO/s)   | 64,999,999 (initial GHO funding - 1)                                                                                                                  |
 | Ongoing Inbound Capacity (GHO)                               | 5,000,000 (current)                                                                                                                                   |
 | Ongoing Outbound Capacity (GHO)                              | 5,000,000 (current)                                                                                                                                   |
 | Ongoing Refill Rate (GHO/s)                                  | 1,000 (current)                                                                                                                                       |
-| Bridge Bucket Capacity (GHO)                                 | 265,000,000 ([Current](https://etherscan.io/address/0x06179f7C1be40863405f374E7f5F8806c728660A#readProxyContract#F4) + Initial GHO Funding)           |
+| Ethereum Bridge Limit (GHO)                                  | 265,000,000 ([Current](https://etherscan.io/address/0x06179f7C1be40863405f374E7f5F8806c728660A#readProxyContract#F4) + Initial GHO Funding)           |
 | Transition to Ongoing Settings                               | After the initial funding transfer                                                                                                                    |
 | Avalanche Bridge Destination Gas Limit                       | 750,000                                                                                                                                               |
 | Bridge Bucket Capacity on other GHO networks (GHO)           | +65,000,000 (to 265,000,000) on Avalanche, Arbitrum, Base, Gnosis, Ink, Mantle, Plasma, X Layer and Monad                                             |
