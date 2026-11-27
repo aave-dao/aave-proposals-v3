@@ -12,7 +12,7 @@ Aave V3 Core is being [repositioned around established and liquid collateral](ht
 
 Since the June update, stablecoin stake has remained well above target, while WETH stake has remained below it. We propose raising Target Liquidity from 38.84M to 45.80M USDC and from 40.37M to 45.20M USDT, reflecting half the percentage growth in each loan book since June. The APY at target would fall to 2.50% for both stablecoins, from 3.14% for USDC and 3.17% for USDT. WETH Target Liquidity would remain at 18,716 WETH, with annual emissions unchanged at 470 aEthWETH, until the rsETH and osETH offboarding completes. Annual spend at maximum emission would fall from $3.35M to $3.13M.
 
-All data are as of November 17, 2026. Figures in the tables are rounded to at most two decimals; the Specification gives exact parameter values.
+All data are as of November 17, 2026, with on-chain figures at 23:00 UTC.
 
 ## Framework for Umbrella Liquidity Requirements
 
@@ -30,7 +30,7 @@ Two-thirds of the USDC decline comes from USDe and sUSDe, which rose from 4% to 
 
 Outside stable-on-stable loops, 1% of USDC debt and 1.3% of USDT debt sit below a health factor of 1.1. If syrupUSDT positions count as credit-bearing, the USDT share is 5.4%, and in both markets collateral covers debt close to twice over.
 
-The WETH book remains a leveraged staking book, with weETH at more than half of collateral value. About 94% of WETH debt sits in ETH-correlated E-Mode loops, almost all of it at health factors between 1.01 and 1.06 and exposed to the exchange rate between the liquid staking token and ETH, the risk that materialized in the rsETH incident. In August 2026, [ether.fi](http://ether.fi) [removed restaking](https://etherfi.gitbook.io/etherfi/products/staking/eeth) from weETH, which is now a plain liquid staking token with no EigenLayer AVS slashing exposure. This removes one source of risk to the WETH reserve.
+The WETH book remains a leveraged staking book, with weETH at more than half of collateral value. About 94% of WETH debt sits in ETH-correlated E-Mode loops, almost all of it at health factors between 1.01 and 1.06 and exposed to the exchange rate between the liquid staking token and ETH, the risk that materialized in the rsETH incident. In August 2026, [ether.fi](https://ether.fi) [removed restaking](https://etherfi.gitbook.io/etherfi/products/staking/eeth) from weETH, which is now a plain liquid staking token with no EigenLayer AVS slashing exposure. This removes one source of risk to the WETH reserve.
 
 The reserves in the repositioning ARFC's scope back only $68M of USDC debt and $47M of USDT debt, so the repositioning mainly affects WETH. On WETH they back a far larger amount, almost all of it against rsETH and osETH. The ARFC stops new supply and borrowing against osETH and keeps rsETH frozen, as it has been since April. It also adds wstETH, weETH and cbETH to the rsETH E-Mode, so the loops can swap collateral without repaying their WETH debt. The ARFC provides for an orderly migration, worked out with the issuers and largest borrowers, into collateral that remains on Core or into Aave V4.
 
@@ -66,11 +66,11 @@ WETH Target Liquidity remains unchanged while the WETH book is in transition. Th
 
 We propose keeping the WETH emission unchanged at 470 aEthWETH per year, an APY at target of 2.51%. WETH stake remains below target, and the proposal lowers the premium only where stake sits above target. We will reassess the WETH parameters once the rsETH and osETH offboarding completes.
 
-The proposal lowers annual reward spend by 6.7% at maximum emission and by 5.5% at today's stakes. The new parameters apply from execution, intended on or before December 2. Over the rest of the period, the proposal saves $49.7k at today's stakes. The new allowances, $1.84M in total, cover the rewards already accrued plus emissions at the maximum rate to the end of the period, as in the September renewal.
+The proposal lowers annual reward spend by 6.7% at maximum emission and by 5.5% at today's stakes. The new parameters apply from execution, intended on or before December 2. If the AIP executes after December 2, rewards pause from the current `distributionEnd` until execution and are not paid retroactively for that period. Over the rest of the period, the proposal saves $49.7k at today's stakes. The new allowances, $1.84M in total, cover the rewards already accrued plus emissions at the maximum rate to the end of the period, as in the September renewal.
 
 ## Specification
 
-The AIP will apply the parameters below on the Umbrella RewardsController (`0x4655Ce3D625a63d30bA704087E52B4C31E38188B`) and approve the allowances below from the Aave Ethereum Collector (`0x464C71f6c2F760DdA6093dCB91C24c39e5d6e18c`). Allowances will be resized at submission from the unclaimed balance. These amounts replace the remaining allowances. The cooldown, unstake window, Deficit Offsets and stkGHO allowance remain unchanged.
+The AIP will apply the parameters below on the Umbrella RewardsController (`0x4655Ce3D625a63d30bA704087E52B4C31E38188B`) and approve the allowances below from the Aave Ethereum Collector (`0x464C71f6c2F760DdA6093dCB91C24c39e5d6e18c`). The allowances are final. Each is the rewards unclaimed at 23:00 UTC on November 17 plus maximum-rate emissions from then to April 2, 2027 (the current rate until December 2, the proposed rate after), rounded up. These amounts replace the remaining allowances. The cooldown, unstake window, Deficit Offsets and stkGHO allowance remain unchanged.
 
 | Stake token  | Address                                      | Reward asset | Target Liquidity, current | Target Liquidity, proposed | `maxEmissionPerSecond`, current (reward-token units per second) | `maxEmissionPerSecond`, proposed (reward-token units per second) | `distributionEnd`, current | `distributionEnd`, proposed |
 | ------------ | -------------------------------------------- | ------------ | ------------------------- | -------------------------- | --------------------------------------------------------------- | ---------------------------------------------------------------- | -------------------------- | --------------------------- |
@@ -83,6 +83,14 @@ The AIP will apply the parameters below on the Umbrella RewardsController (`0x46
 | aEthUSDC     | `0x98C23E9d8f34FEFb1B7BD6a91B7FF122F4e16F5c` | 414,052                          | 269,770                           | ≈427,000                 | 700,000       |
 | aEthUSDT     | `0x23878914EFE38d27C4D67Ab83ed1b93A74D4086a` | 426,365                          | 230,296                           | ≈424,000                 | 655,000       |
 | aEthWETH     | `0x4d5F47FA6A74757f35C14fD3a6Ef8E3C9BC514E8` | 132.74                           | 86.93                             | ≈173.9                   | 270           |
+
+## Disclaimer
+
+TokenLogic is an active service provider to the Aave DAO, the beneficiary of stream [100086](https://aave.tokenlogic.xyz/financials/expenses) and the KPI as outlined in this [publication](https://governance.aave.com/t/arfc-service-provider-compensation-reform-for-v4-alignment/23246). The scope of this engagement is available via this forum [proposal](https://governance.aave.com/t/arfc-tokenlogic-phase-ii-extension/24846).
+
+TokenLogic supports and maintains an independent [delegate voting platform](https://governance.aave.com/t/tokenlogic-delegate-platform/12516) within the Aave community.
+
+TokenLogic and associated entities have no undisclosed material conflicts of interest at the time of submission.
 
 ## References
 
