@@ -8,7 +8,7 @@ import {IUpgradeableLockReleaseTokenPool, IRateLimiter} from 'src/interfaces/cci
 /**
  * @title SupportedChainsCheck
  * @author TokenLogic
- * @notice Lane assertions and helpers shared by the GHO CCIP token pool tests of this proposal.
+ * @notice Lane assertions and helpers shared by the GHO CCIP token pool tests.
  */
 abstract contract SupportedChainsCheck is Test {
   /**
