@@ -23,6 +23,10 @@ contract AaveV3Ethereum_UmbrellaRewardRenewalAndParameterUpdateOnAaveV3Core_2026
   IRewardsController internal constant REWARDS_CONTROLLER =
     IRewardsController(UmbrellaEthereum.UMBRELLA_REWARDS_CONTROLLER);
 
+  address internal constant STK_WA_USDC = address(UmbrellaEthereumAssets.STK_WA_USDC_V1);
+  address internal constant STK_WA_USDT = address(UmbrellaEthereumAssets.STK_WA_USDT_V1);
+  address internal constant STK_WA_WETH = address(UmbrellaEthereumAssets.STK_WA_WETH_V1);
+
   // staking 99x totalAssets keeps the stake far above 120% of target, so emission is the flat 80%
   uint256 internal constant STAKE_MULTIPLIER = 99;
 
@@ -88,63 +92,45 @@ contract AaveV3Ethereum_UmbrellaRewardRenewalAndParameterUpdateOnAaveV3Core_2026
   }
 
   function test_targetLiquidityUpdated() public {
-    assertEq(
-      _targetLiquidity(address(UmbrellaEthereumAssets.STK_WA_USDC_V1)),
-      USDC_CURRENT_TARGET_LIQUIDITY
-    );
-    assertEq(
-      _targetLiquidity(address(UmbrellaEthereumAssets.STK_WA_USDT_V1)),
-      USDT_CURRENT_TARGET_LIQUIDITY
-    );
-    assertEq(
-      _targetLiquidity(address(UmbrellaEthereumAssets.STK_WA_WETH_V1)),
-      WETH_TARGET_LIQUIDITY
-    );
+    assertEq(_targetLiquidity(STK_WA_USDC), USDC_CURRENT_TARGET_LIQUIDITY);
+    assertEq(_targetLiquidity(STK_WA_USDT), USDT_CURRENT_TARGET_LIQUIDITY);
+    assertEq(_targetLiquidity(STK_WA_WETH), WETH_TARGET_LIQUIDITY);
 
     executePayload(vm, address(proposal));
 
-    assertEq(
-      _targetLiquidity(address(UmbrellaEthereumAssets.STK_WA_USDC_V1)),
-      USDC_NEW_TARGET_LIQUIDITY
-    );
-    assertEq(
-      _targetLiquidity(address(UmbrellaEthereumAssets.STK_WA_USDT_V1)),
-      USDT_NEW_TARGET_LIQUIDITY
-    );
-    assertEq(
-      _targetLiquidity(address(UmbrellaEthereumAssets.STK_WA_WETH_V1)),
-      WETH_TARGET_LIQUIDITY
-    );
+    assertEq(_targetLiquidity(STK_WA_USDC), USDC_NEW_TARGET_LIQUIDITY);
+    assertEq(_targetLiquidity(STK_WA_USDT), USDT_NEW_TARGET_LIQUIDITY);
+    assertEq(_targetLiquidity(STK_WA_WETH), WETH_TARGET_LIQUIDITY);
   }
 
   function test_maxEmissionPerSecondUpdated() public {
-    assertEq(_usdcEmission(), USDC_CURRENT_EMISSION);
-    assertEq(_usdtEmission(), USDT_CURRENT_EMISSION);
-    assertEq(_wethEmission(), WETH_EMISSION);
+    assertEq(_emission(STK_WA_USDC, AaveV3EthereumAssets.USDC_A_TOKEN), USDC_CURRENT_EMISSION);
+    assertEq(_emission(STK_WA_USDT, AaveV3EthereumAssets.USDT_A_TOKEN), USDT_CURRENT_EMISSION);
+    assertEq(_emission(STK_WA_WETH, AaveV3EthereumAssets.WETH_A_TOKEN), WETH_EMISSION);
 
     executePayload(vm, address(proposal));
 
-    assertEq(_usdcEmission(), USDC_NEW_EMISSION);
-    assertEq(_usdtEmission(), USDT_NEW_EMISSION);
-    assertEq(_wethEmission(), WETH_EMISSION);
+    assertEq(_emission(STK_WA_USDC, AaveV3EthereumAssets.USDC_A_TOKEN), USDC_NEW_EMISSION);
+    assertEq(_emission(STK_WA_USDT, AaveV3EthereumAssets.USDT_A_TOKEN), USDT_NEW_EMISSION);
+    assertEq(_emission(STK_WA_WETH, AaveV3EthereumAssets.WETH_A_TOKEN), WETH_EMISSION);
   }
 
   function test_distributionEndExtended() public {
-    assertEq(_usdcEnd(), USDC_CURRENT_DISTRIBUTION_END);
-    assertEq(_usdtEnd(), USDT_CURRENT_DISTRIBUTION_END);
-    assertEq(_wethEnd(), WETH_CURRENT_DISTRIBUTION_END);
+    assertEq(_end(STK_WA_USDC, AaveV3EthereumAssets.USDC_A_TOKEN), USDC_CURRENT_DISTRIBUTION_END);
+    assertEq(_end(STK_WA_USDT, AaveV3EthereumAssets.USDT_A_TOKEN), USDT_CURRENT_DISTRIBUTION_END);
+    assertEq(_end(STK_WA_WETH, AaveV3EthereumAssets.WETH_A_TOKEN), WETH_CURRENT_DISTRIBUTION_END);
 
     executePayload(vm, address(proposal));
 
-    assertEq(_usdcEnd(), NEW_DISTRIBUTION_END);
-    assertEq(_usdtEnd(), NEW_DISTRIBUTION_END);
-    assertEq(_wethEnd(), NEW_DISTRIBUTION_END);
+    assertEq(_end(STK_WA_USDC, AaveV3EthereumAssets.USDC_A_TOKEN), NEW_DISTRIBUTION_END);
+    assertEq(_end(STK_WA_USDT, AaveV3EthereumAssets.USDT_A_TOKEN), NEW_DISTRIBUTION_END);
+    assertEq(_end(STK_WA_WETH, AaveV3EthereumAssets.WETH_A_TOKEN), NEW_DISTRIBUTION_END);
   }
 
   function test_rewardPayerStaysCollector() public {
     vm.expectEmit(UmbrellaEthereum.UMBRELLA_REWARDS_CONTROLLER);
     emit IRewardsController.RewardConfigUpdated(
-      address(UmbrellaEthereumAssets.STK_WA_USDC_V1),
+      STK_WA_USDC,
       AaveV3EthereumAssets.USDC_A_TOKEN,
       USDC_NEW_EMISSION,
       NEW_DISTRIBUTION_END,
@@ -152,7 +138,7 @@ contract AaveV3Ethereum_UmbrellaRewardRenewalAndParameterUpdateOnAaveV3Core_2026
     );
     vm.expectEmit(UmbrellaEthereum.UMBRELLA_REWARDS_CONTROLLER);
     emit IRewardsController.RewardConfigUpdated(
-      address(UmbrellaEthereumAssets.STK_WA_USDT_V1),
+      STK_WA_USDT,
       AaveV3EthereumAssets.USDT_A_TOKEN,
       USDT_NEW_EMISSION,
       NEW_DISTRIBUTION_END,
@@ -160,7 +146,7 @@ contract AaveV3Ethereum_UmbrellaRewardRenewalAndParameterUpdateOnAaveV3Core_2026
     );
     vm.expectEmit(UmbrellaEthereum.UMBRELLA_REWARDS_CONTROLLER);
     emit IRewardsController.RewardConfigUpdated(
-      address(UmbrellaEthereumAssets.STK_WA_WETH_V1),
+      STK_WA_WETH,
       AaveV3EthereumAssets.WETH_A_TOKEN,
       WETH_EMISSION,
       NEW_DISTRIBUTION_END,
@@ -180,6 +166,10 @@ contract AaveV3Ethereum_UmbrellaRewardRenewalAndParameterUpdateOnAaveV3Core_2026
     assertEq(_allowance(AaveV3EthereumAssets.USDC_A_TOKEN), USDC_ABSOLUTE_ALLOWANCE);
     assertEq(_allowance(AaveV3EthereumAssets.USDT_A_TOKEN), USDT_ABSOLUTE_ALLOWANCE);
     assertEq(_allowance(AaveV3EthereumAssets.WETH_A_TOKEN), WETH_ABSOLUTE_ALLOWANCE);
+
+    assertGe(_collectorBalance(AaveV3EthereumAssets.USDC_A_TOKEN), USDC_ABSOLUTE_ALLOWANCE);
+    assertGe(_collectorBalance(AaveV3EthereumAssets.USDT_A_TOKEN), USDT_ABSOLUTE_ALLOWANCE);
+    assertGe(_collectorBalance(AaveV3EthereumAssets.WETH_A_TOKEN), WETH_ABSOLUTE_ALLOWANCE);
   }
 
   function test_ghoAndDeficitOffsetsUnchanged() public {
@@ -196,28 +186,58 @@ contract AaveV3Ethereum_UmbrellaRewardRenewalAndParameterUpdateOnAaveV3Core_2026
 
   function test_lateExecutionRestartsRewardsWithoutBackfill() public {
     vm.warp(WETH_CURRENT_DISTRIBUTION_END + 1 days);
-    assertEq(_wethEmission(), 0);
-    uint256 usdcAccruedAtOldEnd = _usdcAccrued(USDC_STAKER);
-    uint256 usdtAccruedAtOldEnd = _usdtAccrued(USDT_STAKER);
-    uint256 wethAccruedAtOldEnd = _wethAccrued(WETH_STAKER);
+    assertEq(_emission(STK_WA_WETH, AaveV3EthereumAssets.WETH_A_TOKEN), 0);
+    uint256 usdcAccruedAtOldEnd = _accrued(
+      STK_WA_USDC,
+      AaveV3EthereumAssets.USDC_A_TOKEN,
+      USDC_STAKER
+    );
+    uint256 usdtAccruedAtOldEnd = _accrued(
+      STK_WA_USDT,
+      AaveV3EthereumAssets.USDT_A_TOKEN,
+      USDT_STAKER
+    );
+    uint256 wethAccruedAtOldEnd = _accrued(
+      STK_WA_WETH,
+      AaveV3EthereumAssets.WETH_A_TOKEN,
+      WETH_STAKER
+    );
 
     executePayload(vm, address(proposal));
 
     // the gap between the old distributionEnd and execution is not backfilled
-    assertEq(_usdcAccrued(USDC_STAKER), usdcAccruedAtOldEnd);
-    assertEq(_usdtAccrued(USDT_STAKER), usdtAccruedAtOldEnd);
-    assertEq(_wethAccrued(WETH_STAKER), wethAccruedAtOldEnd);
+    assertEq(
+      _accrued(STK_WA_USDC, AaveV3EthereumAssets.USDC_A_TOKEN, USDC_STAKER),
+      usdcAccruedAtOldEnd
+    );
+    assertEq(
+      _accrued(STK_WA_USDT, AaveV3EthereumAssets.USDT_A_TOKEN, USDT_STAKER),
+      usdtAccruedAtOldEnd
+    );
+    assertEq(
+      _accrued(STK_WA_WETH, AaveV3EthereumAssets.WETH_A_TOKEN, WETH_STAKER),
+      wethAccruedAtOldEnd
+    );
     vm.warp(block.timestamp + 1 hours);
-    assertGt(_usdcAccrued(USDC_STAKER), usdcAccruedAtOldEnd);
-    assertGt(_usdtAccrued(USDT_STAKER), usdtAccruedAtOldEnd);
-    assertGt(_wethAccrued(WETH_STAKER), wethAccruedAtOldEnd);
+    assertGt(
+      _accrued(STK_WA_USDC, AaveV3EthereumAssets.USDC_A_TOKEN, USDC_STAKER),
+      usdcAccruedAtOldEnd
+    );
+    assertGt(
+      _accrued(STK_WA_USDT, AaveV3EthereumAssets.USDT_A_TOKEN, USDT_STAKER),
+      usdtAccruedAtOldEnd
+    );
+    assertGt(
+      _accrued(STK_WA_WETH, AaveV3EthereumAssets.WETH_A_TOKEN, WETH_STAKER),
+      wethAccruedAtOldEnd
+    );
 
-    assertEq(_wethEmission(), WETH_EMISSION);
-    assertEq(_usdcEmission(), USDC_NEW_EMISSION);
-    assertEq(_usdtEmission(), USDT_NEW_EMISSION);
-    assertEq(_usdcEnd(), NEW_DISTRIBUTION_END);
-    assertEq(_usdtEnd(), NEW_DISTRIBUTION_END);
-    assertEq(_wethEnd(), NEW_DISTRIBUTION_END);
+    assertEq(_emission(STK_WA_WETH, AaveV3EthereumAssets.WETH_A_TOKEN), WETH_EMISSION);
+    assertEq(_emission(STK_WA_USDC, AaveV3EthereumAssets.USDC_A_TOKEN), USDC_NEW_EMISSION);
+    assertEq(_emission(STK_WA_USDT, AaveV3EthereumAssets.USDT_A_TOKEN), USDT_NEW_EMISSION);
+    assertEq(_end(STK_WA_USDC, AaveV3EthereumAssets.USDC_A_TOKEN), NEW_DISTRIBUTION_END);
+    assertEq(_end(STK_WA_USDT, AaveV3EthereumAssets.USDT_A_TOKEN), NEW_DISTRIBUTION_END);
+    assertEq(_end(STK_WA_WETH, AaveV3EthereumAssets.WETH_A_TOKEN), NEW_DISTRIBUTION_END);
   }
 
   function test_allowancesCoverUnclaimedAndRemainingEmission() public {
@@ -252,7 +272,7 @@ contract AaveV3Ethereum_UmbrellaRewardRenewalAndParameterUpdateOnAaveV3Core_2026
   function test_stakersCanClaimUsdcRewards() public {
     address largeStaker = makeAddr('largeStaker');
     _testStakersCanClaim(
-      address(UmbrellaEthereumAssets.STK_WA_USDC_V1),
+      STK_WA_USDC,
       AaveV3EthereumAssets.USDC_A_TOKEN,
       largeStaker,
       _usdcStakers(largeStaker),
@@ -265,7 +285,7 @@ contract AaveV3Ethereum_UmbrellaRewardRenewalAndParameterUpdateOnAaveV3Core_2026
   function test_stakersCanClaimUsdtRewards() public {
     address largeStaker = makeAddr('largeStaker');
     _testStakersCanClaim(
-      address(UmbrellaEthereumAssets.STK_WA_USDT_V1),
+      STK_WA_USDT,
       AaveV3EthereumAssets.USDT_A_TOKEN,
       largeStaker,
       _usdtStakers(largeStaker),
@@ -278,7 +298,7 @@ contract AaveV3Ethereum_UmbrellaRewardRenewalAndParameterUpdateOnAaveV3Core_2026
   function test_stakersCanClaimWethRewards() public {
     address largeStaker = makeAddr('largeStaker');
     _testStakersCanClaim(
-      address(UmbrellaEthereumAssets.STK_WA_WETH_V1),
+      STK_WA_WETH,
       AaveV3EthereumAssets.WETH_A_TOKEN,
       largeStaker,
       _wethStakers(largeStaker),
@@ -288,10 +308,16 @@ contract AaveV3Ethereum_UmbrellaRewardRenewalAndParameterUpdateOnAaveV3Core_2026
     );
   }
 
-  function _claimAllUsers(address stakeVault, address[] memory users) internal {
+  function _claimAllUsers(address stakeVault, address reward, address[] memory users) internal {
     for (uint256 i; i < users.length; ++i) {
+      uint256 balanceBefore = IERC20Metadata(reward).balanceOf(users[i]);
       vm.prank(users[i]);
       REWARDS_CONTROLLER.claimAllRewards(stakeVault, users[i]);
+      assertGt(
+        IERC20Metadata(reward).balanceOf(users[i]),
+        balanceBefore,
+        'staker should receive rewards'
+      );
     }
   }
 
@@ -317,7 +343,7 @@ contract AaveV3Ethereum_UmbrellaRewardRenewalAndParameterUpdateOnAaveV3Core_2026
     // without the payload rewards stop accruing at the old distributionEnd
     uint256 snapshotId = vm.snapshotState();
     vm.warp(NEW_DISTRIBUTION_END);
-    _claimAllUsers(stakeVault, stakers);
+    _claimAllUsers(stakeVault, reward, stakers);
     uint256 claimedWithoutPayload = IERC20Metadata(reward).balanceOf(largeStaker);
     vm.revertToState(snapshotId);
 
@@ -325,7 +351,7 @@ contract AaveV3Ethereum_UmbrellaRewardRenewalAndParameterUpdateOnAaveV3Core_2026
     uint256 allowanceSet = _allowance(reward);
     vm.warp(NEW_DISTRIBUTION_END);
 
-    _claimAllUsers(stakeVault, stakers);
+    _claimAllUsers(stakeVault, reward, stakers);
     assertApproxEqRel(
       IERC20Metadata(reward).balanceOf(largeStaker) - claimedWithoutPayload,
       expectedExtra,
@@ -374,40 +400,20 @@ contract AaveV3Ethereum_UmbrellaRewardRenewalAndParameterUpdateOnAaveV3Core_2026
     return REWARDS_CONTROLLER.getRewardData(stakeToken, reward);
   }
 
-  function _usdcEmission() internal view returns (uint256) {
-    return
-      _rewardData(address(UmbrellaEthereumAssets.STK_WA_USDC_V1), AaveV3EthereumAssets.USDC_A_TOKEN)
-        .maxEmissionPerSecond;
+  function _emission(address stakeToken, address reward) internal view returns (uint256) {
+    return _rewardData(stakeToken, reward).maxEmissionPerSecond;
   }
 
-  function _usdtEmission() internal view returns (uint256) {
-    return
-      _rewardData(address(UmbrellaEthereumAssets.STK_WA_USDT_V1), AaveV3EthereumAssets.USDT_A_TOKEN)
-        .maxEmissionPerSecond;
+  function _end(address stakeToken, address reward) internal view returns (uint256) {
+    return _rewardData(stakeToken, reward).distributionEnd;
   }
 
-  function _wethEmission() internal view returns (uint256) {
-    return
-      _rewardData(address(UmbrellaEthereumAssets.STK_WA_WETH_V1), AaveV3EthereumAssets.WETH_A_TOKEN)
-        .maxEmissionPerSecond;
-  }
-
-  function _usdcEnd() internal view returns (uint256) {
-    return
-      _rewardData(address(UmbrellaEthereumAssets.STK_WA_USDC_V1), AaveV3EthereumAssets.USDC_A_TOKEN)
-        .distributionEnd;
-  }
-
-  function _usdtEnd() internal view returns (uint256) {
-    return
-      _rewardData(address(UmbrellaEthereumAssets.STK_WA_USDT_V1), AaveV3EthereumAssets.USDT_A_TOKEN)
-        .distributionEnd;
-  }
-
-  function _wethEnd() internal view returns (uint256) {
-    return
-      _rewardData(address(UmbrellaEthereumAssets.STK_WA_WETH_V1), AaveV3EthereumAssets.WETH_A_TOKEN)
-        .distributionEnd;
+  function _accrued(
+    address stakeToken,
+    address reward,
+    address user
+  ) internal view returns (uint256) {
+    return REWARDS_CONTROLLER.calculateCurrentUserReward(stakeToken, reward, user);
   }
 
   function _ghoRewardHash() internal view returns (bytes32) {
@@ -430,39 +436,16 @@ contract AaveV3Ethereum_UmbrellaRewardRenewalAndParameterUpdateOnAaveV3Core_2026
       );
   }
 
+  function _collectorBalance(address token) internal view returns (uint256) {
+    return IERC20Metadata(token).balanceOf(address(AaveV3Ethereum.COLLECTOR));
+  }
+
   function _assertDeficitOffsets() internal view {
     IUmbrella umbrella = IUmbrella(UmbrellaEthereum.UMBRELLA);
     assertEq(umbrella.getDeficitOffset(AaveV3EthereumAssets.USDC_UNDERLYING), USDC_DEFICIT_OFFSET);
     assertEq(umbrella.getDeficitOffset(AaveV3EthereumAssets.USDT_UNDERLYING), USDT_DEFICIT_OFFSET);
     assertEq(umbrella.getDeficitOffset(AaveV3EthereumAssets.WETH_UNDERLYING), WETH_DEFICIT_OFFSET);
     assertEq(umbrella.getDeficitOffset(AaveV3EthereumAssets.GHO_UNDERLYING), GHO_DEFICIT_OFFSET);
-  }
-
-  function _usdcAccrued(address user) internal view returns (uint256) {
-    return
-      REWARDS_CONTROLLER.calculateCurrentUserReward(
-        address(UmbrellaEthereumAssets.STK_WA_USDC_V1),
-        AaveV3EthereumAssets.USDC_A_TOKEN,
-        user
-      );
-  }
-
-  function _usdtAccrued(address user) internal view returns (uint256) {
-    return
-      REWARDS_CONTROLLER.calculateCurrentUserReward(
-        address(UmbrellaEthereumAssets.STK_WA_USDT_V1),
-        AaveV3EthereumAssets.USDT_A_TOKEN,
-        user
-      );
-  }
-
-  function _wethAccrued(address user) internal view returns (uint256) {
-    return
-      REWARDS_CONTROLLER.calculateCurrentUserReward(
-        address(UmbrellaEthereumAssets.STK_WA_WETH_V1),
-        AaveV3EthereumAssets.WETH_A_TOKEN,
-        user
-      );
   }
 
   // accounts with unclaimed rewards at block 26484891 (some no longer staked) and a new large staker
@@ -515,21 +498,18 @@ contract AaveV3Ethereum_UmbrellaRewardRenewalAndParameterUpdateOnAaveV3Core_2026
 
   // accounts with unclaimed rewards at block 26484891 (some no longer staked) and a new large staker
   function _wethStakers(address largeStaker) internal pure returns (address[] memory users) {
-    users = new address[](15);
+    users = new address[](12);
     users[0] = WETH_STAKER;
     users[1] = 0xE7B009F26aae94C3d5919c327E0c4DafE5137aa9;
     users[2] = 0x49D29b200A9F8929D1E368A00097372E41794399;
-    users[3] = 0x1367D4854424847A240ce666C576bE2294daE099;
-    users[4] = 0xdBbc8499614fcafB958829BD3143384cEb59779E;
-    users[5] = 0x20a270f243C228e549C9353504dcF2c0977D69D7;
-    users[6] = 0x619BEfCFbdE157ab8a27775BED7fc532c34280E6;
-    users[7] = 0x752092f89Ff72c008Aa7ad016ED6c6AC54EF9558;
-    users[8] = 0x78A83110C440A6bE66132894a0920976d061B26f;
-    users[9] = 0xB6647caE065c321e75775B50a25fd54e9ac5C436;
-    users[10] = 0xC025C03E10f656D3ee76685d53d236824d8eF3da;
-    users[11] = 0x24CD35F90F0907BEDe762A0d35f1978c5758C562;
-    users[12] = 0x0199b45426a2CbCFEDD8d346f7756243A22BFcf5;
-    users[13] = 0x58a48b6cfA8B813757aD8627265741C679bb4445;
-    users[14] = largeStaker;
+    users[3] = 0x20a270f243C228e549C9353504dcF2c0977D69D7;
+    users[4] = 0x619BEfCFbdE157ab8a27775BED7fc532c34280E6;
+    users[5] = 0x752092f89Ff72c008Aa7ad016ED6c6AC54EF9558;
+    users[6] = 0x78A83110C440A6bE66132894a0920976d061B26f;
+    users[7] = 0xB6647caE065c321e75775B50a25fd54e9ac5C436;
+    users[8] = 0xC025C03E10f656D3ee76685d53d236824d8eF3da;
+    users[9] = 0x0199b45426a2CbCFEDD8d346f7756243A22BFcf5;
+    users[10] = 0x58a48b6cfA8B813757aD8627265741C679bb4445;
+    users[11] = largeStaker;
   }
 }
