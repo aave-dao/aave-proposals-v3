@@ -16,4 +16,17 @@ interface ISafe {
    * @notice returns the list of Safe owners
    */
   function getOwners() external view returns (address[] memory);
+
+  /**
+   * @notice returns whether `owner` is an owner of the Safe
+   */
+  function isOwner(address owner) external view returns (bool);
+
+  /**
+   * @notice returns a page of enabled modules, starting after `start`, and the start of the next page
+   */
+  function getModulesPaginated(
+    address start,
+    uint256 pageSize
+  ) external view returns (address[] memory, address);
 }
