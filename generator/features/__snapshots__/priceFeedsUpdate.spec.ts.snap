@@ -88,7 +88,8 @@ contract AaveV3Ethereum_Test_20231023 is AaveV3PayloadEthereum {
       "test": "// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import {AaveV3Ethereum} from 'aave-address-book/AaveV3Ethereum.sol';
+import {GovV3Helpers} from 'aave-helpers/src/GovV3Helpers.sol';
+import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
 
 import 'forge-std/Test.sol';
 import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/src/ProtocolV3TestBase.sol';
@@ -121,6 +122,16 @@ contract AaveV3Ethereum_Test_20231023_Test is ProtocolV3TestBase {
     address[] memory updatedAssets = new address[](0);
 
     reserveConfigChangesTest(AaveV3Ethereum.POOL, address(proposal), updatedAssets);
+  }
+
+  function test_priceFeedUpdate_0() public {
+    GovV3Helpers.executePayload(vm, address(proposal));
+
+    assertEq(
+      AaveV3Ethereum.ORACLE.getSourceOfAsset(AaveV3EthereumAssets.DAI_UNDERLYING),
+      0xae7ab96520DE3A18E5e111B5EaAb095312D7fE84,
+      'unexpected price feed'
+    );
   }
 }
 ",
@@ -206,6 +217,19 @@ exports[`feature: priceFeedsUpdates > should return reasonable code 1`] = `
 
           return priceFeedUpdates;
         }",
+    ],
+  },
+  "test": {
+    "fn": [
+      "function test_priceFeedUpdate_0() public {
+      GovV3Helpers.executePayload(vm, address(proposal));
+
+      assertEq(
+        AaveV3Ethereum.ORACLE.getSourceOfAsset(AaveV3EthereumAssets.DAI_UNDERLYING),
+        0xae7ab96520DE3A18E5e111B5EaAb095312D7fE84,
+        'unexpected price feed'
+      );
+    }",
     ],
   },
 }
