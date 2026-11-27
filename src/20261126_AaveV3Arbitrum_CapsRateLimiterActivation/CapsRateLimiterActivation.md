@@ -136,8 +136,8 @@ The agents are stock `AaveBorrowCapAgent` deployments from [aave-dao/aave-risk-a
 
 ## References
 
-- Implementation: TODO
-- Tests: TODO
+- Implementation: [AaveV3Arbitrum](https://github.com/aave-dao/aave-proposals-v3/blob/ded69d4e8fb9dc5ba2e94fa76dcf36f8e0488ae3/src/20261126_AaveV3Arbitrum_CapsRateLimiterActivation/AaveV3Arbitrum_CapsRateLimiterActivation_20261126.sol)
+- Tests: [AaveV3Arbitrum](https://github.com/aave-dao/aave-proposals-v3/blob/ded69d4e8fb9dc5ba2e94fa76dcf36f8e0488ae3/src/20261126_AaveV3Arbitrum_CapsRateLimiterActivation/AaveV3Arbitrum_CapsRateLimiterActivation_20261126.t.sol)
 - [Snapshot](https://snapshot.box/#/s:aavedao.eth/proposal/0xd80bf15385e4f525108133bee1460b1907aabd1013b67821936fd52f3140793d)
 - [Discussion](https://governance.aave.com/t/arfc-dynamic-caps-oracle-rate-limiter/26219)
 
